@@ -1,0 +1,114 @@
+<template>
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-12 menu">
+          <b-nav>
+            <b-nav-item :to="localePath('index')">Home</b-nav-item>
+            <b-nav-item  :to="localePath('blog')">Blog</b-nav-item>
+            <b-nav-item :to="localePath('forBusiness')">For Business</b-nav-item>
+            <b-nav-item :to="localePath('about')">About</b-nav-item>
+            <b-nav-item :to="localePath('contactUs')">Contact</b-nav-item>
+          </b-nav>
+        </div>
+        <div class="col-md-4 col-12 pt-3">
+
+          <b-nav class="justify-content-end  social">
+            <b-nav-item
+              href="https://www.instagram.com/treejer"
+              rel="noopener noreferrer"
+              target="_blank">
+
+              <Fab i="instagram"/>
+            </b-nav-item>
+            <b-nav-item
+              href="http://t.me/treejer"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Fab i="telegram"/>
+            </b-nav-item>
+            <b-nav-item
+              href="https://twitter.com/Treejertalks"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Fab i="twitter"/>
+             </b-nav-item>
+            <b-nav-item
+              href="https://www.linkedin.com/company/treejer"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Fab i="linkedin-in"/>
+             </b-nav-item>
+            <b-nav-item
+              href="https://www.facebook.com/treejertalks"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Fab i="facebook"/>
+              </b-nav-item>
+          </b-nav>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import Fab from '@/components/font-awsome/Fab.vue'
+
+  export default {
+    name: "Footer",
+    components: {Fab}
+  }
+</script>
+
+<style lang="scss" scoped>
+  .footer {
+    width: 100%;
+    height: 60px;
+    background-color: #e5e7db;
+    position: fixed;
+    bottom: 0;
+
+    .menu {
+
+      .nav-item {
+        padding: 15px 35px 25px 0;
+        position: relative;
+        text-align: center;
+        margin: auto;
+
+
+        .nav-link::after {
+          content: "";
+          position: absolute;
+          width: 1px;
+          height: 25px;
+          background: #bdbdbd;
+          display: block;
+          top: 20px;
+          right: +9px;
+          z-index: +99;
+        }
+
+        .nav-link {
+          font-size: 14px;
+          font-weight: 500;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.29;
+          letter-spacing: normal;
+          color: #424242;
+
+        }
+      }
+
+
+    }
+
+  }
+</style>

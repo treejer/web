@@ -1,0 +1,247 @@
+@import "scss/home";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+@import "scss/animation";
+
+
+html {
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background: #faf8f1!important;
+  font-family: 'Montserrat';
+  #__layout > div{
+    background: #faf8f1!important;
+
+  }
+
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+
+}  .social{
+     .nav-item svg {
+       font-size: 18px!important;
+       font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: 1.22;
+       letter-spacing: normal;
+       text-align: center;
+       color: #424242!important;
+     }
+   }
+.connect-button {
+  width: 128px;
+  height: 32px;
+  border-radius: 20px;
+  background-color: #424242;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #f5f5f5;
+}
+
+
+.pointer-event:hover, .pointer-event:focus, .pointer-event:active, .pointer-event {
+  cursor: pointer;
+}
+
+.param-sm {
+  font-size: 12px;
+
+  font-weight: normal;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: 1.33;
+
+  letter-spacing: normal;
+}
+
+.param-sm-light {
+  font-size: 12px;
+
+  font-weight: normal;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: 1.33;
+
+  letter-spacing: normal;
+  font-family: ProductSans-Light;
+}
+
+.param-md {
+  font-size: 16px;
+
+  font-weight: 300;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: 1.5px;
+}
+
+.param-md-light {
+  font-size: 16px;
+
+  font-weight: 300;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: 1.5px;
+
+  font-family: ProductSans-Light;
+}
+
+.param-lg {
+  font-size: 20px;
+
+  font-weight: normal;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: normal;
+}
+
+.param-lg-bold {
+  font-size: 20px;
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: normal;
+  font-weight: bold;
+  font-family: ProductSans-Black;
+}
+
+.param-md-bold {
+  font-size: 16px;
+
+  font-weight: bold;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: normal;
+  font-family: ProductSans-Black;
+}
+
+.param-xl {
+  font-size: 22px;
+
+  font-weight: 500;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: 1.09;
+
+  letter-spacing: normal;
+}
+
+.title-md {
+  font-size: 36px;
+
+  font-weight: 300;
+
+  font-stretch: normal;
+
+  font-style: normal;
+
+  line-height: normal;
+
+  letter-spacing: 3px;
+
+  text-align: center;
+  font-family: ProductSans-Light;
+}
+
+
+@media (min-width: 1281px) {
+
+  //CSS
+
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+  //CSS
+
+}
+
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  //CSS
+
+}
+
+/*
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+
+  //CSS
+
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 100px) and (max-width: 768px) {
+
+
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
