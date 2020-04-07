@@ -1,7 +1,12 @@
 .tr-green {
-  color: #67B68C;
+  color: #67B68C!important;
 }
-
+.bg-green{
+  background-color:#67B68C ;
+}
+.tr-black{
+  color: black;
+}
 .tr-red {
   color: #D04F45;
 }
@@ -55,4 +60,30 @@
 }
 .tr-gray-ten {
   color: #FAFAFA;
+}
+.btn-green{
+  border-radius: 6px;
+  background-color: #67b68c;
+  color: white;
+  border: 0;
+
+}
+.btn-green:hover{
+  background: transparent;
+  border-radius: 6px;
+  color:#5a9d79!important;
+}
+.btn-outline-green{
+  background: transparent;
+  border-radius: 6px;
+  border: solid 1px #5a9d79;
+  color:#5a9d79;
+
+}
+.btn-outline-green:hover{
+  border-radius: 6px;
+  background-color: #67b68c;
+  color: white;
+  border: 0;
+
 }

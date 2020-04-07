@@ -55,9 +55,9 @@ export default {
 
     },
     loading: {
-        color: '#f7b500',
-        failedColor: '#ee2d0e',
-        height: '6px'
+      color: '#67B68C',
+      failedColor: '#ee2d0e',
+      height: '6px'
     },
 
     /*
@@ -66,32 +66,50 @@ export default {
     css: [
         '@/assets/main.scss'
     ],
-    /*
-     ** Plugins to load before mounting the App
-     */
-    plugins: [
-        // '~/plugins/vue2-filters.js',
-        // // { src: '~plugins/ga.js', mode: 'client' },
-        { src: '~plugins/metaMask.js', mode: 'client', ssr: false },
+  /*
+   ** Plugins to load before mounting the App
+   */
+  plugins: [
+    // '~/plugins/vue2-filters.js',
+    // // { src: '~plugins/ga.js', mode: 'client' },
+    {src: '~plugins/metaMask.js', mode: 'client', ssr: false},
+    {src: '~plugins/swiper.js', mode: 'client', ssr: false},
 
-    ],
-    /*\
-     ** Nuxt.js dev-modules
-     */
-    buildModules: [
-        ['@nuxtjs/dotenv', { filename: '.env' }]
-    ],
-    module: {
+  ],
+  // router: {
+  //   extendRoutes (routes, resolve) {
+  //     const index = routes.findIndex(route => route.name === 'main')
+  //     routes[index] = {
+  //       ...routes[index],
+  //       components: {
+  //         default: routes[index].component,
+  //         top: resolve(__dirname, 'components/mainTop.vue')
+  //       },
+  //       chunkNames: {
+  //         top: 'components/mainTop'
+  //       }
+  //     }
+  //   },
+  /*\
+   ** Nuxt.js dev-modules
+   */
+  buildModules: [
+    ['@nuxtjs/dotenv', {filename: '.env'}]
+  ],
+  module: {
+    router: {
+      linkActiveClass: 'active-link'
+    },
 
-        rules: [{
-                test: /\.scss$/,
-                use: [{
-                    loader: 'style-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: 'css-loader',
+    rules: [{
+      test: /\.scss$/,
+      use: [{
+        loader: 'style-loader',
+        options: {
+          sourceMap: true
+        }
+      }, {
+        loader: 'css-loader',
                     options: {
                         sourceMap: true
                     }
@@ -203,11 +221,11 @@ export default {
         component: 'fa',
         imports: [{
                 set: '@fortawesome/free-solid-svg-icons', // Solid icons
-                icons: ['faCalendarAlt', 'faCaretDown', 'faBars', 'faCaretRight', 'faTimes', 'faAngleRight', 'faPhoneSquareAlt', 'faEnvelope', 'faAngleDown', 'faArrowCircleDown', 'faArrowCircleUp', 'faUser', 'faShoppingCart', 'faSearch', 'faUsers', 'faAngleDoubleDown', 'faAngleDoubleUp', 'faAngleLeft']
+          icons: ['faEye', 'faExternalLinkAlt', 'faLifeRing', 'faTrophy', 'faBell', 'faTree', 'faCalendarAlt', 'faCaretDown', 'faBars', 'faCaretRight', 'faTimes', 'faAngleRight', 'faPhoneSquareAlt', 'faEnvelope', 'faAngleDown', 'faArrowCircleDown', 'faArrowCircleUp', 'faUser', 'faShoppingCart', 'faSearch', 'faUsers', 'faAngleDoubleDown', 'faAngleDoubleUp', 'faAngleLeft']
             },
             {
                 set: '@fortawesome/free-brands-svg-icons', // Brand icons
-                icons: ['faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
+              icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
             }
         ]
     },

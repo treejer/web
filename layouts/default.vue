@@ -1,9 +1,14 @@
 <template>
   <div>
     <TreejerHeader/>
-    <Sidebar/>
+    <div class="container">
+      <div class="row">
+          <Sidebar/>
 
-    <nuxt/>
+          <nuxt/>
+        </div>
+      </div>
+
     <Footer/>
   </div>
 </template>

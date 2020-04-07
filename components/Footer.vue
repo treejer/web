@@ -1,10 +1,10 @@
 <template>
-  <div class="footer">
+  <div class="footer ">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-12 menu">
           <b-nav>
-            <b-nav-item :to="localePath('index')">Home</b-nav-item>
+            <b-nav-item :to="localePath('home')">Home</b-nav-item>
             <b-nav-item  :to="localePath('blog')">Blog</b-nav-item>
             <b-nav-item :to="localePath('forBusiness')">For Business</b-nav-item>
             <b-nav-item :to="localePath('about')">About</b-nav-item>
@@ -71,8 +71,8 @@
     width: 100%;
     height: 60px;
     background-color: #e5e7db;
-    position: fixed;
     bottom: 0;
+    position: fixed;
 
     .menu {
 
@@ -83,17 +83,6 @@
         margin: auto;
 
 
-        .nav-link::after {
-          content: "";
-          position: absolute;
-          width: 1px;
-          height: 25px;
-          background: #bdbdbd;
-          display: block;
-          top: 20px;
-          right: +9px;
-          z-index: +99;
-        }
 
         .nav-link {
           font-size: 14px;
@@ -110,5 +99,11 @@
 
     }
 
+  }
+  @media (max-width: 768px) {
+    .footer{
+      position: relative;
+      height: auto;
+    }
   }
 </style>
