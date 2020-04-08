@@ -7,15 +7,12 @@
         :key="index"
         :name="item.name"
       >
-        <nuxt-link :to="item.href">
-          <a
-            @click="activeMenu(item, index)"
-            :class="{ active: activeIndex === index }"
+        <nuxt-link :to="item.href" @click.native="activeMenu(item, index)"
+            :class="{ 'active': activeIndex === index }"
             class="nav-link"
           >
             <Fas :i="item.icon"/>
-            <p>{{ item.name }}</p></a
-          >
+            <p>{{ item.name }}</p>
         </nuxt-link>
       </li>
     </ul>
@@ -40,8 +37,7 @@
       };
     },
     methods: {
-      activeMenu(item, index) {
-
+      activeMenu (item, index) {
         this.activeIndex = index;
       }
     },
@@ -70,11 +66,6 @@
       p {
         color: white;
       }
-    }
-
-    ul li {
-      height: 10vh;
-
     }
 
     ul li a {
