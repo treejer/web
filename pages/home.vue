@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-10 home">
+  <section  :page="$route.name" class="position-relative pt-5 col-md-10 home">
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-8 col-12">
@@ -9,9 +9,9 @@
                 A more <span class="tr-green">affordable</span>Climate Action
                 through financial inclusion of the rural communities
               </h1>
-            </div>
+            </div>  
             <div class="col-12 form-group mt-5">
-              <button class="btn-lg btn-green pointer-event ">
+              <button class="btn-lg btn-green pointer-event " @click="$router.push('/myForest')">
                 Plant One Tree
               </button>
               <button class="btn-lg btn-outline-green pointer-event">
@@ -33,11 +33,11 @@
           </div>
         </div>
 
-        <img
+        <!-- <img
           src="../assets/images/home/treejerStory.png"
           alt="username"
           class="img-fluid banner d-md-block d-none"
-        />
+        /> -->
       </div>
     </div>
   </section>
@@ -45,12 +45,21 @@
 
 <script>
 export default {
-  name: "home"
+  name: "home",
+  props:{
+   
+  },
+  created(){
+  
+  },
+
 };
 </script>
 
 <style lang="scss">
 .home {
+  background-image: url(../assets/images/home/treejerStory.png);
+  background-size:cover ;
   .planet-tree {
     border-right: solid 1px #67b68c;
     padding: 0 15px;
@@ -60,8 +69,8 @@ export default {
   }
 
   .banner {
-    position: absolute;
-    right: -15%;
+    z-index: +9;
+   
   }
 
   .title {

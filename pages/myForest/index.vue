@@ -34,7 +34,7 @@
               <p><span>294.2</span><span>SEED</span></p>
             </div>
             <div class="col-md-3 col-12 ">
-              <p>GIFTED TREES</p>
+              <p>TREES GIFTED</p>
               <p><span>150</span><span>Trees</span></p>
             </div>
 
