@@ -41,19 +41,19 @@ export default {
         ]
 
     },
-    env: {
-        enterraBaseUrl: process.env.ENTERRA_BASE_URL || 'https://api.kingsharkpoker.com',
-        gameUrl: process.env.GAME_URL || 'https://play.kingsharkpoker.com',
-        enterraClientId: process.env.ENTERRA_CLIENT_ID || 'sA6vQWv6zC',
-        kingsharkBaseUrl: process.env.KINGSHARK_BASE_URL || 'https://apim.kingsharkpoker.com',
-        websiteUrl: process.env.WEBSITE_URL || 'https://kingsharkpoker.com',
-        environment: process.env.ENVIRONMENT || 'development',
-        downloadUrl: process.env.DOWNLOAD_URL || 'https://files.kingshark.co/downloads',
-        clientID: process.env.CLIENT_ID || '',
-        clientSecret: process.env.CLIENT_SECRET || '',
-        grantType: process.env.GRANT_TYPE || 'password'
-
-    },
+    // env: {
+    //     enterraBaseUrl: process.env.ENTERRA_BASE_URL || 'https://api.kingsharkpoker.com',
+    //     gameUrl: process.env.GAME_URL || 'https://play.kingsharkpoker.com',
+    //     enterraClientId: process.env.ENTERRA_CLIENT_ID || 'sA6vQWv6zC',
+    //     kingsharkBaseUrl: process.env.KINGSHARK_BASE_URL || 'https://apim.kingsharkpoker.com',
+    //     websiteUrl: process.env.WEBSITE_URL || 'https://kingsharkpoker.com',
+    //     environment: process.env.ENVIRONMENT || 'development',
+    //     downloadUrl: process.env.DOWNLOAD_URL || 'https://files.kingshark.co/downloads',
+    //     clientID: process.env.CLIENT_ID || '',
+    //     clientSecret: process.env.CLIENT_SECRET || '',
+    //     grantType: process.env.GRANT_TYPE || 'password'
+    //
+    // },
     loading: {
       color: '#67B68C',
       failedColor: '#ee2d0e',

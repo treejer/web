@@ -1,15 +1,15 @@
 <template>
-  <section class="sidebar pt-4 col-md-2 d-none d-md-block">
+  <section class="sidebar pt-4 col-md-2 d-none d-md-block" v-if="$store.state.user ">
     <ul class="nav flex-column ">
       <li
-        class="nav-item"
-        v-for="(item, index) in menus"
-        :key="index"
-        :name="item.name"
+              class="nav-item"
+              v-for="(item, index) in menus"
+              :key="index"
+              :name="item.name"
       >
         <nuxt-link :to="item.href" @click.native="activeMenu(item, index)"
-            :class="{ 'active': activeIndex === index }"
-            class="nav-link"
+                   :class="{ 'active': activeIndex === index }"
+                   class="nav-link"
           >
             <Fas :i="item.icon"/>
             <p>{{ item.name }}</p>
@@ -20,15 +20,16 @@
 </template>
 
 <script>
-import Fas from "@/components/font-awsome/Fas.vue";
-
+  import Fas from "@/components/font-awsome/Fas.vue";
 
   export default {
     name: "Sidebar",
+
     components: {Fas},
     data() {
       return {
         activeIndex: 0,
+        user: false,
         menus: [
           {name: "My Forest", icon: "tree", href: "/myForest"},
           {name: "Updates", icon: "bell", href: "/updates"},
@@ -37,12 +38,14 @@ import Fas from "@/components/font-awsome/Fas.vue";
         ]
       };
     },
+    computed: {
+    },
     methods: {
-      activeMenu (item, index) {
+      activeMenu(item, index) {
         this.activeIndex = index;
       }
     },
-};
+  };
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-8 col-12 menu">
           <b-nav>
-            <b-nav-item :to="localePath('home')">Home</b-nav-item>
+            <b-nav-item :to="localePath('index')">Home</b-nav-item>
             <b-nav-item  :to="localePath('blog')">Blog</b-nav-item>
             <b-nav-item :to="localePath('forBusiness')">For Business</b-nav-item>
             <b-nav-item :to="localePath('about')">About</b-nav-item>
