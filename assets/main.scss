@@ -647,7 +647,7 @@ h4,
 h5,
 h6,
 input {
-    font-family: Montserrat-Bold;
+    font-family: Montserrat-Regular;
 }
 
 .list-style-none {
@@ -664,7 +664,7 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     background: #faf8f1!important;
-    font-family:Montserrat-Bold;
+    font-family:Montserrat-Regular;
     min-height: 100vh;
     #__layout>div {
         background: #faf8f1!important;
@@ -725,7 +725,7 @@ html {
 }
 
 .param {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -740,6 +740,10 @@ html {
 
 .font-weight-bolder {
     font-weight: 900;
+}
+.font-weight-bold{
+  font-weight: 700;
+
 }
 
 .param-sm-light {

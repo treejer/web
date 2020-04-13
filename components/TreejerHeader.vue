@@ -144,10 +144,13 @@
         padding: 15px 35px 25px 0;
 
         a {
-          font-family: Montserrat;
+          font-family: Montserrat-Medium;
           font-size: 14px;
           font-weight: 500;
           position: relative;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.29;
         }
 
         a:after {
@@ -193,7 +196,7 @@
       height: 32px;
       border-radius: 20px;
       background-color: #424242;
-      font-family: Montserrat;
+      font-family: Montserrat-Medium;
       font-size: 12px;
       font-weight: 500;
       font-stretch: normal;

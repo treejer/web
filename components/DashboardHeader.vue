@@ -194,7 +194,7 @@
       height: 32px;
       border-radius: 20px;
       background-color: #424242;
-      font-family: Montserrat;
+      font-family: Montserrat-Medium;
       font-size: 12px;
       font-weight: 500;
       font-stretch: normal;

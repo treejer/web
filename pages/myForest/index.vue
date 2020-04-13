@@ -5,7 +5,7 @@
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-5 col-12">
-              <h2 class="title-sm">
+              <h2 class="title-sm Montserrat-Bold " >
                 My Forest
 
               </h2>
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="row treejer-desc">
-            <div class="col-md-3 col-12 border-right">
+            <div class="col-md-3 col-12 border-right ">
               <p>FOREST SIZE</p>
               <p><span>47</span> <span>Trees</span></p>
             </div>

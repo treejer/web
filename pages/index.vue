@@ -5,32 +5,32 @@
           <div class="col-md-8 col-12">
             <div class="row">
               <div class="col-12 title">
-                <h1>
-                  A more <span class="tr-green">affordable</span>Climate Action
+                <h1 class="Montserrat-Bold tr-gray-three font-weight-bold">
+                  A more <span class="tr-green Montserrat-Bold">affordable</span>Climate Action
                   through financial inclusion of the rural communities
                 </h1>
               </div>
               <div class="col-12 form-group mt-5">
                 <button
-                  class="btn-lg btn-green pointer-event"
+                  class="btn-lg btn-green pointer-event param"
                   @click="$router.push('/myForest')"
                 >
                   Plant One Tree
                 </button>
-                <button class="btn-lg btn-outline-green pointer-event">
+                <button class="btn-lg btn-outline-green pointer-event param">
                   Explore Forests
                 </button>
               </div>
               <div class="col-12 d-flex tr-status mt-3 ">
                 <div class="planet-tree pt-2  ">
-                  <p class="param-sm tr-black font-weight-bold">Planted Trees</p>
-                  <p class="title-md tr-green font-weight-bolder">159</p>
+                  <p class="param-sm tr-black font-weight-bold Montserrat-Bold">Planted Trees</p>
+                  <p class="title-md tr-green font-weight-bolder Montserrat-Bold">159</p>
                 </div>
                 <div class="rural-communities pt-2">
-                  <p class="param-sm tr-black font-weight-bold">
+                  <p class="param-sm tr-black font-weight-bold Montserrat-Bold">
                     Rural Communities
                   </p>
-                  <p class="title-md tr-green font-weight-bolder">2</p>
+                  <p class="title-md tr-green font-weight-bold Montserrat-Bold">2</p>
                 </div>
               </div>
             </div>
