@@ -1,8 +1,9 @@
 <template>
   <div :class="currentRouteName">
-    <TreejerHeader />
+   <DashboardHeader />
     <div class="container">
       <div class="row">
+        <Sidebar />
         <nuxt />
       </div>
     </div>
@@ -13,13 +14,13 @@
 
 <style lang="scss"></style>
 <script>
-import TreejerHeader from "../components/TreejerHeader";
+import DashboardHeader from "../components/DashboardHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
 
 export default {
-  components: { Sidebar, Footer, TreejerHeader, Router },
+  components: { Sidebar, Footer, DashboardHeader, Router },
   data() {
     return {
       account: {},

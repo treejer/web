@@ -2,23 +2,19 @@ require('dotenv').config()
 
 export default {
     mode: 'universal',
-
-    /*
-     ** Headers of the page
-     */
-    head: {
-        title: 'Treejer',
+   head: {
+     title: 'Treejer',
 
 
-        meta: [
-            { charset: 'utf-8' },
-            { name: 'content', content: 'Treejer description' },
-            { name: 'robots', content: 'width=device-width, initial-scale=1' },
-            { name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U' },
-            { hid: 'description', name: 'description', content: 'Treejer' },
-            { property: 'og:type', content: 'website' },
+     meta: [
+       {charset: 'utf-8'},
+       {name: 'content', content: 'Treejer description'},
+       {name: 'robots', content: 'width=device-width, initial-scale=1'},
+       {name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U'},
+       {hid: 'description', name: 'description', content: 'Treejer'},
+       {property: 'og:type', content: 'website'},
             { property: 'og:title', content: 'Home - Treejer' },
-            { property: 'og:url', content: process.env.websiteUrl },
+       // { property: 'og:url', content: process.env.websiteUrl },
             { property: 'og:site_name', content: 'Treejer' },
             { property: 'twitter:card', content: 'summary_large_image' },
             { property: 'twitter:title', content: 'Home - Treejer' },
@@ -26,34 +22,22 @@ export default {
         ],
         script: [],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'dns-prefetch', type: 'image/x-icon', href: '//js.hs-scripts.com' },
-            { rel: 'dns-prefetch', type: 'image/x-icon', href: '//s.w.org' },
-            { rel: 'shortcut icon', type: 'image/x-icon', href: '//s.w.org' },
-            { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' },
-            { rel: 'apple-touch-icon', href: '/favicon.ico', type: 'image/x-icon' },
-            { rel: 'apple-touch-icon', href: '/favicon.ico', type: 'image/x-icon' },
-            { rel: 'alternate', hreflang: 'x-default', href: `${process.env.WEBSITE_URL}` },
-            { rel: 'alternate', hreflang: 'en-US', href: `${process.env.WEBSITE_URL}` },
-            { rel: 'alternate', hreflang: 'fa-FA', href: `${process.env.WEBSITE_URL}/fa` },
-            { rel: 'alternate', hreflang: 'ar-AR', href: `${process.env.WEBSITE_URL}/ar` },
-            { rel: 'alternate', hreflang: 'tr-TR', href: `${process.env.WEBSITE_URL}/tr` }
+          {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+          {rel: 'dns-prefetch', type: 'image/x-icon', href: '//js.hs-scripts.com'},
+          {rel: 'dns-prefetch', type: 'image/x-icon', href: '//s.w.org'},
+          {rel: 'shortcut icon', type: 'image/x-icon', href: '//s.w.org'},
+          {rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon'},
+          {rel: 'apple-touch-icon', href: '/favicon.ico', type: 'image/x-icon'},
+          {rel: 'apple-touch-icon', href: '/favicon.ico', type: 'image/x-icon'},
+          // { rel: 'alternate', hreflang: 'x-default', href: `${process.env.WEBSITE_URL}` },
+          // { rel: 'alternate', hreflang: 'en-US', href: `${process.env.WEBSITE_URL}` },
+          // { rel: 'alternate', hreflang: 'fa-FA', href: `${process.env.WEBSITE_URL}/fa` },
+          // { rel: 'alternate', hreflang: 'ar-AR', href: `${process.env.WEBSITE_URL}/ar` },
+          // { rel: 'alternate', hreflang: 'tr-TR', href: `${process.env.WEBSITE_URL}/tr` }
         ]
 
     },
-    // env: {
-    //     enterraBaseUrl: process.env.ENTERRA_BASE_URL || 'https://api.kingsharkpoker.com',
-    //     gameUrl: process.env.GAME_URL || 'https://play.kingsharkpoker.com',
-    //     enterraClientId: process.env.ENTERRA_CLIENT_ID || 'sA6vQWv6zC',
-    //     kingsharkBaseUrl: process.env.KINGSHARK_BASE_URL || 'https://apim.kingsharkpoker.com',
-    //     websiteUrl: process.env.WEBSITE_URL || 'https://kingsharkpoker.com',
-    //     environment: process.env.ENVIRONMENT || 'development',
-    //     downloadUrl: process.env.DOWNLOAD_URL || 'https://files.kingshark.co/downloads',
-    //     clientID: process.env.CLIENT_ID || '',
-    //     clientSecret: process.env.CLIENT_SECRET || '',
-    //     grantType: process.env.GRANT_TYPE || 'password'
-    //
-    // },
+
     loading: {
       color: '#67B68C',
       failedColor: '#ee2d0e',
@@ -70,29 +54,10 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    // '~/plugins/vue2-filters.js',
-    // // { src: '~plugins/ga.js', mode: 'client' },
     {src: '~plugins/metaMask.js', mode: 'client', ssr: false},
     {src: '~plugins/swiper.js', mode: 'client', ssr: false},
 
   ],
-  // router: {
-  //   extendRoutes (routes, resolve) {
-  //     const index = routes.findIndex(route => route.name === 'main')
-  //     routes[index] = {
-  //       ...routes[index],
-  //       components: {
-  //         default: routes[index].component,
-  //         top: resolve(__dirname, 'components/mainTop.vue')
-  //       },
-  //       chunkNames: {
-  //         top: 'components/mainTop'
-  //       }
-  //     }
-  //   },
-  /*\
-   ** Nuxt.js dev-modules
-   */
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]
   ],
@@ -187,57 +152,61 @@ export default {
                 name: 'Arabic',
                 code: 'ar',
                 iso: 'ar-AR',
-                file: 'ar.js'
+              file: 'ar.js'
             }
         ],
-        defaultLocale: 'en',
-        loadLanguagesAsync: true,
-        lazy: true,
-        seo: true,
-        langDir: 'lang/',
-        detectBrowserLanguage: false
+      defaultLocale: 'en',
+      loadLanguagesAsync: true,
+      lazy: true,
+      seo: true,
+      langDir: 'lang/',
+      detectBrowserLanguage: false
     },
-    'google-gtag': {
-        id: 'G-LDTVYYF6V4',
-        config: {
-            anonymize_ip: false, // anonymize IP
-            send_page_view: false // might be necessary to avoid duplicated page track on page reload
-                // linker: {
-                //   domains:  ['domain.com','domain.org']
-                // }
-        },
-        debug: process.env.ENVIRONMENT !== 'production', // enable to track in dev mode
-        disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
-        // additionalAccounts: [{
-        //   id: 'G-LDTVYYF6V4', // required if you are adding additional accounts
-        //   config: {
-        //     send_page_view: false // optional configurations
-        //   }
-        // }]
-    },
+  // 'google-gtag': {
+  //     id: 'G-LDTVYYF6V4',
+  //     config: {
+  //         anonymize_ip: false, // anonymize IP
+  //         send_page_view: false // might be necessary to avoid duplicated page track on page reload
+  //             // linker: {
+  //             //   domains:  ['domain.com','domain.org']
+  //             // }
+  //     },
+  //     debug: process.env.ENVIRONMENT !== 'production', // enable to track in dev mode
+  //     disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
+  //     // additionalAccounts: [{
+  //     //   id: 'G-LDTVYYF6V4', // required if you are adding additional accounts
+  //     //   config: {
+  //     //     send_page_view: false // optional configurations
+  //     //   }
+  //     // }]
+  // },
+  //
 
-
-    fontawesome: {
-        component: 'fa',
-        imports: [{
-                set: '@fortawesome/free-solid-svg-icons', // Solid icons
-          icons: ['faEye', 'faExternalLinkAlt', 'faLifeRing', 'faTrophy', 'faBell', 'faTree', 'faCalendarAlt', 'faCaretDown', 'faBars', 'faCaretRight', 'faTimes', 'faAngleRight', 'faPhoneSquareAlt', 'faEnvelope', 'faAngleDown', 'faArrowCircleDown', 'faArrowCircleUp', 'faUser', 'faShoppingCart', 'faSearch', 'faUsers', 'faAngleDoubleDown', 'faAngleDoubleUp', 'faAngleLeft']
-            },
-            {
-                set: '@fortawesome/free-brands-svg-icons', // Brand icons
-              icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
-            }
-        ]
+  fontawesome: {
+    component: 'fa',
+    imports: [{
+      set: '@fortawesome/free-solid-svg-icons', // Solid icons
+      icons: ['faEye', 'faExternalLinkAlt', 'faLifeRing', 'faTrophy', 'faBell', 'faTree', 'faCalendarAlt', 'faCaretDown', 'faBars', 'faCaretRight', 'faTimes', 'faAngleRight', 'faPhoneSquareAlt', 'faEnvelope', 'faAngleDown', 'faArrowCircleDown', 'faArrowCircleUp', 'faUser', 'faShoppingCart', 'faSearch', 'faUsers', 'faAngleDoubleDown', 'faAngleDoubleUp', 'faAngleLeft']
     },
-    /*
-     ** Axios module configuration
-     ** See https://axios.nuxtjs.org/options
-     */
-    axios: {},
-    /*
-     ** Build configuration
-     */
-    build: {
+      {
+        set: '@fortawesome/free-brands-svg-icons', // Brand icons
+        icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
+      }
+    ]
+  },
+  router: {
+
+  },
+
+  /*
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
+  axios: {},
+  /*
+   ** Build configuration
+   */
+  build: {
         /*
          ** You can extend webpack config here
          */

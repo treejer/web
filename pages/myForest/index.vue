@@ -88,6 +88,7 @@
 
   export default {
     name:'myForest',
+    layout:'dashboard',
     components: { Fas},
     data() {
       return {

@@ -46,6 +46,8 @@
 <script>
   export default {
     name: 'updates',
+      layout: "dashboard",
+
     data() {
       return {
         updates:[

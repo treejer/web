@@ -1,5 +1,5 @@
 <template>
-  <section class="sidebar pt-4 col-md-2 d-none d-md-block" v-if="$store.state.user ">
+  <section class="sidebar pt-4 col-md-2 d-none d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column ">
       <li
               class="nav-item"
@@ -24,12 +24,29 @@
 
   export default {
     name: "Sidebar",
+    computed: {
+      routeName(item) {
+        item = this.$route.path
+        switch (item) {
+          case '/':
+            this.hasSideBar = false
+            break
+          case '/about':
+            this.hasSideBar = false
+            break
+          default:
+            this.hasSideBar =true
+        }
+      },
+    },
+
 
     components: {Fas},
     data() {
       return {
         activeIndex: 0,
         user: false,
+        hasSideBar: true,
         menus: [
           {name: "My Forest", icon: "tree", href: "/myForest"},
           {name: "Updates", icon: "bell", href: "/updates"},
@@ -38,12 +55,16 @@
         ]
       };
     },
-    computed: {
-    },
+
     methods: {
       activeMenu(item, index) {
         this.activeIndex = index;
-      }
+      },
+      store(status){
+        return this.$store.dispatch('hasDashboard',{
+          status
+        })
+      },
     },
   };
 </script>

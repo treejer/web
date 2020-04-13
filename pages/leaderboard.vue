@@ -91,6 +91,8 @@
 
   export default {
     name: 'leaderBoards',
+      layout: "dashboard",
+
     components: {
       Fas
     },
