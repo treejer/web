@@ -1,7 +1,637 @@
 @import "scss/home";
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
 @import "scss/animation";
 @import "assets/scss/color";
+
+//@font-face {
+//  font-family:MontserratAlternatesBlack;
+//  //noinspection CssUnknownTarget
+//  src: url("../../assets/fonts/MontserratAlternatesBlack.otf");
+//}
+
+@font-face {
+  font-family: MontserratAlternates-BlackItalic;
+  src: url("../assets/fonts/MontserratAlternates-BlackItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Bold;
+  src: url("../assets/fonts/MontserratAlternates-Bold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-BoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-BoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraBold;
+  src: url("../assets/fonts/MontserratAlternates-ExtraBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraBoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-ExtraBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraLight;
+  src: url("../assets/fonts/MontserratAlternates-ExtraLight.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraLightItalic;
+  src: url("../assets/fonts/MontserratAlternates-ExtraLightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Italic;
+  src: url("../assets/fonts/MontserratAlternates-Italic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-LightItalic;
+  src: url("../assets/fonts/MontserratAlternates-LightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Medium;
+  src: url("../assets/fonts/MontserratAlternates-Medium.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-MediumItalic;
+  src: url("../assets/fonts/MontserratAlternates-MediumItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Regular;
+  src: url("../assets/fonts/MontserratAlternates-Regular.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-SemiBold;
+  src: url("../assets/fonts/MontserratAlternates-SemiBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-SemiBoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-SemiBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Thin;
+  src: url("../assets/fonts/MontserratAlternates-Thin.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ThinItalic;
+  src: url("../assets/fonts/MontserratAlternates-ThinItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Black;
+  src: url("../assets/fonts/Montserrat-Black.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-BlackItalic;
+  src: url("../assets/fonts/Montserrat-BlackItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url("../assets/fonts/Montserrat-Bold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-BoldItalic;
+  src: url("../assets/fonts/Montserrat-BoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url("../assets/fonts/Montserrat-ExtraBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBoldItalic;
+  src: url("../assets/fonts/Montserrat-ExtraBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLight;
+  src: url("../assets/fonts/Montserrat-ExtraLight.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLightItalic;
+  src: url("../assets/fonts/Montserrat-ExtraLightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Italic;
+  src: url("../assets/fonts/Montserrat-Italic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Light;
+  src: url("../assets/fonts/Montserrat-Light.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic;
+  src: url("../assets/fonts/Montserrat-LightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url("../assets/fonts/Montserrat-Medium.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-MediumItalic;
+  src: url("../assets/fonts/Montserrat-MediumItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url("../assets/fonts/Montserrat-Regular.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold;
+  src: url("../assets/fonts/Montserrat-SemiBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-SemiBoldItalic;
+  src: url("../assets/fonts/Montserrat-SemiBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Thin;
+  src: url("../assets/fonts/Montserrat-Thin.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ThinItalic;
+  src: url("../assets/fonts/Montserrat-ThinItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Black;
+  src: url("../assets/fonts/MontserratAlternatesBlack.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-BlackItalic;
+  src: url("../assets/fonts/MontserratAlternates-BlackItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Bold;
+  src: url("../assets/fonts/MontserratAlternates-Bold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-BoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-BoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraBold;
+  src: url("../assets/fonts/MontserratAlternates-ExtraBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraBoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-ExtraBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraLight;
+  src: url("../assets/fonts/MontserratAlternates-ExtraLight.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ExtraLightItalic;
+  src: url("../assets/fonts/MontserratAlternates-ExtraLightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Italic;
+  src: url("../assets/fonts/MontserratAlternates-Italic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-LightItalic;
+  src: url("../assets/fonts/MontserratAlternates-LightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Medium;
+  src: url("../assets/fonts/MontserratAlternates-Medium.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-MediumItalic;
+  src: url("../assets/fonts/MontserratAlternates-MediumItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Regular;
+  src: url("../assets/fonts/MontserratAlternates-Regular.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-SemiBold;
+  src: url("../assets/fonts/MontserratAlternates-SemiBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-SemiBoldItalic;
+  src: url("../assets/fonts/MontserratAlternates-SemiBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-Thin;
+  src: url("../assets/fonts/MontserratAlternates-Thin.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: MontserratAlternates-ThinItalic;
+  src: url("../assets/fonts/MontserratAlternates-ThinItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Black;
+  src: url("../assets/fonts/Montserrat-Black.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-BlackItalic;
+  src: url("../assets/fonts/Montserrat-BlackItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url("../assets/fonts/Montserrat-Bold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-BoldItalic;
+  src: url("../assets/fonts/Montserrat-BoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url("../assets/fonts/Montserrat-ExtraBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBoldItalic;
+  src: url("../assets/fonts/Montserrat-ExtraBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLight;
+  src: url("../assets/fonts/Montserrat-ExtraLight.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ExtraLightItalic;
+  src: url("../assets/fonts/Montserrat-ExtraLightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Italic;
+  src: url("../assets/fonts/Montserrat-Italic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Light;
+  src: url("../assets/fonts/Montserrat-Light.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-LightItalic;
+  src: url("../assets/fonts/Montserrat-LightItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url("../assets/fonts/Montserrat-Medium.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-MediumItalic;
+  src: url("../assets/fonts/Montserrat-MediumItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url("../assets/fonts/Montserrat-Regular.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold;
+  src: url("../assets/fonts/Montserrat-SemiBold.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-SemiBoldItalic;
+  src: url("../assets/fonts/Montserrat-SemiBoldItalic.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-Thin;
+  src: url("../assets/fonts/Montserrat-Thin.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Montserrat-ThinItalic;
+  src: url("../assets/fonts/Montserrat-ThinItalic.otf");
+  font-weight: normal;
+}
+
+.MontserratAlternates-Black {
+  font-family: MontserratAlternates-Black;
+
+
+}
+
+.MontserratAlternates-BlackItalic {
+  font-family: MontserratAlternates-BlackItalic;
+
+
+}
+
+.MontserratAlternates-Bold {
+  font-family: MontserratAlternates-Bold;
+
+
+}
+
+.MontserratAlternates-BoldItalic {
+  font-family: MontserratAlternates-BoldItalic;
+
+
+}
+
+.MontserratAlternates-ExtraBold {
+  font-family: MontserratAlternates-ExtraBold;
+
+
+}
+
+.MontserratAlternates-ExtraBoldItalic {
+  font-family: MontserratAlternates-ExtraBoldItalic;
+
+
+}
+
+.MontserratAlternates-ExtraLight {
+  font-family: MontserratAlternates-ExtraLight;
+
+
+}
+
+.MontserratAlternates-ExtraLightItalic {
+  font-family: MontserratAlternates-ExtraLightItalic;
+
+
+}
+
+.MontserratAlternates-Italic {
+  font-family: MontserratAlternates-Italic;
+
+
+}
+
+.MontserratAlternates-LightItalic {
+  font-family: MontserratAlternates-LightItalic;
+
+
+}
+
+.MontserratAlternates-Medium {
+  font-family: MontserratAlternates-Medium;
+
+
+}
+
+.MontserratAlternates-MediumItalic {
+  font-family: MontserratAlternates-MediumItalic;
+
+
+}
+
+.MontserratAlternates-Regular {
+  font-family: MontserratAlternates-Regular;
+
+
+}
+
+.MontserratAlternates-SemiBold {
+  font-family: MontserratAlternates-SemiBold;
+
+
+}
+
+.MontserratAlternates-SemiBoldItalic {
+  font-family: MontserratAlternates-SemiBoldItalic;
+
+
+}
+
+.MontserratAlternates-Thin {
+  font-family: MontserratAlternates-Thin;
+
+
+}
+
+.MontserratAlternates-ThinItalic {
+  font-family: MontserratAlternates-ThinItalic;
+
+
+}
+
+.Montserrat-Black {
+  font-family: Montserrat-Black;
+
+
+}
+
+.Montserrat-BlackItalic {
+  font-family: Montserrat-BlackItalic;
+
+
+}
+
+.Montserrat-Bold {
+  font-family: Montserrat-Bold;
+
+
+}
+
+.Montserrat-BoldItalic {
+  font-family: Montserrat-BoldItalic;
+
+
+}
+
+.Montserrat-ExtraBold {
+  font-family: Montserrat-ExtraBold;
+
+
+}
+
+.Montserrat-ExtraBoldItalic {
+  font-family: Montserrat-ExtraBoldItalic;
+
+
+}
+
+.Montserrat-ExtraLight {
+  font-family: Montserrat-ExtraLight;
+
+
+}
+
+.Montserrat-ExtraLightItalic {
+  font-family: Montserrat-ExtraLightItalic;
+
+
+}
+
+.Montserrat-Italic {
+  font-family: Montserrat-Italic;
+
+
+}
+
+.Montserrat-Light {
+  font-family: Montserrat-Light;
+
+
+}
+
+.Montserrat-LightItalic {
+  font-family: Montserrat-LightItalic;
+
+
+}
+
+.Montserrat-Medium {
+  font-family: Montserrat-Medium;
+
+
+}
+
+.Montserrat-MediumItalic {
+  font-family: Montserrat-MediumItalic;
+
+
+}
+
+.Montserrat-Regular {
+  font-family: Montserrat-Regular;
+
+
+}
+
+.Montserrat-SemiBold {
+  font-family: Montserrat-SemiBold;
+
+
+}
+
+.Montserrat-SemiBoldItalic {
+  font-family: Montserrat-SemiBoldItalic;
+
+
+}
+
+.Montserrat-Thin {
+  font-family: Montserrat-Thin;
+
+
+}
+
+.Montserrat-ThinItalic {
+  font-family: Montserrat-ThinItalic;
+
+
+}
+
 .pointer-event:hover {
     cursor: pointer!important;
 }
@@ -17,7 +647,7 @@ h4,
 h5,
 h6,
 input {
-    font-family: Montserrat!important;
+    font-family: Montserrat-Bold;
 }
 
 .list-style-none {
@@ -34,7 +664,7 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     background: #faf8f1!important;
-    font-family: Montserrat;
+    font-family:Montserrat-Bold;
     min-height: 100vh;
     #__layout>div {
         background: #faf8f1!important;
@@ -77,7 +707,7 @@ html {
     height: 32px;
     border-radius: 20px;
     background-color: #424242;
-    font-family: Montserrat;
+    font-family: Montserrat-Black;
     font-size: 12px;
     font-weight: 500;
     font-stretch: normal;
