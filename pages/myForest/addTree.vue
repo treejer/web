@@ -432,7 +432,7 @@ export default {
   }
   .form-name{
     .finish{
-     padding: 0px 45px;
+     padding: 0px 45px!important;
       opacity: 0.95;
       border-radius: 6px;
     }
