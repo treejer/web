@@ -1,7 +1,8 @@
 <template>
   <div class="mt-5 mb-5">
       <h1 class="tr-gray-two">{{ $route.name }}</h1>
-      <vue-metamask userMessage="msg" @onComplete="onComplete"> </vue-metamask>
+    <b-btn class="btn-green " @click="status =!status">metamask</b-btn>
+      <vue-metamask v-if="status" userMessage="msg" @onComplete="onComplete"> </vue-metamask>
       <div class="col-12">
         <h1>metaMaskAddress: {{ account.metaMaskAddress }}</h1>
       </div>
@@ -17,7 +18,9 @@ export default {
   data() {
     return {
       msg: "This is demo net work",
-      account: {}
+      account: {},
+      status:false
+
     };
   },
   created() {

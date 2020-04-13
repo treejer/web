@@ -1,12 +1,18 @@
-<script>
+<template>
+  <div id="vue-metamask">
+
+  </div>
+</template>
+
+<script >
   export default {
     props: {
-      userMessage:{
+      userMessage: {
         type: String,
         default: "null"
       }
     },
-    data(){
+    data() {
       return {
         web3: null,
         MetaMaskId: "1",        // main net netID
@@ -29,7 +35,7 @@
         }
       };
     },
-    methods:{
+    methods: {
       checkWeb3() {
         let web3 = window.web3;
         if (typeof web3 === 'undefined') {
@@ -43,7 +49,7 @@
           console.log();
 
           if (err != null) return this.Log(this.MetamaskMsg.NETWORK_ERROR, "NETWORK_ERROR");
-          if (accounts.length === 0){
+          if (accounts.length === 0) {
             this.MetaMaskAddress = "";
             this.Log(this.MetamaskMsg.EMPTY_METAMASK_ACCOUNT, 'NO_LOGIN');
             return;
@@ -89,6 +95,7 @@
       }
     },
     async mounted(){
+
       if (window.ethereum) {
         window.web3 = new Web3(ethereum);
         try {
@@ -108,11 +115,9 @@
     }
   };
 </script>
-<template>
-  <div id="vue-metamask"></div>
-</template>
+
 <style scoped>
-  #vue-metamask{
+  #vue-metamask {
     position: fixed;
     top: 0;
     left: 0;

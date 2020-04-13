@@ -1,5 +1,6 @@
 <template>
   <div class="headers container">
+
     <client-only>
       <b-navbar toggleable="md">
         <b-navbar-brand
