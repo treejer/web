@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative pt-5 col-10 add-tree mb-5 pb-5">
+  <section class="position-relative pt-5 col-12 add-tree mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
         <div class="col-12">
