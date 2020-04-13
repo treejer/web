@@ -107,12 +107,13 @@
     .treejer-desc {
       margin-top: 35px;
 
-      p {
+      p,span {
         font-size: 12px;
         font-weight: bold;
         font-stretch: normal;
         font-style: normal;
         color: #424242;
+        font-family: Montserrat-Bold;
 
         span:nth-child(1) {
           font-size: 24px;

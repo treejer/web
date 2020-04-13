@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative pt-5 col-10 add-tree">
+  <section class="position-relative pt-5 col-10 add-tree mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
         <div class="col-12">
@@ -132,6 +132,82 @@
                       <span class="param tr-green">conditions.</span></a
                     >
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-name">
+            <div class="col-12">
+              <div class="card bg-transparent p-4 mt-5">
+                <div class="form-full-name">
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="param-md-md font-weight-bold tr-gray-three">Add your name</p>
+
+                    </div>
+                    <div class="col-md-4">
+                      <label class="param tr-gray-two Montserrat-Medium">First name
+                        <input class="param-sm tr-gray-five" type="text" placeholder="First name">
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="param tr-gray-two Montserrat-Medium">Last name (optional)
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Last name">
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="param tr-gray-two Montserrat-Medium">Your email
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Your email">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="recepient mt-5">
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="param-md-md font-weight-bolder tr-gray-three">Add recepient(s)</p>
+
+                    </div>
+                    <div class="col-md-4">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                        <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                    </div>
+                    <div class="col-md-4">
+                      <div class="cv-team bg-transparent justify-content-center text-center ">
+                        <img src="~/assets/images/myforest/file-excel.png" class="img-fluid pt-4 m-auto">
+                        <p class="param-sm mt-3 p-2 mb-3">
+                          Drag & drop your CSV file here
+                          or <span class="tr-green">
+                          select a CSV file to upload.
+                        </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex mt-3 align-items-center align-self-center">
+
+                        <button class="btn-outline-green param-sm btn-lg mr-2 ">Add another row</button>
+                        <p class="param-sm mt-3">Or upload email addresses using our <span class="tr-green pointer-event">CSV template</span> </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="d-flex ">
+                        <button class=" btn-green param mr-4 finish" >Finish</button>
+                        <p class="param tr-green mt-3 pointer-event" >Skip for now </p>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -289,7 +365,7 @@ import Fab from "@/components/font-awsome/Fab";
 
 export default {
   name: "giftTree",
-  layout: "dashboard",
+  layout:"checkout",
 
   components: {
     Fab
@@ -353,6 +429,35 @@ export default {
 
     border-top: solid 3px #bdbdbd;
     margin: 25px auto;
+  }
+  .form-name{
+    .finish{
+     padding: 0px 45px;
+      opacity: 0.95;
+      border-radius: 6px;
+    }
+    label{
+      font-family: Montserrat-Medium;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    input{
+      border-radius: 10px;
+      background-color: #e5e7db;
+      color: #9e9e9e;
+      border: 0;
+      position: relative;
+      padding: 10px 25px;
+      font-size: 14px;
+      font-family: Montserrat-Medium;
+      margin-top: 7px;
+
+    }
+    .cv-team{
+      border-radius: 6px;
+      border: dashed 1px #9e9e9e;
+    }
+
   }
 }
 
