@@ -1,5 +1,6 @@
 <template>
   <div :class="currentRouteName">
+
    <DashboardHeader />
     <div class="container">
       <div class="row">

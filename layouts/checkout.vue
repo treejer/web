@@ -1,13 +1,14 @@
 <template>
   <div :class="currentRouteName">
-    <DashboardHeader />
-    <div class="container">
-      <div class="row">
-        <nuxt />
-      </div>
-    </div>
 
-    <Footer />
+      <DashboardHeader/>
+      <div class="container">
+        <div class="row">
+          <nuxt/>
+        </div>
+      </div>
+
+    <Footer/>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="headers container">
-    <client-only>
+    <keep-alive>
       <b-navbar toggleable="md">
         <b-navbar-brand
           class="pointer-event position-relative"
@@ -66,7 +66,7 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-    </client-only>
+    </keep-alive>
   </div>
 </template>
 

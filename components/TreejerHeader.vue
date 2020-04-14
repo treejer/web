@@ -1,7 +1,6 @@
 <template>
   <div class="headers container">
-
-    <client-only>
+    <keep-alive>
       <b-navbar toggleable="md">
         <b-navbar-brand
           class="pointer-event position-relative"
@@ -67,17 +66,23 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-    </client-only>
+
+    </keep-alive>
+
   </div>
 </template>
 
-<script>
+<script >
+
   export default {
     name: "TreejerHeader",
+    components:{
+    },
     data() {
       return {
         formError: null,
         userName: "test",
+        account:null,
         user: false,
         token: "",
         activeIndex: 0,
@@ -95,6 +100,10 @@
       }
     },
     methods: {
+      onComplete(data) {
+        console.log("data:", data);
+        this.account = data;
+      },
       loginToast(variant, title, message, href) {
         this.$bvToast.toast(message, {
           title: title,
@@ -110,7 +119,7 @@
             this.$cookies.set('token', true)
             this.loginToast('success',)
             this.token = 'test'
-            this.$router.push("myForest")
+            this.$router.push("about")
           })
           .catch(err => console.log(err));
       },
@@ -189,7 +198,7 @@
       }
     }
 
-    height: 103px;
+    height: auto;
     background: #faf8f1;
 
     .connect-button {
