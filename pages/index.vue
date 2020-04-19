@@ -49,6 +49,7 @@
 
 <style lang="scss" scoped >
   .home {
+    height: 75vh;
     .loading{
       width: 100vw;
       height: 100vh;
