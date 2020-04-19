@@ -47,7 +47,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped >
   .home {
     .loading{
       width: 100vw;

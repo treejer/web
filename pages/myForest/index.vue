@@ -231,5 +231,10 @@
       }
 
     }
+    .treejer-earth{
+      img{
+        margin-bottom: 85px;
+      }
+    }
   }
 </style>
