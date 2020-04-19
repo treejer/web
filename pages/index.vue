@@ -22,7 +22,7 @@
                 </button>
               </div>
               <div class="col-12 d-flex tr-status mt-3 ">
-                <div class="planet-tree pt-2  ">
+                <div class="planet-tree pt-2">
                   <p class="param-sm tr-black font-weight-bold Montserrat-Bold">Planted Trees</p>
                   <p class="title-md tr-green font-weight-bolder Montserrat-Bold">159</p>
                 </div>
@@ -60,7 +60,8 @@
       align-self: center;
     }
     background-image: url(../assets/images/home/treejerStory.png);
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     .planet-tree {
       border-right: solid 1px #67b68c;
       padding: 0 15px;
