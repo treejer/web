@@ -49,6 +49,9 @@
 
 <style lang="scss" scoped >
   .home {
+    background-image: url(../assets/images/home/treejerStory.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     height: 75vh;
     .loading{
       width: 100vw;
@@ -59,9 +62,7 @@
       align-items: center;
       align-self: center;
     }
-    background-image: url(../assets/images/home/treejerStory.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+
     .planet-tree {
       border-right: solid 1px #67b68c;
       padding: 0 15px;
