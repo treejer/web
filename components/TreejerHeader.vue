@@ -10,7 +10,7 @@
             class="img-fluid pointer-event"
             alt="logo"
             name="treejer"
-            src="/logo/TreejerLogo@3x.png"
+            src="/logo/treejer.png"
           />
         </b-navbar-brand>
 
