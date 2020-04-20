@@ -6,8 +6,9 @@
             <div class="row">
               <div class="col-12 title">
                 <h1 class="Montserrat-Bold tr-gray-three font-weight-bold">
-                  A more <span class="tr-green Montserrat-Bold">affordable</span>Climate Action
-                  through financial inclusion of the rural communities
+                  A more
+                    <vue-typer text='affordable Climate Action'></vue-typer>
+                  <br> through financial inclusion of the rural communities
                 </h1>
               </div>
               <div class="col-12 form-group mt-5">
@@ -18,7 +19,7 @@
                   Plant One Tree
                 </button>
                 <button class="btn-lg btn-outline-green pointer-event param">
-                  Explore Forests
+                 Find My Tree
                 </button>
               </div>
               <div class="col-12 d-flex tr-status mt-3 ">
@@ -40,19 +41,23 @@
     </section>
 </template>
 <script>
+
   export default {
     name: "index",
     props: {},
-    created() {}
+    created() {
+    }
   };
 </script>
 
 <style lang="scss" scoped >
+
   .home {
     background-image: url(../assets/images/home/treejerStory.png);
     background-size: contain;
     background-repeat: no-repeat;
     height: 75vh;
+
     .loading{
       width: 100vw;
       height: 100vh;
@@ -93,9 +98,7 @@
   }
   @media (max-width:768px) {
     .home {
-      .banner {
-        display: none;
-      }
+      background-image: none;
     }
   }
 </style>

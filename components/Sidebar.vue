@@ -98,11 +98,13 @@ section.sidebar {
       align-self: center;
       vertical-align: middle;
       width: 80px;
+      height: 80px;
       padding: 15px 0;
+      margin-bottom: 15px;
 
     svg {
       font-size: 30px;
-      margin-top: 8px;
+      margin-top: 0px;
     }
 
     p {

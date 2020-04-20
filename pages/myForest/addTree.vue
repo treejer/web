@@ -38,7 +38,7 @@
                           :class="{ active: activeIndex === index }"
                           style="width: initial"
                           :placeholder="item.placeHolder"
-                          type="text"
+                          type="number"
                           :value="item.name"
                           :key="index"
                           :name="item.name"
@@ -56,8 +56,7 @@
                       @click="activePays(item, index)"
                       :class="{ active: activePay === index }"
                       :key="index"
-                      :name="item.name"
-                    >
+                      :name="item.name">
                       <Fab :i="item.icon" />
                     </p>
                   </li>
@@ -221,7 +220,7 @@
               </h1>
             </div>
             <div
-              class="col-12 col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 text-center col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -259,7 +258,7 @@
               class="col-12 col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
             >
               <hr />
-              <p class="title-sm  tr-gray-three text-center">Total</p>
+              <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
                 $173.00
               </p>
@@ -375,9 +374,9 @@ export default {
     return {
       steps: [
         { name: "Collect", step: 1 },
-        { name: "Review", step: 2 },
+        { name: "Connect to wallet", step: 2 },
         { name: "Checkout", step: 3 },
-        { name: "final-step", step: 4 }
+        // { name: "final-step", step: 4 }
       ],
       counts: [
         { name: 1, step: 1 },
@@ -570,10 +569,10 @@ export default {
 .box-shadow-active {
   padding: 48px 15px 15px;
   opacity: 0.95;
-  min-width: 272px;
+  width: 275px;
   box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
   background-color: #ffffff;
-
+  float: right;
   .btn-green {
     width: 160px;
     height: 36px;
@@ -586,6 +585,16 @@ export default {
 .tree-count {
   ul {
     padding: 0;
+  }
+  .input{
+    p{
+      width: 48px!important;
+      height: 48px;
+    }
+    p.active{
+      width: 48px!important;
+      height: 48px;
+    }
   }
 
   .input,

@@ -11,7 +11,7 @@
               </h2>
 
             </div>
-            <div class="col-md-4 col-12 ">
+            <div class="col-md-7 col-12 justify-content-end text-right ">
               <div class="form-group">
                 <label>
                   <Fas i="search"/>
@@ -52,7 +52,7 @@
 
           <div class="avatar-card card text-center justify-content-center">
             <div class="card-img position-relative"><img src="~/assets/images/myforest/avatar.png" alt="username"
-                                                         class=" img-fluid"/>
+                                                         class="avatar-pic img-fluid"/>
               <span class="position-absolute">+</span>
             </div>
             <p class="param-sm mt-3"> Jeremy Greens</p>
@@ -104,6 +104,10 @@
 <style lang="scss" scoped>
 
   .my-forest {
+    .avatar-pic{
+      width: 80px;
+      height: 80px;
+    }
     .treejer-desc {
       margin-top: 35px;
 
@@ -146,6 +150,8 @@
         margin-top: 45px;
         border: 0;
         color: white;
+        height: 48px;
+        font-size: 14px;
       }
 
     }
@@ -158,6 +164,8 @@
         margin-top: 45px;
         border: 0;
         color: white;
+        font-size: 14px;
+        height: 48px;
       }
     }
 
@@ -210,6 +218,7 @@
 
     .article {
       label {
+        position: relative;
         input {
           border-radius: 10px;
           background-color: #e5e7db;
@@ -218,18 +227,15 @@
           position: relative;
           padding: 0 30px;
           font-size: 14px;
-
-
+          max-width: 176px;
         }
-
         svg {
           position: absolute;
-          left: 22px;
           z-index: +999;
-          top: 10px;
+          top: 12px;
+          right: 150px;
         }
       }
-
     }
     .treejer-earth{
       img{
