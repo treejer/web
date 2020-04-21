@@ -17,10 +17,10 @@
                   " gamified",
                   " measurable"
                   ]'></vue-typer>
-                  <br> through financial inclusion of the rural communities
+                   through financial inclusion of the rural communities.
                 </h1>
               </div>
-              <div class="col-12 form-group mt-5">
+              <div class="col-12 form-group mt-3">
                 <button
                   class="btn-lg btn-green pointer-event param"
                   @click="$router.push('/myForest')"
@@ -71,7 +71,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     height: 75vh;
-    background-position-y: 55%;
+    background-position-y: 30%;
 
     .loading{
       width: 100vw;
