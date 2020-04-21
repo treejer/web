@@ -73,6 +73,8 @@
                     class="on-off-toggle__input"
                     type="checkbox"
                     id="bopis"
+                    v-model="sendAsTreeCard"
+
                   />
                   <label
                     for="bopis"
@@ -88,9 +90,11 @@
                 </div>
                 <div class="on-off-toggle">
                   <input
-                    class="on-off-toggle__input"
+                    class="on-off-toggle__input disabled"
                     type="checkbox"
                     id="bopiss"
+
+
                   />
                   <label
                     for="bopiss"
@@ -135,7 +139,7 @@
               </div>
             </div>
           </div>
-          <div class="row form-name">
+          <div class="row form-name" id="sendAsTreeCard" v-if="sendAsTreeCard">
             <div class="col-12">
               <div class="card bg-transparent p-4 mt-5">
                 <div class="form-full-name">
@@ -335,8 +339,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="col-12 final-step justify-content-center text-center"
+        <div class="col-12 final-step justify-content-center text-center"
           v-if="activeIndex === 3"
         >
           <img
@@ -372,10 +375,12 @@ export default {
 
   data() {
     return {
+      sendAsTreeCard:false,
       steps: [
         { name: "Collect", step: 1 },
         { name: "Connect to wallet", step: 2 },
         { name: "Checkout", step: 3 },
+
         // { name: "final-step", step: 4 }
       ],
       counts: [
@@ -416,7 +421,7 @@ export default {
     },
     activeWallets(item, index) {
       this.activeWallet = index;
-    }
+    },
   }
 };
 </script>
