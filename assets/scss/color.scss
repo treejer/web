@@ -73,8 +73,28 @@
 
 
 .btn-outline-green {
-    background: transparent;
-    border-radius: 6px;
-    border: solid 1px #5a9d79;
-    color: #5a9d79;
+  background: transparent;
+  border-radius: 6px;
+  border: solid 1px #5a9d79;
+  color: #5a9d79;
+}
+
+.btn-green-md {
+  width: 160px;
+  height: 36px;
+  opacity: 0.95;
+  border-radius: 6px;
+  background-color: #67B68C;
+  color: white;
+  border: 0;
+}
+.btn-outline-green-md {
+  width: 160px;
+  height: 36px;
+  opacity: 0.95;
+  border-radius: 6px;
+  background: transparent;
+  border: solid 1px #5a9d79;
+  color: #5a9d79;
+
 }

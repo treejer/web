@@ -124,7 +124,7 @@
                   <h1>{{ "$173.00" }}</h1>
                   <button
                     @click="activeIndex = 1"
-                    class="btn-green btn-lg mt-5"
+                    class="btn-green-md  mt-5"
                   >
                     NEXT
                   </button>
@@ -197,7 +197,7 @@
                     <div class="col-12">
                       <div class="d-flex mt-3 align-items-center align-self-center">
 
-                        <button class="btn-outline-green param-sm btn-lg mr-2 ">Add another row</button>
+                        <button class="btn-outline-green-md param-sm btn-lg mr-2 ">Add another row</button>
                         <p class="param-sm mt-3">Or upload email addresses using our <span class="tr-green pointer-event">CSV template</span> </p>
                       </div>
                     </div>
@@ -205,7 +205,7 @@
                   <div class="row mt-3">
                     <div class="col-12">
                       <div class="d-flex ">
-                        <button class=" btn-green param mr-4 finish" >Finish</button>
+                        <button class=" btn-green-md param mr-4" >Finish</button>
                         <p class="param tr-green mt-3 pointer-event" >Skip for now </p>
 
                       </div>
