@@ -104,6 +104,18 @@
     .footer{
       position: relative;
       height: auto;
+       .menu .nav-item .nav-link {
+        font-size: 10px;
+      }
+     .menu .nav-item{
+        padding: 3px;
+        position: relative;
+        text-align: center;
+        margin: auto;
+      }
+      .justify-content-end {
+        justify-content: space-between !important;
+      }
     }
   }
 </style>
