@@ -259,7 +259,7 @@
               </button>
             </div>
             <div
-              class="col-12 col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
@@ -283,7 +283,7 @@
             </div>
 
             <div
-              class="col-12 col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -727,6 +727,14 @@ export default {
   @media (max-width: 678px) {
     .step{
       flex-direction: row;
+    }
+    section > div > div > div:nth-child(1){
+      padding: 0;
+    }
+    .step li{
+      p{
+        font-size: 9px;
+      }
     }
     .step-one > div > div:nth-child(1) > div.col-12.mt-5.input > ul{
       overflow: auto;
