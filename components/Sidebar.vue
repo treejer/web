@@ -119,6 +119,7 @@ section.sidebar {
      flex-direction: row!important;
      justify-content: space-between;
    }
+
  }
 }
 </style>

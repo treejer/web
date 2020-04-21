@@ -878,7 +878,11 @@ option {
 
 @media (min-width: 100px) and (max-width: 768px) {
 
-
+  .headers.container .navbar-nav{
+    .form-inline{
+      justify-content: flex-end;
+    }
+    }
 
   .param {
     font-size: 12px;
