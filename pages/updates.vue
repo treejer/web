@@ -17,13 +17,13 @@
             <div class="col-12 mt-2">
               <ul>
                 <li v-for="(item , index) in updates">
-                  <p class="param-lg tr-black font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
-                  <p class="param-sm tr-gray-eight"> {{item.date}}</p>
+                  <p class="param-lg tr-gray-three font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
+                  <p class="param-sm tr-gray-four"> {{item.date}}</p>
 
                 </li>
                 <li v-for="(item , index) in updates">
-                  <p class="param-lg tr-black font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
-                  <p class="param-sm tr-gray-eight"> {{item.date}}</p>
+                  <p class="param-lg tr-gray-three font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
+                  <p class="param-sm tr-gray-four"> {{item.date}}</p>
 
                 </li>
               </ul>
