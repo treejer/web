@@ -224,7 +224,7 @@
               </h1>
             </div>
             <div
-              class="col-12 text-center col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 text-center col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -725,6 +725,11 @@ export default {
   }
 }
   @media (max-width: 678px) {
+    .step-three > div > div.col-12.col-md-4.mt-3.justify-content-center.text-center > div > div > div.col-md-7 > p.param.tr-gray-five.font-weight-light.position-absolute{
+      position: relative!important;
+      display: block;
+      top: 0;
+    }
     .step{
       flex-direction: row;
     }
