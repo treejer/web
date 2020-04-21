@@ -1,8 +1,8 @@
 <template>
-  <section class="position-relative pt-5 col-10 my-forest">
+  <section class="position-relative pt-5 col-md-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-md-9">
+        <div class="col-md-9 col-12">
           <div class="row">
             <div class="col-md-5 col-12">
               <h2 class="title-sm Montserrat-Bold " >
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-3  d-none d-md-block justify-content-center">
+        <div class="col-md-3 col-12  justify-content-center">
 
 
           <div class="avatar-card card text-center justify-content-center">
@@ -271,6 +271,18 @@
       map {
         heifght: 450px;
       }
+    }
+
+  }
+
+  @media (max-width: 768px) {
+
+    .my-forest > div > div > div.col-md-9 > div:nth-child(1) > div.col-md-7.col-12.justify-content-end.text-right{
+      text-align: left !important;
+      justify-content: flex-start!important;
+    }
+   .my-forest > div > div > div.col-md-3.col-12.justify-content-center > div.trees > div.redeem-trees > input{
+    margin-bottom: 15px;
     }
   }
 </style>

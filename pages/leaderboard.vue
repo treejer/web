@@ -1,8 +1,8 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-10 leader-boards">
+  <section :page="$route.name" class="position-relative pt-5 col-md-10 col-12 leader-boards">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-8">
+        <div class="col-md-8 col-12">
           <div class="row">
             <div class="col-12">
               <h2 class="title-sm">
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="col-4 justify-content-center">
+        <div class="col-md-4 d-none d-md-block justify-content-center">
           <h1 class="title-md text-center font-weight-bolder  mb-4  " style="color:#616161">Discover
             Earth Ambassadors</h1>
 
@@ -181,6 +181,17 @@
         margin: 15px 5px;
 
       }
+    }
+  }
+  @media (max-width: 768px) {
+    .nav.tr-nav{
+      li{
+        font-size: 12px;
+      }
+    }
+    table{
+      display: grid;
+
     }
   }
 
