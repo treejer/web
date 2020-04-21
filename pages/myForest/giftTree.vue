@@ -1,8 +1,8 @@
 <template>
-  <section class="position-relative pt-5 col-10 gift-tree">
+  <section class="position-relative pt-5 col-12 col-md-10 gift-tree">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-8 d-none d-md-block">
+        <div class="col-md-8 col-12">
           <div class="row">
             <div class="col-12">
               <h2 class="title-sm ">
@@ -358,7 +358,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 d-none d-md-block justify-content-center">
+        <div class="col-md-4 col-12 d-none d-md-block justify-content-center">
           <div class="gift-image">
             <img
               src="../../assets/images/myforest/gift-box.png"
@@ -650,4 +650,21 @@ export default {
     color: #67b68c;
   }
 }
+  @media(max-width: 678px){
+    .gift-tree > div > div > div.col-md-8.col-12 > div:nth-child(2) > ul{
+      li{
+        font-size: 10px;
+      }
+    }
+    .gift-tree .nav {
+
+      width: 100%;
+    }
+    .steps{
+      display: none;
+    }
+    .gift-tree .create-voucher .step-two {
+      margin-top: 15px;
+    }
+  }
 </style>
