@@ -835,6 +835,12 @@ html {
 option {
     background-color: #faf8f1!important;
 }
+.text-dn{
+  span{
+    min-width: 150px;
+    display: inline-block;
+  }
+}
 
 @media (min-width: 1281px) {
     //CSS
@@ -879,6 +885,15 @@ option {
 @media (min-width: 100px) and (max-width: 768px) {
   body{
     overflow-x: hidden!important;
+  }
+  .text-dn{
+    span{
+      min-width: 115px;
+      display: inline-block;
+    }
+    br{
+      display: none!important;
+    }
   }
 
   .headers.container .navbar-nav{

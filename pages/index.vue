@@ -125,15 +125,7 @@
           font-size: 14px;
         }
       }
-      .text-dn{
-        span{
-          min-width: 115px;
-          display: inline-block;
-        }
-        br{
-          display: none!important;
-        }
-      }
+
     }
   }
 </style>
