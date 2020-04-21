@@ -17,7 +17,7 @@
             <div class="col-12 mt-2">
               <ul class="nav tr-nav ">
                 <li v-for="(item  ,index) in leaderBoards"
-                    class="pointer-event"
+                    class="pointer-event tr-gray-three"
                     @click="activeMenu(item, index)"
                     :class="{ active: activeIndex === index }"
                     :name="item.name"
@@ -149,6 +149,7 @@
        th{
          background: transparent;
          border: 0;
+         color: #616161;
        }
      }
     table {
