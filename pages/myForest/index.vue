@@ -249,5 +249,8 @@
       text-align: left !important;
       justify-content: flex-start!important;
     }
+   .my-forest > div > div > div.col-md-3.col-12.justify-content-center > div.trees > div.redeem-trees > input{
+    margin-bottom: 15px;
+    }
   }
 </style>
