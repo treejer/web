@@ -7,7 +7,16 @@
               <div class="col-12 title">
                 <h1 class="Montserrat-Bold tr-gray-three font-weight-bold">
                   A more
-                    <vue-typer text='affordable Climate Action'></vue-typer>
+                    <vue-typer :text='[
+                  " affordable",
+                  " sustainable",
+                  " transparent",
+                  " impactful",
+                  " inclusive",
+                  " rewarding",
+                  " gamified",
+                  " measurable"
+                  ]'></vue-typer>
                   <br> through financial inclusion of the rural communities
                 </h1>
               </div>
@@ -44,6 +53,11 @@
 
   export default {
     name: "index",
+    data(){
+      return{
+
+      }
+    },
     props: {},
     created() {
     }
@@ -57,6 +71,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     height: 75vh;
+    background-position-y: 55%;
 
     .loading{
       width: 100vw;
