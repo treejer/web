@@ -17,7 +17,7 @@
                   " gamified",
                   " measurable"
                   ]'></vue-typer>
-                   through financial inclusion of the rural communities.
+                  Climate Action through financial inclusion of the rural communities.
                 </h1>
               </div>
               <div class="col-12 form-group mt-3">
