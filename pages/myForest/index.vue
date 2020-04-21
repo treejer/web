@@ -41,9 +41,10 @@
 
           </div>
           <div class="row treejer-earth d-md-block d-none">
-            <div class="col-12 justify-content-center mt-5 ">
-              <img src="~/assets/images/myforest/earth.png" alt="earth" class="img-fluid"/>
-            </div>
+            <vue-datamaps 
+              :geographyConfig="geographyConfig"
+              :fills="fills"
+              :data="data"></vue-datamaps>
           </div>
         </div>
 
@@ -85,17 +86,44 @@
 
 <script>
   import Fas from '@/components/font-awsome/Fas'
+  import content from './world.json';
+
 
   export default {
     name:'myForest',
     layout:'dashboard',
     components: { Fas},
+    computed: {
+      messages() {
+        return content
+      }
+    },
     data() {
       return {
         search: null,
         redeem: null,
         forestSize: 47,
-
+        geographyConfig: {
+          dataUrl: '//raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
+          highlightOnHover: false,
+          borderWidth: 0.5,
+          borderOpacity: 1,
+          highlightOnHover: true,
+          highlightFillColor: '#4e9e74',
+          highlightBorderColor: '#4e9e74',
+          highlightBorderWidth: 2,
+          highlightBorderOpacity: 1
+        },
+        fills: {
+            'Trejer': '#67b68c',
+            defaultFill: '#edebe5',
+        },
+        data: {
+            'IRN': {fillKey: 'Trejer'},
+            'IND': {fillKey: 'Trejer'},
+            'KEN': {fillKey: 'Trejer'},
+            'ZAF': {fillKey: 'Trejer'}
+        }
       }
     }
   };
@@ -238,8 +266,10 @@
       }
     }
     .treejer-earth{
-      img{
-        margin-bottom: 85px;
+      position: relative;
+
+      map {
+        heifght: 450px;
       }
     }
   }
