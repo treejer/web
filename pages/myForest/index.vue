@@ -2,7 +2,7 @@
   <section class="position-relative pt-5 col-10 my-forest">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-md-9">
+        <div class="col-md-9 col-12">
           <div class="row">
             <div class="col-md-5 col-12">
               <h2 class="title-sm Montserrat-Bold " >
