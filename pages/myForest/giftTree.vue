@@ -310,7 +310,7 @@
                         />
                       </div>
                       <div class="final-box-submit">
-                        <button class="btn-lg bg-green" type="button">
+                        <button class="btn-lg bg-green" type="button" @click="$router.push(localePath({ name: 'myForest' }))">
                           SEND
                         </button>
                       </div>
@@ -665,6 +665,22 @@ export default {
     }
     .gift-tree .create-voucher .step-two {
       margin-top: 15px;
+    }
+     div.col-11 > div > div.final-box{
+       overflow: hidden;
+       position: relative;
+       margin-bottom: 35px;
+     }
+    .final-box > div.body > form{
+      flex-direction: column;
+      justify-content: center;
+      input{
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      button{
+        width: 100%;
+      }
     }
   }
 </style>
