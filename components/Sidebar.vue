@@ -1,5 +1,5 @@
 <template>
-  <section class="sidebar pt-4 col-md-2 d-none d-md-block" v-if="hasSideBar ">
+  <section class="sidebar pt-4 col-md-2 d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column ">
       <li
               class="nav-item"
@@ -111,5 +111,14 @@ section.sidebar {
       font-size: 10px;
     }
   }
+}
+@media (min-width: 100px) and (max-width: 768px) {
+
+ .sidebar{
+   .nav.flex-column{
+     flex-direction: row!important;
+     justify-content: space-between;
+   }
+ }
 }
 </style>

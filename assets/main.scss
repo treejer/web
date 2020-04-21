@@ -876,10 +876,69 @@ option {
   ##Screen = B/w 481px to 767px
 */
 
-@media (min-width: 100px) and (max-width: 768px) {}
+@media (min-width: 100px) and (max-width: 768px) {
 
 
-/*
-  ##Device = Most of the Smartphones Mobiles (Portrait)
-  ##Screen = B/w 320px to 479px
-*/
+
+  .param {
+    font-size: 12px;
+  }
+
+  .param-sm {
+    font-size: 10px;
+  }
+
+  .param-sm-light {
+    font-size: 12px;
+  }
+
+  .param-md {
+    font-size: 12px;
+
+  }
+
+  .param-md-light {
+    font-size: 12px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.5px;
+  }
+
+  .param-lg {
+    font-size: 14px;
+  }
+  .vue-typer{
+    span{
+      color: #67B68C!important;
+      font-size: 14px;
+
+    }
+  }
+  .param-lg-bold {
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    font-weight: bold;
+  }
+
+  .param-md-bold {
+    font-size: 14px;
+  }
+
+  .param-xl {
+    font-size: 16px;
+  }
+
+  .title-md {
+    font-size: 16px;
+  }
+
+  .title-sm {
+    font-size: 16px;
+  }
+
+}

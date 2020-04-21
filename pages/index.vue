@@ -114,6 +114,11 @@
   @media (max-width:768px) {
     .home {
       background-image: none;
+      .title{
+        h1{
+          font-size: 14px;
+        }
+      }
     }
   }
 </style>
