@@ -189,6 +189,10 @@
         font-size: 12px;
       }
     }
+    table{
+      display: grid;
+
+    }
   }
 
 </style>

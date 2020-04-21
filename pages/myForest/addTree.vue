@@ -724,4 +724,15 @@ export default {
     }
   }
 }
+  @media (max-width: 678px) {
+    .step{
+      flex-direction: row;
+    }
+    .step-one > div > div:nth-child(1) > div.col-12.mt-5.input > ul{
+      overflow: auto;
+    }
+    .step-one > div:nth-child(1) > div.col-md-6.col-12.overflow-hidden > div{
+      width: 100%;
+    }
+  }
 </style>
