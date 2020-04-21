@@ -5,7 +5,7 @@
           <div class="col-md-8 col-12">
             <div class="row">
               <div class="col-12 title">
-                <h1 class="Montserrat-Bold tr-gray-three font-weight-bold">
+                <h1 class="Montserrat-Bold tr-gray-three font-weight-bold text-dn">
                   A more
                     <vue-typer :text='[
                   " affordable",
@@ -72,6 +72,12 @@
     background-repeat: no-repeat;
     height: 75vh;
     background-position-y: 30%;
+    .text-dn{
+      span{
+        min-width: 150px;
+        display: inline-block;
+      }
+    }
 
     .loading{
       width: 100vw;
@@ -117,6 +123,15 @@
       .title{
         h1{
           font-size: 14px;
+        }
+      }
+      .text-dn{
+        span{
+          min-width: 115px;
+          display: inline-block;
+        }
+        br{
+          display: none!important;
         }
       }
     }

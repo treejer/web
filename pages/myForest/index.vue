@@ -242,7 +242,9 @@
         margin-bottom: 85px;
       }
     }
+
   }
+
   @media (max-width: 768px) {
 
     .my-forest > div > div > div.col-md-9 > div:nth-child(1) > div.col-md-7.col-12.justify-content-end.text-right{
