@@ -782,8 +782,12 @@ html {
     letter-spacing: normal;
 }
 .vue-typer{
+    color: #67B68C!important;
+    min-width: 200px!important;
+    display: inline-block;
   span{
     color: #67B68C!important;
+
   }
 }
 .param-lg-bold {
@@ -919,9 +923,13 @@ option {
     font-size: 14px;
   }
   .vue-typer{
-    span{
-      font-size: 12px;
+    color: #67B68C!important;
+    min-width: 88px!important;
+    display: inline-block;
 
+    span{
+      color: #67B68C!important;
+      font-size: 13px;
 
     }
   }
