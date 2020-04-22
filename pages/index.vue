@@ -72,9 +72,10 @@
     background-repeat: no-repeat;
     height: 75vh;
     background-position-y: 30%;
+    background-position-x:center ;
     .text-dn{
       span{
-        min-width: 150px;
+        min-width: 200px!important;
         display: inline-block;
       }
     }
