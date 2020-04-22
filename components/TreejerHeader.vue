@@ -88,7 +88,7 @@
         activeIndex: 0,
         items: [
           {name: "About", step: 1, href: 'about'},
-          {name: "Blog", step: 2, href: 'https://medium.com/treejer', target: '_blank'},
+          {name: "Blog", step: 2, href: '#', target: '_blank'},
           // {name: "For Business", step: 3, href: 'forBusiness'},
           {name: "Find My Tree", step: 4, href: 'findMyTree'},
         ]
