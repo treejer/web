@@ -88,7 +88,7 @@
         activeIndex: 0,
         items: [
           {name: "About", step: 1, href: 'about'},
-          {name: "Blog", step: 2, href: '#', target: '_blank'},
+          {name: "Blog", step: 2},
           // {name: "For Business", step: 3, href: 'forBusiness'},
           {name: "Find My Tree", step: 4, href: 'findMyTree'},
         ]
@@ -131,7 +131,7 @@
 
       activeMenu(item, index) {
         if (item.name === 'Blog') {
-          window.open(item.href, '_blank')
+          window.open('https://medium.com/treejer', '_blank')
         } else {
           this.activeIndex = index;
         }
