@@ -7,7 +7,17 @@
               <div class="col-12 title">
                 <h1 class="Montserrat-Bold tr-gray-three font-weight-bold text-dn">
                   A more
-                    <vue-typer :text='[
+                    <vue-typer
+                      :repeat='Infinity'
+                      :shuffle='false'
+                      initial-action='typing'
+                      :pre-type-delay='80'
+                      :type-delay='200'
+                      :pre-erase-delay='2000'
+                      :erase-delay='50'
+                      erase-style='backspace'
+                      :erase-on-complete='false'
+                      :text='[
                   " affordable",
                   " sustainable",
                   " transparent",
@@ -73,10 +83,11 @@
     height: 75vh;
     background-position-y: 30%;
     background-position-x:96% ;
-    .text-dn{
+    .vue-typer{
       span{
         min-width: 200px!important;
         display: inline-block;
+        text-align: center;
       }
     }
 
