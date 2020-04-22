@@ -72,7 +72,7 @@
     background-repeat: no-repeat;
     height: 75vh;
     background-position-y: 30%;
-    background-position-x:center ;
+    background-position-x:96% ;
     .text-dn{
       span{
         min-width: 200px!important;
