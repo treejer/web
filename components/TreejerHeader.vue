@@ -88,8 +88,8 @@
         activeIndex: 0,
         items: [
           {name: "About", step: 1, href: 'about'},
-          {name: "Blog", step: 2, href: 'blog'},
-          {name: "For Business", step: 3, href: 'forBusiness'},
+          {name: "Blog", step: 2, href: 'https://medium.com/treejer', target: '_blank'},
+          // {name: "For Business", step: 3, href: 'forBusiness'},
           {name: "Find My Tree", step: 4, href: 'findMyTree'},
         ]
       };
@@ -130,8 +130,11 @@
       },
 
       activeMenu(item, index) {
-
-        this.activeIndex = index;
+        if (item.name === 'Blog') {
+          window.open(item.href, '_blank')
+        } else {
+          this.activeIndex = index;
+        }
       },
 
     }
