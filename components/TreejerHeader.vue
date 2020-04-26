@@ -131,7 +131,7 @@
 
       activeMenu(item, index) {
         if (item.name === 'Blog') {
-          window.open('https://medium.com/treejer', '_blank')
+          window.open('https://blog.treejer.com/', '_blank')
         } else {
           this.activeIndex = index;
         }
