@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-md-10 col-12 leader-boards">
+  <section :page="$route.name" class="position-relative mb-5 pb-5 pt-5 col-md-10 col-12 leader-boards">
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-8 col-12">
