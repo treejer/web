@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative pt-5 col-md-10 col-12 my-forest">
+  <section class="position-relative mb-5 pb-5 pt-5 col-md-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-9 col-12">
@@ -41,7 +41,7 @@
 
           </div>
           <div class="row treejer-earth d-md-block d-none">
-            <vue-datamaps 
+            <vue-datamaps
               :geographyConfig="geographyConfig"
               :fills="fills"
               :data="data"></vue-datamaps>

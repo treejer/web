@@ -101,7 +101,11 @@
 */
 @media (max-width: 768px) {
 
-  .headers .header-menu .nav-item{
+  .headers .header-menu .nav-item a {
+    font-size: 12px;
+
+  }
+  .headers .header-menu .nav-item {
     padding: 5px;
   }
 }

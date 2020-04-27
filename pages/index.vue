@@ -129,6 +129,18 @@
       }
     }
   }
+
+  @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+    .home {
+      .title{
+        h1{
+          font-size: 14px;
+        }
+      }
+
+    }
+  }
+
   @media (max-width:768px) {
     .home {
       background-image: none;
