@@ -1,5 +1,5 @@
 <template>
-  <section class="sidebar pt-4 col-md-2 d-md-block" v-if="hasSideBar ">
+  <section class="sidebar pt-4 col-lg-2 d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column ">
       <li
               class="nav-item"

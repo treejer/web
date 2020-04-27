@@ -17,7 +17,7 @@
         </div>
         <div class="col-12 step-one" v-if="activeIndex === 0">
           <div class="row">
-            <div class="col-md-6 col-12">
+            <div class="col-lg-6 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="title-sm">How many trees to plant?</h1>
                 <ul class="d-flex list-style-none mt-4">
@@ -108,7 +108,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-12 overflow-hidden">
+            <div class="col-lg-6 col-12 overflow-hidden">
               <div
                 class="card mt-5 box-shadow-active  justify-content-center text-center"
               >
@@ -148,17 +148,17 @@
                       <p class="param-md-md font-weight-bold tr-gray-three">Add your name</p>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium">First name
                         <input class="param-sm tr-gray-five" type="text" placeholder="First name">
                       </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium">Last name (optional)
                         <input class="param-sm tr-gray-five" type="text" placeholder="Last name">
                       </label>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium">Your email
                         <input class="param-sm tr-gray-five" type="text" placeholder="Your email">
                       </label>
@@ -171,17 +171,17 @@
                       <p class="param-md-md font-weight-bolder tr-gray-three">Add recepient(s)</p>
 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                         <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                       <div class="cv-team bg-transparent justify-content-center text-center ">
                         <img src="~/assets/images/myforest/file-excel.png" class="img-fluid pt-4 m-auto">
                         <p class="param-sm mt-3 p-2 mb-3">
@@ -224,7 +224,7 @@
               </h1>
             </div>
             <div
-              class="col-12 text-center col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 text-center col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -235,7 +235,7 @@
               </p>
             </div>
             <div
-              class="col-12 col-md-4 mt-3 justify-content-center text-center "
+              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
             >
               <ul class="wallets tr-gray-three list-style-none">
                 <li v-for="(item, index) in wallets" class="pointer-event">
@@ -259,7 +259,7 @@
               </button>
             </div>
             <div
-              class="col-12 col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
@@ -283,7 +283,7 @@
             </div>
 
             <div
-              class="col-12 col-md-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -294,15 +294,15 @@
               </p>
             </div>
             <div
-              class="col-12 col-md-4 mt-3 justify-content-center text-center "
+              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
             >
               <div class="tr-table tr-card">
                 <div class="row">
-                  <div class="col-md-5">
+                  <div class="col-lg-5">
                     <p class="param tr-gray-four">Total</p>
                     <p class="param tr-gray-four">Payment Fee</p>
                   </div>
-                  <div class="col-md-7">
+                  <div class="col-lg-7">
                     <p
                       class="param tr-gray-five font-weight-light position-absolute"
                     >
@@ -328,7 +328,7 @@
               </button>
             </div>
             <div
-              class="col-12 col-md-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
             >
               <hr />
               <p class="title-sm  tr-gray-three text-center">Total</p>
@@ -725,7 +725,7 @@ export default {
   }
 }
   @media (max-width: 678px) {
-    .step-three > div > div.col-12.col-md-4.mt-3.justify-content-center.text-center > div > div > div.col-md-7 > p.param.tr-gray-five.font-weight-light.position-absolute{
+    .step-three > div > div.col-12.col-lg-4.mt-3.justify-content-center.text-center > div > div > div.col-lg-7 > p.param.tr-gray-five.font-weight-light.position-absolute{
       position: relative!important;
       display: block;
       top: 0;
@@ -744,7 +744,7 @@ export default {
     .step-one > div > div:nth-child(1) > div.col-12.mt-5.input > ul{
       overflow: auto;
     }
-    .step-one > div:nth-child(1) > div.col-md-6.col-12.overflow-hidden > div{
+    .step-one > div:nth-child(1) > div.col-lg-6.col-12.overflow-hidden > div{
       width: 100%;
     }
   }

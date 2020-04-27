@@ -1,8 +1,8 @@
 <template>
-  <section :page="$route.name" class="position-relative mb-5 pb-5 pt-5 col-md-10 col-12 leader-boards">
+  <section :page="$route.name" class="position-relative mb-5 pb-5 pt-5 col-lg-10 col-12 leader-boards">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-md-8 col-12">
+        <div class="col-lg-8 col-12">
           <div class="row">
             <div class="col-12">
               <h2 class="title-sm">
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 d-none d-md-block justify-content-center">
+        <div class="col-lg-4 d-none d-md-block justify-content-center">
           <h1 class="title-md text-center font-weight-bolder  mb-4  " style="color:#616161">Discover
             Earth Ambassadors</h1>
 

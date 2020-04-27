@@ -2,7 +2,7 @@
   <div class="footer ">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 col-12 menu">
+        <div class="col-lg-8 col-12 menu">
           <b-nav>
             <b-nav-item :to="localePath('index')">Home</b-nav-item>
             <b-nav-item target="_blank"  href="https://blog.treejer.com/">Blog</b-nav-item>
@@ -11,7 +11,7 @@
             <b-nav-item :to="localePath('contactUs')">Contact</b-nav-item>
           </b-nav>
         </div>
-        <div class="col-md-4 col-12 pt-3">
+        <div class="col-lg-4 col-12 pt-3">
 
           <b-nav class="justify-content-end  social">
             <b-nav-item

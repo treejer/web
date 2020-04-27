@@ -1,17 +1,17 @@
 <template>
-  <section class="position-relative mb-5 pb-5 pt-5 col-md-10 col-12 my-forest">
+  <section class="position-relative mb-5 pb-5 pt-5 col-lg-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article">
-        <div class="col-md-9 col-12">
+        <div class="col-lg-9 col-12">
           <div class="row">
-            <div class="col-md-5 col-12">
+            <div class="col-lg-5 col-12">
               <h2 class="title-sm Montserrat-Bold " >
                 My Forest
 
               </h2>
 
             </div>
-            <div class="col-md-7 col-12 justify-content-end text-right ">
+            <div class="col-lg-7 col-12 justify-content-end text-right ">
               <div class="form-group">
                 <label>
                   <Fas i="search"/>
@@ -21,19 +21,19 @@
             </div>
           </div>
           <div class="row treejer-desc">
-            <div class="col-md-3 col-12 border-right ">
+            <div class="col-lg-3 col-12 border-right ">
               <p>FOREST SIZE</p>
               <p><span>47</span> <span>Trees</span></p>
             </div>
-            <div class="col-md-3 col-12 border-right">
+            <div class="col-lg-3 col-12 border-right">
               <p>O2 BALANCE</p>
               <p><span>575.4 </span> <span>o2</span></p>
             </div>
-            <div class="col-md-3 col-12 border-right">
+            <div class="col-lg-3 col-12 border-right">
               <p>SEED BALANCE</p>
               <p><span>294.2</span><span>SEED</span></p>
             </div>
-            <div class="col-md-3 col-12 ">
+            <div class="col-lg-3 col-12 ">
               <p>TREES GIFTED</p>
               <p><span>150</span><span>Trees</span></p>
             </div>
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="col-md-3 col-12  justify-content-center">
+        <div class="col-lg-3 col-12  justify-content-center">
 
 
           <div class="avatar-card card text-center justify-content-center">
@@ -277,11 +277,11 @@
 
   @media (max-width: 768px) {
 
-    .my-forest > div > div > div.col-md-9 > div:nth-child(1) > div.col-md-7.col-12.justify-content-end.text-right{
+    .my-forest > div > div > div.col-lg-9 > div:nth-child(1) > div.col-lg-7.col-12.justify-content-end.text-right{
       text-align: left !important;
       justify-content: flex-start!important;
     }
-   .my-forest > div > div > div.col-md-3.col-12.justify-content-center > div.trees > div.redeem-trees > input{
+   .my-forest > div > div > div.col-lg-3.col-12.justify-content-center > div.trees > div.redeem-trees > input{
     margin-bottom: 15px;
     }
   }
