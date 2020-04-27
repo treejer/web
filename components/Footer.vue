@@ -69,15 +69,19 @@
 <style lang="scss" scoped>
   .footer {
     width: 100%;
-    height: 60px;
+    height: 48px;
     background-color: #e5e7db;
     bottom: 0;
-    position: fixed;
+    overflow-y: hidden;
+    position: relative;
+    ul{
+      height: 100%;
+
+    }
 
     .menu {
 
       .nav-item {
-        padding: 15px 35px 25px 0;
         position: relative;
         text-align: center;
         margin: auto;
