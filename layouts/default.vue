@@ -2,9 +2,9 @@
   <div :class="currentRouteName">
 
     <TreejerHeader />
-    <div class="container">
+    <div class="container" :class="$route.name === 'index__en' ? 'iraj': 'mehdi' ">
       <div class="row">
-        <nuxt />
+        <nuxt/>
       </div>
     </div>
 
@@ -14,22 +14,22 @@
 
 <style lang="scss"></style>
 <script>
-import TreejerHeader from "../components/TreejerHeader";
-import Footer from "../components/Footer";
-import Sidebar from "../components/Sidebar";
-import Router from "vue-router";
+  import TreejerHeader from "../components/TreejerHeader";
+  import Footer from "../components/Footer";
+  import Sidebar from "../components/Sidebar";
+  import Router from "vue-router";
 
-export default {
-  components: { Sidebar, Footer, TreejerHeader, Router },
-  data() {
-    return {
-      account: {},
-      user: false,
-      sidebarName: false,
-      hasSideBar: false,
-      routeName: null
-    };
-  },
+  export default {
+    components: {Sidebar, Footer, TreejerHeader, Router},
+    data() {
+      return {
+        account: {},
+        user: false,
+        sidebarName: false,
+        hasSideBar: false,
+        routeName: null
+      };
+    },
   computed: {
      currentRouteName() {
         return this.$route.path;
@@ -37,6 +37,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.$route.name, 'windows here')
   },
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})

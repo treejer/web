@@ -37,8 +37,6 @@
               <p>TREES GIFTED</p>
               <p><span>150</span><span>Trees</span></p>
             </div>
-
-
           </div>
           <div class="row treejer-earth d-md-block d-none">
             <vue-datamaps
@@ -49,8 +47,6 @@
         </div>
 
         <div class="col-lg-3 col-12  justify-content-center">
-
-
           <div class="avatar-card card text-center justify-content-center">
             <div class="card-img position-relative"><img src="~/assets/images/myforest/avatar.png" alt="username"
                                                          class="avatar-pic img-fluid"/>

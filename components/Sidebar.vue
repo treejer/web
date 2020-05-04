@@ -1,8 +1,7 @@
 <template>
   <section class="sidebar pt-4 col-lg-2 d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column ">
-      <li
-              class="nav-item"
+      <li class="nav-item"
               v-for="(item, index) in menus"
               :key="index"
               :name="item.name"
@@ -51,7 +50,8 @@
           {name: "My Forest", icon: "tree", href: "/myForest"},
           {name: "Updates", icon: "bell", href: "/updates"},
           {name: "Leaderboard", icon: "trophy", href: "/leaderboard"},
-          {name: "Help", icon: "life-ring", href: "/Help"}
+          {name: "Help", icon: "life-ring", href: "/Help"},
+          {name: "spend", icon: "life-ring", href: "/spend"}
         ]
       };
     },
@@ -71,6 +71,9 @@
 
 <style lang="scss" scoped>
 section.sidebar {
+  ul{
+    padding-left: 10px;
+  }
   a {
     text-decoration: none;
     color: #757575;

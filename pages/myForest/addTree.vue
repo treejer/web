@@ -224,7 +224,7 @@
               </h1>
             </div>
             <div
-              class="col-12 text-center col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 text-center col-lg-4 d-none  d-md-block align-items-center align-self-center  h-100"
             >
               <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
               <p
@@ -259,7 +259,7 @@
               </button>
             </div>
             <div
-              class="col-12 col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
+              class="col-12 col-lg-4 d-none  d-lg-block flex-row align-items-center align-self-center  h-100"
             >
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>

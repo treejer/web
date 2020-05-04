@@ -11,7 +11,7 @@
             <b-nav-item :to="localePath('contactUs')">Contact</b-nav-item>
           </b-nav>
         </div>
-        <div class="col-lg-4 col-12 pt-3">
+        <div class="col-lg-4 col-12 pt-2">
 
           <b-nav class="justify-content-end  social">
             <b-nav-item
