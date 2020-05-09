@@ -38,7 +38,7 @@
                   <li>
                     <div class="spend-cards">
                       <div class="row" style="min-height: 137px">
-                        <div class="col-md-3  ">
+                        <div class="col-md-3">
                           <div class="card-img p-3 ">
                             <img src="/logo/treejer.png" alt="logo" height="46px" class="img-fluid ">
                           </div>
@@ -72,6 +72,8 @@
                :key="index">
             <span v-html="item.icon"/>
           </div>
+        </div>
+        <div class="col-md-4">
         </div>
       </div>
     </div>
