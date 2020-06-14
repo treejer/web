@@ -72,9 +72,13 @@
                :key="index">
             <span v-html="item.icon"/>
           </div>
+          <nuxt-link :to="localePath('spend-create')">
+            <button class="btn-gray  mt-4" type="button">Add Coupon
+            </button>
+          </nuxt-link>
+
         </div>
-        <div class="col-md-4">
-        </div>
+
       </div>
     </div>
   </section>

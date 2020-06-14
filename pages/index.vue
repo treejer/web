@@ -31,15 +31,20 @@
                 </h1>
               </div>
               <div class="col-12 form-group mt-3">
+                <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
+
                 <button
                   class="btn-lg btn-green pointer-event param"
-                  @click="$router.push('/myForest')"
                 >
                   Plant One Tree
                 </button>
+                </nuxt-link>
+                <nuxt-link class="position-relative pointer-event leader" :to="localePath('findMyTree')">
+
                 <button class="btn-lg btn-outline-green pointer-event param">
                  Find My Tree
                 </button>
+                </nuxt-link>
               </div>
               <div class="col-12 d-flex tr-status mt-3 ">
                 <div class="planet-tree pt-2">

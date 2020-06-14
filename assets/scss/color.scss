@@ -69,7 +69,9 @@
     color: white;
     border: 0;
 }
-
+.box-shadow{
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.161);
+}
 
 
 .btn-outline-green {
@@ -78,7 +80,16 @@
   border: solid 1px #5a9d79;
   color: #5a9d79;
 }
-
+.btn-gray{
+  height: 36px;
+  padding: 0 35px;
+  background: #E5E7DB;
+  border-radius: 6px;
+  border: 0;
+  font-size: 14px;
+  line-height: 17px;
+  color: #424242;
+}
 .btn-green-md {
   width: 160px;
   height: 36px;
