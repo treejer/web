@@ -23,9 +23,9 @@ export default {
         script: [],
         link: [
           {rel: 'icon', type: 'image/x-icon', href: '/treejer.ico'},
-          {rel: 'dns-prefetch', type: 'image/x-icon', href: '//js.hs-scripts.com'},
-          {rel: 'dns-prefetch', type: 'image/x-icon', href: '//s.w.org'},
-          {rel: 'shortcut icon', type: 'image/x-icon', href: '//s.w.org'},
+          {rel: 'dns-prefetch', type: 'image/x-icon', href: '/treejer.ico'},
+          {rel: 'dns-prefetch', type: 'image/x-icon', href: '/treejer.ico'},
+          {rel: 'shortcut icon', type: 'image/x-icon', href: '/treejer.ico'},
           {rel: 'shortcut icon', href: '/treejer.ico', type: 'image/x-icon'},
           {rel: 'apple-touch-icon', href: '/treejer.ico', type: 'image/x-icon'},
           {rel: 'apple-touch-icon', href: '/treejer.ico', type: 'image/x-icon'},

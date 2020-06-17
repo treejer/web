@@ -27,7 +27,7 @@
 
             <button
               :class="{ disable: !treeID }"
-              @click="redeem()"
+              @click="giveTree()"
               class="btn-green param-md">Find My Tree
             </button>
 
@@ -185,6 +185,15 @@
         </div>
       </div>
     </div>
+    <Loading :tr-loading="loading"/>
+    <div class="alert position-relative" v-if="errors" v-for="(item ,index) in errors" :key="index">
+      <b-alert class="position-fixed" :dismissible="errors" style="top: 2px;right: 1px" show variant="danger">
+        {{item.toString()}}
+      </b-alert>
+
+
+    </div>
+
 
   </section>
 
@@ -192,16 +201,21 @@
 
 <script>
   import Fab from "@/components/font-awsome/Fab";
+  import Loading from "../../components/treejerLoading";
 
   export default {
     name: "findMyTree",
 
+
     components: {
+      Loading,
       Fab
     },
     data() {
       return {
         treeID: null,
+        loading: false,
+        errors: null,
         boxs: [
           {
             name: 'Neil Smith',
@@ -261,33 +275,50 @@
         this.$router.push(`/findMyTree/${step}`)
 
       },
-      redeem() {
-        let self = this
-        this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`).then(function (res) {
-          self.$cookies.set('step', self.treeID)
+      giveTree() {
+        if (!this.treeID) {
+          return null
+        } else {
+          this.loading = true
+          let self = this
+          this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
+            .then(function (response) {
+              self.loading = false
+              const status = response.status
+              switch (status) {
+                case 1:
+                  self.step = 'stepOne';
+                  break
+                case 2:
+                  self.step = 'stepTwo';
+                  break
+                case 3:
+                  self.step = 'stepTwo';
+                  break
+                default:
+                  self.step = null
+              }
+              self.changeRoute(self.step)
 
-          const status = res.status
-          switch (status) {
-            case 1:
-              self.step = 'stepOne';
-              break
-            case 2:
-              self.step = 'stepTwo';
-              break
-            case 3:
-              self.step = 'stepTwo';
-              break
-            default:
-              self.step = null
-
-          }
-
-          self.changeRoute(self.step)
 
 
-        })
+              // handle success
+            })
+            .catch(function (error) {
+
+              self.loading = false
+              self.errors = error.response.data.errors
+              console.log(error.response.data.errors)
+
+              // handle error
+            })
+            .then(function () {
+              // always executed
+            });
+        }
       }
     }
+
 
   }
 </script>

@@ -424,7 +424,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route);
   },
   methods: {
     activeMenu(item, index) {
