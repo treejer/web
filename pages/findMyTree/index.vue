@@ -280,6 +280,8 @@
           return null
         } else {
           this.loading = true
+          debugger
+          this.$cookies.set('step',this.treeID)
           let self = this
           this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
             .then(function (response) {
