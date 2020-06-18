@@ -89,7 +89,7 @@
         items: [
           {name: "About", step: 1, href: 'about'},
           {name: "Blog", step: 2},
-          // {name: "For Business", step: 3, href: 'forBusiness'},
+          {name: "For Business", step: 3, href: 'forBusiness'},
           {name: "Find My Tree", step: 4, href: 'findMyTree'},
         ]
       };
