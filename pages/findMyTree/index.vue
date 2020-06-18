@@ -205,6 +205,8 @@
 
   export default {
     name: "findMyTree",
+    layout:"checkout",
+
 
 
     components: {
