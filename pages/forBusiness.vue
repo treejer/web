@@ -509,6 +509,37 @@
           </div>
         </div>
       </section>
+      <section class="echo-chain-slider mt-5">
+        <div class="container">
+          <div class="row  justify-content-center ">
+            <div class="col-12 col-md-8">
+              <div class="echo-card mb-4">
+                <div class="row">
+                  <div class="col-md-7 p-0">
+                    <div class="card-cout">
+                      <img src="../assets/images/for-business/capt.svg" alt="capt" height="33">
+                    </div>
+                    <div class="card-text mt-3 "><p class="tr-gray-two param">I do a lot to reduce my carbon footprint
+                      but some things can’t be avoided. I use Wren to offset the rest every month.</p>
+                      <hr>
+                    </div>
+                    <div class="card-author">
+                      <span class="param-18 tr-gray-two">{{'Shivam Dhawan'}},</span>
+                      <span class="param-18 tr-gray-two font-weight-bold">{{' GetBoarded'}}</span>
+                      <span class="param tr-gray-four d-block">{{' Founder and CEO'}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-5 d-flex  justify-content-center p-0 text-center ">
+                      <img class=" m-auto align-self-center align-items-center" src="../assets/images/for-business/get-boarded.svg" alt="get-boarded"/>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
     </section>
 
@@ -595,6 +626,24 @@
 
       }
 
+    }
+
+    .card-chain {
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.16);
+      border-radius: 12.944px;
+      background: white;
+      height: 250px;
+
+      .cout {
+
+      }
+    }
+
+    .echo-card {
+      background: white;
+      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.16);
+      border-radius: 12.944px;
+      padding: 32px;
     }
   }
 </style>
