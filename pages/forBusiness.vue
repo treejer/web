@@ -1,6 +1,6 @@
 <template>
 
-    <section :page="$route.name" class="position-relative pt-5 col-md-12 for-business">
+    <section :page="$route.name" class="position-relative pt-5 col-md-12 for-business" style="overflow-x: hidden">
       <section class="for-header">
         <div class="container">
           <div class="row justify-content-center mt-2 text-center">
@@ -577,6 +577,9 @@
           -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
           filter: grayscale(100%);
           transition: all ease-out .2s;
+          @media(max-width: 769px){
+            height: 30px;
+          }
         }
 
         img:hover {
