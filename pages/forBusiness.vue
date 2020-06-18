@@ -616,8 +616,11 @@
         display: flex;
         justify-content: center;
         cursor: pointer;
+        width: 50%;
+        float: right;
         @media (max-width: 768px) {
           min-height: 25px;
+          width: 100%;
 
         }
       }
