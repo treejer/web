@@ -85,7 +85,7 @@
     background-image: url(../assets/images/home/treejerStory.png);
     background-size: contain;
     background-repeat: no-repeat;
-    height: 88vh;
+    height: 81vh;
     background-position-y: 30%;
     background-position-x:96% ;
     .vue-typer{
