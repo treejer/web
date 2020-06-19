@@ -1,6 +1,6 @@
 <template>
-  <section :page="$route.name" class="position-relative mb-5 pb-5 pt-5 col-lg-10 col-12 leader-boards">
-    <div class="container-fluid">
+  <section :page="$route.name" class="position-relative pt-5 col-lg-10 col-12 leader-boards" style="min-height: 81vh">
+    <div class="container-fluid" >
       <div class="row article">
         <div class="col-lg-8 col-12">
           <div class="row">
