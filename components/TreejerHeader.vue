@@ -71,19 +71,23 @@
       </b-navbar>
 
     </keep-alive>
+    <Loading :trLoading="trLoading" />
 
   </div>
 </template>
 
 <script >
 
+  import Loading from "./treejerLoading";
   export default {
     name: "TreejerHeader",
     components:{
+      Loading
     },
     data() {
       return {
         formError: null,
+        trLoading:false,
         userName: "test",
         account: null,
         user: false,
@@ -104,10 +108,6 @@
     //   }
     // },
     methods: {
-      onComplete(data) {
-        console.log("data:", data);
-        this.account = data;
-      },
       loginToast(variant, title, message, href) {
         this.$bvToast.toast(message, {
           title: title,
@@ -117,7 +117,7 @@
       },
       log() {
         if (typeof window.ethereum !== 'undefined') {
-          console.log('MetaMask is installed!');
+
           this.isLoggedIn = true
           this.getAccount();
 
@@ -129,6 +129,7 @@
             ethereum.enable();
             //Will Start the metamask extension
             self.isLoggedIn = true
+            self.trLoading = false
           });
         } else {
           this.makeToast('danger')
@@ -158,7 +159,7 @@
         // this.$store.dispatch("logout").then(() => {
         //   this.$router.push("/");
         // });
-      
+
       },
       makeToast(variant = null) {
         this.$bvToast.toast('install metamask from here', {
@@ -179,7 +180,6 @@
 
     },
     mounted() {
-      this.log()
     }
   };
 </script>
