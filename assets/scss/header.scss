@@ -7,6 +7,22 @@
   .navbar-nav.header-menu {
     margin-left: 58px;
   }
+  .accounting-card{
+    .img{
+      z-index: +99;
+    }
+    .param-sm{
+      background-color: #EEEEEE;
+      padding: 5px 20px 5px 15px;
+      border: solid 1px white;
+      border: 2px solid #FFFFFF;
+      border-radius: 25px;
+      border-right: 0;
+      position: absolute;
+      right: 90px;
+      z-index: 5;
+    }
+  }
 
   .header-menu {
     font-size: 14px;
@@ -80,7 +96,7 @@
     color: #f5f5f5;
   }
 
-  img {
+  img[alt='logo'] {
     width: 71px;
     height: 71px;
     object-fit: contain;

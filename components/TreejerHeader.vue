@@ -47,13 +47,16 @@
               />
             </b-nav-form>
             <b-nav-form v-if="isLoggedIn">
-              <b-button
-                @click.prevent="logout"
-                class="connect-buttons m-auto"
-                type="submit"
-              >{{ account }}
-              </b-button
-              >
+<!--              <b-button-->
+<!--                @click.prevent="logout"-->
+<!--                class="connect-buttons m-auto"-->
+<!--                type="submit"-->
+<!--              >{{ account }}-->
+<!--              </b-button-->
+              <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >
+                <span class="param-sm tr-gray-three">{{account}}</span>
+                <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>
+              </div>
               <img
                 alt="tree"
                 name="tree"
@@ -152,9 +155,10 @@
           .catch(err => console.log(err));
       },
       logout() {
-        this.$store.dispatch("logout").then(() => {
-          this.$router.push("/");
-        });
+        // this.$store.dispatch("logout").then(() => {
+        //   this.$router.push("/");
+        // });
+      
       },
       makeToast(variant = null) {
         this.$bvToast.toast('install metamask from here', {
