@@ -31,9 +31,9 @@
             </b-nav-item> -->
           </b-navbar-nav>
           <b-navbar-nav>
-            <b-nav-form v-if="isLoggedIn !== 'test'">
+            <b-nav-form v-if="!account">
               <b-button
-                @click.prevent="login"
+                @click.prevent="log()"
                 class="connect-button m-auto"
                 type="submit"
               >Connect Wallet
@@ -46,14 +46,17 @@
                 class="img-fluid tree pointer-event"
               />
             </b-nav-form>
-            <b-nav-form v-if="isLoggedIn === 'test'">
-              <b-button
-                @click.prevent="logout"
-                class="connect-button m-auto"
-                type="submit"
-              >{{ token }}
-              </b-button
-              >
+            <b-nav-form v-if="account">
+              <!--              <b-button-->
+              <!--                @click.prevent="logout"-->
+              <!--                class="connect-buttons m-auto"-->
+              <!--                type="submit"-->
+              <!--              >{{ account }}-->
+              <!--              </b-button-->
+              <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >
+                <span class="param-sm tr-gray-three">{{account}}</span>
+                <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>
+              </div>
               <img
                 alt="tree"
                 name="tree"
@@ -74,6 +77,7 @@
   export default {
     name: "TreejerHeader",
     layout:'dashboard',
+
     data() {
       return {
         formError: null,
@@ -90,8 +94,8 @@
       };
     },
     computed: {
-      isLoggedIn() {
-        return this.$store.state.user;
+      account() {
+        return this.$store.state.account;
       }
     },
     methods: {

@@ -21,6 +21,11 @@
       position: absolute;
       right: 90px;
       z-index: 5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 110px;
+
     }
   }
 

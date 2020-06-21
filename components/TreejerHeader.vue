@@ -54,7 +54,7 @@
 <!--              >{{ account }}-->
 <!--              </b-button-->
               <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >
-                <span class="param-sm tr-gray-three">{{account}}</span>
+                <span class="param-sm tr-gray-three">{{isLoggedIn}}</span>
                 <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>
               </div>
               <img
@@ -76,23 +76,21 @@
   </div>
 </template>
 
-<script >
+<script>
 
   import Loading from "./treejerLoading";
+
   export default {
     name: "TreejerHeader",
-    components:{
+    components: {
       Loading
     },
     data() {
       return {
         formError: null,
         trLoading:false,
-        userName: "test",
         account: null,
         user: false,
-        isLoggedIn: false,
-        token: "",
         activeIndex: 0,
         items: [
           {name: "About", step: 1, href: 'about'},
@@ -102,11 +100,11 @@
         ]
       };
     },
-    // computed: {
-    //   isLoggedIn() {
-    //     return this.$store.state.user;
-    //   }
-    // },
+    computed: {
+      isLoggedIn() {
+        return this.$store.state.account;
+      }
+    },
     methods: {
       loginToast(variant, title, message, href) {
         this.$bvToast.toast(message, {
@@ -117,41 +115,23 @@
       },
       log() {
         if (typeof window.ethereum !== 'undefined') {
-
           this.isLoggedIn = true
           this.getAccount();
-
-
-          const ethereumButton = document.querySelector('.connect-button');
-          let self = this;
-
-          ethereumButton.addEventListener('click', () => {
-            ethereum.enable();
-            //Will Start the metamask extension
-            self.isLoggedIn = true
-            self.trLoading = false
-          });
         } else {
           this.makeToast('danger')
         }
-
       },
       async getAccount() {
         const accounts = await ethereum.enable();
         console.log(accounts)
-
         const account = accounts[0];
-        this.account = account.slice(0,10);
+        this.account = account.slice(0, 10);
+        this.login(account)
       },
-      login: function () {
-        let userName = this.userName;
-        this.$store
-          .dispatch("login", {userName})
+      login(account) {
+        this.$store.dispatch("login", {account})
           .then(() => {
-            this.$cookies.set('token', true)
-            this.loginToast('success',)
-            this.token = 'test'
-            // this.$router.push("about")
+            this.$cookies.set('account', account)
           })
           .catch(err => console.log(err));
       },
@@ -180,6 +160,7 @@
 
     },
     mounted() {
+
     }
   };
 </script>

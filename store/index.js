@@ -1,22 +1,12 @@
 export const state = () => ({
   token: null,
-  user: null,
+  account: null,
   dashboard: null
 
 })
 export const actions = {
-  login({commit}) {
-    if (typeof window.ethereum !== 'undefined') {
-      window.ethereum.enable()
-
-      async function getAccount() {
-        const accounts = await ethereum.enable();
-        const account = accounts[0];
-        alert(account);
-        commit('SET_USER', account)
-      }
-    } else {
-    }
+  login({commit}, {account}) {
+    commit('SET_USER', account)
   },
 
   logout({commit}) {
@@ -36,8 +26,8 @@ export const mutations = {
 
 
   },
-  SET_USER(state, user) {
-    state.user = user
+  SET_USER(state, account) {
+    state.account = account
 
   },
   SET_DASHBOARD(state, status) {
