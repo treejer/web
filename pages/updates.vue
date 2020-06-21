@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-10 updates"  style="min-height: 81vh">
+  <section :page="$route.name" class="position-relative pt-5 col-10 updates" >
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-8 col-12">

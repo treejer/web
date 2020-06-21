@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative pt-5 col-12 find-my-tree "  style="min-height: 81vh">
+  <section class="position-relative pt-5 col-12 find-my-tree ">
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-12">

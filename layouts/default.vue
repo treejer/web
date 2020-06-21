@@ -1,8 +1,8 @@
 <template>
-  <div :class="currentRouteName">
+  <div :class="currentRouteName" style="min-height: 100vh">
 
     <TreejerHeader />
-    <div class="container" :class="$route.name === 'index__en' ? 'iraj': 'mehdi' ">
+    <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
         <nuxt/>
       </div>

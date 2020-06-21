@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative  pt-5 col-lg-10 col-12 my-forest"  style="min-height: 81vh">
+  <section class="position-relative  pt-5 col-lg-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article">
         <div class="col-lg-9 col-12">

@@ -1,8 +1,8 @@
 <template>
-  <div :class="currentRouteName">
+  <div :class="currentRouteName" style="min-height: 100vh">
 
    <DashboardHeader />
-    <div class="container">
+    <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
         <Sidebar />
         <nuxt />

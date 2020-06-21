@@ -1,5 +1,5 @@
 <template>
-  <div class="headers container">
+  <div class="headers container" style="min-height: 10vh">
     <keep-alive>
       <b-navbar toggleable="md">
         <b-navbar-brand
