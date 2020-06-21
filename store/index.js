@@ -6,7 +6,17 @@ export const state = () => ({
 })
 export const actions = {
   login({commit}) {
-    commit('SET_USER', true)
+    if (typeof window.ethereum !== 'undefined') {
+      window.ethereum.enable()
+
+      async function getAccount() {
+        const accounts = await ethereum.enable();
+        const account = accounts[0];
+        alert(account);
+        commit('SET_USER', account)
+      }
+    } else {
+    }
   },
 
   logout({commit}) {

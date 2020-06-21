@@ -5,8 +5,9 @@
           <div class="col-md-8 col-12">
             <div class="row">
               <div class="col-12 title">
-                <h1 class="Montserrat-Bold tr-gray-three font-weight-bold text-dn">
-                  A more
+                <client-only>
+                  <h1 class="Montserrat-Bold tr-gray-three font-weight-bold text-dn">
+                    A more
                     <vue-typer
                       :repeat='Infinity'
                       :shuffle='false'
@@ -27,8 +28,10 @@
                   " gamified",
                   " measurable"
                   ]'></vue-typer>
-                  Climate Action through<br> financial inclusion of rural communities.
-                </h1>
+                    Climate Action through<br> financial inclusion of rural communities.
+                  </h1>
+
+                </client-only>
               </div>
               <div class="col-12 form-group mt-3">
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">

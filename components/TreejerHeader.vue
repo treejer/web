@@ -31,9 +31,9 @@
             </b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav>
-            <b-nav-form v-if="isLoggedIn !== 'test'">
+            <b-nav-form v-if="!isLoggedIn">
               <b-button
-                @click.prevent="login"
+                @click.prevent="log()"
                 class="connect-button m-auto"
                 type="submit"
               >Connect Wallet
@@ -46,12 +46,12 @@
                 class="img-fluid tree pointer-event"
               />
             </b-nav-form>
-            <b-nav-form v-if="isLoggedIn === 'test'">
+            <b-nav-form v-if="isLoggedIn">
               <b-button
                 @click.prevent="logout"
-                class="connect-button m-auto"
+                class="connect-buttons m-auto"
                 type="submit"
-              >{{ token }}
+              >{{ account }}
               </b-button
               >
               <img
@@ -82,8 +82,9 @@
       return {
         formError: null,
         userName: "test",
-        account:null,
+        account: null,
         user: false,
+        isLoggedIn: false,
         token: "",
         activeIndex: 0,
         items: [
@@ -94,11 +95,11 @@
         ]
       };
     },
-    computed: {
-      isLoggedIn() {
-        return this.$store.state.user;
-      }
-    },
+    // computed: {
+    //   isLoggedIn() {
+    //     return this.$store.state.user;
+    //   }
+    // },
     methods: {
       onComplete(data) {
         console.log("data:", data);
@@ -111,6 +112,33 @@
           href: href
         });
       },
+      log() {
+        if (typeof window.ethereum !== 'undefined') {
+          console.log('MetaMask is installed!');
+          this.isLoggedIn = true
+          this.getAccount();
+
+
+          const ethereumButton = document.querySelector('.connect-button');
+          let self = this;
+
+          ethereumButton.addEventListener('click', () => {
+            ethereum.enable();
+            //Will Start the metamask extension
+            self.isLoggedIn = true
+          });
+        } else {
+          this.makeToast('danger')
+        }
+
+      },
+      async getAccount() {
+        const accounts = await ethereum.enable();
+        console.log(accounts)
+
+        const account = accounts[0];
+        this.account = account.slice(0,10);
+      },
       login: function () {
         let userName = this.userName;
         this.$store
@@ -119,7 +147,7 @@
             this.$cookies.set('token', true)
             this.loginToast('success',)
             this.token = 'test'
-            this.$router.push("about")
+            // this.$router.push("about")
           })
           .catch(err => console.log(err));
       },
@@ -127,6 +155,14 @@
         this.$store.dispatch("logout").then(() => {
           this.$router.push("/");
         });
+      },
+      makeToast(variant = null) {
+        this.$bvToast.toast('install metamask from here', {
+          title: `https://metamask.io/' ${variant || 'default'}`,
+          href: 'https://metamask.io/',
+          variant: variant,
+          solid: true
+        })
       },
 
       activeMenu(item, index) {
@@ -137,6 +173,9 @@
         }
       },
 
+    },
+    mounted() {
+      this.log()
     }
   };
 </script>
