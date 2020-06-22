@@ -107,9 +107,7 @@
       };
     },
     computed: {
-      isLoggedIn() {
-        return this.$store.state.account;
-      }
+
     },
     methods: {
       loginToast(variant, title, message, href) {
@@ -119,12 +117,6 @@
           href: href
         });
       },
-      logout() {
-        // this.$store.dispatch("logout").then(() => {
-        //   this.$router.push("/");
-        // });
-
-      },
       makeToast(variant = null) {
         this.$bvToast.toast('install metamask from here', {
           title: `https://metamask.io/' ${variant || 'default'}`,
@@ -133,7 +125,6 @@
           solid: true
         })
       },
-
       activeMenu(item, index) {
         if (item.name === 'Blog') {
           window.open('https://blog.treejer.com/', '_blank')
@@ -141,11 +132,8 @@
           this.activeIndex = index;
         }
       },
-
     },
     mounted() {
-      console.log(this.$cookies.get('account'),'irajjjj')
-
     }
   };
 </script>

@@ -6,6 +6,8 @@ export const state = () => ({
 })
 export const actions = {
   login({commit}, {account}) {
+    this.$cookies.set('account', account)
+
     commit('SET_USER', account)
   },
 

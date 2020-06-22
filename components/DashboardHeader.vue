@@ -79,18 +79,6 @@
           href: href
         });
       },
-      login: function () {
-        let userName = this.userName;
-        this.$store
-          .dispatch("login", {userName})
-          .then(() => {
-            this.$cookies.set('token', true)
-            this.loginToast('success',)
-            this.token = 'test'
-            this.$router.push("myForest")
-          })
-          .catch(err => console.log(err));
-      },
       logout() {
         this.$store.dispatch("logout").then(() => {
           this.$router.push("/");
