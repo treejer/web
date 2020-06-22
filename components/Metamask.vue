@@ -1,6 +1,6 @@
 <template>
   <b-navbar-nav>
-    <b-nav-form v-if="!isLoggedIn">
+    <b-nav-form v-if="!$cookies.get('account')">
       <b-button
         @click.prevent="log()"
         class="connect-button m-auto"
@@ -15,16 +15,17 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-nav-form v-if="isLoggedIn">
+    <b-nav-form v-if="isLoggedIn|| $cookies.get('account')">
       <!--              <b-button-->
       <!--                @click.prevent="logout"-->
       <!--                class="connect-buttons m-auto"-->
       <!--                type="submit"-->
       <!--              >{{ account }}-->
       <!--              </b-button-->
-      <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >
-        <span class="param-sm tr-gray-three">{{account}}</span>
-        <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>
+      <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout">
+        <span class="param-sm tr-gray-three">{{isLoggedIn|| $cookies.get('account')}}</span>
+        <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42"
+                               height="42"/></span>
       </div>
       <img
         alt="tree"
@@ -33,8 +34,6 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <Loading :trLoading="trLoading" />
-
 
     <!-- Using 'button-content' slot -->
   </b-navbar-nav>
@@ -44,45 +43,58 @@
   import Loading from '../components/treejerLoading'
 
   export default {
-    components:{Loading},
+    components: {Loading},
     data() {
       return {
         account: null,
-        isLoggedIn: false,
-        trLoading:false
+        trLoading: false
 
 
       };
     },
-    created() {
+    computed: {
+      isLoggedIn() {
+        return this.$store.state.account;
+      }
+    },
+    mounted() {
+      console.log(this.$cookies.get('account'))
     },
     methods: {
+      loginToast(variant, title, message, href) {
+        this.$bvToast.toast(message, {
+          title: title,
+          variant: variant,
+          href: href
+        });
+      },
       log() {
         if (typeof window.ethereum !== 'undefined') {
-          console.log('MetaMask is installed!');
-          this.isLoggedIn = true
           this.getAccount();
-
-
-          const ethereumButton = document.querySelector('.connect-button');
-          let self = this;
-
-          ethereumButton.addEventListener('click', () => {
-            ethereum.enable();
-            //Will Start the metamask extension
-            self.isLoggedIn = true
-          });
         } else {
           this.makeToast('danger')
         }
-
       },
       async getAccount() {
         const accounts = await ethereum.enable();
         console.log(accounts)
-
         const account = accounts[0];
-        this.account = account.slice(0,10);
+        this.account = account.slice(0, 10);
+        this.login(account)
+      },
+      login(account) {
+        this.$store.dispatch("login", {account})
+          .then(() => {
+            this.$cookies.set('account', account)
+            console.log()
+          })
+          .catch(err => console.log(err));
+      },
+      logout() {
+        // this.$store.dispatch("logout").then(() => {
+        //   this.$router.push("/");
+        // });
+
       },
       makeToast(variant = null) {
         this.$bvToast.toast('install metamask from here', {
@@ -92,7 +104,16 @@
           solid: true
         })
       },
-    }
+
+      activeMenu(item, index) {
+        if (item.name === 'Blog') {
+          window.open('https://blog.treejer.com/', '_blank')
+        } else {
+          this.activeIndex = index;
+        }
+      },
+
+    },
   };
 </script>
 

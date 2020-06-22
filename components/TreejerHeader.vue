@@ -24,49 +24,53 @@
           <!-- Right aligned nav items -->
 
           <b-navbar-nav class="header-menu">
-            <b-nav-item v-if="!$store.state.user" :class="{ 'active': activeIndex === index }"
+            <b-nav-item  :class="{ 'active': activeIndex === index }"
                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"
                         @click="activeMenu(item,index)">
               {{item.name}}
             </b-nav-item>
           </b-navbar-nav>
-          <b-navbar-nav>
-            <b-nav-form v-if="!isLoggedIn">
-              <b-button
-                @click.prevent="log()"
-                class="connect-button m-auto"
-                type="submit"
-              >Connect Wallet
-              </b-button
-              >
-              <img
-                alt="tree"
-                name="tree"
-                src="/tree.svg"
-                class="img-fluid tree pointer-event"
-              />
-            </b-nav-form>
-            <b-nav-form v-if="isLoggedIn">
+<!--          <b-navbar-nav>-->
+<!--            <b-nav-form v-if="!isLoggedIn">-->
 <!--              <b-button-->
-<!--                @click.prevent="logout"-->
-<!--                class="connect-buttons m-auto"-->
+<!--                @click.prevent="log()"-->
+<!--                class="connect-button m-auto"-->
 <!--                type="submit"-->
-<!--              >{{ account }}-->
+<!--              >Connect Wallet-->
 <!--              </b-button-->
-              <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >
-                <span class="param-sm tr-gray-three">{{isLoggedIn}}</span>
-                <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>
-              </div>
-              <img
-                alt="tree"
-                name="tree"
-                src="/tree.svg"
-                class="img-fluid tree pointer-event"
-              />
-            </b-nav-form>
+<!--              >-->
+<!--              <img-->
+<!--                alt="tree"-->
+<!--                name="tree"-->
+<!--                src="/tree.svg"-->
+<!--                class="img-fluid tree pointer-event"-->
+<!--              />-->
+<!--            </b-nav-form>-->
+<!--            <b-nav-form v-if="isLoggedIn">-->
+<!--&lt;!&ndash;              <b-button&ndash;&gt;-->
+<!--&lt;!&ndash;                @click.prevent="logout"&ndash;&gt;-->
+<!--&lt;!&ndash;                class="connect-buttons m-auto"&ndash;&gt;-->
+<!--&lt;!&ndash;                type="submit"&ndash;&gt;-->
+<!--&lt;!&ndash;              >{{ account }}&ndash;&gt;-->
+<!--&lt;!&ndash;              </b-button&ndash;&gt;-->
+<!--              <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >-->
+<!--                <span class="param-sm tr-gray-three">{{isLoggedIn}}</span>-->
+<!--                <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>-->
+<!--              </div>-->
+<!--              <img-->
+<!--                alt="tree"-->
+<!--                name="tree"-->
+<!--                src="/tree.svg"-->
+<!--                class="img-fluid tree pointer-event"-->
+<!--              />-->
+<!--            </b-nav-form>-->
 
-            <!-- Using 'button-content' slot -->
-          </b-navbar-nav>
+<!--            &lt;!&ndash; Using 'button-content' slot &ndash;&gt;-->
+<!--          </b-navbar-nav>-->
+          <client-only>
+            <Metamask />
+
+          </client-only>
         </b-collapse>
       </b-navbar>
 
@@ -79,10 +83,12 @@
 <script>
 
   import Loading from "./treejerLoading";
+  import Metamask from "../components/Metamask";
 
   export default {
     name: "TreejerHeader",
     components: {
+      Metamask,
       Loading
     },
     data() {
@@ -113,28 +119,6 @@
           href: href
         });
       },
-      log() {
-        if (typeof window.ethereum !== 'undefined') {
-          this.isLoggedIn = true
-          this.getAccount();
-        } else {
-          this.makeToast('danger')
-        }
-      },
-      async getAccount() {
-        const accounts = await ethereum.enable();
-        console.log(accounts)
-        const account = accounts[0];
-        this.account = account.slice(0, 10);
-        this.login(account)
-      },
-      login(account) {
-        this.$store.dispatch("login", {account})
-          .then(() => {
-            this.$cookies.set('account', account)
-          })
-          .catch(err => console.log(err));
-      },
       logout() {
         // this.$store.dispatch("logout").then(() => {
         //   this.$router.push("/");
@@ -160,6 +144,7 @@
 
     },
     mounted() {
+      console.log(this.$cookies.get('account'),'irajjjj')
 
     }
   };

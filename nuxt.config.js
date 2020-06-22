@@ -54,7 +54,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    {src: '~plugins/metaMask.js', mode: 'client', ssr: false},
+    // {src: '~plugins/metaMask.js', mode: 'client', ssr: false},
     {src: '~plugins/swiper.js', mode: 'client', ssr: false},
     {src: '~plugins/typer.js', mode: 'client', ssr: false},
     {src: '~plugins/maps.js', ssr: false},
