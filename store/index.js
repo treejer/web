@@ -12,6 +12,8 @@ export const actions = {
   },
 
   logout({commit}) {
+    this.$cookies.remove('account');
+
     commit('SET_USER', null)
   },
   hasDashboard({commit},{status}) {
