@@ -90,10 +90,8 @@
           })
           .catch(err => console.log(err));
       },
-      logout() {
-       
+       logout() {
         this.$store.dispatch("logout").then(() => {
-          this.$router.push("/");
         });
         this.$forceUpdate()
 
