@@ -519,8 +519,7 @@
                     <div class="card-cout">
                       <img src="../assets/images/for-business/capt.svg" alt="capt" height="33">
                     </div>
-                    <div class="card-text mt-3 "><p class="tr-gray-two param">I do a lot to reduce my carbon footprint
-                      but some things can’t be avoided. I use Wren to offset the rest every month.</p>
+                    <div class="card-text mt-3 "><p class="tr-gray-two param">Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years  with pioneers like Treejer leading the charge.</p>
                       <hr>
                     </div>
                     <div class="card-author">
