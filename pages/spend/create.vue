@@ -18,240 +18,58 @@
         <div class="col-12 step-one" v-if="activeIndex === 0">
           <div class="row">
             <div class="col-12">
-              <h1 class="param-lg text-center tr-gray-four mt-5">Create Your Coupon</h1>
+              <h1 class="param-lg text-center tr-gray-four mt-5">Your Coupon Details</h1>
 
             </div>
-            <div class="col-12 justify-content-center text-center">
-              <div class="form">
-                <div class="form-group" >
-                  <label for="product_category">
-                   <select id="product_category" >
-                     <option>Holidays</option>
-                   </select>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row form-name" id="sendAsTreeCard" v-if="sendAsTreeCard">
-            <div class="col-12">
-              <div class="card bg-transparent p-4 mt-5">
-                <div class="form-full-name">
-                  <div class="row">
-                    <div class="col-12">
-                      <p class="param-md-md font-weight-bold tr-gray-three">Add your name</p>
+            <div class="col-md-12 col-12 justify-content-center mt-4 form-coupon ">
+              <div class="row justify-content-center ">
+                <div class="col-12 col-md-8">
+                  <div class="form">
+                    <div class="form-group web-site ">
+                      <p for="product_category" class="tr-gray-three param">Website </p>
+                      <input v-model="form.website"
+                        pattern="https?://.+" title="Include http://"
+                        class="form-control" required  type="text" placeholder="https://yourdomain.com">
 
                     </div>
-                    <div class="col-lg-4">
-                      <label class="param tr-gray-two Montserrat-Medium">First name
-                        <input class="param-sm tr-gray-five" type="text" placeholder="First name">
-                      </label>
-                    </div>
-                    <div class="col-lg-4">
-                      <label class="param tr-gray-two Montserrat-Medium">Last name (optional)
-                        <input class="param-sm tr-gray-five" type="text" placeholder="Last name">
-                      </label>
-                    </div>
-                    <div class="col-lg-4">
-                      <label class="param tr-gray-two Montserrat-Medium">Your email
-                        <input class="param-sm tr-gray-five" type="text" placeholder="Your email">
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="recepient mt-5">
-                  <div class="row">
-                    <div class="col-12">
-                      <p class="param-md-md font-weight-bolder tr-gray-three">Add recepient(s)</p>
+                    <div class="form-group coupon-code mt-4">
+                      <p for="product_category" class="tr-gray-three param">Coupon Code </p>
+                      <input v-model="form.couponCode"
+                        pattern="https?://.+" title="Include http://"
+                        class="form-control" required  type="text" placeholder="https://yourdomain.com">
 
                     </div>
-                    <div class="col-lg-4">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                    </div>
-                    <div class="col-lg-4">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="cv-team bg-transparent justify-content-center text-center ">
-                        <img src="~/assets/images/myforest/file-excel.png" class="img-fluid pt-4 m-auto">
-                        <p class="param-sm mt-3 p-2 mb-3">
-                          Drag & drop your CSV file here
-                          or <span class="tr-green">
-                          select a CSV file to upload.
-                        </span>
-                        </p>
+                    <div class="form-group coupon-code mt-4">
+
+                      <div class="row">
+                        <div class="col-md-6 col-12">
+                          <p for="product_category" class="tr-gray-three expiration-date">Expiration date </p>
+                          <b-form-datepicker id="example-datepicker" v-model="form.date" class="mb-2"></b-form-datepicker>
+                        </div>
+                        <div class="col-md-6 col-12">
+
+                            <p for="product_category" class="tr-gray-three expiration-date">Region</p>
+                          <select v-model="form.country">
+                            <option v-for="(item , index) in regions" :value="form.country ===null ?'select on item' :item.country ">{{item.country }}</option>
+                          </select>
+
+
+
+
+
+
+
+
+                                             </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="d-flex mt-3 align-items-center align-self-center">
 
-                        <button class="btn-outline-green-md param-sm btn-lg mr-2 ">Add another row</button>
-                        <p class="param-sm mt-3">Or upload email addresses using our <span
-                          class="tr-green pointer-event">CSV template</span></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mt-3">
-                    <div class="col-12">
-                      <div class="d-flex ">
-                        <button class=" btn-green-md param mr-4">Finish</button>
-                        <p class="param tr-green mt-3 pointer-event">Skip for now </p>
-
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 step-two" v-if="activeIndex === 1">
-          <div class="row">
-            <div class="col-12 mt-5 justify-content-center text-center">
-              <h1 class="title-sm font-weight-bolder text-center ">
-                Select Wallet
-              </h1>
-            </div>
-            <div
-              class="col-12 text-center col-lg-4 d-none  d-md-block align-items-center align-self-center  h-100"
-            >
-              <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
-              <p
-                class="pointer-event tr-green"
-                @click="localePath('contactUs')"
-              >
-                support@treejer.com
-              </p>
-            </div>
-            <div
-              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
-            >
-              <ul class="wallets tr-gray-three list-style-none">
-                <li v-for="(item, index) in wallets" class="pointer-event">
-                  <p
-                    @click="activeWallets(item, index)"
-                    :class="{ active: activeWallet === index }"
-                    :key="index"
-                    :name="item.name"
-                  >
-                    {{ item.name }}
-                  </p>
-                </li>
-              </ul>
-              <p class="param  mt-3 tr-gray-five">New to Ethereum?</p>
-              <p class="param   tr-green">Learn more about wallets</p>
-              <button
-                class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white "
-                @click="activeIndex = 2"
-              >
-                CONNECT
-              </button>
-            </div>
-            <div
-              class="col-12 col-lg-4 d-none  d-lg-block flex-row align-items-center align-self-center  h-100"
-            >
-              <hr/>
-              <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
-              <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
-              </p>
-              <hr/>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 step-three" v-if="activeIndex === 2">
-          <div class="row">
-            <div class="col-12 mt-5 justify-content-center text-center">
-              <h1 class="title-sm font-weight-bolder text-center ">
-                Confirm Payment Information
-              </h1>
-              <p class="tr-gray-three mt-5">
-                You're adding <span class="tr-green">{{ "1 tree" }}</span> to
-                your forest!
-              </p>
-            </div>
 
-            <div
-              class="col-12 col-lg-4 d-none  d-md-flex flex-row align-items-center align-self-center  h-100"
-            >
-              <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
-              <p
-                class="pointer-event tr-green"
-                @click="localePath('contactUs')"
-              >
-                support@treejer.com
-              </p>
-            </div>
-            <div
-              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
-            >
-              <div class="tr-table tr-card">
-                <div class="row">
-                  <div class="col-lg-5">
-                    <p class="param tr-gray-four">Total</p>
-                    <p class="param tr-gray-four">Payment Fee</p>
-                  </div>
-                  <div class="col-lg-7">
-                    <p
-                      class="param tr-gray-five font-weight-light position-absolute"
-                    >
-                      <span>ETH</span><span>USD</span>
-                    </p>
-
-                    <p class="param tr-gray-four">
-                      <span id="eth">1.5639</span
-                      ><span class="usd">$173.00</span>
-                    </p>
-                    <p class="param tr-gray-four">
-                      <span id="eths">0.0024</span
-                      ><span class="usds">0.0024</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <button
-                @click="activeIndex = 3"
-                class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white"
-              >
-                CONFIRM
-              </button>
-            </div>
-            <div
-              class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center  h-100"
-            >
-              <hr/>
-              <p class="title-sm  tr-gray-three text-center">Total</p>
-              <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
-              </p>
-              <hr/>
             </div>
           </div>
-        </div>
-        <div class="col-12 final-step justify-content-center text-center"
-             v-if="activeIndex === 3"
-        >
-          <img
-            src="~/assets/images/myforest/final-step.png"
-            class="img-fluid mt-5"
-            alt="final-step"
-          />
-          <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
-            Congratulations, your forest just got bigger!!
-          </h1>
-          <p class="mt-3 tr-gray-three">
-            Rural communities are notified to plant your trees.
-          </p>
-          <nuxt-link class="tr-green param pt-5" :to="localePath('myForest')"
-          >Go back to My Forest
-          </nuxt-link
-          >
         </div>
       </div>
     </div>
@@ -265,7 +83,17 @@
     layout: "checkout",
     data() {
       return {
-        sendAsTreeCard: false,
+
+
+        regions:null,
+
+        form:{
+          website:null,
+          couponCode:null,
+          date:null,
+          country: null,
+
+        },
         steps: [
           {name: "Create", step: 1},
           {name: "Coupon Details", step: 2},
@@ -296,9 +124,21 @@
         activeCount: 0,
         activePay: 0,
         activeWallet: 0,
-        countTree: null
-      };
+        countTree: null,
+
+
+    };
     },
+    mounted() {
+       this.$axios.$get('https://api.first.org/data/v1/countries')
+        .then((res)=>{
+          console.log(res.data)
+          this.regions =res.data
+        })
+         .then((err)=>{
+          console.log(err)
+       })
+    } ,
     methods: {
       activeMenu(item, index) {
         this.activeIndex = index;
@@ -318,48 +158,6 @@
 </script>
 
 <style scoped lang="scss">
-  .add-tree {
-    hr {
-      width: 50%;
-
-      border-top: solid 3px #bdbdbd;
-      margin: 25px auto;
-    }
-
-    .form-name {
-      .finish {
-        padding: 0px 45px !important;
-        opacity: 0.95;
-        border-radius: 6px;
-      }
-
-      label {
-        font-family: Montserrat-Medium;
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      input {
-        border-radius: 10px;
-        background-color: #e5e7db;
-        color: #9e9e9e;
-        border: 0;
-        position: relative;
-        padding: 10px 25px;
-        font-size: 14px;
-        font-family: Montserrat-Medium;
-        margin-top: 7px;
-
-      }
-
-      .cv-team {
-        border-radius: 6px;
-        border: dashed 1px #9e9e9e;
-      }
-
-    }
-  }
-
   .step {
     li {
       width: 100%;
@@ -415,211 +213,19 @@
       }
     }
   }
-
-  .step-three {
-    .tr-table {
-      border-radius: 6px;
-      border: solid 1px #9e9e9e;
-      background-color: #e5e7db;
-      padding: 35px 5px 15px;
-      margin-top: 35px;
-
-      .position-absolute {
-        top: -25px;
-
-        span {
-          padding: 0 20px;
-        }
-      }
-
-      span {
-        padding: 0 5px;
-      }
+  .form-coupon{
+    p{
+      margin-bottom: 0;
     }
-  }
-
-  .step-two {
-    li {
-      margin: 15px auto;
-    }
-
-    .wallets {
-      p {
-        width: auto;
-        border-radius: 6px;
-        border: solid 1px #bdbdbd;
-        background-color: transparent;
-        padding: 10px;
-        margin: 0 10px;
-        text-align: center;
-      }
-
-      p.active {
-        width: auto;
-        border-radius: 6px;
-        border: solid 1px #bdbdbd;
-        background-color: #e5e7db;
-        padding: 10px;
-        margin: 0 10px;
-        transition: 0.5s ease-all;
-      }
-    }
-  }
-
-  .box-shadow-active {
-    padding: 48px 15px 15px;
-    opacity: 0.95;
-    width: 275px;
-    box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
-    background-color: #ffffff;
-    float: right;
-
-    .btn-green {
-      width: 160px;
+    input,.b-form-datepicker,select,option{
       height: 36px;
-      opacity: 0.95;
+      background: #E5E7DB;
       border-radius: 6px;
-      font-size: 14px;
-    }
-  }
+      border: none;
+      font-size: 12px;
+      color: #9E9E9E;
 
-  .tree-count {
-    ul {
-      padding: 0;
-    }
-
-    .input {
-      p {
-        width: 48px !important;
-        height: 48px;
-      }
-
-      p.active {
-        width: 48px !important;
-        height: 48px;
-      }
-    }
-
-    .input,
-    .pays {
-      h1 {
-        font-size: 18px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-      }
-
-      p {
-        width: auto;
-        border-radius: 6px;
-        border: solid 1px #bdbdbd;
-        background-color: #ffffff;
-        padding: 10px;
-        margin: 0 10px;
-      }
-
-      p.active {
-        width: auto;
-        border-radius: 6px;
-        border: solid 1px #bdbdbd;
-        background-color: #e5e7db;
-        padding: 10px;
-        margin: 0 10px;
-        transition: 0.5s ease-all;
-      }
-
-      input {
-        padding: 10px;
-        margin: 0 10px;
-        border-radius: 6px;
-        border: solid 1px #bdbdbd;
-        background-color: #fafafa;
-        width: 100px !important;
-        font-size: 10px;
-        height: 45px;
-      }
-    }
-
-    .pays {
-      svg {
-        font-size: 38px;
-      }
-    }
-
-    .form-check {
-      h1 {
-        font-size: 14px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-      }
-
-      /** BEGIN CSS NEEDED FOR SWITCH **/
-      .on-off-toggle {
-        width: 56px;
-        height: 24px;
-        position: relative;
-        display: inline-block;
-      }
-
-      .on-off-toggle__slider {
-        width: 56px;
-        height: 24px;
-        display: block;
-        border-radius: 34px;
-        background-color: #d8d8d8;
-        transition: background-color 0.4s;
-
-        &:before {
-          content: "";
-          display: block;
-          background-color: #fff;
-          box-shadow: 0 0 0 1px #949494;
-          bottom: 3px;
-          height: 18px;
-          left: 3px;
-          position: absolute;
-          transition: 0.4s;
-          width: 18px;
-          z-index: 5;
-          border-radius: 100%;
-        }
-
-        &:after {
-          display: block;
-          line-height: 24px;
-          text-transform: uppercase;
-          font-size: 12px;
-          font-weight: bold;
-          content: "off";
-          color: #484848;
-          padding-left: 26px;
-          transition: all 0.4s;
-        }
-      }
-
-      .on-off-toggle__input {
-        /*
-            This way of hiding the default input is better
-            for accessibility than using display: none;
-          */
-        position: absolute;
-        opacity: 0;
-      }
-
-      .on-off-toggle__input:checked + .on-off-toggle__slider {
-        background-color: #67b68c;
-
-        &:before {
-          transform: translateX(32px);
-        }
-
-        &:after {
-          content: "on";
-          color: #ffffff;
-          padding-left: 8px;
-        }
-      }
+      width: 100%;
     }
   }
 
