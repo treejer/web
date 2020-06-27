@@ -1,7 +1,7 @@
 <template>
   <div class="card ">
-    <div class="coupon d-flex">
-      <div class="col-md-9  coupon-des">
+    <div class="coupon d-md-flex">
+      <div class="col-md-9 col-sm-12  coupon-des">
         <div class="header">
           <div class="row desc">
             <div class="col-md-4">
@@ -53,10 +53,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 coupon-token">
-        <div class="token d-flex justify-content-center pointer-event "@click="copyClipboard">
-          <span > <input id="token" disabled class="border-0 pointer-event bg-transparent param-md " style="width: 65%" v-model="localCouponToken"></span>
-          <span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="col-md-3 col-sm-12 position-relative coupon-token">
+        <div class="token d-md-flex d-block justify-content-center pointer-event   overflow-hidden w-75"@click="copyClipboard">
+          <span style="width: 75%" > <input id="token" disabled class="border-0 pointer-event bg-transparent param-md "v-model="localCouponToken"></span>
+          <span style="width: 25%"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0)">
 <path
   d="M14.6822 2.06066L12.9268 0.439344C12.6222 0.158039 12.2092 2.08024e-06 11.7784 0L5.95489 0C5.05793 0 4.33083 0.671562 4.33083 1.5V3H1.62406C0.727105 3 0 3.67156 0 4.5V14.5C0 15.3284 0.727105 16 1.62406 16H9.20301C10.1 16 10.8271 15.3284 10.8271 14.5V13H13.5338C14.4308 13 15.1579 12.3284 15.1579 11.5V3.12131C15.1579 2.72349 14.9868 2.34196 14.6822 2.06066ZM9 14.5H1.82707C1.77323 14.5 1.72159 14.4802 1.68352 14.4451C1.64545 14.4099 1.62406 14.3622 1.62406 14.3125V4.6875C1.62406 4.63777 1.64545 4.59008 1.68352 4.55492C1.72159 4.51975 1.77323 4.5 1.82707 4.5H4.33083V11.5C4.33083 12.3284 5.05793 13 5.95489 13H9.20301V14.3125C9.20301 14.3622 9.18162 14.4099 9.14355 14.4451C9.10548 14.4802 9.05384 14.5 9 14.5ZM13.3308 11.5H6.15789C6.10405 11.5 6.05242 11.4802 6.01435 11.4451C5.97627 11.4099 5.95489 11.3622 5.95489 11.3125V1.6875C5.95489 1.63777 5.97627 1.59008 6.01435 1.55492C6.05242 1.51975 6.10405 1.5 6.15789 1.5H9.74436V4.25C9.74436 4.66422 10.1079 5 10.5564 5H13.5338V11.3125C13.5338 11.3622 13.5124 11.4099 13.4744 11.4451C13.4363 11.4802 13.3847 11.5 13.3308 11.5ZM13.5338 3.5H11.3684V1.5H11.6943C11.7481 1.5 11.7998 1.51975 11.8379 1.55491L13.4744 3.06641C13.4932 3.08382 13.5082 3.10449 13.5184 3.12724C13.5286 3.14999 13.5338 3.17438 13.5338 3.199V3.5Z"
@@ -184,11 +184,11 @@
 <style scoped lang="scss">
   .card {
     border: 0;
-    padding: 20% 0;
+    padding: 10% 0;
 
     .coupon {
       background-image: url("../assets/images/spend/Subtract.png");
-      padding: 50px 10px;
+      padding: 50px 20px;
       background-size: contain;
       background-position-y: center;
       background-repeat: no-repeat;
