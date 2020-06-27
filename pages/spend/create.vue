@@ -300,6 +300,7 @@
 <style scoped lang="scss">
   .coupon-count.mt-4 > ul{
     overflow-x: auto;
+
   }
   .step {
     li {
