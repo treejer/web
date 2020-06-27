@@ -613,7 +613,11 @@
 
 
 }
-
+ul{
+  padding-left:0 ;
+  position: relative;
+  overflow-x: auto;
+}
 .Montserrat-SemiBoldItalic {
   font-family: Montserrat-SemiBoldItalic;
 
@@ -723,7 +727,14 @@ html {
 .pointer-event {
     cursor: pointer;
 }
+#example-datepicker__value_{
+  font-size: 14px;
+  color: #616161;
+  font-family:Montserrat-Medium ;
+  height: 36px;
 
+  padding: 7.5px 0px;
+}
 .param {
     font-size: 14px;
     font-weight: 500;
@@ -834,6 +845,9 @@ html {
 
     letter-spacing: normal;
     color: #616161;
+}
+body{
+  overflow-x: hidden;
 }
 
 option {

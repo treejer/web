@@ -427,15 +427,11 @@
         float: right;
         flex-direction: column;
         flex-grow: inherit;
-
-
-      }
-
-      @media (max-width: 768px) {
-        .col-md-2.arrow > div {
-          height: 25px;
+        @media (max-width: 768px) {
+          min-height: 25px;
           width: 100%;
         }
+
 
       }
 
@@ -481,6 +477,19 @@
     }
 
     .echo-card {
+    }
+  }
+
+  @media (max-width: 768px) {
+    .for-business {
+      .col-md-8.text.text-left {
+        padding: 5px 25px;
+      }
+
+      section.for-header > div.container > div.row.justify-content-center.mt-2.text-center > div > svg {
+        width: 100%;
+      }
+
     }
   }
 </style>
