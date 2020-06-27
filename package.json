@@ -38,6 +38,7 @@
     "vue-breadcrumbs": "^1.2.0",
     "vue-country-region-dropdown": "^1.0.0",
     "vue-datamaps": "^0.2.85",
+    "vue-image-crop-upload": "^2.5.0",
     "vue-metamask": "^2.0.1",
     "vue-slider-component": "^3.1.5",
     "vue-typer": "^1.2.0",

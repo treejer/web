@@ -4,7 +4,7 @@
       <b-navbar toggleable="md">
         <b-navbar-brand
           class="pointer-event position-relative"
-          :to="localePath('home')"
+          :to="localePath('index')"
         >
           <img
             class="img-fluid pointer-event"
