@@ -298,6 +298,11 @@
 </script>
 
 <style scoped lang="scss">
+  ul{
+    padding-left:0 ;
+    position: relative;
+    overflow-x: auto;
+  }
   .step {
     li {
       width: 100%;
