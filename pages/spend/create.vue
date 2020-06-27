@@ -298,9 +298,7 @@
 </script>
 
 <style scoped lang="scss">
-  ul{
-    padding-left:0 ;
-    position: relative;
+  .coupon-count.mt-4 > ul{
     overflow-x: auto;
   }
   .step {
