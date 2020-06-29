@@ -269,7 +269,7 @@
 
                       <div class="next-step text-center mt-4 justify-content-center">
                         <nuxt-link :to="localePath('myForest')">
-                          <button class="btn-green" type="button">Finish</button>
+                          <button class="btn-green mb-2" type="button">Finish</button>
 
                         </nuxt-link>
                         <b-button v-b-modal.modal-xl  class="btn-outline-green" id="show-btn" @click="$bvModal.show('coupon')">Preview</b-button>

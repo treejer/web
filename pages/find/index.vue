@@ -31,7 +31,7 @@
               class="btn-green param-md">Find My Tree
             </button>
 
-            <button class="btn-gray param-md disabled">Explore Other Trees</button>
+            <button class="btn-gray param-md mb-2 disabled">Explore Other Trees</button>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
         <div class="col-md-10 col-12">
           <div class="container">
             <div class="row">
-              <div class="col-6 col-lg-2 col-md-4 mb-2 pointer-event" v-for="(item ,index) in boxs">
+              <div class="col-6 col-lg-2 col-md-4 mb-2 pointer-event" v-for="(item ,index) in getUsers">
                 <div class="card-box">
                   <div class="tr-card box-shadow border">
                     <div class="card-img justify-content-center text-center ">
@@ -56,11 +56,11 @@
                         width="64"
                         height="64"
 
-                        :src="item.img">
+                        :src="item.avatar" :alt="item.first_name">
                     </div>
                     <div class="card-title">
-                      <p class="tr-gray-two param-sm mb-1">{{item.name}}</p>
-                      <p class="tr-green mb-1">{{Math.floor(Math.random() * 10)*item.trees}} trees</p>
+                      <p class="tr-gray-two param-sm mb-1">{{item.first_name}}</p>
+                      <p class="tr-green mb-1">{{Math.floor(Math.random() * 10)*item.id}} trees</p>
                     </div>
 
                   </div>
@@ -118,6 +118,7 @@
                   </div>
                 </div>
               </div>
+
 
             </div>
             <table class="table border-0 dir-ltr">
@@ -212,6 +213,14 @@
     components: {
       Loading,
       Fab
+    },
+    computed:{
+      getUsers(){
+        return this.$store.state.users
+      }
+    },
+    mounted() {
+      this.$store.dispatch('allUsers')
     },
     data() {
       return {
