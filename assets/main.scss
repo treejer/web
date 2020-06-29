@@ -844,7 +844,17 @@ html {
     letter-spacing: normal;
     color: #616161;
 }
+.vue-range-slider.slider-component .slider .slider-process {
 
+  background-color: #67b68c!important;
+}
+.vue-range-slider.slider-component .slider-tooltip-wrap .slider-tooltip {
+  border: none!important;
+  background-color: #67b68c!important;
+}
+.vue-range-slider.slider-component .slider-tooltip-wrap.slider-tooltip-top {
+  top: 50px!important;
+}
 body{
   overflow-x: hidden;
 }
