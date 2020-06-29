@@ -72,9 +72,19 @@
 
                         <p for="product_category" class="tr-gray-three param expiration-date">Coupon Value (min. value
                           required) </p>
-                        <client-only>
+                        <div class="mt-3 mb-4 pb-3">
 
-                        </client-only>
+                          <vue-range-slider
+                            v-model="value"
+                            :tooltipStyle="[[],{
+                            top:50,
+                          }]"
+                            :formatter="formatter" :tooltip-merge="tooltipMerge" :enable-cross="enableCross"
+                            :min="min"
+                            :max="max"
+                          ></vue-range-slider>
+
+                        </div>
 
                       </div>
 
@@ -291,9 +301,13 @@
 <script>
   import myUpload from 'vue-image-crop-upload';
   import Coupon from '../../components/Coupon'
+  import 'vue-range-component/dist/vue-range-slider.css'
+  import VueRangeSlider from 'vue-range-component'
+
   export default {
     name: "create",
     components: {
+      'vue-range-slider':VueRangeSlider,
       'my-upload': myUpload,
       Coupon
     },
@@ -365,6 +379,7 @@
         activeCurrency: 0,
         activeWallet: 0,
         countTree: null,
+        value: [0, 100]
 
 
       };
@@ -412,6 +427,13 @@
         console.log(status);
         console.log('field: ' + field);
       }
+    },
+    created() {
+      this.min = 0
+      this.max = 250
+      this.enableCross = false
+      this.tooltipMerge = false
+      this.formatter = value => `${value}`
     }
 
   }
