@@ -6,7 +6,7 @@
           <b-nav>
             <b-nav-item :to="localePath('index')">Home</b-nav-item>
             <b-nav-item target="_blank"  href="https://blog.treejer.com/">Blog</b-nav-item>
-            <b-nav-item :to="localePath('forBusiness')">For Business</b-nav-item>
+            <b-nav-item :to="localePath('business')">For Business</b-nav-item>
             <b-nav-item :to="localePath('about')">About</b-nav-item>
             <b-nav-item :to="localePath('contactUs')">Contact</b-nav-item>
           </b-nav>

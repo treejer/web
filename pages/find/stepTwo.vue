@@ -25,7 +25,7 @@
                 @click="changeRoute(treeDescription.googleMapLink)">{{treeDescription.locationName}}</span></p>
               <p class="tr-gray-three param-xl">Come back in a few days to get an accurate location!</p>
               <div class="mt-5">
-                <nuxt-link :to="localePath('findMyTree')">
+                <nuxt-link :to="localePath('business')">
                   <button class="btn-gray ">Another Search</button>
 
                 </nuxt-link>

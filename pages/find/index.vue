@@ -274,7 +274,7 @@
       changeRoute(step, status) {
 
 
-        this.$router.push(`/findMyTree/${step}`)
+        this.$router.push(`/business/${step}`)
 
       },
       giveTree() {

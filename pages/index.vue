@@ -42,7 +42,7 @@
                   Plant One Tree
                 </button>
                 </nuxt-link>
-                <nuxt-link class="position-relative pointer-event leader" :to="localePath('findMyTree')">
+                <nuxt-link class="position-relative pointer-event leader" :to="localePath('find')">
 
                 <button class="btn-lg btn-outline-green pointer-event param">
                  Find My Tree
