@@ -9,7 +9,8 @@
                      class="form-control mb-3" required type="text" >
             <p for="product_category mb-0" class="tr-gray-three param">Username </p>
             <input v-model="form.userName"
-                   class="form-control mb-3" required type="text" >
+                   class="form-control mb-3" required type="email" id="email" name="email"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
             <button class="btn-green param"  style="padding: 10px 77px"  @click="subscribe">Submit</button>
 
           </div>
