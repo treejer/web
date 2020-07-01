@@ -96,7 +96,7 @@
 <path d="M10.8955 25.4736V26.5789C10.8955 27.7515 11.3946 28.876 12.2829 29.7051C13.1712 30.5342 14.3761 31 15.6324 31C16.8887 31 18.0935 30.5342 18.9819 29.7051C19.8702 28.876 20.3693 27.7515 20.3693 26.5789V25.4736" stroke="#616161" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </svg>
-`, href: "/Help"
+`, href: "help"
           },
           {
             name: "help", icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@
 </g>
 </svg>
 
-`, href: "/spend"
+`, href: "/help"
           }
         ]
       };
@@ -150,8 +150,12 @@ section.sidebar {
     p {
       color: white;
     }
+    svg {
+      fill: #FFFFFF!important;
+    }
   }
-    ul li a {
+
+  ul li a {
       text-align: center;
       position: relative;
       align-items: center;

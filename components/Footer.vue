@@ -8,7 +8,7 @@
             <b-nav-item target="_blank"  href="https://blog.treejer.com/">Blog</b-nav-item>
             <b-nav-item :to="localePath('business')">For Business</b-nav-item>
             <b-nav-item :to="localePath('about')">About</b-nav-item>
-            <b-nav-item :to="localePath('contactUs')">Contact</b-nav-item>
+            <b-nav-item :to="localePath('contact')">Contact</b-nav-item>
           </b-nav>
         </div>
         <div class="col-lg-4 col-12 pt-2">
