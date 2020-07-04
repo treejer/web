@@ -11,7 +11,7 @@
             <input v-model="form.userName"
                    class="form-control mb-3" required type="email" id="email" name="email"
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-            <button class="btn-green param"  style="padding: 10px 77px"  @click="subscribe">Submit</button>
+            <button class="btn-green param"  style="padding: 10px 77px"  @click="subscribe">Subscribe</button>
 
           </div>
         </div>

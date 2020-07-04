@@ -151,7 +151,17 @@
 
   @media (max-width:768px) {
     .home {
-      background-image: none;
+      background-size: 170%;
+      background-position-y: -3%;
+      background-position-x: 90%;
+      height: 90vh;
+      .article{
+        margin-top: 73%;
+        justify-content: center;
+      }
+      .text-dn{
+        height: 18vh;
+      }
       .title{
         h1{
           font-size: 14px;

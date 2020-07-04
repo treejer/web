@@ -13,8 +13,17 @@
             src="/logo/treejer.png"
           />
         </b-navbar-brand>
+        <b-navbar-nav>
+          <client-only>
+            <div class="d-lg-none d-block">
+              <Metamask/>
 
+            </div>
+
+          </client-only>
+        </b-navbar-nav>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
 
         <b-collapse
           class="text-right justify-content-between"
@@ -30,45 +39,11 @@
               {{item.name}}
             </b-nav-item>
           </b-navbar-nav>
-<!--          <b-navbar-nav>-->
-<!--            <b-nav-form v-if="!isLoggedIn">-->
-<!--              <b-button-->
-<!--                @click.prevent="log()"-->
-<!--                class="connect-button m-auto"-->
-<!--                type="submit"-->
-<!--              >Connect Wallet-->
-<!--              </b-button-->
-<!--              >-->
-<!--              <img-->
-<!--                alt="tree"-->
-<!--                name="tree"-->
-<!--                src="/tree.svg"-->
-<!--                class="img-fluid tree pointer-event"-->
-<!--              />-->
-<!--            </b-nav-form>-->
-<!--            <b-nav-form v-if="isLoggedIn">-->
-<!--&lt;!&ndash;              <b-button&ndash;&gt;-->
-<!--&lt;!&ndash;                @click.prevent="logout"&ndash;&gt;-->
-<!--&lt;!&ndash;                class="connect-buttons m-auto"&ndash;&gt;-->
-<!--&lt;!&ndash;                type="submit"&ndash;&gt;-->
-<!--&lt;!&ndash;              >{{ account }}&ndash;&gt;-->
-<!--&lt;!&ndash;              </b-button&ndash;&gt;-->
-<!--              <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout" >-->
-<!--                <span class="param-sm tr-gray-three">{{isLoggedIn}}</span>-->
-<!--                <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42" height="42" /></span>-->
-<!--              </div>-->
-<!--              <img-->
-<!--                alt="tree"-->
-<!--                name="tree"-->
-<!--                src="/tree.svg"-->
-<!--                class="img-fluid tree pointer-event"-->
-<!--              />-->
-<!--            </b-nav-form>-->
-
-<!--            &lt;!&ndash; Using 'button-content' slot &ndash;&gt;-->
-<!--          </b-navbar-nav>-->
           <client-only>
-            <Metamask />
+            <div class="d-lg-block d-none">
+              <Metamask/>
+
+            </div>
 
           </client-only>
         </b-collapse>
@@ -139,5 +114,31 @@
 </script>
 
 <style lang="scss">
+  @media (max-width: 768px) {
+    .headers {
+      padding: 0 10px;
 
+      .header-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0!important;
+      }
+
+      .navbar-light .navbar-toggler-icon {
+        background-image: url("../assets/images/home/burger.svg");
+        background-size: auto;
+      }
+
+      .navbar-light .navbar-toggler {
+        color: rgba(0, 0, 0, 0.5);
+        border-color: transparent;
+      }
+
+      .navbar {
+
+        padding: 0;
+      }
+    }
+  }
 </style>

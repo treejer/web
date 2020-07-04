@@ -24,13 +24,13 @@
       <!--              </b-button-->
       <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout">
         <span class="param-sm tr-gray-three">{{isLoggedIn|| $cookies.get('account')}}</span>
-        <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting" class="img-fluid" width="42"
+        <span class="img"><img src="../assets/images/home/accounting.png"  alt="accounting" class="img-fluid d-none d-md-block" width="42"
                                height="42"/></span>
       </div>
       <img
         alt="tree"
         name="tree"
-        src="/tree.svg"
+        src="~/assets/images/home/shop.svg"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>

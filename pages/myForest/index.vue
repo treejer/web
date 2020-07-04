@@ -1,17 +1,17 @@
 <template>
   <section class="position-relative  pt-5 col-lg-10 col-12 my-forest">
     <div class="container-fluid">
-      <div class="row article">
-        <div class="col-lg-9 col-12">
+      <div class="row article justify-content-between">
+        <div class="col-lg-8  col-12">
           <div class="row">
-            <div class="col-lg-5 col-12">
+            <div class="col-lg-5 col-md-5 col-5">
               <h2 class="title-sm Montserrat-Bold " >
                 My Forest
 
               </h2>
 
             </div>
-            <div class="col-lg-7 col-12 justify-content-end text-right ">
+            <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
               <div class="form-group">
                 <label>
                   <Fas i="search"/>
@@ -21,19 +21,19 @@
             </div>
           </div>
           <div class="row treejer-desc">
-            <div class="col-lg-3 col-12 border-right ">
+            <div class="col-lg-3 col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
               <p><span>47</span> <span>Trees</span></p>
             </div>
-            <div class="col-lg-3 col-12 border-right">
+            <div class="col-lg-3 col-md-6 col-12 border-right">
               <p>O2 BALANCE</p>
               <p><span>575.4 </span> <span>o2</span></p>
             </div>
-            <div class="col-lg-3 col-12 border-right">
+            <div class="col-lg-3 col-md-6 col-12 border-right">
               <p>SEED BALANCE</p>
               <p><span>294.2</span><span>SEED</span></p>
             </div>
-            <div class="col-lg-3 col-12 ">
+            <div class="col-lg-3 col-md-6 col-12 ">
               <p>TREES GIFTED</p>
               <p><span>150</span><span>Trees</span></p>
             </div>

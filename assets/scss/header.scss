@@ -4,6 +4,7 @@
 
 
 .headers {
+
   .navbar-nav.header-menu {
     margin-left: 58px;
   }
@@ -121,6 +122,15 @@
   ##Screen = B/w 320px to 479px
 */
 @media (max-width: 768px) {
+  .headers{
+    img.tree{
+      width: 27px;
+      height: 36px;
+      -o-object-fit: contain;
+      object-fit: contain;
+      margin: 0 0px 0px 3px;
+    }
+  }
 
   .headers .header-menu .nav-item a {
     font-size: 12px;

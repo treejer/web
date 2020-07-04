@@ -150,12 +150,8 @@ section.sidebar {
     p {
       color: white;
     }
-    svg {
-      fill: #FFFFFF!important;
-    }
   }
-
-  ul li a {
+    ul li a {
       text-align: center;
       position: relative;
       align-items: center;
