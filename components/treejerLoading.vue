@@ -1,6 +1,6 @@
 <template>
   <div class="container" >
-    <div class="backdrop" v-if="trLoading">
+    <div class="backdrop" :style="{'top':localScreenY,'right':localScreenX}" v-if="localLoading">
       <div class="spinner"></div>
     </div>
   </div>
@@ -9,9 +9,14 @@
 <script>
   export default {
     name: "Loading",
-    props:['trLoading'],
+    props:['trLoading','screenX','screenY'],
+
     data() {
       return {
+        localScreenX:this.screenX,
+        localScreenY:this.screenY,
+        localLoading:this.trLoading,
+
       }
     },
 

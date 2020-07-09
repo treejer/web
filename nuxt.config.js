@@ -36,17 +36,20 @@ export default {
           // { rel: 'alternate', hreflang: 'tr-TR', href: `${process.env.WEBSITE_URL}/tr` }
         ]
 
-    },
+   },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
 
-    loading: {
-      color: '#67B68C',
-      failedColor: '#ee2d0e',
-      height: '6px'
-    },
+  loading: {
+    color: '#67B68C',
+    failedColor: '#ee2d0e',
+    height: '6px'
+  },
 
-    /*
-     ** Global CSS
-     */
+  /*
+   ** Global CSS
+   */
     css: [
         '@/assets/main.scss'
     ],

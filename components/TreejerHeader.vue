@@ -43,6 +43,7 @@
             <div class="d-lg-block d-none">
               <Metamask/>
 
+
             </div>
 
           </client-only>
@@ -59,15 +60,25 @@
 
   import Loading from "./treejerLoading";
   import Metamask from "../components/Metamask";
+  import Wallets from "../components/Wallets";
 
   export default {
     name: "TreejerHeader",
     components: {
+      Wallets,
       Metamask,
       Loading
     },
     data() {
       return {
+        wallets: [
+          {name: "Metamask", step: 1},
+          {name: "Wallet Connect", step: 2},
+          {name: "Trezor", step: 3},
+          {name: "Ledger Nano", step: 4},
+          {name: "Coinbase Wallet", step: 5}
+        ],
+        activeWallet: 0,
         formError: null,
         trLoading:false,
         account: null,
@@ -85,6 +96,9 @@
 
     },
     methods: {
+      activeWallets(item, index) {
+        this.activeWallet = index;
+      },
       loginToast(variant, title, message, href) {
         this.$bvToast.toast(message, {
           title: title,

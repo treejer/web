@@ -1,10 +1,9 @@
 <template>
   <b-navbar-nav>
     <b-nav-form v-if="!$cookies.get('account')">
-      <b-button
-        @click.prevent="log()"
-        class="connect-button m-auto"
-        type="submit"
+      <b-button class="connect-button m-auto"
+                @click.prevent="showModal()"
+
       >Connect Wallet
       </b-button
       >
@@ -15,16 +14,11 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-nav-form v-if="isLoggedIn|| $cookies.get('account')">
-      <!--              <b-button-->
-      <!--                @click.prevent="logout"-->
-      <!--                class="connect-buttons m-auto"-->
-      <!--                type="submit"-->
-      <!--              >{{ account }}-->
-      <!--              </b-button-->
-      <div class="accounting-card d-flex align-items-center align-self-center pointer-event" @click="logout">
+    <b-nav-form @click="logout" class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
+      <div   class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span class="param-sm tr-gray-three">{{isLoggedIn|| $cookies.get('account')}}</span>
-        <span class="img"><img src="../assets/images/home/accounting.png"  alt="accounting" class="img-fluid d-none d-md-block" width="42"
+        <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting"
+                               class="img-fluid d-none d-md-block" width="42"
                                height="42"/></span>
       </div>
       <img
@@ -34,6 +28,12 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
+    <b-modal
+      hide-header
+      hide-footer
+      id="five" title="BootstrapVue">
+     <Wallets />
+    </b-modal>
 
     <!-- Using 'button-content' slot -->
   </b-navbar-nav>
@@ -41,9 +41,11 @@
 
 <script>
   import Loading from '../components/treejerLoading'
+  import Wallets from "./Wallets";
 
   export default {
-    components: {Loading},
+    components: {Wallets, Loading},
+    props: ['wallets'],
     data() {
       return {
         account: null,
@@ -93,18 +95,15 @@
        logout() {
         this.$store.dispatch("logout").then(() => {
         });
-        this.$forceUpdate()
+
 
 
       },
-      makeToast(variant = null) {
-        this.$bvToast.toast('install metamask from here', {
-          title: `https://metamask.io/' ${variant || 'default'}`,
-          href: 'https://metamask.io/',
-          variant: variant,
-          solid: true
-        })
+
+      showModal(e){
+        this.$bvModal.show('five')
       },
+
 
       activeMenu(item, index) {
         if (item.name === 'Blog') {

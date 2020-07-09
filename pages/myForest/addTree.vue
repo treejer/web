@@ -237,18 +237,20 @@
             <div
               class="col-12 col-lg-4 mt-3 justify-content-center text-center "
             >
-              <ul class="wallets tr-gray-three list-style-none">
-                <li v-for="(item, index) in wallets" class="pointer-event">
-                  <p
-                    @click="activeWallets(item, index)"
-                    :class="{ active: activeWallet === index }"
-                    :key="index"
-                    :name="item.name"
-                  >
-                    {{ item.name }}
-                  </p>
-                </li>
-              </ul>
+              <Wallets />
+
+<!--              <ul class="wallets tr-gray-three list-style-none">-->
+<!--                <li v-for="(item, index) in wallets" class="pointer-event">-->
+<!--                  <p-->
+<!--                    @click="activeWallets(item, index)"-->
+<!--                    :class="{ active: activeWallet === index }"-->
+<!--                    :key="index"-->
+<!--                    :name="item.name"-->
+<!--                  >-->
+<!--                    {{ item.name }}-->
+<!--                  </p>-->
+<!--                </li>-->
+<!--              </ul>-->
               <p class="param  mt-3 tr-gray-five">New to Ethereum?</p>
               <p class="param   tr-green">Learn more about wallets</p>
               <button
@@ -364,12 +366,14 @@
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
+import Wallets from "../../components/Wallets";
 
 export default {
   name: "giftTree",
   layout:"checkout",
 
   components: {
+    Wallets,
     Fab
   },
 
@@ -395,17 +399,10 @@ export default {
         { name: "bitcoin", icon: "ethereum", step: 2 },
         { name: "stripe", icon: "cc-stripe", step: 3 }
       ],
-      wallets: [
-        { name: "Metamask", step: 1 },
-        { name: "Wallet Connect", step: 2 },
-        { name: "Trezor", step: 3 },
-        { name: "Ledger Nano", step: 4 },
-        { name: "Coinbase Wallet", step: 5 }
-      ],
+
       activeIndex: 0,
       activeCount: 0,
       activePay: 0,
-      activeWallet: 0,
       countTree: null
     };
   },

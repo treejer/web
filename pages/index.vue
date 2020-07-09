@@ -68,6 +68,7 @@
     </section>
 </template>
 <script>
+  import Web3 from 'web3'
 
   export default {
     name: "index",
@@ -78,6 +79,8 @@
     },
     props: {},
     created() {
+
+      const web3 = new Web3()
     }
   };
 </script>
