@@ -52,9 +52,13 @@
 </template>
 
 <script>
+  import VueFormulate from '@braid/vue-formulate'
 
   export default {
     name: "contactUs",
+    components:{
+      VueFormulate
+    },
     data() {
       return {
         form: {
@@ -75,7 +79,6 @@
     methods: {
       subscribe(){
         let self =this
-
         this.url = 'https://api.hsforms.com/submissions/v3/integration/submit/7239953/054fc018-4eb2-49c9-b12e-909f88c1c840'
         this.$axios.$post(this.url, {
           "fields": [
