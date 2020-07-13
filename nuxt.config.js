@@ -11,6 +11,8 @@ export default {
        {name: 'content', content: 'Treejer description'},
        {name: 'robots', content: 'width=device-width, initial-scale=1'},
        {name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U'},
+       {name: 'msapplication-TileColor', content: '#2d89ef'},
+       {name: 'theme-color', content: '#ffffff'},
        {hid: 'description', name: 'description', content: 'Treejer'},
        {property: 'og:type', content: 'website'},
             { property: 'og:title', content: 'Home - Treejer' },
@@ -22,18 +24,12 @@ export default {
         ],
         script: [],
         link: [
-          {rel: 'icon', type: 'image/x-icon', href: '/logo/treejer.png'},
-          {rel: 'dns-prefetch', type: 'image/x-icon', href: '/logo/treejer.png'},
-          {rel: 'dns-prefetch', type: 'image/x-icon', href: '/logo/treejer.png'},
-          {rel: 'shortcut icon', type: 'image/x-icon', href: '/logo/treejer.png'},
-          {rel: 'shortcut icon', href: '/logo/treejer.png', type: 'image/x-icon'},
-          {rel: 'apple-touch-icon', href: '/logo/treejer.png', type: 'image/x-icon'},
-          {rel: 'apple-touch-icon', href: '/logo/treejer.png', type: 'image/x-icon'},
-          // { rel: 'alternate', hreflang: 'x-default', href: `${process.env.WEBSITE_URL}` },
-          // { rel: 'alternate', hreflang: 'en-US', href: `${process.env.WEBSITE_URL}` },
-          // { rel: 'alternate', hreflang: 'fa-FA', href: `${process.env.WEBSITE_URL}/fa` },
-          // { rel: 'alternate', hreflang: 'ar-AR', href: `${process.env.WEBSITE_URL}/ar` },
-          // { rel: 'alternate', hreflang: 'tr-TR', href: `${process.env.WEBSITE_URL}/tr` }
+          {rel: 'apple-touch-icon',sizes:'180x180', type: 'image/png', href: '/apple-touch-icon.png'},
+          {rel: 'icon',sizes:'32x32', type: 'image/png', href: '/favicon-32x32.png'},
+          {rel: 'icon',sizes:'16x16', type: 'image/png', href: '/favicon-16x16.png'},
+          {rel: 'manifest', href: '/site.webmanifest'},
+          {rel: 'mask-icon', href: '//safari-pinned-tab.svg',color:'#5bbad5'},
+
         ]
 
    },
