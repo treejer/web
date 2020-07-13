@@ -302,15 +302,15 @@
       },
       data() {
         return {
-          activeIndex: 0,
+          activeIndex: 2,
           peoples: [
             {
               src: require('~/assets/images/for-business/Ellipse-3.png'),
-              name: `Shivam Dhawan,`,
-              text: 'From year to year, environmental changes are incremental and often barely register in our lives, but from evolutionary or geological perspectives, what is happening is exponential explosive change. Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years with pioneers like Treejer leading the charge.',
-              logo: require('~/assets/images/for-business/get-boarded.svg'),
-              brand: `GetBoarded`,
-              work: `Founder and CEO`
+              name: null,
+              text: null,
+              logo: null,
+              work: null,
+              brand: null
             },
             {
               src: require('~/assets/images/for-business/Ellipse-2.png'),
@@ -322,11 +322,11 @@
             },
             {
               src: require('~/assets/images/for-business/MaskGroup.png'),
-              name: null,
-              text: null,
-              logo: null,
-              work: null,
-              brand: null
+              name: `Shivam Dhawan,`,
+              text: 'From year to year, environmental changes are incremental and often barely register in our lives, but from evolutionary or geological perspectives, what is happening is exponential explosive change. Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years with pioneers like Treejer leading the charge.',
+              logo: require('~/assets/images/for-business/get-boarded.svg'),
+              brand: `GetBoarded`,
+              work: `Founder and CEO`
             },
             {
               src: require('~/assets/images/for-business/Ellipse-1.png'),
