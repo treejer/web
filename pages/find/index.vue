@@ -286,25 +286,21 @@
         this.$router.push(`/business/${step}`)
 
       },
-      giveTree() {
-        if (!this.treeID) {
-          return null
-        } else {
-          this.loading = true
-
-          this.$cookies.set('step',this.treeID)
-          let self = this
-          this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
-            .then(function (response) {
-              self.loading = false
-              const status = response.status
-              switch (status) {
-                case 1:
-                  self.step = 'stepOne';
-                  break
-                case 2:
-                  self.step = 'stepTwo';
-                  break
+     async giveTree() {
+       this.loading = true
+       this.$cookies.set('step', this.treeID)
+       let self = this
+       await this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
+         .then(function (response) {
+           self.loading = false
+           const status = response.status
+           switch (status) {
+             case 1:
+               self.step = 'stepOne';
+               break
+             case 2:
+               self.step = 'stepTwo';
+               break
                 case 3:
                   self.step = 'stepTwo';
                   break
@@ -330,7 +326,6 @@
             });
         }
       }
-    }
 
 
   }

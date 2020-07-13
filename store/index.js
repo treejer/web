@@ -1,8 +1,6 @@
-import Vue from 'vue'
-import Web3 from 'web3';
+import Web3 from "web3";
 import WalletConnect from "walletconnect";
-import QRCodeModal from "@walletconnect/qrcode-modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+// import trezorWallet from '@cosmic-plus/trezor-wallet';
 
 
 // mainnet only
@@ -35,24 +33,20 @@ export const actions = {
     console.log(web3.chainId(), 'account here')
 
   },
-  walletConnect: async function ({commit}) {
+  async walletConnect({commit}) {
     const wc = new WalletConnect();
 
 //  Connect session (triggers QR Code modal)
     const connector = await wc.connect();
-   const walletAccount =  connector._accounts[0]
-    console.log(walletAccount,'dwdad')
+    const walletAccount = connector._accounts[0]
+    console.log(walletAccount, 'dwdad')
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
-
 //  Get your desired provider
-
     const web3Provider = await wc.getWeb3Provider({
       infuraId: PROJECT_ID,
     });
-
     const channelProvider = await wc.getChannelProvider();
-
     //
     // const starkwareProvider = await wc.getStarkwareProvider({
     //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
@@ -64,10 +58,16 @@ export const actions = {
 
   },
   async trezor() {
-    const engine = new ProviderEngine();
-    const web3 = new Web3(engine);
-    engine.start();
-    web3.eth.getAccounts;
+    // Step 1: Connect
+    // await trezorWallet.connect()
+
+// Step 2: Get public key
+//     const pubkey = trezorWallet.publicKey
+//
+// // Step 3: Sign
+//     await trezorWallet.sign()
+
+// Extra: Event handlers
   },
 
   logout({commit}) {
