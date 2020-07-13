@@ -69,6 +69,7 @@
     color: white;
     border: 0;
 }
+
 .box-shadow{
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.161);
 }
@@ -109,3 +110,160 @@
   color: #5a9d79;
 
 }
+.formulate-input {
+  // global wrapper styles
+  font-family: Montserrat-Medium;
+  color: #616161;
+  li{
+    list-style-type: none!important;
+
+  }
+
+  .formulate-input-label {
+    // global label styles
+    font-size: 14px;
+    color: #757575;
+
+
+  }
+
+  .formulate-input-element {
+    // Global field-level wrapper styles
+  }
+
+  .formulate-input-help {
+    // Global help text styles
+    font-size: 12px;
+    color: #757575;
+
+  }
+
+  .formulate-input-errors {
+    // Global error message list wrapper
+  }
+
+  .formulate-input-error,
+  .formulate-file-upload-error {
+    // Error message styles
+  }
+
+  .formulate-input-group-item {
+    // Group of items (like list of checkboxes) wrapper
+  }
+  input{
+    width: 100%;
+    padding: 0 25px;
+    height: 35px;
+    border-radius: 6px;
+    color: #616161;
+    border: 0;
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  // Text inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='text'] {
+    input {
+      // Style all text-like input elements
+    }
+  }
+
+  // Slider inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='slider'] {
+    input {
+      // Style range inputs
+    }
+  }
+
+  // Textarea inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='textarea'] {
+    textarea {
+      width: 100%;
+      padding: 5px;
+      border-radius: 6px;
+      color: #616161;
+      border: 0;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+  }
+
+  // Button inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='button'] {
+    button {
+      // Style button inputs
+      width: auto;
+      padding: 10px 45px;
+      border-radius: 6px;
+      background-color: #67B68C;
+      color: white;
+      border: 0;
+    }
+  }
+
+  // Select lists
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='select'] {
+    select {
+      // Style select lists
+    }
+  }
+
+
+  // Box inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification='box'] {
+    .formulate-input-element {
+      // Box input (checkbox and radio) wrapper (might want flex here)
+      input {
+        // Style box element itself
+      }
+    }
+  }
+
+
+  // File inputs
+  // -----------------------------------------------------------------------------
+
+  &[data-classification="file"] {
+    .formulate-input-upload-area {
+      input {
+        // The actual upload element
+      }
+    }
+  }
+
+
+  // Image uploads
+  // -----------------------------------------------------------------------------
+
+  [data-type="image"] {
+    // image uploads
+  }
+}
+
+
+// Form-level errors
+// -----------------------------------------------------------------------------
+
+.formulate-form-errors {
+  color: red;
+  font-size: 12px;
+  .formulate-form-error {
+
+  }
+}
+.formulate-input-error{
+  color: #D04F45;
+  font-size: 12px;}

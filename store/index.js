@@ -1,9 +1,7 @@
 import Web3 from 'web3';
-import { Web3WalletsManager } from '@web3-wallets-kit/core';
-import { ConnectWalletConnector } from '@web3-wallets-kit/connect-wallet-connector';
-
-import { InpageConnector } from '@web3-wallets-kit/inpage-connector';
-
+import WalletConnect from "walletconnect";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 
 // mainnet only
@@ -11,37 +9,53 @@ export const state = () => ({
   token: null,
   account: null,
   dashboard: null,
-  users: null
+  users: null,
+  chainId: null
 
 })
+const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
+const PROJECT_SECRET = '92fd7a69a8394544ae0aa2a154847d70';
+const ENDPOINTS_MAINNET = 'wss://mainnet.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+const ENDPOINTS_ROPSTEN = 'wss://ropsten.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+const ENDPOINTS_KOVAN = 'wss://kovan.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+const ENDPOINTS_RINKEBY = 'wss://rinkeby.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+const ENDPOINTS_GORLI = 'wss://goerli.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+
 export const actions = {
   login({commit}, {account}) {
     this.$cookies.set('account', account)
 
     commit('SET_USER', account)
   },
-  async walletConnect() {
-    const web3Manager = new Web3WalletsManager({
-      defaultProvider: {
-        network: process.env.ENDPOINTS_MAINNET,
-        infuraAccessToken: process.env.PROJECT_SECRET,
-      },
-      makeWeb3: provider => new Web3('http://localhost:3000/'), // you can use web3.js, ethers.js or another suitable library
+  async chainId() {
+    const web3 = window.ethereum
+    const accounts = await web3.enable();
+    const account = accounts;
+    console.log(web3.chainId(), 'account here')
+    const connector = await new WalletConnect({
+      bridge: "https://bridge.walletconnect.org", // Required
+      qrcodeModal: QRCodeModal,
     });
-// Create connector
+  },
+  walletConnect: async function () {
+    const wc = new WalletConnect();
 
-    const connector =await new ConnectWalletConnector({
-      infuraId: process.env.PROJECT_ID,
-      chainId: Number,
+//  Connect session (triggers QR Code modal)
+    const connector = await wc.connect();
+
+//  Get your desired provider
+
+    const web3Provider = await wc.getWeb3Provider({
+      infuraId: PROJECT_ID,
     });
-    // Get address and Web3 for sending transaction
-    const myAddress = web3Manager.account.value;
-    const txWeb3 = web3Manager.txWeb3.value;
 
-// Connect to wallet
-    await web3Manager.connect(connector);
-
-
+    // const channelProvider = await wc.getChannelProvider();
+    //
+    // const starkwareProvider = await wc.getStarkwareProvider({
+    //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
+    // });
+    //
+    // const threeIdProvider = await wc.getThreeIdProvider();
   },
   async trezor() {
     const engine = new ProviderEngine();

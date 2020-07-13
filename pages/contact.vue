@@ -2,22 +2,51 @@
   <div class="mt-5 mb-5 position-relative contact col-12">
     <div class="container">
       <div class="row ">
-        <div class="row col-12 col-md-6 forms justify-content-center mt-5 "  >
-          <div class="form-group ">
-              <p for="product_category mb-0" class="tr-gray-three param">Email</p>
-              <input v-model="form.email"
-                     class="form-control mb-3" required type="text" >
-            <p for="product_category mb-0" class="tr-gray-three param">Username </p>
-            <input v-model="form.userName"
-                   class="form-control mb-3" required type="email" id="email" name="email"
-                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-            <button class="btn-green param"  style="padding: 10px 77px"  @click="subscribe">Subscribe</button>
+        <div class="row col-12 col-md-6 forms justify-content-center mt-5 ">
+          <FormulateForm
+            class="login-form"
+            v-model="form"
+            @submit="subscribe"
+          >
+            <FormulateInput
+              name="name"
+              type="text"
+              label="Your name"
+              placeholder="Your name"
+              validation="required"
+              v-model="form.userName"
+            />
+            <FormulateInput
+              name="email"
+              type="email"
+              v-model="form.email"
+              label="Email address"
+              placeholder="Email address"
+              validation="required|email"
+            />
+            <FormulateInput
+              type="textarea"
+              v-model="form.text"
+              label="Description"
+              validation-name="tweet"
+              error-behavior="live"
+              :help="`Keep it under 250 characters. ${250 - form.text.length} left.`"
+            />
 
-          </div>
+            <FormulateInput
+              label="Subscribe"
+              type="button"
+              @click.prevent="subscribe"
+
+            >
+
+            </FormulateInput>
+            </FormulateForm>
         </div>
         <div class=" col-12 d-none d-md-block col-md-6">
           <img src="../assets/images/contact/contact.png" alt="conatct" class="img-fluid" height="415">
         </div>
+
       </div>
 
     </div>
@@ -32,16 +61,15 @@
     data() {
       return {
         form: {
-          email:null,
-          userName: null
+          email: null,
+          userName: null,
+          text: ''
         },
         url: null
       }
     },
     head: {
-      script: [
-        {type: 'text/javascript', src: '//js.hsforms.net/forms/shell.js'},
-      ]
+
     },
     mounted() {
 
@@ -61,6 +89,10 @@
             {
               "name": "firstname",
               "value": self.form.userName
+            },
+            {
+              "name": "message",
+              "value":self.form.text
             }
           ],
           "context": {
@@ -72,8 +104,6 @@
             variant:'success',
             title:'Subscribed'
           })
-          self.form.email=null
-          self.form.userName=null
         }).catch(function(err) {
           self.$bvToast.toast(err.message,{
             variant:'danger',

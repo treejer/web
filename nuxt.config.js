@@ -61,6 +61,8 @@ export default {
     {src: '~plugins/swiper.js', mode: 'client', ssr: false},
     {src: '~plugins/typer.js', mode: 'client', ssr: false},
     {src: '~plugins/maps.js', ssr: false},
+    {src: '~plugins/eth.js', ssr: false},
+    {src: '~plugins/vueFormulate.js', ssr: false},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]
@@ -121,6 +123,7 @@ export default {
      */
     modules: [
         'bootstrap-vue/nuxt', ['cookie-universal-nuxt'],
+      [ 'vue-ethereum/nuxt' ],
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         '@nuxtjs/style-resources', ['nuxt-fontawesome'],

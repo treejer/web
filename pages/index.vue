@@ -64,23 +64,44 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
 </template>
 <script>
-  import Web3 from 'web3'
+  import WalletConnect from 'walletconnect'
 
   export default {
     name: "index",
-    data(){
-      return{
+    data() {
+      return {}
+    },
+    methods:{
+      walletConnects(){
+        debugger
+        const wc = new WalletConnect();
 
+//  Connect session (triggers QR Code modal)
+        const connector = wc.connect();
+
+//  Get your desired provider
+
+        // const web3Provider = wc.getWeb3Provider({
+        //   infuraId: "6902e8b158ca43b7ac02142229ef4116",
+        // });
+        //
+        // const channelProvider = wc.getChannelProvider();
+        //
+        // const starkwareProvider = wc.getStarkwareProvider({
+        //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
+        // });
+        //
+        // const threeIdProvider =  wc.getThreeIdProvider();
       }
     },
-    props: {},
-    created() {
 
-      const web3 = new Web3()
+    props: {},
+    mounted() {
     }
   };
 </script>
