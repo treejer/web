@@ -36,8 +36,6 @@
             <FormulateInput
               label="Subscribe"
               type="submit"
-
-
             >
 
             </FormulateInput>
