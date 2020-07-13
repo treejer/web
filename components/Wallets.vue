@@ -23,7 +23,6 @@
 
 <script>
   import Loading from '../components/treejerLoading'
-  import WalletConnect from "walletconnect";
 
 
   export default {
@@ -60,6 +59,7 @@
             break
           case 'Wallet Connect':
             this.$store.dispatch('walletConnect');
+            this.$bvModal.hide('five')
             break
           case 'Trezor':
             this.$store.dispatch('trezor');

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Web3 from 'web3';
 import WalletConnect from "walletconnect";
 import QRCodeModal from "@walletconnect/qrcode-modal";
@@ -32,16 +33,17 @@ export const actions = {
     const accounts = await web3.enable();
     const account = accounts;
     console.log(web3.chainId(), 'account here')
-    const connector = await new WalletConnect({
-      bridge: "https://bridge.walletconnect.org", // Required
-      qrcodeModal: QRCodeModal,
-    });
+
   },
-  walletConnect: async function () {
+  walletConnect: async function ({commit}) {
     const wc = new WalletConnect();
 
 //  Connect session (triggers QR Code modal)
     const connector = await wc.connect();
+   const walletAccount =  connector._accounts[0]
+    console.log(walletAccount,'dwdad')
+    commit('SET_USER', walletAccount)
+    this.$cookies.set('account', walletAccount)
 
 //  Get your desired provider
 
@@ -49,13 +51,17 @@ export const actions = {
       infuraId: PROJECT_ID,
     });
 
-    // const channelProvider = await wc.getChannelProvider();
+    const channelProvider = await wc.getChannelProvider();
+
     //
     // const starkwareProvider = await wc.getStarkwareProvider({
     //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
     // });
     //
     // const threeIdProvider = await wc.getThreeIdProvider();
+
+
+
   },
   async trezor() {
     const engine = new ProviderEngine();
