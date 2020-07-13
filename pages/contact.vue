@@ -35,8 +35,8 @@
 
             <FormulateInput
               label="Subscribe"
-              type="button"
-              @click.prevent="subscribe"
+              type="submit"
+
 
             >
 
