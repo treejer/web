@@ -33,12 +33,11 @@
               :help="`Keep it under 250 characters. ${250 - form.text.length} left.`"
             />
 
-            <FormulateInput
+             <FormulateInput
               label="Subscribe"
               type="submit"
-            >
-
-            </FormulateInput>
+              @submit="subscribe"
+             />
             </FormulateForm>
         </div>
         <div class=" col-12 d-none d-md-block col-md-6">
