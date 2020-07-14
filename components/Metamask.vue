@@ -2,8 +2,7 @@
   <b-navbar-nav>
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto"
-                @click.prevent="showModal()"
-
+      @click.prevent="showModal()"
       >Connect Wallet
       </b-button
       >
@@ -28,13 +27,6 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-modal
-      hide-header
-      hide-footer
-      id="five" title="BootstrapVue">
-     <Wallets />
-    </b-modal>
-
     <!-- Using 'button-content' slot -->
   </b-navbar-nav>
 </template>
@@ -50,8 +42,6 @@
       return {
         account: null,
         trLoading: false
-
-
       };
     },
     computed: {
@@ -95,16 +85,11 @@
        logout() {
         this.$store.dispatch("logout").then(() => {
         });
-
-
-
       },
 
-      showModal(e){
-        this.$bvModal.show('five')
+      showModal(){
+        this.$emit('showModal')
       },
-
-
       activeMenu(item, index) {
         if (item.name === 'Blog') {
           window.open('https://blog.treejer.com/', '_blank')

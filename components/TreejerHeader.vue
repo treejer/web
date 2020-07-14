@@ -16,7 +16,7 @@
         <b-navbar-nav>
           <client-only>
             <div class="d-lg-none d-block">
-              <Metamask/>
+              <Metamask @showModal="showModal"/>
 
             </div>
 
@@ -41,17 +41,18 @@
           </b-navbar-nav>
           <client-only>
             <div class="d-lg-block d-none">
-              <Metamask/>
-
-
+              <Metamask @showModal="showModal"/>
             </div>
-
           </client-only>
         </b-collapse>
       </b-navbar>
 
     </keep-alive>
-    <Loading :trLoading="trLoading" />
+    <b-modal
+      hide-footer
+      id="five" title=" ">
+      <Wallets />
+    </b-modal>
 
   </div>
 </template>
@@ -80,7 +81,6 @@
         ],
         activeWallet: 0,
         formError: null,
-        trLoading:false,
         account: null,
         user: false,
         activeIndex: 0,
@@ -96,6 +96,9 @@
 
     },
     methods: {
+      showModal(e){
+        this.$bvModal.show('five')
+      },
       activeWallets(item, index) {
         this.activeWallet = index;
       },

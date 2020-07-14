@@ -73,11 +73,15 @@
     },
     methods: {
       loginToast(variant, title, message, href) {
-        this.$bvToast.toast(message, {
+        this.$vs.notification({
+          sticky: true,
+          type:variant,
+          color,
+          position,
           title: title,
-          variant: variant,
+          text:message,
           href: href
-        });
+        })
       },
       logout() {
         this.$store.dispatch("logout").then(() => {
