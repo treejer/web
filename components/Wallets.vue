@@ -16,6 +16,9 @@
       :trLoading="this.loading"
 
     />
+    <b-modal hide-footer size="lg" v-if="$store.state.trezorPopup"  id="trezorPopup" title=" ">
+      <span v-html="$store.state.trezorPopup"></span>
+    </b-modal>
 
   </ul>
 
@@ -63,6 +66,7 @@
             break
           case 'Trezor':
             this.$store.dispatch('trezor');
+            this.$bvModal.show('trezorPopup')
             break
 
         }

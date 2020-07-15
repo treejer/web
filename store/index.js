@@ -1,5 +1,6 @@
-import Web3 from "web3";
 import WalletConnect from "walletconnect";
+import TrezorConnect from 'trezor-connect';
+
 // import trezorWallet from '@cosmic-plus/trezor-wallet';
 
 
@@ -9,7 +10,8 @@ export const state = () => ({
   account: null,
   dashboard: null,
   users: null,
-  chainId: null
+  chainId: null,
+  trezorPopup: Object
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -55,19 +57,12 @@ export const actions = {
     // const threeIdProvider = await wc.getThreeIdProvider();
 
 
-
   },
-  async trezor() {
-    // Step 1: Connect
-    // await trezorWallet.connect()
-
-// Step 2: Get public key
-//     const pubkey = trezorWallet.publicKey
-//
-// // Step 3: Sign
-//     await trezorWallet.sign()
-
-// Extra: Event handlers
+  async trezor({commit}) {
+    // const result = await TrezorConnect.getPublicKey(params);
+    const res = await this.$axios.$get('https://connect.trezor.io/8/popup.html')
+    await commit('SET_TREZOR_POP_UP', res)
+   
   },
 
   logout({commit}) {
@@ -105,6 +100,10 @@ export const mutations = {
   },
   SET_USERS(state, users) {
     state.users = users
+
+  },
+  SET_TREZOR_POP_UP(state, trezorPopup) {
+    state.trezorPopup = trezorPopup
 
   }
 }
