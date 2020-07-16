@@ -107,12 +107,12 @@
             "pageName": self.$route.name
           },
         }).then(res => {
+          debugger
           self.loading = false
           self.$bvToast.toast('Your email has been successfully registered.', {
             variant: 'success',
             title: 'Subscribed'
           })
-          self.form= null
         }).catch(function(err) {
           self.$bvToast.toast(err.message, {
             variant: 'danger',
