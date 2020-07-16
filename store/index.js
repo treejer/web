@@ -11,7 +11,8 @@ export const state = () => ({
   dashboard: null,
   users: null,
   chainId: null,
-  trezorPopup: Object
+  trezorPopup: null,
+  ledger: null
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -21,6 +22,10 @@ const ENDPOINTS_ROPSTEN = 'wss://ropsten.infura.io/ws/v3/6902e8b158ca43b7ac02142
 const ENDPOINTS_KOVAN = 'wss://kovan.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
 const ENDPOINTS_RINKEBY = 'wss://rinkeby.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
 const ENDPOINTS_GORLI = 'wss://goerli.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+
+
+
+
 
 export const actions = {
   login({commit}, {account}) {
@@ -62,7 +67,7 @@ export const actions = {
     // const result = await TrezorConnect.getPublicKey(params);
     const res = await this.$axios.$get('https://connect.trezor.io/8/popup.html')
     await commit('SET_TREZOR_POP_UP', res)
-   
+
   },
 
   logout({commit}) {
@@ -104,6 +109,10 @@ export const mutations = {
   },
   SET_TREZOR_POP_UP(state, trezorPopup) {
     state.trezorPopup = trezorPopup
+
+  },
+  SET_LEDGER(state, ledger) {
+    state.ledger = ledger
 
   }
 }

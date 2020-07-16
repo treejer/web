@@ -1105,3 +1105,26 @@ option {
   transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s;
   transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
 }
+.modal-header{
+  border-bottom: none;
+}
+#ledgerPopup___BV_modal_body_{
+  input,textarea{
+    display: block;
+    border: none;
+    padding: 5px 15px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #e5e7db;
+    position: relative;
+    font-size: 14px;
+    color:#616161  ;
+    margin:10px auto;
+  }
+  input[type='button']{
+
+    background-color: #67b68c;
+    color: white;
+    border: 0;
+  }
+}
