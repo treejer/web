@@ -34,7 +34,7 @@
             />
 
              <FormulateInput
-              label="Subscribe"
+              label="Submit"
               type="submit"
               @submit="subscribe"
              />
