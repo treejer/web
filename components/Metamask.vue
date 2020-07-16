@@ -2,8 +2,11 @@
   <b-navbar-nav>
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto"
-      @click.prevent="showModal()"
-      >Connect Wallet
+                @click.prevent="showModal()"
+      >
+        <b-spinner v-if="loading" small class="mr-1"></b-spinner>
+        {{loading ? ' Loading...' : 'Connect Wallet'}}
+
       </b-button
       >
       <img
@@ -41,7 +44,7 @@
     data() {
       return {
         account: null,
-        trLoading: false
+        loading: false
       };
     },
     computed: {
@@ -61,10 +64,15 @@
         });
       },
       log() {
+        this.loading = true
         if (typeof window.ethereum !== 'undefined') {
           this.getAccount();
+          this.loading = false
+
         } else {
           this.makeToast('danger')
+          this.loading = false
+
         }
       },
       async getAccount() {
@@ -87,8 +95,10 @@
         });
       },
 
-      showModal(){
+      showModal() {
+
         this.$emit('showModal')
+
       },
       activeMenu(item, index) {
         if (item.name === 'Blog') {

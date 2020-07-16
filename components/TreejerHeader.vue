@@ -97,6 +97,7 @@
     },
     methods: {
       showModal(e){
+
         this.$bvModal.show('five')
       },
       activeWallets(item, index) {

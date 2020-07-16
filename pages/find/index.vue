@@ -28,10 +28,14 @@
             <button
               :class="{ disable: !treeID }"
               @click="giveTree()"
-              class="btn-green param-md">Find My Tree
+              class="btn-green param-md mb-4">
+
+
+              <b-spinner v-if="loading" small class="mr-1"></b-spinner>
+              {{loading ? ' Loading...' : 'Find My Tree'}}
             </button>
 
-            <button class="btn-gray param-md mb-2 disabled">Explore Other Trees</button>
+            <button disabled class="btn-gray param-md mb-2 disabled">Explore Other Trees</button>
           </div>
         </div>
       </div>
@@ -186,7 +190,7 @@
         </div>
       </div>
     </div>
-    <Loading :tr-loading="loading"/>
+
     <div class="alert position-relative" v-if="errors" v-for="(item ,index) in errors" :key="index">
       <b-alert class="position-fixed" :dismissible="errors" style="top: 2px;right: 1px" show variant="danger">
         {{item.toString()}}
@@ -202,7 +206,7 @@
 
 <script>
   import Fab from "@/components/font-awsome/Fab";
-  import Loading from "../../components/treejerLoading";
+  import treejerLoading from "../../components/treejerLoading";
 
   export default {
     name: "findMyTree",
@@ -211,7 +215,7 @@
 
 
     components: {
-      Loading,
+      treejerLoading,
       Fab
     },
     computed:{
@@ -287,6 +291,7 @@
 
       },
      async giveTree() {
+       this.errors = null
        this.loading = true
        this.$cookies.set('step', this.treeID)
        let self = this

@@ -1098,12 +1098,14 @@ option {
   -webkit-clip-path: circle(145% at 100% 50%);
   clip-path: circle(145% at 100% 50%);
   background: rgba(255,71,87,1);
-  color: rgba(var(--vs-text),1);
+  color: white;
   margin: 3px 10px;
   -webkit-transition: all .25s ease,max-height .25s ease,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
   transition: all .25s ease,max-height .25s ease,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
   transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s;
   transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
+  font-size: 12px;
+  font-family: Montserrat-Medium;
 }
 .modal-header{
   border-bottom: none;

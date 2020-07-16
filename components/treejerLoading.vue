@@ -1,6 +1,6 @@
 <template>
-  <div class="container" >
-    <div class="backdrop" :style="{'top':localScreenY,'right':localScreenX}" v-if="localLoading">
+  <div class="container"v-if="localLoading" >
+    <div class="backdrop" :style="{'top':localScreenY,'right':localScreenX}" >
       <div class="spinner"></div>
     </div>
   </div>
