@@ -40,7 +40,7 @@
              >
 
                <b-spinner v-if="loading" small class="mr-1"> </b-spinner>
-               {{loading ? ' Loading...' : 'Submit'}}
+               {{loading ? 'Loading...' : 'Submit'}}
 
              </FormulateInput>
             </FormulateForm>
@@ -84,8 +84,8 @@
     },
     methods: {
       subscribe(){
-        this.loading = true
         let self =this
+        self.loading = true
         this.url = 'https://api.hsforms.com/submissions/v3/integration/submit/7239953/054fc018-4eb2-49c9-b12e-909f88c1c840'
         this.$axios.$post(this.url, {
           "fields": [
@@ -107,11 +107,11 @@
             "pageName": self.$route.name
           },
         }).then(res => {
+          self.loading = false
           self.$bvToast.toast('Your email has been successfully registered.', {
             variant: 'success',
             title: 'Subscribed'
           })
-          self.loading = false
           self.form= null
         }).catch(function(err) {
           self.$bvToast.toast(err.message, {
