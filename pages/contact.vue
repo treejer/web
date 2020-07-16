@@ -107,7 +107,7 @@
             "pageName": self.$route.name
           },
         }).then(res => {
-          debugger
+          
           self.loading = false
           self.$bvToast.toast('Your email has been successfully registered.', {
             variant: 'success',

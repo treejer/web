@@ -635,7 +635,7 @@ ul{
 }
 
 .pointer-event:hover {
-    cursor: pointer!important;
+    cursor: pointer;
 }
 
 p,
@@ -1087,31 +1087,66 @@ option {
   border-bottom: none;
 
 }
-.alert-danger{
+
+.b-toast-success {
+
+  color: white ;
+  background: #67B68C ;
+
+  .toast-header {
+    background-color: #67B68C!important; ;
+    border: none;
+    color: white ;
+
+    strong, button {
+      color: white ;
+      background: #67B68C ;
+
+    }
+
+
+  }
+
+  .toast-body {
+
+    background-color: #67B68C;
+    color: white;
+  }
+}
+
+.alert-danger {
+  border: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+
   max-width: 340px;
   width: 100%;
   height: auto;
   border-radius: 20px;
-  -webkit-box-shadow: 0 10px 30px -5px rgba(0,0,0,var(--vs-shadow-opacity));
-  box-shadow: 0 10px 30px -5px rgba(0,0,0,var(--vs-shadow-opacity));
+  -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   overflow: hidden;
   -webkit-clip-path: circle(145% at 100% 50%);
   clip-path: circle(145% at 100% 50%);
-  background: rgba(255,71,87,1);
+  background: rgba(255, 71, 87, 1);
   color: white;
   margin: 3px 10px;
-  -webkit-transition: all .25s ease,max-height .25s ease,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
-  transition: all .25s ease,max-height .25s ease,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
-  transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s;
-  transition: all .25s ease,transform .3s ease .1s,max-height .25s ease,clip-path .5s ease .1s,-webkit-transform .3s ease .1s,-webkit-clip-path .5s ease .1s;
+  -webkit-transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
+  transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
+  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s;
+  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
   font-size: 12px;
   font-family: Montserrat-Medium;
 }
-.modal-header{
+
+.modal-header {
   border-bottom: none;
 }
-#ledgerPopup___BV_modal_body_{
-  input,textarea{
+
+#ledgerPopup___BV_modal_body_ {
+  input, textarea {
     display: block;
     border: none;
     padding: 5px 15px;
@@ -1120,10 +1155,11 @@ option {
     background-color: #e5e7db;
     position: relative;
     font-size: 14px;
-    color:#616161  ;
-    margin:10px auto;
+    color: #616161;
+    margin: 10px auto;
   }
-  input[type='button']{
+
+  input[type='button'] {
 
     background-color: #67b68c;
     color: white;
