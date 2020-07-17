@@ -16,15 +16,13 @@
             </svg>
             </span>
             <FormulateInput
-              class=" search param-sm m-auto"
+              class=" search param-sm "
               placeholder="Search"
               @keyup.enter="giveTree()"
               type="number"
-              value="10000"
               v-model="treeID"
               name="treeID"
-              validation="required|min:10000"
-              error-behavior="live"
+              validation="after:10000"
 
             />
           </div>
@@ -237,7 +235,7 @@
     },
     data() {
       return {
-        treeID: Number,
+        treeID:null,
         loading: false,
         errors: null,
         boxs: [
