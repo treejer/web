@@ -7,7 +7,7 @@
             <h1 class="title-sm  tr-gray-two">Looking for your tree?</h1>
             <p class="param-xl tr-gray-four mt-4"> Enter the Tree ID below and we'll find it for you! :)</p>
           </div>
-          <div class="search-bar position-relative">
+          <div class="search-bar position-relative col-md-5 m-auto">
             <span class="icon position-absolute position-relative" @click="giveTree()">
               <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -16,7 +16,7 @@
             </svg>
             </span>
             <FormulateInput
-              class="col-md-4 search param-sm m-auto"
+              class=" search param-sm m-auto"
               placeholder="Search"
               @keyup.enter="giveTree()"
               type="number"
@@ -349,13 +349,10 @@
   .find-my-tree {
     .search-bar {
       span {
-       transform: translate(-150px, 6px);
-
         z-index: +9999;
-        @media(max-width: 768px) {
-          transform: translate(85px, 5px);
+        left: 25px;
+        top: 5px;
 
-        }
 
         svg {
 
