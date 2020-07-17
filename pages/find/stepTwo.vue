@@ -2,7 +2,7 @@
   <section class="position-relative pt-5 col-12 step-page mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
-        <div class="col-12">
+        <div class="col-12 p-sm-0 p-0">
           <ul class="step tr-gray-three d-flex   list-style-none">
             <li
               v-for="(item, index) in steps"
@@ -142,6 +142,11 @@
       p:nth-child(2):after {
         display: none;
       }
+    }
+  }
+  @media (max-width: 420px) {
+    .param-md p{
+      font-size: 8px;
     }
   }
 

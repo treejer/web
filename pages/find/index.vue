@@ -15,9 +15,18 @@
                 fill="#9E9E9E"/>
             </svg>
             </span>
+            <FormulateInput
+              class="col-md-4 search param-sm m-auto"
+              placeholder="Search"
+              @keyup.enter="giveTree()"
+              type="number"
+              value="10000"
+              v-model="treeID"
+              name="treeID"
+              validation="required|min:10000"
+              error-behavior="live"
 
-
-            <input class="form-control-lg search param-sm  " @keyup.enter="giveTree()" type="number" v-model="treeID" placeholder="Search">
+            />
           </div>
         </div>
       </div>
@@ -64,7 +73,7 @@
                     </div>
                     <div class="card-title">
                       <p class="tr-gray-two param-sm mb-1">{{item.first_name}}</p>
-                      <p class="tr-green mb-1">{{Math.floor(Math.random() * 10)*item.id}} trees</p>
+                      <p class="tr-green mb-1">{{item.id}} trees</p>
                     </div>
 
                   </div>
@@ -228,7 +237,7 @@
     },
     data() {
       return {
-        treeID: null,
+        treeID: Number,
         loading: false,
         errors: null,
         boxs: [
@@ -340,14 +349,22 @@
   .find-my-tree {
     .search-bar {
       span {
+       transform: translate(-150px, 6px);
+
+        z-index: +9999;
+        @media(max-width: 768px) {
+          transform: translate(85px, 5px);
+
+        }
 
         svg {
-          margin: 8px 5px;
+
+
         }
 
       }
 
-      input {
+      input, #formulate--find-11 {
         background: #E5E7DB;
         border: 0;
         padding: 15px 45px;
