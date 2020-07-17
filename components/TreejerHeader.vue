@@ -1,10 +1,10 @@
 <template>
   <div class="headers container" style="min-height: 10vh">
     <keep-alive>
-      <b-navbar toggleable="md">
+      <b-navbar toggleable="lg">
         <b-navbar-brand
           class="pointer-event position-relative"
-          :to="localePath('home')"
+          :to="localePath('index')"
         >
           <img
             class="img-fluid pointer-event"
@@ -132,7 +132,7 @@
 </script>
 
 <style lang="scss">
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     .headers {
       padding: 0 10px;
 

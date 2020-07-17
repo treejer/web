@@ -91,8 +91,10 @@
           .catch(err => console.log(err));
       },
        logout() {
+         this.$router.push('/')
         this.$store.dispatch("logout").then(() => {
         });
+
       },
 
       showModal() {
