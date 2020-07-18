@@ -85,10 +85,10 @@
         user: false,
         activeIndex: 0,
         items: [
-          {name: "About", step: 1, href: 'about'},
-          {name: "Blog", step: 2},
-          {name: "For Business", step: 3, href: 'business'},
           {name: "Find My Tree", step: 4, href: 'find'},
+          {name: "For Business", step: 3, href: 'business'},
+          {name: "Blog", step: 2},
+          {name: "About", step: 1, href: 'about'},
         ]
       };
     },
