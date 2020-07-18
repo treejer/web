@@ -171,7 +171,7 @@ section.sidebar {
     }
   }
 }
-@media (min-width: 100px) and (max-width: 768px) {
+@media (min-width: 100px) and (max-width: 1023px) {
 
  .sidebar{
    .nav.flex-column{
