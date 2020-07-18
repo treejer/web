@@ -33,7 +33,7 @@
           <!-- Right aligned nav items -->
 
           <b-navbar-nav class="header-menu">
-            <b-nav-item  :class="{ 'active': activeIndex === index }"
+            <b-nav-item
                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"
                         @click="activeMenu(item,index)">
               {{item.name}}

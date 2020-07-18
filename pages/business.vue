@@ -20,11 +20,12 @@
           <div class="row mt-5 text-center justify-content-center">
             <div class="col-12">
               <h1 class="tr-gray-two title-md font-weight-bold">It’s called the magic of trees!</h1>
-              <p class="param-18 tr-gray-two">Empower your business by committing to make the Earth a better place for
+              <p class="param-18 tr-gray-two" style="margin-bottom: 75px">Empower your business by committing to make the Earth a better place for
                 all!</p>
-              <button class="btn-green lets-go mt-4">
-                Let’s Go
-              </button>
+<!--              <button class="btn-green lets-go mt-4">-->
+<!--                Let’s Go-->
+<!--              </button>-->
+              <Arrow />
             </div>
           </div>
         </div>
@@ -293,8 +294,10 @@
 </template>
 
 <script>
+    import Arrow from "../components/Arrow";
     export default {
       name: "forBusiness",
+      components: {Arrow},
       methods: {
         activeMenu(item, index) {
           this.activeIndex = index;

@@ -36,6 +36,9 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
+  router: {
+    linkActiveClass: 'active-link'
+  },
 
   loading: {
     color: '#67B68C',
@@ -64,9 +67,7 @@ export default {
     ['@nuxtjs/dotenv', {filename: '.env'}]
   ],
   module: {
-    router: {
-      linkActiveClass: 'active-link'
-    },
+
 
     rules: [{
       test: /\.scss$/,
@@ -196,9 +197,6 @@ export default {
         icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
       }
     ]
-  },
-  router: {
-
   },
 
   /*

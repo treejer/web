@@ -7,7 +7,6 @@
           :name="item.name"
       >
         <nuxt-link :to="item.href" @click.native="activeMenu(item, index)"
-                   :class="{ 'active': activeIndex === index }"
                    class="nav-link"
         >
           <span v-html="item.icon"/>
@@ -141,7 +140,7 @@ section.sidebar {
     color: #757575;
   }
 
-  ul li a.active {
+  ul li a.active-link {
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 22px 0 rgba(0, 0, 0, 0.16);

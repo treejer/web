@@ -1172,3 +1172,11 @@ option {
   padding: 15px 45px;
 
 }
+
+.active-link {
+  color: #67B68C !important;
+  font-weight:bolder ;
+}
+.nav-item:not(.active-link){
+  opacity: 1;
+}
