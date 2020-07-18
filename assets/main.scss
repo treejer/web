@@ -1173,10 +1173,10 @@ option {
 
 }
 
-.active-link {
+.nuxt-link-exact-active {
   color: #67B68C !important;
   font-weight:bolder ;
 }
-.nav-item:not(.active-link){
+.nav-item:not(.nuxt-link-exact-active){
   opacity: 1;
 }
