@@ -649,7 +649,7 @@ h4,
 h5,
 h6,
 input {
-    font-family: Montserrat-Medium;
+  font-family: Montserrat-Regular;
 }
 
 .list-style-none {
@@ -1175,13 +1175,47 @@ option {
 
 .nuxt-link-exact-active {
   color: #67B68C !important;
-  font-weight:bolder ;
+  font-weight: bolder;
 }
-.nav-item:not(.nuxt-link-exact-active){
+
+.nav-item:not(.nuxt-link-exact-active) {
   opacity: 1;
 }
-.about .formulate-input input{
+
+.about .formulate-input input {
   height: 43px;
   background-color: #EEEEEE;
   border-radius: 6px;
+}
+
+li.square::before {
+  content: ""; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  background-color: #67B68C; /* Change the color */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 7px;
+  height: 7px;
+  margin-right: 14px;
+}
+
+.landing-footer.position-relative > div > div > div:nth-child(4) > ul {
+  justify-content: start !important;
+  text-align: left;
+  display: flex;
+  align-self: center;
+  align-items: center;
+
+  li {
+    margin: 5px 15px 5px 0;
+    a {
+      border: solid 1px #757575;
+      border-radius: 50px;
+      justify-content: center;
+      padding:6px 10px;
+      transition: all ease .2s;
+    }
+    a:hover {
+      border: solid 1px #67b68c;
+
+    }
+  }
 }

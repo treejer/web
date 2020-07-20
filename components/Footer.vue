@@ -13,43 +13,7 @@
         </div>
         <div class="col-lg-4 col-12 pt-2">
 
-          <b-nav class="justify-content-end  social">
-            <b-nav-item
-              href="https://www.instagram.com/treejer"
-              rel="noopener noreferrer"
-              target="_blank">
-
-              <Fab i="instagram"/>
-            </b-nav-item>
-            <b-nav-item
-              href="http://t.me/treejer"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Fab i="telegram"/>
-            </b-nav-item>
-            <b-nav-item
-              href="https://twitter.com/Treejertalks"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Fab i="twitter"/>
-             </b-nav-item>
-            <b-nav-item
-              href="https://www.linkedin.com/company/treejer"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Fab i="linkedin-in"/>
-             </b-nav-item>
-            <b-nav-item
-              href="https://www.facebook.com/treejertalks"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Fab i="facebook"/>
-              </b-nav-item>
-          </b-nav>
+         <Socials />
 
         </div>
       </div>
@@ -59,10 +23,11 @@
 
 <script>
   import Fab from '@/components/font-awsome/Fab.vue'
+  import Socials from "../components/Socials";
 
   export default {
     name: "Footer",
-    components: {Fab}
+    components: {Socials, Fab}
   }
 </script>
 

@@ -97,6 +97,7 @@
 
   export default {
     name: "about",
+    layout:'landing',
     data() {
       return {}
     },
