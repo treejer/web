@@ -9,12 +9,20 @@
             @submit="subscribe"
           >
             <FormulateInput
-              name="name"
+              name="first name"
               type="text"
-              label="Your name"
-              placeholder="Your name"
+              label="First name"
+              placeholder="First name"
               validation="required"
               v-model="form.userName"
+            />
+            <FormulateInput
+              name="last name"
+              type="text"
+              label="Last name"
+              placeholder="Last name"
+              validation="required"
+              v-model="form.lastName"
             />
             <FormulateInput
               name="email"
@@ -27,7 +35,7 @@
             <FormulateInput
               type="textarea"
               v-model="form.text"
-              label="Description"
+              label="Message"
               validation-name="tweet"
               error-behavior="live"
               :help="`Keep it under 250 characters. ${250 - form.text.length} left.`"
@@ -67,8 +75,9 @@
     data() {
       return {
         form: {
-          email: null,
-          userName: null,
+          email: '',
+          userName: '',
+          lastName:'',
           text: ''
         },
         url: null,
@@ -97,6 +106,10 @@
               "name": "firstname",
               "value": self.form.userName
             },
+            // {
+            //   "name": "name",
+            //   "value": self.form.lastName
+            // },
             {
               "name": "message",
               "value":self.form.text
@@ -107,11 +120,11 @@
             "pageName": self.$route.name
           },
         }).then(res => {
-          
+
           self.loading = false
-          self.$bvToast.toast('Your email has been successfully registered.', {
+          self.$bvToast.toast('Your message was sent successfully.', {
             variant: 'success',
-            title: 'Subscribed'
+            title: 'Message'
           })
         }).catch(function(err) {
           self.$bvToast.toast(err.message, {
