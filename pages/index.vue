@@ -6,7 +6,7 @@
             <div class="row">
               <div class="col-12 title">
                 <client-only>
-                  <h1 class="Montserrat-Bold tr-gray-three font-weight-bold text-dn">
+                  <h1 class="tr-gray-three font-weight-bold text-dn">
                     A more
                     <vue-typer
                       :repeat='Infinity'
@@ -51,14 +51,14 @@
               </div>
               <div class="col-12 d-flex tr-status mt-3 ">
                 <div class="planet-tree pt-2">
-                  <p class="param-sm tr-black font-weight-bold Montserrat-Bold">Planted Trees</p>
-                  <p class="title-md tr-green font-weight-bolder Montserrat-Bold">159</p>
+                  <p class="param-sm tr-black font-weight-bold ">Planted Trees</p>
+                  <p class="title-md tr-green font-weight-bolder ">159</p>
                 </div>
                 <div class="rural-communities pt-2">
-                  <p class="param-sm tr-black font-weight-bold Montserrat-Bold">
+                  <p class="param-sm tr-black font-weight-bold ">
                     Rural Communities
                   </p>
-                  <p class="title-md tr-green font-weight-bold Montserrat-Bold">2</p>
+                  <p class="title-md tr-green font-weight-bold ">2</p>
                 </div>
               </div>
             </div>
@@ -162,12 +162,16 @@
     }
   }
 
-  @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  @media (min-width: 768px) and (max-width: 1280px) and (orientation: landscape) {
     .home {
-      .title{
-        h1{
+      .title {
+        h1 {
           font-size: 14px;
         }
+      }
+
+      .text-dn {
+        height: auto;
       }
 
     }
@@ -183,8 +187,8 @@
         margin-top: 73%;
         justify-content: center;
       }
-      .text-dn{
-        height: 18vh;
+      .text-dn {
+        height: auto;
       }
       .title{
         h1{

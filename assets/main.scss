@@ -883,8 +883,72 @@ option {
   ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    //CSS
+@media (min-width: 769px) and (max-width: 1280px) {
+  .param {
+    font-size: 12px;
+  }
+
+  .param-sm {
+    font-size: 10px;
+  }
+
+  .param-sm-light {
+    font-size: 12px;
+  }
+
+  .param-md {
+    font-size: 12px;
+
+  }
+  .param-18 {
+    font-size: 12px;
+
+  }
+
+  .param-md-light {
+    font-size: 12px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+
+    letter-spacing: 1.5px;
+  }
+
+  .param-lg {
+    font-size: 14px;
+  }
+  .vue-typer{
+
+
+    span{
+      font-size: 15px;
+
+    }
+  }
+  .param-lg-bold {
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+
+    letter-spacing: normal;
+    font-weight: bold;
+  }
+
+  .param-md-bold {
+    font-size: 14px;
+  }
+
+  .param-xl {
+    font-size: 15px;
+  }
+
+  .title-md {
+    font-size: 15px;
+  }
+
+  .title-sm {
+    font-size: 15px;
+  }
 }
 
 

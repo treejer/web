@@ -2,7 +2,7 @@
   <div class="landing-footer position-relative">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6 col-12">
           <nuxt-link class="btn-green position-relative d-block param text-white " to="/myForest">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
@@ -13,7 +13,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
             <li class="square mt-md-2" v-for="(item ,index) in listTwo" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
@@ -23,7 +23,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
             <li class="square mt-md-2 " v-for="(item ,index) in listThree" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
@@ -33,7 +33,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-3 p-0">
+        <div class="col-lg-3 col-md-6 col-12 p-0">
           <div class="logo">
             <nuxt-link to="/" class="position-relative ">
               <img src="../assets/images/landing-footer/logo.png" class="img-fluid pointer-event" alt="treejer">
@@ -43,7 +43,7 @@
               businesses and individuals to stop Climate Change with the help of local communities.
             </p>
           </div>
-          <Socials />
+          <Socials/>
         </div>
 
       </div>
@@ -53,6 +53,7 @@
 
 <script>
   import Socials from "./Socials";
+
   export default {
     name: "LandingFooter",
     components: {Socials},
@@ -111,15 +112,52 @@
       width: max-content;
 
 
-
     }
 
     a:hover {
       color: white;
     }
 
+    @media (min-width: 1024px) {
+      padding: 84px 65px 84px 150px;
+      > div > div > div:nth-child(3) > ul{
+        border-bottom: none;
+      }
+
+    }
+    @media (max-width: 1023px) {
+      padding: 35px 45px 35px 45px;
+
+    }
+    @media (max-width: 768px) {
+      padding: 25px 15px;
+      > .container > .row {
+        flex-direction: column-reverse;
+      }
+       > div > div > div:nth-child(3) > ul{
+         border-bottom: solid 1px lightgray;
+       }
+      .col-12 {
+        padding: 0;
+      }
+      a.text-white {
+        width: 100%;
+        text-align: center;
+      }
+      ul {
+        display: inline-table;
+        width: 100%;
+
+        li {
+          width: 50%;
+          display: inherit;
+        }
+      }
+
+
+    }
+
     background: #E5E7DB;
-    padding: 84px 65px 84px 150px;
 
   }
 </style>
