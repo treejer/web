@@ -4,19 +4,26 @@
       <img src="../assets/images/about/about-banner.png" class="img-fluid m-auto" alt="about-us">
 
     </div>
-    <div class="mt-4 justify-content-center text-center">
+    <div class="mt-4 justify-content-center text-center position-relative">
       <h4 class="title-md font-weight-bold tr-gray-two">Planters
         without Borders</h4>
+
+
     </div>
-    <div class="about-text-card">
-      <p class="param-18 tr-gray-two font-weight-lighter ">
-        Rural development ambassadors in Treejer are people who interact with
-        Local communities and the introduction of existing opportunities, the process of creating a
-        the greenery and Rural development ambassadors in Treejer are people who interact with
-        Local communities and the introduction of existing opportunities, the process of creating a
-        the greenery andRural development ambassadors in Treejer are people who interact with
-        Local communities and the introduction of existing opportunities, the
-      </p>
+    <div class="position-relative mb-5 pb-5">
+      <div class="about-text-card position-relative ">
+        <p class="param-18 tr-gray-two font-weight-lighter ">
+          Rural development ambassadors in Treejer are people who interact with
+          Local communities and the introduction of existing opportunities, the process of creating a
+          the greenery and Rural development ambassadors in Treejer are people who interact with
+          Local communities and the introduction of existing opportunities, the process of creating a
+          the greenery andRural development ambassadors in Treejer are people who interact with
+          Local communities and the introduction of existing opportunities, the
+        </p>
+
+      </div>
+      <Arrow top="90%" />
+
     </div>
     <div class="mt-5 justify-content-center text-center">
       <h4 class="title-md font-weight-bold tr-gray-two">Meet Our Team</h4>
@@ -94,6 +101,7 @@
 <script>
 
   import AboutCard from "../components/AboutCard";
+  import Arrow from "../components/Arrow";
 
   export default {
     name: "about",
@@ -101,7 +109,7 @@
     data() {
       return {}
     },
-    components: {AboutCard},
+    components: {Arrow, AboutCard},
   };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="arrow">
+  <div class="arrow" :style="{top:localTop}">
     <span></span>
     <span></span>
     <span></span>
@@ -9,7 +9,19 @@
 
 <script>
     export default {
-        name: "Arrow"
+      name: "Arrow",
+      props: {
+        top: {
+          type: String,
+          default: '75%'
+        }
+      },
+      data(){
+        return{
+          localTop:this.top,
+
+        }
+      }
     }
 </script>
 
