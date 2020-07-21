@@ -156,6 +156,7 @@
       border: 0 !important;
       border-collapse: separate;
       border-spacing: 0 1em;
+      font-family: Montserrat-Regular!important;
 
       td:nth-child(1){
         border-left-style: solid;

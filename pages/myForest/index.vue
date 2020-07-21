@@ -5,7 +5,7 @@
         <div class="col-lg-8  col-12">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
-              <h2 class="title-sm Montserrat-Bold " >
+              <h2 class="title-sm Montserrat-Medium " >
                 My Forest
 
               </h2>
@@ -141,8 +141,6 @@
         font-stretch: normal;
         font-style: normal;
         color: #424242;
-        font-family: Montserrat-Bold;
-
         span:nth-child(1) {
           font-size: 24px;
           font-weight: bold;

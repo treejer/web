@@ -241,7 +241,7 @@
           </div>
         </div>
       </section>
-      <section class="echo-chain-slider mt-5">
+      <section class="echo-chain-slider mt-5 mb-5">
         <div class="container">
           <div class="row  justify-content-center ">
             <div class="col-12 col-md-8">
@@ -297,6 +297,7 @@
     import Arrow from "../components/Arrow";
     export default {
       name: "forBusiness",
+      layout:'landing',
       components: {Arrow},
       methods: {
         activeMenu(item, index) {

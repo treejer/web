@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <div class="row article">
           <div class="col-md-8 col-12">
-            <div class="row">
+            <div class="row mobile-align">
               <div class="col-12 title">
                 <client-only>
                   <h1 class="tr-gray-three font-weight-bold text-dn">
@@ -183,15 +183,24 @@
       background-position-y: -3%;
       background-position-x: 90%;
       height: 90vh;
-      .article{
+
+      .article {
         margin-top: 73%;
         justify-content: center;
       }
+
+      .mobile-align,.tr-status {
+        justify-content: center;
+        text-align: center;
+        padding-top: 25px;
+      }
+
       .text-dn {
         height: auto;
       }
-      .title{
-        h1{
+
+      .title {
+        h1 {
           font-size: 14px;
         }
       }
