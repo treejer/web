@@ -231,6 +231,8 @@
       }
     },
     mounted() {
+
+
       this.$store.dispatch('allUsers')
     },
     data() {
@@ -297,17 +299,17 @@
         this.$router.push(`/find/${step}`)
 
       },
-     async giveTree() {
-       this.errors = null
-       this.loading = true
-       this.$cookies.set('step', this.treeID)
-       let self = this
-       await this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
-         .then(function (response) {
-           self.loading = false
-           const status = response.status
-           switch (status) {
-             case 1:
+      async giveTree() {
+        this.errors = null
+        this.loading = true
+        this.$cookies.set('step', this.treeID)
+        let self = this
+        await this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
+          .then(function (response) {
+            self.loading = false
+            const status = response.status
+            switch (status) {
+              case 1:
                self.step = 'stepOne';
                break
              case 2:
@@ -322,22 +324,22 @@
               self.changeRoute(self.step)
 
 
+            // handle success
+          })
+          .catch(function (error) {
 
-              // handle success
-            })
-            .catch(function (error) {
+            self.loading = false
+            self.errors = error.response.data.errors
+            console.log(error.response.data.errors)
 
-              self.loading = false
-              self.errors = error.response.data.errors
-              console.log(error.response.data.errors)
+            // handle error
+          })
+          .then(function () {
+            // always executed
+          });
+      },
 
-              // handle error
-            })
-            .then(function () {
-              // always executed
-            });
-        }
-      }
+    }
 
 
   }

@@ -130,9 +130,18 @@
         height: 303px;
         margin-bottom: 15px;
         cursor: pointer;
-        transition: all .5s ease;
+
+          box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+          transition: transform 0.1s ease-in-out, box-shadow 0.1s;
 
 
+
+
+
+      }
+      .team-card:hover {
+        transform: translateY(-0.5rem) scale(1.0125);
+        box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
       }
     }
 

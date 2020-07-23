@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-wrap pointer-event "
+    <div class="card-wrap team-wrap pointer-event "
          @mousemove="handleMouseMove($event)"
          @mouseenter="handleMouseEnter($event)"
          @mouseleave="handleMouseLeave($event)"
@@ -81,8 +81,8 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .card-wrap {
+<style lang="scss">
+  .card-wrap.team-wrap {
     $hoverEasing: cubic-bezier(0.23, 1, 0.32, 1);
     $returnEasing: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
@@ -114,7 +114,7 @@
       transform: perspective(800px);
       transform-style: preserve-3d;
       cursor: pointer;
-      // background-color: #fff;
+       background-color: #fff;
 
       &:hover {
         .card-info {

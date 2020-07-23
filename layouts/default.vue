@@ -37,7 +37,17 @@
   },
 
   mounted() {
-    console.log(this.$route.name, 'windows here')
+    const workBox = window.$workbox
+    console.log(workBox,'workbox')
+    if (this.$nuxt.isOnline) {
+      console.log('dwadaw')
+      return null
+    } else {
+      console.log('offline')
+
+      this.makeToast('danger', 'You are offline')
+
+    }
   },
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})
@@ -46,6 +56,13 @@
   // },
 
   methods: {
+    makeToast(variant, msg, title) {
+      this.$bvToast.toast(msg, {
+        title: title,
+        variant: variant,
+        solid: true
+      })
+    },
     onComplete(data) {
       console.log("data:", data);
       this.account = data;
