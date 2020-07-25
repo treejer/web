@@ -126,15 +126,11 @@
       onExpired() {
         console.log('Expired')
       },
-     async subscribe() {
-        try {
-          const token = await this.$recaptcha.getResponse()
-          console.log('ReCaptcha token:', token)
-          await this.$recaptcha.reset()
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log('Login error:', error)
-        }
+      async subscribe() {
+        const token = await this.$recaptcha.getResponse()
+        debugger
+        console.log('ReCaptcha token:', token)
+        await this.$recaptcha.reset()
         // this.$axios.post('https://api.sg-form.com/signup', {
         //   email: "iraj.habibzadeh70@gmail.com",
         //   first_name: "",
@@ -148,7 +144,16 @@
       },
     },
     components: {Arrow, AboutCard},
-  };
+    created() {
+      this.$axios.post('https://www.google.com/recaptcha/api/siteverify', {
+        secret: '6Lck6LUZAAAAAFXxC7XDxcYNjCJSrfTn2pds6eTz',
+        response:null,
+        remoteip:null
+      }).then((res) => {
+        console.log(res)
+      })
+    }
+  }
 </script>
 
 <style scoped lang="scss">

@@ -204,7 +204,7 @@ export default {
     hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
     siteKey: '6Lck6LUZAAAAABnazIRRkNGZW9Nal9vhUbhSlIjI', // Site key for requests
     version: 3, // Version
-    size: 'compact' // Size: 'compact', 'normal', 'invisible' (v2)
+    size: 'invisible' // Size: 'compact', 'normal', 'invisible' (v2)
   },
 
   /*
