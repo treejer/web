@@ -85,7 +85,7 @@
 
                 type="submit"
                 name="Submit"
-                @click="subscribe()"
+                @click="onSubmit()"
               />
 
 
