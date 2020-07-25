@@ -111,7 +111,7 @@
     layout: 'landing',
     data() {
       return {
-        email:String
+        email:''
       }
     },
     methods: {
