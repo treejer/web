@@ -77,6 +77,7 @@
                 class="search param-sm input-sub "
                 place-holder="Your Email"
                 validation="required|email"
+                v-model="email"
               />
             </div>
             <div class="col-md-4">
@@ -109,14 +110,13 @@
     name: "about",
     layout: 'landing',
     data() {
-      return {}
+      return {
+        email:String
+      }
     },
     methods: {
       onError(error) {
         console.log('Error happened:', error)
-      },
-      async onSubmit() {
-
       },
       onSuccess(token) {
         console.log('Succeeded:', token)
@@ -131,16 +131,16 @@
         debugger
         console.log('ReCaptcha token:', token)
         await this.$recaptcha.reset()
-        // this.$axios.post('https://api.sg-form.com/signup', {
-        //   email: "iraj.habibzadeh70@gmail.com",
-        //   first_name: "",
-        //   form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
-        //   last_name: "",
-        //   recaptcha: "",
-        //   user_id: "",
-        // }).then(res => {
-        //   console.log(res)
-        // })
+        this.$axios.post('https://api.sg-form.com/signup', {
+          email: this.email,
+          first_name: "",
+          form_id: token,
+          last_name: "",
+          recaptcha: "",
+          user_id: "",
+        }).then(res => {
+          console.log(res)
+        })
       },
     },
     components: {Arrow, AboutCard},
