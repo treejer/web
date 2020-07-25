@@ -111,48 +111,25 @@
     layout: 'landing',
     data() {
       return {
-        email:''
+        email:'',
+        token:''
       }
     },
+
+    async mounted() {
+      await this.$recaptcha.init()
+    },
     methods: {
-      onError(error) {
-        console.log('Error happened:', error)
-      },
-      onSuccess(token) {
-        console.log('Succeeded:', token)
-        // here you submit the form
-        this.$refs.form.submit()
-      },
-      onExpired() {
-        console.log('Expired')
-      },
-      async subscribe() {
-        const token = await this.$recaptcha.getResponse()
-        debugger
-        console.log('ReCaptcha token:', token)
-        await this.$recaptcha.reset()
-        this.$axios.post('https://api.sg-form.com/signup', {
-          email: this.email,
-          first_name: "",
-          form_id: token,
-          last_name: "",
-          recaptcha: "",
-          user_id: "",
-        }).then(res => {
-          console.log(res)
-        })
+      async onSubmit() {
+        try {
+          const token = await this.$recaptcha.execute('login')
+          console.log('ReCaptcha token:', token)
+        } catch (error) {
+          console.log('Login error:', error)
+        }
       },
     },
     components: {Arrow, AboutCard},
-    created() {
-      this.$axios.post('https://www.google.com/recaptcha/api/siteverify', {
-        secret: '6Lck6LUZAAAAAFXxC7XDxcYNjCJSrfTn2pds6eTz',
-        response:null,
-        remoteip:null
-      }).then((res) => {
-        console.log(res)
-      })
-    }
   }
 </script>
 
