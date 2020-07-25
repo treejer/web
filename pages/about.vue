@@ -86,8 +86,12 @@
 
                 type="submit"
                 name="Submit"
+                @click="subscribe()"
               />
+
+
             </div>
+            <recaptcha @error="onError" @success="onSuccess" @expired="onExpired"/>
           </div>
 
         </div>
@@ -105,9 +109,45 @@
 
   export default {
     name: "about",
-    layout:'landing',
+    layout: 'landing',
     data() {
       return {}
+    },
+    methods: {
+      onError(error) {
+        console.log('Error happened:', error)
+      },
+      async onSubmit() {
+
+      },
+      onSuccess(token) {
+        console.log('Succeeded:', token)
+        // here you submit the form
+        this.$refs.form.submit()
+      },
+      onExpired() {
+        console.log('Expired')
+      },
+     async subscribe() {
+        try {
+          const token = await this.$recaptcha.getResponse()
+          console.log('ReCaptcha token:', token)
+          await this.$recaptcha.reset()
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log('Login error:', error)
+        }
+        // this.$axios.post('https://api.sg-form.com/signup', {
+        //   email: "iraj.habibzadeh70@gmail.com",
+        //   first_name: "",
+        //   form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
+        //   last_name: "",
+        //   recaptcha: "",
+        //   user_id: "",
+        // }).then(res => {
+        //   console.log(res)
+        // })
+      },
     },
     components: {Arrow, AboutCard},
   };

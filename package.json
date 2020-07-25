@@ -23,6 +23,7 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/recaptcha": "^0.6.2",
     "@nuxtjs/sitemap": "^2.0.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "@walletconnect/client": "^1.0.14",

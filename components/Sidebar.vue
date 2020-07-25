@@ -45,7 +45,7 @@
       <li class="nav-item Leaderboard"
           @click="activeIndex=1"
       >
-        <nuxt-link to="/Leaderboard"
+        <nuxt-link to="/leaderboard"
                    class="nav-link"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,30 +128,12 @@
 
   export default {
     name: "Sidebar",
-    computed: {
-      routeName(item) {
-        item = this.$route.path
-        switch (item) {
-          case '/':
-            this.hasSideBar = false
-            break
-          case '/about':
-            this.hasSideBar = false
-            break
-          default:
-            this.hasSideBar = true
-        }
-      },
-      activeColor() {
-
-      }
-    },
 
 
     components: {Fas},
     data() {
       return {
-        activeIndex: null,
+        activeIndex: 0,
         forest: ``,
         activeForest: ``,
         user: false,
@@ -159,30 +141,60 @@
       };
     },
     created() {
-      this.activeMenu()
-    },
+      if (process.client) {
+        const history = this.$router.history.current.fullPath
+        const href = document.querySelectorAll(`a[href='${history}']`)
 
-    methods: {
-      activeMenu(item, index) {
-        switch (this.$route.path) {
+        console.log(href, 'href here')
+        switch (history) {
           case '/myForest':
             return this.activeIndex = 0;
+            href.classList.toggle("nuxt-link-exact-active");
+
+
             break;
-          case  '/Leaderboard':
+          case  '/leaderboard':
             return this.activeIndex = 1;
+            href.classList.toggle("nuxt-link-exact-active");
             break;
           case  '/updates':
             return this.activeIndex = 2;
+            href.classList.toggle("nuxt-link-exact-active");
             break;
           case  '/help':
             return this.activeIndex = 3;
+            href.classList.toggle("nuxt-link-exact-active");
             break;
           default:
             return this.activeIndex = 0;
         }
-      },
-      store(status){
-        return this.$store.dispatch('hasDashboard',{
+      }
+      debugger
+
+
+    },
+
+    methods: {
+      // activeMenu(item, index) {
+      //   switch (this.$route.path) {
+      //     case '/myForest':
+      //       return this.activeIndex = 0;
+      //       break;
+      //     case  '/Leaderboard':
+      //       return this.activeIndex = 1;
+      //       break;
+      //     case  '/updates':
+      //       return this.activeIndex = 2;
+      //       break;
+      //     case  '/help':
+      //       return this.activeIndex = 3;
+      //       break;
+      //     default:
+      //       return this.activeIndex = 0;
+      //   }
+      // },
+      store(status) {
+        return this.$store.dispatch('hasDashboard', {
           status
         })
       },
@@ -202,7 +214,7 @@ section.sidebar {
     color: #757575;
   }
 
-  ul li a.nuxt-link-exact-active {
+  ul li a.nuxt-link-exact-active, ul li a.active-link {
 
     text-align: center;
     border-radius: 10px;

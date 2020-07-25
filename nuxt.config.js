@@ -119,17 +119,19 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-        'bootstrap-vue/nuxt', ['cookie-universal-nuxt'],
-      [ 'vue-ethereum/nuxt' ],
-        '@nuxtjs/axios',
-        '@nuxtjs/pwa',
-        '@nuxtjs/style-resources', ['nuxt-fontawesome'],
-        'nuxt-i18n', ['@nuxtjs/google-gtag'],
-        ['@nuxtjs/sitemap', {
-
-        }],
-        ['@netsells/nuxt-hotjar', {
-            id: '1662889',
+      'bootstrap-vue/nuxt',
+      'cookie-universal-nuxt',
+      [
+        '@nuxtjs/recaptcha'
+      ],
+      'vue-ethereum/nuxt',
+      '@nuxtjs/axios',
+      '@nuxtjs/pwa',
+      '@nuxtjs/style-resources', ['nuxt-fontawesome'],
+      'nuxt-i18n', ['@nuxtjs/google-gtag'],
+      ['@nuxtjs/sitemap', {}],
+      ['@netsells/nuxt-hotjar', {
+        id: '1662889',
             sv: '6',
         }]
     ],
@@ -197,6 +199,12 @@ export default {
         icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
       }
     ]
+  },
+  recaptcha: {
+    hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
+    siteKey: 'YOUR SITE KEY', // Site key for requests
+    version: 2, // Version
+    size: 'invisible' // Size: 'compact', 'normal', 'invisible' (v2)
   },
 
   /*

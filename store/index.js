@@ -12,7 +12,8 @@ export const state = () => ({
   users: null,
   chainId: null,
   trezorPopup: null,
-  ledger: null
+  ledger: null,
+  form:null
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -84,6 +85,19 @@ export const actions = {
   async allUsers({commit}) {
     const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
     commit('SET_USERS', users.data)
+  },
+   signUpForm({commit}){
+   this.$axios.$post('https://api.sg-form.com/signup',{
+     email: "iraj.habibzadeh70@gmail.com",
+     first_name: "mehdi",
+     form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
+     last_name: "shahi",
+     recaptcha: "03AGdBq24_fBLQLout7rX-vkEgXpTIk3F956P8yVoJNdq-4gXDr1X1rzH44WC9OJaLF8bSgfv-4MvGbxFLshHGVZ27dakUm6nKn3CyQ_jZFtaZmTBr7djhKGx15MDNHLjqVOd6hngLRi0Wx3KT8pOr8NijGQwK8yWQrUF9kk0nKlWU7VZ68OZdSqB0eOA9sHTSN48kCGv8gX3qFx4qYlBCcSpUDDNUvk6QvA3zYYRlabJRf5PiJuxupWjsNJ-gv8-bpiEVwumoTWLFDWH83yC-VKV01PKhObB0KG8ilIUkj5MBK9Mo1N0NazYNVrpI_mevoiO4c0OtCpaNFQyTSCfC3MU3ChCBdHQtcHsH08zuHpRJnNFEeibUFj3lQ21vtIyRFQHbkmepnGt2aR47S9Goo4YYydMSZmNxaA",
+     user_id: 10211987,
+   }).then(res =>{
+     console.log(res)
+     commit('SET_USERS_FROM', res)
+   })
   }
 
 
@@ -105,6 +119,10 @@ export const mutations = {
   },
   SET_USERS(state, users) {
     state.users = users
+
+  },
+  SET_USER_FORM(state, form) {
+    state.form = form
 
   },
   SET_TREZOR_POP_UP(state, trezorPopup) {
