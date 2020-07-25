@@ -202,9 +202,9 @@ export default {
   },
   recaptcha: {
     hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
-    siteKey: 'YOUR SITE KEY', // Site key for requests
+    siteKey: '6Lck6LUZAAAAABnazIRRkNGZW9Nal9vhUbhSlIjI', // Site key for requests
     version: 2, // Version
-    size: 'invisible' // Size: 'compact', 'normal', 'invisible' (v2)
+    size: 'compact' // Size: 'compact', 'normal', 'invisible' (v2)
   },
 
   /*

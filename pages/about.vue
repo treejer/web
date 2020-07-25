@@ -74,12 +74,10 @@
               <FormulateInput
                 type="email"
                 name="email"
-
                 class="search param-sm input-sub "
                 place-holder="Your Email"
                 validation="required|email"
               />
-
             </div>
             <div class="col-md-4">
               <FormulateInput
