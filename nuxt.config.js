@@ -62,6 +62,7 @@ export default {
     {src: '~plugins/maps.js', ssr: false},
     {src: '~plugins/eth.js', ssr: false},
     {src: '~plugins/vueFormulate.js', ssr: false},
+    {src: '~plugins/web3.js', ssr: false},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]
@@ -216,9 +217,10 @@ export default {
    ** Build configuration
    */
   build: {
-        /*
-         ** You can extend webpack config here
-         */
-        extend(config, ctx) {}
+    vendor: ['web3'],
+    /*
+      ** You can extend webpack config here
+      */
+    extend(config, ctx) {}
     }
 }
