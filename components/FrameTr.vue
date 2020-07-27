@@ -6,7 +6,6 @@
         :schema="schema"
       />
       <button
-        :class="{ disable: !values }"
         @click.prevent="submit()"
         class="btn-lg  btn-green param-md mb-4"style="padding: 10px 25px">
 
@@ -14,7 +13,7 @@
         {{loading ? ' Loading...' : 'submit'}}
       </button>
 
-      <div class="g-recaptcha" data-sitekey="6Lfa9H0UAAAAAMAGt_pKuycKsKYFnIouFWeqInvd"></div>
+      <recaptcha class="g-recaptcha" data-sitekey="6Lfa9H0UAAAAAMAGt_pKuycKsKYFnIouFWeqInvd"></recaptcha>
 
     </form>
   </div>
@@ -53,24 +52,30 @@
       await this.$recaptcha.init()
     },
     methods: {
-      submit() {
 
+      submit() {
         this.loading = true
         let self = this
-        this.$axios.$post('https://api.sg-form.com/signup', {
-          first_name: self.values.first - name,
-          last_name: self.values.last - name,
-          email: self.values.email,
+        debugger
+        const  help= self.$recaptcha.getResponse()
+        console.log(help,'dawdwad')
+        this.$axios.post('https://api.sg-form.com/signup',{
+          first_name: 'dawdawd',
+          last_name: 'dawdadw',
+          email: 'dawdawdd',
           user_id: 10211987,
           form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
-          recaptcha: self.$recaptcha.getResponse(),
-        }).then((res) => {
-          console.log(res, 'resdarat')
-          self.loading = false
-        }).catch((err) => {
-          console.log(err, 'errr')
-          self.loading = false
+          recaptcha:help,
         })
+          .then(function (response) {
+            console.log(response);
+            self.loading = false
+          })
+          .catch(function (error) {
+            console.log(error);
+            self.loading = false
+          });
+
       }
     }
   }
