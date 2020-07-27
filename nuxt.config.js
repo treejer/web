@@ -41,8 +41,8 @@ export default {
   },
 
   loading: {
-    color: '#67B68C',
-    failedColor: '#ee2d0e',
+    color: 'rgba(103,182,140,0.62)',
+    failedColor: 'rgba(238,45,14,0.69)',
     height: '6px'
   },
 

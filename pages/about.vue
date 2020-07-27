@@ -67,33 +67,36 @@
           <img src="../assets/images/about/pm.png" class="img-fluid m-auto" alt="message">
         </div>
         <div class="col-md-8 box-text text-left">
-          <p class="param-xl mb-1 tr-gray-two text-uppercase">Subscribe</p>
-          <p class="param-18 mb-0 tr-gray-three font-weight-lighter"> Subscribe to our newsletter & stay updated</p>
-          <div class="row mt-3  ">
-            <div class="col-md-8">
-              <FormulateInput
-                type="email"
-                name="email"
-                class="search param-sm input-sub "
-                place-holder="Your Email"
-                validation="required|email"
-                v-model="email"
-              />
-            </div>
-            <div class="col-md-4">
-              <FormulateInput
-
-                type="submit"
-                name="Submit"
-                @click="onSubmit()"
-              />
-
-
-            </div>
-            <recaptcha @error="onError" @success="onSuccess" @expired="onExpired"/>
-          </div>
-
+        <FrameTr  />
         </div>
+        <!--          <p class="param-xl mb-1 tr-gray-two text-uppercase">Subscribe</p>-->
+        <!--          <p class="param-18 mb-0 tr-gray-three font-weight-lighter"> Subscribe to our newsletter & stay updated</p>-->
+        <!--          <div class="row mt-3  ">-->
+        <!--            <div class="col-md-8">-->
+        <!--              <FormulateInput-->
+        <!--                type="email"-->
+        <!--                name="email"-->
+        <!--                class="search param-sm input-sub "-->
+        <!--                place-holder="Your Email"-->
+        <!--                validation="required|email"-->
+        <!--                v-model="email"-->
+        <!--              />-->
+        <!--            </div>-->
+        <!--            <div class="col-md-4">-->
+        <!--              <FormulateInput-->
+
+        <!--                type="submit"-->
+        <!--                name="Submit"-->
+        <!--                @click="onSubmit()"-->
+        <!--              />-->
+
+
+        <!--            </div>-->
+        <!--            <recaptcha @error="onError" @success="onSuccess" @expired="onExpired"/>-->
+        <!--          </div>-->
+
+        <!--        </div>-->
+
 
       </div>
     </div>
@@ -105,10 +108,11 @@
 
   import AboutCard from "../components/AboutCard";
   import Arrow from "../components/Arrow";
-
+  import FrameTr from "../components/FrameTr";
   export default {
     name: "about",
     layout: 'landing',
+    components: {Arrow, AboutCard,FrameTr},
     data() {
       return {
         email:'',
@@ -129,7 +133,7 @@
         }
       },
     },
-    components: {Arrow, AboutCard},
+
   }
 </script>
 

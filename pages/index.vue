@@ -83,6 +83,7 @@
       goToDashboard() {
         if (this.$store.state.account === null || this.$cookies.get('account') === null) {
 
+
           this.$bvToast.toast("you are not logged in. please login", {
             toaster: 'b-toaster-bottom-left',
             solid: true,

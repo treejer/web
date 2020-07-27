@@ -37,11 +37,11 @@
                         <input
                           :class="{ active: activeIndex === index }"
                           style="width: initial"
+                          v-model="count"
                           :placeholder="item.placeHolder"
                           type="number"
-                          :value="item.name"
                           :key="index"
-                          :name="item.name"
+
                         />
                       </label>
                     </div>
@@ -121,10 +121,11 @@
                 </div>
                 <div class="body mt-5">
                   <h4>Total</h4>
-                  <h1>{{ "$173.00" }}</h1>
+                  <h1 style="transition: ease-out all .5s">${{ count * 173.00 }}</h1>
+                  <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">{{ slectedPays }}</p>
                   <button
-                    @click="activeIndex = 1"
-                    class="btn-green-md  mt-5"
+                    @click="count!==null ? activeIndex = 1 :null"
+                    class="btn-green-md  mt-4"
                   >
                     NEXT
                   </button>
@@ -217,7 +218,7 @@
           </div>
         </div>
         <div class="col-12 step-two" v-if="activeIndex === 1">
-          <div class="row">
+          <div class="row" v-if="this.$store.state.account ===null">
             <div class="col-12 mt-5 justify-content-center text-center">
               <h1 class="title-sm font-weight-bolder text-center ">
                 Select Wallet
@@ -266,11 +267,51 @@
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
+                ${{count *173}}
               </p>
               <hr />
             </div>
           </div>
+          <div class="row" v-if="this.$store.state.account !==null">
+            <div class="col-12 mt-5 justify-content-center text-center">
+              <h1 class="title-sm font-weight-bolder text-center ">
+                {{this.$store.state.account}}
+              </h1>
+            </div>
+            <div
+              class="col-12 text-center col-lg-4 d-none  d-md-block align-items-center align-self-center  h-100"
+            >
+              <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
+              <p
+                class="pointer-event tr-green"
+                @click="localePath('contactUs')"
+              >
+                support@treejer.com
+              </p>
+            </div>
+            <div
+              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
+            >
+              <p class="param  mt-3 tr-gray-five">New to Ethereum?</p>
+              <p class="param   tr-green">Learn more about wallets</p>
+              <button
+                class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white "
+                @click="activeIndex = 2"
+              >
+                CONNECTING
+              </button>
+            </div>
+            <div
+              class="col-12 col-lg-4 d-none  d-lg-block flex-row align-items-center align-self-center  h-100"
+            >
+              <hr />
+              <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
+              <p class="title-md text-center tr-gray-three font-weight-bolder">
+                ${{count *173}}
+              </p>
+              <hr />
+          </div>
+        </div>
         </div>
         <div class="col-12 step-three" v-if="activeIndex === 2">
           <div class="row">
@@ -279,7 +320,7 @@
                 Confirm Payment Information
               </h1>
               <p class="tr-gray-three mt-5">
-                You're adding <span class="tr-green">{{ "1 tree" }}</span> to
+                You're adding <span class="tr-green">{{ count + " tree" }}</span> to
                 your forest!
               </p>
             </div>
@@ -335,8 +376,9 @@
               <hr />
               <p class="title-sm  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
+                {{count * 173.00}}$
               </p>
+
               <hr />
             </div>
           </div>
@@ -365,40 +407,46 @@
 </template>
 
 <script>
-import Fab from "@/components/font-awsome/Fab";
-import Wallets from "../../components/Wallets";
+  import Fab from "@/components/font-awsome/Fab";
+  import Wallets from "../../components/Wallets";
 
-export default {
-  name: "giftTree",
-  layout:"checkout",
+  export default {
+    name: "giftTree",
+    layout: "checkout",
 
-  components: {
-    Wallets,
-    Fab
+    components: {
+      Wallets,
+      Fab
+    },
+
+  mounted() {
+
   },
+    data() {
+      return {
+        sendAsTreeCard: false,
+        count: null,
+        slectedPays:null,
 
-  data() {
-    return {
-      sendAsTreeCard:false,
-      steps: [
-        { name: "Collect", step: 1 },
-        { name: "Connect to wallet", step: 2 },
-        { name: "Checkout", step: 3 },
+        steps: [
+          {name: "Collect", step: 1},
+          {name: "Connect to wallet", step: 2},
+          {name: "Checkout", step: 3},
 
-        // { name: "final-step", step: 4 }
-      ],
-      counts: [
-        { name: 1, step: 1 },
-        { name: 5, step: 2 },
-        { name: 10, step: 3 },
-        { name: 20, step: 3 },
-        { name: this.countTree, step: 3, placeHolder: "Enter Number" }
-      ],
-      payMethods: [
-        { name: "visa", icon: "cc-visa", step: 1 },
-        { name: "bitcoin", icon: "ethereum", step: 2 },
-        { name: "stripe", icon: "cc-stripe", step: 3 }
-      ],
+          // { name: "final-step", step: 4 }
+        ],
+        counts: [
+          {name: 1, step: 1},
+          {name: 5, step: 2},
+          {name: 10, step: 3},
+          {name: 20, step: 3},
+          {name: this.countTree, step: 3, placeHolder: "Enter Number"}
+        ],
+        payMethods: [
+          {name: "visa", icon: "cc-visa", step: 1},
+          {name: "bitcoin", icon: "ethereum", step: 2},
+          {name: "stripe", icon: "cc-stripe", step: 3}
+        ],
 
       activeIndex: 0,
       activeCount: 0,
@@ -411,9 +459,11 @@ export default {
       this.activeIndex = index;
     },
     activeCounts(item, index) {
+      this.count = item.name
       this.activeCount = index;
     },
     activePays(item, index) {
+      this.slectedPays = item.name
       this.activePay = index;
     },
     activeWallets(item, index) {
