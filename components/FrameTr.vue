@@ -57,7 +57,7 @@
 
         this.loading = true
         let self = this
-        this.$axios.post('https://api.sg-form.com/signup', {
+        this.$axios.$post('https://api.sg-form.com/signup', {
           first_name: self.values.first - name,
           last_name: self.values.last - name,
           email: self.values.email,
