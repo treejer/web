@@ -25,7 +25,7 @@ export const actions = {
 		})
 
 		console.log(fundMethod,
-			['5'],'fund methods');
+			['5']);
 
 
 		const fundMethodTransactionData = web3Abi.encodeFunctionCall(
