@@ -33,6 +33,54 @@
 
                 </client-only>
               </div>
+
+              <div class="col-12 form-group mt-3">
+                <button
+                @click="fund"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Fund Test
+                </button>
+
+                <button
+                @click="getMyTreeCount"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Update My Tree Count
+                </button>
+                <h3>
+                  {{ treeCount }}
+                </h3>
+
+                <button
+                @click="getPrice"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Get tree price
+                </button>
+                <h3>
+                  {{ treePrice }}
+                </h3>
+                
+                <button
+                @click="getOwnerTrees"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  getOwnerTrees
+                </button>
+                
+                  <span v-for="treeId in ownerTrees" >
+                    {{  treeId }}
+                  </span>
+                <button
+                @click="plant"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Plant Tree
+                </button>
+
+                
+                </div>
               <div class="col-12 form-group mt-3">
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
 
@@ -75,9 +123,30 @@
     name: "index",
     data() {
       return {
+        treeCount: 0,
+        ownerTrees: [],
+        treePrice: 0
       }
     },
     methods:{
+      async fund() {
+        this.transferReceipt = await this.$store.dispatch('fund/fund', {
+          count: 1
+        })
+      },
+      async plant() {
+        this.transferReceipt = await this.$store.dispatch('treeFactory/plant', {})
+      },
+      async getMyTreeCount() {
+			  this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
+      },
+      async getOwnerTrees() {
+			  this.ownerTrees = await this.$store.dispatch('treeFactory/getOwnerTrees')
+      },
+      async getPrice() {
+        this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
+      },
+      
       walletConnects(){
         debugger
         const wc = new WalletConnect();

@@ -21,6 +21,10 @@ export const actions = {
 	getOwnerTrees() {
 		return treeFactory.methods.getOwnerTrees(account).call({ from: account });
 	},
+	getPrice() {
+		return treeFactory.methods.getPrice().call({ from: account })
+			.then((treeWeiPrice) => web3.utils.fromWei(treeWeiPrice));
+	},
 	async plant(context, params) {
 		const plantMethod = TreeFactory.abi.find(method => {
 			return method.name === 'add'
