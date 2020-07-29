@@ -1405,15 +1405,15 @@
     "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
   },
   "networks": {
-    "1595685900123": {
+    "3": {
       "events": {},
       "links": {},
-      "address": "0xB53E53Af225e10A8DF4600E0Ee38829A5645c570",
-      "transactionHash": "0xf87a1dbc824868d0047e2843dc7e3e68a2f88d27f0beac164db5a157200cab69"
+      "address": "0xBbafB55bf420c0d03E20425ca62e72309F12A385",
+      "transactionHash": "0x274564c579c5b3113f6fb3e162b3dc0a77fe9e65eecc33c3183601db318981b7"
     }
   },
   "schemaVersion": "3.0.22",
-  "updatedAt": "2020-07-25T14:05:17.923Z",
+  "updatedAt": "2020-07-29T06:29:27.837Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
