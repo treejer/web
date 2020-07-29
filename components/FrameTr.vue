@@ -52,20 +52,41 @@
       await this.$recaptcha.init()
     },
     methods: {
+      submits(){
+        this.loading = true
+        let self = this
+        const body = JSON.stringify({
+          first_name: self.values.first - name,
+          last_name: self.values.last - name,
+          email: self.values.email,
+          user_id: 10211987,
+          form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
+          recaptcha: self.$recaptcha.getResponse(),
+        })
+        this.$axios({
+          method: 'post',
+          url: baseUrl + 'applications/' + appName + '/dataexport/plantypes' + plan,
+          headers: {},
+          data: {
+           body
+          }
+        });
+      },
 
       submit() {
         this.loading = true
         let self = this
-        debugger
-        const  help= self.$recaptcha.getResponse()
-        console.log(help,'dawdwad')
-        this.$axios.post('https://api.sg-form.com/signup',{
-          first_name: 'dawdawd',
-          last_name: 'dawdadw',
-          email: 'dawdawdd',
+        const body = JSON.stringify({
+          first_name: self.values.first - name,
+          last_name: self.values.last - name,
+          email: self.values.email,
           user_id: 10211987,
           form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
-          recaptcha:help,
+          recaptcha: self.$recaptcha.getResponse(),
+        })
+        this.$axios.post('https://api.sg-form.com/signup', {
+
+          body
         })
           .then(function (response) {
             console.log(response);
@@ -79,6 +100,7 @@
       }
     }
   }
+
 </script>
 
 <style lang="scss" scoped>

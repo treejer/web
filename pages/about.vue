@@ -2,7 +2,6 @@
   <div class="mt-5 mb-5 position-relative about col-12 ">
     <div class="justify-content-center text-center img-fluid position-relative">
       <img src="../assets/images/about/about-banner.png" class="img-fluid m-auto" alt="about-us">
-
     </div>
     <div class="mt-4 justify-content-center text-center position-relative">
       <h4 class="title-md font-weight-bold tr-gray-two">Planters

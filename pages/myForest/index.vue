@@ -52,8 +52,8 @@
                                                          class="avatar-pic img-fluid"/>
               <span class="position-absolute">+</span>
             </div>
-            <p class="param-sm mt-3"> Jeremy Greens</p>
-            <p class="param-sm-light"> @JaneJoe</p>
+            <p class="param-sm mt-3" style="">{{$cookies.get('account').slice(0,-25)}}</p>
+<!--            <p class="param-sm-light"> @JaneJoe</p>-->
           </div>
           <div class="trees">
             <div class="add-tree">
