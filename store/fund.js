@@ -19,6 +19,9 @@ export const actions = {
 	// 	return fund.methods.name().call({ from: account })
 	// },
 	async fund(context, c) {
+
+		// comment for showing iraj	
+
 		const fundMethod = Fund.abi.find(method => {
 			return method.name === 'fund'
 		})
