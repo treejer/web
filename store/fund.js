@@ -44,7 +44,7 @@ export const actions = {
 			// gas: estimateGas * 2
 		})
 
-		// return receipt
+		return receipt
 	}
 }
 
