@@ -13,7 +13,8 @@ export const state = () => ({
   chainId: null,
   trezorPopup: null,
   ledger: null,
-  form:null
+  form:null,
+  ethPrice:null,
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -86,6 +87,11 @@ export const actions = {
     const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
     commit('SET_USERS', users.data)
   },
+  async ethPrices({commit}) {
+    const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
+    console.log(ethPrice)
+    commit('SET_ETH_PRICE', ethPrice.result)
+  },
    signUpForm({commit}){
    this.$axios.$post('https://api.sg-form.com/signup',{
      email: "iraj.habibzadeh70@gmail.com",
@@ -131,6 +137,10 @@ export const mutations = {
   },
   SET_LEDGER(state, ledger) {
     state.ledger = ledger
+
+  },
+  SET_ETH_PRICE(state, ethPrice) {
+    state.ethPrice = ethPrice
 
   }
 }

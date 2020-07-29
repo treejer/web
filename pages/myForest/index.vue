@@ -23,7 +23,12 @@
           <div class="row treejer-desc">
             <div class="col-lg-3 col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
-              <p><span>47</span> <span>Trees</span></p>
+              <p>
+                <span>
+                  <span v-if="!loadings" >{{treeCount}}</span>
+                  <span v-if="loadings"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
+                </span>
+                <span>Trees</span></p>
             </div>
             <div class="col-lg-3 col-md-6 col-12 border-right">
               <p>O2 BALANCE</p>
@@ -81,48 +86,62 @@
 </template>
 
 <script>
-  import Fas from '@/components/font-awsome/Fas'
-  import content from './world.json';
+import Fas from '@/components/font-awsome/Fas'
+import content from './world.json';
 
 
-  export default {
-    name:'myForest',
-    layout:'dashboard',
-    components: { Fas},
-    computed: {
-      messages() {
-        return content
-      }
-    },
-    data() {
-      return {
-        search: null,
-        redeem: null,
-        forestSize: 47,
-        geographyConfig: {
-          dataUrl: '//raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
-          highlightOnHover: false,
-          borderWidth: 0.5,
-          borderOpacity: 1,
-          highlightOnHover: true,
-          highlightFillColor: '#4e9e74',
-          highlightBorderColor: '#4e9e74',
+export default {
+  name: 'myForest',
+  layout: 'dashboard',
+  loadings:false,
+  components: {Fas},
+  computed: {
+    messages() {
+      return content
+    }
+  },
+
+  data() {
+    return {
+      search: null,
+      treeCount: null,
+      redeem: null,
+      forestSize: 47,
+      geographyConfig: {
+        dataUrl: '//raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
+        highlightOnHover: false,
+        borderWidth: 0.5,
+        borderOpacity: 1,
+        highlightOnHover: true,
+        highlightFillColor: '#4e9e74',
+        highlightBorderColor: '#4e9e74',
           highlightBorderWidth: 2,
           highlightBorderOpacity: 1
         },
         fills: {
-            'Trejer': '#67b68c',
-            defaultFill: '#edebe5',
+          'Trejer': '#67b68c',
+          defaultFill: '#edebe5',
         },
-        data: {
-            'IRN': {fillKey: 'Trejer'},
-            'IND': {fillKey: 'Trejer'},
-            'KEN': {fillKey: 'Trejer'},
-            'ZAF': {fillKey: 'Trejer'}
-        }
+      data: {
+        'IRN': {fillKey: 'Trejer'},
+        'IND': {fillKey: 'Trejer'},
+        'KEN': {fillKey: 'Trejer'},
+        'ZAF': {fillKey: 'Trejer'}
       }
     }
-  };
+
+  },
+  mounted() {
+    this.getMyTreeCount()
+  },
+  methods: {
+    async getMyTreeCount() {
+      this.loadings =true
+      this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
+      this.loadings =false
+    },
+  }
+};
 </script>
 
 <style lang="scss" scoped>

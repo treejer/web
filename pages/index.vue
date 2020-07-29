@@ -74,7 +74,7 @@
               <div class="col-12 form-group mt-3">
                 <button
                   class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
-                  @click="goToDashboard()"
+                  @click.prevent="goToDashboard()"
                 >
                   Plant One Tree
                 </button>
@@ -122,23 +122,9 @@
 //       }
 //     },
 //     methods: {
-//       goToDashboard() {
-//         if (this.$store.state.account === null || this.$cookies.get('account') === null) {
-//
-//
-//           this.$bvToast.toast("you are not logged in. please login", {
-//             toaster: 'b-toaster-bottom-left',
-//             solid: true,
-//             headerClass: 'hide',
-//             variant: 'danger'
-//           })
-//           this.$bvModal.show('five')
-//         } else {
-//           this.$router.push(this.localePath('myForest'))
-//         }
-//       },
-//
-//
+
+
+
     methods:{
       async fund() {
         this.transferReceipt = await this.$store.dispatch('fund/fund', {
@@ -153,6 +139,23 @@
       },
       async getOwnerTrees() {
 			  this.ownerTrees = await this.$store.dispatch('treeFactory/getOwnerTrees')
+      },
+
+    goToDashboard() {
+        if (this.$store.state.account === null || this.$cookies.get('account') === null) {
+
+
+          this.$bvToast.toast("you are not logged in. please login", {
+            toaster: 'b-toaster-bottom-left',
+            solid: true,
+            headerClass: 'hide',
+            variant: 'danger'
+          })
+          this.$bvModal.show('five')
+
+        } else {
+          this.$router.push(this.localePath('myForest'))
+        }
       },
 
       walletConnects(){

@@ -121,7 +121,7 @@
                 </div>
                 <div class="body mt-5">
                   <h4>Total</h4>
-                  <h1 style="transition: ease-out all .5s">${{ count * 173.00 }}</h1>
+                  <h1 style="transition: ease-out all .5s">{{ count * 0.01 }}eth</h1>
                   <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">{{ slectedPays }}</p>
                   <button
                     @click="count!==null ? activeIndex = 1 :null"
@@ -420,13 +420,18 @@
     },
 
   mounted() {
+    console.log(this.ethPrice ,'eth')
 
-  },
+  },created() {
+      this.$store.dispatch('ethPrices')
+
+    },
     data() {
       return {
         sendAsTreeCard: false,
-        count: null,
+        count: 0.01,
         slectedPays:null,
+        ethPrice:this.$store.state.ethPrice,
 
         steps: [
           {name: "Collect", step: 1},
