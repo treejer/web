@@ -2,7 +2,7 @@ import web3 from '~/plugins/web3'
 import TreeFactory from '~/contracts/TreeFactory'
 import web3Abi from 'web3-eth-abi'
 
-const tokenAddress = '0xe3bF4515428beDb11d6A5b251710bCb5e18e7a28' // insert deployed TreeFactory token address here
+const tokenAddress = '0xbf10aEA0CAD87040E8B17966040f9Fa2A4767061' // insert deployed TreeFactory token address here
 const treeFactory = new web3.eth.Contract(TreeFactory.abi, tokenAddress)
 
 let account
