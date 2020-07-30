@@ -121,8 +121,10 @@
                 </div>
                 <div class="body mt-5">
                   <h4>Total</h4>
-                  <h1 v-if="treePrice" style="transition: ease-out all .5s">{{ count * treePrice }}eth</h1>
-                  <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">{{ slectedPays }}</p>
+                  <h1 v-if="treePrice" style="transition: ease-out all .5s">
+                    {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$</h1>
+                  <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">
+                    {{ slectedPays }}</p>
                   <button
                     @click="fund()"
 
@@ -268,7 +270,7 @@
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                ${{count *173}}
+                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$
               </p>
               <hr />
             </div>
@@ -308,7 +310,7 @@
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                ${{count *173}}
+                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$
               </p>
               <hr />
           </div>
@@ -377,8 +379,7 @@
               <hr />
               <p class="title-sm  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                {{count * 173.00}}$
-              </p>
+                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$              </p>
 
               <hr />
             </div>
@@ -408,47 +409,49 @@
 </template>
 
 <script>
-  import Fab from "@/components/font-awsome/Fab";
-  import Wallets from "../../components/Wallets";
+import Fab from "@/components/font-awsome/Fab";
+import Wallets from "../../components/Wallets";
 
-  export default {
-    name: "giftTree",
-    layout: "checkout",
-    loading:false,
-
-    components: {
-      Wallets,
-      Fab
-    },
+export default {
+  name: "giftTree",
+  layout: "checkout",
+  components: {
+    Wallets,
+    Fab
+  },
 
   mounted() {
     this.getPrice()
 
-  },created() {
+  }, async created() {
 
-    },
-    data() {
-      return {
-        treePrice:null,
-        sendAsTreeCard: false,
-        count:1,
-        slectedPays:null,
-        ethPrice:this.$store.state.ethPrice,
+    const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
+    this.dollorPrice = res.data.result.ethusd
+    console.log(this.dollorPrice, 'dollorprice')
+  },
+  data() {
+    return {
+      treePrice: null,
+      dollorPrice: null,
+      sendAsTreeCard: false,
+      count: 1,
+      slectedPays: null,
+      ethPrice: this.$store.state.ethPrice,
 
-        steps: [
-          {name: "Collect", step: 1},
-          {name: "Connect to wallet", step: 2},
-          {name: "Checkout", step: 3},
+      steps: [
+        {name: "Collect", step: 1},
+        {name: "Connect to wallet", step: 2},
+        {name: "Checkout", step: 3},
 
-          // { name: "final-step", step: 4 }
-        ],
-        counts: [
-          {name: 1, step: 1},
-          {name: 5, step: 2},
-          {name: 10, step: 3},
-          {name: 20, step: 3},
-          {name: this.countTree, step: 3, placeHolder: "Enter Number"}
-        ],
+        // { name: "final-step", step: 4 }
+      ],
+      counts: [
+        {name: 1, step: 1},
+        {name: 5, step: 2},
+        {name: 10, step: 3},
+        {name: 20, step: 3},
+        {name: this.countTree, step: 3, placeHolder: "Enter Number"}
+      ],
         payMethods: [
           {name: "visa", icon: "cc-visa", step: 1},
           {name: "bitcoin", icon: "ethereum", step: 2},

@@ -16,7 +16,7 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-nav-form @click="logout" class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
+    <b-nav-form @click.pq="logout()" class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div   class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span class="param-sm tr-gray-three">{{isLoggedIn|| $cookies.get('account')}}</span>
         <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting"
@@ -91,8 +91,8 @@
           .catch(err => console.log(err));
       },
        logout() {
-         this.$router.push('/')
         this.$store.dispatch("logout").then(() => {
+          this.$router.push('/')
         });
 
       },
