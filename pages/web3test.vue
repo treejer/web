@@ -33,13 +33,63 @@
 
                 </client-only>
               </div>
+
               <div class="col-12 form-group mt-3">
                 <button
-                  class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
-                  @click.prevent="goToDashboard()"
+                @click="fund"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Fund Test
+                </button>
+
+                <button
+                @click="getMyTreeCount"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Update My Tree Count
+                </button>
+                <h3>
+                  {{ treeCount }}
+                </h3>
+
+                <button
+                @click="getPrice"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Get tree price
+                </button>
+                <h3>
+                  {{ treePrice }}
+                </h3>
+                
+                <button
+                @click="getOwnerTrees"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  getOwnerTrees
+                </button>
+                
+                  <span v-for="treeId in ownerTrees" >
+                    {{  treeId }}
+                  </span>
+                <button
+                @click="plant"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  Plant Tree
+                </button>
+
+                
+                </div>
+              <div class="col-12 form-group mt-3">
+                <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
+
+                <button
+                  class="btn-lg btn-green pointer-event param"
                 >
                   Plant One Tree
                 </button>
+                </nuxt-link>
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('find')">
 
                 <button class="btn-lg btn-outline-green pointer-event param">
@@ -62,6 +112,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
 </template>
@@ -72,19 +123,11 @@
     name: "index",
     data() {
       return {
-        treeCount:null
+        treeCount: 0,
+        ownerTrees: [],
+        treePrice: 0
       }
     },
-// <<<<<<< HEAD
-//     computed: {
-//       isLoggedIn() {
-//         return this.$store.state.account;
-//       }
-//     },
-//     methods: {
-
-
-
     methods:{
       async fund() {
         this.transferReceipt = await this.$store.dispatch('fund/fund', {
@@ -100,22 +143,10 @@
       async getOwnerTrees() {
 			  this.ownerTrees = await this.$store.dispatch('treeFactory/getOwnerTrees')
       },
-
-    goToDashboard() {
-        if (this.$store.state.account == null && this.$cookies.get('account') == null) {
-          this.$bvToast.toast("you are not logged in. please login", {
-            toaster: 'b-toaster-bottom-left',
-            solid: true,
-            headerClass: 'hide',
-            variant: 'danger'
-          })
-          this.$bvModal.show('five')
-        } else {
-          this.$router.push(this.localePath('myForest'))
-        }
+      async getPrice() {
+        this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
       },
-
-
+      
       walletConnects(){
         debugger
         const wc = new WalletConnect();
@@ -142,7 +173,7 @@
     props: {},
     mounted() {
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped >

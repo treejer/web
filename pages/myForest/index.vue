@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="row treejer-desc">
-            <div class="col-lg-3 col-md-6 col-12 border-right ">
+            <div class="col-lg-4  col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
               <p>
                 <span>
@@ -30,17 +30,17 @@
                 </span>
                 <span>Trees</span></p>
             </div>
-            <div class="col-lg-3 col-md-6 col-12 border-right">
+            <div class="col-lg-4  col-md-6 col-12 border-right">
               <p>O2 BALANCE</p>
-              <p><span>575.4 </span> <span>o2</span></p>
+              <p><span>{{ 0 }} </span> <span>o2</span></p>
             </div>
-            <div class="col-lg-3 col-md-6 col-12 border-right">
-              <p>SEED BALANCE</p>
-              <p><span>294.2</span><span>SEED</span></p>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12 ">
+<!--            <div class="col-lg-4  col-md-6 col-12 border-right">-->
+<!--              <p>SEED BALANCE</p>-->
+<!--              <p><span>294.2</span><span>SEED</span></p>-->
+<!--            </div>-->
+            <div class="col-lg-4  col-md-6 col-12 ">
               <p>TREES GIFTED</p>
-              <p><span>150</span><span>Trees</span></p>
+              <p><span>{{ 0 }}</span><span>Trees</span></p>
             </div>
           </div>
           <div class="row treejer-earth d-md-block d-none">
@@ -93,7 +93,6 @@ import content from './world.json';
 export default {
   name: 'myForest',
   layout: 'dashboard',
-  loadings:false,
   components: {Fas},
   computed: {
     messages() {
@@ -103,6 +102,7 @@ export default {
 
   data() {
     return {
+      loadings:false,
       search: null,
       treeCount: null,
       redeem: null,
@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     async getMyTreeCount() {
-      this.loadings =true
+      this.loaings =true
       this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
       this.loadings =false
     },

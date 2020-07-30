@@ -18,7 +18,7 @@ export const actions = {
   // getName() {
   // 	return fund.methods.name().call({ from: account })
   // },
-  async fund(context, c) {
+  async fund(context,params ) {
 
     // comment for showing iraj
 
@@ -28,23 +28,24 @@ export const actions = {
 
     const fundMethodTransactionData = web3Abi.encodeFunctionCall(
       fundMethod,
-      ['1']
+      [params.count]
     )
+    params.activeIndex = 2
 
-    // const estimateGas = await web3.eth.estimateGas({
-    // 	from: account,
-    // 	to: tokenAddress,
-    // 	data: fundMethodTransactionData
-    // })
+    const estimateGas = await web3.eth.estimateGas({
+    	from: account,
+    	to: tokenAddress,
+    	data: fundMethodTransactionData
+    })
 
-    // console.log(estimateGas);
+    console.log(estimateGas);
 
     const receipt = await web3.eth.sendTransaction({
       from: account,
       to: tokenAddress,
       data: fundMethodTransactionData,
-      value: web3.utils.toWei('0.01'),
-      // gas: estimateGas * 2
+      value: web3.utils.toWei('0.01') * params.count,
+      gas: estimateGas
     })
 
     return receipt

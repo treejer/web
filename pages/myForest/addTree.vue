@@ -121,10 +121,11 @@
                 </div>
                 <div class="body mt-5">
                   <h4>Total</h4>
-                  <h1 style="transition: ease-out all .5s">{{ count * 0.01 }}eth</h1>
+                  <h1 v-if="treePrice" style="transition: ease-out all .5s">{{ count * treePrice }}eth</h1>
                   <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">{{ slectedPays }}</p>
                   <button
-                    @click="count!==null ? activeIndex = 1 :null"
+                    @click="fund()"
+
                     class="btn-green-md  mt-4"
                   >
                     NEXT
@@ -353,8 +354,8 @@
                     </p>
 
                     <p class="param tr-gray-four">
-                      <span id="eth">1.5639</span
-                      ><span class="usd">$173.00</span>
+                      <span id="eth">{{ treePrice *count }}</span
+                      ><span class="usd">${{173 *count}}</span>
                     </p>
                     <p class="param tr-gray-four">
                       <span id="eths">0.0024</span
@@ -413,6 +414,7 @@
   export default {
     name: "giftTree",
     layout: "checkout",
+    loading:false,
 
     components: {
       Wallets,
@@ -420,16 +422,16 @@
     },
 
   mounted() {
-    console.log(this.ethPrice ,'eth')
+    this.getPrice()
 
   },created() {
-      this.$store.dispatch('ethPrices')
 
     },
     data() {
       return {
+        treePrice:null,
         sendAsTreeCard: false,
-        count: 0.01,
+        count:1,
         slectedPays:null,
         ethPrice:this.$store.state.ethPrice,
 
@@ -473,6 +475,19 @@
     },
     activeWallets(item, index) {
       this.activeWallet = index;
+    },
+    async fund() {
+      this.transferReceipt = await this.$store.dispatch('fund/fund', {
+        count: this.count,
+        active: this.activeIndex = 2
+
+      })
+    },
+    async getPrice() {
+
+      this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
+      console.log(this.treePrice,'pribe')
+
     },
   }
 };
@@ -583,6 +598,7 @@
 
     .position-absolute {
       top: -25px;
+      right: 40px;
 
       span {
         padding: 0 20px;
@@ -590,7 +606,7 @@
     }
 
     span {
-      padding: 0 5px;
+      padding: 0 20px;
     }
   }
 }
