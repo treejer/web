@@ -2,7 +2,7 @@ import web3 from '~/plugins/web3'
 import Fund from '~/contracts/Fund'
 import web3Abi from 'web3-eth-abi'
 
-const tokenAddress = this.$cookies.get('account') // insert deployed Fund token address here
+const tokenAddress = '0xA94850728C96B3ec6A82f2c39eE228Cb66bFC921' // insert deployed Fund token address here
 const fund = new web3.eth.Contract(Fund.abi, tokenAddress)
 
 let account
