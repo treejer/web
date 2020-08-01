@@ -51,62 +51,64 @@
               <div class="col-12 mt-5 pays">
                 <h1 class="title-sm">Select payment method</h1>
                 <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in payMethods" class="pointer-event">
+                  <li v-for="(item, index) in payMethods" class="pointer-event position-relative">
                     <p
                       @click="activePays(item, index)"
                       :class="{ active: activePay === index }"
                       :key="index"
                       :name="item.name">
                       <Fab :i="item.icon" />
+                      <b-badge class="pay-badge" v-if="item.name !== 'bitcoin'" variant="light">coming soon</b-badge>
+
                     </p>
                   </li>
                 </ul>
               </div>
-              <div
-                class="col-12 mt-5 form-check justify-content-between d-flex"
-              >
-                <div>
-                  <h1>Send as TreeCard</h1>
-                </div>
-                <div class="on-off-toggle">
-                  <input
-                    class="on-off-toggle__input"
-                    type="checkbox"
-                    id="bopis"
-                    v-model="sendAsTreeCard"
+<!--              <div-->
+<!--                class="col-12 mt-5 form-check justify-content-between d-flex"-->
+<!--              >-->
+<!--                <div>-->
+<!--                  <h1 class="position-relative">Send as TreeCard <b-badge class="pay-badge" style="left: 10px;top: 0" variant="light">coming soon</b-badge></h1>-->
+<!--                </div>-->
+<!--                <div class="on-off-toggle">-->
+<!--                  <input-->
+<!--                    class="on-off-toggle__input"-->
+<!--                    type="checkbox"-->
+<!--                    id="bopis"-->
+<!--                    v-model="sendAsTreeCard"-->
 
-                  />
-                  <label
-                    for="bopis"
-                    class="on-off-toggle__slider pointer-event"
-                  ></label>
-                </div>
-              </div>
-              <div
-                class="col-12 mt-3 form-check justify-content-between d-flex"
-              >
-                <div>
-                  <h1>Send as TreeBox</h1>
-                </div>
-                <div class="on-off-toggle">
-                  <input
-                    class="on-off-toggle__input disabled"
-                    type="checkbox"
-                    id="bopiss"
+<!--                  />-->
+<!--                  <label-->
+<!--                    for="bopis"-->
+<!--                    class="on-off-toggle__slider pointer-event"-->
+<!--                  ></label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div-->
+<!--                class="col-12 mt-3 form-check justify-content-between d-flex"-->
+<!--              >-->
+<!--                <div>-->
+<!--                  <h1 class="position-relative">Send as TreeBox <b-badge class="pay-badge" style="left: -5px;top: 0" variant="light">coming soon</b-badge></h1>-->
+<!--                </div>-->
+<!--                <div class="on-off-toggle">-->
+<!--                  <input-->
+<!--                    class="on-off-toggle__input disabled"-->
+<!--                    type="checkbox"-->
+<!--                    id="bopiss"-->
 
 
-                  />
-                  <label
-                    for="bopiss"
-                    class="on-off-toggle__slider pointer-event"
-                  ></label>
-                </div>
-              </div>
-              <div class="col-12 mt-3">
-                <div class="param">
-                  (You can gift your trees on My Forest page after setting up.)
-                </div>
-              </div>
+<!--                  />-->
+<!--                  <label-->
+<!--                    for="bopiss"-->
+<!--                    class="on-off-toggle__slider pointer-event"-->
+<!--                  ></label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-12 mt-3">-->
+<!--                <div class="param">-->
+<!--                  (You can gift your trees on My Forest page after setting up.)-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
             <div class="col-lg-6 col-12 overflow-hidden">
               <div
@@ -437,7 +439,6 @@ export default {
       count: 1,
       slectedPays: null,
       ethPrice: this.$store.state.ethPrice,
-
       steps: [
         {name: "Collect", step: 1},
         {name: "Connect to wallet", step: 2},
@@ -498,6 +499,18 @@ export default {
 
 <style lang="scss" scoped>
 .add-tree {
+  .pay-badge{
+    position: absolute;
+    left: -3px;
+    transform: rotateZ(45deg);
+    top: 20px;
+    opacity: 0.8;
+    background-color: blanchedalmond;
+
+  }
+  .pay-badge:hover,.disable{
+    cursor: not-allowed;
+  }
   hr {
     width: 50%;
 

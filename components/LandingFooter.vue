@@ -73,7 +73,7 @@
           {name: 'Contact', href: '/contact'},
         ],
         listThree: [
-          {name: 'Whitepaper', href: 'https://www.docdroid.net/4qSa3mr/treeboxcatalog-pdf', tab: '_blank'},
+          {name: 'Whitepaper', href: '#', tab: '_blank'},
           {name: 'Community', href: '#', tab: '_blank'},
           {name: 'Volunteers', href: '#'},
           {name: 'Rural Ambassadors', href: '#'},
