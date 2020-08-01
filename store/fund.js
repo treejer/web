@@ -46,6 +46,16 @@ export const actions = {
       data: fundMethodTransactionData,
       value: web3.utils.toWei('0.01') * params.count,
       gas: estimateGas
+    },function (err, transactionHash)  {
+      if (!err){
+        console.log(transactionHash);
+        if(transactionHash.result !== undefined){
+         console.log(transactionHash)
+        }
+        else{
+          console.log("User denied transaction signature.");
+        }
+      }
     })
 
     return receipt

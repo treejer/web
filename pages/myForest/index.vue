@@ -46,6 +46,7 @@
           <div class="row treejer-earth d-md-block d-none">
             <vue-datamaps
               :geographyConfig="geographyConfig"
+              :width="'100%'"
               :fills="fills"
               :data="data"></vue-datamaps>
           </div>
