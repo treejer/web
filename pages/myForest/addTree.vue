@@ -312,7 +312,7 @@
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$
+                ${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}
               </p>
               <hr />
           </div>
@@ -359,11 +359,11 @@
 
                     <p class="param tr-gray-four">
                       <span id="eth">{{ treePrice *count }}</span
-                      ><span class="usd">${{173 *count}}</span>
+                      ><span class="usd">${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}</span>
                     </p>
                     <p class="param tr-gray-four">
-                      <span id="eths">0.0024</span
-                      ><span class="usds">0.0024</span>
+                      <span id="eths"></span
+                      ><span class="usds"></span>
                     </p>
                   </div>
                 </div>
@@ -614,7 +614,7 @@ export default {
 
     .position-absolute {
       top: -25px;
-      right: 40px;
+      right: 20px;
 
       span {
         padding: 0 20px;
