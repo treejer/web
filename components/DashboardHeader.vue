@@ -1,9 +1,9 @@
 <template>
   <div class="head">
     <div class="networkname text-center d-flex align-items-center justify-content-center " style="height: 32px;background: #424242;">
-      <p class="param-sm text-white mb-0">
-        Treejer is now live on testnet. Connect your wallet to <span class="tr-green">{{ $store.state.netWorkName }}</span>  Test Network to play around!
-        <a class="text-white" target="_blank" href="https://metamask.io/">👉 Read More 👈</a>
+      <p class="param-sm text-white mb-0 pointer-event" @click="ethereum.enable()">
+        Treejer is now live on <span class="tr-green">{{ $store.state.netWorkName }}</span> testnet. Connect your wallet to ropsten  Test Network to play around!
+        <a class="text-white" target="_blank" href="https://metamask.io/" >👉 Read More 👈</a>
       </p>
 
     </div>
