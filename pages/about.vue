@@ -42,19 +42,17 @@
     <div class="about-faq col-lg-6 col-md-10 m-auto">
       <h4 class="title-md font-weight-bold tr-gray-two title-banner ">Frequently Asked Questions</h4>
       <div class="card-groups">
-        <b-card v-for="(item, key) in faq" :key="key" no-body class="mb-1 pointer-event">
-          <b-card-header header-tag="header" class="p-1" role="tab" @click="that === key ? that = null : that = key">
-            <div class="btn-faq  w-100 h-100 " href="#" v-b-toggle="`accordion-${key}`"><span
-              class="text">{{ item.question }} </span><span class="icon">
-              <span class="p-3" v-html="that === key ?caretDown : caretRight"/>
+        <a v-for="(item, key) in faq" class="text-decoration-none" :key="key" href="https://discuss.treejer.com" target="_blank">
+          <b-card  no-body class="mb-1 pointer-event" >
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <div class="btn-faq  w-100 h-100 pointer-event "><span
+                class="text">{{ item.question }} </span><span class="icon">
+              <span class="p-3" v-html="caretRight"/>
             </span></div>
-          </b-card-header>
-          <b-collapse :id="`accordion-${key}`" visible accordion="my-accordion" role="tabpanel">
-            <b-card-body>
-              <b-card-text>{{ item.answer }}</b-card-text>
-            </b-card-body>
-          </b-collapse>
-        </b-card>
+            </b-card-header>
+          </b-card>
+        </a>
+
       </div>
 
 
@@ -143,7 +141,7 @@ export default {
 <path d="M2 8.8197H17.4754" stroke="#FAFAFA" stroke-width="2.7157" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M11.1803 2L18 8.81967L11.1803 15.6393" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`, caretDown: `<span style="color: white;font-size: 26px" class="w-100 h-100">&#8675;</span>`,
+`,
       email: '',
       token: '',
       faq: [
