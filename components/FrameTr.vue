@@ -1,17 +1,22 @@
 <template>
   <div class="tr-frame" style="border: none">
-    <form class="w-100" style="border: none" @submit.prevent="Submit()">
-      <FormulateForm
-        v-model="values"
-        :schema="schema"
-      />
-      <button
-        @click.prevent="submit()"
-        class="btn-lg  btn-green param-md mb-4"style="padding: 10px 25px">
+    <form  style="border: none" @submit.prevent="Submit()">
+        <FormulateInput
+          type="email"
+          name="email"
+          label="Email "
+          placeholder="exmaple@example.com"
+          validation="required|email"
+          error-behavior="live"
+        />
+        <button
+          @click.prevent="submit()"
+          class="btn-lg  btn-green param-md mb-4"style="padding: 10px 25px;margin-top: -14px">
 
-        <b-spinner v-if="loading" small class="mr-1"></b-spinner>
-        {{loading ? ' Loading...' : 'submit'}}
-      </button>
+          <b-spinner v-if="loading" small class="mr-1"></b-spinner>
+          {{loading ? ' Loading...' : 'submit'}}
+        </button>
+
 
       <recaptcha class="g-recaptcha" data-sitekey="6Lfa9H0UAAAAAMAGt_pKuycKsKYFnIouFWeqInvd"></recaptcha>
 
@@ -27,16 +32,16 @@
       return {
         schema: [
 
-          {
-            "label": "Your First Name",
-            "name": "first-name",
-            "validation": "required"
-          },
-          {
-            "label": "Your Last Name",
-            "name": "last-name",
-            "validation": "required"
-          },
+          // {
+          //   "label": "Your First Name",
+          //   "name": "first-name",
+          //   "validation": "required"
+          // },
+          // {
+          //   "label": "Your Last Name",
+          //   "name": "last-name",
+          //   "validation": "required"
+          // },
           {
             "label": "Your email",
             "name": "email",

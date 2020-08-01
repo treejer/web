@@ -35,13 +35,13 @@
     >
       <Fab i="facebook"/>
     </b-nav-item>
-    <b-nav-item
-      href="https://github.com/treejer"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-<!--      <span class="w-100 h-100" v-html="github"></span>-->
-    </b-nav-item>
+<!--    <b-nav-item-->
+<!--      href="https://github.com/treejer"-->
+<!--      rel="noopener noreferrer"-->
+<!--      target="_blank"-->
+<!--    >-->
+<!--&lt;!&ndash;      <span class="w-100 h-100" v-html="github"></span>&ndash;&gt;-->
+<!--    </b-nav-item>-->
   </b-nav>
 </template>
 

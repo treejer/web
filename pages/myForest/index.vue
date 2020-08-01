@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="row treejer-desc">
-            <div class="col-lg-4  col-md-6 col-12 border-right ">
+            <div class="col-lg-3  col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
               <p>
                 <span>
@@ -30,15 +30,15 @@
                 </span>
                 <span>Trees</span></p>
             </div>
-            <div class="col-lg-4  col-md-6 col-12 border-right">
+            <div class="col-lg-3  col-md-6 col-12 border-right">
               <p>O2 BALANCE</p>
               <p><span>{{ 0 }} </span> <span>o2</span></p>
             </div>
-<!--            <div class="col-lg-4  col-md-6 col-12 border-right">-->
-<!--              <p>SEED BALANCE</p>-->
-<!--              <p><span>294.2</span><span>SEED</span></p>-->
-<!--            </div>-->
-            <div class="col-lg-4  col-md-6 col-12 ">
+            <div class="col-lg-3  col-md-6 col-12 border-right">
+              <p>SEED BALANCE</p>
+              <p><span>{{ 0 }}</span><span>o1</span></p>
+            </div>
+            <div class="col-lg-3  col-md-6 col-12 ">
               <p>TREES GIFTED</p>
               <p><span>{{ 0 }}</span><span>Trees</span></p>
             </div>

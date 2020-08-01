@@ -61,10 +61,13 @@
       <h4 class="title-md font-weight-bold tr-gray-two">Meet Our Team</h4>
     </div>
     <div class="mt-4 justify-content-center text-center">
-      <p class="col-lg-8 col-md-10 m-auto param-18 font-weight-bold tr-gray-two">We’re a distrubuted community working
-        for a
-        common mission across continents. Join the <span> <a href="https://twitter.com/" target="_blank"
-                                                             class="tr-green d-inline">#PantersWithoutBorders!</a> </span>
+      <p class="col-lg-8 col-md-10 m-auto param-18 font-weight-bold tr-gray-two">
+        We’re a distrubuted community working for a common mission across continents.
+        Join our <span> <a href="https://discuss.treejer.com/" target="_blank " class="tr-green d-inline">community</a> </span> today, we’re the #PlantersWithoutBorders!
+<!--        We’re a distrubuted community working-->
+<!--        for a-->
+<!--        common mission across continents. Join the <span> <a href="https://twitter.com/" target="_blank"-->
+<!--                                                             class="tr-green d-inline">#PantersWithoutBorders!</a> </span>-->
       </p>
     </div>
     <div class="team-card-row">
