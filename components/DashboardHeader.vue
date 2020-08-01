@@ -1,79 +1,91 @@
 <template>
-  <div class="headers container"  style="min-height: 10vh">
-    <keep-alive>
-      <b-navbar toggleable="lg">
-        <b-navbar-brand
-          class="pointer-event position-relative"
-          :to="localePath('index')"
-        >
-          <img
-            class="img-fluid pointer-event"
-            alt="logo"
-            name="treejer"
-            src="/logo/treejer.png"
-          />
-        </b-navbar-brand>
-        <b-navbar-nav>
-          <client-only>
-            <div class="d-lg-none d-block">
-              <Metamask @showModal="showModal"/>
+  <div class="head">
+    <div class="networkname text-center d-flex align-items-center justify-content-center " style="height: 32px;background: #424242;">
+      <p class="param-sm text-white mb-0">
+        Treejer is now live on testnet. Connect your wallet to <span class="tr-green">{{ $store.state.netWorkName }}</span>  Test Network to play around!
+        <a class="text-white" target="_blank" href="https://metamask.io/">👉 Read More 👈</a>
+      </p>
 
-            </div>
+    </div>
+    <div class="headers container"  style="min-height:5vh">
+      <keep-alive>
+        <b-navbar toggleable="lg">
+          <b-navbar-brand
+            class="pointer-event position-relative"
+            :to="localePath('index')"
+          >
+            <img
+              class="img-fluid pointer-event"
+              alt="logo"
+              name="treejer"
+              src="/logo/treejer.png"
+            />
+          </b-navbar-brand>
+          <b-navbar-nav>
+            <client-only>
+              <div class="d-lg-none d-block">
+                <Metamask @showModal="showModal"/>
 
-          </client-only>
-        </b-navbar-nav>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+              </div>
 
-
-        <b-collapse
-          class="text-right justify-content-between"
-          id="nav-collapse"
-          is-nav
-        >
-          <!-- Right aligned nav items -->
-
-          <b-navbar-nav class="header-menu">
-<!--            <b-nav-item  :class="{ 'active': activeIndex === index }"-->
-<!--                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"-->
-<!--                         @click="activeMenu(item,index)">-->
-<!--              {{item.name}}-->
-<!--            </b-nav-item>-->
+            </client-only>
           </b-navbar-nav>
-          <client-only>
-            <div class="d-lg-block d-none">
-              <Metamask @showModal="showModal"/>
-            </div>
-          </client-only>
-        </b-collapse>
-      </b-navbar>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    </keep-alive>
-    <b-modal
-      hide-footer
-      id="five" title=" ">
-      <Wallets />
-    </b-modal>
+
+          <b-collapse
+            class="text-right justify-content-between"
+            id="nav-collapse"
+            is-nav
+          >
+            <!-- Right aligned nav items -->
+
+            <b-navbar-nav class="header-menu">
+              <!--            <b-nav-item  :class="{ 'active': activeIndex === index }"-->
+              <!--                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"-->
+              <!--                         @click="activeMenu(item,index)">-->
+              <!--              {{item.name}}-->
+              <!--            </b-nav-item>-->
+            </b-navbar-nav>
+            <client-only>
+              <div class="d-lg-block d-none">
+                <Metamask @showModal="showModal"/>
+              </div>
+            </client-only>
+          </b-collapse>
+        </b-navbar>
+
+
+      </keep-alive>
+      <b-modal
+        hide-footer
+        id="five" title=" ">
+        <Wallets />
+      </b-modal>
+
+    </div>
 
   </div>
+
 </template>
 
 <script>
 
-  import Loading from "./treejerLoading";
-  import Metamask from "../components/Metamask";
-  import Wallets from "../components/Wallets";
+import Loading from "./treejerLoading";
+import Metamask from "../components/Metamask";
+import Wallets from "../components/Wallets";
 
-  export default {
-    layout:'dashboard',
-    name: "TreejerHeader",
-    components: {
-      Wallets,
-      Metamask,
-      Loading
-    },
-    data() {
-      return {
-        wallets: [
+export default {
+  layout: 'dashboard',
+  name: "TreejerHeader",
+  components: {
+    Wallets,
+    Metamask,
+    Loading
+  },
+  data() {
+    return {
+      wallets: [
           {name: "Metamask", step: 1},
           {name: "Wallet Connect", step: 2},
           {name: "Trezor", step: 3},
@@ -128,6 +140,7 @@
       },
     },
     mounted() {
+    this.$store.dispatch('networkNames')
     }
   };
 </script>

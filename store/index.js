@@ -1,5 +1,4 @@
 import WalletConnect from "walletconnect";
-import TrezorConnect from 'trezor-connect';
 
 // import trezorWallet from '@cosmic-plus/trezor-wallet';
 
@@ -15,6 +14,7 @@ export const state = () => ({
   ledger: null,
   form:null,
   ethPrice:null,
+  netWorkName: null
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -41,6 +41,31 @@ export const actions = {
     const account = accounts;
     console.log(web3.chainId(), 'account here')
 
+  },
+  async networkNames({commit}) {
+    const web3 = window.web3
+    let net=null
+    const network = await web3.version.getNetwork((err, netId,netName) => {
+      switch (netId) {
+        case "1":
+          netName = 'mainnet';
+          console.log('This is mainnet')
+          break
+        case "2":
+          console.log('This is the deprecated Morden test network.')
+          netName = 'Morden';
+          break
+        case "3":
+          console.log('This is the ropsten test network.')
+          netName = 'ropsten';
+          break
+        default:
+          console.log('This is an unknown network.')
+          netName = 'unknown';
+
+      }
+      commit('SET_NET_NAME', netName)
+    })
   },
   async walletConnect({commit}) {
     const wc = new WalletConnect();
@@ -118,6 +143,9 @@ export const mutations = {
   SET_USER(state, account) {
     state.account = account
 
+  },
+  SET_NET_NAME(state, netId) {
+    state.netWorkName = netId
   },
   SET_DASHBOARD(state, status) {
     state.dashboard = status
