@@ -42,7 +42,7 @@
     <div class="about-faq col-lg-6 col-md-10 m-auto">
       <h4 class="title-md font-weight-bold tr-gray-two title-banner ">Frequently Asked Questions</h4>
       <div class="card-groups">
-        <a v-for="(item, key) in faq" class="text-decoration-none" :key="key" href="https://discuss.treejer.com" target="_blank">
+        <a v-for="(item, key) in faq" class="text-decoration-none" target="_blank" :key="key" :href="item.answer">
           <b-card  no-body class="mb-1 pointer-event" >
             <b-card-header header-tag="header" class="p-1" role="tab">
               <div class="btn-faq  w-100 h-100 pointer-event "><span
@@ -150,19 +150,19 @@ export default {
       faq: [
         {
           question: 'What do I need to start creating a forest with Treejer?',
-          answer: 'What do I need to start creating a forest with Treejer?'
+          answer: 'https://discuss.treejer.com/question/what-do-i-need-to-start-funding-a-forest-with-treejer-5f125c522a32a845340b2856'
         },
         {
           question: 'What’s the difference between O1 and O2 credits?',
-          answer: 'What do I need to start creating a forest with Treejer?'
+          answer: 'https://discuss.treejer.com/question/what-is-the-difference-between-o1-and-o2-credits-5f23df01cdafd946b4edf352'
         },
         {
           question: 'What’s an Ethereum wallet and which one should I use?',
-          answer: 'What do I need to start creating a forest with Treejer?'
+          answer: 'https://discuss.treejer.com/question/what-is-an-ethereum-wallet-and-which-one-should-i-use-5f1253c015feeb1c24b607fb '
         },
         {
           question: 'How can I plant trees and get rewarded by Treejer funders?',
-          answer: 'What do I need to start creating a forest with Treejer?'
+          answer: 'https://discuss.treejer.com/question/can-i-plant-trees-in-my-area-and-get-funded-via-treejer-5f23df4e2a211345bb7e620b'
         },
       ],
       teamMembers:[
