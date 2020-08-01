@@ -306,24 +306,24 @@
       },
       data() {
         return {
-          activeIndex: 2,
+          activeIndex: 0,
           peoples: [
-            {
-              src: require('~/assets/images/for-business/Ellipse-3.png'),
-              name: null,
-              text: null,
-              logo: null,
-              work: null,
-              brand: null
-            },
-            {
-              src: require('~/assets/images/for-business/Ellipse-2.png'),
-              name: null,
-              text: null,
-              logo: null,
-              work: null,
-              brand: null
-            },
+            // {
+            //   src: require('~/assets/images/for-business/Ellipse-3.png'),
+            //   name: null,
+            //   text: null,
+            //   logo: null,
+            //   work: null,
+            //   brand: null
+            // },
+            // {
+            //   src: require('~/assets/images/for-business/Ellipse-2.png'),
+            //   name: null,
+            //   text: null,
+            //   logo: null,
+            //   work: null,
+            //   brand: null
+            // },
             {
               src: require('~/assets/images/for-business/MaskGroup.png'),
               name: `Shivam Dhawan,`,
@@ -332,22 +332,22 @@
               brand: `GetBoarded`,
               work: `Founder and CEO`
             },
-            {
-              src: require('~/assets/images/for-business/Ellipse-1.png'),
-              name: null,
-              text: null,
-              logo: null,
-              work: null,
-              brand: null
-            },
-            {
-              src: require('~/assets/images/for-business/Ellipse.png'),
-              name: null,
-              text: null,
-              logo: null,
-              work: null,
-              brand: null
-            },
+            // {
+        //       src: require('~/assets/images/for-business/Ellipse-1.png'),
+        //       name: null,
+        //       text: null,
+        //       logo: null,
+        //       work: null,
+        //       brand: null
+        //     },
+        //     {
+        //       src: require('~/assets/images/for-business/Ellipse.png'),
+        //       name: null,
+        //       text: null,
+        //       logo: null,
+        //       work: null,
+        //       brand: null
+        //     },
           ]
         }
       },
