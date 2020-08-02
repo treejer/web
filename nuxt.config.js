@@ -34,15 +34,25 @@ export default {
 
    },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    contractGBFactoryAddress: process.env.CONTRACT_GBFACTORY_ADDRESS,
+    contractTreeTypeAddress: process.env.CONTRACT_TRRETYPE_ADDRESS,
+    contractTreeFactoryAddress: process.env.CONTRACT_TREEFACTORY_ADDRESS,
+    contractUpdateFactoryAddress: process.env.CONTRACT_UPDATEFACTORY_ADDRESS,
+    contractO2FactoryAddress: process.env.CONTRACT_O2FACTORY_ADDRESS,
+    contractTreeSaleAddress: process.env.CONTRACT_TREESALE_ADDRESS,
+    contractFundAddress: process.env.CONTRACT_FUND_ADDRESS,
+    contractO1FactoryAddress: process.env.CONTRACT_O1FACTORY_ADDRESS,
+    etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
+    
   },
   router: {
     linkActiveClass: 'active-link'
   },
 
   loading: {
-    color: '#67B68C',
-    failedColor: '#ee2d0e',
+    color: 'rgba(103,182,140,0.62)',
+    failedColor: 'rgba(238,45,14,0.69)',
     height: '6px'
   },
 
@@ -134,7 +144,12 @@ export default {
       ['@netsells/nuxt-hotjar', {
         id: '1662889',
             sv: '6',
-        }]
+        }],
+      ['nuxt-gmaps', {
+        key: process.env.GOOGLE_MAP_API_KEY,
+        //you can use libraries: ['places']
+      }]
+
     ],
     i18n: {
         locales: [{

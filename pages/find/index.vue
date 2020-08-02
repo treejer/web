@@ -81,12 +81,10 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 justify-content-center text-center ">
-                <nuxt-link class="position-relative pointer-event leader" :to="localePath('leaderboard')">
-                  <button class="btn-outline-green param-md tr-green">
+                  <button  class="btn-outline-green param-md tr-green position-relative pointer-event " style="padding: 8px 25px" @click="goToLeaderBoard()">
                     Go to Leaderboard
                   </button>
 
-                </nuxt-link>
 
               </div>
             </div>
@@ -298,6 +296,20 @@
 
         this.$router.push(`/find/${step}`)
 
+      },
+      goToLeaderBoard() {
+        if (this.$store.state.account === null || this.$cookies.get('account') === null) {
+
+          this.$bvToast.toast("you are not logged in. please login", {
+            toaster: 'b-toaster-bottom-left',
+            solid: true,
+            headerClass: 'hide',
+            variant: 'danger'
+          })
+          this.$bvModal.show('five')
+        } else {
+          this.$router.push(this.localePath('leaderboard'))
+        }
       },
       async giveTree() {
         this.errors = null

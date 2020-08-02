@@ -1,5 +1,4 @@
 import WalletConnect from "walletconnect";
-import TrezorConnect from 'trezor-connect';
 
 // import trezorWallet from '@cosmic-plus/trezor-wallet';
 
@@ -13,7 +12,9 @@ export const state = () => ({
   chainId: null,
   trezorPopup: null,
   ledger: null,
-  form:null
+  form:null,
+  ethPrice:null,
+  netWorkName: null
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -40,6 +41,31 @@ export const actions = {
     const account = accounts;
     console.log(web3.chainId(), 'account here')
 
+  },
+  async networkNames({commit}) {
+    const web3 = window.web3
+    let net=null
+    const network = await web3.version.getNetwork((err, netId,netName) => {
+      switch (netId) {
+        case "1":
+          netName = 'mainnet';
+          console.log('This is mainnet')
+          break
+        case "2":
+          console.log('This is the deprecated Morden test network.')
+          netName = 'Morden';
+          break
+        case "3":
+          console.log('This is the ropsten test network.')
+          netName = 'ropsten';
+          break
+        default:
+          console.log('This is an unknown network.')
+          netName = 'unknown';
+
+      }
+      commit('SET_NET_NAME', netName)
+    })
   },
   async walletConnect({commit}) {
     const wc = new WalletConnect();
@@ -86,6 +112,11 @@ export const actions = {
     const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
     commit('SET_USERS', users.data)
   },
+  async ethPrices({commit}) {
+    const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
+    console.log(ethPrice)
+    commit('SET_ETH_PRICE', ethPrice.result)
+  },
    signUpForm({commit}){
    this.$axios.$post('https://api.sg-form.com/signup',{
      email: "iraj.habibzadeh70@gmail.com",
@@ -113,6 +144,9 @@ export const mutations = {
     state.account = account
 
   },
+  SET_NET_NAME(state, netId) {
+    state.netWorkName = netId
+  },
   SET_DASHBOARD(state, status) {
     state.dashboard = status
 
@@ -131,6 +165,10 @@ export const mutations = {
   },
   SET_LEDGER(state, ledger) {
     state.ledger = ledger
+
+  },
+  SET_ETH_PRICE(state, ethPrice) {
+    state.ethPrice = ethPrice
 
   }
 }

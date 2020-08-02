@@ -169,7 +169,7 @@
       },
       async getTreesData() {
 
-          let ids = [0, 1];
+          let ids = [301];
 
           for (let index = 0; index < ids.length; index++) {
             this.treedata.push(await this.$store.dispatch('treeFactory/getTree', {id: ids[index]}));

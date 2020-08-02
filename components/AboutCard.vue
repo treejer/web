@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-wrap team-wrap pointer-event "
+    <div class="card-wrap team-wrap pointer-event pointer-event "
          @mousemove="handleMouseMove($event)"
          @mouseenter="handleMouseEnter($event)"
          @mouseleave="handleMouseLeave($event)"
@@ -85,7 +85,6 @@
   .card-wrap.team-wrap {
     $hoverEasing: cubic-bezier(0.23, 1, 0.32, 1);
     $returnEasing: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-
 
     .title {
       font-size: 24px;

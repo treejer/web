@@ -37,11 +37,11 @@
                         <input
                           :class="{ active: activeIndex === index }"
                           style="width: initial"
+                          v-model="count"
                           :placeholder="item.placeHolder"
                           type="number"
-                          :value="item.name"
                           :key="index"
-                          :name="item.name"
+
                         />
                       </label>
                     </div>
@@ -51,62 +51,64 @@
               <div class="col-12 mt-5 pays">
                 <h1 class="title-sm">Select payment method</h1>
                 <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in payMethods" class="pointer-event">
+                  <li v-for="(item, index) in payMethods" class="pointer-event position-relative">
                     <p
                       @click="activePays(item, index)"
                       :class="{ active: activePay === index }"
                       :key="index"
                       :name="item.name">
                       <Fab :i="item.icon" />
+                      <b-badge class="pay-badge" v-if="item.name !== 'bitcoin'" variant="light">coming soon</b-badge>
+
                     </p>
                   </li>
                 </ul>
               </div>
-              <div
-                class="col-12 mt-5 form-check justify-content-between d-flex"
-              >
-                <div>
-                  <h1>Send as TreeCard</h1>
-                </div>
-                <div class="on-off-toggle">
-                  <input
-                    class="on-off-toggle__input"
-                    type="checkbox"
-                    id="bopis"
-                    v-model="sendAsTreeCard"
+<!--              <div-->
+<!--                class="col-12 mt-5 form-check justify-content-between d-flex"-->
+<!--              >-->
+<!--                <div>-->
+<!--                  <h1 class="position-relative">Send as TreeCard <b-badge class="pay-badge" style="left: 10px;top: 0" variant="light">coming soon</b-badge></h1>-->
+<!--                </div>-->
+<!--                <div class="on-off-toggle">-->
+<!--                  <input-->
+<!--                    class="on-off-toggle__input"-->
+<!--                    type="checkbox"-->
+<!--                    id="bopis"-->
+<!--                    v-model="sendAsTreeCard"-->
 
-                  />
-                  <label
-                    for="bopis"
-                    class="on-off-toggle__slider pointer-event"
-                  ></label>
-                </div>
-              </div>
-              <div
-                class="col-12 mt-3 form-check justify-content-between d-flex"
-              >
-                <div>
-                  <h1>Send as TreeBox</h1>
-                </div>
-                <div class="on-off-toggle">
-                  <input
-                    class="on-off-toggle__input disabled"
-                    type="checkbox"
-                    id="bopiss"
+<!--                  />-->
+<!--                  <label-->
+<!--                    for="bopis"-->
+<!--                    class="on-off-toggle__slider pointer-event"-->
+<!--                  ></label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div-->
+<!--                class="col-12 mt-3 form-check justify-content-between d-flex"-->
+<!--              >-->
+<!--                <div>-->
+<!--                  <h1 class="position-relative">Send as TreeBox <b-badge class="pay-badge" style="left: -5px;top: 0" variant="light">coming soon</b-badge></h1>-->
+<!--                </div>-->
+<!--                <div class="on-off-toggle">-->
+<!--                  <input-->
+<!--                    class="on-off-toggle__input disabled"-->
+<!--                    type="checkbox"-->
+<!--                    id="bopiss"-->
 
 
-                  />
-                  <label
-                    for="bopiss"
-                    class="on-off-toggle__slider pointer-event"
-                  ></label>
-                </div>
-              </div>
-              <div class="col-12 mt-3">
-                <div class="param">
-                  (You can gift your trees on My Forest page after setting up.)
-                </div>
-              </div>
+<!--                  />-->
+<!--                  <label-->
+<!--                    for="bopiss"-->
+<!--                    class="on-off-toggle__slider pointer-event"-->
+<!--                  ></label>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-12 mt-3">-->
+<!--                <div class="param">-->
+<!--                  (You can gift your trees on My Forest page after setting up.)-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
             <div class="col-lg-6 col-12 overflow-hidden">
               <div
@@ -121,10 +123,14 @@
                 </div>
                 <div class="body mt-5">
                   <h4>Total</h4>
-                  <h1>{{ "$173.00" }}</h1>
+                  <h1 v-if="treePrice" style="transition: ease-out all .5s">
+                    {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$</h1>
+                  <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">
+                    {{ slectedPays }}</p>
                   <button
-                    @click="activeIndex = 1"
-                    class="btn-green-md  mt-5"
+                    @click="fund()"
+
+                    class="btn-green-md  mt-4"
                   >
                     NEXT
                   </button>
@@ -217,7 +223,7 @@
           </div>
         </div>
         <div class="col-12 step-two" v-if="activeIndex === 1">
-          <div class="row">
+          <div class="row" v-if="this.$store.state.account ===null">
             <div class="col-12 mt-5 justify-content-center text-center">
               <h1 class="title-sm font-weight-bolder text-center ">
                 Select Wallet
@@ -266,11 +272,51 @@
               <hr />
               <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
+                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$
               </p>
               <hr />
             </div>
           </div>
+          <div class="row" v-if="this.$store.state.account !==null">
+            <div class="col-12 mt-5 justify-content-center text-center">
+              <h1 class="title-sm font-weight-bolder text-center ">
+                {{this.$store.state.account}}
+              </h1>
+            </div>
+            <div
+              class="col-12 text-center col-lg-4 d-none  d-md-block align-items-center align-self-center  h-100"
+            >
+              <p class="param-md  tr-gray-three font-weight-bold">Need help?</p>
+              <p
+                class="pointer-event tr-green"
+                @click="localePath('contactUs')"
+              >
+                support@treejer.com
+              </p>
+            </div>
+            <div
+              class="col-12 col-lg-4 mt-3 justify-content-center text-center "
+            >
+              <p class="param  mt-3 tr-gray-five">New to Ethereum?</p>
+              <p class="param   tr-green">Learn more about wallets</p>
+              <button
+                class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white "
+                @click="activeIndex = 2"
+              >
+                CONNECTING
+              </button>
+            </div>
+            <div
+              class="col-12 col-lg-4 d-none  d-lg-block flex-row align-items-center align-self-center  h-100"
+            >
+              <hr />
+              <p class="param-md font-weight-bold  tr-gray-three text-center">Total</p>
+              <p class="title-md text-center tr-gray-three font-weight-bolder">
+                ${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}
+              </p>
+              <hr />
+          </div>
+        </div>
         </div>
         <div class="col-12 step-three" v-if="activeIndex === 2">
           <div class="row">
@@ -279,7 +325,7 @@
                 Confirm Payment Information
               </h1>
               <p class="tr-gray-three mt-5">
-                You're adding <span class="tr-green">{{ "1 tree" }}</span> to
+                You're adding <span class="tr-green">{{ count + " tree" }}</span> to
                 your forest!
               </p>
             </div>
@@ -312,12 +358,12 @@
                     </p>
 
                     <p class="param tr-gray-four">
-                      <span id="eth">1.5639</span
-                      ><span class="usd">$173.00</span>
+                      <span id="eth">{{ treePrice *count }}</span
+                      ><span class="usd">${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}</span>
                     </p>
                     <p class="param tr-gray-four">
-                      <span id="eths">0.0024</span
-                      ><span class="usds">0.0024</span>
+                      <span id="eths"></span
+                      ><span class="usds"></span>
                     </p>
                   </div>
                 </div>
@@ -335,8 +381,8 @@
               <hr />
               <p class="title-sm  tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                $173.00
-              </p>
+                {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$              </p>
+
               <hr />
             </div>
           </div>
@@ -370,35 +416,48 @@ import Wallets from "../../components/Wallets";
 
 export default {
   name: "giftTree",
-  layout:"checkout",
-
+  layout: "checkout",
   components: {
     Wallets,
     Fab
   },
 
+  mounted() {
+    this.getPrice()
+
+  }, async created() {
+
+    const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
+    this.dollorPrice = res.data.result.ethusd
+    console.log(this.dollorPrice, 'dollorprice')
+  },
   data() {
     return {
-      sendAsTreeCard:false,
+      treePrice: null,
+      dollorPrice: null,
+      sendAsTreeCard: false,
+      count: 1,
+      slectedPays: null,
+      ethPrice: this.$store.state.ethPrice,
       steps: [
-        { name: "Collect", step: 1 },
-        { name: "Connect to wallet", step: 2 },
-        { name: "Checkout", step: 3 },
+        {name: "Collect", step: 1},
+        {name: "Connect to wallet", step: 2},
+        {name: "Checkout", step: 3},
 
         // { name: "final-step", step: 4 }
       ],
       counts: [
-        { name: 1, step: 1 },
-        { name: 5, step: 2 },
-        { name: 10, step: 3 },
-        { name: 20, step: 3 },
-        { name: this.countTree, step: 3, placeHolder: "Enter Number" }
+        {name: 1, step: 1},
+        {name: 5, step: 2},
+        {name: 10, step: 3},
+        {name: 20, step: 3},
+        {name: this.countTree, step: 3, placeHolder: "Enter Number"}
       ],
-      payMethods: [
-        { name: "visa", icon: "cc-visa", step: 1 },
-        { name: "bitcoin", icon: "ethereum", step: 2 },
-        { name: "stripe", icon: "cc-stripe", step: 3 }
-      ],
+        payMethods: [
+          {name: "visa", icon: "cc-visa", step: 1},
+          {name: "bitcoin", icon: "ethereum", step: 2},
+          {name: "stripe", icon: "cc-stripe", step: 3}
+        ],
 
       activeIndex: 0,
       activeCount: 0,
@@ -411,13 +470,28 @@ export default {
       this.activeIndex = index;
     },
     activeCounts(item, index) {
+      this.count = item.name
       this.activeCount = index;
     },
     activePays(item, index) {
+      this.slectedPays = item.name
       this.activePay = index;
     },
     activeWallets(item, index) {
       this.activeWallet = index;
+    },
+    async fund() {
+      this.transferReceipt = await this.$store.dispatch('fund/fund', {
+        count: this.count,
+        active: this.activeIndex = 2
+
+      })
+    },
+    async getPrice() {
+
+      this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
+      console.log(this.treePrice,'pribe')
+
     },
   }
 };
@@ -425,6 +499,18 @@ export default {
 
 <style lang="scss" scoped>
 .add-tree {
+  .pay-badge{
+    position: absolute;
+    left: -3px;
+    transform: rotateZ(45deg);
+    top: 20px;
+    opacity: 0.8;
+    background-color: blanchedalmond;
+
+  }
+  .pay-badge:hover,.disable{
+    cursor: not-allowed;
+  }
   hr {
     width: 50%;
 
@@ -528,6 +614,7 @@ export default {
 
     .position-absolute {
       top: -25px;
+      right: 20px;
 
       span {
         padding: 0 20px;
@@ -535,7 +622,7 @@ export default {
     }
 
     span {
-      padding: 0 5px;
+      padding: 0 20px;
     }
   }
 }

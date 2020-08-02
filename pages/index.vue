@@ -34,14 +34,12 @@
                 </client-only>
               </div>
               <div class="col-12 form-group mt-3">
-                <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
-
                 <button
-                  class="btn-lg btn-green pointer-event param"
+                  class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
+                  @click.prevent="goToDashboard()"
                 >
                   Plant One Tree
                 </button>
-                </nuxt-link>
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('find')">
 
                 <button class="btn-lg btn-outline-green pointer-event param">
@@ -64,7 +62,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 </template>
@@ -75,9 +72,50 @@
     name: "index",
     data() {
       return {
+        treeCount:null
       }
     },
+// <<<<<<< HEAD
+//     computed: {
+//       isLoggedIn() {
+//         return this.$store.state.account;
+//       }
+//     },
+//     methods: {
+
+
+
     methods:{
+      async fund() {
+        this.transferReceipt = await this.$store.dispatch('fund/fund', {
+          count: 1
+        })
+      },
+      async plant() {
+        this.transferReceipt = await this.$store.dispatch('treeFactory/plant', {})
+      },
+      async getMyTreeCount() {
+			  this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
+      },
+      async getOwnerTrees() {
+			  this.ownerTrees = await this.$store.dispatch('treeFactory/getOwnerTrees')
+      },
+
+    goToDashboard() {
+        if (this.$store.state.account == null && this.$cookies.get('account') == null) {
+          this.$bvToast.toast("you are not logged in. please login", {
+            toaster: 'b-toaster-bottom-left',
+            solid: true,
+            headerClass: 'hide',
+            variant: 'danger'
+          })
+          this.$bvModal.show('five')
+        } else {
+          this.$router.push(this.localePath('myForest'))
+        }
+      },
+
+
       walletConnects(){
         debugger
         const wc = new WalletConnect();
@@ -104,7 +142,7 @@
     props: {},
     mounted() {
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped >
