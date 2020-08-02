@@ -2,7 +2,7 @@ import web3 from '~/plugins/web3'
 import Fund from '~/contracts/Fund'
 import web3Abi from 'web3-eth-abi'
 
-const tokenAddress = '0x025da12738E70b13BE91272e2e86EabB2acA71e8' // insert deployed Fund token address here
+const tokenAddress = '0xF67F3E0aD3A624AD84dE4530618A17F06A882937' // insert deployed Fund token address here
 const fund = new web3.eth.Contract(Fund.abi, tokenAddress)
 
 let account

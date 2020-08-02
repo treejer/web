@@ -2,7 +2,7 @@ import web3 from '~/plugins/web3'
 import TreeFactory from '~/contracts/TreeFactory'
 import web3Abi from 'web3-eth-abi'
 
-const tokenAddress = '0xbf10aEA0CAD87040E8B17966040f9Fa2A4767061' // insert deployed TreeFactory token address here
+const tokenAddress = '0x60CB3d63C08571F6666C11A39668b5ef01D72175' // insert deployed TreeFactory token address here
 const treeFactory = new web3.eth.Contract(TreeFactory.abi, tokenAddress)
 
 let account
@@ -16,7 +16,10 @@ export const mutations = {}
 
 export const actions = {
 	getMyTreeCount() {
-		return treeFactory.methods.balanceOf(account).call({ from: account });
+		return treeFactory.methods.ownerTreesCount(account).call({ from: account });
+	},
+	getTree(context, params) {
+		return treeFactory.methods.getTree(params.id).call({ from: account });
 	},
 	getOwnerTrees() {
 		return treeFactory.methods.getOwnerTrees(account).call({ from: account });

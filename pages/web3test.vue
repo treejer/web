@@ -72,6 +72,26 @@
                   <span v-for="treeId in ownerTrees" >
                     {{  treeId }}
                   </span>
+
+
+                <button
+                @click="getTreesData"
+                  class="btn-lg btn-green pointer-event param"
+                >
+                  getTreesData
+                </button>
+
+
+                <div v-for="tree in treedata">
+                    {{ tree }}
+                </div>
+
+
+                
+                  <!-- <span v-for="tree in ownerTrees" >
+                    {{  treeId }}
+                  </span> -->
+
                 <button
                 @click="plant"
                   class="btn-lg btn-green pointer-event param"
@@ -125,7 +145,8 @@
       return {
         treeCount: 0,
         ownerTrees: [],
-        treePrice: 0
+        treePrice: 0,
+        treedata: []
       }
     },
     methods:{
@@ -145,6 +166,18 @@
       },
       async getPrice() {
         this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
+      },
+      async getTreesData() {
+
+          let ids = [0, 1];
+
+          for (let index = 0; index < ids.length; index++) {
+            this.treedata.push(await this.$store.dispatch('treeFactory/getTree', {id: ids[index]}));
+            
+          }
+
+
+        return 
       },
       
       walletConnects(){

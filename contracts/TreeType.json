@@ -3497,10 +3497,55 @@
       "links": {},
       "address": "0x5f101d8494608efc0eE0Aae58291d7dA1B2c0b2D",
       "transactionHash": "0x49e880929cf9a93f37f86c07123cfc0a9924ac283a0545400095b961fd2fe27d"
+    },
+    "1596097717352": {
+      "events": {
+        "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "typeId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "scientificName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "O2Formula",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            }
+          ],
+          "name": "NewType",
+          "type": "event",
+          "signature": "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf"
+        }
+      },
+      "links": {},
+      "address": "0xe3cAF97f7d032dA6577e673aec03416C79893416",
+      "transactionHash": "0x54888bfdb472985566c35baabce74d95a4183d0cddba78c12543447a1a9958a0"
     }
   },
   "schemaVersion": "3.0.22",
-  "updatedAt": "2020-07-29T06:29:27.800Z",
+  "updatedAt": "2020-07-30T08:29:08.213Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
