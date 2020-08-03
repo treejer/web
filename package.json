@@ -38,6 +38,7 @@
     "mobile-device-detect": "^0.3.3",
     "nuxt": "^2.0.0",
     "nuxt-fontawesome": "^0.4.0",
+    "nuxt-gmaps": "^1.2.5",
     "nuxt-i18n": "^6.4.1",
     "swiper": "^5.3.6",
     "timeline-vuejs": "^1.1.1",

@@ -1,9 +1,9 @@
 import web3 from '~/plugins/web3'
-import TreeFactory from '~/contracts/TreeFactory'
+import O1Factory from '~/contracts/O1Factory'
 import web3Abi from 'web3-eth-abi'
 
-const tokenAddress = process.env.contractTreeFactoryAddress // insert deployed TreeFactory token address here
-const treeFactory = new web3.eth.Contract(TreeFactory.abi, tokenAddress)
+const tokenAddress = process.env.contractO1FactoryAddress // insert deployed O1Factory token address here
+const o1Factory = new web3.eth.Contract(O1Factory.abi, tokenAddress)
 
 let account
 web3.eth.getAccounts().then(res => {
@@ -16,22 +16,28 @@ export const mutations = {}
 
 export const actions = {
   getMyTreeCount() {
-    return treeFactory.methods.ownerTreesCount(account).call({ from: account });
+    return o1Factory.methods.ownerTreesCount(account).call({ from: account });
   },
   getTree(context, params) {
-    console.log(params.id)
-    return treeFactory.methods.getTree(params.id).call({ from: account });
+    return o1Factory.methods.getTree(params.id).call({ from: account });
   },
-  getOwnerTrees() {
-    return treeFactory.methods.getOwnerTrees(account).call({ from: account });
+  balanceOf() {
+    return o1Factory.methods.balanceOf(account).call({ from: account })
+      .then((o1Balance) => web3.utils.fromWei(o1Balance));
+  },
+  calculateMintableO1() {
+    console.log(tokenAddress, "contarct addres")
+
+    return o1Factory.methods.calculateMintableO2Beta(account).call({ from: account })
+      .then((mintableO1) => web3.utils.fromWei(mintableO1));
   },
   getPrice() {
-    return treeFactory.methods.getPrice().call({ from: account })
+    return o1Factory.methods.getPrice().call({ from: account })
       .then((treeWeiPrice) => web3.utils.fromWei(treeWeiPrice));
   },
-  async plant(context, params) {
-    const plantMethod = TreeFactory.abi.find(method => {
-      return method.name === 'add'
+  async mint(context, params) {
+    const mintMethod = O1Factory.abi.find(method => {
+      return method.name === 'mint'
     })
 
 
@@ -66,42 +72,41 @@ export const actions = {
     // 		)
     // 	);
 
-    console.log(plantMethod,
-      ['0', '0', ['firstTreeWeb3', '41.0157464', '28.6614805'], ['10', '20']]);
+   
 
-    const plantMethodTransactionData = web3Abi.encodeFunctionCall(
-      plantMethod,
-      ['0', '0', ['firstTreeWeb3', '41.0157464', '28.6614805'], ['10', '20']]
+    const mintMethodTransactionData = web3Abi.encodeFunctionCall(
+      mintMethod,
+      []
     )
 
-    console.log(plantMethod);
+    console.log(mintMethod);
 
     console.log({
       from: account,
       to: tokenAddress,
-      data: plantMethodTransactionData
+      data: mintMethodTransactionData
     });
 
-    const estimateGas = await web3.eth.estimateGas({
-      from: account,
-      to: tokenAddress,
-      data: plantMethodTransactionData
-    })
+    // const estimateGas = await web3.eth.estimateGas({
+    //   from: account,
+    //   to: tokenAddress,
+    //   data: mintMethodTransactionData
+    // })
 
     console.log({
       from: account,
       to: tokenAddress,
-      data: plantMethodTransactionData,
+      data: mintMethodTransactionData,
       value: 0,
-      gas: estimateGas
+      // gas: estimateGas
     });
 
     const receipt = await web3.eth.sendTransaction({
       from: account,
       to: tokenAddress,
-      data: plantMethodTransactionData,
+      data: mintMethodTransactionData,
       value: 0,
-      gas: estimateGas * 2
+      // gas: estimateGas * 2
     })
 
     return receipt

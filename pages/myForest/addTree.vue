@@ -427,7 +427,7 @@ export default {
 
   }, async created() {
 
-    const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
+    const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
     this.dollorPrice = res.data.result.ethusd
   },
   data() {
