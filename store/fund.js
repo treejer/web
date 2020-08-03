@@ -49,7 +49,7 @@ export const actions = {
       console.log(error, 'error-fund')
       if (trans) {
       } else {
-        return 
+        return
 
         this.$router.push('/myForest')
       }

@@ -62,18 +62,61 @@
                     </div>
                     <div class="col-md-6">
                       <ul class="p-0">
-                        <li v-for="(item,index) in steps"
-                            :class="activeIndexSteps === index ? 'active' : 'not-active'"
-                            class="list-style-none param-sm mb-1 Montserrat-Medium" @click="activeIndexSteps = index"  >
+                        <li
+                          class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button class="btn-outline-green">
-                               {{activeIndexSteps === index ? 'done' : item.step}}
+                               Done
+
+                          </button>
+                          </span>
+                          <span class="tr-gray-four">
+                            Connect your wallet
+                          </span>
+                        </li>
+                        <li
+                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          <span class="step-number mr-2">
+                             <button :class="treeCount ? 'btn-outline-green' : 'btn-outline-green'">
+                               {{ treeCount ? 'Done' : 'step 2' }}
+
+                          </button>
+                          </span>
+                          <span :class="treeCount ? 'tr-gray-four' : 'tr-gray-two'">
+                          Add trees to your forest
+                          </span>
+                        </li>
+                        <li
+                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          <span class="step-number mr-2">
+                             <button
+                               
+
+                               :class="mintableO1 ? 'btn-outline-green' : 'btn-outline-green'">
+                               {{ treeCount ? 'Done' : 'step 3' }}
+
+                          </button>
+                          </span>
+                          <span :class="mintableO1 ? 'tr-gray-four' : 'tr-gray-two'">
+                          Release O1/O2 to your wallet
+                          </span>
+                        </li>
+                        <li
+                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          <span class="step-number mr-2">
+                             <button
+                               @click="comunity()"
+                               :class="mintableO1 ? 'btn-outline-green' : 'btn-outline-green'">
+                               step 4
+
                           </button>
                           </span>
                           <span>
-                            {{item.text}}
+                        Join our community!
                           </span>
                         </li>
+
+
                       </ul>
                     </div>
                   </div>
@@ -210,14 +253,14 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
-      steps:[
-        {step:'step 1',text:'Connect your wallet'},
-        {step:'step 2',text:'Add trees to your forest'},
-        {step:'step 3',text:'Release O1/O2 to your wallet'},
-        {step:'step 4',text:'Join our community!'},
+      steps: [
+        {active: true, step: 'step 1', text: 'Connect your wallet'},
+        {active: false, step: 'step 2', text: 'Add trees to your forest'},
+        {active: false, step: 'step 3', text: 'Release O1/O2 to your wallet'},
+        {active: false, step: 'step 4', text: 'Join our community!'},
       ],
-      activeIndexSteps:null,
-      loadings:false,
+      activeIndexSteps: null,
+      loadings: false,
       search: null,
       treeCount: null,
       redeem: null,
@@ -482,7 +525,8 @@ export default {
     }
 
   },
-  mounted() {
+  created() {
+    this.$forceUpdate()
     this.getEthBalance()
     this.getMyTreeCount()
     this.getBalanceOfO1()
@@ -490,10 +534,13 @@ export default {
     this.getOwnerTreesData()
   },
   methods: {
+    comunity() {
+      window.open('https://discuss.treejer.com', '_blank')
+    },
     async getMyTreeCount() {
-      this.loaings =true
+      this.loaings = true
       this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
-      this.loadings =false
+      this.loadings = false
     },
     async getBalanceOfO1() {
       this.walletO1 = await this.$store.dispatch('o1Factory/balanceOf')
