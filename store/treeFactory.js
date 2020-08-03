@@ -19,10 +19,14 @@ export const actions = {
     return treeFactory.methods.ownerTreesCount(account).call({ from: account });
   },
   getTree(context, params) {
-    console.log(params.id)
-    return treeFactory.methods.getTree(params.id).call({ from: account });
+    return treeFactory.methods.getTree(params.id).call({ from: account })
+      .then((treeData) => {
+        treeData.latitude = parseFloat(treeData.latitude)
+        treeData.longitude = parseFloat(treeData.longitude)
+        return treeData;
+      });
   },
-  getOwnerTrees() {
+  getOwnerTreesId() {
     return treeFactory.methods.getOwnerTrees(account).call({ from: account });
   },
   getPrice() {

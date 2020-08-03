@@ -28,7 +28,7 @@ export const actions = {
   calculateMintableO1() {
     console.log(tokenAddress, "contarct addres")
 
-    return o1Factory.methods.calculateMintableO2Beta(account).call({ from: account })
+    return o1Factory.methods.calculateMintableO1(account).call({ from: account })
       .then((mintableO1) => web3.utils.fromWei(mintableO1));
   },
   getPrice() {
