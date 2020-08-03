@@ -70,35 +70,18 @@ export const actions = {
     // 		)
     // 	);
 
-    console.log(plantMethod,
-      ['0', '0', ['firstTreeWeb3', '41.0157464', '28.6614805'], ['10', '20']]);
+
 
     const plantMethodTransactionData = web3Abi.encodeFunctionCall(
       plantMethod,
       ['0', '0', ['firstTreeWeb3', '41.0157464', '28.6614805'], ['10', '20']]
     )
 
-    console.log(plantMethod);
-
-    console.log({
-      from: account,
-      to: tokenAddress,
-      data: plantMethodTransactionData
-    });
-
     const estimateGas = await web3.eth.estimateGas({
       from: account,
       to: tokenAddress,
       data: plantMethodTransactionData
     })
-
-    console.log({
-      from: account,
-      to: tokenAddress,
-      data: plantMethodTransactionData,
-      value: 0,
-      gas: estimateGas
-    });
 
     const receipt = await web3.eth.sendTransaction({
       from: account,
