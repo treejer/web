@@ -56,7 +56,6 @@
       }
     },
     mounted() {
-      console.log(this.$cookies.get('account'))
     },
     methods: {
       loginToast(variant, title, message, href) {
