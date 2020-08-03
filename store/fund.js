@@ -15,10 +15,11 @@ export const state = () => ({})
 export const mutations = {}
 
 export const actions = {
+  getEthBalance() {
+    return web3.eth.getBalance(account)
+      .then((ethBalance) => web3.utils.fromWei(ethBalance));
+  },
   async fund(context,params ) {
-
-    console.log(tokenAddress, "contarct addres")
-
     const fundMethod = Fund.abi.find(method => {
       return method.name === 'fund'
     })

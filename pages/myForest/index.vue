@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-3  col-md-6 col-12 border-right">
               <p>RELEASED O1</p>
-              <p><span>{{ 0 }} </span></p>
+              <p><span>{{ mintableO1 }} </span></p>
             </div>
 
             <div class="col-lg-3  col-md-6 col-12 ">
@@ -42,7 +42,7 @@
             <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
               <!--              <p>SEED BALANCE</p>-->
               <!--              <p>-->
-<!--              <span>{{ totalO1 }}</span><span>o1</span>-->
+<!--              <span>{{ walletO1 }}</span><span>o1</span>-->
 <!--              <span>{{ mintableO1 }}</span><span>o1(mintable)</span>-->
 
               <button class="btn-outline-green btn-wallet" @click="mintO1">Send to Wallet</button>
@@ -113,8 +113,8 @@
               </div>
               <div class="col-md-6 p-0">
 
-                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">0</p>
-                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">0</p>
+                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ ethBalance }}</p>
+                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 }}</p>
                 <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
               </div></div>
 <!--            <p class="param-sm-light"> @JaneJoe</p>-->
@@ -167,9 +167,10 @@ export default {
       treeCount: null,
       redeem: null,
       forestSize: 47,
-      totalO1: 0,
+      walletO1: 0,
       mintableO1: 0,
       ownerTreesData: [],
+      ethBalance: 0,
       geographyConfig: {
         dataUrl: '//raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
         highlightOnHover: false,
@@ -428,8 +429,10 @@ export default {
 
   },
   mounted() {
+    this.getEthBalance()
+
     this.getMyTreeCount()
-    this.getTotalO1()
+    this.getBalanceOfO1()
     this.calculateMintableO1()
 
     this.getOwnerTreesData()
@@ -441,20 +444,19 @@ export default {
       this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
       this.loadings =false
     },
-    async getTotalO1() {
-      this.totalO1 = await this.$store.dispatch('o1Factory/balanceOf')
-      console.log(this.totalO1,'totla')
+    async getBalanceOfO1() {
+      this.walletO1 = await this.$store.dispatch('o1Factory/balanceOf')
     },
     async calculateMintableO1() {
       this.mintableO1 = await this.$store.dispatch('o1Factory/calculateMintableO1')
-      console.log(this.mintableO1)
     },
     async mintO1() {
-      this.totalO1 = await this.$store.dispatch('o1Factory/mint')
-      console.log(this.totalO1)
+      await this.$store.dispatch('o1Factory/mint')
     },
-   
-    
+    async getEthBalance() {
+      this.ethBalance = await this.$store.dispatch('fund/getEthBalance')
+    },
+
     async getOwnerTreesData() {
       let treeIds = await this.$store.dispatch('treeFactory/getOwnerTreesId');
 
