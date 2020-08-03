@@ -429,7 +429,6 @@ export default {
 
     const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
     this.dollorPrice = res.data.result.ethusd
-    console.log(this.dollorPrice, 'dollorprice')
   },
   data() {
     return {
@@ -490,7 +489,6 @@ export default {
     async getPrice() {
 
       this.treePrice = await this.$store.dispatch('treeFactory/getPrice', {})
-      console.log(this.treePrice,'pribe')
 
     },
   }

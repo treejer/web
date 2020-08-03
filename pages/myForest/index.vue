@@ -31,24 +31,26 @@
                 <span>Trees</span></p>
             </div>
             <div class="col-lg-3  col-md-6 col-12 border-right">
-              <p>O2 BALANCE</p>
-              <p><span>{{ 0 }} </span> <span>o2</span></p>
+              <p>RELEASED O1</p>
+              <p><span>{{ 0 }} </span></p>
             </div>
-            <div class="col-lg-3  col-md-6 col-12 border-right">
-              <p>SEED BALANCE</p>
-              <p>
-                <span>{{ totalO1 }}</span><span>o1</span>
-                <span>{{ mintableO1 }}</span><span>o1(mintable)</span>
-              
-                <button @click="mintO1">mint o1</button>
-              </p>
-            </div>
+
             <div class="col-lg-3  col-md-6 col-12 ">
-              <p>TREES GIFTED</p>
-              <p><span>{{ 0 }}</span><span>Trees</span></p>
+              <p>RELEASED O2</p>
+              <p><span>{{ 0 }}</span></p>
+            </div>
+            <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
+              <!--              <p>SEED BALANCE</p>-->
+              <!--              <p>-->
+<!--              <span>{{ totalO1 }}</span><span>o1</span>-->
+<!--              <span>{{ mintableO1 }}</span><span>o1(mintable)</span>-->
+
+              <button class="btn-outline-green btn-wallet" @click="mintO1">Send to Wallet</button>
+              <!--              </p>-->
             </div>
           </div>
-          <div class="row treejer-earth d-md-block d-none">
+
+          <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
             <!-- <vue-datamaps
               :geographyConfig="geographyConfig"
               :width="'100%'"
@@ -96,12 +98,25 @@
         </div>
 
         <div class="col-lg-3 col-12  justify-content-center">
-          <div class="avatar-card card text-center justify-content-center">
+          <div class="avatar-card border-0 text-center justify-content-center">
             <div class="card-img position-relative"><img src="~/assets/images/myforest/avatar.png" alt="username"
                                                          class="avatar-pic img-fluid"/>
-              <span class="position-absolute">+</span>
+<!--              <span class="position-absolute">+</span>-->
             </div>
-            <p class="param-sm mt-3" style="">{{$cookies.get('account').slice(0,-25)}}</p>
+            <p class="param-sm mt-3 tr-gray-three token" style="">{{$cookies.get('account')}}</p>
+            <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
+            <div class="row">
+              <div class="col-md-6 p-0">
+                <p class="pb-2  tr-gray-three param-sm font-weight-bold border-bottom ">ETH</p>
+                <p class="pb-2  tr-gray-three param-sm font-weight-bold border-bottom ">o1</p>
+                <p class="pb-2  tr-gray-three param-sm font-weight-bold  ">o2</p>
+              </div>
+              <div class="col-md-6 p-0">
+
+                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">0</p>
+                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">0</p>
+                <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
+              </div></div>
 <!--            <p class="param-sm-light"> @JaneJoe</p>-->
           </div>
           <div class="trees">
@@ -428,7 +443,7 @@ export default {
     },
     async getTotalO1() {
       this.totalO1 = await this.$store.dispatch('o1Factory/balanceOf')
-      console.log(this.totalO1)
+      console.log(this.totalO1,'totla')
     },
     async calculateMintableO1() {
       this.mintableO1 = await this.$store.dispatch('o1Factory/calculateMintableO1')
@@ -460,6 +475,13 @@ export default {
 <style lang="scss" scoped>
 
   .my-forest {
+    .token{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 50%;
+      margin: auto;
+    }
     .avatar-pic{
       width: 80px;
       height: 80px;
@@ -495,8 +517,16 @@ export default {
         }
       }
     }
+    .btn-wallet{
+      border: 1px solid #5A9D79;
+      box-sizing: border-box;
+      border-radius: 6px;
+      font-size: 14px;
+      padding: 10px 20px ;
 
+    }
     .add-tree {
+
       button {
         box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
         background-color: #67b68c;
@@ -552,7 +582,7 @@ export default {
       border-radius: 6px;
       box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
       background-color: #fafafa;
-      padding: 35px 10px;
+      padding: 35px 10px 0;
 
       img {
         border: solid 1px gray;
@@ -612,17 +642,57 @@ export default {
     }
   }
 
-
-
-  .GMap, p {
-    margin-top: 30px;
-  }
-
   .GMap__Wrapper {
     width: 100%;
     height: 400px;
+    .flex {
+      position: relative;
+      padding-bottom: 50px;
+    }
+    h1 {
+      color: #206569;
+      margin-bottom: 5px;
+      & + p {
+        margin-top: 0;
+        font-size: 16px;
+        a {
+          color: #206569;
+        }
+      }
+    }
+
+    span,
+    p,
+    a {
+      color: #206569;
+      font-size: 16px;
+    }
+
+    .visibleCities {
+      position: absolute;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .GMap p {
+      margin-top: 30px;
+    }
+    .button {
+      background-color: #206569;
+      color: #fff;
+      outline: 0;
+      border: 0;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 200ms;
+      backface-visibility: hidden;
+      &:hover {
+        background-color: #12957b;
+      }
+    }
+
   }
-
-
 
 </style>

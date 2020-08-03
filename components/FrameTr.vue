@@ -94,7 +94,6 @@
           body
         })
           .then(function (response) {
-            console.log(response);
             self.loading = false
           })
           .catch(function (error) {
