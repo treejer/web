@@ -49,8 +49,59 @@
               <!--              </p>-->
             </div>
           </div>
+          <div class="row treejer-user-flow">
+            <div class="container p-0">
+              <div class="col-12 p-0">
+                <div class="bg-brown">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="tr-gray-one param-18 mb-1 font-weight-bold" >Getting Started</p>
+                      <p class="param tr-gray-three">
+                        Let’s help you get started setting up your forest. Here are some key things to do.
+                      </p>
+                    </div>
+                    <div class="col-md-6">
+                      <ul class="p-0">
+                        <li v-for="(item,index) in steps"
+                            :class="activeIndexSteps === index ? 'active' : 'not-active'"
+                            class="list-style-none param-sm mb-1 Montserrat-Medium" @click="activeIndexSteps = index"  >
+                          <span class="step-number mr-2">
+                             <button class="btn-outline-green">
+                               {{activeIndexSteps === index ? 'done' : item.step}}
+                          </button>
+                          </span>
+                          <span>
+                            {{item.text}}
+                          </span>
+
+
+
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row forest-status">
+            <div class="col-12 mt-5">
+              <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
+
+            </div>
+            <div class="">
+              <p class="forest-status-count mb-0">
+                <img class="img-fluid" src="~/assets/images/myforest/trees.png" />
+              </p>
+              <p class="param-sm text-center"><span>10047</span></p>
+            </div>
+
+
+          </div>
 
           <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
+            <p class="param-18 tr-gray-one Montserrat-Medium">Forest on the Map</p>
             <!-- <vue-datamaps
               :geographyConfig="geographyConfig"
               :width="'100%'"
@@ -162,6 +213,13 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
+      steps:[
+        {step:'step 1',text:'Connect your wallet'},
+        {step:'step 2',text:'Add trees to your forest'},
+        {step:'step 3',text:'Release O1/O2 to your wallet'},
+        {step:'step 4',text:'Join our community!'},
+      ],
+      activeIndexSteps:null,
       loadings:false,
       search: null,
       treeCount: null,
@@ -181,7 +239,7 @@ export default {
           highlightBorderWidth: 2,
           highlightBorderOpacity: 1
         },
-        fills: {
+      fills: {
           'Trejer': '#67b68c',
           defaultFill: '#edebe5',
         },
@@ -433,7 +491,7 @@ export default {
     this.calculateMintableO1()
 
     this.getOwnerTreesData()
-    
+
   },
   methods: {
     async getMyTreeCount() {
@@ -453,8 +511,8 @@ export default {
       this.totalO1 = await this.$store.dispatch('o1Factory/mint')
       console.log(this.totalO1)
     },
-   
-    
+
+
     async getOwnerTreesData() {
       let treeIds = await this.$store.dispatch('treeFactory/getOwnerTreesId');
 
@@ -481,6 +539,21 @@ export default {
       white-space: nowrap;
       width: 50%;
       margin: auto;
+    }
+    .bg-brown{
+      background: rgba(208, 169, 69, 0.25);
+      border-radius: 12px;
+      padding: 30px 20px;
+      margin-top: 48px;
+      font-family: Montserrat-Medium;
+      button.bg-outline-green{
+        width: 48px;
+        height: 16px;
+        border: 1px solid #757575;
+        box-sizing: border-box;
+        border-radius: 10px;
+      }
+
     }
     .avatar-pic{
       width: 80px;
