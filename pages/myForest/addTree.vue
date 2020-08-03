@@ -132,7 +132,8 @@
 
                     class="btn-green-md  mt-4"
                   >
-                    NEXT
+                    <BSpinner class="mr-2" type="grow"  small   v-if="loading"></BSpinner>
+                    {{loading ?'Loading' :' NEXT' }}
                   </button>
                   <p class="pointer-event">
                     <a class="param mb-0" href=""
@@ -435,6 +436,7 @@ export default {
       treePrice: null,
       dollorPrice: null,
       sendAsTreeCard: false,
+      loading:false,
       count: 1,
       slectedPays: null,
       ethPrice: this.$store.state.ethPrice,
@@ -480,11 +482,14 @@ export default {
       this.activeWallet = index;
     },
     async fund() {
+      this.loading = true
       this.transferReceipt = await this.$store.dispatch('fund/fund', {
         count: this.count,
-        active: this.activeIndex = 2
 
-      })
+      },)
+      this.activeIndex = 3
+      this.loading = false
+      console.log(this.activeIndex ,'status')
     },
     async getPrice() {
 

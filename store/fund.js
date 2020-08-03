@@ -1,6 +1,8 @@
 import web3 from '~/plugins/web3'
 import Fund from '~/contracts/Fund'
 import web3Abi from 'web3-eth-abi'
+import Vue from 'vue'
+
 
 const tokenAddress = process.env.contractFundAddress // insert deployed Fund token address here
 const fund = new web3.eth.Contract(Fund.abi, tokenAddress)
@@ -28,8 +30,6 @@ export const actions = {
       fundMethod,
       [params.count]
     )
-    params.activeIndex = 2
-
     // const estimateGas = await web3.eth.estimateGas({
     // 	from: account,
     // 	to: tokenAddress,
@@ -38,12 +38,22 @@ export const actions = {
 
     // console.log(estimateGas, "estimateGas");
 
+
     const receipt = await web3.eth.sendTransaction({
       from: account,
       to: tokenAddress,
       data: fundMethodTransactionData,
       value: web3.utils.toWei('0.01') * params.count,
       // gas: estimateGas * 4
+    }, (error, trans) => {
+      console.log(error, 'error-fund')
+      if (trans) {
+      } else {
+        return 
+
+        this.$router.push('/myForest')
+      }
+
     })
 
     return receipt

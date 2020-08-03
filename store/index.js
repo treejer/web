@@ -96,7 +96,6 @@ export const actions = {
     await commit('SET_TREZOR_POP_UP', res)
 
   },
-
   logout({commit}) {
     this.$cookies.remove('account');
 
@@ -107,7 +106,6 @@ export const actions = {
       status
     })
   },
-
   async allUsers({commit}) {
     const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
     commit('SET_USERS', users.data)
@@ -130,8 +128,6 @@ export const actions = {
      commit('SET_USERS_FROM', res)
    })
   }
-
-
 }
 
 export const mutations = {

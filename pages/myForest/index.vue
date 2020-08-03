@@ -2,7 +2,7 @@
   <section class="position-relative  pt-5 col-lg-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article justify-content-between">
-        <div class="col-lg-8  col-12">
+        <div class="col-lg-8   col-12">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
               <h2 class="title-sm Montserrat-Medium " >
@@ -73,9 +73,6 @@
                           <span>
                             {{item.text}}
                           </span>
-
-
-
                         </li>
                       </ul>
                     </div>
@@ -90,11 +87,11 @@
               <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
 
             </div>
-            <div class="">
+            <div class="" v-for="(item,index) in ownerTreesData " :key="index">
               <p class="forest-status-count mb-0">
                 <img class="img-fluid" src="~/assets/images/myforest/trees.png" />
               </p>
-              <p class="param-sm text-center"><span>10047</span></p>
+              <p class="param-sm text-center"><span>{{ item.name }}</span></p>
             </div>
 
 
@@ -231,7 +228,6 @@ export default {
       ethBalance: 0,
       geographyConfig: {
         dataUrl: '//raw.githubusercontent.com/Seungwoo321/vue-datamaps/master/demo/example-vue-cli3/public/data/world.json',
-        highlightOnHover: false,
         borderWidth: 0.5,
         borderOpacity: 1,
         highlightOnHover: true,
@@ -488,13 +484,10 @@ export default {
   },
   mounted() {
     this.getEthBalance()
-
     this.getMyTreeCount()
     this.getBalanceOfO1()
     this.calculateMintableO1()
-
     this.getOwnerTreesData()
-
   },
   methods: {
     async getMyTreeCount() {
@@ -517,21 +510,19 @@ export default {
 
     async getOwnerTreesData() {
       let treeIds = await this.$store.dispatch('treeFactory/getOwnerTreesId');
-
-      // if(treeIds.length > 0) {
-      //   this.ownerTreesData = [];
-      // }
+      console.log(treeIds,'yesssssss')
 
       for (let index = 0; index < treeIds.length; index++) {
+
         this.ownerTreesData.push(await this.$store.dispatch('treeFactory/getTree', {id: treeIds[index]}));
       }
+      console.log(this.ownerTreesData,'ownerTreesData')
       this.ownerTreesLoaded = true;
     },
 
   }
 };
 </script>
-
 <style lang="scss" scoped>
 
   .my-forest {
