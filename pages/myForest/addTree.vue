@@ -487,7 +487,10 @@ export default {
         count: this.count,
 
       },)
-      this.activeIndex = 3
+
+      if(this.transferReceipt !== null) {
+        this.activeIndex = 3
+      }
       this.loading = false
       console.log(this.activeIndex ,'status')
     },
