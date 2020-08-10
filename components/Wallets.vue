@@ -156,8 +156,10 @@
         this.$store.dispatch("login", {account})
           .then(() => {
             this.$cookies.set('account', account)
+
             console.log()
             this.$bvModal.hide('five')
+            this.$router.push('/myForest')
           })
           .catch(err => console.log(err));
       },

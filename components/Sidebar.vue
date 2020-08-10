@@ -86,7 +86,7 @@
             </g>
           </svg>
 
-          <p>Updates</p>
+          <p>Activity</p>
 
         </nuxt-link>
       </li>
@@ -115,7 +115,7 @@
           </svg>
 
 
-          <p>Help</p>
+          <p>Get Help</p>
 
         </nuxt-link>
       </li>

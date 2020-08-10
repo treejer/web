@@ -1,5 +1,6 @@
 import WalletConnect from "walletconnect";
 
+
 // import trezorWallet from '@cosmic-plus/trezor-wallet';
 
 
@@ -26,9 +27,6 @@ const ENDPOINTS_RINKEBY = 'wss://rinkeby.infura.io/ws/v3/6902e8b158ca43b7ac02142
 const ENDPOINTS_GORLI = 'wss://goerli.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
 
 
-
-
-
 export const actions = {
   login({commit}, {account}) {
     this.$cookies.set('account', account)
@@ -49,6 +47,8 @@ export const actions = {
       switch (netId) {
         case "1":
           netName = 'mainnet';
+
+
           console.log('This is mainnet')
           break
         case "2":

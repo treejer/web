@@ -60,7 +60,15 @@
       <b-modal
         hide-footer
         id="five" title=" ">
-        <Wallets />
+        <Wallets/>
+      </b-modal>
+      <b-modal id="netName" hide-footer class="justify-content-center text-center" size="md" ok-only no-stacking>
+        <div class="text-center justify-content-center m-auto">
+          <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
+          <p class="param tr-gray-three">Metamask should be on <strong>Ropsten network</strong> network</p>
+          <p class="param tr-gray-three">Currently it on {{ $store.state.netWorkName }} instead</p>
+        </div>
+
       </b-modal>
 
     </div>
@@ -86,63 +94,76 @@ export default {
   data() {
     return {
       wallets: [
-          {name: "Metamask", step: 1},
-          {name: "Wallet Connect", step: 2},
-          {name: "Trezor", step: 3},
-          {name: "Ledger Nano", step: 4},
-          {name: "Coinbase Wallet", step: 5}
-        ],
-        activeWallet: 0,
-        formError: null,
-        account: null,
-        user: false,
-        activeIndex: 0,
-        items: [
-          {name: "About", step: 1, href: 'about'},
-          {name: "Blog", step: 2},
-          {name: "For Business", step: 3, href: 'business'},
-          {name: "Find My Tree", step: 4, href: 'find'},
-        ]
-      };
-    },
-    computed: {
+        {name: "Metamask", step: 1},
+        {name: "Wallet Connect", step: 2},
+        {name: "Trezor", step: 3},
+        {name: "Ledger Nano", step: 4},
+        {name: "Coinbase Wallet", step: 5}
+      ],
+      activeWallet: 0,
+      formError: null,
+      account: null,
+      user: false,
+      activeIndex: 0,
+      items: [
+        {name: "About", step: 1, href: 'about'},
+        {name: "Blog", step: 2},
+        {name: "For Business", step: 3, href: 'business'},
+        {name: "Find My Tree", step: 4, href: 'find'},
+      ]
+    };
+  },
+  async mounted() {
+    let self = this
 
-    },
-    methods: {
-      showModal(e){
+    await this.$store.dispatch('networkNames')
+    setTimeout(()=>{
+      self.$store.state.netWorkName !== 'ropsten' ? self.$bvModal.show('netName') : null
+    },1000)
 
-        this.$bvModal.show('five')
-      },
-      activeWallets(item, index) {
-        this.activeWallet = index;
-      },
-      loginToast(variant, title, message, href) {
-        this.$bvToast.toast(message, {
-          title: title,
-          variant: variant,
-          href: href
-        });
-      },
-      makeToast(variant = null) {
-        this.$bvToast.toast('install metamask from here', {
-          title: `https://metamask.io/' ${variant || 'default'}`,
-          href: 'https://metamask.io/',
-          variant: variant,
-          solid: true
-        })
-      },
-      activeMenu(item, index) {
-        if (item.name === 'Blog') {
-          window.open('https://blog.treejer.com/', '_blank')
-        } else {
-          this.activeIndex = index;
-        }
-      },
+
+
+
+  },
+  computed: {},
+  methods: {
+    showModal(e) {
+
+      this.$bvModal.show('five')
     },
-    mounted() {
-    this.$store.dispatch('networkNames')
-    }
-  };
+
+
+    activeWallets(item, index) {
+      this.activeWallet = index;
+    },
+    loginToast(variant, title, message, href) {
+      this.$bvToast.toast(message, {
+        title: title,
+        variant: variant,
+        href: href
+      });
+    },
+    makeToast(variant = null) {
+      this.$bvToast.toast('install metamask from here', {
+        title: `https://metamask.io/' ${variant || 'default'}`,
+        href: 'https://metamask.io/',
+        variant: variant,
+        solid: true
+      })
+    },
+    activeMenu(item, index) {
+      if (item.name === 'Blog') {
+        window.open('https://blog.treejer.com/', '_blank')
+      } else {
+        this.activeIndex = index;
+      }
+    },
+  },
+  created() {
+
+  },
+
+};
 </script>
 
 <style lang="scss">

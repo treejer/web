@@ -90,7 +90,7 @@
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button
-                               
+
 
                                :class="mintableO1 ? 'btn-outline-green' : 'btn-outline-green'">
                                {{ treeCount ? 'Done' : 'step 3' }}
@@ -525,13 +525,15 @@ export default {
     }
 
   },
-  created() {
-    this.$forceUpdate()
-    this.getEthBalance()
-    this.getMyTreeCount()
-    this.getBalanceOfO1()
-    this.calculateMintableO1()
-    this.getOwnerTreesData()
+ async created() {
+    if(process.client){
+      await this.getEthBalance()
+      await this.getMyTreeCount()
+      await this.getBalanceOfO1()
+      await this.calculateMintableO1()
+      await this.getOwnerTreesData()
+    }
+
   },
   methods: {
     comunity() {

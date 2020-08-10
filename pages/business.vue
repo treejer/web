@@ -97,7 +97,7 @@
                       growing number of consumers who prefer brands that contribute to the well-being of the planet, to
                       brands that do not.</p>
                   </div>
-                  <div class="col-md-2 arrow">
+                  <div class="col-md-2 arrow" @click="$router.push('/myForest')">
                     <div style="background-color: #D2EDB1;"
                     >
                       <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +154,7 @@
                       of our projects : everyone loves trees. You will be able to regularly share communication material
                       about your project.</p>
                   </div>
-                  <div class="col-md-2 arrow">
+                  <div class="col-md-2 arrow" @click="$router.push('/myForest')">
                     <div style="background: #ADF1D2;"
                     >
                       <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@
                     <p class="param tr-gray-two mb-0 ">When carbon sequestration is needed, the best technology is a
                       tree. They are an amazing carbon sink.</p>
                   </div>
-                  <div class="col-md-2 arrow">
+                  <div class="col-md-2 arrow" @click="$router.push('/myForest')">
                     <div style="background: #FAC9B8;"
                     >
                       <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -211,7 +211,7 @@
                       eco-conscious users worldwide. Listing vouchers and disount coupons generates sales and stronger
                       brand recognition for your business at no cost.</p>
                   </div>
-                  <div class="col-md-2 arrow">
+                  <div class="col-md-2 arrow" @click="$router.push('/myForest')">
                     <div style="background: #EFE9AE;
 "
                     >
@@ -353,12 +353,13 @@
       },
       mounted() {
         let self =this
+
         setInterval(function () {
           while(self.activeIndex > self.peoples){
             self.activeIndex ++
           }
         }, 3000);
-      }
+      },
 
     }
 </script>
