@@ -134,7 +134,7 @@
               <p class="forest-status-count mb-0">
                 <img class="img-fluid" src="~/assets/images/myforest/trees.png" />
               </p>
-              <p class="param-sm text-center"><span>{{ item.name }}</span></p>
+<!--              <p class="param-sm text-center"><span>{{ item.name }}</span></p>-->
             </div>
 
 
@@ -527,11 +527,11 @@ export default {
   },
  async created() {
     if(process.client){
-      await this.getEthBalance()
-      await this.getMyTreeCount()
-      await this.getBalanceOfO1()
-      await this.calculateMintableO1()
-      await this.getOwnerTreesData()
+    await  this.getEthBalance()
+    await  this.getMyTreeCount()
+    await  this.getBalanceOfO1()
+    await  this.calculateMintableO1()
+    await  this.getOwnerTreesData()
     }
 
   },
