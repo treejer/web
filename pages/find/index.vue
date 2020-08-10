@@ -8,7 +8,7 @@
             <p class="param-xl tr-gray-four mt-4"> Enter the Tree ID below and we'll find it for you! :)</p>
           </div>
           <div class="search-bar position-relative col-md-5 m-auto">
-            <span class="icon position-absolute position-relative" @click="giveTree()">
+            <span class="icon position-absolute position-relative" @click="findTree()">
               <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M16.2819 13.836L13.1669 10.721C13.0971 10.6514 13.0143 10.5962 12.9232 10.5586C12.8321 10.521 12.7345 10.5018 12.6359 10.502H12.1269C13.1461 9.19825 13.6296 7.55483 13.4788 5.90684C13.3281 4.25886 12.5545 2.73042 11.3157 1.63317C10.0769 0.535909 8.46624 -0.0475353 6.81211 0.00179246C5.15799 0.0511202 3.58496 0.729505 2.41375 1.89863C1.24255 3.06775 0.561371 4.63958 0.509105 6.29361C0.456839 7.94765 1.03742 9.55934 2.13248 10.8001C3.22753 12.0408 4.75459 12.8172 6.40231 12.9708C8.05002 13.1245 9.6943 12.6439 10.9999 11.627V12.136C10.9997 12.2346 11.0189 12.3322 11.0565 12.4234C11.094 12.5145 11.1492 12.5973 11.2189 12.667L14.3349 15.783C14.4043 15.8528 14.4868 15.9081 14.5777 15.9459C14.6686 15.9837 14.766 16.0031 14.8644 16.0031C14.9628 16.0031 15.0602 15.9837 15.1511 15.9459C15.242 15.9081 15.3245 15.8528 15.3939 15.783L16.2779 14.899C16.4188 14.7583 16.4983 14.5675 16.4991 14.3684C16.4998 14.1692 16.4218 13.9778 16.2819 13.836ZM6.99989 10.501C6.20877 10.501 5.43541 10.2664 4.77761 9.82691C4.11981 9.38739 3.60712 8.76267 3.30437 8.03177C3.00162 7.30087 2.92241 6.4966 3.07675 5.72067C3.23109 4.94475 3.61205 4.23202 4.17146 3.67261C4.73087 3.1132 5.44361 2.73224 6.21953 2.57789C6.99545 2.42355 7.79972 2.50277 8.53063 2.80552C9.26153 3.10827 9.88624 3.62096 10.3258 4.27875C10.7653 4.93655 10.9999 5.70991 10.9999 6.50104C10.9999 7.5619 10.5785 8.57932 9.82832 9.32946C9.07817 10.0796 8.06076 10.501 6.99989 10.501Z"
@@ -16,13 +16,12 @@
             </svg>
             </span>
             <FormulateInput
-              class=" search param-sm "
+              class="search param-sm "
               placeholder="Search"
-              @keyup.enter="giveTree()"
+              @keyup.enter="findTree()"
               type="number"
               v-model="treeID"
               name="treeID"
-              validation="after:10000"
 
             />
           </div>
@@ -34,7 +33,7 @@
 
             <button
               :class="{ disable: !treeID }"
-              @click="giveTree()"
+              @click="findTree()"
               class="btn-green param-md mb-4">
 
 
@@ -136,8 +135,6 @@
                 <th scope="col">Tree ID</th>
                 <th scope="col" class="pointer-event"><i class="pointer-event fas fa-sort-up"></i>Owner
                 </th>
-                <th scope="col" class="pointer-event"><i class="pointer-event fas fa-sort-up"></i>QTY
-                </th>
                 <th scope="col" class="pointer-event"><i class="pointer-event fas fa-sort-up"></i>Status
                 </th>
                 <th scope="col" class="pointer-event"><i class="pointer-event fas fa-sort-up"></i>Location
@@ -145,50 +142,20 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>iran</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>iran</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>iran</td>
-
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>iran</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>iran</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-                <td>iran</td>
-
-              </tr>
+                <tr v-for="tree in trees" :key="tree.id">
+                  <th scope="row">{{ tree.id }}</th>
+                  <td>{{ tree.owner }}</td>
+                  <td v-if="tree.fundedDate > 0 && tree.plantedDate > 0">
+                    Funded & Planted
+                  </td>
+                  <td v-else-if="tree.plantedDate > 0">
+                    Planted
+                  </td>
+                  <td v-else-if="tree.fundedDate > 0">
+                    Funded
+                  </td>
+                  <td>{{ tree.latitude +','+tree.longitude }}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -232,9 +199,11 @@
 
 
       this.$store.dispatch('allUsers')
+      this.listTrees();
     },
     data() {
       return {
+        trees: [],
         treeID:null,
         loading: false,
         errors: null,
@@ -311,29 +280,15 @@
           this.$router.push(this.localePath('leaderboard'))
         }
       },
-      async giveTree() {
+      async findTree() {
         this.errors = null
         this.loading = true
-        this.$cookies.set('step', this.treeID)
         let self = this
-        await this.$axios.$get(`https://napi.treejer.com/trees/status/${self.treeID}`)
+        
+        await this.$axios.$get(`${process.env.apiUrl}/trees/${self.treeID}`)
           .then(function (response) {
             self.loading = false
-            const status = response.status
-            switch (status) {
-              case 1:
-               self.step = 'stepOne';
-               break
-             case 2:
-               self.step = 'stepTwo';
-               break
-                case 3:
-                  self.step = 'stepTwo';
-                  break
-                default:
-                  self.step = null
-              }
-              self.changeRoute(self.step)
+            self.$router.push(`/find/${self.treeID}`)
 
 
             // handle success
@@ -341,13 +296,27 @@
           .catch(function (error) {
 
             self.loading = false
-            self.errors = error.response.data.errors
-            console.log(error.response.data.errors)
+            self.$bvToast.toast("Tree Not found!", {
+              toaster: 'b-toaster-bottom-left',
+              solid: true,
+              headerClass: 'hide',
+              variant: 'danger'
+            })
+            // self.errors = 'notFound'
+            // console.log(self.errors)
 
             // handle error
+          });
+      },
+      async listTrees() {
+
+        let self = this
+        await this.$axios.$get(`${process.env.apiUrl}/trees`)
+          .then(function (response) {
+            self.trees = response.data.trees
           })
-          .then(function () {
-            // always executed
+          .catch(function (error) {
+
           });
       },
 

@@ -44,6 +44,7 @@ export default {
     contractFundAddress: process.env.CONTRACT_FUND_ADDRESS,
     contractO1FactoryAddress: process.env.CONTRACT_O1FACTORY_ADDRESS,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
+    apiUrl: process.env.API_URL || 'https://api.treejer.com',
     
   },
   router: {
