@@ -82,7 +82,7 @@ export default {
               x.parentNode.insertBefore(e, x);
               t.Tribe('boot', {portal: i});
             }
-          })(window, document, 'https://treejer.com/')
+          })(window, document, 'https://community.tribe.so')
         }
       ]
     }
