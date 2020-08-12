@@ -147,9 +147,7 @@
 
               </span>
             </div>
-            <div class="col-12" style="position: absolute;
-    top: 81px;
-    z-index: +99999999;">
+            <div class="col-12 befor-res" >
               <span class="" v-for="(item,index) in ownerTreesData " :key="index">
       <b-button class="p-0 bg-transparent border-0" :id="index"><img class="img-fluid"
                                                                      src="~/assets/images/myforest/trees.png"/>
@@ -878,4 +876,17 @@ export default {
     }
 
   }
+  .befor-res{
+    position: absolute;
+    top: 81px;
+    z-index: +99999999;
+  }
+  @media (min-width: 1281px) {
+
+      .befor-res{
+        top: 91px;
+      }
+
+  }
+
 </style>
