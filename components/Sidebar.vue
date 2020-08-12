@@ -1,6 +1,6 @@
 <template>
   <section class="sidebar pt-4 col-lg-2 d-md-block" v-if="hasSideBar ">
-    <ul class="nav flex-column ">
+    <ul class="nav flex-column  ">
       <li class="nav-item myForest"
           @click="activeIndex=0"
       >
@@ -259,5 +259,14 @@ section.sidebar {
    }
 
  }
+}
+@media (min-width: 1024px){
+  .sidebar{
+    z-index: +99999;
+    .nav.flex-column{
+      position: fixed;
+    }
+  }
+
 }
 </style>

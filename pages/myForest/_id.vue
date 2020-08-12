@@ -23,21 +23,31 @@
           <div class="row treejer-desc">
             <div class="col-lg-3  col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
-              <p>
+              <p class="d-flex justify-content-center  align-items-center">
+                <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
+
                 <span>
                   <span v-if="!loadings" >{{treeCount}}</span>
                   <span v-if="loadings"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
                 </span>
-                <span>Trees</span></p>
+              </p>
             </div>
             <div class="col-lg-3  col-md-6 col-12 border-right">
               <p>RELEASED O1</p>
-              <p><span>{{ mintableO1 }} </span></p>
+              <p class="d-flex justify-content-center align-items-center">
+                <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
+
+                <span class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4)  }} </span>
+              </p>
             </div>
 
-            <div class="col-lg-3  col-md-6 col-12 ">
+            <div class="col-lg-3  col-md-6 col-12 " >
               <p>RELEASED O2</p>
-              <p><span>{{ 0 }}</span></p>
+              <p class="d-flex justify-content-center align-items-center">
+                <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
+
+              <span>{{ 0 }}</span>
+              </p>
             </div>
             <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
               <!--              <p>SEED BALANCE</p>-->
@@ -130,11 +140,11 @@
               <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
 
             </div>
-            <div class="" v-for="(item,index) in ownerTreesData " :key="index">
+            <div class="" v-for="(item,index) in ownerTreesData " :key="id">
               <p class="forest-status-count mb-0">
-                <img class="img-fluid" src="~/assets/images/myforest/trees.png" />
+                <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
               </p>
-<!--              <p class="param-sm text-center"><span>{{ item.name }}</span></p>-->
+              <p class="param-sm text-center"><span>{{ item.name }}</span></p>
             </div>
 
 
@@ -189,46 +199,62 @@
         </div>
 
         <div class="col-lg-3 col-12  justify-content-center">
-          <div class="avatar-card border-0 text-center justify-content-center">
-            <div class="card-img position-relative"><img src="~/assets/images/myforest/avatar.png" alt="username"
-                                                         class="avatar-pic img-fluid"/>
-<!--              <span class="position-absolute">+</span>-->
-            </div>
-            <p class="param-sm mt-3 tr-gray-three token" style="">{{$cookies.get('account')}}</p>
-            <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
-            <div class="row">
-              <div class="col-md-6 p-0">
-                <p class="pb-2  tr-gray-three param-sm font-weight-bold border-bottom ">ETH</p>
-                <p class="pb-2  tr-gray-three param-sm font-weight-bold border-bottom ">o1</p>
-                <p class="pb-2  tr-gray-three param-sm font-weight-bold  ">o2</p>
+          <div class="box-right ">
+            <div class="avatar-card border-0 text-center justify-content-center">
+              <div class="card-img position-relative"><img
+                :src="$store.state.account !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :require('~/assets/images/myforest/avatar.png')"
+                alt="username"
+                class="avatar-pic img-fluid"/>
+                <!--              <span class="position-absolute">+</span>-->
               </div>
-              <div class="col-md-6 p-0">
+              <p class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') }}</p>
+              <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
+              <div class="row">
+                <div class="col-md-6 p-0">
+                  <p class="pb-1 tr-gray-three param-sm font-weight-bold border-bottom ">
+                    <img src="~/assets/images/myforest/ETHLogo.svg"
+                         class="img-fluid ">
+                    ETH
+                  </p>
+                  <p class="pb-1  tr-gray-three param-sm font-weight-bold border-bottom "><img
+                    src="~/assets/images/myforest/O1Logo.svg" class="img-fluid ">
+                  O1
+                  </p>
+                  <p class="pb-1  tr-gray-three param-sm font-weight-bold  "><img
+                    src="~/assets/images/myforest/O2Logo.svg" class="img-fluid ">
+                  O2
+                  </p>
+                </div>
+                <div class="col-md-6 p-0">
 
-                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ ethBalance }}</p>
-                <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 }}</p>
-                <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
-              </div></div>
-<!--            <p class="param-sm-light"> @JaneJoe</p>-->
-          </div>
-          <div class="trees">
-            <div class="add-tree">
-              <nuxt-link class="position-relative" to="/myForest/addTree">
+                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ ethBalance || 0 }}</p>
+                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 || 0 }}</p>
+                  <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
+                </div>
+              </div>
+              <!--            <p class="param-sm-light"> @JaneJoe</p>-->
+            </div>
+            <div class="trees">
+              <div class="add-tree">
+                <nuxt-link class="position-relative" to="/myForest/addTree">
 
-              <button class="btn-lg">ADD A TREE</button>
-              </nuxt-link>
-            </div>
-            <div class="gift-tree">
-              <nuxt-link class="position-relative" to="/myForest/giftTree">
-              <button class="btn-lg" >GIFT
-                A TREE
-              </button>
-              </nuxt-link>
-            </div>
-            <div class="redeem-trees">
-              <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">
-              <p>Redeem Trees</p>
+                  <button class="btn-lg">ADD A TREE</button>
+                </nuxt-link>
+              </div>
+              <div class="gift-tree">
+                <nuxt-link class="position-relative" to="/myForest/giftTree">
+                  <button class="btn-lg">GIFT
+                    A TREE
+                  </button>
+                </nuxt-link>
+              </div>
+              <div class="redeem-trees">
+                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">
+                <p>Redeem Trees</p>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -243,6 +269,7 @@ import content from './world.json';
 export default {
   name: 'myForest',
   layout: 'dashboard',
+  loading: false,
   components: {Fas},
   computed: {
     messages() {
@@ -525,13 +552,29 @@ export default {
     }
 
   },
- async created() {
-    if(process.client){
-    await  this.getEthBalance()
-    await  this.getMyTreeCount()
-    await  this.getBalanceOfO1()
-    await  this.calculateMintableO1()
-    await  this.getOwnerTreesData()
+  mounted() {
+
+    console.log(this.$route.params)
+    if (this.$store.state.account) {
+      this.getEthBalance()
+      this.getMyTreeCount()
+      this.getBalanceOfO1()
+      this.calculateMintableO1()
+      this.getOwnerTreesData()
+    } else {
+      const account = '0xa94850728c96b3ec6a82f2c39ee228cb66bfc921'
+      const mintableO1 = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/mintable`)
+
+      this.mintableO1 = mintableO1.amount
+      console.log(this.mintableO1, 'mintableO1')
+      const treeCount = this.$axios.$get(`https://api.treejer.com/wallets/${account}/trees`)
+      this.treeCount = treeCount.trees.length
+      console.log(this.treeCount, 'treeCount')
+
+      const ethBalance = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/balanceOf`)
+      this.ethBalance = ethBalance.amount
+      console.log(this.ethBalance, 'ethBalance')
+
     }
 
   },
@@ -560,10 +603,9 @@ export default {
     async getOwnerTreesData() {
       let treeIds = await this.$store.dispatch('treeFactory/getOwnerTreesId');
       console.log(treeIds,'yesssssss')
+      for (let id = 0; id < treeIds.length; id++) {
 
-      for (let index = 0; index < treeIds.length; index++) {
-
-        this.ownerTreesData.push(await this.$store.dispatch('treeFactory/getTree', {id: treeIds[index]}));
+        this.ownerTreesData.push(await this.$store.dispatch('treeFactory/getTree', {id: treeIds[id]}));
       }
       console.log(this.ownerTreesData,'ownerTreesData')
       this.ownerTreesLoaded = true;
@@ -620,8 +662,8 @@ export default {
         }
 
         span:nth-child(2) {
-          font-size: 12px;
-          font-weight: bold;
+          font-size: 16px;
+          font-weight: bolder;
           font-stretch: normal;
           font-style: normal;
           line-height: 1.21;
@@ -803,6 +845,7 @@ export default {
       cursor: pointer;
       transition: background-color 200ms;
       backface-visibility: hidden;
+
       &:hover {
         background-color: #12957b;
       }
@@ -810,4 +853,9 @@ export default {
 
   }
 
+  @media (min-width: 1024px) {
+    .my-forest .col-lg-3.col-12.justify-content-center .box-right {
+    }
+
+  }
 </style>

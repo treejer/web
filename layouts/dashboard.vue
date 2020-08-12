@@ -38,6 +38,7 @@ export default {
   },
 
   mounted() {
+
   },
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})

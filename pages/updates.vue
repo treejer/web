@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-10 updates" >
+  <section :page="$route.name" class="position-relative pt-5 col-12 col-lg-10 updates" >
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-8 col-12">
@@ -35,7 +35,7 @@
 
 
           <img src="~/assets/images/update/updates.png" alt="username"
-               class=" img-fluid"/>
+               class=" img-fluid" id="help_img"/>
 
         </div>
       </div>
@@ -50,13 +50,17 @@
 
     data() {
       return {
-        updates:[
+        updates: [
           {
-            text:'Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span > ',
-            date:'1/23/2020  |  03:02 UTC'
+            text: 'Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span > ',
+            date: '1/23/2020  |  03:02 UTC'
           }
         ]
       }
+    },
+    created() {
+     const updates = this.$axios.$get(`https://api.treejer.com/wallets/${this.$store.state.account}/events?perPage=10&page=1`)
+      this.updates = updates.data
     }
   }
 </script>
@@ -67,5 +71,11 @@
         color: #67b68c!important;
       }
     }
+  }
+  @media (min-width: 1024px){
+     #help_img{
+      position: fixed;
+    }
+
   }
 </style>

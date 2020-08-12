@@ -16,20 +16,22 @@
         alt="tree"
         name="tree"
         src="/tree.svg"
+        @click="$router.push('/myForest')"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-nav-form @click="logout()" class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
-      <div   class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
-        <span class="param-sm tr-gray-three">{{isLoggedIn|| $cookies.get('account')}}</span>
-        <span class="img"><img src="../assets/images/home/accounting.png" alt="accounting"
-                               class="img-fluid d-none d-md-block" width="42"
+    <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
+      <div @click="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
+        <span class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
+        <span class="img"><img :src="'https://api.adorable.io/avatars/40/'+$cookies.get('account')" alt="accounting"
+                               class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
                                height="42"/></span>
       </div>
       <img
         alt="tree"
         name="tree"
-        src="~/assets/images/home/shop.svg"
+        src="/tree.svg"
+        @click="$router.push({ path: `/myForest/${$cookies.get('account')}` })"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -38,67 +40,30 @@
 </template>
 
 <script>
-  import Loading from '../components/treejerLoading'
-  import Wallets from "./Wallets";
+import Wallets from "./Wallets";
 
-  export default {
-    components: {Wallets, Loading},
-    props: ['wallets'],
-    data() {
-      return {
-        account: null,
-        loading: false
-      };
-    },
-    computed: {
-      isLoggedIn() {
-        return this.$store.state.account;
-      }
-    },
-    mounted() {
-    },
-    methods: {
-      loginToast(variant, title, message, href) {
-        this.$bvToast.toast(message, {
-          title: title,
-          variant: variant,
-          href: href
-        });
-      },
-      log() {
-        this.loading = true
-        if (typeof window.ethereum !== 'undefined') {
-          this.getAccount();
-          this.loading = false
+export default {
+  components: {Wallets},
+  props: ['wallets'],
+  data() {
+    return {
+      account: null,
+      loading: false
+    };
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.account;
+    }
+  },
+  mounted() {
+  },
+  methods: {
 
-        } else {
-          this.makeToast('danger')
-          this.loading = false
-
-        }
-      },
-      async getAccount() {
-        const accounts = await ethereum.enable();
-        console.log(accounts)
-        const account = accounts[0];
-        this.account = account.slice(0, 10);
-        this.login(account)
-      },
-      login(account) {
-        this.$forceUpdate()
-
-        this.$store.dispatch("login", {account})
-          .then(() => {
-            this.$cookies.set('account', account)
-            console.log()
-          })
-          .catch(err => console.log(err));
-      },
        logout() {
          this.$forceUpdate()
-
          this.$store.dispatch("logout").then(() => {
-          this.$router.push('/')
+           this.$router.push('/')
         });
 
       },

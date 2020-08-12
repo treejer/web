@@ -66,29 +66,19 @@
     </section>
 </template>
 <script>
-  import WalletConnect from 'walletconnect'
+import WalletConnect from 'walletconnect'
 
-  export default {
-    name: "index",
-    data() {
-      return {
-        treeCount:null
-      }
-    },
-// <<<<<<< HEAD
-//     computed: {
-//       isLoggedIn() {
-//         return this.$store.state.account;
-//       }
-//     },
-//     methods: {
-
-
-
-    methods:{
-      async fund() {
-        this.transferReceipt = await this.$store.dispatch('fund/fund', {
-          count: 1
+export default {
+  name: "index",
+  data() {
+    return {
+      treeCount: null
+    }
+  },
+  methods: {
+    async fund() {
+      this.transferReceipt = await this.$store.dispatch('fund/fund', {
+        count: 1
         })
       },
       async plant() {
@@ -102,18 +92,25 @@
       },
 
     goToDashboard() {
-        if (this.$store.state.account == null && this.$cookies.get('account') == null) {
-          this.$bvToast.toast("you are not logged in. please login", {
-            toaster: 'b-toaster-bottom-left',
-            solid: true,
-            headerClass: 'hide',
-            variant: 'danger'
-          })
-          this.$bvModal.show('five')
-        } else {
-          this.$router.push(this.localePath('myForest'))
-        }
-      },
+      // if (this.$store.state.account == null && this.$cookies.get('account') == null) {
+      //   this.$bvToast.toast("you are not logged in. please login", {
+      //     toaster: 'b-toaster-bottom-left',
+      //     solid: true,
+      //     headerClass: 'hide',
+      //     variant: 'danger'
+      //   })
+      //   this.$bvModal.show('five')
+      // } else {
+      const id= this.$cookies.get('account')
+      if(id){
+        this.$router.push({ path: `/myForest/${id}` });
+      }else{
+        this.$router.push('/myForest')
+      }
+
+
+      // }
+    },
 
 
       walletConnects(){

@@ -65,7 +65,7 @@
       <b-modal id="netName" hide-footer class="justify-content-center text-center" size="md" ok-only no-stacking>
         <div class="text-center justify-content-center m-auto">
           <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
-          <p class="param tr-gray-three">Metamask should be on <strong>Ropsten network</strong> network</p>
+          <p class="param tr-gray-three">Metamask should be on <strong>Ropsten </strong> network.</p>
           <p class="param tr-gray-three">Currently it on {{ $store.state.netWorkName }} instead</p>
         </div>
 

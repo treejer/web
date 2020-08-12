@@ -157,9 +157,9 @@
           .then(() => {
             this.$cookies.set('account', account)
 
-            console.log()
             this.$bvModal.hide('five')
-            this.$router.push('/myForest')
+            const id = this.$cookies.get('account')
+            this.$router.push({ path: `/myForest/${id}` });
           })
           .catch(err => console.log(err));
       },

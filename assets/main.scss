@@ -212,11 +212,11 @@
   font-weight: normal;
 }
 
-@font-face {
-  font-family: MontserratAlternates-Black;
-  src: url("../assets/fonts/MontserratAlternatesBlack.otf");
-  font-weight: normal;
-}
+                                    @font-face {
+                                      font-family: MontserratAlternates-Black;
+                                      src: url("../assets/fonts/MontserratAlternatesBlack.otf");
+                                      font-weight: normal;
+                                    }
 
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
@@ -666,7 +666,7 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     background: #faf8f1!important;
-    font-family:Montserrat-Medium;
+    font-family:Montserrat-Regular;
     min-height: 100vh;
     #__layout>div {
         background: #faf8f1!important;
