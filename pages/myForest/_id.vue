@@ -135,16 +135,29 @@
               </div>
             </div>
           </div>
-          <div class="row forest-status">
+          <div class="row forest-status position-relative">
             <div class="col-12 mt-5">
               <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
 
             </div>
-            <div class="" v-for="(item,index) in ownerTreesData " :key="id">
-              <p class="forest-status-count mb-0">
-                <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
-              </p>
-              <p class="param-sm text-center"><span>{{ item.name }}</span></p>
+            <div class="col-12">
+              <span v-for="(item,index) in test" :key="index">
+                  <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
+                                  <b-tooltip :target="index" :title="item.name"></b-tooltip>
+
+              </span>
+            </div>
+            <div class="col-12" style="position: absolute;
+    top: 81px;
+    z-index: +99999999;">
+              <span class="" v-for="(item,index) in ownerTreesData " :key="index">
+      <b-button class="p-0 bg-transparent border-0" :id="index"><img class="img-fluid"
+                                                                     src="~/assets/images/myforest/trees.png"/>
+</b-button>
+
+                  <b-tooltip :target="index" :title="item.name"></b-tooltip>
+
+              </span>
             </div>
 
 
@@ -280,6 +293,13 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
+      test: [
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+      ],
       steps: [
         {active: true, step: 'step 1', text: 'Connect your wallet'},
         {active: false, step: 'step 2', text: 'Add trees to your forest'},
