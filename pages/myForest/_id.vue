@@ -140,20 +140,18 @@
               <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
 
             </div>
-            <div class="col-12">
-              <span v-for="(item,index) in test" :key="index">
+            <div class="col-12 mb-5 pb-4">
+              <span v-for="(item,index) in test" :key="item.id">
                   <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
-                                  <b-tooltip :target="index" :title="item.name"></b-tooltip>
 
               </span>
             </div>
             <div class="col-12 befor-res" >
               <span class="" v-for="(item,index) in ownerTreesData " :key="index">
-      <b-button class="p-0 bg-transparent border-0" :id="index"><img class="img-fluid"
-                                                                     src="~/assets/images/myforest/trees.png"/>
-</b-button>
-
-                  <b-tooltip :target="index" :title="item.name"></b-tooltip>
+                <b-button class="p-0 bg-transparent border-0" :id="item.id">
+                    <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
+                </b-button>
+<!--                <b-tooltip :target="item.id" :title="item.name"></b-tooltip>-->
 
               </span>
             </div>
@@ -280,7 +278,6 @@ import content from './world.json';
 export default {
   name: 'myForest',
   layout: 'dashboard',
-  loading: false,
   components: {Fas},
   computed: {
     messages() {
@@ -573,27 +570,27 @@ export default {
   mounted() {
 
     console.log(this.$route.params)
-    if (this.$store.state.account) {
+
       this.getEthBalance()
       this.getMyTreeCount()
       this.getBalanceOfO1()
       this.calculateMintableO1()
       this.getOwnerTreesData()
-    } else {
-      const account = '0xa94850728c96b3ec6a82f2c39ee228cb66bfc921'
-      const mintableO1 = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/mintable`)
-
-      this.mintableO1 = mintableO1.amount
-      console.log(this.mintableO1, 'mintableO1')
-      const treeCount = this.$axios.$get(`https://api.treejer.com/wallets/${account}/trees`)
-      this.treeCount = treeCount.trees.length
-      console.log(this.treeCount, 'treeCount')
-
-      const ethBalance = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/balanceOf`)
-      this.ethBalance = ethBalance.amount
-      console.log(this.ethBalance, 'ethBalance')
-
-    }
+    // } else {
+    //   const account = '0xa94850728c96b3ec6a82f2c39ee228cb66bfc921'
+    //   const mintableO1 = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/mintable`)
+    //
+    //   this.mintableO1 = mintableO1.amount
+    //   console.log(this.mintableO1, 'mintableO1')
+    //   const treeCount = this.$axios.$get(`https://api.treejer.com/wallets/${account}/trees`)
+    //   this.treeCount = treeCount.trees.length
+    //   console.log(this.treeCount, 'treeCount')
+    //
+    //   const ethBalance = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/balanceOf`)
+    //   this.ethBalance = ethBalance.amount
+    //   console.log(this.ethBalance, 'ethBalance')
+    //
+    // }
 
   },
   methods: {

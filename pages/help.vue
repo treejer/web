@@ -62,7 +62,8 @@ export default {
       title: this.title,
       script: [
         {
-          src: (function (t, r, i, b, e) {
+
+          src:(function (t, r, i, b, e) {
             if (typeof t.Tribe === 'function') {
               t.Tribe('reload', {portal: i});
             } else {
@@ -82,7 +83,7 @@ export default {
               x.parentNode.insertBefore(e, x);
               t.Tribe('boot', {portal: i});
             }
-          })(window, document, 'https://community.tribe.so')
+          })(window, document, 'https://treejer.tribe.so')
         }
       ]
     }

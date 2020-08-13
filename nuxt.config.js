@@ -15,26 +15,26 @@ export default {
        {name: 'theme-color', content: '#67B68C'},
        {hid: 'description', name: 'description', content: 'Treejer'},
        {property: 'og:type', content: 'website'},
-            { property: 'og:title', content: 'Home - Treejer' },
+       {property: 'og:title', content: 'Home - Treejer'},
        // { property: 'og:url', content: process.env.websiteUrl },
-            { property: 'og:site_name', content: 'Treejer' },
-            { property: 'twitter:card', content: 'summary_large_image' },
-            { property: 'twitter:title', content: 'Home - Treejer' },
-            { property: 'og:locale:alternate', content: 'en' }
-        ],
-        script: [],
-        link: [
-          {rel: 'apple-touch-icon',sizes:'180x180', type: 'image/png', href: '/apple-touch-icon.png'},
-          {rel: 'icon',sizes:'32x32', type: 'image/png', href: '/favicon-32x32.png'},
-          {rel: 'icon',sizes:'16x16', type: 'image/png', href: '/favicon-16x16.png'},
-          {rel: 'manifest', href: '/site.webmanifest'},
-          {rel: 'mask-icon', href: '//safari-pinned-tab.svg',color:'#5bbad5'},
+       {property: 'og:site_name', content: 'Treejer'},
+       {property: 'twitter:card', content: 'summary_large_image'},
+       {property: 'twitter:title', content: 'Home - Treejer'},
+       {property: 'og:locale:alternate', content: 'en'}
+     ],
 
-        ]
+     link: [
+       {rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png', href: '/apple-touch-icon.png'},
+       {rel: 'icon', sizes: '32x32', type: 'image/png', href: '/favicon-32x32.png'},
+       {rel: 'icon', sizes: '16x16', type: 'image/png', href: '/favicon-16x16.png'},
+       {rel: 'manifest', href: '/site.webmanifest'},
+       {rel: 'mask-icon', href: '//safari-pinned-tab.svg', color: '#5bbad5'},
+
+     ]
 
    },
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    baseUrl: process.env.BASE_URL || 'https://treejer.com/',
     contractGBFactoryAddress: process.env.CONTRACT_GBFACTORY_ADDRESS,
     contractTreeTypeAddress: process.env.CONTRACT_TRRETYPE_ADDRESS,
     contractTreeFactoryAddress: process.env.CONTRACT_TREEFACTORY_ADDRESS,
@@ -45,7 +45,7 @@ export default {
     contractO1FactoryAddress: process.env.CONTRACT_O1FACTORY_ADDRESS,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
     apiUrl: process.env.API_URL || 'https://api.treejer.com',
-    
+
   },
   router: {
     linkActiveClass: 'active-link'
