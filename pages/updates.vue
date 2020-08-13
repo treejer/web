@@ -72,10 +72,10 @@
       }
     }
   }
-  @media (min-width: 1024px){
-     #help_img{
-      position: fixed;
-    }
-
-  }
+  //@media (min-width: 1024px){
+  //   #help_img{
+  //    position: fixed;
+  //  }
+  //
+  //}
 </style>

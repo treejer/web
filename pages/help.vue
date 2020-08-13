@@ -27,7 +27,8 @@
                 <BSpinner type="" label="loading" />
                 <div id="questions-widget"></div>
                 <script>
-                  Tribe('questions', {
+
+                  window.Tribe('questions', {
                     topicId: '5babe5eb3d9228aa7c423c66',
                     id: 'questions-widget',
                     components: ['input']
@@ -117,10 +118,10 @@ export default {
   }
 
 }
-@media (min-width: 1024px){
-  #help_img{
-    position: fixed;
-  }
-
-}
+//@media (min-width: 1024px){
+//  #help_img{
+//    position: fixed;
+//  }
+//
+//}
 </style>

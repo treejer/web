@@ -193,6 +193,20 @@
   src: url("../assets/fonts/Montserrat-SemiBold.otf");
   font-weight: normal;
 }
+.tooltip{
+  z-index: +999999999;
+  color: white;
+
+}
+.befor-res{
+  position: absolute;
+  top: 81px;
+  z-index: +999999;
+  button,.tooltip{
+    z-index: +999999999;
+
+  }
+}
 
 @font-face {
   font-family: Montserrat-SemiBoldItalic;

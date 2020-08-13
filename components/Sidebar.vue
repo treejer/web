@@ -260,13 +260,13 @@ section.sidebar {
 
  }
 }
-@media (min-width: 1024px){
-  .sidebar{
-    z-index: +99999;
-    .nav.flex-column{
-      position: fixed;
-    }
-  }
-
-}
+//@media (min-width: 1024px){
+//  .sidebar{
+//    z-index: +99999;
+//    .nav.flex-column{
+//      position: fixed;
+//    }
+//  }
+//
+//}
 </style>

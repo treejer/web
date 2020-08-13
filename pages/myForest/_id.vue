@@ -146,12 +146,13 @@
 
               </span>
             </div>
+
             <div class="col-12 befor-res" >
-              <span class="" v-for="(item,index) in ownerTreesData " :key="index">
-                <b-button class="p-0 bg-transparent border-0" :id="item.id">
+              <span class="" v-for="(item,index) in ownerTreesData " :id="item.id" :key="index">
+                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.name" >
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
-<!--                <b-tooltip :target="item.id" :title="item.name"></b-tooltip>-->
+<!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
 
               </span>
             </div>
@@ -877,6 +878,10 @@ export default {
     position: absolute;
     top: 81px;
     z-index: +99999999;
+    button{
+      z-index: +999999999;
+
+    }
   }
   @media (min-width: 1281px) {
 

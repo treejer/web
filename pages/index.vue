@@ -47,18 +47,18 @@
                 </button>
                 </nuxt-link>
               </div>
-              <div class="col-12 d-flex tr-status mt-3 ">
-                <div class="planet-tree pt-2">
-                  <p class="param-sm tr-black font-weight-bold ">Planted Trees</p>
-                  <p class="title-md tr-green font-weight-bolder ">159</p>
-                </div>
-                <div class="rural-communities pt-2">
-                  <p class="param-sm tr-black font-weight-bold ">
-                    Rural Communities
-                  </p>
-                  <p class="title-md tr-green font-weight-bold ">2</p>
-                </div>
-              </div>
+<!--              <div class="col-12 d-flex tr-status mt-3 ">-->
+<!--                <div class="planet-tree pt-2">-->
+<!--                  <p class="param-sm tr-black font-weight-bold ">Planted Trees</p>-->
+<!--                  <p class="title-md tr-green font-weight-bolder ">159</p>-->
+<!--                </div>-->
+<!--                <div class="rural-communities pt-2">-->
+<!--                  <p class="param-sm tr-black font-weight-bold ">-->
+<!--                    Rural Communities-->
+<!--                  </p>-->
+<!--                  <p class="title-md tr-green font-weight-bold ">2</p>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div>
         </div>
