@@ -142,16 +142,16 @@
               </tr>
               </thead>
               <tbody>
-                <tr v-for="tree in trees" :key="tree.id">
-                  <th scope="row">{{ tree.id }}</th>
+                <tr v-for="tree in trees" :key="tree.tree_id">
+                  <th scope="row">{{ tree.tree_id }}</th>
                   <td>{{ tree.owner }}</td>
-                  <td v-if="tree.fundedDate > 0 && tree.plantedDate > 0">
+                  <td v-if="tree.fundedDate !== null && tree.plantedDate !== null">
                     Funded & Planted
                   </td>
-                  <td v-else-if="tree.plantedDate > 0">
+                  <td v-else-if="tree.plantedDate !== null">
                     Planted
                   </td>
-                  <td v-else-if="tree.fundedDate > 0">
+                  <td v-else-if="tree.fundedDate !== null">
                     Funded
                   </td>
                   <td>{{ tree.latitude +','+tree.longitude }}</td>
@@ -310,10 +310,12 @@
       },
       async listTrees() {
 
+        console.log('list');
+
         let self = this
         await this.$axios.$get(`${process.env.apiUrl}/trees`)
           .then(function (response) {
-            self.trees = response.data.trees
+            self.trees = response.trees.data
           })
           .catch(function (error) {
 

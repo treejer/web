@@ -140,16 +140,16 @@
               <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
 
             </div>
-            <div class="col-12 mb-5 pb-4">
+            <!-- <div class="col-12 mb-5 pb-4">
               <span v-for="(item,index) in test" :key="item.id">
                   <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
 
               </span>
-            </div>
+            </div> -->
 
-            <div class="col-12 befor-res" >
-              <span class="" v-for="(item,index) in ownerTreesData " :id="item.id" :key="index">
-                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.name" >
+            <div class="col-12 mb-1 pb-1" >
+              <span class="" v-for="(item,index) in ownerTreesData " :id="item.tree_id" :key="index">
+                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id" >
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
@@ -274,6 +274,8 @@
 <script>
 import Fas from '@/components/font-awsome/Fas'
 import content from './world.json';
+import web3 from '~/plugins/web3';
+
 
 
 export default {
@@ -289,13 +291,7 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
-      test: [
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-      ],
+    
       steps: [
         {active: true, step: 'step 1', text: 'Connect your wallet'},
         {active: false, step: 'step 2', text: 'Add trees to your forest'},
@@ -570,44 +566,40 @@ export default {
   },
   mounted() {
 
-    console.log(this.$route.params)
-
       this.getEthBalance()
-      this.getMyTreeCount()
       this.getBalanceOfO1()
       this.calculateMintableO1()
       this.getOwnerTreesData()
-    // } else {
-    //   const account = '0xa94850728c96b3ec6a82f2c39ee228cb66bfc921'
-    //   const mintableO1 = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/mintable`)
-    //
-    //   this.mintableO1 = mintableO1.amount
-    //   console.log(this.mintableO1, 'mintableO1')
-    //   const treeCount = this.$axios.$get(`https://api.treejer.com/wallets/${account}/trees`)
-    //   this.treeCount = treeCount.trees.length
-    //   console.log(this.treeCount, 'treeCount')
-    //
-    //   const ethBalance = this.$axios.$get(`https://api.treejer.com/wallets/${account}/o1/balanceOf`)
-    //   this.ethBalance = ethBalance.amount
-    //   console.log(this.ethBalance, 'ethBalance')
-    //
-    // }
+
 
   },
   methods: {
     comunity() {
       window.open('https://discuss.treejer.com', '_blank')
     },
-    async getMyTreeCount() {
-      this.loaings = true
-      this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
-      this.loadings = false
-    },
     async getBalanceOfO1() {
-      this.walletO1 = await this.$store.dispatch('o1Factory/balanceOf')
+
+      let self = this
+      
+        await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/balanceOf`)
+          .then(function (response) {
+            self.walletO1 = web3.utils.fromWei(response.amount)
+          })
+          .catch(function (error) {
+
+          });
     },
     async calculateMintableO1() {
-      this.mintableO1 = await this.$store.dispatch('o1Factory/calculateMintableO1')
+      
+      let self = this
+      await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
+          .then(function (response) {
+            self.mintableO1 = web3.utils.fromWei(response.amount)
+          })
+          .catch(function (error) {
+
+          });
+
     },
     async mintO1() {
       await this.$store.dispatch('o1Factory/mint')
@@ -617,13 +609,21 @@ export default {
     },
 
     async getOwnerTreesData() {
-      let treeIds = await this.$store.dispatch('treeFactory/getOwnerTreesId');
-      console.log(treeIds,'yesssssss')
-      for (let id = 0; id < treeIds.length; id++) {
 
-        this.ownerTreesData.push(await this.$store.dispatch('treeFactory/getTree', {id: treeIds[id]}));
-      }
-      console.log(this.ownerTreesData,'ownerTreesData')
+      let self = this
+      await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/trees`)
+          .then(function (response) {
+            self.ownerTreesData = response.trees.data.map((tree) => {
+              tree.latitude = parseFloat(tree.latitude);
+              tree.longitude = parseFloat(tree.longitude);
+
+              return tree;
+            })
+            self.treeCount = response.trees.total
+          })
+          .catch(function (error) {
+            
+          });
       this.ownerTreesLoaded = true;
     },
 
