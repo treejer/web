@@ -149,7 +149,7 @@
 
             <div class="col-12 befor-res" >
               <span class="" v-for="(item,index) in ownerTreesData " :id="item.id" :key="index">
-                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.name" >
+                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top="{ variant: 'success' }" :title="item.name" >
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->

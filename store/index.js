@@ -15,7 +15,8 @@ export const state = () => ({
   ledger: null,
   form:null,
   ethPrice:null,
-  netWorkName: null
+  netWorkName: null,
+  leaderBoards:null,
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -127,12 +128,21 @@ export const actions = {
      console.log(res)
      commit('SET_USERS_FROM', res)
    })
+  },
+    async getLeaderBoards({commit}){
+    const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=10`)
+    commit('SET_LEADERBOARDS',leaderBoards.leaderboard.data)
   }
 }
 
 export const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
+
+
+  },
+  SET_LEADERBOARDS(state, leaderBoards) {
+    state.leaderBoards = leaderBoards
 
 
   },

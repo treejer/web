@@ -198,6 +198,13 @@
   color: white;
 
 }
+.updates .accounting-card {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: table-caption;
+  width: 190px;
+}
 .befor-res{
   position: absolute;
   top: 81px;

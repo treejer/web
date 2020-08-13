@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 mt-2">
               <ul class="nav tr-nav ">
-                <li v-for="(item  ,index) in leaderBoards"
+                <li v-for="(item  ,index) in stepsLeaderBoard"
                     class="pointer-event tr-gray-three"
                     @click="activeMenu(item, index)"
                     :class="{ active: activeIndex === index }"
@@ -30,6 +30,7 @@
           </div>
           <div class="row tr-table mt-5">
             <div class="col-12">
+
               <table class="table">
                 <thead>
                 <tr>
@@ -40,28 +41,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td scope="row">🥇</td>
-                  <td>0x545...d4m7</td>
-                  <td>1,500,000</td>
-                  <td>
-                    <a href="#" class="pointer-event tr-green"></a>
-                    <Fas classes="tr-green" i="eye"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">🥈</td>
-                  <td>jeremy39</td>
-                  <td>1,500,000</td>
-                  <td>
-                    <a href="#" class="pointer-event tr-green"></a>
-                    <Fas classes="tr-green" i="eye"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="row">🥉</td>
-                  <td>michael9873</td>
-                  <td>1,500,000</td>
+                <tr v-if="leaderBoards"  v-for="(item ,index) in leaderBoards">
+                  <td v-if="index ===0" scope="row">🥇</td>
+                  <td v-if="index ===1" scope="row">🥈</td>
+                  <td v-if="index ===2" scope="row">🥉</td>
+                  <td v-if="index >2"  scope="row"> {{index+1}}</td>
+
+                  <td class="accounting-card">{{ item.owner }}</td>
+                  <td>{{ item.total_tree }}</td>
                   <td>
                     <a href="#" class="pointer-event tr-green"></a>
                     <Fas classes="tr-green" i="eye"/>
@@ -96,11 +83,15 @@
     components: {
       Fas
     },
+    computed:{
+
+    },
 
     data() {
       return {
         activeIndex: 0,
-        leaderBoards: [
+        leaderBoards:this.$store.state.leaderBoards,
+        stepsLeaderBoard: [
           {name: "Top Forests", icon: "tree", href: "/myForest"},
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
           {name: "Top Planters", icon: "trophy", href: "/leaderboard"},
@@ -108,6 +99,10 @@
 
 
       }
+    },
+    mounted() {
+      this.$store.dispatch('getLeaderBoards')
+      console.log(this.leaderBoards,'leade')
     },
     methods: {
       activeMenu(item, index) {
