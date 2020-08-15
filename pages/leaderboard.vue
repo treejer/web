@@ -100,7 +100,7 @@
 
       }
     },
-    mounted() {
+    created() {
       this.$store.dispatch('getLeaderBoards')
       console.log(this.leaderBoards,'leade')
     },

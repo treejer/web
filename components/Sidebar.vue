@@ -4,7 +4,7 @@
       <li class="nav-item myForest"
           @click="changeIndex(0)"
       >
-        <nuxt-link :to="'/myForest/'+$cookies.get('account')"
+        <nuxt-link :to="$cookies.get('account') ? '/myForest/'+$cookies.get('account') :'/myForest'"
                    class="nav-link"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,11 +143,12 @@
     mounted() {
       if (process.client) {
         const history = this.$router.history.current.fullPath
+        debugger
         const href = document.querySelectorAll(`a[href='${history}']`)
         debugger
         console.log(href, 'href here')
         switch (history) {
-          case '/myForest':
+          case '/myForest' || '/myForest/undefined':
             return this.activeIndex = 0;
             href.classList.toggle("nuxt-link-exact-active");
 
