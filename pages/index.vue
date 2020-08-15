@@ -34,12 +34,14 @@
                 </client-only>
               </div>
               <div class="col-12 form-group mt-3">
-                <button
-                  class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
-                  @click.prevent="goToDashboard()"
-                >
-                  Plant One Tree
-                </button>
+                <nuxt-link :to="$cookies.get('account') ?'myForest/'+$cookies.get('account') :  '/myForest'" >
+                  <button
+                    class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
+                  >
+                    Plant One Tree
+                  </button>
+                </nuxt-link>
+
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('find')">
 
                 <button class="btn-lg btn-outline-green pointer-event param">

@@ -16,16 +16,12 @@
             </div>
             <div class="col-12 mt-2">
               <ul>
-                <li v-for="(item , index) in updates">
+                <li v-if="updates" v-for="(item , index) in updates">
                   <p class="param-lg tr-gray-three font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
-                  <p class="param-sm tr-gray-four"> {{item.date}}</p>
+                  <p class="param-sm tr-gray-four"> /</p>
 
                 </li>
-                <li v-for="(item , index) in updates">
-                  <p class="param-lg tr-gray-three font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
-                  <p class="param-sm tr-gray-four"> {{item.date}}</p>
 
-                </li>
               </ul>
             </div>
           </div>
@@ -50,17 +46,13 @@
 
     data() {
       return {
-        updates: [
-          {
-            text: 'Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span > ',
-            date: '1/23/2020  |  03:02 UTC'
-          }
-        ]
+        updates: null
       }
     },
-    created() {
-     const updates = this.$axios.$get(`https://api.treejer.com/wallets/${this.$store.state.account}/events?perPage=10&page=1`)
-      this.updates = updates.data
+    async mounted() {
+      const updates = await this.$axios.$get(`https://api.treejer.com/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
+       this.updates = updates.events.data
+      console.log(this.updates, 'update here')
     }
   }
 </script>

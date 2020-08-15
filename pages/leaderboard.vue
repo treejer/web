@@ -31,7 +31,7 @@
           <div class="row tr-table mt-5">
             <div class="col-12">
 
-              <table class="table">
+              <table class="table tr-table">
                 <thead>
                 <tr>
                   <th scope="col">RANK</th>
@@ -47,11 +47,11 @@
                   <td v-if="index ===2" scope="row">🥉</td>
                   <td v-if="index >2"  scope="row"> {{index+1}}</td>
 
-                  <td class="accounting-card">{{ item.owner }}</td>
+                  <td id="accounting-card">{{ item.owner }}</td>
                   <td>{{ item.total_tree }}</td>
-                  <td>
-                    <a href="#" class="pointer-event tr-green"></a>
-                    <Fas classes="tr-green" i="eye"/>
+                  <td @click="goToUserDashboard(item.owner)" class="pointer-event">
+                    <a href="#"   class="pointer-event tr-green"></a>
+                    <Fas class="tr-green pointer-event" i="eye"/>
                   </td>
                 </tr>
                 </tbody>
@@ -108,6 +108,11 @@
       activeMenu(item, index) {
 
         this.activeIndex = index;
+      },
+      goToUserDashboard(id){
+        debugger
+        this.$store.state.index =3
+        this.$router.push({path:`/myForest/${id}`})
       }
     }
   }

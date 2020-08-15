@@ -2,9 +2,9 @@
   <section class="sidebar pt-4 col-lg-2 d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column  ">
       <li class="nav-item myForest"
-          @click="activeIndex=0"
+          @click="changeIndex(0)"
       >
-        <nuxt-link to="/myForest"
+        <nuxt-link :to="'/myForest/'+$cookies.get('account')"
                    class="nav-link"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@
         </nuxt-link>
       </li>
       <li class="nav-item Leaderboard"
-          @click="activeIndex=1"
+          @click="changeIndex(1)"
       >
         <nuxt-link to="/leaderboard"
                    class="nav-link"
@@ -64,7 +64,7 @@
         </nuxt-link>
       </li>
       <li class="nav-item updates"
-          @click="activeIndex=2"
+          @click="changeIndex(2)"
       >
         <nuxt-link to="/updates"
                    class="nav-link"
@@ -91,7 +91,7 @@
         </nuxt-link>
       </li>
       <li class="nav-item help"
-          @click="activeIndex=3"
+          @click="changeIndex(3)"
       >
         <nuxt-link to="/help"
                    class="nav-link"
@@ -140,17 +140,16 @@
         hasSideBar: true,
       };
     },
-    created() {
+    mounted() {
       if (process.client) {
         const history = this.$router.history.current.fullPath
         const href = document.querySelectorAll(`a[href='${history}']`)
-
+        debugger
         console.log(href, 'href here')
         switch (history) {
           case '/myForest':
             return this.activeIndex = 0;
             href.classList.toggle("nuxt-link-exact-active");
-
 
             break;
           case  '/leaderboard':
@@ -169,7 +168,9 @@
             return this.activeIndex = 0;
         }
       }
-      debugger
+      this.$store.dispatch('activeIndex',{
+        activeIndex : this.activeIndex
+      })
 
 
     },
@@ -193,6 +194,12 @@
       //       return this.activeIndex = 0;
       //   }
       // },
+     async changeIndex(id){
+        // await this.$store.commit('activeIndex',{
+        //   activeIndex:id
+        // })
+       this.activeIndex =id
+      },
       store(status) {
         return this.$store.dispatch('hasDashboard', {
           status

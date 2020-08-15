@@ -75,21 +75,21 @@
                         <li
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
-                             <button class="btn-outline-green">
-                               Done
+                             <button @click="showModal"
+                                     :class="$cookies.get('account') ? 'btn-outline-green disabled' :'btn-green'">
+                               {{ $cookies.get('account') ? 'Done' : 'step 1' }}
 
                           </button>
                           </span>
-                          <span class="tr-gray-four">
+                          <span :class="$cookies.get('account') ? 'tr-gray-four' :'tr-gray-three'">
                             Connect your wallet
                           </span>
                         </li>
                         <li
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
-                             <button :class="treeCount ? 'btn-outline-green' : 'btn-outline-green'">
+                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click="$router.push('/myForest/addTree')">
                                {{ treeCount ? 'Done' : 'step 2' }}
-
                           </button>
                           </span>
                           <span :class="treeCount ? 'tr-gray-four' : 'tr-gray-two'">
@@ -102,7 +102,7 @@
                              <button
 
 
-                               :class="mintableO1 ? 'btn-outline-green' : 'btn-outline-green'">
+                               :class="mintableO1 ? 'btn-outline-green' : 'btn-green'">
                                {{ treeCount ? 'Done' : 'step 3' }}
 
                           </button>
@@ -116,7 +116,7 @@
                           <span class="step-number mr-2">
                              <button
                                @click="comunity()"
-                               :class="mintableO1 ? 'btn-outline-green' : 'btn-outline-green'">
+                               :class="mintableO1 ? 'btn-outline-green' : 'btn-green'">
                                step 4
 
                           </button>
@@ -276,13 +276,14 @@
 import Fas from '@/components/font-awsome/Fas'
 import content from './world.json';
 import web3 from '~/plugins/web3';
-
+import Wallets  from "../../components/Wallets";
+import Metamask from "../../components/Metamask";
 
 
 export default {
   name: 'myForest',
   layout: 'dashboard',
-  components: {Fas},
+  components: {Metamask, Fas,Wallets},
   computed: {
     messages() {
       return content
@@ -566,11 +567,15 @@ export default {
 
   },
   mounted() {
-
+    if (this.$cookies.get('account')) {
       this.getEthBalance()
       this.getBalanceOfO1()
       this.calculateMintableO1()
       this.getOwnerTreesData()
+
+    } else {
+      null
+    }
 
 
   },
@@ -578,15 +583,21 @@ export default {
     comunity() {
       window.open('https://discuss.treejer.com', '_blank')
     },
+
+    showModal(e) {
+
+        this.$bvModal.show('five')
+     window.location.reload
+      },
     async getBalanceOfO1() {
 
       let self = this
 
-        await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/balanceOf`)
-          .then(function (response) {
-            self.walletO1 = web3.utils.fromWei(response.amount)
-          })
-          .catch(function (error) {
+      await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/balanceOf`)
+        .then(function (response) {
+          self.walletO1 = web3.utils.fromWei(response.amount)
+        })
+        .catch(function (error) {
 
           });
     },

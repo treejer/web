@@ -7,6 +7,7 @@ import WalletConnect from "walletconnect";
 // mainnet only
 export const state = () => ({
   token: null,
+  index: null,
   account: null,
   dashboard: null,
   users: null,
@@ -97,6 +98,9 @@ export const actions = {
     await commit('SET_TREZOR_POP_UP', res)
 
   },
+ async activeIndex({commit},{activeIndex}){
+   await commit('SET_INDEX',activeIndex)
+  },
   logout({commit}) {
     this.$cookies.remove('account');
 
@@ -141,6 +145,12 @@ export const mutations = {
 
 
   },
+  SET_INDEX(state, index) {
+    state.index = index
+
+
+  },
+
   SET_LEADERBOARDS(state, leaderBoards) {
     state.leaderBoards = leaderBoards
 
