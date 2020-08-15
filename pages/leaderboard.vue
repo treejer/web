@@ -90,7 +90,7 @@
     data() {
       return {
         activeIndex: 0,
-        leaderBoards:this.$store.state.leaderBoards,
+        leaderBoards:null,
         stepsLeaderBoard: [
           {name: "Top Forests", icon: "tree", href: "/myForest"},
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
@@ -100,9 +100,9 @@
 
       }
     },
-    created() {
-      this.$store.dispatch('getLeaderBoards')
-      console.log(this.leaderBoards,'leade')
+    async mounted() {
+      const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=10`)
+     this.leaderBoards =leaderBoards.leaderboard.data
     },
     methods: {
       activeMenu(item, index) {

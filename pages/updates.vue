@@ -16,13 +16,35 @@
             </div>
             <div class="col-12 mt-2">
               <ul>
-                <li v-if="updates" v-for="(item , index) in updates">
-                  <p class="param-lg tr-gray-three font-weight-bold"> Your tree with ID number <span class="tr-green">#899323</span > was verified by <span class="tr-green">@michael54</span ></p>
-                  <p class="param-sm tr-gray-four"> /</p>
+                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates">
+                  <p class="param-md tr-gray-three font-weight-bold">
+                    {{ index + 1 + ' ' }})  For Tree Funding
+                      You successfully added 1 tree with id <a class="tr-green pointer-event">#{{ item.id }}</a>  to your forest. <a class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                  </p>
 
                 </li>
 
               </ul>
+              <b-modal id="update" hide-footer v-if="modalsrc" >
+               <div class="card border-0 p-2 param-md tr-gray-three">
+                 <ul class="list-style-none">
+                   <li> address:  <span class="tr-green param-sm"> {{ modalsrc.address }}</span></li>
+                   <li> blockHash:  <span class="tr-green param-sm"> {{ modalsrc.blockHash }}</span></li>
+                   <li> blockNumber: <span class="tr-green param-sm"> {{ modalsrc.blockNumber }}</span></li>
+                   <li> event: <span class="tr-green param-sm"> {{ modalsrc.event }}</span></li>
+                   <li> id: <span class="tr-green param-sm"> {{ modalsrc.id }}</span></li>
+                   <li> logIndex: <span class="tr-green param-sm"> {{ modalsrc.logIndex }}</span></li>
+                   <li> raw: <span class="tr-green param-sm"> {{ modalsrc.raw }}</span></li>
+                   <li> removed: <span class="tr-green param-sm"> {{ modalsrc.removed }}</span></li>
+                   <li> returnValues: <span class="tr-green param-sm"> {{ modalsrc.returnValues }}</span></li>
+                   <li> signature: <span class="tr-green param-sm"> {{ modalsrc.signature }}</span></li>
+                   <li> transactionHash: <span class="tr-green param-sm"> {{ modalsrc.transactionHash }}</span></li>
+                   <li> transactionIndex: <span class="tr-green param-sm"> {{ modalsrc.transactionIndex }}</span></li>
+                 </ul>
+
+
+               </div>
+              </b-modal>
             </div>
           </div>
         </div>
@@ -46,7 +68,15 @@
 
     data() {
       return {
-        updates: null
+        updates: null,
+        modalsrc:null
+      }
+    },
+    methods:{
+      openModal(item){
+        this.modalsrc =JSON.parse(item.raw_data)
+
+        this.$bvModal.show('update')
       }
     },
     async mounted() {
