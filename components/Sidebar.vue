@@ -145,7 +145,6 @@
         const history = this.$router.history.current.fullPath
 
         const href = document.querySelectorAll(`a[href='${history}']`)
-
         console.log(href, 'href here')
         switch (history) {
           case '/myForest' || '/myForest/undefined':
