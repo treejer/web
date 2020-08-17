@@ -110,7 +110,7 @@
         this.activeIndex = index;
       },
       goToUserDashboard(id){
-        debugger
+
         this.$store.state.index =3
         this.$router.push({path:`/myForest/${id}`})
       }

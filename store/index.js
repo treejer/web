@@ -18,6 +18,7 @@ export const state = () => ({
   ethPrice:null,
   netWorkName: null,
   leaderBoards:null,
+  hasMetaMask:false,
 
 })
 const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
@@ -185,6 +186,10 @@ export const mutations = {
   },
   SET_ETH_PRICE(state, ethPrice) {
     state.ethPrice = ethPrice
+
+  },
+  SET_METAMASK(state, metaMask) {
+    state.hasMetaMask = metaMask
 
   }
 }

@@ -143,9 +143,9 @@
     mounted() {
       if (process.client) {
         const history = this.$router.history.current.fullPath
-        debugger
+
         const href = document.querySelectorAll(`a[href='${history}']`)
-        debugger
+
         console.log(href, 'href here')
         switch (history) {
           case '/myForest' || '/myForest/undefined':

@@ -14,12 +14,12 @@
               </p>
 
             </div>
-            <div class="col-12 mt-2">
+            <div class="col-12 mb-5 mt-2">
               <ul>
-                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates">
-                  <p class="param-md tr-gray-three font-weight-bold">
-                    {{ index + 1 + ' ' }})  For Tree Funding
-                      You successfully added 1 tree with id <a class="tr-green pointer-event">#{{ item.id }}</a>  to your forest. <a class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates" >
+                  <p  class="param-md tr-gray-three font-weight-bold">
+                    {{ index + 1 + ' ' }})  For {{ item.type === 'O1Minted' ? 'O1 Minting' : 'Tree Funding' }}
+                      You successfully added 1  {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a class="tr-green pointer-event">#{{ item.id }}</a>  to your forest. <a class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
                   </p>
 
                 </li>
@@ -69,18 +69,28 @@
     data() {
       return {
         updates: null,
-        modalsrc:null
+        modalsrc:null,
+        activity:null
+      }
+    },
+    computed:{
+      activityTypes(){
+        // if(this.modalsrc.event === 'TreeFunded'){
+          return 'Tree Funding'
+        // }
       }
     },
     methods:{
       openModal(item){
         this.modalsrc =JSON.parse(item.raw_data)
+        console.log(this.modalsrc,'modalsrc')
 
         this.$bvModal.show('update')
       }
     },
     async mounted() {
       const updates = await this.$axios.$get(`https://api.treejer.com/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
+      this.activity = updates
        this.updates = updates.events.data
       console.log(this.updates, 'update here')
     }

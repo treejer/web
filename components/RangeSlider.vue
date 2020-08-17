@@ -36,7 +36,7 @@
     },
     methods:{
       handle(e){
-        debugger
+
         // this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
         // var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
         // var children = this.parentNode.childNodes[1].childNodes;
@@ -47,7 +47,7 @@
         console.log(e,'input here')
       },
       handlee(e){
-        debugger
+
 
         console.log(e)
       }

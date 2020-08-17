@@ -116,7 +116,7 @@ export default {
 
 
       walletConnects(){
-        debugger
+
         const wc = new WalletConnect();
 
 //  Connect session (triggers QR Code modal)

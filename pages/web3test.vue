@@ -61,14 +61,14 @@
                 <h3>
                   {{ treePrice }}
                 </h3>
-                
+
                 <button
                 @click="getOwnerTrees"
                   class="btn-lg btn-green pointer-event param"
                 >
                   getOwnerTrees
                 </button>
-                
+
                   <span v-for="treeId in ownerTrees" >
                     {{  treeId }}
                   </span>
@@ -87,7 +87,7 @@
                 </div>
 
 
-                
+
                   <!-- <span v-for="tree in ownerTrees" >
                     {{  treeId }}
                   </span> -->
@@ -99,7 +99,7 @@
                   Plant Tree
                 </button>
 
-                
+
                 </div>
               <div class="col-12 form-group mt-3">
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
@@ -176,11 +176,11 @@
           }
 
 
-        return 
+        return
       },
-      
+
       walletConnects(){
-        debugger
+
         const wc = new WalletConnect();
 
 //  Connect session (triggers QR Code modal)

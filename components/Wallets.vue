@@ -174,11 +174,11 @@
           addEventListener("message", Ledger._callback, false);
         },
         isAppAvailable: function () {
-          debugger
+
           Ledger._message({command: "ping"});
         },
         launchApp: function () {
-          debugger
+
           Ledger._message({command: "launch"});
         },
         hasSession: function () {

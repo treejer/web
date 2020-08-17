@@ -2,6 +2,7 @@
   <div :class="currentRouteName" style="min-height: 100vh">
 
     <TreejerHeader />
+
     <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
         <nuxt/>
@@ -9,6 +10,13 @@
     </div>
 
     <Footer />
+<!--    <div class="w-100 h-100 bg-dark position-fixed d-flex align-items-center align-self-center justify-content-center" v-if="!hasMetaMask">-->
+<!--      <button type="button" name="metamask" >-->
+<!--        install metaMask-->
+<!--      </button>-->
+
+
+<!--    </div>-->
   </div>
 </template>
 
@@ -27,7 +35,8 @@
         user: false,
         sidebarName: false,
         hasSideBar: false,
-        routeName: null
+        routeName: null,
+        hasMetaMask:null
       };
     },
   computed: {
@@ -35,8 +44,21 @@
         return this.$route.path;
     }
   },
+    created() {
+      if(process.client){
+        if (typeof window.ethereum !== 'undefined') {
+          this.hasMetaMask =true
+          this.$store.commit('SET_METAMASK',this.hasMetaMask)
+        } else {
+          this.hasMetaMask =false
+          this.$store.commit('SET_METAMASK',this.hasMetaMask)
+        }
 
-  mounted() {
+      }
+
+    },
+
+    mounted() {
     const workBox = window.$workbox
     console.log(workBox,'workbox')
     if (this.$nuxt.isOnline) {
