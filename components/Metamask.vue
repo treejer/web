@@ -41,6 +41,7 @@
 
 <script>
 import Wallets from "./Wallets";
+import metaProvider from "metamask-extension-provider";
 
 export default {
   components: {Wallets},
@@ -57,6 +58,7 @@ export default {
     }
   },
   mounted() {
+
   },
   methods: {
 

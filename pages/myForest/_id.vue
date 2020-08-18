@@ -212,8 +212,8 @@
         <div class="col-lg-3 col-12  justify-content-center">
           <div class="box-right ">
             <div class="avatar-card border-0 text-center justify-content-center">
-              <div class="card-img position-relative"><img
-                :src="$store.state.account !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :require('~/assets/images/myforest/avatar.png')"
+              <div class="card-img position-relative"><img v-if="$cookies.get('account')"
+                :src="$cookies.get('account') !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :'loading'"
                 alt="username"
                 class="avatar-pic img-fluid"/>
                 <!--              <span class="position-absolute">+</span>-->

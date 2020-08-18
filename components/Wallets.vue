@@ -75,20 +75,21 @@
 </template>
 
 <script>
-  import Loading from '../components/treejerLoading'
-  import {Ledger} from "../plugins/ledger";
+import Loading from '../components/treejerLoading'
+import {Ledger} from "../plugins/ledger";
+import metaProvider from 'metamask-extension-provider'
 
-  export default {
+export default {
 
-    name: "Wallets",
-    components: {
-      Loading,
+  name: "Wallets",
+  components: {
+    Loading,
 
-    },
-    data() {
-      return {
-        Ledger:null,
-        selfLoading: null,
+  },
+  data() {
+    return {
+      Ledger: null,
+      selfLoading: null,
         loading: false,
         wallets: [
           {name: "Metamask", step: 1,},
@@ -152,14 +153,15 @@
         this.account = account.slice(0, 10);
         this.login(account)
       },
+
       login(account) {
+        let self = this
         this.$store.dispatch("login", {account})
           .then(() => {
-            this.$cookies.set('account', account)
-
-            this.$bvModal.hide('five')
-            const id = this.$cookies.get('account')
-            this.$router.push({ path: `/myForest/${id}` });
+            self.$cookies.set('account', account)
+            self.$bvModal.hide('five')
+            const id = self.$cookies.get('account')
+            self.$router.push({path: `/myForest/${id}`});
           })
           .catch(err => console.log(err));
       },

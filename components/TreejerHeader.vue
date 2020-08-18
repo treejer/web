@@ -118,6 +118,35 @@
           solid: true
         })
       },
+      async accountChange() {
+        console.log(process.browser,'prodwadadw')
+
+        if(process.browser){
+          let self =this
+          if (typeof window.ethereum !== 'undefined') {
+            await window.ethereum.on('accountsChanged', function (accounts) {
+              // Time to reload your interface with accounts[0]!
+              self.$store.commit('SET_USER',accounts[0])
+              self.$cookies.set('account',accounts[0])
+              console.log(self.$store.state.account,'state account')
+              console.log(self.$cookies.get('account'),'cookie account')
+              self.$forceUpdate()
+
+
+
+            });
+
+            await window.ethereum.on('logOut', (accounts) =>{
+              console.log(accounts)
+            })
+          }else{
+            console.log('dwwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+          }
+        }
+
+
+      },
       activeMenu(item, index) {
         if (item.name === 'Blog') {
           window.open('https://blog.treejer.com/', '_blank')
@@ -127,6 +156,8 @@
       },
     },
     mounted() {
+      this.accountChange()
+      console.log(this.accountChange() ,'dwadawd')
     }
   };
 </script>

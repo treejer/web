@@ -74,6 +74,7 @@ export default {
     {src: '~plugins/eth.js', ssr: false},
     {src: '~plugins/vueFormulate.js', ssr: false},
     {src: '~plugins/web3.js', ssr: false},
+    {src: '~plugins/metamaskExtensionProvider.js', ssr: false,mode: 'client'},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]

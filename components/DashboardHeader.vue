@@ -115,7 +115,7 @@ export default {
   },
   async mounted() {
     let self = this
-
+    self.accountChange()
     await this.$store.dispatch('networkNames')
     setTimeout(()=>{
       self.$store.state.netWorkName !== 'ropsten' ? self.$bvModal.show('netName') : null
@@ -131,6 +131,31 @@ export default {
 
       this.$bvModal.show('five')
     },
+    async accountChange() {
+      console.log(process.browser,'prodwadadw')
+
+      if(process.browser){
+        let self =this
+        if (typeof window.ethereum !== 'undefined') {
+          await window.ethereum.on('accountsChanged', function (accounts) {
+            // Time to reload your interface with accounts[0]!
+
+            self.$store.commit('SET_USER',accounts[0])
+            // self.$cookies.set('account',accounts[0])
+            console.log(self.$store.state.account,'state account')
+            console.log(self.$cookies.get('account'),'cookie account')
+            self.$router.push('/')
+          });
+
+        }else{
+          console.log('dwwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+        }
+      }
+
+
+    },
+
 
 
     activeWallets(item, index) {

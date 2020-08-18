@@ -50,12 +50,18 @@
                   <td id="accounting-card">{{ item.owner }}</td>
                   <td>{{ item.total_tree }}</td>
                   <td @click="goToUserDashboard(item.owner)" class="pointer-event">
-                    <a href="#"   class="pointer-event tr-green"></a>
+                    <a href="#" class="pointer-event tr-green"></a>
                     <Fas class="tr-green pointer-event" i="eye"/>
                   </td>
+
                 </tr>
                 </tbody>
               </table>
+              <div v-if="leaderBoards">
+                <button v-if="leaderBoards.length >=10" @click="addTen" class="btn-green">show more</button>
+              </div>
+
+
             </div>
           </div>
         </div>
@@ -74,18 +80,16 @@
   </section>
 </template>
 <script>
-  import Fas from '../components/font-awsome/Fas'
+import Fas from '../components/font-awsome/Fas'
 
-  export default {
-    name: 'leaderBoards',
-      layout: "dashboard",
+export default {
+  name: 'leaderBoards',
+  layout: "dashboard",
 
-    components: {
-      Fas
-    },
-    computed:{
-
-    },
+  components: {
+    Fas
+  },
+  computed: {},
 
     data() {
       return {
@@ -96,23 +100,27 @@
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
           {name: "Top Planters", icon: "trophy", href: "/leaderboard"},
         ],
+        perPage: 10
 
 
       }
     },
     async mounted() {
-      const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=10`)
+      const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
      this.leaderBoards =leaderBoards.leaderboard.data
     },
     methods: {
+      addTen() {
+        this.perPage + 10
+      },
       activeMenu(item, index) {
 
         this.activeIndex = index;
       },
-      goToUserDashboard(id){
+      goToUserDashboard(id) {
 
-        this.$store.state.index =3
-        this.$router.push({path:`/myForest/${id}`})
+        this.$store.state.index = 3
+        this.$router.push({path: `/myForest/${id}`})
       }
     }
   }
