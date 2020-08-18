@@ -6,6 +6,7 @@
       >
         <nuxt-link :to="$cookies.get('account') ? '/myForest/'+$cookies.get('account') :'/myForest'"
                    class="nav-link"
+                   :class="activeIndex=== 0 ?'nuxt-link-exact-active':''"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
@@ -47,6 +48,7 @@
       >
         <nuxt-link to="/leaderboard"
                    class="nav-link"
+                   :class="activeIndex=== 1 ?'nuxt-link-exact-active':''"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
@@ -68,6 +70,8 @@
       >
         <nuxt-link to="/updates"
                    class="nav-link"
+                   :class="activeIndex=== 2 ?'nuxt-link-exact-active':''"
+
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
@@ -95,6 +99,7 @@
       >
         <nuxt-link to="/help"
                    class="nav-link"
+                   :class="activeIndex=== 3 ?'nuxt-link-exact-active':''"
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -141,13 +146,19 @@
       };
     },
     mounted() {
+      debugger
+      if( this.$store.state.index !==null){
+        this.activeIndex = this.$store.dispatch('activeIndex')
+      }
+
+      console.log(this.activeIndex,'active indes')
       if (process.client) {
         const history = this.$router.history.current.fullPath
 
         const href = document.querySelectorAll(`a[href='${history}']`)
         console.log(href, 'href here')
         switch (history) {
-          case '/myForest' || '/myForest/undefined':
+          case '/myForest' || '/myForest/undefined' || '/myForest/'+'*':
             return this.activeIndex = 0;
             href.classList.toggle("nuxt-link-exact-active");
 
@@ -168,9 +179,6 @@
             return this.activeIndex = 0;
         }
       }
-      this.$store.dispatch('activeIndex',{
-        activeIndex : this.activeIndex
-      })
 
 
     },

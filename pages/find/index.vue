@@ -58,19 +58,19 @@
         <div class="col-md-10 col-12">
           <div class="container">
             <div class="row">
-              <div class="col-6 col-lg-2 col-md-4 mb-2 pointer-event" v-for="(item ,index) in getUsers">
-                <div class="card-box">
+              <div class="col-6 col-lg-2 col-md-4 mb-2 pointer-event" v-for="(item ,index) in leaderBoards">
+                <div class="card-box" @click="goToDashboard(item)">
                   <div class="tr-card box-shadow border">
                     <div class="card-img justify-content-center text-center ">
                       <img
                         width="64"
                         height="64"
 
-                        :src="item.avatar" :alt="item.first_name">
+                        :src="'https://api.adorable.io/avatars/40/'+item.owner" :alt="item.owner">
                     </div>
                     <div class="card-title">
-                      <p class="tr-gray-two param-sm mb-1">{{item.first_name}}</p>
-                      <p class="tr-green mb-1">{{item.id}} trees</p>
+                      <p class="tr-gray-two param-sm mb-1">{{item.owner.slice(0,10)}}</p>
+                      <p class="tr-green mb-1">{{item.total_tree}} trees</p>
                     </div>
 
                   </div>
@@ -195,17 +195,18 @@
         return this.$store.state.users
       }
     },
-    mounted() {
+   async mounted() {
 
-
-      this.$store.dispatch('allUsers')
-      this.listTrees();
+      const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
+      this.leaderBoards =leaderBoards.leaderboard.data
     },
     data() {
       return {
         trees: [],
+        leaderBoards:null,
         treeID:null,
         loading: false,
+        perPage:10,
         errors: null,
         boxs: [
           {
@@ -278,13 +279,20 @@
           this.$bvModal.show('five')
         } else {
           this.$router.push(this.localePath('leaderboard'))
+          this.$store.commit('SET_INDEX',1)
+
         }
+      },
+      goToDashboard(item){
+        this.$router.push({ path:'/myForest/'+item.owner ,params:{id:item.owner}})
+
+        this.$store.commit('SET_INDEX',0)
       },
       async findTree() {
         this.errors = null
         this.loading = true
         let self = this
-        
+
         await this.$axios.$get(`${process.env.apiUrl}/trees/${self.treeID}`)
           .then(function (response) {
             self.loading = false

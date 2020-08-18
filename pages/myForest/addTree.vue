@@ -128,7 +128,8 @@
                   <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">
                     {{ slectedPays }}</p>
                   <button
-                    @click="fund()"
+                    @click="!loading ? fund() :''"
+                    :class="{'disable': loading}"
 
                     class="btn-green-md  mt-4"
                   >
@@ -402,7 +403,7 @@
           <p class="mt-3 tr-gray-three">
             Rural communities are notified to plant your trees.
           </p>
-          <nuxt-link class="tr-green param pt-5" :to="localePath('myForest')"
+          <nuxt-link class="tr-green param pt-5" :to="localePath('/myForest/'+$cookies.get('account'))"
             >Go back to My Forest</nuxt-link
           >
         </div>
