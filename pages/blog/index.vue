@@ -18,7 +18,6 @@
     },
     methods: {
       onComplete(data) {
-        console.log('data:', data);
       }
     }
   }

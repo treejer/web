@@ -196,6 +196,7 @@
       }
     },
    async mounted() {
+       this.listTrees()
 
       const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
       this.leaderBoards =leaderBoards.leaderboard.data
@@ -279,8 +280,6 @@
           this.$bvModal.show('five')
         } else {
           this.$router.push(this.localePath('leaderboard'))
-          this.$store.commit('SET_INDEX',1)
-
         }
       },
       goToDashboard(item){
@@ -318,7 +317,6 @@
       },
       async listTrees() {
 
-        console.log('list');
 
         let self = this
         await this.$axios.$get(`${process.env.apiUrl}/trees`)

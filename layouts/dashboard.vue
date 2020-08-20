@@ -48,7 +48,6 @@ export default {
 
   methods: {
     onComplete(data) {
-      console.log("data:", data);
       this.account = data;
     },
     hasUser() {

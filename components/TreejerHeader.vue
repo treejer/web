@@ -119,7 +119,6 @@
         })
       },
       async accountChange() {
-        console.log(process.browser,'prodwadadw')
 
         if(process.browser){
           let self =this
@@ -128,19 +127,17 @@
               // Time to reload your interface with accounts[0]!
               self.$store.commit('SET_USER',accounts[0])
               self.$cookies.set('account',accounts[0])
-              console.log(self.$store.state.account,'state account')
-              console.log(self.$cookies.get('account'),'cookie account')
+
               self.$forceUpdate()
+              self.$router.go()
 
 
 
             });
 
             await window.ethereum.on('logOut', (accounts) =>{
-              console.log(accounts)
             })
           }else{
-            console.log('dwwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
           }
         }
@@ -157,7 +154,6 @@
     },
     mounted() {
       this.accountChange()
-      console.log(this.accountChange() ,'dwadawd')
     }
   };
 </script>

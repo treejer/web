@@ -40,7 +40,6 @@ export const actions = {
     const web3 = window.ethereum
     const accounts = await web3.enable();
     const account = accounts;
-    console.log(web3.chainId(), 'account here')
 
   },
   async networkNames({commit}) {
@@ -130,7 +129,6 @@ export const actions = {
      recaptcha: "03AGdBq24_fBLQLout7rX-vkEgXpTIk3F956P8yVoJNdq-4gXDr1X1rzH44WC9OJaLF8bSgfv-4MvGbxFLshHGVZ27dakUm6nKn3CyQ_jZFtaZmTBr7djhKGx15MDNHLjqVOd6hngLRi0Wx3KT8pOr8NijGQwK8yWQrUF9kk0nKlWU7VZ68OZdSqB0eOA9sHTSN48kCGv8gX3qFx4qYlBCcSpUDDNUvk6QvA3zYYRlabJRf5PiJuxupWjsNJ-gv8-bpiEVwumoTWLFDWH83yC-VKV01PKhObB0KG8ilIUkj5MBK9Mo1N0NazYNVrpI_mevoiO4c0OtCpaNFQyTSCfC3MU3ChCBdHQtcHsH08zuHpRJnNFEeibUFj3lQ21vtIyRFQHbkmepnGt2aR47S9Goo4YYydMSZmNxaA",
      user_id: 10211987,
    }).then(res =>{
-     console.log(res)
      commit('SET_USERS_FROM', res)
    })
   },

@@ -496,7 +496,6 @@ export default {
         this.activeIndex = 3
       }
       this.loading = false
-      console.log(this.activeIndex ,'status')
     },
     async getPrice() {
 

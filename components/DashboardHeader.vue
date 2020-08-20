@@ -132,7 +132,6 @@ export default {
       this.$bvModal.show('five')
     },
     async accountChange() {
-      console.log(process.browser,'prodwadadw')
 
       if(process.browser){
         let self =this
@@ -142,13 +141,11 @@ export default {
 
             self.$store.commit('SET_USER',accounts[0])
             // self.$cookies.set('account',accounts[0])
-            console.log(self.$store.state.account,'state account')
-            console.log(self.$cookies.get('account'),'cookie account')
+
             self.$router.push('/')
           });
 
         }else{
-          console.log('dwwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
         }
       }

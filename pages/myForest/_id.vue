@@ -213,27 +213,28 @@
           <div class="box-right ">
             <div class="avatar-card border-0 text-center justify-content-center">
               <div class="card-img position-relative"><img v-if="$cookies.get('account')"
-                :src="$cookies.get('account') !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :'loading'"
-                alt="username"
-                class="avatar-pic img-fluid"/>
+                                                           :src="$cookies.get('account') !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :'loading'"
+                                                           alt="username"
+                                                           class="avatar-pic img-fluid"/>
                 <!--              <span class="position-absolute">+</span>-->
               </div>
               <p class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') }}</p>
               <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
-              <div class="row">
+              <div class="row  tokens">
                 <div class="col-md-6 p-0">
-                  <p class="pb-1 tr-gray-three param-sm font-weight-bold border-bottom ">
+                  <p class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom ">
                     <img src="~/assets/images/myforest/ETHLogo.svg"
                          class="img-fluid ">
                     ETH
                   </p>
-                  <p class="pb-1  tr-gray-three param-sm font-weight-bold border-bottom "><img
+                  <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold border-bottom "><img
+                    style="margin-right: 7px"
                     src="~/assets/images/myforest/O1Logo.svg" class="img-fluid ">
-                  O1
+                    O1
                   </p>
-                  <p class="pb-1  tr-gray-three param-sm font-weight-bold  "><img
+                  <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold  "><img
                     src="~/assets/images/myforest/O2Logo.svg" class="img-fluid ">
-                  O2
+                    O2
                   </p>
                 </div>
                 <div class="col-md-6 p-0">
@@ -276,7 +277,7 @@
 import Fas from '@/components/font-awsome/Fas'
 import content from './world.json';
 import web3 from '~/plugins/web3';
-import Wallets  from "../../components/Wallets";
+import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
 
 
@@ -567,17 +568,10 @@ export default {
 
   },
   mounted() {
-    if (this.$cookies.get('account')) {
       this.getEthBalance()
       this.getBalanceOfO1()
       this.calculateMintableO1()
       this.getOwnerTreesData()
-
-    } else {
-      null
-    }
-
-
   },
   methods: {
     comunity() {
@@ -645,12 +639,21 @@ export default {
 <style lang="scss" scoped>
 
   .my-forest {
-    .token{
+    .logo-tokens{
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .token {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 50%;
+      width: 75%;
       margin: auto;
+      background: #E5E7DB;
+      border: 2px solid #FFFFFF;
+      box-sizing: border-box;
+      border-radius: 18px;
+      padding: 5px 15px;
     }
     .bg-brown{
       background: rgba(208, 169, 69, 0.25);
@@ -895,11 +898,22 @@ export default {
 
     }
   }
-  @media (min-width: 1281px) {
 
-      .befor-res{
-        top: 91px;
+  @media (min-width: 1280px) {
+
+    .befor-res {
+      top: 91px;
+    }
+
+  }
+ @media (max-width: 1280px) {
+
+
+    .tokens {
+      .border-bottom {
+        border-bottom: none!important;
       }
+    }
 
   }
 

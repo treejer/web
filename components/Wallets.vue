@@ -148,7 +148,6 @@ export default {
       },
       async getAccount() {
         const accounts = await ethereum.enable();
-        console.log(accounts)
         const account = accounts[0];
         this.account = account.slice(0, 10);
         this.login(account)

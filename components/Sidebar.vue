@@ -146,17 +146,15 @@
       };
     },
     mounted() {
-      debugger
+
       if( this.$store.state.index !==null){
         this.activeIndex = this.$store.dispatch('activeIndex')
       }
 
-      console.log(this.activeIndex,'active indes')
       if (process.client) {
         const history = this.$router.history.current.fullPath
 
         const href = document.querySelectorAll(`a[href='${history}']`)
-        console.log(href, 'href here')
         switch (history) {
           case '/myForest' || '/myForest/undefined' || '/myForest/'+'*':
             return this.activeIndex = 0;

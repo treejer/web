@@ -32,7 +32,6 @@
     },
 
     mounted() {
-      console.log(this.$route.name, 'windows here')
     },
     methods: {
     }

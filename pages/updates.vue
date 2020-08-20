@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 mb-5 mt-2">
               <ul>
-                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates" >
+                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates">
                   <p  class="param-md tr-gray-three font-weight-bold">
                     {{ index + 1 + ' ' }})  For {{ item.type === 'O1Minted' ? 'O1 Minting' : 'Tree Funding' }}
                       You successfully added 1  {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a class="tr-green pointer-event">#{{ item.id }}</a>  to your forest. <a class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
@@ -83,7 +83,6 @@
     methods:{
       openModal(item){
         this.modalsrc =JSON.parse(item.raw_data)
-        console.log(this.modalsrc,'modalsrc')
 
         this.$bvModal.show('update')
       }
@@ -92,7 +91,6 @@
       const updates = await this.$axios.$get(`https://api.treejer.com/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
       this.activity = updates
        this.updates = updates.events.data
-      console.log(this.updates, 'update here')
     }
   }
 </script>

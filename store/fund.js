@@ -22,7 +22,6 @@ export const actions = {
       .then((ethBalance) => web3.utils.fromWei(ethBalance));
   },
   async fund(context, params) {
-    console.log(context)
     const fundMethod = Fund.abi.find(method => {
       return method.name === 'fund'
     })

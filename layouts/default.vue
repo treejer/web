@@ -60,12 +60,9 @@
 
     mounted() {
     const workBox = window.$workbox
-    console.log(workBox,'workbox')
     if (this.$nuxt.isOnline) {
-      console.log('dwadaw')
       return null
     } else {
-      console.log('offline')
 
       this.makeToast('danger', 'You are offline')
 

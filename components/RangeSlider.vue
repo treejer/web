@@ -44,12 +44,10 @@
         // children[5].style.right=(100-value)+'%';
         // children[9].style.left=value+'%';children[13].style.left=value+'%';
         // children[13].childNodes[1].innerHTML=this.value;
-        console.log(e,'input here')
       },
       handlee(e){
 
 
-        console.log(e)
       }
     }
   }

@@ -97,7 +97,6 @@
             self.loading = false
           })
           .catch(function (error) {
-            console.log(error);
             self.loading = false
           });
 

@@ -387,11 +387,9 @@
     mounted() {
        this.$axios.$get('https://api.first.org/data/v1/countries')
         .then((res)=>{
-          console.log(res.data)
           this.regions =res.data
         })
          .then((err)=>{
-          console.log(err)
        })
     } ,
     methods: {
@@ -412,20 +410,13 @@
       },
 
       cropSuccess(imgDataUrl, field) {
-        console.log('-------- crop success --------');
         this.imgDataUrl = imgDataUrl;
       },
 
       cropUploadSuccess(jsonData, field) {
-        console.log('-------- upload success --------');
-        console.log(jsonData);
-        console.log('field: ' + field);
       },
 
       cropUploadFail(status, field) {
-        console.log('-------- upload fail --------');
-        console.log(status);
-        console.log('field: ' + field);
       }
     },
     created() {
