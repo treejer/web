@@ -43,7 +43,13 @@
               businesses and individuals to stop Climate Change with the help of local communities.
             </p>
           </div>
-          <Socials/>
+          <!--          <Socials/>-->
+          <!--          <img src="../assets/images/landing-footer/socials.svg" alt="">-->
+          <ul class="d-flex justify-content-center socials">
+            <li v-for="(item,index) in socials" :key="index" class="pointer-event" @click.prevent="goToSocials(item.href,'_blank')">
+              <img :src="item.src" :alt="item.name" >
+            </li>
+          </ul>
         </div>
 
       </div>
@@ -52,19 +58,19 @@
 </template>
 
 <script>
-  import Socials from "./Socials";
+import Socials from "./Socials";
 
-  export default {
-    name: "LandingFooter",
-    components: {Socials},
-    data() {
-      return {
-        listOne: [
-          {name: 'Explore Forests', href: '/myForest'},
-          {name: 'Find My Tree', href: '/find'},
-          {name: 'Redeem Trees', href: '#'},
-          {name: 'Start a Green Block', href: '#'},
-        ],
+export default {
+  name: "LandingFooter",
+  components: {Socials},
+  data() {
+    return {
+      listOne: [
+        {name: 'Explore Forests', href: '/myForest'},
+        {name: 'Find My Tree', href: '/find'},
+        {name: 'Redeem Trees', href: '#'},
+        {name: 'Start a Green Block', href: '#'},
+      ],
         listTwo: [
           {name: 'Home', href: '/'},
           {name: 'Blog', href: 'https://blog.treejer.com/', tab: '_blank'},
@@ -72,20 +78,44 @@
           {name: 'For Business', href: '/business'},
           {name: 'Contact', href: '/contact'},
         ],
-        listThree: [
-          {name: 'Whitepaper', href: 'https://docs.treejer.com', tab: '_blank'},
-          {name: 'Knowledge Base', href: 'https://discuss.treejer.com', tab: '_blank'},
-          {name: 'Volunteers', href: '/volunteer'},
-          {name: 'Rural Ambassadors', href: '/rural'},
-          {name: 'Treejer Backers', href: '/backers'},
-        ]
+      listThree: [
+        {name: 'Whitepaper', href: 'https://docs.treejer.com', tab: '_blank'},
+        {name: 'Knowledge Base', href: 'https://discuss.treejer.com', tab: '_blank'},
+        {name: 'Volunteers', href: '/volunteer'},
+        {name: 'Rural Ambassadors', href: '/rural'},
+        {name: 'Treejer Backers', href: '/backers'},
+      ],
+      socials: [
+        {src: require('~/assets/images/landing-footer/telegram.svg'), name: 'telegram',href:'https://discuss.treejer.com/'},
+        {src: require('~/assets/images/landing-footer/instagram.svg'), name: 'instagram',href:'https://www.instagram.com/treejer'},
+        {src: require('~/assets/images/landing-footer/twitter.svg'), name: 'twitter',href:'https://twitter.com/Treejertalks'},
+        {src: require('~/assets/images/landing-footer/facebook.svg'), name: 'facebook',href:'https://www.facebook.com/treejertalks'},
+        {src: require('~/assets/images/landing-footer/linkdin.svg'), name: 'linkdin',href:'https://www.linkedin.com/company/treejer'},
+        {src: require('~/assets/images/landing-footer/medium.svg'), name: 'medium',href:'https://discuss.treejer.com/'},
+        {src: require('~/assets/images/landing-footer/git.svg'), name: 'git',href:'https://github.com/treejer'},
+      ]
+    }
+    },
+  methods:{
+    goToSocials(item,target){
+      if(process.browser){
+        window.open(item,target)
       }
     }
+  }
   }
 </script>
 
 <style lang="scss" scoped>
   .landing-footer {
+    .socials .pointer-event img:hover{
+      transition: all .3s ease;
+      opacity: .5;
+
+    }
+    .socials .pointer-event img{
+      transition: all .3s ease;
+    }
     ul {
 
       li {
