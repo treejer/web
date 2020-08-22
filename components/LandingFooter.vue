@@ -75,7 +75,7 @@
         listThree: [
           {name: 'Whitepaper', href: '#', tab: '_blank'},
           {name: 'Community', href: '#', tab: '_blank'},
-          {name: 'Volunteers', href: '#'},
+          {name: 'Volunteers', href: '/volunteer'},
           {name: 'Rural Ambassadors', href: '#'},
           {name: 'worldtr.ee', href: '#'},
         ]
