@@ -73,11 +73,11 @@
           {name: 'Contact', href: '/contact'},
         ],
         listThree: [
-          {name: 'Whitepaper', href: '#', tab: '_blank'},
-          {name: 'Community', href: '#', tab: '_blank'},
+          {name: 'Whitepaper', href: 'https://docs.treejer.com', tab: '_blank'},
+          {name: 'Knowledge Base', href: 'https://discuss.treejer.com', tab: '_blank'},
           {name: 'Volunteers', href: '/volunteer'},
-          {name: 'Rural Ambassadors', href: '#'},
-          {name: 'worldtr.ee', href: '#'},
+          {name: 'Rural Ambassadors', href: '/rural'},
+          {name: 'Treejer Backers', href: '/backers'},
         ]
       }
     }

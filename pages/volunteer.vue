@@ -1,8 +1,8 @@
 <template>
   <section :page="$route.name" class="position-relative pt-5 col-12  volunteer" style="min-height: 88vh">
     <client-only>
-  
-      <iframe @ended="loading =false" src="https://form.typeform.com/to/INs6wu" class="border-0" height="100%" width="100%" title="Iframe typeform"></iframe>
+
+      <iframe @load="$nuxt.$loading.finish()" src="https://form.typeform.com/to/INs6wu" class="border-0" height="100%" width="100%" title="Iframe typeform"></iframe>
 
 
     </client-only>
@@ -12,13 +12,19 @@
 <script>
 export default {
   name: "volunteer",
+  layout:'landing',
+  loading:false,
   data() {
     return {
-      loading: true
+
     }
   },
   mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
 
+      setTimeout(() => this.$nuxt.$loading.finish(), 1000)
+    })
 
   }
 }
