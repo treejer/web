@@ -199,6 +199,39 @@
   color: white;
 
 }
+#five{
+  top: 5%;
+  border: none;
+  overflow: auto;
+  .modal-body{
+    margin-top: 30px;
+    ul{
+      li p{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  .close{
+    position: absolute;
+    font-weight: lighter;
+    width: 64px;
+    color: #757575;
+    height: 64px;
+    background: #E5E7DB;
+    border-radius: 50%;
+    top: -12px;
+    right: 45%;
+    font-size: 48px;
+    align-items: center;
+    display: flex;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    opacity: 1;
+  }
+}
+
 .disabled{
   cursor: not-allowed;
 }

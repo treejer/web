@@ -1,14 +1,32 @@
 <template>
-  <ul class="wallets tr-gray-three list-style-none d-block">
+  <ul class="wallets tr-gray-three list-style-none d-block position-relative">
+    <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4">Select Wallet</li>
     <li v-for="(item, index) in wallets" class="pointer-event mb-2  ">
       <p
         @click.prevent="activeWallets(item, index,$event)"
         :class="{ active: activeWallet === index }"
+        class="tr-gray-three param font-weight-bold"
         :key="index"
         :name="item.name"
       >
-        {{ item.name }}
+        <span class="name">        {{ item.name }}
+</span>
+        <span class="icon">
+          <img :src="item.src" :alt="item.name" class="img-fluid">
+        </span>
       </p>
+    </li>
+    <li class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative">
+
+     <span style="letter-spacing: -3px">-------------------------------------</span><span style="padding:  0 10px">What is a wallet? </span><span style="letter-spacing: -3px">-------------------------------------</span>
+
+    </li>
+    <li class="d-flex justify-content-center mt-4" >
+      <button class="btn-gray param-sm text-white" style="margin:  0 15px;background: #424242" >Get help</button>
+      <button class="btn-gray param-sm text-white" style="margin:  0 15px;background: #424242">Learn more</button>
+    </li>
+    <li class="param-sm justify-content-center mt-4 terms text-center font-weight-bold">
+      By connecting your wallet you agree to our <span class="tr-green">Terms of Service, Privacy</span> and <span class="tr-green">Cookie Policy.</span>
     </li>
     <Loading
       :screenX="this.screenX"
@@ -92,11 +110,11 @@ export default {
       selfLoading: null,
         loading: false,
         wallets: [
-          {name: "Metamask", step: 1,},
-          {name: "Wallet Connect", step: 2},
-          {name: "Trezor", step: 3},
-          {name: "Ledger Nano", step: 4},
-          {name: "Coinbase Wallet", step: 5}
+          {name: "Metamask", step: 1,src:require('~/assets/images/wallets/metamask.svg')},
+          {name: "Wallet Connect", step: 2,src:require('~/assets/images/wallets/walletconnect.svg')},
+          {name: "Trezor", step: 3,src:require('~/assets/images/wallets/trezor.svg')},
+          {name: "Ledger Nano", step: 4,src:require('~/assets/images/wallets/ledger.svg')},
+          {name: "Coinbase Wallet", step: 5,src:require('~/assets/images/wallets/coinbasewallet.svg')}
         ],
         activeWallet: 0,
         screenX: null,
@@ -263,22 +281,26 @@ export default {
 <style lang="scss">
   .wallets {
     p {
-      width: auto;
+      width: 70%;
       border-radius: 6px;
       border: solid 1px #bdbdbd;
       background-color: transparent;
-      padding: 10px;
-      margin: 0 10px;
+      padding: 10px 15px;
+      margin: 0 auto;
       text-align: center;
+    }
+    .terms{      width: 70%;
+      margin: auto;
+
+
     }
 
     p.active {
-      width: auto;
-      border-radius: 6px;
+      width: 70%;      border-radius: 6px;
       border: solid 1px #bdbdbd;
       background-color: #e5e7db;
-      padding: 10px;
-      margin: 0 10px;
+      padding: 10px 15px;
+      margin: 0 auto;
       transition: 0.5s ease-all;
     }
   }
