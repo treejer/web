@@ -64,8 +64,10 @@ export default {
 
        logout() {
          this.$forceUpdate()
-         this.$store.dispatch("logout")
-         this.$router.go(0)
+         this.$store.dispatch("logout").then(() => {
+           this.$router.push('/')
+        });
+
       },
 
       showModal() {
