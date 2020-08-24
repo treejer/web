@@ -310,7 +310,7 @@
                         />
                       </div>
                       <div class="final-box-submit">
-                        <button class="btn-lg bg-green" type="button" @click="$router.push(localePath({ name: 'myForest' }))">
+                        <button class="btn-lg bg-green" type="button" @click="$router.push(localePath({ name: 'forest' }))">
                           SEND
                         </button>
                       </div>

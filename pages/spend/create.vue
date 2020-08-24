@@ -268,7 +268,7 @@
                       </div>
 
                       <div class="next-step text-center mt-4 justify-content-center">
-                        <nuxt-link :to="localePath('myForest')">
+                        <nuxt-link :to="localePath('forest')">
                           <button class="btn-green mb-2" type="button">Finish</button>
 
                         </nuxt-link>

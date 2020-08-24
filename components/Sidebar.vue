@@ -1,10 +1,10 @@
 <template>
   <section class="sidebar pt-4 col-lg-2 d-md-block" v-if="hasSideBar ">
     <ul class="nav flex-column  ">
-      <li class="nav-item myForest"
+      <li class="nav-item forest"
           @click="changeIndex(0)"
       >
-        <nuxt-link :to="$cookies.get('account') ? '/myForest/'+$cookies.get('account') :'/myForest'"
+        <nuxt-link :to="$cookies.get('account') ? '/forest/'+$cookies.get('account') :'/forest'"
                    class="nav-link"
                    :class="activeIndex=== 0 ?'nuxt-link-exact-active':''"
         >
@@ -156,7 +156,7 @@
 
         const href = document.querySelectorAll(`a[href='${history}']`)
         switch (history) {
-          case '/myForest' || '/myForest/undefined' || '/myForest/'+'*':
+          case '/forest' || '/forest/undefined' || '/forest/'+'*':
             return this.activeIndex = 0;
             href.classList.toggle("nuxt-link-exact-active");
 
@@ -184,7 +184,7 @@
     methods: {
       // activeMenu(item, index) {
       //   switch (this.$route.path) {
-      //     case '/myForest':
+      //     case '/forest':
       //       return this.activeIndex = 0;
       //       break;
       //     case  '/Leaderboard':

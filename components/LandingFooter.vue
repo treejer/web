@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12">
-          <nuxt-link class="btn-green position-relative d-block param text-white " to="/myForest">Plant a Tree
+          <nuxt-link class="btn-green position-relative d-block param text-white " to="/forest">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
             <li class="square" v-for="(item ,index) in listOne" :key="index">
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       listOne: [
-        {name: 'Explore Forests', href: '/myForest'},
+        {name: 'Explore Forests', href: '/forest'},
         {name: 'Find My Tree', href: '/find'},
         {name: 'Redeem Trees', href: '#'},
         {name: 'Start a Green Block', href: '#'},

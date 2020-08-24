@@ -283,7 +283,7 @@
         }
       },
       goToDashboard(item){
-        this.$router.push({ path:'/myForest/'+item.owner ,params:{id:item.owner}})
+        this.$router.push({ path:'/forest/'+item.owner ,params:{id:item.owner}})
 
         this.$store.commit('SET_INDEX',0)
       },

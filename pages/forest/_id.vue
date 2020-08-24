@@ -14,8 +14,8 @@
             <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
               <div class="form-group">
                 <label>
-                  <Fas i="search"/>
-                  <input class="form-control-lg" v-model="search" placeholder="Enter Tree ID">
+                  <Fas i="search" class="pointer-event" @click="goToFindTree"/>
+                  <input class="form-control-lg" v-model="treeID" placeholder="Enter Tree ID" @keyup.enter="goToFindTree()">
                 </label>
               </div>
             </div>
@@ -23,7 +23,7 @@
           <div class="row treejer-desc">
             <div class="col-lg-3  col-md-6 col-12 border-right ">
               <p>FOREST SIZE</p>
-              <p class="d-flex justify-content-center  align-items-center">
+              <p class="d-flex justify-content-start  align-items-center">
                 <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
 
                 <span>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-lg-3  col-md-6 col-12 border-right">
               <p>RELEASED O1</p>
-              <p class="d-flex justify-content-center align-items-center">
+              <p class="d-flex justify-content-start align-items-center">
                 <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
 
                 <span class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4)  }} </span>
@@ -43,7 +43,7 @@
 
             <div class="col-lg-3  col-md-6 col-12 " >
               <p>RELEASED O2</p>
-              <p class="d-flex justify-content-center align-items-center">
+              <p class="d-flex justify-content-start align-items-center">
                 <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
 
               <span>{{ 0 }}</span>
@@ -88,7 +88,7 @@
                         <li
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
-                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click="$router.push('/myForest/addTree')">
+                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click="$router.push('/forest/addTree')">
                                {{ treeCount ? 'Done' : 'step 2' }}
                           </button>
                           </span>
@@ -248,13 +248,13 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <nuxt-link class="position-relative" to="/myForest/addTree">
+                <nuxt-link class="position-relative" to="/forest/addTree">
 
                   <button class="btn-lg">ADD A TREE</button>
                 </nuxt-link>
               </div>
               <div class="gift-tree">
-                <nuxt-link class="position-relative" to="/myForest/giftTree">
+                <nuxt-link class="position-relative" to="/forest/giftTree">
                   <button class="btn-lg">GIFT
                     A TREE
                   </button>
@@ -282,7 +282,7 @@ import Metamask from "../../components/Metamask";
 
 
 export default {
-  name: 'myForest',
+  name: 'forest',
   layout: 'dashboard',
   components: {Metamask, Fas,Wallets},
   computed: {
@@ -562,31 +562,57 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      treeID:null
 
     }
 
   },
   mounted() {
+
       this.getEthBalance()
       this.getBalanceOfO1()
       this.calculateMintableO1()
       this.getOwnerTreesData()
   },
   methods: {
+    async goToFindTree() {
+        this.loading = true
+        let self = this
+
+        await this.$axios.$get(`${process.env.apiUrl}/trees/${self.treeID}`)
+          .then(function (response) {
+            self.loading = false
+            self.$router.push(`/find/${self.treeID}`)
+
+
+            // handle success
+          })
+          .catch(function (error) {
+
+            self.loading = false
+            self.$bvToast.toast("Tree Not found!", {
+              toaster: 'b-toaster-bottom-left',
+              solid: true,
+              headerClass: 'hide',
+              variant: 'danger'
+            })
+            // self.errors = 'notFound'
+            // console.log(self.errors)
+
+            // handle error
+          });
+      },
+
     comunity() {
       window.open('https://discuss.treejer.com', '_blank')
     },
 
     showModal(e) {
-
         this.$bvModal.show('five')
-     window.location.reload
       },
     async getBalanceOfO1() {
-
       let self = this
-
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/balanceOf`)
         .then(function (response) {
           self.walletO1 = web3.utils.fromWei(response.amount)

@@ -160,7 +160,7 @@ export default {
             self.$cookies.set('account', account)
             self.$bvModal.hide('five')
             const id = self.$cookies.get('account')
-            self.$router.push({path: `/myForest/${id}`});
+            self.$router.push({path: `/forest/${id}`});
           })
           .catch(err => console.log(err));
       },

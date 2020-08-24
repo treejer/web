@@ -102,7 +102,7 @@
 
                 </div>
               <div class="col-12 form-group mt-3">
-                <nuxt-link class="position-relative pointer-event leader" :to="localePath('myForest')">
+                <nuxt-link class="position-relative pointer-event leader" :to="localePath('forest')">
 
                 <button
                   class="btn-lg btn-green pointer-event param"

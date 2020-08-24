@@ -16,7 +16,7 @@
         alt="tree"
         name="tree"
         src="/tree.svg"
-        @click="$router.push('/myForest')"
+        @click="$router.push('/forest')"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -31,7 +31,7 @@
         alt="tree"
         name="tree"
         src="/tree.svg"
-        @click="$router.push({ path: `/myForest/${$cookies.get('account')}` })"
+        @click="$router.push({ path: `/forest/${$cookies.get('account')}` })"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>

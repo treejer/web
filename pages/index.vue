@@ -34,7 +34,7 @@
                 </client-only>
               </div>
               <div class="col-12 form-group mt-3">
-                <nuxt-link :to="$cookies.get('account') ?'myForest/'+$cookies.get('account') :  '/myForest'" >
+                <nuxt-link :to="$cookies.get('account') ?'forest/'+$cookies.get('account') :  '/forest'" >
                   <button
                     class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
                   >
@@ -105,9 +105,9 @@ export default {
       // } else {
       const id= this.$cookies.get('account')
       if(id){
-        this.$router.push({ path: `/myForest/${id}` });
+        this.$router.push({ path: `/forest/${id}` });
       }else{
-        this.$router.push('/myForest')
+        this.$router.push('/forest')
       }
 
 

@@ -96,7 +96,7 @@ export default {
         activeIndex: 0,
         leaderBoards:null,
         stepsLeaderBoard: [
-          {name: "Top Forests", icon: "tree", href: "/myForest"},
+          {name: "Top Forests", icon: "tree", href: "/forest"},
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
           {name: "Top Planters", icon: "trophy", href: "/leaderboard"},
         ],
@@ -120,7 +120,7 @@ export default {
       goToUserDashboard(id) {
 
         this.$store.state.index = 3
-        this.$router.push({path: `/myForest/${id}`})
+        this.$router.push({path: `/forest/${id}`})
       }
     }
   }
