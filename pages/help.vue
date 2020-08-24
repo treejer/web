@@ -24,16 +24,16 @@
               <!--                Find answers to common questions or ask a new one here. Our community usually responds in a few days.-->
               <!--              </div>-->
               <client-only>
-                <BSpinner type="" label="loading" />
-                <div id="questions-widget"></div>
-                <script>
+<!--                <BSpinner type="" label="loading" />-->
+<!--                <div id="questions-widget"></div>-->
+<!--                <script>-->
 
-                  window.Tribe('questions', {
-                    topicId: '5babe5eb3d9228aa7c423c66',
-                    id: 'questions-widget',
-                    components: ['input']
-                  })
-                </script>
+<!--                  window.Tribe('questions', {-->
+<!--                    topicId: '5babe5eb3d9228aa7c423c66',-->
+<!--                    id: 'questions-widget',-->
+<!--                    components: ['input']-->
+<!--                  })-->
+<!--                </script>-->
               </client-only>
 
 

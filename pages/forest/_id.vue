@@ -88,7 +88,7 @@
                         <li
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
-                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click="$router.push('/forest/addTree')">
+                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click=" goToAddTree()">
                                {{ treeCount ? 'Done' : 'step 2' }}
                           </button>
                           </span>
@@ -255,7 +255,7 @@
                   <button class="btn-lg">ADD A TREE</button>
                 </nuxt-link>
               </div>
-              <div class="gift-tree">
+              <div class="gift-tree mb-4" >
 <!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
                   <button class="btn-lg disabled"  >GIFT
                     A TREE
@@ -623,6 +623,24 @@ export default {
           headerClass: 'hide',
           variant: 'danger'
         })
+      }
+
+
+      },
+     goToaddTree() {
+        this.loading = true
+        let self = this
+       debugger
+
+      if(!this.$store.state.account){
+        self.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+      }else {
+        this.$router.push('/forest/addTree')
       }
 
 

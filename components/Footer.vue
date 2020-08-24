@@ -11,7 +11,7 @@
             <b-nav-item :to="localePath('contact')">Contact</b-nav-item>
           </b-nav>
         </div>
-        <div class="col-lg-4 col-12 pt-2">
+        <div class="col-lg-4 col-12">
 
          <Socials />
 
@@ -34,7 +34,7 @@
 <style lang="scss" scoped>
   .footer {
     width: 100%;
-    height: 48px;
+    //height: 48px;
     background-color: #e5e7db;
     bottom: 0;
     overflow-y: hidden;

@@ -6,29 +6,29 @@
           <nuxt-link class="btn-green position-relative d-block param text-white " to="/forest">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
-            <li class="square" v-for="(item ,index) in listOne" :key="index">
+            <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
               </nuxt-link>
-              <a v-if="item.tab" class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
+              <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
             </li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
-            <li class="square mt-md-2" v-for="(item ,index) in listTwo" :key="index">
+            <li class="square text-left mt-md-2" v-for="(item ,index) in listTwo" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
               </nuxt-link>
-              <a v-if="item.tab" class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
+              <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
 
             </li>
           </ul>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
-            <li class="square mt-md-2 " v-for="(item ,index) in listThree" :key="index">
+            <li class="square text-left mt-md-2 " v-for="(item ,index) in listThree" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
               </nuxt-link>
-              <a v-if="item.tab" class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
+              <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
 
             </li>
           </ul>
@@ -79,8 +79,8 @@ export default {
           {name: 'Contact', href: '/contact'},
         ],
       listThree: [
-        {name: 'Whitepaper', href: 'https://docs.treejer.com', tab: '_blank'},
-        {name: 'Knowledge Base', href: 'https://discuss.treejer.com', tab: '_blank'},
+        {name: 'Knowledge Base', href:  'https://docs.treejer.com', tab: '_blank'},
+        {name: 'Whitepaper', href:'https://discuss.treejer.com', tab: '_blank'},
         {name: 'Volunteers', href: '/volunteer'},
         {name: 'Rural Ambassadors', href: '/rural'},
         {name: 'Treejer Backers', href: '/backers'},
@@ -98,7 +98,7 @@ export default {
     },
   methods:{
     goToSocials(item,target){
-      if(process.browser){
+      if(process.client){
         window.open(item,target)
       }
     }
@@ -122,9 +122,11 @@ export default {
         margin: 15px 0;
         display: block;
         width: 100%;
+        text-align: left;
 
         a {
           transition: all ease-in .2s;
+          text-align: left;
 
         }
 
@@ -140,6 +142,7 @@ export default {
       padding: 10px 28px;
       color: white;
       width: max-content;
+      text-align: left;
 
 
     }

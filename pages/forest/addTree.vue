@@ -2,22 +2,22 @@
   <section class="position-relative pt-5 col-12 add-tree mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
-        <div class="col-12">
-          <ul class="step tr-gray-three d-flex   list-style-none">
-            <li
-              v-for="(item, index) in steps"
-              :key="index"
-              :name="item.name"
-              class="param-md font-weight-bold"
-            >
-              <p>{{ item.name }}</p>
-              <p :class="{ active: activeIndex === index }">{{ item.step }}</p>
-            </li>
-          </ul>
-        </div>
+<!--        <div class="col-12">-->
+<!--          <ul class="step tr-gray-three d-flex   list-style-none">-->
+<!--            <li-->
+<!--              v-for="(item, index) in steps"-->
+<!--              :key="index"-->
+<!--              :name="item.name"-->
+<!--              class="param-md font-weight-bold"-->
+<!--            >-->
+<!--              <p>{{ item.name }}</p>-->
+<!--              <p :class="{ active: activeIndex === index }">{{ item.step }}</p>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
         <div class="col-12 step-one" v-if="activeIndex === 0">
           <div class="row">
-            <div class="col-lg-6 col-12">
+            <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="title-sm">How many trees to plant?</h1>
                 <ul class="d-flex list-style-none mt-4">
@@ -110,9 +110,9 @@
 <!--                </div>-->
 <!--              </div>-->
             </div>
-            <div class="col-lg-6 col-12 overflow-hidden">
+            <div class="col-lg-6 col-md-12 col-12 overflow-hidden">
               <div
-                class="card mt-5 box-shadow-active  justify-content-center text-center"
+                class="card mt-5 box-shadow-active w-100  justify-content-center text-center"
               >
                 <div class="header">
                   <h4 class="param-lg font-weight-bolder ">Did you know?</h4>
@@ -124,9 +124,8 @@
                 <div class="body mt-5">
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all .5s">
-                    {{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}$</h1>
-                  <p class="param-md  tr-gray-three mb-0" v-if="slectedPays" style="transition: ease-out all .5s">
-                    {{ slectedPays }}</p>
+                    ${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}</h1>
+
                   <button
                     @click="!loading ? fund() :''"
                     :class="{'disable': loading}"
@@ -459,9 +458,9 @@ export default {
         {name: this.countTree, step: 3, placeHolder: "Enter Number"}
       ],
         payMethods: [
-          {name: "visa", icon: "cc-visa", step: 1},
+          // {name: "visa", icon: "cc-visa", step: 1},
           {name: "bitcoin", icon: "ethereum", step: 2},
-          {name: "stripe", icon: "cc-stripe", step: 3}
+          // {name: "stripe", icon: "cc-stripe", step: 3}
         ],
 
       activeIndex: 0,

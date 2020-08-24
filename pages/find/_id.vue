@@ -19,16 +19,20 @@
               <p class="tr-green param-xl" v-if="tree.fundedDate > 0" >
                 Tree funded!
               </p>
-              <div class="mt-5">
-                <nuxt-link :to="localePath('find')">
+              <div class="mt-5" >
+                <nuxt-link v-if=""  :to="localePath('find')">
                   <button class="btn-gray ">Another Search</button>
 
                 </nuxt-link>
               </div>
 
+
             </div>
 
           </div>
+        </div>
+        <div class="col-12 mt-3 " v-if="tree">
+
         </div>
 
       </div>
@@ -47,13 +51,14 @@
     },
     mounted() {
       this.findTree();
+      console.log(this.$router.history,'history')
     },
     methods: {
       async findTree() {
 
         let self = this;
         self.loading = true
-        
+
         await this.$axios.$get(`${process.env.apiUrl}/trees/${this.$route.params.id}`)
           .then(function (response) {
             self.loading = false

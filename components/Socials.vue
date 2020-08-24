@@ -1,48 +1,9 @@
 <template>
-  <b-nav class="justify-content-end  social">
-    <b-nav-item
-      href="https://www.instagram.com/treejer"
-      rel="noopener noreferrer"
-      target="_blank">
-
-      <Fab i="instagram"/>
-    </b-nav-item>
-    <b-nav-item
-      href="http://t.me/treejer"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <Fab i="telegram"/>
-    </b-nav-item>
-    <b-nav-item
-      href="https://twitter.com/Treejertalks"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <Fab i="twitter"/>
-    </b-nav-item>
-    <b-nav-item
-      href="https://www.linkedin.com/company/treejer"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <Fab i="linkedin-in"/>
-    </b-nav-item>
-    <b-nav-item
-      href="https://www.facebook.com/treejertalks"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <Fab i="facebook"/>
-    </b-nav-item>
-<!--    <b-nav-item-->
-<!--      href="https://github.com/treejer"-->
-<!--      rel="noopener noreferrer"-->
-<!--      target="_blank"-->
-<!--    >-->
-<!--&lt;!&ndash;      <span class="w-100 h-100" v-html="github"></span>&ndash;&gt;-->
-<!--    </b-nav-item>-->
-  </b-nav>
+  <ul class="d-flex justify-content-center socials list-style-none justify-content-between align-items-center">
+    <li v-for="(item,index) in socials" :key="index" class="pointer-event" @click.prevent="goToSocials(item.href,'_blank')">
+      <img :src="item.src" :alt="item.name" >
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -52,14 +13,26 @@
     name: "Socials",
     data(){
       return{
-        github:`<svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.53006 4.23001C2.17087 3.12154 3.0916 2.20081 4.20007 1.56C5.32111 0.915097 6.59174 0.575684 7.88504 0.575684C9.17834 0.575684 10.449 0.915097 11.57 1.56C12.6785 2.20081 13.5993 3.12154 14.2401 4.23001C14.7863 5.17158 15.1166 6.22271 15.2071 7.3075C15.2975 8.39228 15.146 9.48361 14.7632 10.5027C14.3805 11.5217 13.7761 12.443 12.9939 13.2C12.2117 13.957 11.2711 14.5308 10.2401 14.88C10.1757 14.8988 10.1078 14.9023 10.0418 14.8901C9.97579 14.878 9.91356 14.8505 9.86007 14.81C9.82004 14.7734 9.78853 14.7285 9.76779 14.6783C9.74705 14.6282 9.7376 14.5742 9.74008 14.52C9.74008 14.52 9.74008 14.33 9.74008 14C9.74008 13.67 9.74008 13.39 9.74008 13.15H9.96005C10.1363 13.1666 10.3138 13.1666 10.4901 13.15C10.7116 13.145 10.9324 13.1216 11.1501 13.08C11.3836 13.0361 11.6031 12.9366 11.7901 12.79C11.987 12.6408 12.1336 12.4349 12.21 12.2L12.3101 11.98C12.39 11.8052 12.4907 11.6407 12.6101 11.49C12.7187 11.3376 12.8629 11.214 13.0301 11.13H13.1001L13.2201 11.02C13.2564 10.9814 13.2868 10.9376 13.3101 10.89C13.3101 10.89 13.3101 10.81 13.3101 10.78C13.218 10.7586 13.1222 10.7586 13.0301 10.78H12.8401C12.6703 10.8264 12.5109 10.9045 12.3701 11.01C12.1814 11.1404 12.0243 11.3112 11.9101 11.51C11.784 11.7496 11.6022 11.9553 11.38 12.11C11.1958 12.2415 10.9763 12.3147 10.75 12.32C10.5705 12.3379 10.3896 12.3379 10.21 12.32C10.0617 12.2906 9.91731 12.2436 9.78006 12.18C9.75156 11.8002 9.58428 11.4443 9.31009 11.18C9.64731 11.1493 9.98165 11.0924 10.3101 11.01C10.6244 10.9247 10.9267 10.8004 11.21 10.64C11.5062 10.4792 11.7678 10.2618 11.9801 10C12.2063 9.69996 12.3758 9.36104 12.4801 9C12.6189 8.53624 12.6864 8.05406 12.6801 7.57001C12.6912 7.20303 12.6298 6.83746 12.4994 6.49426C12.369 6.15106 12.1721 5.83697 11.9201 5.57001C12.0427 5.2489 12.0998 4.90643 12.0877 4.5629C12.0757 4.21936 11.9949 3.88175 11.8501 3.57001C11.5699 3.52544 11.2827 3.57096 11.0301 3.70001C10.7543 3.80266 10.4869 3.92635 10.2301 4.07001L9.82003 4.33002C8.61913 3.99872 7.35096 3.99872 6.15005 4.33002L5.79007 4.10001C5.51071 3.93244 5.21604 3.79179 4.91006 3.67999C4.67162 3.56237 4.40188 3.52385 4.14004 3.57001C3.9925 3.88074 3.90938 4.21812 3.89563 4.56183C3.88188 4.90554 3.93781 5.24848 4.06006 5.57001C3.80801 5.83697 3.61113 6.15106 3.48071 6.49426C3.35029 6.83746 3.2889 7.20303 3.30005 7.57001C3.29368 8.05735 3.36112 8.54285 3.50006 9.01001C3.60563 9.37246 3.77866 9.71173 4.01007 10.01C4.22408 10.27 4.48533 10.4871 4.78006 10.65C5.06348 10.8103 5.36581 10.9346 5.68005 11.02C6.00847 11.1025 6.34281 11.1594 6.68005 11.19C6.50166 11.3659 6.36433 11.5789 6.27789 11.8141C6.19145 12.0492 6.15805 12.3005 6.18005 12.55V14.55C6.18186 14.6041 6.17209 14.658 6.15139 14.708C6.1307 14.758 6.09956 14.803 6.06006 14.84C6.00735 14.882 5.94509 14.9104 5.87881 14.9226C5.81253 14.9348 5.74427 14.9305 5.68005 14.91C4.65015 14.5593 3.7108 13.9847 2.92962 13.2274C2.14844 12.4702 1.54486 11.5491 1.16232 10.5306C0.779784 9.51214 0.62782 8.4215 0.717343 7.33722C0.806867 6.25294 1.13565 5.20198 1.68005 4.26001L1.53006 4.23001Z" fill="#757575"/>
-</svg>
-`
+        socials: [
+          {src: require('~/assets/images/landing-footer/instagram.svg'), name: 'instagram',href:'https://www.instagram.com/treejer'},
+          {src: require('~/assets/images/landing-footer/twitter.svg'), name: 'twitter',href:'https://twitter.com/Treejertalks'},
+          {src: require('~/assets/images/landing-footer/linkdin.svg'), name: 'linkdin',href:'https://www.linkedin.com/company/treejer'},
+          {src: require('~/assets/images/landing-footer/telegram.svg'), name: 'telegram',href:'https://discuss.treejer.com/'},
+          {src: require('~/assets/images/landing-footer/facebook.svg'), name: 'facebook',href:'https://www.facebook.com/treejertalks'},
+          {src: require('~/assets/images/landing-footer/medium.svg'), name: 'medium',href:'https://discuss.treejer.com/'},
+          {src: require('~/assets/images/landing-footer/git.svg'), name: 'git',href:'https://github.com/treejer'},
+        ]
       }
     },
     components: {
       Fab
+    },
+    methods:{
+      goToSocials(item,target){
+        if(process.client){
+          window.open(item,target)
+        }
+      }
     }
   }
 </script>

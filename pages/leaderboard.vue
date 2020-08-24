@@ -16,10 +16,11 @@
             </div>
             <div class="col-12 mt-2">
               <ul class="nav tr-nav ">
+<!--                @click="activeMenu(item, index)"-->
                 <li v-for="(item  ,index) in stepsLeaderBoard"
                     class="pointer-event tr-gray-three"
-                    @click="activeMenu(item, index)"
-                    :class="{ active: activeIndex === index }"
+                                :class="{ active: activeIndex === index }"
+
                     :name="item.name"
                     :key="item.id">{{item.name}}
 
@@ -28,10 +29,10 @@
               </ul>
             </div>
           </div>
-          <div class="row tr-table mt-5">
+          <div class="row tr-table mt-5 mb-4">
             <div class="col-12">
 
-              <table class="table tr-table">
+              <table class="table tr-table" style="overflow-x: scroll">
                 <thead>
                 <tr>
                   <th scope="col">RANK</th>
@@ -41,13 +42,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-if="leaderBoards"  v-for="(item ,index) in leaderBoards">
-                  <td v-if="index ===0" scope="row">🥇</td>
-                  <td v-if="index ===1" scope="row">🥈</td>
-                  <td v-if="index ===2" scope="row">🥉</td>
-                  <td v-if="index >2"  scope="row"> {{index+1}}</td>
+                <tr v-if="leaderBoards" v-for="(item ,index) in leaderBoards">
+                  <td v-if="index ===0" scope="row" class="d-flex justify-content-between"><span class="rank">🥇</span> <span style="margin:  0 5px"><img
+                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    alt="item.owner"></span>
+                  </td>
+                  <td class="d-flex justify-content-between" v-if="index ===1" scope="row"><span class="rank">🥈</span> <span style="margin:  0 5px"><img
+                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    alt="item.owner"></span>
+                  </td>
+                  <td class="d-flex justify-content-between" v-if="index ===2" scope="row"><span class="rank">🥉</span> <span style="margin:  0 5px"><img
+                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    alt="item.owner"></span>
+                  </td>
+                  <td class="d-flex justify-content-between" v-if="index >2" scope="row">
+                    <span class="rank">{{ index + 1 }}</span>
+                    <span style="margin:  0 5px"><img style="width:25px" class="rounded-circle"
+                                                      :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                                                      alt="item.owner"></span>
+                  </td>
 
-                  <td id="accounting-card">{{ item.owner }}</td>
+                  <td id="accounting-card">{{ item.owner.slice(0, 25) }}</td>
                   <td>{{ item.total_tree }}</td>
                   <td @click="goToUserDashboard(item.owner)" class="pointer-event">
                     <a href="#" class="pointer-event tr-green"></a>
@@ -94,7 +109,8 @@ export default {
     data() {
       return {
         activeIndex: 0,
-        leaderBoards:null,
+        id: null,
+        leaderBoards: null,
         stepsLeaderBoard: [
           {name: "Top Forests", icon: "tree", href: "/forest"},
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
@@ -111,7 +127,7 @@ export default {
     },
     methods: {
       addTen() {
-        this.perPage + 10
+        this.perPage += 10
       },
       activeMenu(item, index) {
 
