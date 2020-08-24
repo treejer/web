@@ -22,7 +22,7 @@
           </div>
           <div class="row treejer-desc">
             <div class="col-lg-3  col-md-6 col-12 border-right ">
-              <p>FOREST SIZE</p>
+              <p class="tr-gray-two">FOREST SIZE</p>
               <p class="d-flex justify-content-start  align-items-center">
                 <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
 
@@ -137,18 +137,16 @@
           </div>
           <div class="row forest-status position-relative">
             <div class="col-12 mt-5">
-              <p class="param-18 tr-gray-one Montserrat-Medium">Forest Status</p>
+              <p class="param-18 tr-gray-three Montserrat-Medium">Forest Status</p>
 
             </div>
-            <!-- <div class="col-12 mb-5 pb-4">
+             <div class="col-12 mb-3" v-if="!$cookies.get('account')">
               <span v-for="(item,index) in test" :key="item.id">
                   <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
 
               </span>
-            </div> -->
-
-
-            <div class="col-12 mb-1 pb-1" >
+            </div>
+            <div class="col-12 mb-1 pb-1" v-if="$cookies.get('account')" >
               <span class="" v-for="(item,index) in ownerTreesData " :id="item.tree_id" :key="index">
                 <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id" >
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
@@ -162,7 +160,10 @@
           </div>
 
           <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
-            <p class="param-18 tr-gray-one Montserrat-Medium">Forest on the Map</p>
+            <div class="col-12">
+              <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
+
+            </div>
             <!-- <vue-datamaps
               :geographyConfig="geographyConfig"
               :width="'100%'"
@@ -196,7 +197,7 @@
       </GMapMarker>
     </GMap>
 
-    <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length == 0"
+    <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
       ref="gMap"
       :cluster="{options: {styles: clusterStyle}}"
       :center="{lat: 24.06448, lng: 81.30946}"
@@ -212,13 +213,14 @@
         <div class="col-lg-3 col-12  justify-content-center">
           <div class="box-right ">
             <div class="avatar-card border-0 text-center justify-content-center">
-              <div class="card-img position-relative"><img v-if="$cookies.get('account')"
-                                                           :src="$cookies.get('account') !== null ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :'loading'"
+              <div class="card-img position-relative"><img
+                                                           :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :avatar"
                                                            alt="username"
                                                            class="avatar-pic img-fluid"/>
                 <!--              <span class="position-absolute">+</span>-->
+
               </div>
-              <p class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') }}</p>
+              <p class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
               <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
               <div class="row  tokens">
                 <div class="col-md-6 p-0">
@@ -254,16 +256,16 @@
                 </nuxt-link>
               </div>
               <div class="gift-tree">
-                <nuxt-link class="position-relative" to="/forest/giftTree">
-                  <button class="btn-lg">GIFT
+<!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
+                  <button class="btn-lg disabled"  >GIFT
                     A TREE
                   </button>
-                </nuxt-link>
+<!--                </nuxt-link>-->
               </div>
-              <div class="redeem-trees">
-                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">
-                <p>Redeem Trees</p>
-              </div>
+<!--              <div class="redeem-trees">-->
+<!--                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">-->
+<!--                <p>Redeem Trees</p>-->
+<!--              </div>-->
             </div>
           </div>
 
@@ -294,6 +296,15 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
+      test:[
+        {},{},{},{},{},{},{},{},{},{},
+        {},{},{},{},{},{},{},{},{},{},
+        {},{},{},{},{},{},{},{},{},{},
+        {},{},{},{},{},{},{},{},{},{},
+        {},{},{},{},{},{},{},{},{},{},
+
+      ],
+      avatar:require('~/assets/images/myforest/avatar.png'),
 
       steps: [
         {active: true, step: 'step 1', text: 'Connect your wallet'},
@@ -345,6 +356,7 @@ export default {
             "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
           width: 56,
           height: 56,
+          borderRadius:16,
           textColor: "#fff"
         }
       ],
@@ -569,11 +581,12 @@ export default {
 
   },
   mounted() {
-
-      this.getEthBalance()
-      this.getBalanceOfO1()
-      this.calculateMintableO1()
-      this.getOwnerTreesData()
+   if( this.$cookies.get('account')){
+     this.getEthBalance()
+     this.getBalanceOfO1()
+     this.calculateMintableO1()
+     this.getOwnerTreesData()
+   }
   },
   methods: {
     async goToFindTree() {

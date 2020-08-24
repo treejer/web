@@ -20,6 +20,7 @@ export const actions = {
   getEthBalance() {
     return web3.eth.getBalance(account)
       .then((ethBalance) => web3.utils.fromWei(ethBalance));
+    debugger
   },
   async fund(context, params) {
     const fundMethod = Fund.abi.find(method => {
