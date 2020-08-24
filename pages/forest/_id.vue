@@ -14,7 +14,7 @@
             <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
               <div class="form-group">
                 <label>
-                  <Fas i="search" class="pointer-event" @click="goToFindTree"/>
+                  <img src="../../assets/images/search.svg" alt="search" class="pointer-event" @click="goToFindTree">
                   <input class="form-control-lg" v-model="treeID" placeholder="Enter Tree ID" @keyup.enter="goToFindTree()">
                 </label>
               </div>
@@ -593,6 +593,7 @@ export default {
         this.loading = true
         let self = this
 
+      if(this.treeID){
         await this.$axios.$get(`${process.env.apiUrl}/trees/${self.treeID}`)
           .then(function (response) {
             self.loading = false
@@ -615,6 +616,16 @@ export default {
 
             // handle error
           });
+      }else {
+        self.$bvToast.toast("Tree Not found!", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+      }
+
+
       },
 
     comunity() {
@@ -840,7 +851,7 @@ export default {
           font-size: 14px;
           max-width: 176px;
         }
-        svg {
+        svg,img {
           position: absolute;
           z-index: +999;
           top: 12px;
