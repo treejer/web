@@ -136,7 +136,7 @@
             </div>
           </div>
           <div class="row forest-status position-relative">
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-5 p-0">
               <p class="param-18 tr-gray-three Montserrat-Medium">Forest Status</p>
 
             </div>
@@ -160,7 +160,7 @@
           </div>
 
           <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
-            <div class="col-12">
+            <div class="col-12 p-0">
               <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
 
             </div>
