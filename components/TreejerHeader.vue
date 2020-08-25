@@ -60,20 +60,20 @@
 
 <script>
 
-  import Metamask from "../components/Metamask";
-  import Wallets from "../components/Wallets";
+import Metamask from "../components/Metamask";
+import Wallets from "../components/Wallets";
 
-  export default {
-    name: "TreejerHeader",
-    components: {
-      Wallets,
-      Metamask,
-    },
-    data() {
-      return {
-        wallets: [
-          {name: "Metamask", step: 1},
-          {name: "Wallet Connect", step: 2},
+export default {
+  name: "TreejerHeader",
+  components: {
+    Wallets,
+    Metamask,
+  },
+  data() {
+    return {
+      wallets: [
+        {name: "Metamask", step: 1},
+        {name: "Wallet Connect", step: 2},
           {name: "Trezor", step: 3},
           {name: "Ledger Nano", step: 4},
           {name: "Coinbase Wallet", step: 5}
@@ -118,15 +118,18 @@
         })
       },
       async accountChange() {
-          let self =this
+        if (process.client) {
+          let self = this
           if (typeof window.ethereum !== 'undefined') {
             await window.ethereum.on('accountsChanged', function (accounts) {
               // Time to reload your interface with accounts[0]!
-              self.$store.commit('SET_USER',accounts[0])
-              self.$cookies.set('account',accounts[0])
+              self.$store.commit('SET_USER', accounts[0])
+              self.$cookies.set('account', accounts[0])
               self.$forceUpdate()
               self.$router.go(0)
             });
+          }
+
         }
       },
       activeMenu(item, index) {

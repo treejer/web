@@ -132,8 +132,7 @@ export default {
       this.$bvModal.show('five')
     },
     async accountChange() {
-
-
+      if(process.client){
         let self =this
         if (typeof window.ethereum !== 'undefined') {
           await window.ethereum.on('accountsChanged', function (accounts) {
@@ -145,7 +144,11 @@ export default {
             self.$router.push('/')
           });
 
+        }
       }
+
+
+
 
 
     },
