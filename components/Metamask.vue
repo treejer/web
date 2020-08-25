@@ -102,9 +102,9 @@ export default {
       this.$bvModal.show('seven')
 
       console.log( 'removeAccount,')
-      // this.$store.dispatch("logout").then(() => {
-      //   this.$router.push('/')
-      // });
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push('/')
+      });
 
     },
      async copyClipboard(e) {
