@@ -2,7 +2,7 @@
   <b-navbar-nav class="metamask">
     <keep-alive>
 
-    </keep-alive>
+
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto"
                 @click.prevent="showModal()"
@@ -67,7 +67,8 @@
           </button>
         </li>
       </ul>
-    </b-modal>    <!-- Using 'button-content' slot -->
+    </b-modal>
+    </keep-alive><!-- Using 'button-content' slot -->
 
   </b-navbar-nav>
 </template>
