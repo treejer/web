@@ -199,8 +199,9 @@
   color: white;
 
 }
-#five{
+#five,#six,#seven{
   top: 5%;
+  font-family: Montserrat-Regular!important;
   border: none;
   overflow: auto;
   .modal-body{
@@ -229,6 +230,19 @@
     text-align: center;
     justify-content: center;
     opacity: 1;
+  }
+  .avatar-card{
+    background-color: #EEEEEE;
+    padding: 5px 20px 5px 15px;
+    border: 2px solid #FFFFFF;
+    border-radius: 25px;
+    border-right: 0;
+
+    z-index: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 110px;
   }
 }
 

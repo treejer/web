@@ -54,12 +54,12 @@
       <Wallets />
     </b-modal>
 
+
   </div>
 </template>
 
 <script>
 
-  import Loading from "./treejerLoading";
   import Metamask from "../components/Metamask";
   import Wallets from "../components/Wallets";
 
@@ -68,7 +68,6 @@
     components: {
       Wallets,
       Metamask,
-      Loading
     },
     data() {
       return {

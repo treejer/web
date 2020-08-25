@@ -133,6 +133,7 @@ export default {
      */
     modules: [
       'bootstrap-vue/nuxt',
+      'nuxt-clipboard2',
       'cookie-universal-nuxt',
       [
         '@nuxtjs/recaptcha'

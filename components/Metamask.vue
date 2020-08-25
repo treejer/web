@@ -1,5 +1,5 @@
 <template>
-  <b-navbar-nav>
+  <b-navbar-nav class="metamask">
     <keep-alive>
 
     </keep-alive>
@@ -21,7 +21,7 @@
       />
     </b-nav-form>
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
-      <div @click="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
+      <div @click.prevent="logout" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
         <span class="img"><img :src="'https://api.adorable.io/avatars/40/'+$cookies.get('account')" alt="accounting"
                                class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
@@ -35,13 +35,45 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <!-- Using 'button-content' slot -->
+    <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven">
+      <ul class="list-style-none seven" >
+        <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>
+        <li class="pointer-event mb-2   ">
+          <p
+            class="tr-gray-three param font-weight-bold d-flex justify-content-between"
+            style="border: 1px solid #BDBDBD;background: #E5E7DB;padding: 15px 25px;width: 75%;margin: auto;border-radius:7px "
+          >
+          <span class="name">      Metamask
+</span>
+            <span class="icon">
+          <img src="../assets/images/wallets/metamask.svg" alt="metamask" class="img-fluid">
+          </span>
+          </p>
+        </li>
+        <li class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative">
+
+          <span style="letter-spacing: -3px">-------------------------------------</span><span style="padding:  0 10px">Your Address</span><span style="letter-spacing: -3px">-------------------------------------</span>
+
+        </li>
+        <li class="d-flex mt-4  align-items-center justify-content-center">
+          <client-only>
+            <span id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account').slice(0,35) }}</span>
+
+          </client-only>
+        </li>
+        <li class="d-flex mt-4 justify-content-center text-center">
+          <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()" >
+            Change Wallet
+          </button>
+        </li>
+      </ul>
+    </b-modal>    <!-- Using 'button-content' slot -->
+
   </b-navbar-nav>
 </template>
 
 <script>
 import Wallets from "./Wallets";
-import metaProvider from "metamask-extension-provider";
 
 export default {
   components: {Wallets},
@@ -61,24 +93,44 @@ export default {
 
   },
   methods: {
+    changeWallet(){
+      this.$bvModal.hide('seven')
+      this.$bvModal.show('five')
+    },
+     logout() {
 
-       logout() {
-         this.$forceUpdate()
-         this.$store.dispatch("logout").then(() => {
-           this.$router.push('/')
-        });
+      this.$bvModal.show('seven')
 
-      },
+      console.log( 'removeAccount,')
+      // this.$store.dispatch("logout").then(() => {
+      //   this.$router.push('/')
+      // });
 
-      showModal() {
+    },
+     async copyClipboard(e) {
+     try {
+       await this.$copyText(e.target.innerText)
+       const successful = document.execCommand('copy');
+       this.$bvToast.toast(`Copy to clipboard!! `,{
+         variant:'success',
+         title:'token has been on your clipboard'
+       })
+     } catch (e) {
+       console.error(e);
+     }
 
-        this.$emit('showModal')
+      /* unselect the range */
+      window.getSelection().removeAllRanges()
+    },
+    showModal() {
 
-      },
-      activeMenu(item, index) {
-        if (item.name === 'Blog') {
-          window.open('https://blog.treejer.com/', '_blank')
-        } else {
+      this.$emit('showModal')
+
+    },
+    activeMenu(item, index) {
+      if (item.name === 'Blog') {
+        window.open('https://blog.treejer.com/', '_blank')
+      } else {
           this.activeIndex = index;
         }
       },
@@ -87,4 +139,8 @@ export default {
   };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.metamask{
+
+}
+</style>

@@ -26,7 +26,8 @@
       <button class="btn-gray param-sm text-white" style="margin:  0 15px;background: #424242">Learn more</button>
     </li>
     <li class="param-sm justify-content-center mt-4 terms text-center font-weight-bold">
-      By connecting your wallet you agree to our <span class="tr-green">Terms of Service, Privacy</span> and <span class="tr-green">Cookie Policy.</span>
+      By connecting your wallet you agree to our <span class="tr-green">Terms of Service, Privacy</span> and <span
+      class="tr-green">Cookie Policy.</span>
     </li>
     <Loading
       :screenX="this.screenX"
@@ -34,6 +35,29 @@
       :trLoading="this.loading"
 
     />
+    <b-modal hide-footer centered id="six">
+      <ul class="list-style-none six">
+        <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
+        <li class="pointer-event mb-2   ">
+          <p
+            class="tr-gray-three param font-weight-bold"
+          >
+        <span class="name">      Metamask
+</span>
+            <span class="icon">
+          <img src="../assets/images/wallets/metamask.svg" alt="metamask" class="img-fluid">
+        </span>
+          </p>
+        </li>
+        <li class="text-center m-auto pt-5 d-flex justify-content-center">
+          <pacman-loader></pacman-loader>
+
+        </li>
+      </ul>
+
+
+    </b-modal>
+
     <b-modal hide-footer size="lg" v-if="$store.state.trezorPopup" id="trezorPopup" title=" ">
       <span v-html="$store.state.trezorPopup"></span>
     </b-modal>
@@ -88,6 +112,7 @@
       </script>
     </b-modal>
 
+
   </ul>
 
 </template>
@@ -95,13 +120,14 @@
 <script>
 import Loading from '../components/treejerLoading'
 import {Ledger} from "../plugins/ledger";
-import metaProvider from 'metamask-extension-provider'
+import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 
 export default {
 
   name: "Wallets",
   components: {
     Loading,
+    PacmanLoader
 
   },
   data() {
@@ -150,6 +176,8 @@ export default {
         this.loading = false
       },
       log() {
+        this.$bvModal.show('six');
+        // this.$bvModal.hide('five');
         if (typeof window.ethereum !== 'undefined') {
           this.getAccount();
         } else {
@@ -165,7 +193,11 @@ export default {
         })
       },
       async getAccount() {
+
+
+        console.log(await ethereum, 'sefefsfe')
         const accounts = await ethereum.enable();
+        console.log(ethereum, 'ethereum')
         const account = accounts[0];
         this.account = account.slice(0, 10);
         this.login(account)
@@ -176,11 +208,14 @@ export default {
         this.$store.dispatch("login", {account})
           .then(() => {
             self.$cookies.set('account', account)
-            self.$bvModal.hide('five')
             const id = self.$cookies.get('account')
-            self.$router.push({path: `/forest/${id}`});
+            self.$bvModal.hide('six')
+            self.$bvModal.hide('five')
+            // self.$router.push({path: `/forest/${id}`});
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err))
+          .then(() =>{})
+
       },
 
     },
@@ -273,6 +308,9 @@ export default {
           }
         }
       };
+      this.$root.$on('bv::modal::show', (bvEvent, modalId) => {
+        console.log('Modal is about to be shown', bvEvent, modalId)
+      })
 
     }
   }
@@ -296,12 +334,25 @@ export default {
     }
 
     p.active {
-      width: 70%;      border-radius: 6px;
+      width: 70%;
+      border-radius: 6px;
       border: solid 1px #bdbdbd;
       background-color: #e5e7db;
       padding: 10px 15px;
       margin: 0 auto;
       transition: 0.5s ease-all;
     }
+
+  }
+
+  .six .pointer-event p {
+    margin: auto;
+    width: 70%;
+    border: solid 1px #bdbdbd;
+    display: flex;
+    background-color: #e5e7db;
+    padding: 15px 25px;
+    border-radius: 6px;
+
   }
 </style>
