@@ -118,30 +118,15 @@
         })
       },
       async accountChange() {
-
-        if(process.browser){
           let self =this
           if (typeof window.ethereum !== 'undefined') {
             await window.ethereum.on('accountsChanged', function (accounts) {
               // Time to reload your interface with accounts[0]!
               self.$store.commit('SET_USER',accounts[0])
               self.$cookies.set('account',accounts[0])
-
-              self.$forceUpdate()
-              self.$router.go()
-
-
-
+              self.$router.go(0)
             });
-
-            await window.ethereum.on('logOut', (accounts) =>{
-            })
-          }else{
-
-          }
         }
-
-
       },
       activeMenu(item, index) {
         if (item.name === 'Blog') {

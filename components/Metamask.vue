@@ -98,7 +98,7 @@ export default {
       this.$bvModal.show('five')
     },
      logout() {
-
+      let self =this
        this.$store.dispatch("logout").then(() => {
        });
       this.$bvModal.show('seven')
