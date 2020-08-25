@@ -103,7 +103,7 @@ export default {
 
       console.log( 'removeAccount,')
       this.$store.dispatch("logout").then(() => {
-        this.$router.push('/')
+        
       });
 
     },
