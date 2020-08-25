@@ -193,13 +193,9 @@ export default {
         })
       },
       async getAccount() {
-
-
-        console.log(await ethereum, 'sefefsfe')
         const accounts = await ethereum.enable();
-        console.log(ethereum, 'ethereum')
         const account = accounts[0];
-        this.account = account.slice(0, 10);
+        this.account = account;
         this.login(account)
       },
 

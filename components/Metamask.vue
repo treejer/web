@@ -18,7 +18,7 @@
       />
     </b-nav-form>
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
-      <div @click.prevent="logout" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
+      <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
         <span class="img"><img :src="'https://api.adorable.io/avatars/40/'+$cookies.get('account')" alt="accounting"
                                class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
@@ -53,8 +53,10 @@
 
         </li>
         <li class="d-flex mt-4  align-items-center justify-content-center">
-            <span v-if="$cookies.get('account')" id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account').slice(0,35) }}</span>
+          <client-only>
+            <span id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
 
+          </client-only>
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()" >
@@ -62,7 +64,8 @@
           </button>
         </li>
       </ul>
-    </b-modal>
+    </b-modal>    <!-- Using 'button-content' slot -->
+
   </b-navbar-nav>
 </template>
 
@@ -88,15 +91,17 @@ export default {
   },
   methods: {
     changeWallet(){
+      this.$store.dispatch("logout").then(() => {
+      });
+
       this.$bvModal.hide('seven')
       this.$bvModal.show('five')
     },
      logout() {
-      let self =this
-       this.$store.dispatch("logout").then(() => {
-       });
+
       this.$bvModal.show('seven')
-       console.log( 'removeAccount,')
+
+      console.log( 'removeAccount,')
 
     },
      async copyClipboard(e) {
@@ -120,7 +125,6 @@ export default {
 
     },
     activeMenu(item, index) {
-
       if (item.name === 'Blog') {
         window.open('https://blog.treejer.com/', '_blank')
       } else {
