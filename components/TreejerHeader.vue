@@ -125,7 +125,6 @@ export default {
               // Time to reload your interface with accounts[0]!
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
-              self.$forceUpdate()
               self.$router.go(0)
             });
           }

@@ -9,8 +9,7 @@
         :key="index"
         :name="item.name"
       >
-        <span class="name">        {{ item.name }}
-</span>
+        <span class="name">{{ item.name }}</span>
         <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
