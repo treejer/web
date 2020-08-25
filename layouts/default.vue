@@ -45,16 +45,6 @@
     }
   },
     created() {
-      if(process.client){
-        if (typeof window.ethereum !== 'undefined') {
-          this.hasMetaMask =true
-          this.$store.commit('SET_METAMASK',this.hasMetaMask)
-        } else {
-          this.hasMetaMask =false
-          this.$store.commit('SET_METAMASK',this.hasMetaMask)
-        }
-
-      }
 
     },
 
