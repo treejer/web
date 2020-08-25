@@ -1,8 +1,5 @@
 <template>
   <b-navbar-nav class="metamask">
-    <keep-alive>
-
-
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto"
                 @click.prevent="showModal()"
@@ -56,10 +53,8 @@
 
         </li>
         <li class="d-flex mt-4  align-items-center justify-content-center">
-          <client-only>
-            <span id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account').slice(0,35) }}</span>
+            <span v-if="$cookies.get('account')" id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account').slice(0,35) }}</span>
 
-          </client-only>
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()" >
@@ -68,8 +63,6 @@
         </li>
       </ul>
     </b-modal>
-    </keep-alive><!-- Using 'button-content' slot -->
-
   </b-navbar-nav>
 </template>
 
@@ -127,6 +120,7 @@ export default {
 
     },
     activeMenu(item, index) {
+
       if (item.name === 'Blog') {
         window.open('https://blog.treejer.com/', '_blank')
       } else {

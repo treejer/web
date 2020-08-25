@@ -630,7 +630,6 @@ export default {
      goToaddTree() {
         this.loading = true
         let self = this
-       debugger
 
       if(!this.$store.state.account){
         self.$bvToast.toast("you're not login", {
