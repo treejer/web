@@ -139,7 +139,7 @@ export default {
             self.$store.commit('SET_USER',accounts[0])
             self.$cookies.set('account',accounts[0])
 
-            self.$router.go(0)
+            self.$router.go()
           });
 
         }
