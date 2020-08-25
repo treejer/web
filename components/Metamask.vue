@@ -99,12 +99,10 @@ export default {
     },
      logout() {
 
+       this.$store.dispatch("logout").then(() => {
+       });
       this.$bvModal.show('seven')
-
-      console.log( 'removeAccount,')
-      this.$store.dispatch("logout").then(() => {
-        
-      });
+       console.log( 'removeAccount,')
 
     },
      async copyClipboard(e) {
