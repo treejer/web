@@ -34,16 +34,16 @@
       class="tr-green">Cookie Policy.</span>
     </li>
     <b-modal hide-footer centered id="six">
-      <ul class="list-style-none six" v-if="$store.state.connectingWallet">
+      <ul class="list-style-none six" v-if="$cookies.get('walletName')">
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold">
-            <span class="name text-capitalize">      {{ $store.state.connectingWallet }}</span>
+            <span class="name text-capitalize">      {{ $cookies.get('walletName') }}</span>
             <span class="icon">
-          <img v-if="$store.state.connectingWallet"
-               :src="require(`~/assets/images/wallets/${$store.state.connectingWallet}.svg`)"
-               :alt="$store.state.connectingWallet" class="img-fluid" />
+          <img v-if="$cookies.get('walletName')"
+               :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
+               :alt="$cookies.get('walletName')" class="img-fluid" />
         </span>
           </p>
         </li>
@@ -129,7 +129,7 @@ export default {
                   console.log(err)
 
                 })
-              
+
 
 
               // this.$bvModal.hide('five')
@@ -155,6 +155,8 @@ export default {
       },
       log() {
         this.$store.commit('SET_WALLET','metamask')
+        this.$cookies.set('walletName', 'metamask')
+
         this.$bvModal.show('six');
         if (typeof window.ethereum !== 'undefined') {
           this.getAccount();
@@ -183,8 +185,7 @@ export default {
 
         this.$store.dispatch("login", {account})
           .then(() => {
-            self.$cookies.set('account', account)
-            const id = self.$cookies.get('account')
+
             self.$bvModal.hide('six')
             self.$bvModal.hide('five')
             // self.$router.push({path: `/forest/${id}`});

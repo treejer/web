@@ -77,6 +77,8 @@ export const actions = {
     console.log(walletAccount, 'dwdad')
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
+    this.$cookies.set('walletName', 'walletconnect')
+
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.ProjectSecret,
     });
@@ -87,6 +89,8 @@ export const actions = {
   },
   async portis({commit},{loading}) {
     commit('SET_WALLET','portis')
+    this.$cookies.set('walletName', 'portis')
+
 
     loading = true
     console.log(new Portis(process.env.fortmatic, 'ropsten'), 'dawdawdadw')
@@ -97,6 +101,7 @@ export const actions = {
       await web3.eth.getAccounts((error, accounts) => {
         console.log(accounts);
       });
+
     }
     loading =false
     commit('SET_WALLET',null)
@@ -107,6 +112,9 @@ export const actions = {
   async fortmatic({commit}) {
     if(process.client){
       commit('SET_WALLET','fortmatic')
+      this.$cookies.set('walletName', 'fortmatic')
+
+
 
       const fm =await new Fortmatic('pk_live_BD818222A6E0AE2D');
       commit('SET_FORTMATIC',fm)

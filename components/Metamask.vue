@@ -33,19 +33,19 @@
       />
     </b-nav-form>
     <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven">
-      <ul v-if="$store.state.connectingWallet " class="list-style-none seven" >
+      <ul v-if="$cookies.get('walletName') " class="list-style-none seven" >
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold d-flex justify-content-between"
             style="border: 1px solid #BDBDBD;background: #E5E7DB;padding: 15px 25px;width: 75%;margin: auto;border-radius:7px "
           >
-          <span class="name">      {{ $store.state.connectingWallet }}
+          <span class="name">      {{ $cookies.get('walletName') }}
             </span>
             <span class="icon">
-            <img v-if="$store.state.connectingWallet"
-                 :src="require(`~/assets/images/wallets/${$store.state.connectingWallet}.svg`)"
-                 :alt="$store.state.connectingWallet" class="img-fluid"/>
+            <img v-if="$cookies.get('walletName')"
+                 :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
+                 :alt="$cookies.get('walletName')" class="img-fluid"/>
             </span>
           </p>
         </li>
