@@ -124,11 +124,7 @@ export default {
 
             if (process.client) {
               this.$store.dispatch('fortmatic')
-                .then(()=>{})
-                .catch(err => {
-                  console.log(err)
 
-                })
 
 
 
@@ -140,7 +136,13 @@ export default {
             this.$bvModal.show('six')
 
             this.selfLoading = true
-            this.$store.dispatch('portis', {loading: this.selfLoading}).then(()=>self.$bvModal.hide('six')).catch(err => {
+            this.$store.dispatch('portis', {loading: this.selfLoading})
+              .then(()=> {
+                self.$bvModal.hide('six')
+                self.$bvModal.hide('five')
+
+              })
+              .catch(err => {
               console.log(err)
               self.$bvModal.hide('six')
               self.$bvModal.hide('five')

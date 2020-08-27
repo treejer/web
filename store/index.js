@@ -108,20 +108,24 @@ export const actions = {
   },
   async fortmatic({commit}) {
     if(process.client){
+      let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
-      const fm =new Fortmatic(process.env.FORTMATIC);
+      const fm =await new Fortmatic(process.env.FORTMATIC);
+      debugger
       commit('SET_FORTMATIC',fm)
-      console.log(fm,'fm')
-      web3 =await new Web3(fm.getProvider());
-      ethereum.autoRefreshOnNetworkChange = false;
 
+      console.log(fm,'fm')
+      const web3 =await new Web3(fm.getProvider());
       web3.currentProvider.enable();
       let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
+
           let address = accounts[0];
-          console.log(address,'dawdawdadwadadwd');
-        });
+        console.log(address,'dawdawdadwadadwd');
+        self.$cookies.set('account',address)
+        commit('SET_USER',address)
+      });
         // Get user balance (includes ERC20 tokens as well)
         let balances = await fm.user.getBalances();
         console.log(balances);
