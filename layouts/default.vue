@@ -22,33 +22,34 @@
 
 <style lang="scss"></style>
 <script>
-  import TreejerHeader from "../components/TreejerHeader";
-  import Footer from "../components/Footer";
-  import Sidebar from "../components/Sidebar";
-  import Router from "vue-router";
+import TreejerHeader from "../components/TreejerHeader";
+import Footer from "../components/Footer";
+import Sidebar from "../components/Sidebar";
+import Router from "vue-router";
 
-  export default {
-    components: {Sidebar, Footer, TreejerHeader, Router},
-    data() {
-      return {
-        account: {},
-        user: false,
-        sidebarName: false,
-        hasSideBar: false,
-        routeName: null,
-        hasMetaMask:null
-      };
-    },
+export default {
+  components: {Sidebar, Footer, TreejerHeader, Router},
+  data() {
+    return {
+      account: {},
+      user: false,
+      sidebarName: false,
+      hasSideBar: false,
+      routeName: null,
+      hasMetaMask: null
+    };
+  },
   computed: {
-     currentRouteName() {
-        return this.$route.path;
+    currentRouteName() {
+      return this.$route.path;
     }
   },
-    created() {
+  created() {
 
-    },
+  },
 
-    mounted() {
+  mounted() {
+
     const workBox = window.$workbox
     if (this.$nuxt.isOnline) {
       return null

@@ -407,7 +407,6 @@
           >
         </div>
       </div>
-      <TreejerLoading :loading="loading" />
     </div>
   </section>
 </template>
@@ -415,13 +414,11 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import TreejerLoading from "../../components/TreejerLoading";
 
 export default {
   name: "giftTree",
   layout: "checkout",
   components: {
-    TreejerLoading,
     Wallets,
     Fab
   },

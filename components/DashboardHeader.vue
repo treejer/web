@@ -58,6 +58,7 @@
 
       </keep-alive>
       <b-modal
+        centered
         hide-footer
         id="five" title=" ">
         <Wallets/>
@@ -79,7 +80,6 @@
 
 <script>
 
-import Loading from "./treejerLoading";
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
 
@@ -89,7 +89,6 @@ export default {
   components: {
     Wallets,
     Metamask,
-    Loading
   },
   data() {
     return {
@@ -138,7 +137,8 @@ export default {
           await window.ethereum.on('accountsChanged', function (accounts) {
             self.$store.commit('SET_USER',accounts[0])
             self.$cookies.set('account',accounts[0])
-            self.$router.push('/')
+            const history = self.$router.history.current.fullPath
+            self.$router.go(history)
           });
 
         }

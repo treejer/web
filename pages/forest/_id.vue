@@ -220,7 +220,7 @@
                 <!--              <span class="position-absolute">+</span>-->
 
               </div>
-              <p class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
+              <p v-coin class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
               <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
               <div class="row  tokens">
                 <div class="col-md-6 p-0">

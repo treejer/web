@@ -69,7 +69,7 @@
                         :src="'https://api.adorable.io/avatars/40/'+item.owner" :alt="item.owner">
                     </div>
                     <div class="card-title">
-                      <p class="tr-gray-two param-sm mb-1">{{item.owner.slice(0,10)}}</p>
+                      <p class="tr-gray-two param-sm mb-1" v-coin>{{item.owner}}</p>
                       <p class="tr-green mb-1">{{item.total_tree}} trees</p>
                     </div>
 
@@ -144,7 +144,7 @@
               <tbody>
                 <tr v-for="tree in trees" :key="tree.tree_id">
                   <th scope="row">{{ tree.tree_id }}</th>
-                  <td>{{ tree.owner }}</td>
+                  <td v-coin>{{ tree.owner }}</td>
                   <td v-if="tree.fundedDate !== null && tree.plantedDate !== null">
                     Funded & Planted
                   </td>
@@ -178,7 +178,6 @@
 
 <script>
   import Fab from "@/components/font-awsome/Fab";
-  import treejerLoading from "../../components/treejerLoading";
 
   export default {
     name: "findMyTree",
@@ -187,7 +186,6 @@
 
 
     components: {
-      treejerLoading,
       Fab
     },
     computed:{

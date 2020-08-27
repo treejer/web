@@ -19,7 +19,7 @@
     </b-nav-form>
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
-        <span class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
+        <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
         <span class="img"><img :src="'https://api.adorable.io/avatars/40/'+$cookies.get('account')" alt="accounting"
                                class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
                                height="42"/></span>
@@ -54,7 +54,7 @@
         </li>
         <li class="d-flex mt-4  align-items-center justify-content-center">
           <client-only>
-            <span id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
+            <span v-coin id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
 
           </client-only>
         </li>

@@ -1,12 +1,12 @@
 import WalletConnect from "walletconnect";
+import Web3 from 'web3';
 
 
-// import trezorWallet from '@cosmic-plus/trezor-wallet';
 
 
-// mainnet only
 export const state = () => ({
   token: null,
+  sliceAccount:null,
   index: null,
   account: null,
   dashboard: null,
@@ -21,19 +21,12 @@ export const state = () => ({
   hasMetaMask:false,
 
 })
-const PROJECT_ID = '6902e8b158ca43b7ac02142229ef4116';
-const PROJECT_SECRET = '92fd7a69a8394544ae0aa2a154847d70';
-const ENDPOINTS_MAINNET = 'wss://mainnet.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
-const ENDPOINTS_ROPSTEN = 'wss://ropsten.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
-const ENDPOINTS_KOVAN = 'wss://kovan.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
-const ENDPOINTS_RINKEBY = 'wss://rinkeby.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
-const ENDPOINTS_GORLI = 'wss://goerli.infura.io/ws/v3/6902e8b158ca43b7ac02142229ef4116';
+
 
 
 export const actions = {
   login({commit}, {account}) {
     this.$cookies.set('account', account)
-
     commit('SET_USER', account)
   },
   async chainId() {
@@ -71,39 +64,32 @@ export const actions = {
   },
   async walletConnect({commit}) {
     const wc = new WalletConnect();
-
-//  Connect session (triggers QR Code modal)
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
     console.log(walletAccount, 'dwdad')
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
-//  Get your desired provider
     const web3Provider = await wc.getWeb3Provider({
       infuraId: PROJECT_ID,
     });
     const channelProvider = await wc.getChannelProvider();
-    //
-    // const starkwareProvider = await wc.getStarkwareProvider({
-    //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
-    // });
-    //
-    // const threeIdProvider = await wc.getThreeIdProvider();
-
-
   },
-  async trezor({commit}) {
-    // const result = await TrezorConnect.getPublicKey(params);
-    const res = await this.$axios.$get('https://connect.trezor.io/8/popup.html')
-    await commit('SET_TREZOR_POP_UP', res)
-
-  },
+  // async portis({commit}) {
+  //     const portis = new Portis('b5fd8100-d5f5-4581-b9d4-2a1b071acbc7', 'ropsten');
+  //     const web3 = new Web3(portis.provider);
+  //     await web3.eth.getAccounts((error, accounts) => {
+  //       console.log(accounts);
+  //     });
+  // },
+  // async fortmatic({commit}) {
+  //   const fm = new Fortmatic('pk_live_BD818222A6E0AE2D');
+  //   window.web3 = new Web3(fm.getProvider());
+  // },
  async activeIndex({commit},{activeIndex}){
    await commit('SET_INDEX',activeIndex)
   },
   logout({commit}) {
     this.$cookies.remove('account');
-
     commit('SET_USER', null)
   },
   hasDashboard({commit}, {status}) {
@@ -144,6 +130,9 @@ export const mutations = {
 
 
   },
+  SLICE_ACCOUNT(state, sliceAccount){
+    state.sliceAccount = sliceAccount
+  },
   SET_INDEX(state, index) {
     state.index = index
 
@@ -164,22 +153,6 @@ export const mutations = {
   },
   SET_DASHBOARD(state, status) {
     state.dashboard = status
-
-  },
-  SET_USERS(state, users) {
-    state.users = users
-
-  },
-  SET_USER_FORM(state, form) {
-    state.form = form
-
-  },
-  SET_TREZOR_POP_UP(state, trezorPopup) {
-    state.trezorPopup = trezorPopup
-
-  },
-  SET_LEDGER(state, ledger) {
-    state.ledger = ledger
 
   },
   SET_ETH_PRICE(state, ethPrice) {

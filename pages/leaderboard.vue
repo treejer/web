@@ -62,7 +62,7 @@
                                                       alt="item.owner"></span>
                   </td>
 
-                  <td id="accounting-card">{{ item.owner.slice(0, 25) }}</td>
+                  <td v-coin id="accounting-card">{{ item.owner}}</td>
                   <td>{{ item.total_tree }}</td>
                   <td @click="goToUserDashboard(item.owner)" class="pointer-event">
                     <a href="#" class="pointer-event tr-green"></a>

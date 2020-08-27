@@ -200,12 +200,12 @@
 
 }
 #five,#six,#seven{
-  top: 5%;
   font-family: Montserrat-Regular!important;
   border: none;
   overflow: auto;
-  .modal-body{
+  .modal-body,.modal-content{
     margin-top: 30px;
+    background: #FAF8F1!important;
     ul{
       li p{
         display: flex;
@@ -237,12 +237,6 @@
     border: 2px solid #FFFFFF;
     border-radius: 25px;
     border-right: 0;
-
-    z-index: 5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 110px;
   }
 }
 
