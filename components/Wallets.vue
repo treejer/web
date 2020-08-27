@@ -156,7 +156,6 @@ export default {
       log() {
         this.$store.commit('SET_WALLET','metamask')
         this.$cookies.set('walletName', 'metamask')
-
         this.$bvModal.show('six');
         if (typeof window.ethereum !== 'undefined') {
           this.getAccount();
@@ -201,6 +200,7 @@ export default {
 
     },
     mounted() {
+    this.$store.dispatch('refreshChain')
     }
   }
 </script>
