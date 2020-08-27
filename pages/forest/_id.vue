@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative  pt-5 col-lg-10 col-12 my-forest">
+  <section ref="dashboard" class="position-relative  pt-5 col-lg-10 col-12 my-forest">
     <div class="container-fluid">
       <div class="row article justify-content-between">
         <div class="col-lg-8   col-12">
@@ -27,8 +27,8 @@
                 <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
 
                 <span>
-                  <span v-if="!loadings" >{{treeCount}}</span>
-                  <span v-if="loadings"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
+                  <span v-if="!loading" >{{treeCount || 0}}</span>
+                  <span v-if="loading"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
                 </span>
               </p>
             </div>
@@ -313,7 +313,7 @@ export default {
         {active: false, step: 'step 4', text: 'Join our community!'},
       ],
       activeIndexSteps: null,
-      loadings: false,
+      loading: false,
       search: null,
       treeCount: null,
       redeem: null,
@@ -580,8 +580,10 @@ export default {
     }
 
   },
-  mounted() {
-   if( this.$cookies.get('account')){
+
+  async mounted() {
+    const hasUser =await this.$cookies.get('account')
+    if (hasUser !== null) {
      this.getEthBalance()
      this.getBalanceOfO1()
      this.calculateMintableO1()

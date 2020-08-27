@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import cookie from 'cookie-universal-nuxt'
 
 
  const coin = {

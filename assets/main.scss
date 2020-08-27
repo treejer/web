@@ -194,20 +194,34 @@
   src: url("../assets/fonts/Montserrat-SemiBold.otf");
   font-weight: normal;
 }
-.tooltip{
+.tooltip {
   z-index: +999999999;
   color: white;
 
 }
-#five,#six,#seven{
-  font-family: Montserrat-Regular!important;
+
+#fortmatic {
+  //position: fixed;
+  //top: 0px;
+  //right: 0px;
+  //width: 100%;
+  //height: 100%;
+  //border-radius: 0px;
+  //border: none;
+  //z-index: +9992147483647;
+}
+
+#five, #six, #seven {
+  font-family: Montserrat-Regular !important;
   border: none;
   overflow: auto;
-  .modal-body,.modal-content{
+
+  .modal-body, .modal-content {
     margin-top: 30px;
-    background: #FAF8F1!important;
-    ul{
-      li p{
+    background: #FAF8F1 !important;
+
+    ul {
+      li p {
         display: flex;
         justify-content: space-between;
       }

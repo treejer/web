@@ -1,8 +1,7 @@
 import web3 from '~/plugins/web3'
 import Fund from '~/contracts/Fund'
 import web3Abi from 'web3-eth-abi'
-import Vue from 'vue'
-import { BToast } from 'bootstrap-vue'
+import {BToast} from 'bootstrap-vue'
 
 const tokenAddress = process.env.contractFundAddress // insert deployed Fund token address here
 const fund = new web3.eth.Contract(Fund.abi, tokenAddress)
@@ -18,9 +17,10 @@ export const mutations = {}
 
 export const actions = {
   getEthBalance() {
-    return web3.eth.getBalance(account)
-      .then((ethBalance) => web3.utils.fromWei(ethBalance));
-    debugger
+    return web3.eth.getBalance(account).then((ethBalance) => {
+      console.log(web3.utils.fromWei(ethBalance),'web3.utils.fromWei(ethBalance)\n')
+      web3.utils.fromWei(ethBalance)
+    });
   },
   async fund(context, params) {
     const fundMethod = Fund.abi.find(method => {

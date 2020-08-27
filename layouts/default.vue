@@ -7,6 +7,7 @@
       <div class="row">
         <nuxt/>
       </div>
+
     </div>
 
     <Footer />

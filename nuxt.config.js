@@ -1,3 +1,5 @@
+
+
 require('dotenv').config()
 
 export default {
@@ -45,6 +47,14 @@ export default {
     contractO1FactoryAddress: process.env.CONTRACT_O1FACTORY_ADDRESS,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
     apiUrl: process.env.API_URL || 'https://api.treejer.com',
+    walletConnectProjectID:process.env.WALLETCONNECT_PROJECT_ID,
+    walletConnectProjectSecret:process.env.WALLETCONNECT_PROJECT_SECRET,
+    walletConnectEndPointsMainNet:process.env.WALLETCONNECT_ENDPOINTS_MAINNET,
+    walletConnectEndPointsRopsten:process.env.WALLETCONNECT_ENDPOINTS_ROPSTEN,
+    walletConnectEndPointsKovan:process.env.WALLETCONNECT_ENDPOINTS_KOVAN,
+    walletConnectEndPointsRinkBey:process.env.WALLETCONNECT_ENDPOINTS_RINKEBY,
+    walletConnectEndPointsGorli:process.env.WALLETCONNECT_ENDPOINTS_GORLI,
+    fortmatic:process.env.FORTMATIC,
 
   },
   router: {
@@ -238,6 +248,7 @@ export default {
    */
   build: {
     vendor: ['web3'],
+
     /*
       ** You can extend webpack config here
       */

@@ -136,7 +136,6 @@ export default {
       goToUserDashboard(id) {
 
        this.$store.commit('SET_INDEX',0)
-        debugger
         this.$router.push({path: `/forest/${id}`,params:{id:id}})
       }
     }

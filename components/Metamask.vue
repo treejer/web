@@ -1,11 +1,11 @@
 <template>
-  <b-navbar-nav class="metamask">
+  <b-navbar-nav class="metamask" ref="page">
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto"
                 @click.prevent="showModal()"
       >
         <b-spinner v-if="loading" small class="mr-1"></b-spinner>
-        {{loading ? ' Loading...' : 'Connect Wallet'}}
+        {{ loading ? ' Loading...' : 'Connect Wallet' }}
 
       </b-button
       >
@@ -33,18 +33,20 @@
       />
     </b-nav-form>
     <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven">
-      <ul class="list-style-none seven" >
+      <ul v-if="$store.state.connectingWallet " class="list-style-none seven" >
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold d-flex justify-content-between"
             style="border: 1px solid #BDBDBD;background: #E5E7DB;padding: 15px 25px;width: 75%;margin: auto;border-radius:7px "
           >
-          <span class="name">      Metamask
-</span>
+          <span class="name">      {{ $store.state.connectingWallet }}
+            </span>
             <span class="icon">
-          <img src="../assets/images/wallets/metamask.svg" alt="metamask" class="img-fluid">
-          </span>
+            <img v-if="$store.state.connectingWallet"
+                 :src="require(`~/assets/images/wallets/${$store.state.connectingWallet}.svg`)"
+                 :alt="$store.state.connectingWallet" class="img-fluid"/>
+            </span>
           </p>
         </li>
         <li class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative">
@@ -54,17 +56,19 @@
         </li>
         <li class="d-flex mt-4  align-items-center justify-content-center">
           <client-only>
-            <span v-coin id="tokens" @click="copyClipboard" class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
+            <span v-coin id="tokens" @click="copyClipboard"
+                  class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
 
           </client-only>
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
-          <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()" >
+          <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()">
             Change Wallet
           </button>
         </li>
       </ul>
-    </b-modal>    <!-- Using 'button-content' slot -->
+    </b-modal>
+    <!-- Using 'button-content' slot -->
 
   </b-navbar-nav>
 </template>
@@ -90,18 +94,18 @@ export default {
 
   },
   methods: {
-    changeWallet(){
-      this.$store.dispatch("logout").then(() => {
-      });
+    changeWallet() {
+      this.$store.dispatch("logout")
+      this.$router.push(this.$router.currentRoute.fullPath)
 
       this.$bvModal.hide('seven')
       this.$bvModal.show('five')
     },
-     logout() {
+    logout() {
 
       this.$bvModal.show('seven')
 
-      console.log( 'removeAccount,')
+      console.log('removeAccount,')
 
     },
      async copyClipboard(e) {

@@ -132,7 +132,7 @@
 
                     class="btn-green-md  mt-4"
                   >
-                    <BSpinner class="mr-2" type="grow"  small   v-if="loading"></BSpinner>
+                    <BSpinner class="mr-2" type="grow"  small   v-if="loading">loading</BSpinner>
                     {{loading ?'Loading' :' NEXT' }}
                   </button>
                   <p class="pointer-event">

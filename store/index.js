@@ -1,12 +1,16 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
 
+if (process.client) {
+  var Portis = require("@portis/web3");
+  var Fortmatic = require("fortmatic");
 
+}
 
 
 export const state = () => ({
   token: null,
-  sliceAccount:null,
+  sliceAccount: null,
   index: null,
   account: null,
   dashboard: null,
@@ -19,6 +23,8 @@ export const state = () => ({
   netWorkName: null,
   leaderBoards:null,
   hasMetaMask:false,
+  fortmatic:null,
+  connectingWallet:null,
 
 })
 
@@ -26,8 +32,10 @@ export const state = () => ({
 
 export const actions = {
   login({commit}, {account}) {
+
     this.$cookies.set('account', account)
     commit('SET_USER', account)
+
   },
   async chainId() {
     const web3 = window.ethereum
@@ -42,8 +50,6 @@ export const actions = {
       switch (netId) {
         case "1":
           netName = 'mainnet';
-
-
           console.log('This is mainnet')
           break
         case "2":
@@ -62,7 +68,9 @@ export const actions = {
       commit('SET_NET_NAME', netName)
     })
   },
-  async walletConnect({commit}) {
+  async walletConnect({commit},{loading}) {
+    commit('SET_WALLET','walletconnect')
+
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
@@ -70,25 +78,66 @@ export const actions = {
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
     const web3Provider = await wc.getWeb3Provider({
-      infuraId: PROJECT_ID,
+      infuraId: process.env.ProjectSecret,
     });
     const channelProvider = await wc.getChannelProvider();
+    commit('SET_WALLET',null)
+
+
   },
-  // async portis({commit}) {
-  //     const portis = new Portis('b5fd8100-d5f5-4581-b9d4-2a1b071acbc7', 'ropsten');
-  //     const web3 = new Web3(portis.provider);
-  //     await web3.eth.getAccounts((error, accounts) => {
-  //       console.log(accounts);
-  //     });
-  // },
-  // async fortmatic({commit}) {
-  //   const fm = new Fortmatic('pk_live_BD818222A6E0AE2D');
-  //   window.web3 = new Web3(fm.getProvider());
-  // },
- async activeIndex({commit},{activeIndex}){
-   await commit('SET_INDEX',activeIndex)
+  async portis({commit},{loading}) {
+    commit('SET_WALLET','portis')
+
+    loading = true
+    console.log(new Portis(process.env.fortmatic, 'ropsten'), 'dawdawdadw')
+    console.log(process.client, 'dawdawdadw')
+    if (process.client) {
+      const portis = new Portis(process.env.fortmatic, 'ropsten');
+      const web3 =  new Web3(portis.provider);
+      await web3.eth.getAccounts((error, accounts) => {
+        console.log(accounts);
+      });
+    }
+    loading =false
+    commit('SET_WALLET',null)
+
+
+
+  },
+  async fortmatic({commit}) {
+    if(process.client){
+      commit('SET_WALLET','fortmatic')
+
+      const fm =await new Fortmatic('pk_live_BD818222A6E0AE2D');
+      commit('SET_FORTMATIC',fm)
+      console.log(fm,'fm')
+      window.web3 =await new Web3(fm.getProvider());
+      web3.currentProvider.enable();
+      let setUserInfo = async () => {
+      await  web3.eth.getAccounts((err, accounts) => {
+          if (err) throw err;
+          let address = accounts[0];
+          console.log(address);
+        });
+        // Get user balance (includes ERC20 tokens as well)
+        let balances = await fm.user.getBalances();
+        console.log(balances);
+        let ethBalance = balances.find((e) => {
+          // return e.crypto_currency == 'ETH';
+        });
+        commit('SET_WALLET',null)
+
+
+      };
+
+    }
+
+  },
+  activeIndex({commit}, {activeIndex}) {
+    commit('SET_INDEX', activeIndex)
   },
   logout({commit}) {
+    console.log(this, 'this')
     this.$cookies.remove('account');
     commit('SET_USER', null)
   },
@@ -129,6 +178,12 @@ export const mutations = {
     state.token = token
 
 
+  },
+  SET_FORTMATIC(state, fortmatic) {
+    state.fortmatic = fortmatic
+  },
+  SET_WALLET(state, connectingWallet) {
+    state.connectingWallet = connectingWallet
   },
   SLICE_ACCOUNT(state, sliceAccount){
     state.sliceAccount = sliceAccount
