@@ -40,7 +40,7 @@
             class="tr-gray-three param font-weight-bold d-flex justify-content-between"
             style="border: 1px solid #BDBDBD;background: #E5E7DB;padding: 15px 25px;width: 75%;margin: auto;border-radius:7px "
           >
-          <span class="name">      {{ $cookies.get('walletName') }}
+          <span class="name text-capitalize">      {{ $cookies.get('walletName') }}
             </span>
             <span class="icon">
             <img v-if="$cookies.get('walletName')"

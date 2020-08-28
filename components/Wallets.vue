@@ -5,12 +5,11 @@
       <client-only>
         <p
           @click.prevent="activeWallets(item, index,$event)"
-          :class="{ active: activeWallet === index }"
           class="tr-gray-three param font-weight-bold"
           :key="index"
           :name="item.name"
         >
-          <span class="name">{{ item.name }}</span>
+          <span class="name text-capitalize">{{ item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
@@ -34,16 +33,16 @@
       class="tr-green">Cookie Policy.</span>
     </li>
     <b-modal hide-footer centered id="six">
-      <ul class="list-style-none six" v-if="$cookies.get('walletName')">
+      <ul class="list-style-none six" v-if="$store.state.connectingWallet ||$cookies.get('walletName')">
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold">
-            <span class="name text-capitalize">      {{ $cookies.get('walletName') }}</span>
+            <span class="name text-capitalize">      {{ $store.state.connectingWallet ||$cookies.get('walletName') }}</span>
             <span class="icon">
-          <img v-if="$cookies.get('walletName')"
-               :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
-               :alt="$cookies.get('walletName')" class="img-fluid" />
+          <img v-if="$store.state.connectingWallet ||$cookies.get('walletName')"
+               :src="require(`~/assets/images/wallets/${$store.state.connectingWallet ||$cookies.get('walletName')}.svg`)"
+               :alt="$store.state.connectingWallet ||$cookies.get('walletName')" class="img-fluid" />
         </span>
           </p>
         </li>
@@ -206,6 +205,9 @@ export default {
 
 <style lang="scss">
   .wallets {
+    .border{
+      border: solid 1px #D04F45;
+    }
     p {
       width: 70%;
       border-radius: 6px;
