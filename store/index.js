@@ -28,7 +28,15 @@ export const state = () => ({
 
 })
 
-
+//
+// if (process.client) {
+//   if (typeof window.ethereum !== 'undefined') {
+//     const accounts = await window.ethereum.enable();
+//     account = accounts[0];
+//     console.log(window.ethereum.getAccount(),window.ethereum,'window.ethereum.getAccount(),window.ethereum')
+//     this.$store.commit('account', account)
+//     this.$cookies.set('account', account)
+//   }
 
 export const actions = {
   login({commit}, {account}) {
@@ -38,10 +46,7 @@ export const actions = {
 
   },
   async chainId() {
-    const web3 = window.ethereum
     const accounts = await web3.enable();
-    const account = accounts;
-
   },
   async networkNames({commit}) {
     const web3 = window.web3
@@ -71,7 +76,6 @@ export const actions = {
   async walletConnect({commit},{loading}) {
     commit('SET_WALLET','walletconnect')
     this.$cookies.set('walletName', 'walletconnect')
-
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
@@ -84,47 +88,51 @@ export const actions = {
     });
     const channelProvider = await wc.getChannelProvider();
     commit('SET_WALLET',null)
-
-
   },
   async portis({commit},{loading}) {
+
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
       window.ethereum.autoRefreshOnNetworkChange = false;
       let self =this
-
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
+      console.log(web3.givenProvider, ' web3.givenProvider')
 
       await web3.eth.getAccounts((error, accounts) => {
-        self.$cookies.get('account',accounts[0])
-        commit('SET_USER', accounts[0])
-        console.log(accounts,error,'accounts,error');
-        self.$router.push(self.$router.currentRoute.fullPath)
-        self.$forceUpdate()
+        if (!error) {
+          // self.$cookies.set('account', null)
+          // commit('SET_USER', null)
+          // console.log(self.$cookies.get('account'), state.account, '  commit(\'SET_USER\',null),error');
+
+
+          self.$cookies.set('account', accounts[0])
+          commit('SET_USER', accounts[0])
+          console.log(accounts, error, 'accounts,error');
+        }
+
       });
     }
   },
   async fortmatic({commit}) {
-    if(process.client){
+
       let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
       const fm =await new Fortmatic(process.env.FORTMATIC);
-      debugger
       commit('SET_FORTMATIC',fm)
+      window.ethereum.autoRefreshOnNetworkChange = false;
 
-      console.log(fm,'fm')
       const web3 =await new Web3(fm.getProvider());
       web3.currentProvider.enable();
+      debugger
       let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
-
           let address = accounts[0];
-        console.log(address,'dawdawdadwadadwd');
-        self.$cookies.set('account',address)
-        commit('SET_USER',address)
+          console.log(address, 'dawdawdadwadadwd');
+          self.$cookies.set('account', address)
+          commit('SET_USER', address)
       });
         // Get user balance (includes ERC20 tokens as well)
         let balances = await fm.user.getBalances();
@@ -134,8 +142,7 @@ export const actions = {
         });
 
       };
-
-    }
+      return  setUserInfo()
 
   },
   activeIndex({commit}, {activeIndex}) {
@@ -150,16 +157,16 @@ export const actions = {
 
   },
  async logout({commit}) {
-    console.log(this, 'this')
-    await ethereum.on('disconnect', (err,account) => {
+   console.log(this, 'this')
+   await ethereum.on('disconnect', (err, account) => {
 
 
-      console.log(err)
+     console.log(err)
      console.log(account)
    });
-    this.$cookies.remove('account');
-    commit('SET_USER', null)
-  },
+   // this.$cookies.remove('account');
+   // commit('SET_USER', null)
+ },
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', {
       status

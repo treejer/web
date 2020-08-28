@@ -124,11 +124,8 @@ export default {
 
             if (process.client) {
               this.$store.dispatch('fortmatic')
-
-
-
-
-              // this.$bvModal.hide('five')
+              // self.$bvModal.hide('six')
+              // self.$bvModal.hide('five')// this.$bvModal.hide('five')
             }
 
             break;
