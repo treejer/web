@@ -25,6 +25,7 @@ export const state = () => ({
   hasMetaMask: false,
   fortmatic: null,
   connectingWallet: null,
+  modalFive:Boolean
 
 })
 
@@ -126,13 +127,14 @@ export const actions = {
 
       const web3 =await new Web3(fm.getProvider());
       web3.currentProvider.enable();
-      debugger
       let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
           let address = accounts[0];
           console.log(address, 'dawdawdadwadadwd');
           self.$cookies.set('account', address)
-          commit('SET_USER', address)
+          self.commit('SET_USER', address)
+          self.$router.push(self.$router.currentRoute.fullPath)
+          self.commit('SET_MODAL_FIVE', false)
       });
         // Get user balance (includes ERC20 tokens as well)
         let balances = await fm.user.getBalances();
@@ -149,6 +151,7 @@ export const actions = {
     commit('SET_INDEX', activeIndex)
 
   },
+
    refreshChain(){
     if(process.client){
       window.ethereum.autoRefreshOnNetworkChange = false;
@@ -159,8 +162,6 @@ export const actions = {
  async logout({commit}) {
    console.log(this, 'this')
    await ethereum.on('disconnect', (err, account) => {
-
-
      console.log(err)
      console.log(account)
    });
@@ -204,6 +205,9 @@ export const mutations = {
     state.token = token
 
 
+  },
+  SET_MODAL_FIVE(state, modalFive) {
+    state.modalFive = modalFive
   },
   SET_FORTMATIC(state, fortmatic) {
     state.fortmatic = fortmatic

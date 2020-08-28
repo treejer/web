@@ -123,6 +123,11 @@ export default {
 
             if (process.client) {
               this.$store.dispatch('fortmatic')
+              console.log(this.$store.state.modalFive,'this.$store.state.modalFive')
+              if(this.$store.state.modalFive === false){
+                this.$bvModal.hide('five')
+                this.$bvModal.hide('six')
+              }
               // self.$bvModal.hide('six')
               // self.$bvModal.hide('five')// this.$bvModal.hide('five')
             }
