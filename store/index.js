@@ -159,6 +159,12 @@ export const actions = {
    //   console.log(err)
    //   console.log(account)
    // });
+   if(this.$cookies.get('account') === 'portis'){
+     const portis =await Portis(process.env.portis, 'ropsten')
+     portis.logout();
+   }
+
+
    this.$cookies.set('account',null);
    commit('SET_USER', null)
  },
