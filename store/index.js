@@ -140,12 +140,18 @@ export const actions = {
      portis.logout();
    }
    if(this.$cookies.get('walletName') === 'metamask'){
-     const ethereums =  await ethereum;
-      ethereums.autoRefreshOnNetworkChange = false
-      console.log(ethereum,'ethereum')
+     const eth =  await ethereum;
+     eth.autoRefreshOnNetworkChange = false
+     eth.publicConfigStore._state.isUnlocked =false
+     const out = eth.on('disconnect', function (error){
+       console.log(error)
+
+
+     });
      debugger
+      console.log(out,'ethereum')
+
    }
-   ethereums.autoRefreshOnNetworkChange = false
    this.$cookies.set('account',null);
    commit('SET_USER', null)
  },

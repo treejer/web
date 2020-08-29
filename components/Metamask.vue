@@ -96,8 +96,6 @@ export default {
   methods: {
     changeWallet() {
       this.$store.dispatch("logout")
-      this.$router.push(this.$router.currentRoute.fullPath)
-
       this.$bvModal.hide('seven')
       this.$bvModal.show('five')
     },
