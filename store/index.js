@@ -2,8 +2,7 @@ import WalletConnect from "walletconnect";
 import Web3 from 'web3';
 
 if (process.client) {
-  var Portis = require("@portis/web3");
-  var Fortmatic = require("fortmatic");
+
 
 }
 
@@ -41,8 +40,6 @@ export const state = () => ({
 
 export const actions = {
   login({commit}, {account}) {
-
-
   },
   async networkNames({commit}) {
     const web3 = window.web3
@@ -89,6 +86,8 @@ export const actions = {
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
+      var Portis = require("@portis/web3");
+
       let self =this
 
       const portis = new Portis(process.env.portis, 'ropsten');
@@ -96,9 +95,9 @@ export const actions = {
       console.log(web3.givenProvider, ' web3.givenProvider')
       await web3.eth.getAccounts((error, accounts) => {
 
-        // self.$cookies.set('account', null)
+        self.$cookies.set('account', null)
         self.commit('SET_USER', accounts[0])
-        // self.$cookies.set('account', accounts[0])
+        self.$cookies.set('account', accounts[0])
         console.log(accounts, error, 'accounts,error');
 
       });
@@ -137,8 +136,7 @@ export const actions = {
     commit('SET_INDEX', activeIndex)
 
   },
-
-   refreshChain(){
+  refreshChain(){
     if(process.client) {
       ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
@@ -155,16 +153,11 @@ export const actions = {
   },
  async logout({commit}) {
    console.log(this, 'this')
-   // await ethereum.on('disconnect', (err, account) => {
-   //   console.log(err)
-   //   console.log(account)
-   // });
    if(this.$cookies.get('account') === 'portis'){
+     var Portis = require("@portis/web3");
      const portis =await Portis(process.env.portis, 'ropsten')
      portis.logout();
    }
-
-
    this.$cookies.set('account',null);
    commit('SET_USER', null)
  },
