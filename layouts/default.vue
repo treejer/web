@@ -50,6 +50,7 @@ export default {
   },
 
   mounted() {
+    this.refresh()
 
     const workBox = window.$workbox
     if (this.$nuxt.isOnline) {
@@ -77,6 +78,10 @@ export default {
     onComplete(data) {
       this.account = data;
     },
+   async refresh(){
+     const ethereums =  await ethereum;
+     ethereums.autoRefreshOnNetworkChange = false
+   },
     hasUser() {
       const token = this.$cookies.get("token");
       if (token !== undefined) {
