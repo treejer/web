@@ -102,9 +102,6 @@ export default {
       this.$bvModal.show('five')
     },
     logout() {
-      this.$store.dispatch('refreshChain')
-
-
       this.$bvModal.show('seven')
 
       console.log('removeAccount,')

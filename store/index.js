@@ -1,5 +1,6 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
+
 if (process.client) {
   var Portis = require("@portis/web3");
   var Fortmatic = require("fortmatic");
@@ -85,20 +86,20 @@ export const actions = {
     commit('SET_WALLET',null)
   },
   async portis({commit}) {
-
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
       let self =this
+
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
       console.log(web3.givenProvider, ' web3.givenProvider')
       await web3.eth.getAccounts((error, accounts) => {
-        if (!error) {
-          self.$cookies.set('account', accounts[0])
-          self.commit('SET_USER', accounts[0])
-          console.log(accounts, error, 'accounts,error');
-        }
+
+        // self.$cookies.set('account', null)
+        self.commit('SET_USER', accounts[0])
+        // self.$cookies.set('account', accounts[0])
+        console.log(accounts, error, 'accounts,error');
 
       });
     }
@@ -114,8 +115,9 @@ export const actions = {
       let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
           let address = accounts[0];
-          console.log(address, 'dawdawdadwadadwd');
-          self.$cookies.set('account', address)
+        console.log(address, 'dawdawdadwadadwd');
+        self.$cookies.set('account', null)
+        self.$cookies.set('account', address)
           self.commit('SET_USER', address)
           self.$router.push(self.$router.currentRoute.fullPath)
           self.commit('SET_MODAL_FIVE', false)
@@ -137,8 +139,16 @@ export const actions = {
   },
 
    refreshChain(){
-    if(process.client){
+    if(process.client) {
       ethereum.autoRefreshOnNetworkChange = false;
+      let currentChainId = ethereum.chainId;
+
+      ethereum.on('chainChanged', handleChainChanged);
+
+      handleChainChanged = (_chainId) => {
+        // We recommend reloading the page, unless you must do otherwise
+        window.location.reload();
+      }
 
     }
 
