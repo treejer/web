@@ -145,7 +145,7 @@ export const actions = {
 
       ethereum.on('chainChanged', handleChainChanged);
 
-      handleChainChanged = (_chainId) => {
+     function handleChainChanged(_chainId){
         // We recommend reloading the page, unless you must do otherwise
         window.location.reload();
       }
