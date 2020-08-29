@@ -134,10 +134,16 @@ export const actions = {
 
   },
  async logout({commit}) {
-   if(this.$cookies.get('account') === 'portis'){
-     var Portis = require("@portis/web3");
+   if(this.$cookies.get('walletName') === 'portis'){
+     const Portis = require("@portis/web3");
      const portis =await Portis(process.env.PORTIS, 'ropsten')
      portis.logout();
+   }
+   if(this.$cookies.get('walletName') === 'metamask'){
+     const ethereums =  await ethereum;
+      ethereums.autoRefreshOnNetworkChange = false
+      console.log(ethereum,'ethereum')
+     debugger
    }
    this.$cookies.set('account',null);
    commit('SET_USER', null)

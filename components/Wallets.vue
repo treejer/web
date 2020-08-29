@@ -65,8 +65,6 @@ export default {
   },
   data() {
     return {
-      selfLoading: false,
-      loading: false,
       wallets: [
         {name: "Metamask", step: 1, src: require('~/assets/images/wallets/metamask.svg')},
         {name: "Wallet Connect", step: 2, src: require('~/assets/images/wallets/walletconnect.svg')},
@@ -82,7 +80,7 @@ export default {
     methods: {
       activeWallets(item, index, event) {
         let self =this
-        this.activeWallet = index;
+        self.activeWallet = index;
         switch (item.name) {
           case 'Metamask':
             this.$bvModal.show('six')
@@ -159,7 +157,6 @@ export default {
           .then(() => {
             self.$bvModal.hide('six')
             self.$bvModal.hide('five')
-            // self.$router.push({path: `/forest/${id}`});
           })
           .catch(err => console.log(err))
           .then(() => {
@@ -169,9 +166,6 @@ export default {
         window.open(item,'_blank')
       }
     },
-    mounted() {
-        this.$store.dispatch('refreshChain')
-      }
   }
 </script>
 
