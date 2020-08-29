@@ -68,7 +68,6 @@
     </section>
 </template>
 <script>
-import WalletConnect from 'walletconnect'
 
 export default {
   name: "index",
@@ -78,69 +77,15 @@ export default {
     }
   },
   methods: {
-    async fund() {
-      this.transferReceipt = await this.$store.dispatch('fund/fund', {
-        count: 1
-        })
-      },
-      async plant() {
-        this.transferReceipt = await this.$store.dispatch('treeFactory/plant', {})
-      },
-      async getMyTreeCount() {
-			  this.treeCount = await this.$store.dispatch('treeFactory/getMyTreeCount')
-      },
-      async getOwnerTrees() {
-			  this.ownerTrees = await this.$store.dispatch('treeFactory/getOwnerTrees')
-      },
-
     goToDashboard() {
-      // if (this.$store.state.account == null && this.$cookies.get('account') == null) {
-      //   this.$bvToast.toast("you are not logged in. please login", {
-      //     toaster: 'b-toaster-bottom-left',
-      //     solid: true,
-      //     headerClass: 'hide',
-      //     variant: 'danger'
-      //   })
-      //   this.$bvModal.show('five')
-      // } else {
       const id= this.$cookies.get('account')
       if(id){
         this.$router.push({ path: `/forest/${id}` });
       }else{
         this.$router.push('/forest')
       }
-
-
-      // }
     },
-
-
-      walletConnects(){
-
-        const wc = new WalletConnect();
-
-//  Connect session (triggers QR Code modal)
-        const connector = wc.connect();
-
-//  Get your desired provider
-
-        // const web3Provider = wc.getWeb3Provider({
-        //   infuraId: "6902e8b158ca43b7ac02142229ef4116",
-        // });
-        //
-        // const channelProvider = wc.getChannelProvider();
-        //
-        // const starkwareProvider = wc.getStarkwareProvider({
-        //   contractAddress: "<INSERT_CONTRACT_ADDRESS>",
-        // });
-        //
-        // const threeIdProvider =  wc.getThreeIdProvider();
-      }
     },
-
-    props: {},
-    mounted() {
-    }
   }
 </script>
 

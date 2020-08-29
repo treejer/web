@@ -157,10 +157,10 @@ export default {
       '@nuxtjs/style-resources', ['nuxt-fontawesome'],
       'nuxt-i18n', ['@nuxtjs/google-gtag'],
       ['@nuxtjs/sitemap', {}],
-      ['@netsells/nuxt-hotjar', {
-        id: '1662889',
-            sv: '6',
-        }],
+      // ['@netsells/nuxt-hotjar', {
+      //   id: '1662889',
+      //       sv: '6',
+      //   }],
       ['nuxt-gmaps', {
         key: process.env.GOOGLE_MAP_API_KEY,
         //you can use libraries: ['places']

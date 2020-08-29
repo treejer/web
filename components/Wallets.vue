@@ -33,16 +33,16 @@
       class="tr-green">Cookie Policy.</span>
     </li>
     <b-modal hide-footer centered id="six">
-      <ul class="list-style-none six" v-if="$cookies.get('walletName')">
+      <ul class="list-style-none six" v-if="$store.state.connectingWallet ||$cookies.get('walletName')">
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold">
-            <span class="name text-capitalize">      {{ $cookies.get('walletName') }}</span>
+            <span class="name text-capitalize">      {{ $store.state.connectingWallet ||$cookies.get('walletName') }}</span>
             <span class="icon">
-          <img v-if="$cookies.get('walletName')"
-               :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
-               :alt="$cookies.get('walletName')" class="img-fluid" />
+          <img v-if="$store.state.connectingWallet ||$cookies.get('walletName')"
+               :src="require(`~/assets/images/wallets/${$store.state.connectingWallet ||$cookies.get('walletName')}.svg`)"
+               :alt="$store.state.connectingWallet ||$cookies.get('walletName')" class="img-fluid" />
         </span>
           </p>
         </li>
@@ -147,10 +147,8 @@ export default {
         })
       },
       async getAccount() {
-        await ethereum.enable()
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        await  this.$store.dispatch('refreshChain')
         this.login(account)
       },
       login(account) {

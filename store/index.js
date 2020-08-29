@@ -62,18 +62,23 @@ export const actions = {
       commit('SET_NET_NAME', netName)
     })
   },
-  async walletConnect({commit},{loading}) {
+  async walletConnect({commit}) {
     commit('SET_WALLET','walletconnect')
     this.$cookies.set('walletName', 'walletconnect')
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
+    commit('SET_USER', null )
+    this.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
+    console.log(env,'walletConnectProjectID')
 
     const web3Provider = await wc.getWeb3Provider({
-      infuraId: process.env.walletConnectProjectID,
+      infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
+    
+
     const channelProvider = await wc.getChannelProvider();
     commit('SET_WALLET',null)
   },
@@ -94,7 +99,6 @@ export const actions = {
   },
   async fortmatic({commit}) {
     var Fortmatic = require("fortmatic");
-
     let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
@@ -127,17 +131,8 @@ export const actions = {
   },
   refreshChain(){
     if(process.client) {
-
       ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
-
-      // ethereum.on('chainChanged', handleChainChanged);
-     //
-     // function handleChainChanged(_chainId){
-     //    // We recommend reloading the page, unless you must do otherwise
-     //    // window.location.reload();
-     //  }
-
     }
 
   },
