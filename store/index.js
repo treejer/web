@@ -77,7 +77,7 @@ export const actions = {
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
-    
+
 
     const channelProvider = await wc.getChannelProvider();
     commit('SET_WALLET',null)
@@ -86,19 +86,21 @@ export const actions = {
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
-      var Portis = require("@portis/web3");
+      const Portis = require("@portis/web3");
       let self =this
-      const portis = new Portis(process.env.portis, 'ropsten');
+      const portis = new Portis(process.env.PORTIS, 'ropsten');
       const web3 =  new Web3(portis.provider);
       await web3.eth.getAccounts((error, accounts) => {
         self.$cookies.set('account', null)
+        self.commit('SET_USER', null)
+
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
       });
     }
   },
   async fortmatic({commit}) {
-    var Fortmatic = require("fortmatic");
+    const Fortmatic = require("fortmatic");
     let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
@@ -106,13 +108,12 @@ export const actions = {
       commit('SET_FORTMATIC',fm)
       const web3 =await new Web3(fm.getProvider());
       web3.currentProvider.enable();
-      let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
         let address = accounts[0];
         self.$cookies.set('account', null)
+        self.commit('SET_USER', null)
         self.$cookies.set('account', address)
           self.commit('SET_USER', address)
-          self.$router.push(self.$router.currentRoute.fullPath)
           self.commit('SET_MODAL_FIVE', false)
       });
         // Get user balance (includes ERC20 tokens as well)
@@ -120,10 +121,6 @@ export const actions = {
         let ethBalance = balances.find((e) => {
           // return e.crypto_currency == 'ETH';
         });
-
-      };
-      return  setUserInfo()
-
   },
   activeIndex({commit}, {activeIndex}) {
     commit('SET_INDEX', activeIndex)
@@ -139,7 +136,7 @@ export const actions = {
  async logout({commit}) {
    if(this.$cookies.get('account') === 'portis'){
      var Portis = require("@portis/web3");
-     const portis =await Portis(process.env.portis, 'ropsten')
+     const portis =await Portis(process.env.PORTIS, 'ropsten')
      portis.logout();
    }
    this.$cookies.set('account',null);
