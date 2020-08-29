@@ -104,7 +104,6 @@ export default {
     logout() {
       this.$bvModal.show('seven')
 
-      console.log('removeAccount,')
 
     },
      async copyClipboard(e) {

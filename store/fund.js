@@ -18,7 +18,6 @@ export const mutations = {}
 export const actions = {
   getEthBalance() {
     return web3.eth.getBalance(account).then((ethBalance) => {
-      console.log(web3.utils.fromWei(ethBalance),'web3.utils.fromWei(ethBalance)\n')
       web3.utils.fromWei(ethBalance)
     });
   },
@@ -37,7 +36,6 @@ export const actions = {
     // 	data: fundMethodTransactionData
     // })
 
-    // console.log(estimateGas, "estimateGas");
 
 
     try {

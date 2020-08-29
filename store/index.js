@@ -1,10 +1,6 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
 
-if (process.client) {
-
-
-}
 
 
 export const state = () => ({
@@ -72,7 +68,6 @@ export const actions = {
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
-    console.log(walletAccount, 'dwdad')
     commit('SET_USER', walletAccount)
     this.$cookies.set('account', walletAccount)
 
@@ -92,19 +87,19 @@ export const actions = {
 
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
-      console.log(web3.givenProvider, ' web3.givenProvider')
       await web3.eth.getAccounts((error, accounts) => {
 
         self.$cookies.set('account', null)
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
-        console.log(accounts, error, 'accounts,error');
 
       });
     }
   },
   async fortmatic({commit}) {
-      let self =this
+    var Fortmatic = require("fortmatic");
+
+    let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
       const fm =await new Fortmatic(process.env.FORTMATIC);
@@ -113,8 +108,7 @@ export const actions = {
       web3.currentProvider.enable();
       let setUserInfo = async () => {
       await  web3.eth.getAccounts((err, accounts) => {
-          let address = accounts[0];
-        console.log(address, 'dawdawdadwadadwd');
+        let address = accounts[0];
         self.$cookies.set('account', null)
         self.$cookies.set('account', address)
           self.commit('SET_USER', address)
@@ -123,7 +117,6 @@ export const actions = {
       });
         // Get user balance (includes ERC20 tokens as well)
         let balances = await fm.user.getBalances();
-        console.log(balances);
         let ethBalance = balances.find((e) => {
           // return e.crypto_currency == 'ETH';
         });
@@ -138,6 +131,7 @@ export const actions = {
   },
   refreshChain(){
     if(process.client) {
+
       ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
 
@@ -152,7 +146,6 @@ export const actions = {
 
   },
  async logout({commit}) {
-   console.log(this, 'this')
    if(this.$cookies.get('account') === 'portis'){
      var Portis = require("@portis/web3");
      const portis =await Portis(process.env.portis, 'ropsten')
@@ -172,7 +165,6 @@ export const actions = {
   // },
   async ethPrices({commit}) {
     const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
-    console.log(ethPrice)
     commit('SET_ETH_PRICE', ethPrice.result)
   },
    signUpForm({commit}){

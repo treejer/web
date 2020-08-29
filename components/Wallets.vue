@@ -120,7 +120,6 @@ export default {
                 self.$bvModal.hide('six')
                 self.$bvModal.hide('five')
               })
-              console.log(this.$store.state.modalFive,'this.$store.state.modalFive')
               if(this.$store.state.modalFive === false){
                 this.$bvModal.hide('five')
                 this.$bvModal.hide('six')
@@ -149,8 +148,6 @@ export default {
       log() {
         this.$store.commit('SET_WALLET', 'metamask')
         this.$cookies.set('walletName', 'metamask')
-        console.log(this.$store.state.connectingWallet, 'this.$store.state.connectingWallet')
-        console.log(this.$cookies.get('walletName'), 'this.$store.state.connectingWallet')
         this.$bvModal.show('six');
         if (ethereum !== 'undefined') {
           this.getAccount();

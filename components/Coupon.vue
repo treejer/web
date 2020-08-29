@@ -171,7 +171,6 @@
             title:'token has been on your clipboard'
           })
         } catch (err) {
-          console.log(err)
         }
 
         /* unselect the range */
