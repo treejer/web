@@ -145,6 +145,7 @@ export const actions = {
       console.log(ethereum,'ethereum')
      debugger
    }
+   ethereums.autoRefreshOnNetworkChange = false
    this.$cookies.set('account',null);
    commit('SET_USER', null)
  },
