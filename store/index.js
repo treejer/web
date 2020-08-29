@@ -123,8 +123,6 @@ export const actions = {
       this.$cookies.set('walletName', 'fortmatic')
       const fm =await new Fortmatic(process.env.FORTMATIC);
       commit('SET_FORTMATIC',fm)
-      window.ethereum.autoRefreshOnNetworkChange = false;
-
       const web3 =await new Web3(fm.getProvider());
       web3.currentProvider.enable();
       let setUserInfo = async () => {
@@ -154,7 +152,6 @@ export const actions = {
 
    refreshChain(){
     if(process.client){
-      window.ethereum.autoRefreshOnNetworkChange = false;
 
     }
 
@@ -165,8 +162,8 @@ export const actions = {
      console.log(err)
      console.log(account)
    });
-   // this.$cookies.remove('account');
-   // commit('SET_USER', null)
+   this.$cookies.set('account',null);
+   commit('SET_USER', null)
  },
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', {
