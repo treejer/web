@@ -135,12 +135,12 @@ export const actions = {
       ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
 
-      ethereum.on('chainChanged', handleChainChanged);
-
-     function handleChainChanged(_chainId){
-        // We recommend reloading the page, unless you must do otherwise
-        window.location.reload();
-      }
+      // ethereum.on('chainChanged', handleChainChanged);
+     //
+     // function handleChainChanged(_chainId){
+     //    // We recommend reloading the page, unless you must do otherwise
+     //    // window.location.reload();
+     //  }
 
     }
 
