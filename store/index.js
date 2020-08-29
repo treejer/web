@@ -1,5 +1,6 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
+import VueEthereum from "vue-ethereum";
 
 if (process.client) {
   var Portis = require("@portis/web3");
@@ -25,7 +26,7 @@ export const state = () => ({
   hasMetaMask: false,
   fortmatic: null,
   connectingWallet: null,
-  modalFive:Boolean
+  modalFive:true
 
 })
 
@@ -42,8 +43,6 @@ export const state = () => ({
 export const actions = {
   login({commit}, {account}) {
 
-    this.$cookies.set('account', account)
-    commit('SET_USER', account)
 
   },
   async chainId() {
@@ -90,12 +89,11 @@ export const actions = {
     const channelProvider = await wc.getChannelProvider();
     commit('SET_WALLET',null)
   },
-  async portis({commit},{loading}) {
+  async portis({commit}) {
 
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
-      window.ethereum.autoRefreshOnNetworkChange = false;
       let self =this
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
@@ -145,6 +143,7 @@ export const actions = {
 
    refreshChain(){
     if(process.client){
+      ethereum.autoRefreshOnNetworkChange = false;
 
     }
 

@@ -129,7 +129,7 @@ export default {
           case 'Portis':
             this.$bvModal.show('six')
             this.selfLoading = true
-            this.$store.dispatch('portis', {loading: this.selfLoading})
+            this.$store.dispatch('portis')
               .then(()=> {
                 self.$bvModal.hide('six')
                 self.$bvModal.hide('five')
@@ -145,10 +145,12 @@ export default {
         this.loading = false
       },
       log() {
-        this.$store.commit('SET_WALLET','metamask')
+        this.$store.commit('SET_WALLET', 'metamask')
         this.$cookies.set('walletName', 'metamask')
+        console.log(this.$store.state.connectingWallet, 'this.$store.state.connectingWallet')
+        console.log(this.$cookies.get('walletName'), 'this.$store.state.connectingWallet')
         this.$bvModal.show('six');
-        if (typeof window.ethereum !== 'undefined') {
+        if (ethereum !== 'undefined') {
           this.getAccount();
         } else {
           this.makeToast()
@@ -163,14 +165,16 @@ export default {
         })
       },
       async getAccount() {
+        await ethereum.enable()
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        this.account = account;
+        await  this.$store.dispatch('refreshChain')
         this.login(account)
       },
       login(account) {
+        this.$store.commit('SET_USER', account)
+        this.$cookies.set('account', account)
         let self = this
-        this.$store.state.connectingWallet = 'metamask'
         this.$store.dispatch("login", {account})
           .then(() => {
             self.$bvModal.hide('six')
@@ -186,7 +190,9 @@ export default {
       }
     },
     mounted() {
-    this.$store.dispatch('refreshChain')
+      if (ethereum !== 'undefined') {
+        this.$store.dispatch('refreshChain')
+      }
     }
   }
 </script>
