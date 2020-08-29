@@ -33,36 +33,24 @@
       class="tr-green">Cookie Policy.</span>
     </li>
     <b-modal hide-footer centered id="six">
-      <ul class="list-style-none six" v-if="$store.state.connectingWallet ||$cookies.get('walletName')">
+      <ul class="list-style-none six" v-if="$cookies.get('walletName')">
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
         <li class="pointer-event mb-2   ">
           <p
             class="tr-gray-three param font-weight-bold">
-            <span class="name text-capitalize">      {{ $store.state.connectingWallet ||$cookies.get('walletName') }}</span>
+            <span class="name text-capitalize">      {{ $cookies.get('walletName') }}</span>
             <span class="icon">
-          <img v-if="$store.state.connectingWallet ||$cookies.get('walletName')"
-               :src="require(`~/assets/images/wallets/${$store.state.connectingWallet ||$cookies.get('walletName')}.svg`)"
-               :alt="$store.state.connectingWallet ||$cookies.get('walletName')" class="img-fluid" />
+          <img v-if="$cookies.get('walletName')"
+               :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
+               :alt="$cookies.get('walletName')" class="img-fluid" />
         </span>
           </p>
         </li>
         <li class="text-center m-auto pt-5 d-flex justify-content-center">
           <pacman-loader></pacman-loader>
-
         </li>
       </ul>
-
-
     </b-modal>
-    <client-only>
-      <!--      <iframe id="fortmatic"-->
-      <!--              v-if="$store.state.fortmatic"-->
-      <!--              :src="`${$store.state.fortmatic.endpoint}/send?params=${$store.state.fortmatic.encodedQueryParams}=`"-->
-      <!--              frameborder="none"-->
-      <!--              width="100%"-->
-      <!--              height="90vh"-->
-      <!--      ></iframe>-->
-    </client-only>
   </ul>
 
 </template>
@@ -95,8 +83,6 @@ export default {
       activeWallets(item, index, event) {
         let self =this
         this.activeWallet = index;
-        this.screenX = event.screenX
-        this.screenY = event.screenY
         switch (item.name) {
           case 'Metamask':
             this.$bvModal.show('six')
@@ -104,7 +90,7 @@ export default {
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')
-            this.$store.dispatch('walletConnect', {loading: this.selfLoading})
+            this.$store.dispatch('walletConnect')
               .then(()=>self.$bvModal.hide('six'))
               .catch(err => {
                 self.$bvModal.hide('six')
@@ -124,8 +110,6 @@ export default {
                 this.$bvModal.hide('five')
                 this.$bvModal.hide('six')
               }
-              // self.$bvModal.hide('six')
-              // self.$bvModal.hide('five')// this.$bvModal.hide('five')
             }
             break;
           case 'Portis':
@@ -143,7 +127,6 @@ export default {
               .then(() =>{});
             break
         }
-        this.loading = false
       },
       log() {
         this.$store.commit('SET_WALLET', 'metamask')

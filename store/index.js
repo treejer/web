@@ -72,7 +72,7 @@ export const actions = {
     this.$cookies.set('account', walletAccount)
 
     const web3Provider = await wc.getWeb3Provider({
-      infuraId: process.env.ProjectSecret,
+      infuraId: process.env.walletConnectProjectID,
     });
     const channelProvider = await wc.getChannelProvider();
     commit('SET_WALLET',null)
@@ -82,17 +82,13 @@ export const actions = {
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
       var Portis = require("@portis/web3");
-
       let self =this
-
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
       await web3.eth.getAccounts((error, accounts) => {
-
         self.$cookies.set('account', null)
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
-
       });
     }
   },
