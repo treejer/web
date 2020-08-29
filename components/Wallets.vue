@@ -71,11 +71,9 @@
 import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
 
 export default {
-
   name: "Wallets",
   components: {
     PacmanLoader
-
   },
   data() {
     return {
@@ -103,7 +101,6 @@ export default {
           case 'Metamask':
             this.$bvModal.show('six')
             this.log();
-
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')
@@ -115,12 +112,9 @@ export default {
                 console.log(err)
               })
               .then(() =>{});
-
-
             break
           case 'Fortmatic':
             this.$bvModal.show('six')
-
             if (process.client) {
               this.$store.dispatch('fortmatic')
               console.log(this.$store.state.modalFive,'this.$store.state.modalFive')
@@ -131,17 +125,14 @@ export default {
               // self.$bvModal.hide('six')
               // self.$bvModal.hide('five')// this.$bvModal.hide('five')
             }
-
             break;
           case 'Portis':
             this.$bvModal.show('six')
-
             this.selfLoading = true
             this.$store.dispatch('portis', {loading: this.selfLoading})
               .then(()=> {
                 self.$bvModal.hide('six')
                 self.$bvModal.hide('five')
-
               })
               .catch(err => {
               console.log(err)
@@ -149,10 +140,7 @@ export default {
               self.$bvModal.hide('five')
             })
               .then(() =>{});
-
-
             break
-
         }
         this.loading = false
       },
@@ -180,14 +168,11 @@ export default {
         this.account = account;
         this.login(account)
       },
-
       login(account) {
         let self = this
         this.$store.state.connectingWallet = 'metamask'
-
         this.$store.dispatch("login", {account})
           .then(() => {
-
             self.$bvModal.hide('six')
             self.$bvModal.hide('five')
             // self.$router.push({path: `/forest/${id}`});
@@ -195,12 +180,10 @@ export default {
           .catch(err => console.log(err))
           .then(() => {
           })
-
       },
       goTo(item){
         window.open(item,'_blank')
       }
-
     },
     mounted() {
     this.$store.dispatch('refreshChain')
