@@ -100,16 +100,10 @@ export const actions = {
       const portis = new Portis(process.env.portis, 'ropsten');
       const web3 =  new Web3(portis.provider);
       console.log(web3.givenProvider, ' web3.givenProvider')
-
       await web3.eth.getAccounts((error, accounts) => {
         if (!error) {
-          // self.$cookies.set('account', null)
-          // commit('SET_USER', null)
-          // console.log(self.$cookies.get('account'), state.account, '  commit(\'SET_USER\',null),error');
-
-
           self.$cookies.set('account', accounts[0])
-          commit('SET_USER', accounts[0])
+          self.commit('SET_USER', accounts[0])
           console.log(accounts, error, 'accounts,error');
         }
 
@@ -117,7 +111,6 @@ export const actions = {
     }
   },
   async fortmatic({commit}) {
-
       let self =this
       commit('SET_WALLET','fortmatic')
       this.$cookies.set('walletName', 'fortmatic')
@@ -170,10 +163,10 @@ export const actions = {
       status
     })
   },
-  async allUsers({commit}) {
-    const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
-    commit('SET_USERS', users.data)
-  },
+  // async allUsers({commit}) {
+  //   const users = await this.$axios.$get('https://reqres.in/api/users?per_page=12')
+  //   commit('SET_USERS', users.data)
+  // },
   async ethPrices({commit}) {
     const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
     console.log(ethPrice)
