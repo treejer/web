@@ -1,7 +1,5 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
-import VueEthereum from "vue-ethereum";
-
 if (process.client) {
   var Portis = require("@portis/web3");
   var Fortmatic = require("fortmatic");
@@ -44,9 +42,6 @@ export const actions = {
   login({commit}, {account}) {
 
 
-  },
-  async chainId() {
-    const accounts = await web3.enable();
   },
   async networkNames({commit}) {
     const web3 = window.web3
@@ -150,10 +145,10 @@ export const actions = {
   },
  async logout({commit}) {
    console.log(this, 'this')
-   await ethereum.on('disconnect', (err, account) => {
-     console.log(err)
-     console.log(account)
-   });
+   // await ethereum.on('disconnect', (err, account) => {
+   //   console.log(err)
+   //   console.log(account)
+   // });
    this.$cookies.set('account',null);
    commit('SET_USER', null)
  },

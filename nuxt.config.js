@@ -82,7 +82,7 @@ export default {
     {src: '~plugins/swiper.js', mode: 'client', ssr: false},
     {src: '~plugins/typer.js', mode: 'client', ssr: false},
     {src: '~plugins/maps.js', ssr: false},
-    {src: '~plugins/eth.js', ssr: false},
+    // {src: '~plugins/eth.js', ssr: false},
     {src: '~plugins/vueFormulate.js', ssr: false},
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},

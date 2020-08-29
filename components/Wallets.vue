@@ -116,7 +116,10 @@ export default {
           case 'Fortmatic':
             this.$bvModal.show('six')
             if (process.client) {
-              this.$store.dispatch('fortmatic')
+              this.$store.dispatch('fortmatic').then(()=> {
+                self.$bvModal.hide('six')
+                self.$bvModal.hide('five')
+              })
               console.log(this.$store.state.modalFive,'this.$store.state.modalFive')
               if(this.$store.state.modalFive === false){
                 this.$bvModal.hide('five')
@@ -128,7 +131,6 @@ export default {
             break;
           case 'Portis':
             this.$bvModal.show('six')
-            this.selfLoading = true
             this.$store.dispatch('portis')
               .then(()=> {
                 self.$bvModal.hide('six')
