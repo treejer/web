@@ -83,7 +83,7 @@ export default {
         self.activeWallet = index;
         switch (item.name) {
           case 'Metamask':
-            this.$store.dispatch('login')
+            this.$store.dispatch('metaMask')
             this.$bvModal.show('six')
             break
           case 'Wallet Connect':
@@ -169,7 +169,10 @@ export default {
         window.open(item,'_blank')
       }
     },
+  mounted() {
+    this.$store.dispatch('logout')
   }
+}
 </script>
 
 <style lang="scss">

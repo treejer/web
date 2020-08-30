@@ -23,7 +23,7 @@ export const state = () => ({
 })
 
 export const actions = {
- async login({commit}) {
+ async metaMask({commit}) {
     if(process.client){
       commit('SET_WALLET', 'metamask')
       this.$cookies.set('walletName', 'metamask')
@@ -143,9 +143,20 @@ export const actions = {
       console.log(dc, 'dc')
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
-      await ethereum.on('chainChanged', () => {
-        document.location.reload()
-      })
+      eth.on('chainChanged', handleChainChanged)
+      let currentChainId = null
+      ethereum.send('eth_chainId')
+        .then(handleChainChanged)
+        .catch(err => console.error(err)) // This should never happen
+
+      function handleChainChanged (chainId) {
+
+        if (currentChainId !== chainId) {
+
+          currentChainId = chainId
+          // Run any other necessary logic...
+        }
+      }
     }
    this.$cookies.set('account',null);
     commit('SET_USER', null)
