@@ -6,8 +6,6 @@ export default {
     mode: 'universal',
    head: {
      title: 'Treejer',
-
-
      meta: [
        {charset: 'utf-8'},
        {name: 'content', content: 'Treejer description'},
@@ -24,16 +22,13 @@ export default {
        {property: 'twitter:title', content: 'Home - Treejer'},
        {property: 'og:locale:alternate', content: 'en'}
      ],
-
      link: [
        {rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png', href: '/apple-touch-icon.png'},
        {rel: 'icon', sizes: '32x32', type: 'image/png', href: '/favicon-32x32.png'},
        {rel: 'icon', sizes: '16x16', type: 'image/png', href: '/favicon-16x16.png'},
        {rel: 'manifest', href: '/site.webmanifest'},
        {rel: 'mask-icon', href: '//safari-pinned-tab.svg', color: '#5bbad5'},
-
      ]
-
    },
   env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com/',
@@ -145,7 +140,7 @@ export default {
       [
         '@nuxtjs/recaptcha'
       ],
-      'vue-ethereum/nuxt',
+      // 'vue-ethereum/nuxt',
       '@nuxtjs/axios',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources', ['nuxt-fontawesome'],
@@ -222,7 +217,6 @@ export default {
    ** Build configuration
    */
   build: {
-    vendor: ['web3'],
 
     /*
       ** You can extend webpack config here
