@@ -146,20 +146,14 @@
       };
     },
     mounted() {
-
-      if( this.$store.state.index !==null){
-        this.activeIndex = this.$store.dispatch('activeIndex')
-      }
-
+      this.activeIndex = this.$store.state.index
       if (process.client) {
         const history = this.$router.history.current.fullPath
-
         const href = document.querySelectorAll(`a[href='${history}']`)
         switch (history) {
           case '/forest' || '/forest/undefined' || '/forest/'+'*':
             return this.activeIndex = 0;
             href.classList.toggle("nuxt-link-exact-active");
-
             break;
           case  '/leaderboard':
             return this.activeIndex = 1;
@@ -177,33 +171,15 @@
             return this.activeIndex = 0;
         }
       }
-
-
+    },
+    created() {
     },
 
     methods: {
-      // activeMenu(item, index) {
-      //   switch (this.$route.path) {
-      //     case '/forest':
-      //       return this.activeIndex = 0;
-      //       break;
-      //     case  '/Leaderboard':
-      //       return this.activeIndex = 1;
-      //       break;
-      //     case  '/updates':
-      //       return this.activeIndex = 2;
-      //       break;
-      //     case  '/help':
-      //       return this.activeIndex = 3;
-      //       break;
-      //     default:
-      //       return this.activeIndex = 0;
-      //   }
-      // },
      async changeIndex(id){
-        // await this.$store.commit('activeIndex',{
-        //   activeIndex:id
-        // })
+        await this.$store.commit('activeIndex',{
+          activeIndex:id
+        })
        this.activeIndex =id
       },
       store(status) {

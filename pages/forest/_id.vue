@@ -582,6 +582,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.dispatch('activeIndex')
     const hasUser =await this.$cookies.get('account')
     if (hasUser !== null) {
      this.getEthBalance()
@@ -632,7 +633,6 @@ export default {
      goToaddTree() {
         this.loading = true
         let self = this
-
       if(!this.$store.state.account){
         self.$bvToast.toast("you're not login", {
           toaster: 'b-toaster-bottom-left',
@@ -665,7 +665,6 @@ export default {
           });
     },
     async calculateMintableO1() {
-
       let self = this
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
           .then(function (response) {

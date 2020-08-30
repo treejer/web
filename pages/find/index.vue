@@ -281,9 +281,11 @@
         }
       },
       goToDashboard(item){
+        this.$store.commit('SET_INDEX',0)
+        console.log(this.$store.state.index,"this.$store.state.index")
         this.$router.push({ path:'/forest/'+item.owner ,params:{id:item.owner}})
 
-        this.$store.commit('SET_INDEX',0)
+
       },
       async findTree() {
         this.errors = null
