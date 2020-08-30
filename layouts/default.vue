@@ -45,9 +45,6 @@ export default {
       return this.$route.path;
     }
   },
-  created() {
-
-  },
 
   mounted() {
     this.refresh()

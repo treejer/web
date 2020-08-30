@@ -78,23 +78,17 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    // {src: '~plugins/metaMask.js', mode: 'client', ssr: false},
     {src: '~plugins/swiper.js', mode: 'client', ssr: false},
     {src: '~plugins/typer.js', mode: 'client', ssr: false},
     {src: '~plugins/maps.js', ssr: false},
-    // {src: '~plugins/eth.js', ssr: false},
     {src: '~plugins/vueFormulate.js', ssr: false},
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},
-    // {src: '~plugins/portis.js', ssr: false,mode: 'client'},
-    // {src: '~plugins/fortmatic.js', ssr: false,mode: 'client'},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]
   ],
   module: {
-
-
     rules: [{
       test: /\.scss$/,
       use: [{
@@ -200,26 +194,6 @@ export default {
       langDir: 'lang/',
       detectBrowserLanguage: false
     },
-  // 'google-gtag': {
-  //     id: 'G-LDTVYYF6V4',
-  //     config: {
-  //         anonymize_ip: false, // anonymize IP
-  //         send_page_view: false // might be necessary to avoid duplicated page track on page reload
-  //             // linker: {
-  //             //   domains:  ['domain.com','domain.org']
-  //             // }
-  //     },
-  //     debug: process.env.ENVIRONMENT !== 'production', // enable to track in dev mode
-  //     disableAutoPageTrack: false, // disable if you don't want to track each page route with router.afterEach(...).
-  //     // additionalAccounts: [{
-  //     //   id: 'G-LDTVYYF6V4', // required if you are adding additional accounts
-  //     //   config: {
-  //     //     send_page_view: false // optional configurations
-  //     //   }
-  //     // }]
-  // },
-  //
-
   fontawesome: {
     component: 'fa',
     imports: [{

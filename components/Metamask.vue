@@ -90,7 +90,10 @@ export default {
       return this.$store.state.account;
     }
   },
-  mounted() {
+ async mounted() {
+   await ethereum.on('chainChanged', () => {
+     document.location.reload()
+   })
 
   },
   methods: {

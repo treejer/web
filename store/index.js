@@ -125,13 +125,14 @@ export const actions = {
     }
     if (this.$cookies.get('walletName') === 'metamask') {
       const eth = await ethereum;
+      const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
+      console.log(dc, 'dc')
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
-      const out = eth.on('disconnect', function (error) {
-        console.log(error)
-      });
-      console.log(out,'ethereum')
-   }
+      await ethereum.on('chainChanged', () => {
+        document.location.reload()
+      })
+    }
    this.$cookies.set('account',null);
     commit('SET_USER', null)
   },
