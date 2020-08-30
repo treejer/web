@@ -3,6 +3,7 @@ import Web3 from 'web3';
 
 export const state = () => ({
   token: null,
+  toast:false,
   sliceAccount: null,
   index: 0,
   account: null,
@@ -22,7 +23,20 @@ export const state = () => ({
 })
 
 export const actions = {
-  login({commit}, {account}) {
+ async login({commit}) {
+    if(process.client){
+      commit('SET_WALLET', 'metamask')
+      this.$cookies.set('walletName', 'metamask')
+      if (window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        commit('SET_USER', account)
+        this.$cookies.set('account', account)
+      } else {
+        commit('SET_TOAST',true)
+      }
+    }
+
   },
   async networkNames({commit}) {
     if (process.client) {
@@ -111,9 +125,9 @@ export const actions = {
   async activeIndex({commit}, {activeIndex}) {
     await  commit('SET_INDEX', activeIndex)
   },
-  refreshChain(){
+ async refreshChain(){
     if(process.client) {
-      ethereum.autoRefreshOnNetworkChange = false;
+     ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
     }
   },
@@ -166,6 +180,9 @@ export const actions = {
 export const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
+  },
+  SET_TOAST(state, toast) {
+    state.toast = toast
   },
   SET_MODAL_FIVE(state, modalFive) {
     state.modalFive = modalFive

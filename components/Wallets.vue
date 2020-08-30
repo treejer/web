@@ -83,8 +83,8 @@ export default {
         self.activeWallet = index;
         switch (item.name) {
           case 'Metamask':
+            this.$store.dispatch('login')
             this.$bvModal.show('six')
-            this.log();
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')
@@ -126,42 +126,45 @@ export default {
             break
         }
       },
-      log() {
-        this.$store.commit('SET_WALLET', 'metamask')
-        this.$cookies.set('walletName', 'metamask')
-        this.$bvModal.show('six');
-        if (ethereum !== 'undefined') {
-          this.getAccount();
-        } else {
-          this.makeToast()
-        }
-      },
+      // log() {
+      //   this.$store.commit('SET_WALLET', 'metamask')
+      //   this.$cookies.set('walletName', 'metamask')
+      //   this.$bvModal.show('six');
+      //   if (ethereum !== 'undefined') {
+      //     this.getAccount();
+      //   } else {
+      //     this.makeToast()
+      //   }
+      // },
       makeToast(variant = null) {
-        this.$bvToast.toast('install metamask from here', {
-          title: `https://metamask.io/'`,
-          href: 'https://metamask.io/',
-          variant: variant,
-          solid: true
-        })
-      },
-      async getAccount() {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        this.login(account)
-      },
-      login(account) {
-        this.$store.commit('SET_USER', account)
-        this.$cookies.set('account', account)
-        let self = this
-        this.$store.dispatch("login", {account})
-          .then(() => {
-            self.$bvModal.hide('six')
-            self.$bvModal.hide('five')
+        if(this.$store.state.toast){
+          return  this.$bvToast.toast('install metamask from here', {
+            title: `https://metamask.io/'`,
+            href: 'https://metamask.io/',
+            variant: variant,
+            solid: true
           })
-          .catch(err => console.log(err))
-          .then(() => {
-          })
+        }
+
       },
+      // async getAccount() {
+      //   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      //   const account = accounts[0];
+      //   this.login(account)
+      // },
+      // login(account) {
+      //   this.$store.commit('SET_USER', account)
+      //   this.$cookies.set('account', account)
+      //   let self = this
+      //   this.$store.dispatch("login", {account})
+      //     .then(() => {
+      //       self.$bvModal.hide('six')
+      //       self.$bvModal.hide('five')
+      //     })
+      //     .catch(err => console.log(err))
+      //     .then(() => {
+      //     })
+      // },
       goTo(item){
         window.open(item,'_blank')
       }
