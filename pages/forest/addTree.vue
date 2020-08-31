@@ -48,22 +48,22 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-12 mt-5 pays">
-                <h1 class="title-sm">Select payment method</h1>
-                <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in payMethods" class="pointer-event position-relative">
-                    <p
-                      @click="activePays(item, index)"
-                      :class="{ active: activePay === index }"
-                      :key="index"
-                      :name="item.name">
-                      <Fab :i="item.icon" />
-                      <b-badge class="pay-badge" v-if="item.name !== 'bitcoin'" variant="light">coming soon</b-badge>
+<!--              <div class="col-12 mt-5 pays">-->
+<!--                <h1 class="title-sm">Select payment method</h1>-->
+<!--                <ul class="d-flex list-style-none mt-4">-->
+<!--                  <li v-for="(item, index) in payMethods" class="pointer-event position-relative">-->
+<!--                    <p-->
+<!--                      @click="activePays(item, index)"-->
+<!--                      :class="{ active: activePay === index }"-->
+<!--                      :key="index"-->
+<!--                      :name="item.name">-->
+<!--                      <Fab :i="item.icon" />-->
+<!--                      <b-badge class="pay-badge" v-if="item.name !== 'bitcoin'" variant="light">coming soon</b-badge>-->
 
-                    </p>
-                  </li>
-                </ul>
-              </div>
+<!--                    </p>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
 <!--              <div-->
 <!--                class="col-12 mt-5 form-check justify-content-between d-flex"-->
 <!--              >-->
@@ -112,7 +112,7 @@
             </div>
             <div class="col-lg-6 col-md-12 col-12 overflow-hidden">
               <div
-                class="card mt-5 box-shadow-active w-100  justify-content-center text-center"
+                class="card mt-5 box-shadow-active  justify-content-center text-center"
               >
                 <div class="header">
                   <h4 class="param-lg font-weight-bolder ">Did you know?</h4>
@@ -130,18 +130,18 @@
                     @click="!loading ? fund() :''"
                     :class="{'disable': loading}"
 
-                    class="btn-green-md  mt-4"
+                    class="btn-green-md  mt-4 mb-3"
                   >
                     <BSpinner class="mr-2" type="grow"  small   v-if="loading">loading</BSpinner>
                     {{loading ?'Loading' :' NEXT' }}
                   </button>
-                  <p class="pointer-event">
-                    <a class="param mb-0" href=""
-                      >By proceeding I agree to
-                      <span class="param tr-green">terms</span> and
-                      <span class="param tr-green">conditions.</span></a
-                    >
-                  </p>
+<!--                  <p class="pointer-event">-->
+<!--                    <a class="param mb-0" href=""-->
+<!--                      >By proceeding I agree to-->
+<!--                      <span class="param tr-green">terms</span> and-->
+<!--                      <span class="param tr-green">conditions.</span></a-->
+<!--                    >-->
+<!--                  </p>-->
                 </div>
               </div>
             </div>

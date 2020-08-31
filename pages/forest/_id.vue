@@ -103,12 +103,12 @@
                                @click.prevent="calculateMintableO1"
 
 
-                               :class="mintableO1 != 0 ? 'btn-outline-green' : 'btn-green'">
-                               {{ mintableO1 != 0 ? 'Done' : 'step 3' }}
+                               :class="mintableO1 != 0 && mintableO1  ? 'btn-outline-green' : 'btn-green'">
+                               {{ mintableO1 != 0  && mintableO1  ? 'Done' : 'step 3' }}
 
                           </button>
                           </span>
-                          <span :class="mintableO1 != 0 ? 'tr-gray-four' : 'tr-gray-two'">
+                          <span :class="mintableO1 != 0  && mintableO1  ? 'tr-gray-four' : 'tr-gray-two'">
                           Release O1/O2 to your wallet
                           </span>
                         </li>
@@ -117,7 +117,7 @@
                           <span class="step-number mr-2">
                              <button
                                @click="comunity()"
-                               :class="mintableO1 != 0   ? 'btn-outline-green' : 'btn-green'">
+                               :class="mintableO1 != 0    && mintableO1  ? 'btn-outline-green' : 'btn-green'">
                                step 4
 
                           </button>

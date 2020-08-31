@@ -29,8 +29,8 @@
       <button @click="goTo('https://discuss.treejer.com/')" class="btn-gray param-sm text-white" style="margin:  0 15px;background: #424242">Get help</button>
     </li>
     <li class="param-sm justify-content-center mt-4 terms text-center font-weight-bold">
-      By connecting your wallet you agree to our <span class="tr-green">Terms of Service, Privacy</span> and <span
-      class="tr-green">Cookie Policy.</span>
+      By connecting your wallet you agree to our <span class="tr-green"><a class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/terms-of-service" target="_blank">Terms of Service, Privacy</a> </span> and <span
+      class="tr-green"><a target="_blank" class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/cookie-policy">Cookie Policy</a>.</span>
     </li>
     <b-modal hide-footer centered id="six">
       <ul class="list-style-none six" v-if="$store.state.connectingWallet ||$cookies.get('walletName')">
