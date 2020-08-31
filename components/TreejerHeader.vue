@@ -118,18 +118,21 @@ export default {
         })
       },
       async accountChange() {
-        if (process.client) {
-          let self = this
-          if (typeof window.ethereum !== 'undefined') {
-            await window.ethereum.on('accountsChanged', function (accounts) {
-              // Time to reload your interface with accounts[0]!
-              self.$store.commit('SET_USER', accounts[0])
-              self.$cookies.set('account', accounts[0])
-              // const history = self.$router.history.current.fullPath
-              // self.$router.go(history)
+        if(this.$store.state.connectingWallet === 'metamsak'){
+          if (process.client) {
+            let self = this
+            if (typeof window.ethereum !== 'undefined') {
+              await window.ethereum.on('accountsChanged', function (accounts) {
+                // Time to reload your interface with accounts[0]!
+                self.$store.commit('SET_USER', accounts[0])
+                self.$cookies.set('account', accounts[0])
+                const history = self.$router.history.current.fullPath
+                self.$router.go(history)
 
-            });
-          }
+              });
+            }
+        }
+
 
         }
       },
