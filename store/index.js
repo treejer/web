@@ -27,6 +27,7 @@ export const actions = {
     if(process.client){
 
       if (window.ethereum !== 'undefined') {
+        await ethereum.enable()
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         commit('SET_USER', account)

@@ -140,20 +140,36 @@
               <p class="param-18 tr-gray-three Montserrat-Medium">Forest Status</p>
 
             </div>
-             <div class="col-12 mb-3" v-if="!$cookies.get('account')">
+            <div class="col-12 position-relative">
+              <div class="col-12 mb-3 p-0">
               <span v-for="(item,index) in test" :key="item.id">
                   <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
 
               </span>
-            </div>
-            <div class="col-12 mb-1 pb-1" v-if="$cookies.get('account')" >
-              <span class="" v-for="(item,index) in ownerTreesData " :id="item.tree_id" :key="index">
-                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id" >
+              </div>
+              <div class="col-12  befor-res" style="left: 0" v-if="$cookies.get('account')">
+              <span class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
+                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
-<!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
+                <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
 
               </span>
+              </div>
+              <div class="col-12 p-0" v-if="ownerTreesData.length > 49" style="transition: all .3s ease">
+
+                <span v-if="showMoreTreeData" style="transition: all .3s ease" class="" v-for="(item,index) in ownerTreesData.slice(50) "
+                      :id="item.tree_id" :key="index">
+                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                    <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
+                </b-button>
+                  <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
+
+              </span>
+                <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
+                      @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#10549;' :'&#10549;' }}</span>
+              </div>
+
             </div>
 
 
@@ -296,15 +312,16 @@ export default {
   data() {
     return {
       ownerTreesLoaded: false,
-      test:[
-        {},{},{},{},{},{},{},{},{},{},
-        {},{},{},{},{},{},{},{},{},{},
-        {},{},{},{},{},{},{},{},{},{},
-        {},{},{},{},{},{},{},{},{},{},
-        {},{},{},{},{},{},{},{},{},{},
+      showMoreTreeData: false,
+      test: [
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
 
       ],
-      avatar:require('~/assets/images/myforest/avatar.png'),
+      avatar: require('~/assets/images/myforest/avatar.png'),
 
       steps: [
         {active: true, step: 'step 1', text: 'Connect your wallet'},
@@ -707,6 +724,18 @@ export default {
 <style lang="scss" scoped>
 
   .my-forest {
+    .show-more-tree-all{
+      font-size: 26px;
+      display: flex;
+      display: table;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 100px;
+
+
+      margin: auto;
+    }
     .logo-tokens{
       display: flex;
       justify-content: space-evenly;
@@ -957,22 +986,19 @@ export default {
     }
 
   }
-  .befor-res{
+
+  .befor-res {
     position: absolute;
-    top: 81px;
+    top: 0;
     z-index: +99999999;
-    button{
+
+    button {
       z-index: +999999999;
 
     }
   }
 
   @media (min-width: 1280px) {
-
-    .befor-res {
-      top: 91px;
-    }
-
   }
  @media (max-width: 1280px) {
 
