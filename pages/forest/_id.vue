@@ -167,7 +167,7 @@
 
               </span>
                 <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
-                      @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#10549;' :'&#10549;' }}</span>
+                      @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#8679;' : '&#8681;' }}</span>
               </div>
 
             </div>
@@ -178,25 +178,19 @@
           <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
             <div class="col-12 p-0">
               <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
-
             </div>
-            <!-- <vue-datamaps
-              :geographyConfig="geographyConfig"
-              :width="'100%'"
-              :fills="fills"
-              :data="data"></vue-datamaps> -->
 
-    <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
-      ref="gMap"
-      :cluster="{options: {styles: clusterStyle}}"
-      :center="{lat: ownerTreesData[0].latitude, lng: ownerTreesData[0].longitude}"
-      :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-      :zoom="6"
-    >
-      <GMapMarker
-        v-for="tree in ownerTreesData"
-        :key="tree.id"
-        :position="{lat: tree.latitude, lng: tree.longitude}"
+            <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
+                  ref="gMap"
+                  :cluster="{options: {styles: clusterStyle}}"
+                  :center="{lat: ownerTreesData[0].latitude, lng: ownerTreesData[0].longitude}"
+                  :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                  :zoom="6"
+            >
+              <GMapMarker
+                v-for="tree in ownerTreesData"
+                :key="tree.id"
+                :position="{lat: tree.latitude, lng: tree.longitude}"
         :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
         @click="currentTree = tree"
       >
@@ -210,17 +204,27 @@
             Lng: {{ tree.longitude }}
           </code>
         </GMapInfoWindow>
-      </GMapMarker>
-    </GMap>
+              </GMapMarker>
+            </GMap>
+            <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
+                  ref="gMap"
+                  :cluster="{options: {styles: clusterStyle}}"
+                  :center="{lat: 24.06448, lng: 81.30946}"
+                  :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                  :zoom="2"
+            >
+            </GMap>
+            <div  v-if="ownerTreesLoaded === false">
+              <GMap
+                ref="gMap"
+                :cluster="{options: {styles: clusterStyle}}"
+                :center="{lat: 24.06448, lng: 81.30946}"
+                :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                :zoom="2"
+              >
+              </GMap>
 
-    <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
-      ref="gMap"
-      :cluster="{options: {styles: clusterStyle}}"
-      :center="{lat: 24.06448, lng: 81.30946}"
-      :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-      :zoom="2"
-    >
-    </GMap>
+            </div>
 
 
           </div>

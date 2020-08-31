@@ -160,7 +160,6 @@ export default {
       }
     },
   mounted() {
-    this.$store.dispatch('logout')
   }
 }
 </script>
