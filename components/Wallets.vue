@@ -83,8 +83,16 @@ export default {
         self.activeWallet = index;
         switch (item.name) {
           case 'Metamask':
-            this.$store.dispatch('metaMask')
+            this.$store.commit('SET_WALLET', 'metamask')
+            this.$cookies.set('walletName', 'metamask')
             this.$bvModal.show('six')
+            this.$store.dispatch('metaMask').then(()=>{
+              self.$bvModal.hide('six')
+              self.$bvModal.hide('five')
+
+            })
+           console.log(this.$store.state.account)
+
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')

@@ -25,8 +25,7 @@ export const state = () => ({
 export const actions = {
  async metaMask({commit}) {
     if(process.client){
-      commit('SET_WALLET', 'metamask')
-      this.$cookies.set('walletName', 'metamask')
+
       if (window.ethereum !== 'undefined') {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
