@@ -155,24 +155,6 @@ export default {
         }
 
       },
-      // async getAccount() {
-      //   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      //   const account = accounts[0];
-      //   this.login(account)
-      // },
-      // login(account) {
-      //   this.$store.commit('SET_USER', account)
-      //   this.$cookies.set('account', account)
-      //   let self = this
-      //   this.$store.dispatch("login", {account})
-      //     .then(() => {
-      //       self.$bvModal.hide('six')
-      //       self.$bvModal.hide('five')
-      //     })
-      //     .catch(err => console.log(err))
-      //     .then(() => {
-      //     })
-      // },
       goTo(item){
         window.open(item,'_blank')
       }

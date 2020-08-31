@@ -152,7 +152,7 @@ export const actions = {
         .then(handleChainChanged)
         .catch(err => console.error(err)) // This should never happen
 
-      function handleChainChanged (chainId) {
+      function handleChainChanged(chainId) {
 
         if (currentChainId !== chainId) {
 
@@ -161,8 +161,9 @@ export const actions = {
         }
       }
     }
-   this.$cookies.set('account',null);
-    commit('SET_USER', null)
+    await this.$cookies.set('account', null);
+    await commit('SET_USER', null)
+    await this.$router.push('/')
   },
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', {
