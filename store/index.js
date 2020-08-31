@@ -135,6 +135,8 @@ export const actions = {
       const Portis = require("@portis/web3");
       const portis = await Portis(process.env.PORTIS, 'ropsten')
       portis.logout();
+      this.$cookies.set('account',null);
+      commit('SET_USER', null)
     }
     if (this.$cookies.get('walletName') === 'metamask') {
       const eth = await ethereum;
@@ -142,6 +144,8 @@ export const actions = {
       console.log(dc, 'dc')
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
+      this.$cookies.set('account',null);
+      commit('SET_USER', null)
       eth.on('chainChanged', handleChainChanged)
       let currentChainId = null
       ethereum.send('eth_chainId')
