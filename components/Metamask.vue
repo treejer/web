@@ -32,7 +32,7 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven">
+    <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven" @hide="$bvModal.hide('seven')">
       <ul v-if="$cookies.get('walletName') " class="list-style-none seven" >
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>
         <li class="pointer-event mb-2   ">
