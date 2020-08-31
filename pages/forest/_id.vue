@@ -100,6 +100,7 @@
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button
+                               @click.prevent="calculateMintableO1"
 
 
                                :class="mintableO1 ? 'btn-outline-green' : 'btn-green'">
@@ -686,6 +687,15 @@ export default {
     },
     async calculateMintableO1() {
       let self = this
+      if (!self.$cookies.get('account')) {
+        self.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+      } else {
+
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
           .then(function (response) {
             self.mintableO1 = web3.utils.fromWei(response.amount)
@@ -693,6 +703,7 @@ export default {
           .catch(function (error) {
 
           });
+      }
 
     },
     async mintO1() {
