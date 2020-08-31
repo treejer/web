@@ -349,7 +349,7 @@
   .find-my-tree {
     .search-bar {
       span {
-        z-index: +9999;
+        z-index: +99;
         left: 25px;
         top: 5px;
 

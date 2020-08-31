@@ -603,7 +603,7 @@ export default {
   },
 
   async mounted() {
-    this.$store.dispatch('activeIndex')
+    await this.$store.dispatch('activeIndex')
     const hasUser =await this.$cookies.get('account')
     if (hasUser !== null) {
      this.getEthBalance()
