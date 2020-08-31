@@ -23,15 +23,12 @@
           </client-only>
         </b-navbar-nav>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-
         <b-collapse
           class="text-right justify-content-between"
           id="nav-collapse"
           is-nav
         >
           <!-- Right aligned nav items -->
-
           <b-navbar-nav class="header-menu">
             <b-nav-item
                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"
@@ -118,7 +115,7 @@ export default {
         })
       },
       async accountChange() {
-        if(this.$store.state.connectingWallet === 'metamsak'){
+        if(this.$cookies.get('metamsak')){
           if (process.client) {
             let self = this
             if (typeof window.ethereum !== 'undefined') {

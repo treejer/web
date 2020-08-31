@@ -131,7 +131,7 @@ export default {
       this.$bvModal.show('five')
     },
     async accountChange() {
-      if(this.$store.state.connectingWallet === 'metamsak'){
+      if(this.$cookies.get('metamsak')){
 
         if(process.client){
         let self =this

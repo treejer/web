@@ -124,7 +124,7 @@ export const actions = {
   async activeIndex({commit}, {activeIndex}) {
     await  commit('SET_INDEX', activeIndex)
   },
- async refreshChain(){
+  async refreshChain(){
     if(process.client) {
      ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
