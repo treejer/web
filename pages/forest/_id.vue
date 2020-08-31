@@ -37,7 +37,7 @@
               <p class="d-flex justify-content-start align-items-center">
                 <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
 
-                <span class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4)  }} </span>
+                <span v-if="mintableO1" class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4)  }} </span>
               </p>
             </div>
 
@@ -103,12 +103,12 @@
                                @click.prevent="calculateMintableO1"
 
 
-                               :class="mintableO1 ? 'btn-outline-green' : 'btn-green'">
-                               {{ treeCount ? 'Done' : 'step 3' }}
+                               :class="mintableO1 != 0 ? 'btn-outline-green' : 'btn-green'">
+                               {{ mintableO1 != 0 ? 'Done' : 'step 3' }}
 
                           </button>
                           </span>
-                          <span :class="mintableO1 ? 'tr-gray-four' : 'tr-gray-two'">
+                          <span :class="mintableO1 != 0 ? 'tr-gray-four' : 'tr-gray-two'">
                           Release O1/O2 to your wallet
                           </span>
                         </li>
@@ -117,7 +117,7 @@
                           <span class="step-number mr-2">
                              <button
                                @click="comunity()"
-                               :class="mintableO1 ? 'btn-outline-green' : 'btn-green'">
+                               :class="mintableO1 != 0   ? 'btn-outline-green' : 'btn-green'">
                                step 4
 
                           </button>
@@ -340,8 +340,8 @@ export default {
       treeCount: null,
       redeem: null,
       forestSize: 47,
-      walletO1: 0,
-      mintableO1: 0,
+      walletO1: null,
+      mintableO1: null,
       ownerTreesData: [],
       ethBalance: 0,
       geographyConfig: {
@@ -698,7 +698,12 @@ export default {
 
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
           .then(function (response) {
-            self.mintableO1 = web3.utils.fromWei(response.amount)
+            if(response.amount){
+              self.mintableO1 = web3.utils.fromWei(response.amount)
+              debugger
+
+            }
+
           })
           .catch(function (error) {
 

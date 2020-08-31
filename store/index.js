@@ -151,11 +151,13 @@ export const actions = {
     if (this.$cookies.get('walletName') === 'metamask') {
       const eth = await ethereum;
       const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
-      console.log(dc, 'dc')
+
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
-      this.$cookies.set('account',null);
-      commit('SET_USER', null)
+      self.$cookies.set('account',null);
+      self.commit('SET_USER', null)
+      console.log(self.state.account)
+      debugger
       eth.on('chainChanged', handleChainChanged)
       let currentChainId = null
       ethereum.send('eth_chainId')
