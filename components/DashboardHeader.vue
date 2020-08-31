@@ -114,7 +114,7 @@ export default {
   },
   async mounted() {
     let self = this
-    self.accountChange()
+    await self.accountChange()
     await this.$store.dispatch('networkNames')
     setTimeout(()=>{
       self.$store.state.netWorkName !== 'ropsten' ? self.$bvModal.show('netName') : null
@@ -127,12 +127,10 @@ export default {
   computed: {},
   methods: {
     showModal(e) {
-
       this.$bvModal.show('five')
     },
     async accountChange() {
       if(this.$cookies.get('metamsak')){
-
         if(process.client){
         let self =this
         if (typeof window.ethereum !== 'undefined') {
@@ -142,18 +140,9 @@ export default {
             const history = self.$router.history.current.fullPath
             self.$router.go(history)
           });
-
         }
       }}
-
-
-
-
-
     },
-
-
-
     activeWallets(item, index) {
       this.activeWallet = index;
     },

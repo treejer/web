@@ -24,6 +24,7 @@ export const state = () => ({
 
 export const actions = {
  async metaMask({commit}) {
+   let self =this
     if(process.client){
 
       if (window.ethereum !== 'undefined') {
@@ -31,11 +32,13 @@ export const actions = {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         commit('SET_USER', account)
-        this.$cookies.set('account', account)
+        self.$cookies.set('account', account)
       } else {
         commit('SET_TOAST',true)
       }
     }
+   await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+
 
   },
   async networkNames({commit}) {
@@ -66,22 +69,24 @@ export const actions = {
 
   },
   async walletConnect({commit}) {
+   let self =this
     commit('SET_WALLET','walletconnect')
-    this.$cookies.set('walletName', 'walletconnect')
+    self.$cookies.set('walletName', 'walletconnect')
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
     commit('SET_USER', null )
-    this.$cookies.set('account', null)
+    self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
-    this.$cookies.set('account', walletAccount)
+    self.$cookies.set('account', walletAccount)
+    await  self.$router.push(`forest/${self.$cookies.get('account')}`)
     console.log(env,'walletConnectProjectID')
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
 
     const channelProvider = await wc.getChannelProvider();
-    commit('SET_WALLET',null)
+
   },
   async portis({commit}) {
     commit('SET_WALLET','portis')
@@ -96,6 +101,7 @@ export const actions = {
         self.commit('SET_USER', null)
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
+        self.$router.push(`forest/${self.$cookies.get('account')}`)
       });
     }
   },
@@ -103,7 +109,7 @@ export const actions = {
     const Fortmatic = require("fortmatic");
     let self =this
       commit('SET_WALLET','fortmatic')
-      this.$cookies.set('walletName', 'fortmatic')
+      self.$cookies.set('walletName', 'fortmatic')
       const fm =await new Fortmatic(process.env.FORTMATIC);
       commit('SET_FORTMATIC',fm)
       const web3 =await new Web3(fm.getProvider());
@@ -113,7 +119,9 @@ export const actions = {
         self.$cookies.set('account', null)
         self.commit('SET_USER', null)
         self.$cookies.set('account', address)
-          self.commit('SET_USER', address)
+        self.$router.push(`forest/${self.$cookies.get('account')}`)
+
+        self.commit('SET_USER', address)
           self.commit('SET_MODAL_FIVE', false)
       });
         // Get user balance (includes ERC20 tokens as well)
@@ -132,11 +140,12 @@ export const actions = {
     }
   },
   async logout({commit}) {
+   let self =this
     if (this.$cookies.get('walletName') === 'portis') {
       const Portis = require("@portis/web3");
       const portis = await Portis(process.env.PORTIS, 'ropsten')
       portis.logout();
-      this.$cookies.set('account',null);
+      self.$cookies.set('account',null);
       commit('SET_USER', null)
     }
     if (this.$cookies.get('walletName') === 'metamask') {
@@ -162,9 +171,9 @@ export const actions = {
         }
       }
     }
-    await this.$cookies.set('account', null);
+    await self.$cookies.set('account', null);
     await commit('SET_USER', null)
-    await this.$router.push('/')
+    await self.$router.push('/')
   },
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', {

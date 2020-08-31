@@ -88,7 +88,7 @@
                         <li
                           class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
-                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click=" goToAddTree()">
+                             <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click.prevent="goToAddTree">
                                {{ treeCount ? 'Done' : 'step 2' }}
                           </button>
                           </span>
@@ -156,14 +156,14 @@
 
               </span>
               </div>
-              <div class="col-12 p-0" v-if="ownerTreesData.length > 49" style="transition: all .3s ease">
+              <div class="col-12 p-0" v-if="ownerTreesData.length > 50" style="transition: all .3s ease">
 
-                <span v-if="showMoreTreeData" style="transition: all .3s ease" class="" v-for="(item,index) in ownerTreesData.slice(50) "
+                <span v-if="showMoreTreeData" style="transition: all .3s ease" class=""
+                      v-for="(item,index) in ownerTreesData.slice(50) "
                       :id="item.tree_id" :key="index">
                 <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
-                  <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
 
               </span>
                 <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
@@ -603,8 +603,8 @@ export default {
   },
 
   async mounted() {
-    await this.$store.dispatch('activeIndex')
-    const hasUser =await this.$cookies.get('account')
+    let self = this;
+    const hasUser = await this.$cookies.get('account')
     if (hasUser !== null) {
      this.getEthBalance()
      this.getBalanceOfO1()
@@ -651,19 +651,18 @@ export default {
 
 
       },
-     goToaddTree() {
-        this.loading = true
-        let self = this
-      if(!this.$store.state.account){
-        self.$bvToast.toast("you're not login", {
-          toaster: 'b-toaster-bottom-left',
-          solid: true,
-          headerClass: 'hide',
-          variant: 'danger'
-        })
-      }else {
-        this.$router.push('/forest/addTree')
-      }
+     goToAddTree() {
+       let self = this
+       if (!self.$cookies.get('account')) {
+         self.$bvToast.toast("you're not login", {
+           toaster: 'b-toaster-bottom-left',
+           solid: true,
+           headerClass: 'hide',
+           variant: 'danger'
+         })
+       } else {
+         self.$router.push('/forest/addTree')
+       }
 
 
       },

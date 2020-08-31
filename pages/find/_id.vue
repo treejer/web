@@ -55,17 +55,14 @@
     },
     methods: {
       async findTree() {
-
         let self = this;
         self.loading = true
-
         await this.$axios.$get(`${process.env.apiUrl}/trees/${this.$route.params.id}`)
           .then(function (response) {
             self.loading = false
             self.tree = response
           })
           .catch(function (error) {
-
             self.loading = false
             self.$bvToast.toast("Tree Not found!", {
               toaster: 'b-toaster-bottom-left',
