@@ -24,6 +24,7 @@
                                class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
                                height="42"/></span>
       </div>
+
       <img
         alt="tree"
         name="tree"
@@ -32,6 +33,11 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
+    <b-dropdown id="dropdown-aria" lazy hidden>
+      <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
+      <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
+      <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
+    </b-dropdown>
     <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven" @hide="$bvModal.hide('seven')">
       <ul v-if="$cookies.get('walletName') " class="list-style-none seven" >
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>

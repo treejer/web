@@ -124,12 +124,14 @@
           self.loading = false
           self.$bvToast.toast('Your message was sent successfully.', {
             variant: 'success',
-            title: 'Message'
+            toaster: 'b-toaster-bottom-left',
+
           })
         }).catch(function(err) {
           self.$bvToast.toast(err.message, {
             variant: 'danger',
-            title: 'Error'
+            toaster: 'b-toaster-bottom-left',
+
           })
           self.loading = false
         })

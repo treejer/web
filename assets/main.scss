@@ -1236,31 +1236,6 @@ option {
 
 }
 
-.b-toast-success {
-
-  color: white ;
-  background: #67B68C ;
-
-  .toast-header {
-    background-color: #67B68C!important; ;
-    border: none;
-    color: white ;
-
-    strong, button {
-      color: white ;
-      background: #67B68C ;
-
-    }
-
-
-  }
-
-  .toast-body {
-
-    background-color: #67B68C;
-    color: white;
-  }
-}
 
 .alert-danger {
 
@@ -1291,37 +1266,60 @@ option {
   font-family: Montserrat-Regular;
 }
 
-.b-toast-danger {
-.toast {
-  border: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  outline: none;
-  list-style: none;
-
-  max-width: 340px;
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
+.b-toast{
   -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
-  background: rgba(255, 71, 87, 1);
   -webkit-transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
   transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
   transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s;
   transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  font-size: 12px;
-  font-family: Montserrat-Regular;
+  font-size: 14px;
+  font-family: Montserrat-Medium;
+}
+.toast {
+  border: 0;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+  max-width: 340px;
+  width: 100%;
+  background-color: #212121!important;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  height: 64px;
+  align-items: center;
+  color: #FAFAFA!important;
 
 }
-  background: rgba(255, 71, 87, 0);
-  .toast-header,.toast-body{
-    background: rgba(255, 71, 87, 0)!important;
-    border:0 ;
-    text-align: center;
+.b-toast-danger .toast-header {
+  height: 100%;
+  background: #D04F45!important;
+  border-radius: 6px 0px 0px 6px;
+  width: 24px;
+  color: #FAFAFA!important;
+  justify-content: center;
+  border: 0!important;
+  button{
+    color: #FAFAFA;
+  }
+}
+.b-toast-success {
+  .toast-header {
+    height: 100%;
+    background: #67B68C!important; ;
+    border-radius: 6px 0px 0px 6px;
+    width: 24px;
+    color: #FAFAFA!important;
+    justify-content: center;
+    border: 0!important;
+    button{
+      color: #FAFAFA;
+    }
 
   }
-
 }
 
 .modal-header {

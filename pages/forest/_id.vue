@@ -271,10 +271,7 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <nuxt-link class="position-relative" to="/forest/addTree">
-
-                  <button class="btn-lg">ADD A TREE</button>
-                </nuxt-link>
+                  <button @click="goToAddTree()" class="btn-lg">ADD A TREE</button>
               </div>
               <div class="gift-tree mb-4" >
 <!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
@@ -661,6 +658,8 @@ export default {
            headerClass: 'hide',
            variant: 'danger'
          })
+         debugger
+         self.$bvModal.show('five')
        } else {
          self.$router.push('/forest/addTree')
        }
@@ -712,7 +711,19 @@ export default {
 
     },
     async mintO1() {
-      await this.$store.dispatch('o1Factory/mint')
+      let self = this
+      if (!self.$cookies.get('account')) {
+        self.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+        self.$bvToast.show('four')
+      } else {
+
+        await this.$store.dispatch('o1Factory/mint')
+      }
     },
     async getEthBalance() {
       this.ethBalance = await this.$store.dispatch('fund/getEthBalance')
