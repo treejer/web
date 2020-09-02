@@ -81,7 +81,7 @@ export default {
         this.helpLoading = false
 
 
-      }, 3000)
+      }, 2000)
 
     })
   }
