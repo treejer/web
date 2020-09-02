@@ -138,7 +138,7 @@ export default {
               self.$store.commit('SET_USER',accounts[0])
               self.$cookies.set('account',accounts[0])
               const history = self.$router.history.current.fullPath
-              self.$router.go(history)
+              self.$router.push('/')
               self.$forceUpdate()
             }
 
