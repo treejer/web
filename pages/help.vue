@@ -55,6 +55,8 @@
   </section>
 </template>
 <script>
+import {Tribe} from "@/components/tribe";
+
 export default {
   name: "help",
   layout: "dashboard",
@@ -64,7 +66,10 @@ export default {
         {
           src:require('../components/tribe.js')
           }
-      ]
+      ],
+      mounted(){
+        console.log(Tribe,'tribe')
+      }
     }
   }
 };

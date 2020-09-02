@@ -129,8 +129,8 @@ export default {
       window.getSelection().removeAllRanges()
     },
     showModal() {
-
       this.$emit('showModal')
+
 
     },
     activeMenu(item, index) {

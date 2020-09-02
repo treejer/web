@@ -50,13 +50,7 @@
               </p>
             </div>
             <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
-              <!--              <p>SEED BALANCE</p>-->
-              <!--              <p>-->
-<!--              <span>{{ walletO1 }}</span><span>o1</span>-->
-<!--              <span>{{ mintableO1 }}</span><span>o1(mintable)</span>-->
-
               <button class="btn-outline-green btn-wallet" @click="mintO1">Send to Wallet</button>
-              <!--              </p>-->
             </div>
           </div>
           <div class="row treejer-user-flow">
@@ -324,7 +318,6 @@ export default {
 
       ],
       avatar: require('~/assets/images/myforest/avatar.png'),
-
       steps: [
         {active: true, step: 'step 1', text: 'Connect your wallet'},
         {active: false, step: 'step 2', text: 'Add trees to your forest'},
@@ -621,8 +614,6 @@ export default {
             self.loading = false
             self.$router.push(`/find/${self.treeID}`)
 
-
-            // handle success
           })
           .catch(function (error) {
 
@@ -658,7 +649,6 @@ export default {
            headerClass: 'hide',
            variant: 'danger'
          })
-         debugger
          self.$bvModal.show('five')
        } else {
          self.$router.push('/forest/addTree')
@@ -699,7 +689,6 @@ export default {
           .then(function (response) {
             if(response.amount){
               self.mintableO1 = web3.utils.fromWei(response.amount)
-              debugger
 
             }
 

@@ -1,23 +1,12 @@
 <template>
   <div :class="currentRouteName" style="min-height: 100vh">
-
     <TreejerHeader />
-
     <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
         <nuxt/>
       </div>
-
     </div>
-
     <Footer />
-<!--    <div class="w-100 h-100 bg-dark position-fixed d-flex align-items-center align-self-center justify-content-center" v-if="!hasMetaMask">-->
-<!--      <button type="button" name="metamask" >-->
-<!--        install metaMask-->
-<!--      </button>-->
-
-
-<!--    </div>-->
   </div>
 </template>
 

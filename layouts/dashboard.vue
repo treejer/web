@@ -24,11 +24,6 @@ export default {
   components: { Sidebar, Footer, DashboardHeader, Router },
   data() {
     return {
-      account: {},
-      user: false,
-      sidebarName: false,
-      hasSideBar: false,
-      routeName: null
     };
   },
   computed: {
@@ -47,17 +42,7 @@ export default {
   // },
 
   methods: {
-    onComplete(data) {
-      this.account = data;
-    },
-    hasUser() {
-      const token = this.$cookies.get("token");
-      if (token !== undefined) {
-        return null;
-      } else {
-        this.user = true;
-      }
-    }
+
   }
 };
 </script>

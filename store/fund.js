@@ -11,12 +11,16 @@ web3.eth.getAccounts().then(res => {
   account = res[0]
 })
 
+
+
 export const state = () => ({})
 
 export const mutations = {}
 
 export const actions = {
+
   getEthBalance() {
+    console.log(this.state.account,"dawadadawdjpiji")
     return web3.eth.getBalance(account).then((ethBalance) => {
       web3.utils.fromWei(ethBalance)
     });

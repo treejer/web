@@ -130,17 +130,15 @@ export default {
       this.$bvModal.show('five')
     },
     async accountChange() {
-      if(this.$cookies.get('metamsak')){
+      if(this.$cookies.get('walletName') === 'metamask'){
         if(process.client){
         let self =this
-        if (typeof window.ethereum !== 'undefined') {
           await window.ethereum.on('accountsChanged', function (accounts) {
             self.$store.commit('SET_USER',accounts[0])
             self.$cookies.set('account',accounts[0])
             const history = self.$router.history.current.fullPath
             self.$router.go(history)
           });
-        }
       }}
     },
     activeWallets(item, index) {

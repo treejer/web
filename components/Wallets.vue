@@ -33,16 +33,16 @@
       class="tr-green"><a target="_blank" class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/cookie-policy">Cookie Policy</a>.</span>
     </li>
     <b-modal hide-footer centered id="six">
-      <ul class="list-style-none six" v-if="$store.state.connectingWallet ||$cookies.get('walletName')">
+      <ul class="list-style-none six" v-if="$store.state.connectingWallet || $cookies.get('walletName')">
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"> Connecting to</li>
-        <li class="pointer-event mb-2   ">
+        <li class="pointer-event mb-2">
           <p
             class="tr-gray-three param font-weight-bold">
-            <span class="name text-capitalize">      {{ $store.state.connectingWallet ||$cookies.get('walletName') }}</span>
+            <span class="name text-capitalize">{{ $store.state.connectingWallet || $cookies.get('walletName') }}</span>
             <span class="icon">
           <img v-if="$store.state.connectingWallet ||$cookies.get('walletName')"
                :src="require(`~/assets/images/wallets/${$store.state.connectingWallet ||$cookies.get('walletName')}.svg`)"
-               :alt="$store.state.connectingWallet ||$cookies.get('walletName')" class="img-fluid" />
+               :alt="$store.state.connectingWallet ||$cookies.get('walletName')" class="img-fluid"/>
         </span>
           </p>
         </li>
@@ -85,19 +85,21 @@ export default {
           case 'Metamask':
             this.$store.commit('SET_WALLET', 'metamask')
             this.$cookies.set('walletName', 'metamask')
-            this.$bvModal.show('six')
-            this.$store.dispatch('metaMask').then(()=>{
-              self.$bvModal.hide('six')
-              self.$bvModal.hide('five')
+            if (window.ethereum !== 'undefined') {
+              this.$bvModal.show('six')
+              this.$store.dispatch('metaMask').then(() => {
+                self.$bvModal.hide('six')
+                self.$bvModal.hide('five')
+              })
+            } else {
+              self.makeToast('danger')
 
-            })
-           console.log(this.$store.state.account)
-
+            }
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')
             this.$store.dispatch('walletConnect')
-              .then(()=>self.$bvModal.hide('six'))
+              .then(() => self.$bvModal.hide('six'))
               .catch(err => {
                 self.$bvModal.hide('six')
                 self.$bvModal.hide('five')

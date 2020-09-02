@@ -27,16 +27,13 @@ export const actions = {
    let self =this
     if(process.client){
 
-      if (window.ethereum !== 'undefined') {
         await ethereum.enable()
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         commit('SET_USER', account)
         self.$cookies.set('account', account)
-      } else {
-        commit('SET_TOAST',true)
       }
-    }
+
    await  self.$router.push(`forest/${self.$cookies.get('account')}`)
 
 
@@ -89,20 +86,30 @@ export const actions = {
 
   },
   async portis({commit}) {
+
     commit('SET_WALLET','portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
       const Portis = require("@portis/web3");
-      let self =this
-      const portis = new Portis(process.env.PORTIS, 'ropsten');
-      const web3 =  new Web3(portis.provider);
-      await web3.eth.getAccounts((error, accounts) => {
+      let self = this
+      const portis = new Portis(process.env.PORTIS, 'ropsten',{ scope: ['email']});
+
+      const web3OnPortis = new Web3(portis.provider);
+      await web3OnPortis.eth.getAccounts((error, accounts) => {
         self.$cookies.set('account', null)
         self.commit('SET_USER', null)
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
+
         self.$router.push(`forest/${self.$cookies.get('account')}`)
       });
+      await portis.onLogin(
+        (walletAddress) => {
+          console.log(walletAddress, "walletAddress walletAddress")
+        }
+      );
+      debugger
+
     }
   },
   async fortmatic({commit}) {
@@ -151,7 +158,6 @@ export const actions = {
     if (this.$cookies.get('walletName') === 'metamask') {
       const eth = await ethereum;
       const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
-
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
       self.$cookies.set('account',null);
