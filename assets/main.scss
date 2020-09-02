@@ -1410,3 +1410,9 @@ li.square::before {
   content: '' !important;
 
 }
+#questions-widget,#questions-widget-iframe{
+  min-height: 100vh!important;
+  height: auto!important;
+  position: relative;
+  overflow-y: paged-y;
+}
