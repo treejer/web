@@ -134,10 +134,13 @@ export default {
         if(process.client){
         let self =this
           await window.ethereum.on('accountsChanged', function (accounts) {
-            self.$store.commit('SET_USER',accounts[0])
-            self.$cookies.set('account',accounts[0])
-            const history = self.$router.history.current.fullPath
-            self.$router.go(history)
+            if(self.$cookies.get(accounts) !== accounts[0]){
+              self.$store.commit('SET_USER',accounts[0])
+              self.$cookies.set('account',accounts[0])
+              const history = self.$router.history.current.fullPath
+              self.$router.go(history)
+            }
+
           });
       }}
     },
