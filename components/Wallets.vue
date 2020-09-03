@@ -10,7 +10,9 @@
           :key="index"
           :name="item.name"
         >
-          <span class="name text-capitalize">{{!hasMetaMask && item.name === 'Metamask' ? this.installMetamask : item.name }}</span>
+          <span class="name text-capitalize">{{
+              hasMetaMask && item.name !== 'Metamask' ? item.name : this.installMetamask
+            }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
