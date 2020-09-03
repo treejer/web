@@ -16,13 +16,14 @@
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
         </p>
-        <p v-if="item.name !== 'Metamask' ? item.name : null "
+        <p
+            v-if="hasMetaMask "
            @click.prevent="activeWallets(item, index,$event)"
            class="tr-gray-three param font-weight-bold"
            :key="index"
            :name="item.name"
         >
-          <span class="name text-capitalize">{{ item.name !== 'Metamask' ? item.name : null }}</span>
+          <span class="name text-capitalize">{{ item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
