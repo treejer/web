@@ -4,12 +4,25 @@
     <li v-for="(item, index) in wallets" class="pointer-event mb-2  ">
       <client-only>
         <p
-          @click.prevent="activeWallets(item, index,$event)"
+          v-if="hasMetaMask === false && item.name === 'Metamask'"
           class="tr-gray-three param font-weight-bold"
           :key="index"
           :name="item.name"
         >
-          <span class="name text-capitalize">{{ item.name }}</span>
+          <span class=""><a href="https://metamask.io/" target="_blank"
+                            class="tr-gray-three">install Metamask</a> </span>
+
+          <span class="icon">
+          <img :src="item.src" :alt="item.name" class="img-fluid">
+        </span>
+        </p>
+        <p v-if="item.name !== 'Metamask' ? item.name : null "
+           @click.prevent="activeWallets(item, index,$event)"
+           class="tr-gray-three param font-weight-bold"
+           :key="index"
+           :name="item.name"
+        >
+          <span class="name text-capitalize">{{ item.name !== 'Metamask' ? item.name : null }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
@@ -73,7 +86,8 @@ export default {
       ],
       activeWallet: 0,
       screenX: null,
-      screenY: null
+      screenY: null,
+      hasMetaMask: false,
     }
     },
     computed: {},
@@ -162,6 +176,13 @@ export default {
       }
     },
   mounted() {
+    if (process.client) {
+      if (window.ethereum === 'undefined' || window.ethereum === null || !window.ethereum) {
+        this.hasMetaMask = false
+      } else {
+        this.hasMetaMask = true
+      }
+    }
   }
 }
 </script>
