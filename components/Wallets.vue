@@ -5,7 +5,7 @@
       <client-only>
         <p
           v-if="hasMetaMask === false && item.name === 'Metamask'"
-          class="tr-gray-three param font-weight-bold"
+          class="tr-gray-three param font-weight-bold mb-2"
           :key="index"
           :name="item.name"
         >
