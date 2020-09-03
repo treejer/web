@@ -9,7 +9,8 @@
           :key="index"
           :name="item.name"
         >
-          <span class=""></span>
+          <span class=""><a href="https://metamask.io/" target="_blank"
+                            class="tr-gray-three">install Metamask</a> </span>
 
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
@@ -21,7 +22,7 @@
           :key="index"
           :name="item.name"
         >
-          <span class="name text-capitalize">{{  item.name }}</span>
+          <span class="name text-capitalize">{{ item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
