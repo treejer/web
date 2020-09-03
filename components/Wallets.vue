@@ -3,27 +3,14 @@
     <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4">Select Wallet</li>
     <li v-for="(item, index) in wallets" class="pointer-event mb-2  ">
       <client-only>
+
         <p
-          v-if="hasMetaMask === false && item.name === 'Metamask'"
+          @click.prevent="activeWallets(item, index,$event)"
           class="tr-gray-three param font-weight-bold"
           :key="index"
           :name="item.name"
         >
-          <span class=""><a href="https://metamask.io/" target="_blank"
-                            class="tr-gray-three">install Metamask</a> </span>
-
-          <span class="icon">
-          <img :src="item.src" :alt="item.name" class="img-fluid">
-        </span>
-        </p>
-        <p
-            v-if="hasMetaMask "
-           @click.prevent="activeWallets(item, index,$event)"
-           class="tr-gray-three param font-weight-bold"
-           :key="index"
-           :name="item.name"
-        >
-          <span class="name text-capitalize">{{ item.name }}</span>
+          <span class="name text-capitalize">{{!hasMetaMask && item.name === 'Metamask' ? this.installMetamask : item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
@@ -86,6 +73,7 @@ export default {
         {name: "Fortmatic", step: 4, src: require('~/assets/images/wallets/fortmatic.svg')},
       ],
       activeWallet: 0,
+      installMetamask: `<a href="https://metamask.io/" target="_blank" class="tr-gray-three">install Metamask</a>`,
       screenX: null,
       screenY: null,
       hasMetaMask: false,
