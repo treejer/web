@@ -17,9 +17,16 @@
             <div class="col-12 mb-5 mt-2">
               <ul>
                 <li class="list-style-none" v-if="updates" v-for="(item , index) in updates">
-                  <p  class="param-md tr-gray-three font-weight-bold">
-                    {{ index + 1 + ' ' }})  For {{ item.type === 'O1Minted' ? 'O1 Minting' : 'Tree Funding' }}
-                      You successfully added 1  {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a class="tr-green pointer-event">#{{ item.id }}</a>  to your forest. <a class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                  <p class="param-md tr-gray-three font-weight-bold" v-if="item.type ==='O1Minted' || totalO1">
+                    {{ index + 1 + ' ' }}) For O1 Minting
+                    You successfully sent {{ totalO1 }} O1 from your forest to your wallet. <a
+                    class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                  </p>
+                  <p class="param-md tr-gray-three font-weight-bold" v-if="item.type ==='TreeFunded' ">
+                    {{ index + 1 + ' ' }}) For {{ item.type === 'O1Minted' ? 'O1 Minting' : 'Tree Funding' }}
+                    You successfully added 1 {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a
+                    class="tr-green pointer-event">#{{ item.id }}</a> to your forest. <a
+                    class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
                   </p>
 
                 </li>
@@ -62,6 +69,7 @@
 
 </template>
 <script>
+import web3 from '~/plugins/web3'
   export default {
     name: 'updates',
       layout: "dashboard",
@@ -70,7 +78,8 @@
       return {
         updates: null,
         modalsrc:null,
-        activity:null
+        activity:null,
+        totalO1:null
       }
     },
     computed:{
@@ -80,9 +89,12 @@
         // }
       }
     },
-    methods:{
-      openModal(item){
-        this.modalsrc =JSON.parse(item.raw_data)
+    methods: {
+      sendItem(item, index) {
+        console.log(item, index, 'item,index hereeee')
+      },
+      openModal(item) {
+        this.modalsrc = JSON.parse(item.raw_data)
 
         this.$bvModal.show('update')
       }
@@ -90,7 +102,16 @@
     async mounted() {
       const updates = await this.$axios.$get(`https://api.treejer.com/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
       this.activity = updates
-       this.updates = updates.events.data
+      this.updates = updates.events.data
+      updates.events.data.map((item, index) => {
+        if (item.type === 'O1Minted') {
+          const pars = JSON.parse(item.data)
+          console.log( web3.utils, 'item,index heee')
+          this.totalO1 =web3.utils.fromWei(pars.totalO1)
+        }
+      })
+
+      this.sendItem()
     }
   }
 </script>

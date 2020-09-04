@@ -163,7 +163,6 @@ export const actions = {
       self.$cookies.set('account',null);
       self.commit('SET_USER', null)
       console.log(self.state.account)
-      debugger
       eth.on('chainChanged', handleChainChanged)
       let currentChainId = null
       ethereum.send('eth_chainId')

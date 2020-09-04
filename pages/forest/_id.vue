@@ -37,7 +37,7 @@
               <p class="d-flex justify-content-start align-items-center">
                 <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
 
-                <span v-if="mintableO1" class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4)  }} </span>
+                <span v-if="mintableO1" class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4) || 0  }} </span>
               </p>
             </div>
 
@@ -144,7 +144,7 @@
               </div>
               <div class="col-12  befor-res" style="left: 0" v-if="$cookies.get('account')">
               <span class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
-                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
                 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
@@ -153,11 +153,17 @@
               </div>
               <div class="col-12 p-0" v-if="ownerTreesData.length > 50" style="transition: all .3s ease">
 
-                <span v-if="showMoreTreeData" style="transition: all .3s ease" class=""
+                <span  v-if="showMoreTreeData" style="transition: all .3s ease" class="pointer-event"
                       v-for="(item,index) in ownerTreesData.slice(50) "
-                      :id="item.tree_id" :key="index">
-                <b-button class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
-                    <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
+                      :id="item.tree_id" :key="index"
+
+                >
+<!--                  -->
+                <b-button  @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)"  class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                    <img class="img-fluid pointer-event"
+
+
+                         src="~/assets/images/myforest/trees.png"/>
                 </b-button>
 
               </span>
@@ -664,6 +670,9 @@ export default {
     showModal(e) {
         this.$bvModal.show('five')
       },
+    changeRoute(item) {
+      window.open(item, '_blank')
+    },
     async getBalanceOfO1() {
       let self = this
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/balanceOf`)
