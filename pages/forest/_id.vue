@@ -600,6 +600,7 @@ export default {
   },
 
   async mounted() {
+    console.log(this.$refs,this.$ref,this.$config ,'this.$refs,this.$ref,this.$config')
     let self = this;
     const hasUser = await this.$cookies.get('account')
     if (hasUser !== null) {

@@ -181,7 +181,7 @@
 
   export default {
     name: "findMyTree",
-    layout:"checkout",
+    // layout:"checkout",
 
 
 

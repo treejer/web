@@ -32,6 +32,9 @@
     },
 
     mounted() {
+      this.$store.commit('SET_DASHBOARD' , false)
+      console.table(this.$store.state.dashboard)
+
     },
     methods: {
     }

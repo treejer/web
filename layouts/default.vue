@@ -36,6 +36,9 @@ export default {
   },
 
   mounted() {
+    this.$store.commit('SET_DASHBOARD' , false)
+    console.table(this.$store.state.dashboard)
+
     this.refresh()
 
     const workBox = window.$workbox

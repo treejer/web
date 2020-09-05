@@ -7,7 +7,7 @@ export const state = () => ({
   sliceAccount: null,
   index: 0,
   account: null,
-  dashboard: null,
+  dashboard: false,
   users: null,
   chainId: null,
   trezorPopup: null,
@@ -33,8 +33,12 @@ export const actions = {
         commit('SET_USER', account)
         self.$cookies.set('account', account)
       }
+    if(state.dashboard){
+      await  self.$router.push(`${self.$cookies.get('account')}`)
+    }else {
+      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+    }
 
-   await  self.$router.push(`forest/${self.$cookies.get('account')}`)
 
 
   },
@@ -76,7 +80,11 @@ export const actions = {
     self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
-    await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+    if(state.dashboard){
+      await  self.$router.push(`${self.$cookies.get('account')}`)
+    }else {
+      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+    }
     console.log(env,'walletConnectProjectID')
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
@@ -101,14 +109,16 @@ export const actions = {
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
 
-        self.$router.push(`forest/${self.$cookies.get('account')}`)
-      });
+        if(state.dashboard){
+            self.$router.push(`${self.$cookies.get('account')}`)
+        }else {
+            self.$router.push(`forest/${self.$cookies.get('account')}`)
+        }      });
       await portis.onLogin(
         (walletAddress) => {
           console.log(walletAddress, "walletAddress walletAddress")
         }
       );
-      debugger
 
     }
   },
@@ -126,8 +136,11 @@ export const actions = {
         self.$cookies.set('account', null)
         self.commit('SET_USER', null)
         self.$cookies.set('account', address)
-        self.$router.push(`forest/${self.$cookies.get('account')}`)
-
+        if(state.dashboard){
+            self.$router.push(`${self.$cookies.get('account')}`)
+        }else {
+            self.$router.push(`forest/${self.$cookies.get('account')}`)
+        }
         self.commit('SET_USER', address)
           self.commit('SET_MODAL_FIVE', false)
       });

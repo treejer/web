@@ -30,6 +30,11 @@
       onComplete(data) {
         this.account = data;
       },
+    },
+    mounted() {
+      this.$store.commit('SET_DASHBOARD' , true)
+      console.table(this.$store.state.dashboard)
+
     }
   };
 </script>

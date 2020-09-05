@@ -33,6 +33,8 @@ export default {
   },
 
   mounted() {
+    this.$store.commit('SET_DASHBOARD' , true)
+    console.table(this.$store.state.dashboard)
 
   },
   // mounted() {
