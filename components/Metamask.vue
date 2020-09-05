@@ -119,7 +119,7 @@ export default {
        const successful = document.execCommand('copy');
        this.$bvToast.toast(`Copy to clipboard!! `,{
          variant:'success',
-         title:'token has been on your clipboard'
+         toaster: 'b-toaster-bottom-left',
        })
      } catch (e) {
        console.error(e);

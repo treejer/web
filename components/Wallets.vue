@@ -176,7 +176,6 @@ export default {
       }
     },
   mounted() {
-    console.log(this , "this.$route")
     if (process.client) {
       if (window.ethereum === 'undefined' || window.ethereum === null || !window.ethereum) {
         this.hasMetaMask = false

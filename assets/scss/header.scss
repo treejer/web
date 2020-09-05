@@ -122,6 +122,18 @@
 */
 @media (max-width: 768px) {
   .headers{
+    .accounting-card{
+      .img{
+        margin-left: 45px;
+        img{
+          display:inline!important;
+        }
+      }
+      .param-sm{
+        right: 45%;
+
+      }
+    }
     img.tree{
       width: 27px;
       height: 36px;
