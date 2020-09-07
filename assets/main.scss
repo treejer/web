@@ -8,7 +8,11 @@
 //  //noinspection CssUnknownTarget
 //  src: url("../../assets/fonts/MontserratAlternatesBlack.otf");
 //}
-
+@media (min-width: 1200px){
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+  max-width: 1194px;
+}
+}
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
   src: url("../assets/fonts/MontserratAlternates-BlackItalic.otf");

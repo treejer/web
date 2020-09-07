@@ -200,7 +200,7 @@ export const actions = {
       status
     })
   },
-  async ethPrices({commit}) {
+  async ethPrices({commit},{err}) {
     const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
     commit('SET_ETH_PRICE', ethPrice.result)
   },

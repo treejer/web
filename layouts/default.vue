@@ -1,7 +1,7 @@
 <template>
   <div :class="currentRouteName" style="min-height: 100vh">
     <TreejerHeader />
-    <div class="container" :class="$route.name"  style="min-height: 85vh">
+    <div class="container" :class="$route.name"  style="min-height: 81.8vh">
       <div class="row">
         <nuxt/>
       </div>
@@ -26,29 +26,30 @@ export default {
       sidebarName: false,
       hasSideBar: false,
       routeName: null,
-      hasMetaMask: null
+      hasMetaMask: null,
+      onLine: this.$nuxt.isOnline,
+      offLine: this.$nuxt.isOffline
+
     };
   },
   computed: {
     currentRouteName() {
       return this.$route.path;
-    }
+    },
   },
 
   mounted() {
-    this.$store.commit('SET_DASHBOARD' , false)
-
-    this.refresh()
-
-    const workBox = window.$workbox
-    if (this.$nuxt.isOnline) {
-      return null
-    } else {
-
-      this.makeToast('danger', 'You are offline')
-
-    }
+    this.$store.commit('SET_DASHBOARD', false)
+    const url = 'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE'
+    this.$axios.get(url)
+      .then((res) => {
+        console.log(res, 'res')
+      }).catch((err) => {
+      console.log(err, "err")
+     this.makeToast('danger',`Offline mode`)
+    })
   },
+
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})
   //
@@ -60,7 +61,8 @@ export default {
       this.$bvToast.toast(msg, {
         title: title,
         variant: variant,
-        solid: true
+        solid: true,
+        toaster: 'b-toaster-bottom-left',
       })
     },
     onComplete(data) {
