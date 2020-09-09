@@ -1,12 +1,21 @@
 <template>
   <div :class="currentRouteName" style="min-height: 100vh">
-    <TreejerHeader />
-    <div class="container" :class="$route.name"  style="min-height: 81.8vh">
+    <TreejerHeader/>
+    <div class="container" :class="$route.name" style="min-height: 81.8vh">
       <div class="row">
         <nuxt/>
       </div>
     </div>
-    <Footer />
+    <Footer/>
+    <AlertTreejer
+      :show="show"
+      :has-action="false"
+      :has-duration="false"
+      :hasSideBar="false"
+      text="Offline mode"
+      message="You can still use Treejer in semi-functional mode"
+      variant="danger"/>
+
   </div>
 </template>
 
@@ -16,13 +25,15 @@ import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
+import AlertTreejer from "@/components/AlertTreejer";
 
 export default {
-  components: {Sidebar, Footer, TreejerHeader, Router},
+  components: {AlertTreejer, Sidebar, Footer, TreejerHeader, Router},
   data() {
     return {
       account: {},
       user: false,
+      show: false,
       sidebarName: false,
       hasSideBar: false,
       routeName: null,
@@ -39,22 +50,25 @@ export default {
   },
 
   mounted() {
+    console.log(AlertTreejer, "AlertTreejer")
     this.$store.commit('SET_DASHBOARD', false)
     const url = 'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE'
     this.$axios.get(url)
       .then((res) => {
         console.log(res, 'res')
       }).catch((err) => {
-      console.log(err, "err")
-     this.makeToast('danger',`Offline mode`)
+      this.$store.commit("toast/SET_TOAST", {
+        show: true,
+        variant: "danger",
+        title: "Offline mode",
+        message: "You can still use Treejer in semi-functional mode",
+        hasDuration: true,
+        hasSideBar: false,
+        hasAction: false,
+        actions: "",
+      })
     })
   },
-
-  // mounted() {
-  //   this.$store.dispatch('hasDashboard', {})
-  //
-  //
-  // },
 
   methods: {
     makeToast(variant, msg, title) {

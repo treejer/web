@@ -7,9 +7,7 @@
             <div class="col-lg-5 col-md-5 col-5">
               <h2 class="title-sm Montserrat-Medium " >
                 My Forest
-
               </h2>
-
             </div>
             <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
               <div class="form-group">
@@ -25,7 +23,6 @@
               <p class="tr-gray-two">FOREST SIZE</p>
               <p class="d-flex justify-content-start  align-items-center">
                 <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
-
                 <span>
                   <span v-if="!loading" >{{treeCount || 0}}</span>
                   <span v-if="loading"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
@@ -36,7 +33,6 @@
               <p>RELEASED O1</p>
               <p class="d-flex justify-content-start align-items-center">
                 <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
-
                 <span v-if="mintableO1" class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4) || 0  }} </span>
               </p>
             </div>
@@ -596,14 +592,18 @@ export default {
       treeID:null
 
     }
-
   },
-
   async mounted() {
     console.log(this.$refs,this.$ref,this.$config ,'this.$refs,this.$ref,this.$config')
     let self = this;
     const hasUser = await this.$cookies.get('account')
     if (hasUser !== null) {
+      self.$bvToast.toast(`${self.$cookies.get('account').slice(0,10)} connected`, {
+        toaster: 'b-toaster-bottom-left',
+        solid: true,
+        headerClass: 'hide',
+        variant: 'success'
+      })
      this.getEthBalance()
      this.getBalanceOfO1()
      this.calculateMintableO1()

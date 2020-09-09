@@ -1,6 +1,7 @@
 import web3 from '~/plugins/web3'
 import O1Factory from '~/contracts/O1Factory'
 import web3Abi from 'web3-eth-abi'
+import {BToast} from "bootstrap-vue";
 
 const tokenAddress = process.env.contractO1FactoryAddress // insert deployed O1Factory token address here
 const o1Factory = new web3.eth.Contract(O1Factory.abi, tokenAddress)
@@ -48,7 +49,20 @@ export const actions = {
       data: mintMethodTransactionData,
       value: 0,
       // gas: estimateGas * 2
-    })
+    }).on('transactionHash', (resolve) => {
+      return resolve;
+      console.log(resolve)
+
+    }).on('error', (error) => {
+      let bootStrapToaster = new BToast();
+      console.log(error)
+      bootStrapToaster.$bvToast.toast("Transfer failed", {
+        toaster: 'b-toaster-bottom-left',
+        solid: true,
+        headerClass: 'hide',
+        variant: 'danger'
+      })
+      })
 
     return receipt
   }

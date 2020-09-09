@@ -80,7 +80,7 @@ export default {
         ],
       listThree: [
         {name: 'Knowledge Base', href:  'https://docs.treejer.com', tab: '_blank'},
-        {name: 'Whitepaper', href:'https://discuss.treejer.com', tab: '_blank'},
+        {name: 'Community', href:'https://discuss.treejer.com', tab: '_blank'},
         {name: 'Volunteers', href: '/volunteer'},
         {name: 'Rural Ambassadors', href: '/rural'},
         {name: 'Treejer Backers', href: '/backers'},

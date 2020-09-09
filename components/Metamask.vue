@@ -20,8 +20,8 @@
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
-        <span class="img"><img :src="'https://api.adorable.io/avatars/40/'+$cookies.get('account')" alt="accounting"
-                               class="img-fluid d-none d-md-block rounded-circle shadow border" width="42"
+        <span class="img"><img style="border: solid 2px white" :src="'https://api.adorable.io/avatars/240/'+$cookies.get('account')" alt="accounting"
+                               class="img-fluid   d-none d-md-block rounded-circle" width="42"
                                height="42"/></span>
       </div>
 
@@ -33,11 +33,6 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
-    <b-dropdown id="dropdown-aria" lazy hidden>
-      <b-dropdown-header id="dropdown-header-1">Groups</b-dropdown-header>
-      <b-dropdown-item-button aria-describedby="dropdown-header-1">Add</b-dropdown-item-button>
-      <b-dropdown-item-button aria-describedby="dropdown-header-1">Delete</b-dropdown-item-button>
-    </b-dropdown>
     <b-modal hide-footer @close="$bvModal.hide('seven')"  id="seven" @hide="$bvModal.hide('seven')">
       <ul v-if="$cookies.get('walletName') " class="list-style-none seven" >
         <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center">     Connected with</li>
@@ -61,11 +56,9 @@
 
         </li>
         <li class="d-flex mt-4  align-items-center justify-content-center">
-          <client-only>
-            <span v-coin id="tokens" @click="copyClipboard"
-                  class="param-sm tr-gray-three p-2 avatar-card pointer-event">{{ $cookies.get('account') }}</span>
+            <span v-coin id="tokens"
+                  class="param-sm tr-gray-three p-2 avatar-card">{{ $cookies.get('account') }}</span>
 
-          </client-only>
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()">
@@ -88,7 +81,9 @@ export default {
   data() {
     return {
       account: null,
-      loading: false
+      loading: false,
+      hasAccount:false,
+      hasAccountSrc:`${this.$cookies.get('account')}`
     };
   },
   computed: {
@@ -100,6 +95,7 @@ export default {
    await ethereum.on('chainChanged', () => {
      document.location.reload()
    })
+   this.checkDisconnect()
 
   },
   methods: {
@@ -113,20 +109,25 @@ export default {
 
 
     },
-     async copyClipboard(e) {
-     try {
-       await this.$copyText(e.target.innerText)
-       const successful = document.execCommand('copy');
-       this.$bvToast.toast(`Copy to clipboard!! `,{
-         variant:'success',
-         toaster: 'b-toaster-bottom-left',
-       })
-     } catch (e) {
-       console.error(e);
-     }
+      copyClipboard(e) {
+           /* Copy the text inside the text field */
 
-      /* unselect the range */
-      window.getSelection().removeAllRanges()
+
+        /* Alert the copied text */
+     // try {
+     //   debugger
+     //   await this.$copyText(e.target.innerText)
+     //   const successful = document.execCommand('copy');
+     //   this.$bvToast.toast(`Copy to clipboard!! `,{
+     //     variant:'success',
+     //     toaster: 'b-toaster-bottom-left',
+     //   })
+     // } catch (e) {
+     //   console.error(e);
+     // }
+     //
+     //  /* unselect the range */
+     //  window.getSelection().removeAllRanges()
     },
     showModal() {
       this.$emit('showModal')
@@ -140,6 +141,17 @@ export default {
           this.activeIndex = index;
         }
       },
+    checkDisconnect() {
+      console.log("dawawirajjjjjjjjjjjjjjjjjjj")
+      if (this.$cookies.get('walletName') !== 'metamask') {
+
+
+      } else {
+         ethereum.on('disconnect', (error) => {
+          console.log(error)
+        });
+      }
+    }
 
     },
   };

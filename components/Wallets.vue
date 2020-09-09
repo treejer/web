@@ -3,34 +3,33 @@
     <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4">Select Wallet</li>
     <li v-for="(item, index) in wallets" class="pointer-event mb-2  ">
       <client-only>
-        <p
-          v-if="hasMetaMask === false && item.name === 'Metamask'"
-          class="tr-gray-three param font-weight-bold mb-2"
-          :key="index"
-          :name="item.name"
-        >
-          <span class=""><a href="https://metamask.io/" target="_blank"
-                            class="tr-gray-three">install Metamask</a> </span>
+<!--        <p-->
+<!--          v-if="hasMetaMask === false && item.name === 'Metamask'"-->
+<!--          class="tr-gray-three param font-weight-bold mb-2"-->
+<!--          :key="index"-->
+<!--          :name="item.name"-->
+<!--        >-->
+<!--          -->
 
-          <span class="icon">
-          <img :src="item.src" :alt="item.name" class="img-fluid">
-        </span>
-        </p>
+<!--          <span class="icon">-->
+<!--          <img :src="item.src" :alt="item.name" class="img-fluid">-->
+<!--        </span>-->
+<!--        </p>-->
         <p
           @click.prevent="activeWallets(item, index,$event)"
           class="tr-gray-three param font-weight-bold"
           :key="index"
           :name="item.name"
         >
-          <span class="name text-capitalize">{{ item.name }}</span>
+          <span v-if="index === 0" class=""><a href="https://metamask.io/" target="_blank"
+                            class="tr-gray-three has-metamask">{{hasMetaMask ? item.name : 'install Metamask'}} </a> </span>
+          <span v-else class="name text-capitalize">{{ item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
         </span>
         </p>
       </client-only>
     </li>
-
-
     <li class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative">
 
       <span style="letter-spacing: -3px">-------------------------------------</span><span style="padding:  0 10px">What is a wallet? </span><span
@@ -42,7 +41,7 @@
       <button @click="goTo('https://discuss.treejer.com/')" class="btn-gray param-sm text-white" style="margin:  0 15px;background: #424242">Get help</button>
     </li>
     <li class="param-sm justify-content-center mt-4 terms text-center font-weight-bold">
-      By connecting your wallet you agree to our <span class="tr-green"><a class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/terms-of-service" target="_blank">Terms of Service, Privacy</a> </span> and <span
+      By connecting your wallet you agree to our <span class="tr-green"><a class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/terms-of-service" target="_blank">Terms of Service </a>,<a class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/privacy-policy" target="_blank"> Privacy</a> </span> and <span
       class="tr-green"><a target="_blank" class="d-inline-flex pointer-event tr-green" href="https://docs.treejer.com/legal/cookie-policy">Cookie Policy</a>.</span>
     </li>
     <b-modal hide-footer centered id="six">
@@ -88,27 +87,34 @@ export default {
       screenX: null,
       screenY: null,
       hasMetaMask: false,
+      account : this.$cookies.get('account')
     }
     },
     computed: {},
     methods: {
-      activeWallets(item, index, event) {
+     async activeWallets(item, index, event) {
         let self =this
         self.activeWallet = index;
         switch (item.name) {
           case 'Metamask':
-            this.$store.commit('SET_WALLET', 'metamask')
-            this.$cookies.set('walletName', 'metamask')
-            if (window.ethereum !== 'undefined') {
-              this.$bvModal.show('six')
-              this.$store.dispatch('metaMask').then(() => {
-                self.$bvModal.hide('six')
-                self.$bvModal.hide('five')
-              })
-            } else {
-              self.makeToast('danger')
-
+            if(self.hasMetaMask){
+              this.$store.commit('SET_WALLET', 'metamask')
+              this.$cookies.set('walletName', 'metamask')
+              if (window.ethereum !== 'undefined') {
+                this.$bvModal.show('six')
+                this.$store.dispatch('metaMask').then(() => {
+                  self.$bvModal.hide('six')
+                  self.$bvModal.hide('five')
+                }).then(()=>{
+                })
+              } else {
+                self.makeToast('danger')
+              }
+            }else {
+              window.open('https://metamask.io/','_blank')
             }
+
+
             break
           case 'Wallet Connect':
             this.$bvModal.show('six')
@@ -173,7 +179,8 @@ export default {
       },
       goTo(item){
         window.open(item,'_blank')
-      }
+      },
+
     },
   mounted() {
     if (process.client) {
@@ -189,6 +196,12 @@ export default {
 
 <style lang="scss">
   .wallets {
+    .has-metamask{
+      text-decoration: none;
+    }
+    p:hover{
+      color: #424242;
+    }
     .border{
       border: solid 1px #D04F45;
     }
@@ -200,6 +213,9 @@ export default {
       padding: 10px 15px;
       margin: 0 auto;
       text-align: center;
+    }
+    p:hover,.has-metamask:hover{
+      color: #424242;
     }
     .terms{      width: 70%;
       margin: auto;

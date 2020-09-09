@@ -37,7 +37,7 @@ export const actions = {
       await  self.$router.push(`${self.$cookies.get('account')}`)
     }else {
       await  self.$router.push(`forest/${self.$cookies.get('account')}`)
-    }
+   }
 
 
 
@@ -196,9 +196,7 @@ export const actions = {
     await self.$router.push('/')
   },
   hasDashboard({commit}, {status}) {
-    commit('SET_DASHBOARD', {
-      status
-    })
+    commit('SET_DASHBOARD', status)
   },
   async ethPrices({commit},{err}) {
     const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
@@ -225,9 +223,6 @@ export const actions = {
 export const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
-  },
-  SET_TOAST(state, toast) {
-    state.toast = toast
   },
   SET_MODAL_FIVE(state, modalFive) {
     state.modalFive = modalFive
@@ -261,5 +256,5 @@ export const mutations = {
   },
   SET_METAMASK(state, metaMask) {
     state.hasMetaMask = metaMask
-  }
+  },
 }
