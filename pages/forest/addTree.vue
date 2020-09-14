@@ -492,6 +492,12 @@ export default {
         this.activeIndex = 3
       }
       this.loading = false
+      this.$bvToast.toast(['Your payment was successful'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Trees added to forest',
+        variant: 'success',
+        href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
+      })
     },
     async getPrice() {
 

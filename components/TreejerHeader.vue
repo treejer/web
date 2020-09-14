@@ -119,16 +119,16 @@ export default {
           if(process.client){
             let self =this
             await window.ethereum.on('accountsChanged', function (accounts) {
-              if(self.$cookies.get(accounts) !== accounts[0]){
-                self.$store.commit('SET_USER',accounts[0])
-                self.$cookies.set('account',accounts[0])
-                const history = self.$router.history.current.fullPath
-                self.$router.push(history)
-                self.$forceUpdate()
+              if (self.account !== accounts[0]) {
+                self.$store.commit('SET_USER', accounts[0])
+                self.$cookies.set('account', accounts[0])
+                const history = self.$router.currentRoute.fullPath
+                self.$router.go(history)
               }
 
             });
-          }}
+          }
+        }
       },
       activeMenu(item, index) {
         if (item.name === 'Blog') {
@@ -138,10 +138,14 @@ export default {
         }
       },
     },
-    mounted() {
-      this.accountChange()
-    }
-  };
+  async mounted() {
+    let self = this
+    await web3.eth.getAccounts().then(res => {
+      self.account = res[0]
+    })
+    await this.accountChange()
+  }
+};
 </script>
 
 <style lang="scss">

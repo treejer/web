@@ -26,6 +26,7 @@ export const actions = {
     });
   },
   async fund(context, params) {
+    let self = this
     const fundMethod = Fund.abi.find(method => {
       return method.name === 'fund'
     })
@@ -50,17 +51,40 @@ export const actions = {
         value: web3.utils.toWei('0.01') * params.count,
         // gas: estimateGas * 4
       }).on('transactionHash', (resolve) => {
-        return resolve;
+        let bootStrapToaster = new BToast();
+        bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+          toaster: 'b-toaster-bottom-left',
+          title: 'Processing payment...',
+          variant: 'warning',
+          href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
+          bodyClass: 'fund-error'
+        })
       })
         .on('error', (error) => {
-
           let bootStrapToaster = new BToast();
-          bootStrapToaster.$bvToast.toast(error.message, {
-            toaster: 'b-toaster-bottom-left',
-            solid: true,
-            headerClass: 'hide',
-            variant: 'danger'
-          })
+
+          console.log(error, 'this here')
+          if(error.code === -32602){
+            bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
+              toaster: 'b-toaster-bottom-left',
+              title: 'Payment failed',
+              variant: 'danger',
+              to:'/forest/addTree',
+              noAutoHide: true,
+              bodyClass: 'fund-error'
+            })
+          }else {
+            bootStrapToaster.$bvToast.toast(['You rejected the request'], {
+              toaster: 'b-toaster-bottom-left',
+              title: 'Payment failed',
+              variant: 'danger',
+              to:'/forest/addTree',
+              noAutoHide: true,
+              bodyClass: 'fund-error'
+            })
+          }
+
+
           return null
 
         })

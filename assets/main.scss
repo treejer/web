@@ -1240,37 +1240,29 @@ option {
 
 }
 
-
-.alert-danger {
-
-  border-bottom: none;
-  border: 0;
-  border: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  outline: none;
-  list-style: none;
-
-  max-width: 340px;
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
-  -webkit-clip-path: circle(145% at 100% 50%);
-  clip-path: circle(145% at 100% 50%);
-  background: rgba(255, 71, 87, 1);
-  color: white;
-  margin: 3px 10px;
-  -webkit-transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s;
-  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  font-size: 12px;
-  font-family: Montserrat-Regular;
+.b-toast-warning{
+  .toast-header{
+    background-image: url("../assets/alert-warning-logo.svg");
+    background-size: cover;
+    background-color: transparent!important;
+    border: none!important;
+    margin-left: 5px;
+    width: 28px;
+    height: 28px;
+    strong{
+      left: 43px!important;
+      position: absolute;
+      top: 5px;
+    }
+    button{
+      color: #FAFAFA;
+      position: absolute;
+      right: 20px;
+      top: 5px;
+    }
+  }
 }
-
-.b-toast{
+.b-toast,.toast{
   z-index: +99999999999999999999999999999999!important;
   -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
@@ -1280,6 +1272,21 @@ option {
   transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
   font-size: 14px;
   font-family: Montserrat-Medium;
+  .toast-body{
+    margin-top: 25px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FAFAFA;
+  }
+  .toast-header{
+    strong{
+      left: 35px;
+      position: absolute;
+      top: 12px;
+      color: #FAFAFA;
+
+    }
+  }
 }
 .toast {
   z-index: +999999999999999999999999999999999!important;
@@ -1310,8 +1317,12 @@ option {
   color: #FAFAFA!important;
   justify-content: center;
   border: 0!important;
+
   button{
     color: #FAFAFA;
+    position: absolute;
+    right: 20px;
+    top: 5px;
   }
 }
 .b-toast-success {
