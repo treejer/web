@@ -142,13 +142,11 @@ export default {
         }
       },
     checkDisconnect() {
-      console.log("dawawirajjjjjjjjjjjjjjjjjjj")
       if (this.$cookies.get('walletName') !== 'metamask') {
 
 
       } else {
          ethereum.on('disconnect', (error) => {
-          console.log(error)
         });
       }
     }

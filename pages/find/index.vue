@@ -283,7 +283,6 @@
       goToDashboard(item){
         if(this.$cookies.get('account')){
           this.$store.commit('SET_INDEX',0)
-          console.log(this.$store.state.index,"this.$store.state.index")
           this.$router.push({ path:'/forest/'+item.owner ,params:{id:item.owner}})
         }else {
           this.$bvToast.toast("you are not logged in. please login", {

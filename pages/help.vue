@@ -72,7 +72,6 @@ export default {
   // },
   mounted() {
 
-    console.log(this.tribe, 'tribe')
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
 

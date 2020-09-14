@@ -123,7 +123,6 @@ export default {
               .catch(err => {
                 self.$bvModal.hide('six')
                 self.$bvModal.hide('five')
-                console.log(err)
               })
               .then(() =>{});
             break
@@ -148,7 +147,6 @@ export default {
                 self.$bvModal.hide('five')
               })
               .catch(err => {
-              console.log(err)
               self.$bvModal.hide('six')
               self.$bvModal.hide('five')
             })

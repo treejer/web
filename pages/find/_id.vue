@@ -51,7 +51,6 @@
     },
     mounted() {
       this.findTree();
-      console.log(this.$router.history,'history')
     },
     methods: {
       async findTree() {

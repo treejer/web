@@ -59,6 +59,8 @@
 
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
+import web3 from '~/plugins/web3'
+
 
 export default {
   name: "TreejerHeader",

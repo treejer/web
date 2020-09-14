@@ -54,7 +54,6 @@ export default {
     const url = 'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE'
     this.$axios.get(url)
       .then((res) => {
-        console.log(res, 'res')
       }).catch((err) => {
       this.$bvToast.toast([<strong>Offline mode</strong> , <p class="mb-0 param-sm"> You can still use Treejer in semi-functional mode</p>], {
         variant: 'danger',
