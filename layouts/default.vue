@@ -50,22 +50,17 @@ export default {
   },
 
   mounted() {
-    console.log(AlertTreejer, "AlertTreejer")
     this.$store.commit('SET_DASHBOARD', false)
     const url = 'https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE'
     this.$axios.get(url)
       .then((res) => {
         console.log(res, 'res')
       }).catch((err) => {
-      this.$store.commit("toast/SET_TOAST", {
-        show: true,
-        variant: "danger",
-        title: "Offline mode",
-        message: "You can still use Treejer in semi-functional mode",
-        hasDuration: true,
-        hasSideBar: false,
-        hasAction: false,
-        actions: "",
+      this.$bvToast.toast([<strong>Offline mode</strong> , <p class="mb-0 param-sm"> You can still use Treejer in semi-functional mode</p>], {
+        variant: 'danger',
+        solid: true,
+        toaster: 'b-toaster-bottom-left',
+        noAutoHide:true
       })
     })
   },
@@ -73,7 +68,6 @@ export default {
   methods: {
     makeToast(variant, msg, title) {
       this.$bvToast.toast(msg, {
-        title: title,
         variant: variant,
         solid: true,
         toaster: 'b-toaster-bottom-left',

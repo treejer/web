@@ -128,7 +128,7 @@
           </div>
           <div class="row forest-status position-relative">
             <div class="col-12 mt-5 p-0">
-              <p class="param-18 tr-gray-three Montserrat-Medium">Forest Status</p>
+              <p class="param-18 tr-gray-three Montserrat-Medium p-0">Forest Status</p>
 
             </div>
             <div class="col-12 position-relative">
