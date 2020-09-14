@@ -593,10 +593,10 @@ export default {
 
     }
   },
-  async mounted() {
+   mounted() {
     console.log(this.$refs,this.$ref,this.$config ,'this.$refs,this.$ref,this.$config')
     let self = this;
-    const hasUser = await this.$cookies.get('account')
+    const hasUser =  this.$cookies.get('account')
     if (hasUser !== null) {
       self.$bvToast.toast(`${self.$cookies.get('account').slice(0,10)} connected`, {
         toaster: 'b-toaster-bottom-left',
@@ -726,6 +726,7 @@ export default {
     },
     async getEthBalance() {
       this.ethBalance = await this.$store.dispatch('fund/getEthBalance')
+      console.log( this.ethBalance ,' this.ethBalance ')
     },
 
     async getOwnerTreesData() {

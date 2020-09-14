@@ -35,6 +35,8 @@ export const actions = {
       .then((treeWeiPrice) => web3.utils.fromWei(treeWeiPrice));
   },
   async mint(context, params) {
+    let self = this
+
     const mintMethod = O1Factory.abi.find(method => {
       return method.name === 'mint'
     })
@@ -50,19 +52,40 @@ export const actions = {
       value: 0,
       // gas: estimateGas * 2
     }).on('transactionHash', (resolve) => {
-      return resolve;
-      console.log(resolve)
+      const bootStrapToaster = new BToast();
+      bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Processing payment...',
+        variant: 'warning',
+        href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
+        bodyClass: 'fund-error'
+      })
 
     }).on('error', (error) => {
-      let bootStrapToaster = new BToast();
-      console.log(error)
-      bootStrapToaster.$bvToast.toast("Transfer failed", {
-        toaster: 'b-toaster-bottom-left',
-        solid: true,
-        headerClass: 'hide',
-        variant: 'danger'
-      })
-      })
+      const bootStrapToaster = new BToast();
+
+      console.log(error, 'this here')
+      if(error.code === 32602){
+        bootStrapToaster.$bvToast.toast(['You don\'t have enough tokens'], {
+          toaster: 'b-toaster-bottom-left',
+          title: 'Transfer failed',
+          variant: 'danger',
+          to:'/forest/addTree',
+          noAutoHide: true,
+          bodyClass: 'fund-error'
+        })
+      }else {
+        bootStrapToaster.$bvToast.toast(['You rejected the request'], {
+          toaster: 'b-toaster-bottom-left',
+          title: 'Transfer failed',
+          variant: 'danger',
+          to:'/forest/addTree',
+          noAutoHide: true,
+          bodyClass: 'fund-error'
+        })
+      }
+
+    })
 
     return receipt
   }

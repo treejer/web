@@ -19,10 +19,12 @@ export const mutations = {}
 
 export const actions = {
 
-  getEthBalance() {
+ async getEthBalance() {
     console.log(this.state.account,"dawadadawdjpiji")
-    return web3.eth.getBalance(account).then((ethBalance) => {
-      web3.utils.fromWei(ethBalance)
+   return   await web3.eth.getBalance(account).then((ethBalance) => {
+     const test = web3.utils.fromWei(ethBalance)
+      console.log(test,'dawdatesssssssssssssssssssssssssssssssssss')
+       return test
     });
   },
   async fund(context, params) {
@@ -61,10 +63,10 @@ export const actions = {
         })
       })
         .on('error', (error) => {
-          let bootStrapToaster = new BToast();
+          const bootStrapToaster = new BToast();
 
           console.log(error, 'this here')
-          if(error.code === -32602){
+          if(error.code === 32602){
             bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
               toaster: 'b-toaster-bottom-left',
               title: 'Payment failed',
