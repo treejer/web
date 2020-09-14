@@ -120,6 +120,11 @@
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
+@media (max-width:991px ) and (min-width: 768px){
+  .headers .accounting-card .param-sm {
+    right: 52%;
+  }
+}
 @media (max-width: 768px) {
   .headers{
     .accounting-card{
