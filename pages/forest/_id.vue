@@ -598,8 +598,7 @@ export default {
 
     }
   },
-   mounted() {
-    console.log(this.$refs,this.$ref,this.$config ,'this.$refs,this.$ref,this.$config')
+  async mounted() {
     let self = this;
     const hasUser =  this.$cookies.get('account')
     if (hasUser !== null) {
@@ -609,10 +608,10 @@ export default {
         headerClass: 'hide',
         variant: 'success'
       })
-     this.getEthBalance()
-     this.getBalanceOfO1()
-     this.calculateMintableO1()
-     this.getOwnerTreesData()
+    await this.getEthBalance()
+    await this.getBalanceOfO1()
+    await this.calculateMintableO1()
+    await this.getOwnerTreesData()
    }
   },
   methods: {
@@ -733,7 +732,6 @@ export default {
     async getEthBalance() {
       const ethBalances = await this.$store.dispatch('fund/getEthBalance')
       this.ethBalance = parseFloat(ethBalances).toFixed(4)
-      console.log( this.ethBalance ,' this.ethBalance ')
     },
 
     async getOwnerTreesData() {

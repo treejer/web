@@ -2,7 +2,6 @@
   <div>
     <client-only>
       <b-breadcrumb :items="crumbs"/>
-
     </client-only>
   </div>
 </template>

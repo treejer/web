@@ -73,7 +73,7 @@
                 </tbody>
               </table>
               <div v-if="leaderBoards">
-                <button v-if="leaderBoards.length >=10" @click="addTen" class="btn-green">show more</button>
+                <button v-if="leaderBoards.length > 10" @click="addTen" class="btn-green">show more</button>
               </div>
 
 
@@ -122,12 +122,16 @@ export default {
       }
     },
     async mounted() {
-      const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
-     this.leaderBoards =leaderBoards.leaderboard.data
+     await this.getLeaderBoards()
     },
     methods: {
       addTen() {
-        this.perPage += 10
+          this.perPage += 10
+         this.getLeaderBoards()
+      },
+     async getLeaderBoards(){
+       const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
+       this.leaderBoards =leaderBoards.leaderboard.data
       },
       activeMenu(item, index) {
 

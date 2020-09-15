@@ -1,21 +1,12 @@
 <template>
   <div :class="currentRouteName" style="min-height: 100vh">
     <TreejerHeader/>
-    <div class="container" :class="$route.name" style="min-height: 81.8vh">
+    <div class="container" :class="$route.name" style="min-height: 85vh">
       <div class="row">
         <nuxt/>
       </div>
     </div>
     <Footer/>
-    <AlertTreejer
-      :show="show"
-      :has-action="false"
-      :has-duration="false"
-      :hasSideBar="false"
-      text="Offline mode"
-      message="You can still use Treejer in semi-functional mode"
-      variant="danger"/>
-
   </div>
 </template>
 
@@ -25,10 +16,9 @@ import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
-import AlertTreejer from "@/components/AlertTreejer";
 
 export default {
-  components: {AlertTreejer, Sidebar, Footer, TreejerHeader, Router},
+  components: {Sidebar, Footer, TreejerHeader, Router},
   data() {
     return {
       account: {},
@@ -57,7 +47,6 @@ export default {
       }).catch((err) => {
       this.$bvToast.toast([<strong>Offline mode</strong> , <p class="mb-0 param-sm"> You can still use Treejer in semi-functional mode</p>], {
         variant: 'danger',
-        solid: true,
         toaster: 'b-toaster-bottom-left',
         noAutoHide:true
       })

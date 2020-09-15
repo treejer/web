@@ -20,10 +20,8 @@ export const mutations = {}
 export const actions = {
 
  async getEthBalance() {
-    console.log(this.state.account,"dawadadawdjpiji")
-   return   await web3.eth.getBalance(account).then((ethBalance) => {
+   return  await web3.eth.getBalance(account).then((ethBalance) => {
      const test = web3.utils.fromWei(ethBalance)
-      console.log(test,'dawdatesssssssssssssssssssssssssssssssssss')
        return test
     });
   },
