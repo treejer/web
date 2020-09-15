@@ -1,72 +1,72 @@
 <template>
   <section ref="dashboard" class="position-relative  pt-5 col-lg-10 col-12 my-forest">
-    <div class="container-fluid">
-      <div class="row article justify-content-between">
-        <div class="col-lg-8   col-12">
-          <div class="row">
-            <div class="col-lg-5 col-md-5 col-5">
-              <h2 class="title-sm Montserrat-Medium " >
-                My Forest
-              </h2>
-            </div>
-            <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
-              <div class="form-group">
-                <label>
-                  <img src="../../assets/images/search.svg" alt="search" class="pointer-event" @click="goToFindTree">
-                  <input class="form-control-lg" v-model="treeID" placeholder="Enter Tree ID" @keyup.enter="goToFindTree()">
-                </label>
+      <div class="container-fluid">
+        <div class="row article justify-content-between">
+          <div class="col-lg-8   col-12">
+            <div class="row">
+              <div class="col-lg-5 col-md-5 col-5">
+                <h2 class="title-sm Montserrat-Medium " >
+                  My Forest
+                </h2>
+              </div>
+              <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
+                <div class="form-group">
+                  <label>
+                    <img src="../../assets/images/search.svg" alt="search" class="pointer-event" @click="goToFindTree">
+                    <input class="form-control-lg" v-model="treeID" placeholder="Enter Tree ID" @keyup.enter="goToFindTree()">
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row treejer-desc">
-            <div class="col-lg-3  col-md-6 col-12 border-right ">
-              <p class="tr-gray-two">FOREST SIZE</p>
-              <p class="d-flex justify-content-start  align-items-center">
-                <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
-                <span>
+            <div class="row treejer-desc">
+              <div class="col-lg-3  col-md-6 col-12 border-right ">
+                <p class="tr-gray-two">FOREST SIZE</p>
+                <p class="d-flex justify-content-start  align-items-center">
+                  <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
+                  <span>
                   <span v-if="!loading" >{{treeCount || 0}}</span>
                   <span v-if="loading"> <b-spinner type="grow" label="Spinning" small class="mb-1"></b-spinner></span>
                 </span>
-              </p>
-            </div>
-            <div class="col-lg-3  col-md-6 col-12 border-right">
-              <p>RELEASED O1</p>
-              <p class="d-flex justify-content-start align-items-center">
-                <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
-                <span
-                  class="param-18 font-weight-bold">{{
-                    mintableO1 !== null ? mintableO1 : 0
-                  }} </span>
-              </p>
-            </div>
+                </p>
+              </div>
+              <div class="col-lg-3  col-md-6 col-12 border-right">
+                <p>RELEASED O1</p>
+                <p class="d-flex justify-content-start align-items-center">
+                  <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
+                  <span
+                    class="param-18 font-weight-bold">{{
+                      mintableO1 !== null ? mintableO1 : 0
+                    }} </span>
+                </p>
+              </div>
 
-            <div class="col-lg-3  col-md-6 col-12 " >
-              <p>RELEASED O2</p>
-              <p class="d-flex justify-content-start align-items-center">
-                <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
+              <div class="col-lg-3  col-md-6 col-12 " >
+                <p>RELEASED O2</p>
+                <p class="d-flex justify-content-start align-items-center">
+                  <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
 
-              <span>{{ 0 }}</span>
-              </p>
+                  <span>{{ 0 }}</span>
+                </p>
+              </div>
+              <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
+                <button class="btn-outline-green btn-wallet" @click="mintO1">Send to Wallet</button>
+              </div>
             </div>
-            <div class="col-lg-3  col-md-6 col-12 align-items-center justify-content-center p-0 mt-3 ">
-              <button class="btn-outline-green btn-wallet" @click="mintO1">Send to Wallet</button>
-            </div>
-          </div>
-          <div class="row treejer-user-flow">
-            <div class="container p-0">
-              <div class="col-12 p-0">
-                <div class="bg-brown">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p class="tr-gray-one param-18 mb-1 font-weight-bold" >Getting Started</p>
-                      <p class="param tr-gray-three">
-                        Let’s help you get started setting up your forest. Here are some key things to do.
-                      </p>
-                    </div>
-                    <div class="col-md-6">
-                      <ul class="p-0">
-                        <li
-                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+            <div class="row treejer-user-flow">
+              <div class="container p-0">
+                <div class="col-12 p-0">
+                  <div class="bg-brown">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <p class="tr-gray-one param-18 mb-1 font-weight-bold" >Getting Started</p>
+                        <p class="param tr-gray-three">
+                          Let’s help you get started setting up your forest. Here are some key things to do.
+                        </p>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="p-0">
+                          <li
+                            class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button @click="showModal"
                                      :class="$cookies.get('account') ? 'btn-outline-green disabled' :'btn-green'">
@@ -74,23 +74,23 @@
 
                           </button>
                           </span>
-                          <span :class="$cookies.get('account') ? 'tr-gray-four' :'tr-gray-three'">
+                            <span :class="$cookies.get('account') ? 'tr-gray-four' :'tr-gray-three'">
                             Connect your wallet
                           </span>
-                        </li>
-                        <li
-                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          </li>
+                          <li
+                            class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button :class="treeCount ? 'btn-outline-green' : 'btn-green'" @click.prevent="goToAddTree">
                                {{ treeCount ? 'Done' : 'step 2' }}
                           </button>
                           </span>
-                          <span :class="treeCount ? 'tr-gray-four' : 'tr-gray-two'">
+                            <span :class="treeCount ? 'tr-gray-four' : 'tr-gray-two'">
                           Add trees to your forest
                           </span>
-                        </li>
-                        <li
-                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          </li>
+                          <li
+                            class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button
                                @click.prevent="calculateMintableO1"
@@ -101,12 +101,12 @@
 
                           </button>
                           </span>
-                          <span :class="mintableO1 != 0  && mintableO1  ? 'tr-gray-four' : 'tr-gray-two'">
+                            <span :class="mintableO1 != 0  && mintableO1  ? 'tr-gray-four' : 'tr-gray-two'">
                           Release O1/O2 to your wallet
                           </span>
-                        </li>
-                        <li
-                          class="list-style-none param-sm mb-1 Montserrat-Medium">
+                          </li>
+                          <li
+                            class="list-style-none param-sm mb-1 Montserrat-Medium">
                           <span class="step-number mr-2">
                              <button
                                @click="comunity()"
@@ -115,50 +115,50 @@
 
                           </button>
                           </span>
-                          <span>
+                            <span>
                         Join our community!
                           </span>
-                        </li>
+                          </li>
 
 
-                      </ul>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
 
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row forest-status position-relative">
-            <div class="col-12 mt-5 p-0">
-              <p class="param-18 tr-gray-three Montserrat-Medium p-0">Forest Status</p>
+            <div class="row forest-status position-relative">
+              <div class="col-12 mt-5 p-0">
+                <p class="param-18 tr-gray-three Montserrat-Medium p-0">Forest Status</p>
 
-            </div>
-            <div class="col-12 position-relative">
-              <div class="col-12 mb-3 p-0">
+              </div>
+              <div class="col-12 position-relative p-0">
+                <div class="col-12 mb-3 p-0">
               <span v-for="(item,index) in test" :key="item.id">
-                  <img class="img-fluid" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
+                  <img class="img-fluid p-2" src="~/assets/images/myforest/trees.png" style="mix-blend-mode: luminosity;"/>
 
               </span>
-              </div>
-              <div class="col-12  befor-res" style="left: 0" v-if="$cookies.get('account')">
+                </div>
+                <div class="col-12 p-0  befor-res" style="left: 0" v-if="$cookies.get('account')">
               <span class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
-                <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
                 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
 
               </span>
-              </div>
-              <div class="col-12 p-0" v-if="ownerTreesData.length > 50" style="transition: all .3s ease">
+                </div>
+                <div class="col-12 p-0" v-if="ownerTreesData.length > 50" style="transition: all .3s ease">
 
                 <span  v-if="showMoreTreeData" style="transition: all .3s ease" class="pointer-event"
-                      v-for="(item,index) in ownerTreesData.slice(50) "
-                      :id="item.tree_id" :key="index"
+                       v-for="(item,index) in ownerTreesData.slice(50) "
+                       :id="item.tree_id" :key="index"
 
                 >
 <!--                  -->
-                <b-button  @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)"  class="p-0 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button  @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)"  class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid pointer-event"
 
 
@@ -166,131 +166,131 @@
                 </b-button>
 
               </span>
-                <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
-                      @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#8679;' : '&#8681;' }}</span>
+                  <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
+                        @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#8679;' : '&#8681;' }}</span>
+                </div>
+
               </div>
 
+
             </div>
 
+            <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
+              <div class="col-12 p-0">
+                <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
+              </div>
 
-          </div>
-
-          <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
-            <div class="col-12 p-0">
-              <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
-            </div>
-
-            <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
-                  ref="gMap"
-                  :cluster="{options: {styles: clusterStyle}}"
-                  :center="{lat: ownerTreesData[0].latitude || 24.06448 , lng: ownerTreesData[0].longitude  || 81.30946 }"
-                  :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-                  :zoom="6"
-            >
-              <GMapMarker
-                v-for="tree in ownerTreesData"
-                :key="tree.id"
-                :position="{lat: tree.latitude, lng: tree.longitude}"
-                :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
-                @click="currentTree = tree"
+              <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
+                    ref="gMap"
+                    :cluster="{options: {styles: clusterStyle}}"
+                    :center="{lat: ownerTreesData[0].latitude || 24.06448 , lng: ownerTreesData[0].longitude  || 81.30946 }"
+                    :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                    :zoom="6"
               >
-                <GMapInfoWindow :options="{maxWidth: 200}">
-                  <b>{{ tree.name }}</b>
-                  <br>
-                  <br>
-                  <code>
-                    Lat: {{ tree.latitude }},
+                <GMapMarker
+                  v-for="tree in ownerTreesData"
+                  :key="tree.id"
+                  :position="{lat: tree.latitude, lng: tree.longitude}"
+                  :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
+                  @click="currentTree = tree"
+                >
+                  <GMapInfoWindow :options="{maxWidth: 200}">
+                    <b>{{ tree.name }}</b>
                     <br>
-                    Lng: {{ tree.longitude }}
-                  </code>
-                </GMapInfoWindow>
-              </GMapMarker>
-            </GMap>
-            <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
+                    <br>
+                    <code>
+                      Lat: {{ tree.latitude }},
+                      <br>
+                      Lng: {{ tree.longitude }}
+                    </code>
+                  </GMapInfoWindow>
+                </GMapMarker>
+              </GMap>
+              <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
+                    ref="gMap"
+                    :cluster="{options: {styles: clusterStyle}}"
+                    :center="{lat: 24.06448, lng: 81.30946}"
+                    :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                    :zoom="2"
+              >
+              </GMap>
+              <div  v-if="ownerTreesLoaded === false">
+                <GMap
                   ref="gMap"
                   :cluster="{options: {styles: clusterStyle}}"
                   :center="{lat: 24.06448, lng: 81.30946}"
-                  :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                  :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
                   :zoom="2"
-            >
-            </GMap>
-            <div  v-if="ownerTreesLoaded === false">
-              <GMap
-                ref="gMap"
-                :cluster="{options: {styles: clusterStyle}}"
-                :center="{lat: 24.06448, lng: 81.30946}"
-                :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-                :zoom="2"
-              >
-              </GMap>
+                >
+                </GMap>
+
+              </div>
+
 
             </div>
-
-
           </div>
-        </div>
 
-        <div class="col-lg-3 col-12  justify-content-center">
-          <div class="box-right ">
-            <div class="avatar-card border-0 text-center justify-content-center">
-              <div class="card-img position-relative"><img
-                                                           :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :avatar"
-                                                           alt="username"
-                                                           class="avatar-pic img-fluid"/>
-                <!--              <span class="position-absolute">+</span>-->
+          <div class="col-lg-3 col-12  justify-content-center">
+            <div class="box-right ">
+              <div class="avatar-card border-0 text-center justify-content-center">
+                <div class="card-img position-relative"><img
+                  :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :avatar"
+                  alt="username"
+                  class="avatar-pic img-fluid"/>
+                  <!--              <span class="position-absolute">+</span>-->
 
-              </div>
-              <p v-coin class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
-              <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
-              <div class="row  tokens">
-                <div class="col-md-6 p-0">
-                  <p class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom ">
-                    <img src="~/assets/images/myforest/ETHLogo.svg"
-                         class="img-fluid ">
-                    ETH
-                  </p>
-                  <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold border-bottom "><img
-                    style="margin-right: 7px"
-                    src="~/assets/images/myforest/O1Logo.svg" class="img-fluid ">
-                    O1
-                  </p>
-                  <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold  "><img
-                    src="~/assets/images/myforest/O2Logo.svg" class="img-fluid ">
-                    O2
-                  </p>
                 </div>
-                <div class="col-md-6 p-0">
+                <p v-coin class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
+                <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
+                <div class="row  tokens">
+                  <div class="col-md-6 p-0">
+                    <p class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom ">
+                      <img src="~/assets/images/myforest/ETHLogo.svg"
+                           class="img-fluid ">
+                      ETH
+                    </p>
+                    <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold border-bottom "><img
+                      style="margin-right: 7px"
+                      src="~/assets/images/myforest/O1Logo.svg" class="img-fluid ">
+                      O1
+                    </p>
+                    <p class="pb-1 logo-tokens  tr-gray-three param-sm font-weight-bold  "><img
+                      src="~/assets/images/myforest/O2Logo.svg" class="img-fluid ">
+                      O2
+                    </p>
+                  </div>
+                  <div class="col-md-6 p-0">
 
-                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{
-                      ethBalance > 0 ? ethBalance : 0
-                    }}</p>
-                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 ? walletO1 : 0 }}</p>
-                  <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
+                    <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{
+                        ethBalance > 0 ? ethBalance : 0
+                      }}</p>
+                    <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 ? walletO1 : 0 }}</p>
+                    <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
+                  </div>
                 </div>
+                <!--            <p class="param-sm-light"> @JaneJoe</p>-->
               </div>
-              <!--            <p class="param-sm-light"> @JaneJoe</p>-->
-            </div>
-            <div class="trees">
-              <div class="add-tree">
+              <div class="trees">
+                <div class="add-tree">
                   <button @click="goToAddTree()" class="btn-lg">ADD A TREE</button>
-              </div>
-              <div class="gift-tree mb-4" >
-<!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
+                </div>
+                <div class="gift-tree mb-4" >
+                  <!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
                   <button class="btn-lg disabled"  >GIFT
                     A TREE
                   </button>
-<!--                </nuxt-link>-->
+                  <!--                </nuxt-link>-->
+                </div>
+                <!--              <div class="redeem-trees">-->
+                <!--                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">-->
+                <!--                <p>Redeem Trees</p>-->
+                <!--              </div>-->
               </div>
-<!--              <div class="redeem-trees">-->
-<!--                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">-->
-<!--                <p>Redeem Trees</p>-->
-<!--              </div>-->
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
-    </div>
   </section>
 </template>
 
