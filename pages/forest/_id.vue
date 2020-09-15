@@ -33,7 +33,10 @@
               <p>RELEASED O1</p>
               <p class="d-flex justify-content-start align-items-center">
                 <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
-                <span v-if="mintableO1" class="param-18 font-weight-bold">{{ parseFloat(mintableO1).toFixed(4) || 0  }} </span>
+                <span
+                  class="param-18 font-weight-bold">{{
+                    mintableO1 !== null ? mintableO1 : 0
+                  }} </span>
               </p>
             </div>
 
@@ -180,27 +183,27 @@
             <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
                   ref="gMap"
                   :cluster="{options: {styles: clusterStyle}}"
-                  :center="{lat: ownerTreesData[0].latitude, lng: ownerTreesData[0].longitude}"
-                  :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                  :center="{lat: ownerTreesData[0].latitude || 24.06448 , lng: ownerTreesData[0].longitude  || 81.30946 }"
+                  :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
                   :zoom="6"
             >
               <GMapMarker
                 v-for="tree in ownerTreesData"
                 :key="tree.id"
                 :position="{lat: tree.latitude, lng: tree.longitude}"
-        :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
-        @click="currentTree = tree"
-      >
-        <GMapInfoWindow :options="{maxWidth: 200}">
-          <b>{{ tree.name }}</b>
-          <br>
-          <br>
-          <code>
-            Lat: {{ tree.latitude }},
-            <br>
-            Lng: {{ tree.longitude }}
-          </code>
-        </GMapInfoWindow>
+                :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
+                @click="currentTree = tree"
+              >
+                <GMapInfoWindow :options="{maxWidth: 200}">
+                  <b>{{ tree.name }}</b>
+                  <br>
+                  <br>
+                  <code>
+                    Lat: {{ tree.latitude }},
+                    <br>
+                    Lng: {{ tree.longitude }}
+                  </code>
+                </GMapInfoWindow>
               </GMapMarker>
             </GMap>
             <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
@@ -216,7 +219,7 @@
                 ref="gMap"
                 :cluster="{options: {styles: clusterStyle}}"
                 :center="{lat: 24.06448, lng: 81.30946}"
-                :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
                 :zoom="2"
               >
               </GMap>
@@ -258,8 +261,10 @@
                 </div>
                 <div class="col-md-6 p-0">
 
-                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ ethBalance || 0 }}</p>
-                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 || 0 }}</p>
+                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{
+                      ethBalance > 0 ? ethBalance : 0
+                    }}</p>
+                  <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 ? walletO1 : 0 }}</p>
                   <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
                 </div>
               </div>
@@ -697,8 +702,10 @@ export default {
 
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
           .then(function (response) {
-            if(response.amount){
-              self.mintableO1 = web3.utils.fromWei(response.amount)
+            if (response.amount) {
+              const mintableO1s = web3.utils.fromWei(response.amount)
+              self.mintableO1 = parseFloat(mintableO1s).toFixed(2)
+              debugger
 
             }
 

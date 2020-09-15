@@ -38,14 +38,7 @@
             id="nav-collapse"
             is-nav
           >
-            <!-- Right aligned nav items -->
-
             <b-navbar-nav class="header-menu">
-              <!--            <b-nav-item  :class="{ 'active': activeIndex === index }"-->
-              <!--                         v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"-->
-              <!--                         @click="activeMenu(item,index)">-->
-              <!--              {{item.name}}-->
-              <!--            </b-nav-item>-->
             </b-navbar-nav>
             <client-only>
               <div class="d-lg-block d-none">

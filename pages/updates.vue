@@ -16,17 +16,29 @@
             </div>
             <div class="col-12 mb-5 mt-2">
               <ul>
-                <li class="list-style-none" v-if="updates" v-for="(item , index) in updates">
-                  <p class="param-md tr-gray-three font-weight-bold" v-if="item.type ==='O1Minted' || totalO1">
-                    {{ index + 1 + ' ' }}) For O1 Minting
-                    You successfully sent {{ totalO1 }} O1 from your forest to your wallet. <a
-                    class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                <li class="list-style-none time-line" v-if="updates" v-for="(item , index) in updates">
+                  <p class="param-md tr-gray-three font-weight-lighter one-minted"
+                     v-if="item.type ==='O1Minted' || totalO1">
+                    You successfully sent <span class="tr-green font-weight-bold Montserrat-Medium">{{ totalO1 }}</span>
+                    O1 from your forest to your wallet. <a
+                    class="tr-green pointer-event pointer-event Montserrat-Medium" @click="openModal(item)">See
+                    details</a>
+                    <span class="d-flex justify-content-start tr-gray-four param-sm font-weight-lighter time-box">
+                      <span class="date">{{ item.created_at.slice(0, 10) }} </span>
+                      <span class="time">{{ item.created_at.slice(10, 20) }} UTC</span>
+
+                    </span>
                   </p>
-                  <p class="param-md tr-gray-three font-weight-bold" v-if="item.type ==='TreeFunded' ">
-                    {{ index + 1 + ' ' }}) For {{ item.type === 'O1Minted' ? 'O1 Minting' : 'Tree Funding' }}
+                  <p class="param-md tr-gray-three font-weight-lighter tree-funded" v-if="item.type ==='TreeFunded' ">
                     You successfully added 1 {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a
-                    class="tr-green pointer-event">#{{ item.id }}</a> to your forest. <a
-                    class="tr-green pointer-event pointer-event" @click="openModal(item)">See details</a>
+                    class="tr-green pointer-event Montserrat-Medium">#{{ item.id }}</a> to your forest. <a
+                    class="tr-green pointer-event pointer-event Montserrat-Medium" @click="openModal(item)">See
+                    details</a>
+                    <span class="d-flex justify-content-start tr-gray-four param-sm time-box">
+                      <span class="date">{{ item.created_at.slice(0, 10) }} </span>
+                      <span class="time">{{ item.created_at.slice(10, 20) }} UTC</span>
+
+                    </span>
                   </p>
 
                 </li>
@@ -118,11 +130,65 @@ import web3 from '~/plugins/web3'
 <style scoped lang="scss">
   .updates{
     ul li {
-      .tr-green{
-        color: #67b68c!important;
+      position: relative;
+
+      p {
+        position: relative;
+        padding-bottom: 34px;
+        transition: ease all .3s;
+      }
+
+
+      .tr-green {
+        color: #67b68c !important;
+      }
+
+      .time-box {
+        letter-spacing: 2px;
+        margin-top: 9px;
+        color: #999999 !important;
+
+        > span.date {
+          position: relative;
+          border-right: solid 1px #999999;
+        }
+
+
+        span {
+          padding-right: 9px;
+          margin-right: 9px;
+        }
       }
     }
+
+    ul {
+      position: relative;
+    }
+
+    .time-line .tree-funded::before, .time-line .one-minted::before {
+      content: "";
+      position: absolute;
+      background: #616161;
+      width: 12px;
+      height: 12px;
+      z-index: +9999;
+      left: -16px;
+      border-radius: 10px;
+      transform: translate(-50%, 50%);
+      top: 0px;
+    }
+
+    .time-line .tree-funded::after, .time-line .one-minted::after {
+      content: "";
+      position: absolute;
+      border: 2px dashed #616161;
+      z-index: +9999;
+      left: -18px;
+      height: 95%;
+      top: 20px;
+    }
   }
+
   //@media (min-width: 1024px){
   //   #help_img{
   //    position: fixed;
