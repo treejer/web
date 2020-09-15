@@ -34,13 +34,12 @@
                 </client-only>
               </div>
               <div class="col-12 form-group mt-3">
-                <nuxt-link :to="$cookies.get('account') ?'forest/'+$cookies.get('account') :  '/forest'" >
                   <button
+                    @click="goToDashboard"
                     class=" position-relative pointer-event leader btn-lg btn-green pointer-event param"
                   >
                     Plant One Tree
                   </button>
-                </nuxt-link>
 
                 <nuxt-link class="position-relative pointer-event leader" :to="localePath('find')">
 
@@ -79,6 +78,7 @@ export default {
   methods: {
     goToDashboard() {
       const id= this.$cookies.get('account')
+      this.$store.commit('SET_INDEX',0)
       if(id){
         this.$router.push({ path: `/forest/${id}` });
       }else{

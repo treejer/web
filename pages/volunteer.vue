@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-12  volunteer" style="min-height: 100vh">
+  <section :page="$route.name" class="position-relative pt-5 col-12  volunteer" style="min-height: 105vh">
     <client-only>
       <iframe @load="$nuxt.$loading.finish()" src="https://form.typeform.com/to/INs6wu" class="border-0" height="100%" width="100%" title="Iframe typeform"></iframe>
     </client-only>
