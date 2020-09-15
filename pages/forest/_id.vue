@@ -689,31 +689,30 @@ export default {
 
           });
     },
-    async calculateMintableO1() {
-      let self = this
-      if (!self.$cookies.get('account')) {
-        self.$bvToast.toast("you're not login", {
-          toaster: 'b-toaster-bottom-left',
-          solid: true,
-          headerClass: 'hide',
-          variant: 'danger'
-        })
-      } else {
+     calculateMintableO1() {
+       let self = this
+       if (self.$cookies.get('account')) {
 
-      await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/o1/mintable`)
-          .then(function (response) {
-            if (response.amount) {
-              const mintableO1s = web3.utils.fromWei(response.amount)
-              self.mintableO1 = mintableO1s
-              debugger
+         self.$axios.$get(`${process.env.apiUrl}/wallets/${self.$route.params.id}/o1/mintable`)
+           .then(function (response) {
+             if (response.amount) {
+               const mintableO1s = web3.utils.fromWei(response.amount)
+               self.mintableO1 = parseFloat(mintableO1s).toFixed(4)
 
-            }
+             }
 
-          })
-          .catch(function (error) {
+           })
+           .catch(function (error) {
+           });
+       } else {
+         self.$bvToast.toast("you're not login", {
+           toaster: 'b-toaster-bottom-left',
+           solid: true,
+           headerClass: 'hide',
+           variant: 'danger'
+         })
 
-          });
-      }
+       }
 
     },
     async mintO1() {
@@ -732,7 +731,8 @@ export default {
       }
     },
     async getEthBalance() {
-      this.ethBalance = await this.$store.dispatch('fund/getEthBalance')
+      const ethBalances = await this.$store.dispatch('fund/getEthBalance')
+      this.ethBalance = parseFloat(ethBalances).toFixed(4)
       console.log( this.ethBalance ,' this.ethBalance ')
     },
 
