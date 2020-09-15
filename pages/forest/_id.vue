@@ -704,7 +704,7 @@ export default {
           .then(function (response) {
             if (response.amount) {
               const mintableO1s = web3.utils.fromWei(response.amount)
-              self.mintableO1 = parseFloat(mintableO1s).toFixed(2)
+              self.mintableO1 = mintableO1s
               debugger
 
             }
@@ -763,8 +763,6 @@ export default {
   .my-forest {
     .show-more-tree-all{
       font-size: 26px;
-      display: flex;
-      display: table;
       display: flex;
       justify-content: center;
       text-align: center;
