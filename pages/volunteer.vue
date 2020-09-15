@@ -1,10 +1,7 @@
 <template>
-  <section :page="$route.name" class="position-relative pt-5 col-12  volunteer" style="min-height: 88vh">
+  <section :page="$route.name" class="position-relative pt-5 col-12  volunteer" style="min-height: 100vh">
     <client-only>
-
       <iframe @load="$nuxt.$loading.finish()" src="https://form.typeform.com/to/INs6wu" class="border-0" height="100%" width="100%" title="Iframe typeform"></iframe>
-
-
     </client-only>
   </section>
 </template>
@@ -22,7 +19,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
-
       setTimeout(() => this.$nuxt.$loading.finish(), 1000)
     })
 
