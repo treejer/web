@@ -95,7 +95,6 @@
         </nuxt-link>
       </li>
       <li class="nav-item help"
-          @click="goToDiscuss()"
       >
         <a target="_blank"
            href="https://discuss.treejer.com/"
