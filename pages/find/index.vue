@@ -82,10 +82,10 @@
                       />
                     </div>
                     <div class="card-title">
-                      <p v-if="item.owner" v-coin class="tr-gray-two param-sm mb-1" >
-                        {{ item.owner }}
-                      </p>
+                      <p v-html="item.owner"
+                         class="tr-gray-two param-sm mb-1"  v-coin  >
 
+                      </p>
                       <p class="tr-green mb-1">{{ item.total_tree }} trees</p>
                     </div>
                   </div>
