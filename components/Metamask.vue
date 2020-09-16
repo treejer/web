@@ -13,7 +13,7 @@
         alt="tree"
         name="tree"
         src="/tree.svg"
-        @click="$router.push('/forest')"
+        @click="goToDashboard('/forest')"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -29,7 +29,7 @@
         alt="tree"
         name="tree"
         src="/tree.svg"
-        @click="$router.push({ path: `/forest/${$cookies.get('account')}` })"
+        @click="goToDashboard(`/forest/${$cookies.get('account')}`)"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -109,25 +109,29 @@ export default {
 
 
     },
-      copyClipboard(e) {
-           /* Copy the text inside the text field */
+    goToDashboard(item) {
+      this.$store.commit('SET_INDEX', 0)
+      this.$router.push({path: item})
+    },
+    copyClipboard(e) {
+      /* Copy the text inside the text field */
 
 
-        /* Alert the copied text */
-     // try {
-     //   debugger
-     //   await this.$copyText(e.target.innerText)
-     //   const successful = document.execCommand('copy');
-     //   this.$bvToast.toast(`Copy to clipboard!! `,{
-     //     variant:'success',
-     //     toaster: 'b-toaster-bottom-left',
-     //   })
-     // } catch (e) {
-     //   console.error(e);
-     // }
-     //
-     //  /* unselect the range */
-     //  window.getSelection().removeAllRanges()
+      /* Alert the copied text */
+      // try {
+      //   debugger
+      //   await this.$copyText(e.target.innerText)
+      //   const successful = document.execCommand('copy');
+      //   this.$bvToast.toast(`Copy to clipboard!! `,{
+      //     variant:'success',
+      //     toaster: 'b-toaster-bottom-left',
+      //   })
+      // } catch (e) {
+      //   console.error(e);
+      // }
+      //
+      //  /* unselect the range */
+      //  window.getSelection().removeAllRanges()
     },
     showModal() {
       this.$emit('showModal')

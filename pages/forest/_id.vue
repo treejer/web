@@ -5,8 +5,17 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <h2 class="title-sm Montserrat-Medium " >
+                <h2  class="title-sm Montserrat-Medium d-flex align-items-center  " v-if="
+                $route.params.id !== $cookies.get('account') && $cookies.get('account') ">
+                 <span class="pr-2 font-weight-lighter param-18" v-coin >{{$route.params.id}}</span>
+                  <span v-if="$route.params.id !== $cookies.get('account')">Forest</span>
+                </h2>
+                <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">
                   My Forest
+                </h2>
+
+                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id">
+                  Guest Forest
                 </h2>
               </div>
               <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
@@ -717,12 +726,6 @@ export default {
     async mintO1() {
       let self = this
       if (!self.$cookies.get('account')) {
-        self.$bvToast.toast("you're not login", {
-          toaster: 'b-toaster-bottom-left',
-          solid: true,
-          headerClass: 'hide',
-          variant: 'danger'
-        })
         self.$bvToast.show('four')
       } else {
 
