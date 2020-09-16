@@ -598,7 +598,7 @@ export default {
 
     }
   },
-  async mounted() {
+  async created() {
     let self = this;
     const hasUser =  this.$cookies.get('account')
     if (hasUser !== null) {

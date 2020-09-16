@@ -1438,3 +1438,26 @@ li.square::before {
   position: relative;
   overflow-y: paged-y;
 }
+
+
+.tr-pagination{
+  .pagination{
+    .pagination-page-nav .page-link{
+      background: transparent!important;
+      color: #424242;
+      border: 1px solid #BDBDBD;
+
+    }
+    .page-item.pagination-prev-nav .page-link,.page-item.pagination-next-nav .page-link{
+      background: transparent!important;
+      color: #424242;
+      border: 1px solid #BDBDBD;
+
+    }
+    .page-item.pagination-page-nav.active{
+      background-color: whitesmoke;
+      color: white!important;
+
+    }
+  }
+}
