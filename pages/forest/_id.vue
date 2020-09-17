@@ -705,7 +705,14 @@ export default {
       if (!self.$cookies.get('account')) {
         self.$bvToast.show('four')
       } else {
-        await this.$store.dispatch('o1Factory/mint')
+        await this.$store.dispatch('o1Factory/mint').then(()=>{
+          self.$bvToast.toast(['Your payment was successful'], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Trees added to forest',
+            variant: 'success',
+            href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
+          })
+        })
       }
     },
     async getEthBalance() {

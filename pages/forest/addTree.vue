@@ -483,21 +483,22 @@ export default {
     },
     async fund() {
       this.loading = true
+      let self =this
       this.transferReceipt = await this.$store.dispatch('fund/fund', {
         count: this.count,
 
       },)
-
       if(this.transferReceipt !== null) {
         this.activeIndex = 3
+        self.$bvToast.toast(['Your payment was successful'], {
+          toaster: 'b-toaster-bottom-left',
+          title: 'Trees added to forest',
+          variant: 'success',
+          href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
+        })
       }
       this.loading = false
-      this.$bvToast.toast(['Your payment was successful'], {
-        toaster: 'b-toaster-bottom-left',
-        title: 'Trees added to forest',
-        variant: 'success',
-        href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
-      })
+
     },
     async getPrice() {
 
