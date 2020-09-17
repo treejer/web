@@ -31,7 +31,7 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="header-menu">
             <b-nav-item
-                        v-for="(item,index) in items" :name="item.name" :key="index" :to="item.href"
+                        v-for="(item,index) in items" :name="item.name" :key="index" :to="localePath(item.href)"
                         @click="activeMenu(item,index)">
               {{item.name}}
             </b-nav-item>
