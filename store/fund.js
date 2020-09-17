@@ -20,9 +20,10 @@ export const mutations = {}
 export const actions = {
 
  async getEthBalance() {
-   return  await web3.eth.getBalance(account).then((ethBalance) => {
-     const test = web3.utils.fromWei(ethBalance)
-       return test
+  return  await web3.eth.getBalance(account).then((ethBalance) => {
+      const test =  web3.utils.fromWei(ethBalance)
+     const ethBalances = parseFloat(test).toFixed(4)
+     return ethBalances
     });
   },
   async fund(context, params) {

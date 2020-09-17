@@ -62,7 +62,7 @@
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button class="btn-green param pr-4 pl-4 pt-2 pb-2" @click="changeWallet()">
-            Change Wallet
+            Change Wallet & logout
           </button>
         </li>
       </ul>

@@ -151,7 +151,7 @@
               </span>
                 </div>
                 <div class="col-12 p-0  befor-res" style="left: 0" v-if="$cookies.get('account')">
-              <span class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
+              <span v-if="ownerTreesData" class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
                 <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
@@ -607,36 +607,23 @@ export default {
 
     }
   },
-  async created() {
-    let self = this;
-    const hasUser =  this.$cookies.get('account')
-    if (hasUser !== null) {
-      self.$bvToast.toast(`${self.$cookies.get('account').slice(0,10)} connected`, {
-        toaster: 'b-toaster-bottom-left',
-        solid: true,
-        headerClass: 'hide',
-        variant: 'success'
-      })
-    await this.getEthBalance()
-    await this.getBalanceOfO1()
-    await this.calculateMintableO1()
-    await this.getOwnerTreesData()
-   }
+   mounted() {
+     this.getEthBalance()
+     this.getBalanceOfO1()
+     this.calculateMintableO1()
+     this.getOwnerTreesData()
   },
   methods: {
     async goToFindTree() {
         this.loading = true
         let self = this
-
       if(this.treeID){
         await this.$axios.$get(`${process.env.apiUrl}/trees/${self.treeID}`)
           .then(function (response) {
             self.loading = false
             self.$router.push(`/find/${self.treeID}`)
-
           })
           .catch(function (error) {
-
             self.loading = false
             self.$bvToast.toast("Tree Not found!", {
               toaster: 'b-toaster-bottom-left',
@@ -657,8 +644,6 @@ export default {
           variant: 'danger'
         })
       }
-
-
       },
      goToAddTree() {
        let self = this
@@ -673,14 +658,10 @@ export default {
        } else {
          self.$router.push('/forest/addTree')
        }
-
-
       },
-
     comunity() {
       window.open('https://discuss.treejer.com', '_blank')
     },
-
     showModal(e) {
         this.$bvModal.show('five')
       },
@@ -706,9 +687,7 @@ export default {
              if (response.amount) {
                const mintableO1s = web3.utils.fromWei(response.amount)
                self.mintableO1 = parseFloat(mintableO1s).toFixed(4)
-
              }
-
            })
            .catch(function (error) {
            });
@@ -719,33 +698,29 @@ export default {
            headerClass: 'hide',
            variant: 'danger'
          })
-
        }
-
     },
     async mintO1() {
       let self = this
       if (!self.$cookies.get('account')) {
         self.$bvToast.show('four')
       } else {
-
         await this.$store.dispatch('o1Factory/mint')
       }
     },
     async getEthBalance() {
-      const ethBalances = await this.$store.dispatch('fund/getEthBalance')
-      this.ethBalance = parseFloat(ethBalances).toFixed(4)
+      await web3.eth.getBalance(this.$cookies.get('account')).then(async (ethBalance) => {
+       const test =await  web3.utils.fromWei(ethBalance)
+       this.ethBalance= parseFloat(test).toFixed(4)
+      });
     },
-
     async getOwnerTreesData() {
-
       let self = this
       await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/trees`)
           .then(function (response) {
             self.ownerTreesData = response.trees.data.map((tree) => {
               tree.latitude = parseFloat(tree.latitude);
               tree.longitude = parseFloat(tree.longitude);
-
               return tree;
             })
             self.treeCount = response.trees.total
