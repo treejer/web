@@ -8,14 +8,19 @@
           <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="'/forest/'+$cookies.get('account')">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
+            <li class="square text-left">
+              <nuxt-link v-if="$cookies.get('account') === null" class="text-left nav-item  param tr-gray-two "
+                         to="/forest">Explore Forests
+              </nuxt-link>
+              <nuxt-link v-else class="text-left nav-item  param tr-gray-two " :to="'/forest/'+$cookies.get('account')">
+                Explore Forests
+              </nuxt-link>
+            </li>
             <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
-              <nuxt-link v-if="index === 0 && $cookies.get('account') === null" class="text-left nav-item  param tr-gray-two " to="/forest">Explore Forests
+              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{ item.name }}
               </nuxt-link>
-              <nuxt-link v-if="index === 0 && $cookies.get('account')" class="text-left nav-item  param tr-gray-two "  :to="'/forest/'+$cookies.get('account')">Explore Forests
-              </nuxt-link>
-              <nuxt-link v-else-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
-              </nuxt-link>
-              <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
+              <a v-else class="text-left nav-item  param tr-gray-two " target="_blank"
+                 :href="item.href">{{ item.name }}</a>
             </li>
           </ul>
         </div>
@@ -72,7 +77,6 @@ export default {
   data() {
     return {
       listOne: [
-        {name: 'Explore Forests', href: '/forest'},
         {name: 'Find My Tree', href: '/find'},
         {name: 'Redeem Trees', href: '#'},
         {name: 'Start a Green Block', href: '#'},
