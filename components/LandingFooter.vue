@@ -3,11 +3,17 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12">
-          <nuxt-link class="btn-green position-relative d-block param text-white " to="/forest">Plant a Tree
+          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " to="/forest">Plant a Tree
+          </nuxt-link>
+          <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="'/forest/'+$cookies.get('account')">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
             <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
-              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
+              <nuxt-link v-if="index === 0 && $cookies.get('account') === null" class="text-left nav-item  param tr-gray-two " to="/forest">Explore Forests
+              </nuxt-link>
+              <nuxt-link v-if="index === 0 && $cookies.get('account')" class="text-left nav-item  param tr-gray-two "  :to="'/forest/'+$cookies.get('account')">Explore Forests
+              </nuxt-link>
+              <nuxt-link v-else-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
               </nuxt-link>
               <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
             </li>
