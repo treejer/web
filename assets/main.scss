@@ -1241,8 +1241,20 @@ option {
 }
 
 .b-toast-warning{
+  .pending{
+    user-select: none;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 80px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px;
+    overflow: hidden;
+    flex-flow: row nowrap;
+    padding: 0px 1rem;
+    transition: all 0.15s ease 0s;
+  }
   .toast-header{
-    background-image: url("../assets/alert-warning-logo.svg");
+    background-image: url("../assets/images/alert/pending.png");
     background-size: cover;
     background-color: transparent!important;
     border: none!important;
@@ -1307,6 +1319,7 @@ option {
   color: #FAFAFA!important;
 
 }
+
 .b-toast-danger .toast-header {
   z-index: +999999999999999999999999999999999!important;
 

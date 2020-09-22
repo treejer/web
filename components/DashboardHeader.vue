@@ -108,9 +108,9 @@ export default {
   },
   async mounted() {
     let self = this
-    await web3.eth.getAccounts().then(res => {
-      self.account = res[0]
-    })
+    // await web3.eth.getAccounts().then(res => {
+      self.account = this.$cookies.get('account')
+    // })
     await self.accountChange()
     await this.$store.dispatch('networkNames')
     setTimeout(()=>{

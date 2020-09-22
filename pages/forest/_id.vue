@@ -5,9 +5,9 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <h2  class="title-sm Montserrat-Medium d-flex align-items-center  " v-if="
+                <h2  v-coin class="title-sm Montserrat-Medium d-flex align-items-center  " v-if="
                 $route.params.id !== $cookies.get('account') && $cookies.get('account') ">
-                 <span class="pr-2 font-weight-lighter param-18" v-coin >{{$route.params.id}}</span>
+                 <span class="pr-2 font-weight-lighter param-18"  >{{$cookies.get('account')}}</span>
                   <span v-if="$route.params.id !== $cookies.get('account')">Forest</span>
                 </h2>
                 <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">
@@ -608,6 +608,10 @@ export default {
     }
   },
    mounted() {
+    console.log(this.$route.params.id)
+     if(this.$route.params.id !== this.$cookies.get('account')){
+       this.$router.push(`/forest/${this.$cookies.get('account')}`)
+     }
      this.getEthBalance()
      this.getBalanceOfO1()
      this.calculateMintableO1()
