@@ -646,12 +646,12 @@ export default {
      goToAddTree() {
        let self = this
        if (!self.$cookies.get('account')) {
-         self.$bvToast.toast("you're not login", {
-           toaster: 'b-toaster-bottom-left',
-           solid: true,
-           headerClass: 'hide',
-           variant: 'danger'
-         })
+         // self.$bvToast.toast("you're not login", {
+         //   toaster: 'b-toaster-bottom-left',
+         //   solid: true,
+         //   headerClass: 'hide',
+         //   variant: 'danger'
+         // })
          self.$bvModal.show('five')
        } else {
          self.$router.push('/forest/addTree')
@@ -690,12 +690,12 @@ export default {
            .catch(function (error) {
            });
        } else {
-         self.$bvToast.toast("you're not login", {
-           toaster: 'b-toaster-bottom-left',
-           solid: true,
-           headerClass: 'hide',
-           variant: 'danger'
-         })
+         // self.$bvToast.toast("you're not login", {
+         //   toaster: 'b-toaster-bottom-left',
+         //   solid: true,
+         //   headerClass: 'hide',
+         //   variant: 'danger'
+         // })
        }
     },
     async mintO1() {
