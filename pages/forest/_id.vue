@@ -152,7 +152,7 @@
                 </div>
                 <div class="col-12 p-0  befor-res" style="left: 0" v-if="$cookies.get('account')">
               <span v-if="ownerTreesData" class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
-                <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button  @click="goToTreeProfile(item.id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
                 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
@@ -163,15 +163,9 @@
 
                 <span  v-if="showMoreTreeData" style="transition: all .3s ease" class="pointer-event"
                        v-for="(item,index) in ownerTreesData.slice(50) "
-                       :id="item.tree_id" :key="index"
-
-                >
-<!--                  -->
-                <b-button  @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)"  class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
-                    <img class="img-fluid pointer-event"
-
-
-                         src="~/assets/images/myforest/trees.png"/>
+                       :id="item.tree_id" :key="index">
+                <b-button @click="goToTreeProfile(item.id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                    <img class="img-fluid pointer-event" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
 
               </span>
@@ -741,6 +735,9 @@ export default {
           });
       this.ownerTreesLoaded = true;
     },
+    goToTreeProfile(item){
+      this.$router.push(this.localePath({name:'tree-id' , params:{id:item}}))
+    }
 
   }
 };

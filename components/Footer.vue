@@ -36,7 +36,6 @@
     width: 100%;
     //height: 48px;
     background-color: #e5e7db;
-    bottom: 0;
     overflow-y: hidden;
     position: relative;
     ul{
