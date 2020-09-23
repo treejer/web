@@ -420,7 +420,7 @@ export default {
       this.newName = !this.newName
     },
     setNewName(){
-      this.$bvToast.toast('New Name added', {
+      this.$bvToast.toast('New name registered', {
         variant: 'success',
         toaster: 'b-toaster-bottom-left',
 
