@@ -139,8 +139,9 @@ export default {
       },
       goToUserDashboard(id) {
 
-       this.$store.commit('SET_INDEX',0)
+        this.$store.commit('SET_INDEX',0)
         this.$router.push({path: `/forest/${id}`,params:{id:id}})
+        this.$cookies.set('account',null)
       }
     }
   }
