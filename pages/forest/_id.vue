@@ -5,10 +5,11 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <h2  v-coin class="title-sm Montserrat-Medium d-flex align-items-center  " v-if="
-                $route.params.id !== $cookies.get('account') && $cookies.get('account') ">
-                 <span class="pr-2 font-weight-lighter param-18"  >{{$cookies.get('account')}}</span>
-                  <span v-if="$route.params.id !== $cookies.get('account')">Forest</span>
+                <h2 class="title-sm Montserrat-Medium d-flex align-items-center"
+                    v-if="$route.params.id !== $cookies.get('account') && $route.params.id ">
+                  <span  class="pr-2 font-weight-lighter param-18" v-coin>{{ $route.params.id === null ? 'Guest Forest' : $route.params.id}}</span>
+                  <span
+                    v-if="$route.params.id !== $cookies.get('account') ">Forest</span>
                 </h2>
                 <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">
                   My Forest
@@ -604,7 +605,7 @@ export default {
    mounted() {
     console.log(this.$route.params.id)
      if(this.$route.params.id !== this.$cookies.get('account')){
-       this.$router.push(`/forest/${this.$cookies.get('account')}`)
+       this.$router.push(`/forest/${this.$route.params.id  ?this.$route.params.id :'' }`)
      }
      this.getEthBalance()
      this.getBalanceOfO1()

@@ -32,7 +32,7 @@ export const actions = {
     self.$cookies.set('account', account)
    console.log(self.state.dashboard,'self')
    if(self.state.dashboard) {
-     await self.$router.push(`${self.$cookies.get('account')}`)
+     await self.$router.push(`forest/${self.$cookies.get('account')}`)
    }else {
       await  self.$router.push(`forest/${self.$cookies.get('account')}`)
    }
