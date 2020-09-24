@@ -5,10 +5,11 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <h2  v-coin class="title-sm Montserrat-Medium d-flex align-items-center  " v-if="
-                $route.params.id !== $cookies.get('account') && $cookies.get('account') ">
-                 <span class="pr-2 font-weight-lighter param-18"  >{{$cookies.get('account')}}</span>
-                  <span v-if="$route.params.id !== $cookies.get('account')">Forest</span>
+                <h2 class="title-sm Montserrat-Medium d-flex align-items-center"
+                    v-if="$route.params.id !== $cookies.get('account') && $route.params.id ">
+                  <span  class="pr-2 font-weight-lighter param-18" v-coin>{{ $route.params.id === null ? 'Guest Forest' : $route.params.id}}</span>
+                  <span
+                    v-if="$route.params.id !== $cookies.get('account') ">Forest</span>
                 </h2>
                 <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">
                   My Forest
@@ -152,7 +153,7 @@
                 </div>
                 <div class="col-12 p-0  befor-res" style="left: 0" v-if="$cookies.get('account')">
               <span v-if="ownerTreesData" class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
-                <b-button    @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button  @click="goToTreeProfile(item.id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
                 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
@@ -163,15 +164,9 @@
 
                 <span  v-if="showMoreTreeData" style="transition: all .3s ease" class="pointer-event"
                        v-for="(item,index) in ownerTreesData.slice(50) "
-                       :id="item.tree_id" :key="index"
-
-                >
-<!--                  -->
-                <b-button  @click="changeRoute(`https://maps.google.com/?q=${item.latitude},${item.longitude}&z=15`)"  class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
-                    <img class="img-fluid pointer-event"
-
-
-                         src="~/assets/images/myforest/trees.png"/>
+                       :id="item.tree_id" :key="index">
+                <b-button @click="goToTreeProfile(item.id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                    <img class="img-fluid pointer-event" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
 
               </span>
@@ -610,7 +605,7 @@ export default {
    mounted() {
     console.log(this.$route.params.id)
      if(this.$route.params.id !== this.$cookies.get('account')){
-       this.$router.push(`/forest/${this.$cookies.get('account')}`)
+       this.$router.push(`/forest/${this.$route.params.id  ?this.$route.params.id :'' }`)
      }
      this.getEthBalance()
      this.getBalanceOfO1()
@@ -652,12 +647,12 @@ export default {
      goToAddTree() {
        let self = this
        if (!self.$cookies.get('account')) {
-         self.$bvToast.toast("you're not login", {
-           toaster: 'b-toaster-bottom-left',
-           solid: true,
-           headerClass: 'hide',
-           variant: 'danger'
-         })
+         // self.$bvToast.toast("you're not login", {
+         //   toaster: 'b-toaster-bottom-left',
+         //   solid: true,
+         //   headerClass: 'hide',
+         //   variant: 'danger'
+         // })
          self.$bvModal.show('five')
        } else {
          self.$router.push('/forest/addTree')
@@ -696,12 +691,12 @@ export default {
            .catch(function (error) {
            });
        } else {
-         self.$bvToast.toast("you're not login", {
-           toaster: 'b-toaster-bottom-left',
-           solid: true,
-           headerClass: 'hide',
-           variant: 'danger'
-         })
+         // self.$bvToast.toast("you're not login", {
+         //   toaster: 'b-toaster-bottom-left',
+         //   solid: true,
+         //   headerClass: 'hide',
+         //   variant: 'danger'
+         // })
        }
     },
     async mintO1() {
@@ -741,6 +736,9 @@ export default {
           });
       this.ownerTreesLoaded = true;
     },
+    goToTreeProfile(item){
+      this.$router.push(this.localePath({name:'tree-id' , params:{id:item}}))
+    }
 
   }
 };

@@ -24,18 +24,16 @@ export const state = () => ({
 
 export const actions = {
  async metaMask({commit}) {
-   let self =this
-    if(process.client){
-
-        await ethereum.enable()
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        commit('SET_USER', account)
-        self.$cookies.set('account', account)
-      }
-    if(state.dashboard){
-      await  self.$router.push(`${self.$cookies.get('account')}`)
-    }else {
+    let self =this
+    await ethereum.enable()
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    commit('SET_USER', account)
+    self.$cookies.set('account', account)
+   console.log(self.state.dashboard,'self')
+   if(self.state.dashboard) {
+     await self.$router.push(`forest/${self.$cookies.get('account')}`)
+   }else {
       await  self.$router.push(`forest/${self.$cookies.get('account')}`)
    }
 
@@ -80,7 +78,7 @@ export const actions = {
     self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
-    if(state.dashboard){
+    if(self.state.dashboard){
       await  self.$router.push(`${self.$cookies.get('account')}`)
     }else {
       await  self.$router.push(`forest/${self.$cookies.get('account')}`)
@@ -109,7 +107,7 @@ export const actions = {
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
 
-        if(state.dashboard){
+        if(self.state.dashboard){
             self.$router.push(`${self.$cookies.get('account')}`)
         }else {
             self.$router.push(`forest/${self.$cookies.get('account')}`)
@@ -136,7 +134,7 @@ export const actions = {
         self.$cookies.set('account', null)
         self.commit('SET_USER', null)
         self.$cookies.set('account', address)
-        if(state.dashboard){
+        if(self.state.dashboard){
             self.$router.push(`${self.$cookies.get('account')}`)
         }else {
             self.$router.push(`forest/${self.$cookies.get('account')}`)
