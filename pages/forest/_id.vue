@@ -705,9 +705,9 @@ export default {
         self.$bvToast.show('four')
       } else {
         await this.$store.dispatch('o1Factory/mint').then(()=>{
-          self.$bvToast.toast(['Your payment was successful'], {
+          self.$bvToast.toast(['Your transfer was successful'], {
             toaster: 'b-toaster-bottom-left',
-            title: 'Trees added to forest',
+            title: 'Tokens transferred to wallet',
             variant: 'success',
             href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
           })
