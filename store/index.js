@@ -66,32 +66,32 @@ export const actions = {
           case "1":
             netName = 'mainnet';
             console.log('This is mainnet')
-            showToast(netName)
+            // showToast(netName)
             break
           case "2":
             console.log('This is the deprecated Morden test network.')
             netName = 'Morden';
-            showToast(netName)
+            // showToast(netName)
             break
           case "3":
             console.log('This is the ropsten test network.')
             netName = 'ropsten';
-            showToast(netName)
+            // showToast(netName)
             break
           case "4":
             console.log('This is the Rinkeby test network.')
             netName = 'Rinkeby';
-            showToast(netName)
+            // showToast(netName)
             break
           case "5":
             console.log('This is the Goerly test network.')
             netName = 'Goerly';
-            showToast(netName)
+            // showToast(netName)
             break
           default:
             console.log('This is an unknown network.')
             netName = 'unknown';
-            showToast(netName)
+            // showToast(netName)
         }
         commit('SET_NET_NAME', netName)
       })

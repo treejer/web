@@ -111,7 +111,8 @@ export default {
     },
     goToDashboard(item) {
       this.$store.commit('SET_INDEX', 0)
-      this.$router.push({path: item})
+      let routeData =this.$router.resolve({path: item, params: {id: `${this.$cookies.get('account')}`}});
+      window.open(routeData.href, '_Self');
     },
     copyClipboard(e) {
       /* Copy the text inside the text field */
