@@ -1279,7 +1279,7 @@ option {
     }
   }
 }
-.b-toaster,.toast{
+.b-toaster,.toast,.b-toaster-slot,.vue-portal-target{
   z-index: +999999999999999999999999999999999999!important;
   -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);

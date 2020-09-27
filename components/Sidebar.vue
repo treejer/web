@@ -10,7 +10,7 @@
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
-              <path d="M32 0L32 32L-1.39876e-06 32L0 -1.39876e-06L32 0Z" fill="#C4C4C4"/>
+              <path d="M32 0L32 32L-1.39876e-06 32L0 -1.39876e-06L32 0Z" :fill="activeIndex === 0 ? 'white' : '#C4C4C4'"/>
             </mask>
             <g mask="url(#mask0)">
               <path
@@ -144,7 +144,7 @@
       };
     },
     mounted() {
-      this.activeIndex = this.$store.state.index
+      this.activeIndex = this.$store.state.index || 0
       if (process.client) {
         const history = this.$router.history.current.fullPath
         const href = document.querySelectorAll(`a[href='${history}']`)
