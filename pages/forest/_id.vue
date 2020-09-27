@@ -244,10 +244,10 @@
                   <!--              <span class="position-absolute">+</span>-->
 
                 </div>
-                <p v-coin class="param-sm mt-3 tr-gray-three token" style="">{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
+                <p  class="param-sm mt-3 tr-gray-three token" style="" v-coin>{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
                 <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
                 <div class="row  tokens">
-                  <div class="col-md-6 p-0">
+                  <div class="col-6 p-0">
                     <p class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom ">
                       <img src="~/assets/images/myforest/ETHLogo.svg"
                            class="img-fluid ">
@@ -263,7 +263,7 @@
                       O2
                     </p>
                   </div>
-                  <div class="col-md-6 p-0">
+                  <div class="col-6 p-0">
 
                     <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{
                         ethBalance > 0 ? ethBalance : 0
