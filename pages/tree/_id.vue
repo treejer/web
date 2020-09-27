@@ -46,7 +46,12 @@
               <span class=" tr-red  pointer-event" @click="newName = false">x</span>
             </div>
 
-            <input  placeholder="new name..." class="form-control border-0  new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder" type="text" v-model="newNameTree">
+            <input placeholder="New name..."
+                   class="form-control border-0
+                      new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
+                   type="text" v-model="newNameTree"
+                   @keyup.enter="setNewName()"
+            >
 
 
           </div>
@@ -57,12 +62,13 @@
         </div>
         <div class="col-12 col-md-5 text-center position-relative">
           <div class="box-tree-profile">
-            <p class="param tr-gray-two">Swipe to see more trees in <span class="tr-green"
+            <p class="param tr-gray-two">Swipe to see more trees in <span class="tr-green pointer-event"
+                                                                          @click="goToForest(tree.owner)"
                                                                           v-coin>{{ tree.owner }}</span> ’s
               forest</p>
           </div>
           <div class="card-tree-profile position-relative mb-5 ">
-            <div class="position-absolute edit-name-position-absolute">
+            <div v-if="tree.owner === $cookies.get('account')" class="position-absolute edit-name-position-absolute">
               <button class="btn-green edit-name " @click="editName(tree.name)">Edit Name</button>
             </div>
             <div class="detail-card">
@@ -383,9 +389,7 @@ export default {
         .then(function (response) {
           self.loading = false
           self.tree = response
-          self.convertToGeoName(self.tree.latitude,self.tree.longitude)
-          console.log(self.tree,'self.tree')
-          self.$router.push(self.localePath({name:'tree-id' , params:{id:self.tree.id}}))
+
         })
         .catch(function (error) {
 
@@ -419,7 +423,7 @@ export default {
       console.log(item,'item')
       this.newName = !this.newName
     },
-    setNewName(){
+    setNewName() {
       this.$bvToast.toast('New name registered', {
         variant: 'success',
         toaster: 'b-toaster-bottom-left',
@@ -427,6 +431,11 @@ export default {
       })
       this.tree.name = this.newNameTree
       this.newName = false
+    },
+    goToForest(id) {
+      this.$router.push(this.localePath({name: 'forest-id', params: {id: id}}))
+
+
     }
   }
 }

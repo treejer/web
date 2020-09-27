@@ -1279,8 +1279,8 @@ option {
     }
   }
 }
-.b-toast,.toast{
-  z-index: +99999999999999999999999999999999!important;
+.b-toaster,.toast{
+  z-index: +999999999999999999999999999999999999!important;
   -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
   -webkit-transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
@@ -1290,6 +1290,8 @@ option {
   font-size: 14px;
   font-family: Montserrat-Medium;
   .toast-body{
+    z-index: +999999999999999999999999999999999999!important;
+
     margin-top: 25px;
     font-size: 12px;
     line-height: 15px;

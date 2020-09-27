@@ -114,14 +114,16 @@ export default {
     await self.accountChange()
     await this.$store.dispatch('networkNames')
     setTimeout(()=>{
-      self.$store.state.netWorkName !== 'ropsten' ? self.$bvToast.toast('Switch to Ropsten Test Network', {
-        title: `Wrong network`,
-        href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
-        variant: 'danger',
-        solid: true,
-        toaster: 'b-toaster-bottom-left',
+      self.$store.state.netWorkName !== 'ropsten' ?
+        self.$bvToast.toast('Switch to Ropsten Test Network', {
+          title: `Wrong network`,
+          href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
+          variant: 'danger',
+          solid: true,
+          toaster: 'b-toaster-bottom-left',
+          noAutoHide: true,
+        }) :null
 
-      }) : null
     },1000)
 
 

@@ -153,7 +153,7 @@
                 </div>
                 <div class="col-12 p-0  befor-res" style="left: 0" v-if="$cookies.get('account')">
               <span v-if="ownerTreesData" class="" v-for="(item,index) in ownerTreesData.slice(0,50) " :id="item.tree_id" :key="index">
-                <b-button  @click="goToTreeProfile(item.id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
+                <b-button  @click="goToTreeProfile(item.tree_id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
                 <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
@@ -1010,7 +1010,7 @@ export default {
   .befor-res {
     position: absolute;
     top: 0;
-    z-index: +99999999;
+    z-index: +99999;
 
     button {
       z-index: +999999999;

@@ -1,5 +1,7 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
+import { BToast } from 'bootstrap-vue'
+
 
 export const state = () => ({
   token: null,
@@ -41,26 +43,55 @@ export const actions = {
 
   },
   async networkNames({commit}) {
+    let bootStrapToaster = new BToast();
+
     if (process.client) {
       const web3 = window.web3
       let net = null
+      let self =this
+      function showToast(netName){
+        bootStrapToaster.$bvToast.toast(`You are now on ${netName || 'unknown'} Test Network`, {
+          title: `Switched network`,
+          href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
+          variant: 'success',
+          solid: true,
+          toaster: 'b-toaster-bottom-left',
+        });
+      }
+
       const network = await web3.version.getNetwork((err, netId, netName) => {
+        console.log(netId,'netId')
+
         switch (netId) {
           case "1":
             netName = 'mainnet';
             console.log('This is mainnet')
+            showToast(netName)
             break
           case "2":
             console.log('This is the deprecated Morden test network.')
             netName = 'Morden';
+            showToast(netName)
             break
           case "3":
             console.log('This is the ropsten test network.')
             netName = 'ropsten';
+            showToast(netName)
+            break
+          case "4":
+            console.log('This is the Rinkeby test network.')
+            netName = 'Rinkeby';
+            showToast(netName)
+            break
+          case "5":
+            console.log('This is the Goerly test network.')
+            netName = 'Goerly';
+            showToast(netName)
             break
           default:
             console.log('This is an unknown network.')
             netName = 'unknown';
+            showToast(netName)
         }
         commit('SET_NET_NAME', netName)
       })

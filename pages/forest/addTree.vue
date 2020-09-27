@@ -125,23 +125,30 @@
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all .5s">
                     ${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}</h1>
-
                   <button
+                    v-if="$store.state.netWorkName !== 'ropsten'"
+                    @click="showWalletError()"
+                    class="btn-green-md w-auto param   mt-4 mb-3">
+                    <BSpinner class="mr-2" type="grow" small v-if="loading">loading</BSpinner>
+                    {{ loading ? 'Loading' : ' Switch to Ropsten Network' }}
+                  </button>
+                  <button
+                    v-else
                     @click="!loading ? fund() :''"
                     :class="{'disable': loading}"
-
                     class="btn-green-md  mt-4 mb-3"
                   >
-                    <BSpinner class="mr-2" type="grow"  small   v-if="loading">loading</BSpinner>
-                    {{loading ?'Loading' :' NEXT' }}
+                    <BSpinner class="mr-2" type="grow" small v-if="loading">loading</BSpinner>
+                    {{ loading ? 'Loading' : ' NEXT' }}
                   </button>
-<!--                  <p class="pointer-event">-->
-<!--                    <a class="param mb-0" href=""-->
-<!--                      >By proceeding I agree to-->
-<!--                      <span class="param tr-green">terms</span> and-->
-<!--                      <span class="param tr-green">conditions.</span></a-->
-<!--                    >-->
-<!--                  </p>-->
+
+                  <!--                  <p class="pointer-event">-->
+                  <!--                    <a class="param mb-0" href=""-->
+                  <!--                      >By proceeding I agree to-->
+                  <!--                      <span class="param tr-green">terms</span> and-->
+                  <!--                      <span class="param tr-green">conditions.</span></a-->
+                  <!--                    >-->
+                  <!--                  </p>-->
                 </div>
               </div>
             </div>
@@ -467,6 +474,16 @@ export default {
     };
   },
   methods: {
+    showWalletError() {
+      let self = this
+      self.$bvToast.toast('Switch to Ropsten Test Network', {
+        title: `Wrong network`,
+        href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
+        variant: 'danger',
+        solid: true,
+        toaster: 'b-toaster-bottom-left',
+      })
+    },
     activeMenu(item, index) {
       this.activeIndex = index;
     },

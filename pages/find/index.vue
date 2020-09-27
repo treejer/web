@@ -179,7 +179,7 @@
                   <th scope="col" class="pointer-event">
                     <i class="pointer-event fas fa-sort-up"></i>Status
                   </th>
-                  <th scope="col" class="pointer-event">
+                  <th scope="col" class="pointer-event d-none  d-md-block ">
                     <i class="pointer-event fas fa-sort-up"></i>Location
                   </th>
                 </tr>
@@ -199,7 +199,7 @@
                   <td v-else-if="tree.fundedDate !== null">
                     Funded
                   </td>
-                  <td>{{ tree.latitude + "," + tree.longitude }}</td>
+                  <td class="d-none  d-md-block">{{ tree.latitude + "," + tree.longitude }}</td>
                 </tr>
               </tbody>
             </table>
