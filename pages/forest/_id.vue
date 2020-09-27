@@ -15,7 +15,7 @@
                   My Forest
                 </h2>
 
-                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id">
+                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">
                   Guest Forest
                 </h2>
               </div>

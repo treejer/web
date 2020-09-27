@@ -58,7 +58,9 @@ export const actions = {
           title: 'Processing payment...',
           variant: 'warning',
           href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
-          bodyClass: 'fund-error'
+          bodyClass: 'fund-error',
+          noAutoHide:true
+
         })
       })
         .on('error', (error) => {
