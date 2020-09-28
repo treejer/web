@@ -507,6 +507,7 @@ export default {
       },)
       if(this.transferReceipt !== null) {
         this.activeIndex = 3
+        responsiveVoice.speak("Trees added to forest");
         self.$bvToast.toast(['Your payment was successful'], {
           toaster: 'b-toaster-bottom-left',
           title: 'Trees added to forest',
