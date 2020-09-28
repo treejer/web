@@ -706,13 +706,14 @@ export default {
       } else {
 
         await this.$store.dispatch('o1Factory/mint').then(()=>{
+          responsiveVoice.speak("Tokens transferred to wallet");
+
           self.$bvToast.toast(['Your transfer was successful'], {
             toaster: 'b-toaster-bottom-left',
             title: 'Tokens transferred to wallet',
             variant: 'success',
             href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
           })
-          responsiveVoice.speak("Tokens transferred to wallet");
 
         })
       }
