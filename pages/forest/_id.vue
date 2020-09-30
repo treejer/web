@@ -5,19 +5,26 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <h2 class="title-sm Montserrat-Medium d-flex align-items-center"
-                    v-if="$route.params.id !== $cookies.get('account') && $route.params.id ">
-                  <span  class="pr-2 font-weight-lighter param-18" v-coin>{{ $route.params.id === null ? 'Guest Forest' : $route.params.id}}</span>
-                  <span
-                    v-if="$route.params.id !== $cookies.get('account') ">Forest</span>
+                <!--                <h2 class="title-sm Montserrat-Medium d-flex align-items-center"-->
+                <!--                    v-if="$route.params.id !== $cookies.get('account') && $route.params.id ">-->
+                <!--                  <span  class="pr-2 font-weight-lighter param-18" v-coin>{{ $route.params.id === null ? 'Guest Forest' : $route.params.id}}</span>-->
+                <!--                  <span-->
+                <!--                    v-if="$route.params.id !== $cookies.get('account') ">Forest</span>-->
+                <!--                </h2>-->
+                <!--                <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">-->
+                <!--                  My Forest-->
+                <!--                </h2>-->
+
+                <!--                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">-->
+                <!--                  Guest Forest-->
+                <!--                </h2>-->
+                <h2 v-if="!$cookies.get('account')" class="title-sm Montserrat-Medium ">
+                  Guest  Forest
                 </h2>
-                <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">
+                <h2 v-else  class="title-sm Montserrat-Medium ">
                   My Forest
                 </h2>
 
-                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">
-                  Guest Forest
-                </h2>
               </div>
               <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
                 <div class="form-group">
@@ -304,6 +311,7 @@ import content from './world.json';
 import web3 from '~/plugins/web3';
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
+import route from "@/middleware/route";
 
 
 export default {
@@ -313,7 +321,8 @@ export default {
   computed: {
     messages() {
       return content
-    }
+    },
+
   },
 
   data() {
@@ -603,15 +612,16 @@ export default {
     }
   },
    mounted() {
-    console.log(this.$route.params.id)
-     if(this.$route.params.id !== this.$cookies.get('account')){
-       this.$router.push(`/forest/${this.$route.params.id  ?this.$route.params.id :'' }`)
+     console.log(history, "history")
+     console.log(this.$route.params.id)
+     if (this.$route.params.id !== this.$cookies.get('account')) {
+       this.$router.push(`/forest/${this.$route.params.id ? this.$route.params.id : ''}`)
      }
      this.getEthBalance()
      this.getBalanceOfO1()
      this.calculateMintableO1()
      this.getOwnerTreesData()
-  },
+   },
   methods: {
     async goToFindTree() {
         this.loading = true
