@@ -331,7 +331,7 @@ export default {
         const sep = ['...']
         const fullPart = partOne.concat(sep).concat(partTwo)
         let sliceAccount = ''
-        const stringAccount = fullPart.map(item => item !== null ? sliceAccount += item.toString() : null)
+        const stringAccount = fullPart.map(item => sliceAccount += item.toString())
         return sliceAccount
 
       }
