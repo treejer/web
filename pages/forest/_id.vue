@@ -18,11 +18,8 @@
                 <!--                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">-->
                 <!--                  Guest Forest-->
                 <!--                </h2>-->
-                <h2 v-if="!$cookies.get('account')" class="title-sm Montserrat-Medium ">
-                  Guest  Forest
-                </h2>
-                <h2 v-else  class="title-sm Montserrat-Medium ">
-                  My Forest
+                <h2 class="title-sm Montserrat-Medium ">
+                  {{ state }} Forest
                 </h2>
 
               </div>
@@ -322,6 +319,28 @@ export default {
     messages() {
       return content
     },
+    state() {
+      if (!this.$cookies.get('account') && !this.$route.params.id) {
+        return 'Guest'
+      }
+      if (this.$route.params.id && !this.$cookies.get('account') &&
+        this.$cookies.get('account') !== this.$route.params.id) {
+        const parts = this.$route.params.id.split('')
+        const partOne = parts.slice(0, 5)
+        const partTwo = parts.reverse().slice(0, 6).reverse()
+        const sep = ['...']
+        const fullPart = partOne.concat(sep).concat(partTwo)
+        let sliceAccount = ''
+        const stringAccount = fullPart.map(item => item !== null ? sliceAccount += item.toString() : null)
+        return sliceAccount
+
+      }
+      if (this.$cookies.get('account') && this.$route.params.id
+        && this.$cookies.get('account') === this.$route.params.id) {
+        return 'My'
+      }
+    }
+
 
   },
 
