@@ -137,15 +137,15 @@ export default {
     },
     async accountChange() {
       if(this.$cookies.get('walletName') === 'metamask'){
-
+        let self =this
         if(process.client){
-          let self =this
+
           await window.ethereum.on('accountsChanged', function (accounts) {
             if (self.account !== accounts[0]) {
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
-              const history = self.$router.currentRoute.fullPath
-              self.$router.go(history)
+              self.$forceUpdate()
+              self.$router.push({path:`/forest/${accounts[0]}`,params:{id:accounts[0]}})
             }
 
           });
