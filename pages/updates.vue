@@ -18,10 +18,10 @@
               <ul>
                 <li class="list-style-none time-line" v-if="updates" v-for="(item , index) in updates">
                   <p class="param-md tr-gray-three font-weight-lighter one-minted"
-                     v-if="item.type ==='O1Minted' || totalO1">
+                     v-if="item.type ==='O1Minted'">
                     You successfully sent <span class="tr-green font-weight-bold Montserrat-Medium">{{ totalO1 }}</span>
                     O1 from your forest to your wallet. <a
-                    class="tr-green pointer-event pointer-event Montserrat-Medium" @click="openModal(item)">See
+                    class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold" @click="openModal(item)">See
                     details</a>
                     <span class="d-flex justify-content-start tr-gray-four param-sm font-weight-lighter time-box">
                       <span class="date">{{ item.created_at.slice(0, 10) }} </span>
@@ -30,9 +30,9 @@
                     </span>
                   </p>
                   <p class="param-md tr-gray-three font-weight-lighter tree-funded" v-if="item.type ==='TreeFunded' ">
-                    You successfully added 1 {{ item.type === 'O1Minted' ? 'O1 ' : 'Tree ' }} with id <a
-                    class="tr-green pointer-event Montserrat-Medium">#{{ item.id }}</a> to your forest. <a
-                    class="tr-green pointer-event pointer-event Montserrat-Medium" @click="openModal(item)">See
+                    You successfully added 1 Tree with id <a
+                    class="tr-green pointer-event Montserrat-Medium font-weight-bold">#{{ item.id }}</a> to your forest. <a
+                    class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold" @click="openModal(item)">See
                     details</a>
                     <span class="d-flex justify-content-start tr-gray-four param-sm time-box">
                       <span class="date">{{ item.created_at.slice(0, 10) }} </span>

@@ -499,6 +499,7 @@ export default {
       this.activeWallet = index;
     },
     async fund() {
+
       this.loading = true
       let self =this
       this.transferReceipt = await this.$store.dispatch('fund/fund', {
@@ -514,6 +515,20 @@ export default {
           variant: 'success',
           href:`https://ropsten.etherscan.io/address/${self.$cookies.get('account')}`,
         })
+        const history = this.$router.currentRoute.matched
+        let res=null
+        history.map((item,index)=>{
+          let name = item.name;
+          res = name.match(/forest-id/g)
+          console.log(res,'item.name,item')
+          if(res === 'forest-id'){
+             this.$router.push(`/forest/${this.$cookies.get('account')}`)
+          }
+        })
+
+
+
+
       }
       this.loading = false
 
