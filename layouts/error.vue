@@ -221,7 +221,7 @@ export default {
 .x-page {
   height: 100vh;
   position: relative;
-  background-image: url(https://mars-404.templateku.co/img/star.svg), linear-gradient(to bottom, #faf8f2, #faf8f2);
+  background-color:#faf8f2;
   margin: 0;
   background-attachment: fixed;
   overflow: hidden;
