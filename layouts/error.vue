@@ -176,10 +176,10 @@
             </div>
           </div>
         </div>
-        <div class="button1 btn-green pointer-event" @click="$router.push('/')">
+        <div class="button1  pointer-event" @click="$router.push('/')">
             GO TO HOME
         </div>
-        <div class="button1 btn-green text-center pointer-event"  style="bottom: -25px;width: inherit;"  @click="goToDashboard()">
+        <div class="button1  text-center pointer-event"  style="bottom: -25px;width: inherit;"  @click="goToDashboard()">
           GO TO DASHBOARD
         </div>
       </div>
@@ -345,7 +345,8 @@ export default {
   .star:nth-child(1):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -376,7 +377,8 @@ export default {
   .star:nth-child(2):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -407,7 +409,8 @@ export default {
   .star:nth-child(3):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -438,7 +441,8 @@ export default {
   .star:nth-child(4):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -469,7 +473,8 @@ export default {
   .star:nth-child(5):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -500,7 +505,8 @@ export default {
   .star:nth-child(6):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -531,7 +537,8 @@ export default {
   .star:nth-child(7):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -562,7 +569,8 @@ export default {
   .star:nth-child(8):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -593,7 +601,8 @@ export default {
   .star:nth-child(9):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -624,7 +633,8 @@ export default {
   .star:nth-child(10):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -655,7 +665,8 @@ export default {
   .star:nth-child(11):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -686,7 +697,8 @@ export default {
   .star:nth-child(12):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -717,7 +729,8 @@ export default {
   .star:nth-child(13):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -748,7 +761,8 @@ export default {
   .star:nth-child(14):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -779,7 +793,8 @@ export default {
   .star:nth-child(15):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -810,7 +825,8 @@ export default {
   .star:nth-child(16):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -841,7 +857,8 @@ export default {
   .star:nth-child(17):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -872,7 +889,8 @@ export default {
   .star:nth-child(18):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -903,7 +921,8 @@ export default {
   .star:nth-child(19):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -934,7 +953,8 @@ export default {
   .star:nth-child(20):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -965,7 +985,8 @@ export default {
   .star:nth-child(21):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -996,7 +1017,8 @@ export default {
   .star:nth-child(22):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1027,7 +1049,8 @@ export default {
   .star:nth-child(23):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1058,7 +1081,8 @@ export default {
   .star:nth-child(24):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1089,7 +1113,8 @@ export default {
   .star:nth-child(25):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1120,7 +1145,8 @@ export default {
   .star:nth-child(26):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1151,7 +1177,8 @@ export default {
   .star:nth-child(27):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1182,7 +1209,8 @@ export default {
   .star:nth-child(28):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1213,7 +1241,8 @@ export default {
   .star:nth-child(29):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1244,7 +1273,8 @@ export default {
   .star:nth-child(30):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1275,7 +1305,8 @@ export default {
   .star:nth-child(31):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1306,7 +1337,8 @@ export default {
   .star:nth-child(32):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1337,7 +1369,8 @@ export default {
   .star:nth-child(33):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1368,7 +1401,8 @@ export default {
   .star:nth-child(34):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1399,7 +1433,8 @@ export default {
   .star:nth-child(35):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1430,7 +1465,8 @@ export default {
   .star:nth-child(36):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1461,7 +1497,8 @@ export default {
   .star:nth-child(37):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1492,7 +1529,8 @@ export default {
   .star:nth-child(38):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1523,7 +1561,8 @@ export default {
   .star:nth-child(39):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1554,7 +1593,8 @@ export default {
   .star:nth-child(40):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1585,7 +1625,8 @@ export default {
   .star:nth-child(41):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1616,7 +1657,8 @@ export default {
   .star:nth-child(42):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1647,7 +1689,8 @@ export default {
   .star:nth-child(43):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1678,7 +1721,8 @@ export default {
   .star:nth-child(44):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1709,7 +1753,8 @@ export default {
   .star:nth-child(45):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1740,7 +1785,8 @@ export default {
   .star:nth-child(46):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1771,7 +1817,8 @@ export default {
   .star:nth-child(47):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1802,7 +1849,8 @@ export default {
   .star:nth-child(48):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1833,7 +1881,8 @@ export default {
   .star:nth-child(49):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1864,7 +1913,8 @@ export default {
   .star:nth-child(50):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1895,7 +1945,8 @@ export default {
   .star:nth-child(51):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1926,7 +1977,8 @@ export default {
   .star:nth-child(52):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1957,7 +2009,8 @@ export default {
   .star:nth-child(53):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -1988,7 +2041,8 @@ export default {
   .star:nth-child(54):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2019,7 +2073,8 @@ export default {
   .star:nth-child(55):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2050,7 +2105,8 @@ export default {
   .star:nth-child(56):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2081,7 +2137,8 @@ export default {
   .star:nth-child(57):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2112,7 +2169,8 @@ export default {
   .star:nth-child(58):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2143,7 +2201,8 @@ export default {
   .star:nth-child(59):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2174,7 +2233,8 @@ export default {
   .star:nth-child(60):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2205,7 +2265,8 @@ export default {
   .star:nth-child(61):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2236,7 +2297,8 @@ export default {
   .star:nth-child(62):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2267,7 +2329,8 @@ export default {
   .star:nth-child(63):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2298,7 +2361,8 @@ export default {
   .star:nth-child(64):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2329,7 +2393,8 @@ export default {
   .star:nth-child(65):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2360,7 +2425,8 @@ export default {
   .star:nth-child(66):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2391,7 +2457,8 @@ export default {
   .star:nth-child(67):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2422,7 +2489,8 @@ export default {
   .star:nth-child(68):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2453,7 +2521,8 @@ export default {
   .star:nth-child(69):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2484,7 +2553,8 @@ export default {
   .star:nth-child(70):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2515,7 +2585,8 @@ export default {
   .star:nth-child(71):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2546,7 +2617,8 @@ export default {
   .star:nth-child(72):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2577,7 +2649,8 @@ export default {
   .star:nth-child(73):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2608,7 +2681,8 @@ export default {
   .star:nth-child(74):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2639,7 +2713,8 @@ export default {
   .star:nth-child(75):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2670,7 +2745,8 @@ export default {
   .star:nth-child(76):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2701,7 +2777,8 @@ export default {
   .star:nth-child(77):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2732,7 +2809,8 @@ export default {
   .star:nth-child(78):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2763,7 +2841,8 @@ export default {
   .star:nth-child(79):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2794,7 +2873,8 @@ export default {
   .star:nth-child(80):after {
     position: absolute;
     content: '';
-    background-color: #fff;
+    background-color: #EFE9AE;
+
     border-radius: 10px;
     -webkit-animation: blink 1.5s infinite;
     animation: blink 1.5s infinite;
@@ -2952,7 +3032,8 @@ export default {
     width: 66px;
     height: 66px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #FFFFFF;
+
     box-shadow: 0px 5px 1px -3px #808080;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -3097,10 +3178,15 @@ export default {
     position: absolute;
     bottom: 30px;
     left: 50%;
-    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     padding: 8px 12px;
     cursor: pointer;
+    background-color: #eeeeee;
+    border-radius: 77px;
+    color: #4d5b51;
+    width: inherit;
+    text-align: center;
+    z-index: +9999;
     a{
       position: relative;
       width: 100%;
