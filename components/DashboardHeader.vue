@@ -139,14 +139,12 @@ export default {
       if(this.$cookies.get('walletName') === 'metamask'){
         let self =this
         if(process.client){
-
           await window.ethereum.on('accountsChanged', function (accounts) {
             if (self.account !== accounts[0]) {
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
-              self.$router.push({path:`/forest/${accounts[0]}`,params:{id:accounts[0]}})
+              self.$router.push('/')
             }
-
           });
       }}
     },

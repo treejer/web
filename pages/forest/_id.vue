@@ -18,8 +18,11 @@
                 <!--                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">-->
                 <!--                  Guest Forest-->
                 <!--                </h2>-->
-                <h2 class="title-sm Montserrat-Medium ">
+                <h2 v-if="!otherForest" class="title-sm d-inline-flex Montserrat-Medium ">
                   {{ state }} Forest
+                </h2>
+                <h2 v-if="otherForest" class="title-sm d-inline-flex Montserrat-Medium ">
+                  <span class="pr-4 pl-0" v-coin >{{this.$route.params.id}}</span> Forest
                 </h2>
 
               </div>
@@ -323,20 +326,11 @@ export default {
       if (!this.$cookies.get('account') && !this.$route.params.id) {
         return 'Guest'
       }
-      if (this.$route.params.id && !this.$cookies.get('account') &&
-        this.$cookies.get('account') !== this.$route.params.id) {
-        const parts = this.$route.params.id.split('')
-        const partOne = parts.slice(0, 5)
-        const partTwo = parts.reverse().slice(0, 6).reverse()
-        const sep = ['...']
-        const fullPart = partOne.concat(sep).concat(partTwo)
-        let sliceAccount = ''
-        const stringAccount = fullPart.map(item => sliceAccount += item.toString())
-        return sliceAccount
-
+      if (this.$route.params.id && this.$store.state.account !== this.$route.params.id) {
+         this.otherForest = true
       }
       if (this.$cookies.get('account') && this.$route.params.id
-        && this.$cookies.get('account') === this.$route.params.id) {
+        && this.$store.state.account === this.$route.params.id) {
         return 'My'
       }
     }
@@ -346,6 +340,7 @@ export default {
 
   data() {
     return {
+      otherForest:false,
       ownerTreesLoaded: false,
       showMoreTreeData: false,
       test: [
@@ -631,11 +626,11 @@ export default {
     }
   },
    mounted() {
-     console.log(history, "history")
      console.log(this.$route.params.id)
-     if (this.$route.params.id !== this.$cookies.get('account')) {
-       this.$router.push(`/forest/${this.$route.params.id ? this.$route.params.id : ''}`)
-     }
+
+     // if (this.$route.params.id !== this.$cookies.get('account')) {
+     //   this.$router.push(`/forest/${this.$route.params.id}`)
+     // }
      this.getEthBalance()
      this.getBalanceOfO1()
      this.calculateMintableO1()

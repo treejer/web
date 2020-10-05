@@ -134,7 +134,7 @@
                   </button>
                   <button
                     v-else
-                    @click="!loading ? fund() :''"
+                    @click="fund()"
                     :class="{'disable': loading}"
                     class="btn-green-md  mt-4 mb-3"
                   >
