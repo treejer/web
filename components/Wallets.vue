@@ -22,7 +22,7 @@
           :name="item.name"
         >
           <span v-if="index === 0" class=""><a href="https://metamask.io/" target="_blank"
-                            class="tr-gray-three has-metamask">{{hasMetaMask ? item.name : 'install Metamask'}} </a> </span>
+                            class="tr-gray-three has-metamask">{{hasMetaMask ? item.name : 'Install Metamask'}} </a> </span>
           <span v-else class="name text-capitalize">{{ item.name }}</span>
           <span class="icon">
           <img :src="item.src" :alt="item.name" class="img-fluid">
