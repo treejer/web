@@ -239,7 +239,7 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-12  justify-content-center">
+          <div class="col-lg-3 col-12  justify-content-center overflow-hidden">
             <div class="box-right ">
               <div class="avatar-card border-0 text-center justify-content-center">
                 <div class="card-img position-relative"><img
@@ -862,6 +862,7 @@ export default {
       border-radius: 6px;
       font-size: 14px;
       padding: 10px 20px ;
+      font-weight: bolder;
 
     }
     .add-tree {
