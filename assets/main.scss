@@ -8,6 +8,25 @@
 //  //noinspection CssUnknownTarget
 //  src: url("../../assets/fonts/MontserratAlternatesBlack.otf");
 //}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #67b68c;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #67b68c;
+}
 @media (min-width: 1200px){
 .container, .container-lg, .container-md, .container-sm, .container-xl {
   max-width: 1194px;
