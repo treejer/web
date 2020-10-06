@@ -35,7 +35,7 @@
             <div class="row treejer-desc">
               <div class="col-lg-3  col-md-6 col-12 border-right ">
                 <p class="tr-gray-two">FOREST SIZE</p>
-                <p class="d-flex justify-content-start  align-items-center">
+                <p class="d-flex justify-content-start  align-items-center mb-0">
                   <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
                   <span>
                   <span v-if="!loading" >{{treeCount || 0}}</span>
@@ -45,7 +45,7 @@
               </div>
               <div class="col-lg-3  col-md-6 col-12 border-right">
                 <p>RELEASED O1</p>
-                <p class="d-flex justify-content-start align-items-center">
+                <p class="d-flex justify-content-start align-items-center mb-0">
                   <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
                   <span
                     class="param-18 font-weight-bold">{{
@@ -54,9 +54,9 @@
                 </p>
               </div>
 
-              <div class="col-lg-3  col-md-6 col-12 " >
+              <div class="col-lg-3  col-md-6 col-12  " >
                 <p>RELEASED O2</p>
-                <p class="d-flex justify-content-start align-items-center">
+                <p class="d-flex justify-content-start align-items-center mb-0">
                   <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
 
                   <span>{{ 0 }}</span>
