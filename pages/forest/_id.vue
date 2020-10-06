@@ -1,6 +1,6 @@
 <template>
   <section ref="dashboard" class="position-relative  pt-5 col-lg-10 col-12 my-forest">
-      <div class="container-fluid">
+      <div class="container-fluid p-0">
         <div class="row article justify-content-between">
           <div class="col-lg-8   col-12">
             <div class="row">
@@ -38,7 +38,7 @@
             <div class="row treejer-desc">
               <div class="col-lg-3  col-md-6 col-12 border-right ">
                 <p class="tr-gray-two">FOREST SIZE</p>
-                <p class="d-flex justify-content-start  align-items-center">
+                <p class="d-flex justify-content-start  align-items-center mb-0">
                   <span><img class="img-fluid" src="../../assets/images/myforest/tree.svg" alt="tree"></span>
                   <span>
                   <span v-if="!loading" >{{treeCount || 0}}</span>
@@ -48,7 +48,7 @@
               </div>
               <div class="col-lg-3  col-md-6 col-12 border-right">
                 <p>RELEASED O1</p>
-                <p class="d-flex justify-content-start align-items-center">
+                <p class="d-flex justify-content-start align-items-center mb-0">
                   <span><img src="~/assets/images/myforest/O1Logo.svg" alt="o1"></span>
                   <span
                     class="param-18 font-weight-bold">{{
@@ -57,9 +57,9 @@
                 </p>
               </div>
 
-              <div class="col-lg-3  col-md-6 col-12 " >
+              <div class="col-lg-3  col-md-6 col-12  " >
                 <p>RELEASED O2</p>
-                <p class="d-flex justify-content-start align-items-center">
+                <p class="d-flex justify-content-start align-items-center mb-0">
                   <span><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"></span>
 
                   <span>{{ 0 }}</span>
@@ -70,8 +70,7 @@
               </div>
             </div>
             <div class="row treejer-user-flow">
-              <div class="container p-0">
-                <div class="col-12 p-0">
+                <div class="col-12">
                   <div class="bg-brown">
                     <div class="row">
                       <div class="col-md-6">
@@ -144,10 +143,9 @@
 
                   </div>
                 </div>
-              </div>
             </div>
             <div class="row forest-status position-relative">
-              <div class="col-12 mt-5 p-0">
+              <div class="col-12 mt-5">
                 <p class="param-18 tr-gray-three Montserrat-Medium p-0">Forest Status</p>
 
               </div>
@@ -187,61 +185,64 @@
             </div>
 
             <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
-              <div class="col-12 p-0">
+              <div class="col-12 ">
                 <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
               </div>
-
-              <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
-                    ref="gMap"
-                    :cluster="{options: {styles: clusterStyle}}"
-                    :center="{lat: ownerTreesData[0].latitude || 24.06448 , lng: ownerTreesData[0].longitude  || 81.30946 }"
-                    :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-                    :zoom="6"
-              >
-                <GMapMarker
-                  v-for="tree in ownerTreesData"
-                  :key="tree.id"
-                  :position="{lat: tree.latitude, lng: tree.longitude}"
-                  :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
-                  @click="currentTree = tree"
+              <div class="col-12 mt-5">
+                <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
+                      ref="gMap"
+                      :cluster="{options: {styles: clusterStyle}}"
+                      :center="{lat: ownerTreesData[0].latitude || 24.06448 , lng: ownerTreesData[0].longitude  || 81.30946 }"
+                      :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                      :zoom="6"
                 >
-                  <GMapInfoWindow :options="{maxWidth: 200}">
-                    <b>{{ tree.name }}</b>
-                    <br>
-                    <br>
-                    <code>
-                      Lat: {{ tree.latitude }},
+                  <GMapMarker
+                    v-for="tree in ownerTreesData"
+                    :key="tree.id"
+                    :position="{lat: tree.latitude, lng: tree.longitude}"
+                    :options="{icon: tree === currentTree ? pins.selected : pins.notSelected}"
+                    @click="currentTree = tree"
+                  >
+                    <GMapInfoWindow :options="{maxWidth: 200}">
+                      <b>{{ tree.name }}</b>
                       <br>
-                      Lng: {{ tree.longitude }}
-                    </code>
-                  </GMapInfoWindow>
-                </GMapMarker>
-              </GMap>
-              <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
+                      <br>
+                      <code>
+                        Lat: {{ tree.latitude }},
+                        <br>
+                        Lng: {{ tree.longitude }}
+                      </code>
+                    </GMapInfoWindow>
+                  </GMapMarker>
+                </GMap>
+                <GMap v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
+                      ref="gMap"
+                      :cluster="{options: {styles: clusterStyle}}"
+                      :center="{lat: 24.06448, lng: 81.30946}"
+                      :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                      :zoom="2"
+                >
+                </GMap>
+                <div  v-if="ownerTreesLoaded === false">
+                  <GMap
                     ref="gMap"
                     :cluster="{options: {styles: clusterStyle}}"
                     :center="{lat: 24.06448, lng: 81.30946}"
-                    :options="{fullscreenControl: false, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
+                    :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
                     :zoom="2"
-              >
-              </GMap>
-              <div  v-if="ownerTreesLoaded === false">
-                <GMap
-                  ref="gMap"
-                  :cluster="{options: {styles: clusterStyle}}"
-                  :center="{lat: 24.06448, lng: 81.30946}"
-                  :options="{fullscreenControl: true, streetViewControl: false, mapTypeControl: false, zoomControl: true, gestureHandling: 'cooperative', styles: mapStyle}"
-                  :zoom="2"
-                >
-                </GMap>
+                  >
+                  </GMap>
 
+                </div>
               </div>
+
+
 
 
             </div>
           </div>
 
-          <div class="col-lg-3 col-12  justify-content-center">
+          <div class="col-lg-3 col-12  justify-content-center overflow-hidden">
             <div class="box-right ">
               <div class="avatar-card border-0 text-center justify-content-center">
                 <div class="card-img position-relative"><img
@@ -254,7 +255,7 @@
                 <p  class="param-sm mt-3 tr-gray-three token" style="" v-coin>{{ $cookies.get('account') ?$cookies.get('account'):'Guest'}}</p>
                 <p class="param-sm mt-4 tr-gray-four font-weight-bold " style="">Wallet Balance</p>
                 <div class="row  tokens">
-                  <div class="col-6 p-0">
+                  <div class="col-6 p-0 ">
                     <p class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom ">
                       <img src="~/assets/images/myforest/ETHLogo.svg"
                            class="img-fluid ">
@@ -270,13 +271,13 @@
                       O2
                     </p>
                   </div>
-                  <div class="col-6 p-0">
+                  <div class="col-6 p-0 ">
 
-                    <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{
+                    <p class="pb-2 text-right pr-4  tr-green param-sm font-weight-bold border-bottom ">{{
                         ethBalance > 0 ? ethBalance : 0
                       }}</p>
-                    <p class="pb-2  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 ? walletO1 : 0 }}</p>
-                    <p class="pb-2  tr-green param-sm font-weight-bold  ">0</p>
+                    <p class="pb-2 text-right pr-4  tr-green param-sm font-weight-bold border-bottom ">{{ walletO1 ? walletO1 : 0 }}</p>
+                    <p class="pb-2 text-right pr-4  tr-green param-sm font-weight-bold  ">0</p>
                   </div>
                 </div>
                 <!--            <p class="param-sm-light"> @JaneJoe</p>-->
@@ -856,6 +857,7 @@ export default {
       border-radius: 6px;
       font-size: 14px;
       padding: 10px 20px ;
+      font-weight: bolder;
 
     }
     .add-tree {
@@ -869,12 +871,14 @@ export default {
         color: white;
         height: 48px;
         font-size: 14px;
+        border-radius: 14px;
       }
 
     }
 
     .gift-tree {
       button {
+        border-radius: 14px;
         box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
         background-color: #9e9e9e;
         width: 100%;

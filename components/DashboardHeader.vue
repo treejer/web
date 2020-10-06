@@ -4,6 +4,7 @@
       <p class="param-sm text-white mb-0">
         Treejer is now live on  testnet. Connect your wallet to Ropsten  Test Network and start your forest! !
         <a class="text-white" target="_blank" href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ " >👉 Read More 👈</a>
+
       </p>
 
     </div>
@@ -143,7 +144,8 @@ export default {
             if (self.account !== accounts[0]) {
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
-              self.$router.push('/')
+              self.$router.push({path:`/forest/${accounts[0]}`,params:{id:accounts[0]}})
+              window.location.reload()
             }
           });
       }}

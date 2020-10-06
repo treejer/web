@@ -196,6 +196,9 @@ section.sidebar {
   ul {
     padding-left: 10px;
   }
+  .nav-item a p{
+    margin-top: 7px;
+  }
 
   a {
     text-decoration: none;
@@ -245,6 +248,7 @@ section.sidebar {
      flex-direction: row!important;
      justify-content: space-between;
    }
+
 
  }
 }

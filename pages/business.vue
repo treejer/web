@@ -1,3 +1,4 @@
+
 <template>
 
     <section :page="$route.name" class="position-relative pt-5 col-md-12 for-business" style="overflow-x: hidden">
@@ -420,6 +421,15 @@
           padding-top: 5px;
         }
       }
+      @media (min-width: 769px) {
+        .col-md-2.arrow{
+          padding-right: 13px;
+        }
+        .col-md-2.arrow >div{
+          border-radius: 0 10px 10px 0;
+        }
+
+      }
 
       .col-md-2.arrow > div {
         background-color: #D2EDB1;
@@ -430,6 +440,7 @@
         cursor: pointer;
         width: 60%;
         float: right;
+
         flex-direction: column;
         flex-grow: inherit;
         @media (max-width: 768px) {
