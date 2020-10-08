@@ -327,10 +327,10 @@ export default {
       if (!this.$cookies.get('account') && !this.$route.params.id) {
         return 'Guest'
       }
-      if (this.$store.state.account === this.$route.params.id) {
+      if (this.$cookies.get('account') === this.$route.params.id) {
         return 'My'
       }
-      if (this.$route.params.id && this.$store.state.account !== this.$route.params.id) {
+      if (this.$cookies.get('account') !== this.$route.params.id) {
          this.otherForest = true
       }
 
