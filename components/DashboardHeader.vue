@@ -111,9 +111,9 @@ export default {
     let self = this
     // await web3.eth.getAccounts().then(res => {
       self.account = this.$cookies.get('account')
+    await this.$store.dispatch('networkNames')
     // })
     await self.accountChange()
-    await this.$store.dispatch('networkNames')
     setTimeout(()=>{
       self.$store.state.netWorkName !== 'ropsten' ?
         self.$bvToast.toast('Switch to Ropsten Test Network', {
@@ -144,8 +144,10 @@ export default {
             if (self.account !== accounts[0]) {
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
+              self.$router.push('/')
+
               self.$router.push({path:`/forest/${accounts[0]}`,params:{id:accounts[0]}})
-              window.location.reload()
+              self.$forceUpdate()
             }
           });
       }}

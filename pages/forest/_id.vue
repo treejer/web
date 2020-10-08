@@ -327,13 +327,13 @@ export default {
       if (!this.$cookies.get('account') && !this.$route.params.id) {
         return 'Guest'
       }
+      if (this.$store.state.account === this.$route.params.id) {
+        return 'My'
+      }
       if (this.$route.params.id && this.$store.state.account !== this.$route.params.id) {
          this.otherForest = true
       }
-      if (this.$cookies.get('account') && this.$route.params.id
-        && this.$store.state.account === this.$route.params.id) {
-        return 'My'
-      }
+
     }
 
 
@@ -630,7 +630,7 @@ export default {
      console.log(this.$route.params.id)
 
      // if (this.$route.params.id !== this.$cookies.get('account')) {
-     //   this.$router.push(`/forest/${this.$route.params.id}`)
+     //   this.$router.push(`/forest/${this.$route.params.id ?this.$route.params.id : '' }`)
      // }
      this.getEthBalance()
      this.getBalanceOfO1()

@@ -124,7 +124,10 @@ export default {
               if (self.account !== accounts[0]) {
                 self.$store.commit('SET_USER', accounts[0])
                 self.$cookies.set('account', accounts[0])
-                window.location.reload()
+                self.$router.push({path:'/',params:{id:accounts[0]}})
+
+                self.$forceUpdate()
+
               }
             });
           }
