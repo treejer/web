@@ -43,15 +43,15 @@
                 </thead>
                 <tbody>
                 <tr v-if="leaderBoards" v-for="(item ,index) in leaderBoards">
-                  <td v-if="index ===0" scope="row" class="d-flex justify-content-between"><span class="rank">🥇</span> <span style="margin:  0 5px"><img
+                  <td v-if="index ===0" scope="row" class="d-flex justify-content-between"><span  class="rank" v-html="first" style="width: 15px;height: 15px" ></span> <span style="margin:  0 5px"><img
                     style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
                     alt="item.owner"></span>
                   </td>
-                  <td class="d-flex justify-content-between" v-if="index ===1" scope="row"><span class="rank">🥈</span> <span style="margin:  0 5px"><img
+                  <td class="d-flex justify-content-between" v-if="index ===1" scope="row"><span  class="rank" v-html="second" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
                     style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
                     alt="item.owner"></span>
                   </td>
-                  <td class="d-flex justify-content-between" v-if="index ===2" scope="row"><span class="rank">🥉</span> <span style="margin:  0 5px"><img
+                  <td class="d-flex justify-content-between" v-if="index ===2" scope="row"><span  class="rank" v-html="third" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
                     style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
                     alt="item.owner"></span>
                   </td>
@@ -109,6 +109,9 @@ export default {
     data() {
       return {
         activeIndex: 0,
+        first:`<img src=${require('~/assets/images/leaderBoards/first.svg')} />`,
+        second:`<img src=${require('~/assets/images/leaderBoards/second.svg')} />`,
+        third:`<img src=${require('~/assets/images/leaderBoards/third.svg')} />`,
         id: null,
         leaderBoards: null,
         stepsLeaderBoard: [
@@ -185,7 +188,7 @@ export default {
       border: 0 !important;
       border-collapse: separate;
       border-spacing: 0 1em;
-      font-family: Montserrat-Regular!important;
+      font-family: Montserrat-Regular;
 
       td:nth-child(1){
         border-left-style: solid;

@@ -235,7 +235,7 @@
 }
 
 #five, #six, #seven {
-  font-family: Montserrat-Regular !important;
+  //font-family: Montserrat-Regular !important;
   border: none;
   overflow: auto;
 
@@ -772,7 +772,7 @@ html {
     font-family:Montserrat-Regular;
     min-height: 100vh;
     #__layout>div {
-        background: #faf8f1!important;
+        background: #faf8f1;
         min-height: 100vh;
     }
 }

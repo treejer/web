@@ -3,7 +3,10 @@
     <div class="networkname text-center d-flex align-items-center justify-content-center " style="height: 32px;background: #424242;">
       <p class="param-sm text-white mb-0">
         Treejer is now live on  testnet. Connect your wallet to Ropsten  Test Network and start your forest! !
-        <a class="text-white" target="_blank" href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ " >👉 Read More 👈</a>
+        <a class="text-white" target="_blank" href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ " ><img class="d-inline-flex align-self-start"
+          src="../assets/images/all/hand-right.png" width="15px" height="15px" alt="read more"> Read More <img
+          align="top"
+          src="../assets/images/all/hand-left.png" width="15px" height="15px" alt="read more"></a>
 
       </p>
 
