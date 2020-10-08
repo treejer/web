@@ -124,8 +124,9 @@ export default {
               if (self.account !== accounts[0]) {
                 self.$store.commit('SET_USER', accounts[0])
                 self.$cookies.set('account', accounts[0])
+
                 let history = self.$router.currentRoute.fullPath
-                let routeData =self.$router.resolve({path:history,params:{id:accounts[0]}});
+                let routeData =self.$router.resolve({path:history});
                 window.open(routeData.href, '_Self');
 
               }
