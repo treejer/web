@@ -190,6 +190,10 @@
 </template>
 
 <script>
+
+
+import {isMobile} from 'mobile-device-detect';
+
 export default {
   name: 'error.vue',
   asyncData (context) {
@@ -203,14 +207,29 @@ export default {
   },
   methods:{
     goToDashboard() {
+      if(!isMobile){
+        const id= this.$cookies.get('account')
+        this.$store.commit('SET_INDEX',0)
+        if(id){
+          this.$router.push({ path: `/forest/${id}` });
+        }else{
+          this.$router.push('/forest')
+        }
+      }else {
+        this.goToDashboardMobile()
+      }
+
+    },
+    goToDashboardMobile() {
       const id= this.$cookies.get('account')
       this.$store.commit('SET_INDEX',0)
       if(id){
-        this.$router.push({ path: `/forest/${id}` });
+        this.$router.push({ path: `/mobile/dashboard/${id}` });
       }else{
-        this.$router.push('/forest')
+        this.$router.push('/mobile/dashboard/')
       }
     },
+
   }
 }
 </script>

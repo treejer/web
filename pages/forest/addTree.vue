@@ -409,8 +409,11 @@
           <p class="mt-3 tr-gray-three">
             Rural communities are notified to plant your trees.
           </p>
-          <nuxt-link class="tr-green param pt-5" :to="localePath('/forest/'+$cookies.get('account'))"
+          <nuxt-link v-if="!isMobile"  class="tr-green param pt-5" :to="localePath('/forest/'+$cookies.get('account'))"
             >Go back to My Forest</nuxt-link
+          >
+          <nuxt-link v-else  class="tr-green param pt-5" :to="localePath('/mobile/dashboard/'+$cookies.get('account'))"
+          >Go back to My Forest</nuxt-link
           >
         </div>
       </div>
@@ -421,6 +424,8 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
+import {isMobile} from 'mobile-device-detect';
+
 
 export default {
   name: "giftTree",
@@ -440,6 +445,8 @@ export default {
   },
   data() {
     return {
+      isMobile:isMobile,
+
       treePrice: null,
       dollorPrice: null,
       sendAsTreeCard: false,

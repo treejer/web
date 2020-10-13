@@ -1,8 +1,6 @@
 <template>
   <div>
-    <client-only>
-      <b-breadcrumb :items="crumbs"/>
-    </client-only>
+    <b-breadcrumb :items="crumbs"/>
   </div>
 </template>
 <script>

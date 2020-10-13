@@ -7,10 +7,10 @@
       <span thumb style="left:30%;"></span>
       <span thumb style="left:60%;"></span>
       <div sign style="left:30%;">
-        <span id="value">30</span>
+        <span :id="value">30</span>
       </div>
       <div sign style="left:60%;">
-        <span id="value">60</span>
+        <span :id="value">60</span>
       </div>
     </div>
     <input type="range" tabindex="0" value="30" max="100" min="0" step="1" v-model="inputOne"/>

@@ -83,6 +83,7 @@ export default {
     {src: '~plugins/vueFormulate.js', ssr: false},
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},
+    {src: '~plugins/mobileDetection.js', ssr: false,mode: 'client'},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]

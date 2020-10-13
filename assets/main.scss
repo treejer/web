@@ -1519,3 +1519,20 @@ li.square::before {
 
   }
 }
+
+.main-mobile {
+  .GMap__Wrapper {
+    width: 100%;
+    height: 67vh;
+    border-radius: 0 !important;
+  }
+}
+
+.mobile-title {
+  font-size: 18px;
+  font-weight: bolder;
+  font-family: Montserrat-Medium;
+}
+.param-20{
+  font-size: 20px;
+}

@@ -10,10 +10,19 @@
       </b-button
       >
       <img
+        v-if="!isMobile"
         alt="tree"
         name="tree"
         src="/tree.svg"
         @click="goToDashboard('/forest')"
+        class="img-fluid tree pointer-event"
+      />
+      <img
+        v-else
+        alt="tree"
+        name="tree"
+        src="/tree.svg"
+        @click="goToDashboard('/mobile/dashboard/')"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -26,10 +35,19 @@
       </div>
 
       <img
+        v-if="!isMobile"
         alt="tree"
         name="tree"
         src="/tree.svg"
         @click="goToDashboard(`/forest/${$cookies.get('account')}`)"
+        class="img-fluid tree pointer-event"
+      />
+      <img
+        v-else
+        alt="tree"
+        name="tree"
+        src="/tree.svg"
+        @click="goToDashboard(`/mobile/dashboard/${$cookies.get('account')}`)"
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
@@ -74,6 +92,7 @@
 
 <script>
 import Wallets from "./Wallets";
+import {isMobile} from 'mobile-device-detect';
 
 export default {
   components: {Wallets},
@@ -81,6 +100,8 @@ export default {
   data() {
     return {
       account: null,
+      isMobile:isMobile,
+
       loading: false,
       hasAccount:false,
       hasAccountSrc:`${this.$cookies.get('account')}`
@@ -110,9 +131,11 @@ export default {
 
     },
     goToDashboard(item) {
-      this.$store.commit('SET_INDEX', 0)
-      let routeData =this.$router.resolve({path: item, params: {id: `${this.$cookies.get('account')}`}});
-      window.open(routeData.href, '_Self');
+        this.$store.commit('SET_INDEX', 0)
+        let routeData =this.$router.resolve({path: item, params: {id: `${this.$cookies.get('account')}`}});
+        window.open(routeData.href, '_Self');
+
+
     },
     copyClipboard(e) {
       /* Copy the text inside the text field */

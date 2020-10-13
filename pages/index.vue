@@ -67,25 +67,46 @@
     </section>
 </template>
 <script>
+import { isMobile , deviceDetect} from 'mobile-device-detect';
 
 export default {
+
   name: "index",
   data() {
     return {
       treeCount: null
     }
   },
+  created() {
+    console.log(isMobile,deviceDetect,'VueMobileDetection')
+  },
   methods: {
+
     goToDashboard() {
+      if(!isMobile){
+        const id= this.$cookies.get('account')
+        this.$store.commit('SET_INDEX',0)
+        if(id){
+          this.$router.push({ path: `/forest/${id}` });
+        }else{
+          this.$router.push('/forest')
+        }
+      }else {
+        this.goToDashboardMobile()
+      }
+
+    },
+    goToDashboardMobile() {
       const id= this.$cookies.get('account')
       this.$store.commit('SET_INDEX',0)
       if(id){
-        this.$router.push({ path: `/forest/${id}` });
+        this.$router.push({ path: `/mobile/dashboard/${id}` });
       }else{
-        this.$router.push('/forest')
+        this.$router.push('/mobile/dashboard/')
       }
     },
-    },
+
+  },
   }
 </script>
 

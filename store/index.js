@@ -1,11 +1,13 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
-import { BToast } from 'bootstrap-vue'
+import {BToast} from 'bootstrap-vue'
+import {isMobile} from 'mobile-device-detect';
 
 
 export const state = () => ({
+  hasMobileProfile: false,
   token: null,
-  toast:false,
+  toast: false,
   sliceAccount: null,
   index: 0,
   account: null,
@@ -26,22 +28,31 @@ export const state = () => ({
 
 export const actions = {
  async metaMask({commit}) {
-    let self =this
-    await ethereum.enable()
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    commit('SET_USER', account)
-    self.$cookies.set('account', account)
-   console.log(self.state.dashboard,'self')
-   if(self.state.dashboard) {
-     await self.$router.push(`forest/${self.$cookies.get('account')}`)
-   }else {
-      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+   let self = this
+   await ethereum.enable()
+   const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+   const account = accounts[0];
+   commit('SET_USER', account)
+   self.$cookies.set('account', account)
+   console.log(self.state.dashboard, 'self')
+   if (!isMobile) {
+     if (self.state.dashboard) {
+       await self.$router.push(`forest/${self.$cookies.get('account')}`)
+     } else {
+       await self.$router.push(`forest/${self.$cookies.get('account')}`)
+     }
+   } else {
+     const id = self.$cookies.get('account')
+     self.app.store.commit('SET_INDEX', 0)
+     if (id) {
+       await self.$router.push({path: `/mobile/dashboard/${id}`});
+     } else {
+       await self.$router.push('/mobile/dashboard/')
+     }
    }
 
 
-
-  },
+ },
   async networkNames({commit}) {
     let bootStrapToaster = new BToast();
 
@@ -109,10 +120,20 @@ export const actions = {
     self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
-    if(self.state.dashboard){
-      await  self.$router.push(`${self.$cookies.get('account')}`)
-    }else {
-      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+    if (!isMobile) {
+      if (self.state.dashboard) {
+        await self.$router.push(`forest/${self.$cookies.get('account')}`)
+      } else {
+        await self.$router.push(`forest/${self.$cookies.get('account')}`)
+      }
+    } else {
+      const id = self.$cookies.get('account')
+      self.app.store.commit('SET_INDEX', 0)
+      if (id) {
+        await self.$router.push({path: `/mobile/dashboard/${id}`});
+      } else {
+        await self.$router.push('/mobile/dashboard/')
+      }
     }
     console.log(env,'walletConnectProjectID')
     const web3Provider = await wc.getWeb3Provider({
@@ -138,11 +159,23 @@ export const actions = {
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
 
-        if(self.state.dashboard){
-            self.$router.push(`${self.$cookies.get('account')}`)
-        }else {
-            self.$router.push(`forest/${self.$cookies.get('account')}`)
-        }      });
+        if (!isMobile) {
+          if (self.state.dashboard) {
+             self.$router.push(`forest/${self.$cookies.get('account')}`)
+          } else {
+             self.$router.push(`forest/${self.$cookies.get('account')}`)
+          }
+        } else {
+          const id = self.$cookies.get('account')
+          self.app.store.commit('SET_INDEX', 0)
+          if (id) {
+             self.$router.push({path: `/mobile/dashboard/${id}`});
+          } else {
+             self.$router.push('/mobile/dashboard/')
+          }
+        }
+
+      });
       await portis.onLogin(
         (walletAddress) => {
           console.log(walletAddress, "walletAddress walletAddress")
@@ -165,10 +198,20 @@ export const actions = {
         self.$cookies.set('account', null)
         self.commit('SET_USER', null)
         self.$cookies.set('account', address)
-        if(self.state.dashboard){
-            self.$router.push(`${self.$cookies.get('account')}`)
-        }else {
-            self.$router.push(`forest/${self.$cookies.get('account')}`)
+        if (!isMobile) {
+          if (self.state.dashboard) {
+             self.$router.push(`forest/${self.$cookies.get('account')}`)
+          } else {
+             self.$router.push(`forest/${self.$cookies.get('account')}`)
+          }
+        } else {
+          const id = self.$cookies.get('account')
+          self.app.store.commit('SET_INDEX', 0)
+          if (id) {
+             self.$router.push({path: `/mobile/dashboard/${id}`});
+          } else {
+             self.$router.push('/mobile/dashboard/')
+          }
         }
         self.commit('SET_USER', address)
           self.commit('SET_MODAL_FIVE', false)
@@ -253,6 +296,9 @@ export const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
   },
+  OPEN_PROFILE(state, hasMobileProfile) {
+    state.hasMobileProfile = hasMobileProfile
+  },
   SET_MODAL_FIVE(state, modalFive) {
     state.modalFive = modalFive
   },
@@ -262,7 +308,7 @@ export const mutations = {
   SET_WALLET(state, connectingWallet) {
     state.connectingWallet = connectingWallet
   },
-  SLICE_ACCOUNT(state, sliceAccount){
+  SLICE_ACCOUNT(state, sliceAccount) {
     state.sliceAccount = sliceAccount
   },
   SET_INDEX(state, index) {

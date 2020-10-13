@@ -235,6 +235,8 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import pagination from 'laravel-vue-pagination'
+import {isMobile} from 'mobile-device-detect';
+
 
 export default {
   name: "findMyTree",
@@ -258,6 +260,8 @@ export default {
   data() {
     return {
       trees: {},
+      isMobile:isMobile,
+
       leaderBoards: null,
       treeID: null,
       loading: false,
@@ -320,10 +324,7 @@ export default {
       this.$router.push(`/find/${step}`);
     },
     goToLeaderBoard() {
-      if (
-        this.$store.state.account === null ||
-        this.$cookies.get("account") === null
-      ) {
+      if (!this.$cookies.get("account")) {
         this.$bvToast.toast("you are not logged in. please login", {
           toaster: "b-toaster-bottom-left",
           solid: true,
@@ -332,25 +333,50 @@ export default {
         });
         this.$bvModal.show("five");
       } else {
-        this.$router.push(this.localePath("leaderboard"));
+        if(!this.isMobile){
+          this.$router.push(this.localePath("leaderboard"));
+
+        }else {
+          this.$router.push(this.localePath("mobile-dashboard-leaderBoards"));
+
+        }
       }
     },
     goToDashboard(item) {
-      if (this.$cookies.get("account")) {
-        this.$store.commit("SET_INDEX", 0);
-        this.$router.push({
-          path: "/forest/" + item.owner,
-          params: { id: item.owner }
-        });
-      } else {
-        this.$bvToast.toast("you are not logged in. please login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger"
-        });
-        this.$bvModal.show("five");
+      if(!isMobile){
+        if (this.$cookies.get("account")) {
+          this.$store.commit("SET_INDEX", 0);
+          this.$router.push({
+            path: "/forest/" + item.owner,
+            params: { id: item.owner }
+          });
+        } else {
+          this.$bvToast.toast("you are not logged in. please login", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger"
+          });
+          this.$bvModal.show("five");
+        }
+      }else {
+        if (this.$cookies.get("account")) {
+          this.$store.commit("SET_INDEX", 0);
+          this.$router.push({
+            path: "/mobile/dashboard/" + item.owner,
+            params: { id: item.owner }
+          });
+        } else {
+          this.$bvToast.toast("you are not logged in. please login", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger"
+          });
+          this.$bvModal.show("five");
+        }
       }
+
     },
     async findTree() {
       this.errors = null;

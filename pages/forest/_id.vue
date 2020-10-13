@@ -5,26 +5,12 @@
           <div class="col-lg-8   col-12">
             <div class="row">
               <div class="col-lg-5 col-md-5 col-5">
-                <!--                <h2 class="title-sm Montserrat-Medium d-flex align-items-center"-->
-                <!--                    v-if="$route.params.id !== $cookies.get('account') && $route.params.id ">-->
-                <!--                  <span  class="pr-2 font-weight-lighter param-18" v-coin>{{ $route.params.id === null ? 'Guest Forest' : $route.params.id}}</span>-->
-                <!--                  <span-->
-                <!--                    v-if="$route.params.id !== $cookies.get('account') ">Forest</span>-->
-                <!--                </h2>-->
-                <!--                <h2 v-if="$route.params.id === $cookies.get('account')" class="title-sm Montserrat-Medium ">-->
-                <!--                  My Forest-->
-                <!--                </h2>-->
-
-                <!--                <h2 class="title-sm Montserrat-Medium " v-if="!$route.params.id ||!$cookies.get('account') ">-->
-                <!--                  Guest Forest-->
-                <!--                </h2>-->
                 <h2 v-if="!otherForest" class="title-sm d-inline-flex Montserrat-Medium ">
                   {{ state }} Forest
                 </h2>
                 <h2 v-if="otherForest" class="title-sm d-inline-flex Montserrat-Medium ">
                   <span class="pr-4 pl-0" v-coin >{{this.$route.params.id}}</span> Forest
                 </h2>
-
               </div>
               <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right ">
                 <div class="form-group">
@@ -128,19 +114,15 @@
                                @click="comunity()"
                                :class="mintableO1 != 0    && mintableO1  ? 'btn-outline-green' : 'btn-green'">
                                step 4
-
                           </button>
                           </span>
                             <span>
                         Join our community!
                           </span>
                           </li>
-
-
                         </ul>
                       </div>
                     </div>
-
                   </div>
                 </div>
             </div>
@@ -161,8 +143,6 @@
                 <b-button  @click="goToTreeProfile(item.tree_id)" class="p-2 bg-transparent border-0" :tabindex="index" v-b-tooltip.top :title="item.tree_id">
                     <img class="img-fluid" src="~/assets/images/myforest/trees.png"/>
                 </b-button>
-                <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
-
               </span>
                 </div>
                 <div class="col-12 p-0" v-if="ownerTreesData.length > 50" style="transition: all .3s ease">
@@ -178,12 +158,8 @@
                   <span class="btn-green d-block  text-center mt-3 pointer-event  show-more-tree-all"
                         @click="showMoreTreeData =!showMoreTreeData">{{ showMoreTreeData ? '&#8679;' : '&#8681;' }}</span>
                 </div>
-
               </div>
-
-
             </div>
-
             <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
               <div class="col-12 ">
                 <p class=" param-18 tr-gray-three Montserrat-Medium">Forest on the Map</p>
@@ -232,16 +208,10 @@
                     :zoom="2"
                   >
                   </GMap>
-
                 </div>
               </div>
-
-
-
-
             </div>
           </div>
-
           <div class="col-lg-3 col-12  justify-content-center overflow-hidden">
             <div class="box-right ">
               <div class="avatar-card border-0 text-center justify-content-center">
@@ -272,7 +242,6 @@
                     </p>
                   </div>
                   <div class="col-6 p-0 ">
-
                     <p class="pb-2 text-right pr-4  tr-green param-sm font-weight-bold border-bottom ">{{
                         ethBalance > 0 ? ethBalance : 0
                       }}</p>
@@ -280,23 +249,16 @@
                     <p class="pb-2 text-right pr-4  tr-green param-sm font-weight-bold  ">0</p>
                   </div>
                 </div>
-                <!--            <p class="param-sm-light"> @JaneJoe</p>-->
               </div>
               <div class="trees">
                 <div class="add-tree">
                   <button @click="goToAddTree()" class="btn-lg">ADD A TREE</button>
                 </div>
                 <div class="gift-tree mb-4" >
-                  <!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
                   <button class="btn-lg disabled"  >GIFT
                     A TREE
                   </button>
-                  <!--                </nuxt-link>-->
                 </div>
-                <!--              <div class="redeem-trees">-->
-                <!--                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">-->
-                <!--                <p>Redeem Trees</p>-->
-                <!--              </div>-->
               </div>
             </div>
 
@@ -672,12 +634,6 @@ export default {
      goToAddTree() {
        let self = this
        if (!self.$cookies.get('account')) {
-         // self.$bvToast.toast("you're not login", {
-         //   toaster: 'b-toaster-bottom-left',
-         //   solid: true,
-         //   headerClass: 'hide',
-         //   variant: 'danger'
-         // })
          self.$bvModal.show('five')
        } else {
          self.$router.push('/forest/addTree')
@@ -699,7 +655,6 @@ export default {
           self.walletO1 = web3.utils.fromWei(response.amount)
         })
         .catch(function (error) {
-
           });
     },
      calculateMintableO1() {
@@ -716,12 +671,6 @@ export default {
            .catch(function (error) {
            });
        } else {
-         // self.$bvToast.toast("you're not login", {
-         //   toaster: 'b-toaster-bottom-left',
-         //   solid: true,
-         //   headerClass: 'hide',
-         //   variant: 'danger'
-         // })
        }
     },
     async mintO1() {
