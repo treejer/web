@@ -1,7 +1,7 @@
 <template>
-  <div :class="currentRouteName" style="min-height: 100vh">
+  <div :class="currentRouteName">
     <TreejerHeader/>
-    <div class="container" :class="$route.name" style="min-height: 85vh">
+    <div class="container" :class="$route.name">
       <div class="row">
         <nuxt/>
       </div>

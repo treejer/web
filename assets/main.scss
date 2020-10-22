@@ -770,10 +770,8 @@ html {
     scroll-behavior: smooth;
     background: #faf8f1!important;
     font-family:Montserrat-Regular;
-    min-height: 100vh;
     #__layout>div {
         background: #faf8f1;
-        min-height: 100vh;
     }
 }
 
@@ -1122,8 +1120,6 @@ option {
 
     span{
       color: #67B68C!important;
-      font-size: 13px;
-
     }
   }
   .param-lg-bold {

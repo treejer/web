@@ -33,7 +33,6 @@
         <div class="container-fluid social-partner-border">
           <div class="row social-partner mt-5 pt-3 pb-3 justify-content-center text-center" style="min-height: 110px">
             <div class="col-4 col-md-2 position-relative">
-
               <img src="../assets/images/for-business/earth-logo.svg" class="img-fluid " alt="earth-logo">
             </div>
             <div class="col-4 col-md-2 position-relative">
@@ -398,7 +397,6 @@
         img:hover {
           -webkit-filter: none; /* Safari 6.0 - 9.0 */
           filter: none;
-
         }
       }
     }
