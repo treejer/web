@@ -246,7 +246,7 @@
             <div class="box-right ">
               <div class="avatar-card border-0 text-center justify-content-center">
                 <div class="card-img position-relative"><img
-                  :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account') :avatar"
+                  :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account').slice(0,10) :avatar"
                   alt="username"
                   class="avatar-pic img-fluid"/>
                   <!--              <span class="position-absolute">+</span>-->

@@ -75,9 +75,7 @@
                       <img
                         width="64"
                         height="64"
-                        :src="
-                          'https://api.adorable.io/avatars/40/' + item.owner
-                        "
+                        :src="'https://api.adorable.io/avatars/40/'+ item.owner.slice(0,10)"
                         :alt="item.owner"
                       />
                     </div>
