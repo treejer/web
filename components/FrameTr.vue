@@ -3,11 +3,12 @@
     <form  style="border: none" @submit.prevent="Submit()">
         <FormulateInput
           type="email"
+          class="mb-2"
           name="email"
           label="Email "
           placeholder="exmaple@example.com"
-          validation="required|email"
-          error-behavior="live"
+          validation="email"
+          error-behavior="blur"
         />
         <button
           @click.prevent="submit()"
@@ -54,7 +55,7 @@
       }
     },
     async mounted() {
-      await this.$recaptcha.init()
+      // await this.$recaptcha.init()
     },
     methods: {
       submits(){
