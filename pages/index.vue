@@ -1,5 +1,5 @@
 <template>
-  <section :page="$route.name" class="home col-12 ">
+  <section :page="$route.name" class="home col-12">
     <Banner/>
     <Partner/>
     <Portocol/>
