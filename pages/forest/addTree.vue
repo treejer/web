@@ -125,15 +125,14 @@
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all .5s">
                     ${{ parseFloat(((dollorPrice * treePrice) * count).toFixed(0)) }}</h1>
-                  <button
+                  <!-- <button
                     v-if="$store.state.netWorkName !== 'ropsten'"
                     @click="showWalletError()"
                     class="btn-green-md w-auto param   mt-4 mb-3">
                     <BSpinner class="mr-2" type="grow" small v-if="loading">loading</BSpinner>
                     {{ loading ? 'Loading' : ' Switch to Ropsten Network' }}
-                  </button>
+                  </button> -->
                   <button
-                    v-else
                     @click="fund()"
                     :class="{'disable': loading}"
                     class="btn-green-md  mt-4 mb-3"
@@ -502,7 +501,7 @@ export default {
 
       this.loading = true
       let self =this
-      this.transferReceipt = await this.$store.dispatch('fund/fund', {
+      this.transferReceipt = await this.$store.dispatch('treeFactory/fund', {
         count: this.count,
 
       },)
