@@ -68,6 +68,7 @@
               <div
                 class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
                 v-for="(item, index) in leaderBoards"
+                :key="index"
               >
                 <div class="card-box" @click="goToDashboard(item)">
                   <div class="tr-card box-shadow border">

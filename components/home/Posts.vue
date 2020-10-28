@@ -52,7 +52,6 @@ export default {
     async getPosts() {
       this.loading = true
       const treejerApi = 'https://blog.treejer.com/ghost/api/v3/content/posts/?key=0749370a54227533e6fd2795a1&limit=5'
-
       await this.$axios.get(treejerApi).then((res) => {
         this.posts = res.data.posts
         console.log(this.posts, "res")
@@ -82,29 +81,22 @@ export default {
     border-radius: 12px;
     height: 100%;
     padding: 31px 24px;
-
   }
-
   .post-box {
     height: 352px;
     border-radius: 12px;
     transition: ease all .3s;
-
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
-
     h3 {
       font-weight: bolder;
       line-height: 32px;
     }
-
   }
   .post-box:hover{
    opacity: .8;
   }
-
   .title {
     h1.title-md {
       font-family: Montserrat-Medium;

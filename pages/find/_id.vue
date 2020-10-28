@@ -25,16 +25,9 @@
 
                 </nuxt-link>
               </div>
-
-
             </div>
-
           </div>
         </div>
-        <div class="col-12 mt-3 " v-if="tree">
-
-        </div>
-
       </div>
     </div>
   </section>

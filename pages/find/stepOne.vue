@@ -177,9 +177,9 @@
                       <input class="param-sm tr-gray-five" type="text" placeholder="Email">
                     </div>
                     <div class="col-lg-4">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
-                      <input class="param-sm tr-gray-five" type="text" placeholder="Email">
+                      <input class="param-sm tr-gray-five" type="email" placeholder="Email"/>
+                      <input class="param-sm tr-gray-five" type="email" placeholder="Email"/>
+                      <input class="param-sm tr-gray-five" type="email" placeholder="Email"/>
                     </div>
                     <div class="col-lg-4">
                       <div class="cv-team bg-transparent justify-content-center text-center ">
