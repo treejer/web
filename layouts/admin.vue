@@ -4,11 +4,11 @@
     class="container-fluid "
   >
     <Sidebar />
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div
-          class="main-admin"
-          :class="$store.state.adminSidebar ? 'col-12':'offset-2 col-12' ">
+          class="main-admin offset-1"
+          :class="$store.state.adminSidebar ? ' col-11':'offset-3 col-12' ">
           <nuxt/>
         </div>
       </div>
@@ -31,7 +31,7 @@ export default {
 <style lang="scss">
 @media (min-width: 1024px) {
   .main-admin{
-    padding: 100px 35px;
+    padding: 100px 0;
   }
 }
 

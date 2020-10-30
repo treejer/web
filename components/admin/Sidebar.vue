@@ -8,95 +8,99 @@
       @toggle-collapse="onToggleCollapse"
       @item-click="onItemClick"
     />
-    <Profile :has-side-bar="collapsed"/>
+    <Profile :has-side-bar="collapsed" />
   </div>
 </template>
 
 <script>
-import {SidebarMenu} from 'vue-sidebar-menu'
+import { SidebarMenu } from "vue-sidebar-menu";
 import Profile from "@/components/admin/Profile";
-
 
 export default {
   name: "Sidebar",
   components: {
     Profile,
-    SidebarMenu
+    SidebarMenu,
   },
 
   data() {
     return {
       collapsed: true,
       menu: [
-
         {
-          href: '#',
-          title: 'Dashboard',
+          title: "Dashboard",
+          name: "dashboard",
           icon: {
-            element: 'img',
+            element: "img",
             attributes: {
-              src: require('~/assets/images/admin/tachometer.svg')
-            }
+              src: require("~/assets/images/admin/tachometer.svg"),
+            },
             // text: ''
-          }
+          },
         },
         {
-          href: '#',
-          title: 'Users',
+          title: "Planters",
+          name: "planters",
           icon: {
-            element: 'img',
+            element: "img",
             attributes: {
-              src: require('~/assets/images/admin/users.svg')
-            }
+              src: require("~/assets/images/admin/users.svg"),
+            },
             // text: ''
-          }
-
+          },
         },
         {
-          href: '#',
-          title: 'Trees',
+          title: "Tree Settings",
+          name: "tree",
           icon: {
-            element: 'img',
+            element: "img",
             attributes: {
-              src: require('~/assets/images/admin/tree.svg')
-            }
+              src: require("~/assets/images/admin/tree.svg"),
+            },
             // text: ''
-          }
-
+          },
         },
         {
-          href: '#',
-          title: 'Help',
+          title: "Security Settings",
+          name: "security",
           icon: {
-            element: 'img',
+            element: "img",
             attributes: {
-              src: require('~/assets/images/admin/shield.svg')
-            }
-          }
+              src: require("~/assets/images/admin/shield.svg"),
+            },
+          },
         },
-
-
-      ]
-    }
+      ],
+    };
   },
   methods: {
     onToggleCollapse(collapsed) {
-      this.collapsed = collapsed
-      this.$store.commit('SET_ADMIN_SIDE_BAR',collapsed)
+      this.collapsed = collapsed;
+      this.$store.commit("SET_ADMIN_SIDE_BAR", collapsed);
     },
     onItemClick(event, item, node) {
-      console.log(event, item, node, 'event, item, node')
-    }
-
-  }
-}
+      console.log(event, item, node, "event, item, node");
+      switch (item.name) {
+        case "dashboard":
+          return this.$router.push("/stats");
+          break;
+        case "planters":
+          return this.$router.push("/stats/users");
+          break;
+        case "tree":
+          return this.$router.push("/stats/trees");
+          break;
+        case "security":
+          return this.$router.push("/stats/security");
+          break;
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-
 .admin-side-bar {
-
-
   .v-sidebar-menu {
     position: fixed;
     top: 0;
@@ -115,18 +119,18 @@ export default {
     width: 100%;
     text-align: left;
     -webkit-transition: 0.3s max-width ease;
-    transition: 0.3s max-width ease
+    transition: 0.3s max-width ease;
   }
 
   .v-sidebar-menu * {
     -webkit-box-sizing: border-box;
-    box-sizing: border-box
+    box-sizing: border-box;
   }
 
   .v-sidebar-menu .vsm--scroll-wrapper {
     height: 100%;
     overflow-y: auto;
-    overflow-x: hidden
+    overflow-x: hidden;
   }
 
   .v-sidebar-menu .vsm--dropdown > .vsm--list {
@@ -138,7 +142,7 @@ export default {
     display: block;
     width: 100%;
     padding: 35px 14px;
-    white-space: nowrap
+    white-space: nowrap;
   }
 
   .v-sidebar-menu .vsm--link {
@@ -162,20 +166,19 @@ export default {
     z-index: 20;
     -webkit-transition: 0.3s all ease;
     transition: 0.3s all ease;
-    .vsm--title{
+    .vsm--title {
       color: #424242;
     }
-
-
   }
 
-  .v-sidebar-menu .vsm--link_exact-active, .v-sidebar-menu .vsm--link_active {
-    font-weight: 600
+  .v-sidebar-menu .vsm--link_exact-active,
+  .v-sidebar-menu .vsm--link_active {
+    font-weight: 600;
   }
 
   .v-sidebar-menu .vsm--link_disabled {
     opacity: 0.4;
-    pointer-events: none
+    pointer-events: none;
   }
 
   .v-sidebar-menu .vsm--link_level-1 .vsm--icon {
@@ -185,22 +188,22 @@ export default {
     -ms-flex-negative: 0;
     flex-shrink: 0;
     text-align: center;
-    border-radius: 3px
+    border-radius: 3px;
   }
 
   .v-sidebar-menu .vsm--link_mobile-item {
-    background-color: transparent !important
+    background-color: transparent !important;
   }
 
   .v-sidebar-menu .vsm--icon {
     display: inline-block;
-    margin-right: 10px
+    margin-right: 10px;
   }
 
   .v-sidebar-menu .vsm--title {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;
-    flex-grow: 1
+    flex-grow: 1;
   }
 
   .v-sidebar-menu .vsm--arrow {
@@ -211,21 +214,21 @@ export default {
     -webkit-transition: 0.3s -webkit-transform ease;
     transition: 0.3s -webkit-transform ease;
     transition: 0.3s transform ease;
-    transition: 0.3s transform ease, 0.3s -webkit-transform ease
+    transition: 0.3s transform ease, 0.3s -webkit-transform ease;
   }
 
   .v-sidebar-menu .vsm--arrow:after {
-    content: '\f105';
+    content: "\f105";
     background-image: url("../../assets/images/for-business/Ellipse-3.png");
   }
 
   .v-sidebar-menu .vsm--arrow_open {
     -webkit-transform: rotate(90deg);
-    transform: rotate(90deg)
+    transform: rotate(90deg);
   }
 
   .v-sidebar-menu .vsm--arrow_slot:after {
-    display: none
+    display: none;
   }
 
   .v-sidebar-menu .vsm--header {
@@ -233,7 +236,7 @@ export default {
     font-weight: 600;
     padding: 10px;
     white-space: nowrap;
-    text-transform: uppercase
+    text-transform: uppercase;
   }
 
   .v-sidebar-menu .vsm--badge_default {
@@ -243,7 +246,7 @@ export default {
     height: 20px;
     line-height: 20px;
     font-weight: 600;
-    text-transform: uppercase
+    text-transform: uppercase;
   }
 
   .v-sidebar-menu .vsm--toggle-btn {
@@ -254,238 +257,266 @@ export default {
     height: 50px;
     cursor: pointer;
     border: none;
-    width: 100%
+    width: 100%;
   }
 
   .v-sidebar-menu .vsm--toggle-btn:after {
-    content: '\f337';
+    content: "\f337";
   }
 
   .v-sidebar-menu .vsm--toggle-btn_slot:after {
-    display: none
+    display: none;
   }
 
-  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1.vsm--link_hover, .v-sidebar-menu.vsm_collapsed .vsm--link_level-1:hover {
-    background-color: transparent !important
+  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1.vsm--link_hover,
+  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1:hover {
+    background-color: transparent !important;
   }
 
   .v-sidebar-menu.vsm_rtl {
     right: 0;
     left: inherit;
     text-align: right;
-    direction: rtl
+    direction: rtl;
   }
 
   .v-sidebar-menu.vsm_rtl .vsm--icon {
     margin-left: 10px;
-    margin-right: 0px
+    margin-right: 0px;
   }
 
   .v-sidebar-menu.vsm_relative {
     position: relative;
-    height: 100%
+    height: 100%;
   }
 
-  .v-sidebar-menu .expand-enter-active, .v-sidebar-menu .expand-leave-active {
+  .v-sidebar-menu .expand-enter-active,
+  .v-sidebar-menu .expand-leave-active {
     -webkit-transition: height 0.3s ease;
     transition: height 0.3s ease;
-    overflow: hidden
+    overflow: hidden;
   }
 
-  .v-sidebar-menu .expand-enter, .v-sidebar-menu .expand-leave-to {
-    height: 0 !important
+  .v-sidebar-menu .expand-enter,
+  .v-sidebar-menu .expand-leave-to {
+    height: 0 !important;
   }
 
   .v-sidebar-menu .slide-animation-enter-active {
     -webkit-transition: width 0.3s ease;
-    transition: width 0.3s ease
+    transition: width 0.3s ease;
   }
 
   .v-sidebar-menu .slide-animation-leave-active {
     -webkit-transition: width 0.3s ease;
-    transition: width 0.3s ease
+    transition: width 0.3s ease;
   }
 
-  .v-sidebar-menu .slide-animation-enter, .v-sidebar-menu .slide-animation-leave-to {
-    width: 0 !important
+  .v-sidebar-menu .slide-animation-enter,
+  .v-sidebar-menu .slide-animation-leave-to {
+    width: 0 !important;
   }
 
   .v-sidebar-menu .fade-animation-enter-active {
     -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    transition: opacity 0.3s ease, visibility 0.3s ease
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
   .v-sidebar-menu .fade-animation-leave-active {
     -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    transition: opacity 0.3s ease, visibility 0.3s ease
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
-  .v-sidebar-menu .fade-animation-enter, .v-sidebar-menu .fade-animation-leave-to {
+  .v-sidebar-menu .fade-animation-enter,
+  .v-sidebar-menu .fade-animation-leave-to {
     opacity: 0 !important;
-    visibility: hidden !important
+    visibility: hidden !important;
   }
 
   .v-sidebar-menu .vsm--mobile-item > .vsm--item {
     padding: 0 !important;
-    margin: 0 !important
+    margin: 0 !important;
   }
 
   .v-sidebar-menu .vsm--mobile-item > .vsm--item > .vsm--link {
-    margin: 0 !important
+    margin: 0 !important;
   }
 
   .v-sidebar-menu {
-    background-color: #2a2a2e
+    background-color: #2a2a2e;
   }
 
   .v-sidebar-menu .vsm--link {
-    color: #fff
+    color: #fff;
   }
 
-  .v-sidebar-menu .vsm--link_level-1.vsm--link_exact-active, .v-sidebar-menu .vsm--link_level-1.vsm--link_active {
-    -webkit-box-shadow: 3px 0px 0px 0px #67B68C inset;
-    box-shadow: 3px 0px 0px 0px #67B68C inset
+  .v-sidebar-menu .vsm--link_level-1.vsm--link_exact-active,
+  .v-sidebar-menu .vsm--link_level-1.vsm--link_active {
+    -webkit-box-shadow: 3px 0px 0px 0px #67b68c inset;
+    box-shadow: 3px 0px 0px 0px #67b68c inset;
   }
 
   .v-sidebar-menu .vsm--link_level-1 .vsm--icon {
     background-color: transparent;
   }
 
-  .v-sidebar-menu .vsm--link_hover, .v-sidebar-menu .vsm--link:hover {
+  .v-sidebar-menu .vsm--link_hover,
+  .v-sidebar-menu .vsm--link:hover {
     background-color: transparent;
   }
 
   .v-sidebar-menu .vsm--link_mobile-item {
-    color: #fff
+    color: #fff;
   }
 
-  .v-sidebar-menu .vsm--link_mobile-item.vsm--link_hover, .v-sidebar-menu .vsm--link_mobile-item:hover {
-    color: #fff
+  .v-sidebar-menu .vsm--link_mobile-item.vsm--link_hover,
+  .v-sidebar-menu .vsm--link_mobile-item:hover {
+    color: #fff;
   }
 
-  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1.vsm--link_hover .vsm--icon, .v-sidebar-menu.vsm_collapsed .vsm--link_level-1:hover .vsm--icon {
+  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1.vsm--link_hover .vsm--icon,
+  .v-sidebar-menu.vsm_collapsed .vsm--link_level-1:hover .vsm--icon {
     color: #fff;
     background-color: transparent;
   }
 
   .v-sidebar-menu .vsm--dropdown .vsm--list {
-    background-color: transparent
+    background-color: transparent;
   }
 
   .v-sidebar-menu .vsm--mobile-bg {
-    background-color: #9E9E9E
+    background-color: #9e9e9e;
   }
 
   .v-sidebar-menu.vsm_expanded .vsm--item_open .vsm--link_level-1 {
     color: #fff;
-    background-color: #9E9E9E
+    background-color: #9e9e9e;
   }
 
   .v-sidebar-menu.vsm_expanded .vsm--item_open .vsm--link_level-1 .vsm--icon {
-    background-color: transparent!important;
+    background-color: transparent !important;
   }
 
-  .v-sidebar-menu.vsm_rtl .vsm--link_level-1.vsm--link_active, .v-sidebar-menu.vsm_rtl .vsm--link_level-1.vsm--link_exact-active {
-    -webkit-box-shadow: -3px 0px 0px 0px #67B68C inset;
-    box-shadow: -3px 0px 0px 0px #67B68C inset
+  .v-sidebar-menu.vsm_rtl .vsm--link_level-1.vsm--link_active,
+  .v-sidebar-menu.vsm_rtl .vsm--link_level-1.vsm--link_exact-active {
+    -webkit-box-shadow: -3px 0px 0px 0px #67b68c inset;
+    box-shadow: -3px 0px 0px 0px #67b68c inset;
   }
 
   .v-sidebar-menu .vsm--header {
-    color: rgba(255, 255, 255, 0.7)
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .v-sidebar-menu .vsm--badge_default {
     color: #fff;
-    background-color: #1e1e21
+    background-color: #1e1e21;
   }
 
   .v-sidebar-menu .vsm--toggle-btn {
     color: #fff;
-    background-color: #1e1e21
+    background-color: #1e1e21;
   }
 
   .v-sidebar-menu.vsm_white-theme {
-    background-color: #fff
+    background-color: #fff;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--link {
-    color:transparent;
+    color: transparent;
   }
 
-  .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_exact-active, .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_active {
-    -webkit-box-shadow: 3px 0px 0px 0px #67B68C inset;
-    box-shadow: 3px 0px 0px 0px #67B68C inset;
-    color:white;
+  .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_exact-active,
+  .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_active {
+    -webkit-box-shadow: 3px 0px 0px 0px #67b68c inset;
+    box-shadow: 3px 0px 0px 0px #67b68c inset;
+    color: white;
   }
 
-  .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_exact-active .vsm--icon, .v-sidebar-menu.vsm_white-theme .vsm--link_level-1.vsm--link_active .vsm--icon {
+  .v-sidebar-menu.vsm_white-theme
+    .vsm--link_level-1.vsm--link_exact-active
+    .vsm--icon,
+  .v-sidebar-menu.vsm_white-theme
+    .vsm--link_level-1.vsm--link_active
+    .vsm--icon {
     color: #fff;
-    background-color: transparent!important;
+    background-color: transparent !important;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--link_level-1 .vsm--icon {
-    background-color: transparent!important;
+    background-color: transparent !important;
   }
 
-  .v-sidebar-menu.vsm_white-theme .vsm--link_hover, .v-sidebar-menu.vsm_white-theme .vsm--link:hover {
-    background-color: rgba(242, 242, 242, 0.5)
+  .v-sidebar-menu.vsm_white-theme .vsm--link_hover,
+  .v-sidebar-menu.vsm_white-theme .vsm--link:hover {
+    background-color: rgba(242, 242, 242, 0.5);
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item {
-    color: #fff
-  }
-
-  .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item.vsm--link_hover, .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item:hover {
-    color: #fff
-  }
-
-  .v-sidebar-menu.vsm_white-theme.vsm_collapsed .vsm--link_level-1.vsm--link_hover .vsm--icon, .v-sidebar-menu.vsm_white-theme.vsm_collapsed .vsm--link_level-1:hover .vsm--icon {
     color: #fff;
-    background-color: #67B68C
+  }
+
+  .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item.vsm--link_hover,
+  .v-sidebar-menu.vsm_white-theme .vsm--link_mobile-item:hover {
+    color: #fff;
+  }
+
+  .v-sidebar-menu.vsm_white-theme.vsm_collapsed
+    .vsm--link_level-1.vsm--link_hover
+    .vsm--icon,
+  .v-sidebar-menu.vsm_white-theme.vsm_collapsed
+    .vsm--link_level-1:hover
+    .vsm--icon {
+    color: #fff;
+    background-color: #67b68c;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--dropdown .vsm--list {
-    background-color: #e3e3e3
+    background-color: #e3e3e3;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--mobile-bg {
-    background-color: #9E9E9E
+    background-color: #9e9e9e;
   }
 
-  .v-sidebar-menu.vsm_white-theme.vsm_expanded .vsm--item_open .vsm--link_level-1 {
+  .v-sidebar-menu.vsm_white-theme.vsm_expanded
+    .vsm--item_open
+    .vsm--link_level-1 {
     color: #fff;
-    background-color: #9E9E9E
+    background-color: #9e9e9e;
   }
 
-  .v-sidebar-menu.vsm_white-theme.vsm_expanded .vsm--item_open .vsm--link_level-1 .vsm--icon {
-    background-color:transparent;
+  .v-sidebar-menu.vsm_white-theme.vsm_expanded
+    .vsm--item_open
+    .vsm--link_level-1
+    .vsm--icon {
+    background-color: transparent;
   }
 
-  .v-sidebar-menu.vsm_white-theme.vsm_rtl .vsm--link_level-1.vsm--link_active, .v-sidebar-menu.vsm_white-theme.vsm_rtl .vsm--link_level-1.vsm--link_exact-active {
-    -webkit-box-shadow: -3px 0px 0px 0px #67B68C inset;
-    box-shadow: -3px 0px 0px 0px #67B68C inset
+  .v-sidebar-menu.vsm_white-theme.vsm_rtl .vsm--link_level-1.vsm--link_active,
+  .v-sidebar-menu.vsm_white-theme.vsm_rtl
+    .vsm--link_level-1.vsm--link_exact-active {
+    -webkit-box-shadow: -3px 0px 0px 0px #67b68c inset;
+    box-shadow: -3px 0px 0px 0px #67b68c inset;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--header {
-    color: rgba(38, 38, 38, 0.7)
+    color: rgba(38, 38, 38, 0.7);
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--badge_default {
     color: #262626;
-    background-color: #f2f2f2
+    background-color: #f2f2f2;
   }
 
   .v-sidebar-menu.vsm_white-theme .vsm--toggle-btn {
     color: #262626;
-    background-color: #f2f2f2
+    background-color: #f2f2f2;
   }
-
 
   /*# sourceMappingURL=vue-sidebar-menu.css.map*/
   .v-sidebar-menu {
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 4px 4px 44px rgba(0, 0, 0, 0.1);
-
   }
   .v-sidebar-menu.vsm_expanded {
     padding-top: 145px;
@@ -493,12 +524,17 @@ export default {
 
   .v-sidebar-menu.vsm_collapsed {
     padding-top: 118px;
-
   }
-  .admin-side-bar .v-sidebar-menu.vsm_white-theme.vsm_collapsed .vsm--link_level-1.vsm--link_hover .vsm--icon, .admin-side-bar .v-sidebar-menu.vsm_white-theme.vsm_collapsed .vsm--link_level-1:hover .vsm--icon {
+  .admin-side-bar
+    .v-sidebar-menu.vsm_white-theme.vsm_collapsed
+    .vsm--link_level-1.vsm--link_hover
+    .vsm--icon,
+  .admin-side-bar
+    .v-sidebar-menu.vsm_white-theme.vsm_collapsed
+    .vsm--link_level-1:hover
+    .vsm--icon {
     color: #fff;
-    background-color: #67B68C;
+    background-color: #67b68c;
   }
 }
-
 </style>
