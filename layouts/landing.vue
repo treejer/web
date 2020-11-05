@@ -7,6 +7,7 @@
         <nuxt/>
       </div>
     </div>
+    
 
     <LandingFooter />
   </div>

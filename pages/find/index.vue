@@ -77,7 +77,7 @@
                         width="64"
                         height="64"
                         :src="
-                          'https://api.adorable.io/avatars/40/' + item.owner
+                          'https://www.gravatar.com/avatar/' + item.owner
                         "
                         :alt="item.owner"
                       />

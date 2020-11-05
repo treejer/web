@@ -34,7 +34,6 @@
               <div class="row line-chart">
                 <div class="col-12">
                   <line-chart
-                    :styles="myStyles"
                     :chart-data="datacollection"
                     :options="chartOptions"
                   ></line-chart>
@@ -48,13 +47,24 @@
         </div>
       </div>
       <div class="col-12 col-md-3 admin-left-side">
-        <div class="cards" v-for="(item, index) in cards" :key="index">
+        <div class="cards" v-for="(item, index) in allStats" :key="index">
           <div class="cards-title">
-            <p class="param tr-gray-two">{{ item.text }}</p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_eth_locked'">
+              {{ 'Total Funding (ETH)' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_o1_supply'">
+              {{ 'Total O1 Supply' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_tree_supply'">
+              {{ 'Total tree supply' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_unique_wallets'">
+              {{ 'Total Users' }}
+            </p>
           </div>
           <div class="cards-count">
-            <h4 class="mb-0 title-sm font-weight-bolder tr-gray-two">
-              {{ item.count }}
+            <h4 class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
+              {{ item | currency('', 0, { thousandsSeparator: ',' })  | truncate(16) }}
             </h4>
           </div>
         </div>
@@ -65,8 +75,13 @@
 
 <script>
 import LineChart from "~/plugins/lineChart";
+import Vue2Filters from 'vue2-filters'
+
+
 
 export default {
+  mixins: [Vue2Filters.mixin],
+
   components: {
     LineChart,
   },
@@ -100,6 +115,7 @@ export default {
         },
       ],
       tabsIndex: 0,
+      allStats: null,
       tabName: "Tree Funding Growth",
       cards: [
         {
@@ -134,8 +150,8 @@ export default {
       datacollection: null,
       chartOptions: {
         responsive: true,
-        maintainAspectRatio:false,
-        aspectRatio:1,
+        maintainAspectRatio: false,
+        aspectRatio: 1,
         scales: {
           yAxes: [
             {
@@ -160,6 +176,7 @@ export default {
   computed: {},
   mounted() {
     this.fillData();
+    this.fetchStats();
   },
 
   methods: {
@@ -167,6 +184,14 @@ export default {
       this.tabsIndex = index;
       this.tabName = item;
       this.fillData();
+    },
+    fetchStats() {
+      let self = this;
+      self.$axios.get(`https://api.treejer.com/trees/stats`).then((res) => {
+        self.allStats = res.data;
+        console.log("self.allStats",self.allStats)
+
+      });
     },
 
     fillData() {
@@ -182,7 +207,6 @@ export default {
         labels: ["January", "February", "March", "April", "May", "June"],
         datasets: [
           {
-        
             label: "Data One",
             borderCapStyle: "butt",
             borderColor: "#67B68C",

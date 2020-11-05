@@ -4,7 +4,7 @@
       <div class="col-md-6 col-12 title">
         <h1 class="title-md ">Read our latest blog posts</h1>
       </div>
-      <div class="col-md-6 col-12 arrows">
+      <div class="col-md-6  col-12 arrows">
         <ul class=" d-flex justify-content-end nav-item">
           <li class="list-style-none p-2 pointer-event"><img src="../../assets/images/home/back.svg" alt="back"
                                                              class="img-fluid"></li>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="row fixs">
-      <div class="col-md-3 mb-2 " v-for="(item,index) in posts" :key="index">
+      <div class="col-lg-3 col-md-6 mb-md-3 mbl-lg-2 " v-for="(item,index) in posts" :key="index">
         <a :href="item.url" target="_blank" class="pointer-event w-100 h-100 text-decoration-none">
           <b-spinner v-if="loading" label="Spinning"></b-spinner>
 
@@ -22,8 +22,14 @@
             <div class="border-post">
 
               <h3 class="tr-white Montserrat-Medium  param-xl">{{ item.title }}</h3>
-              <p class="tr-white param-sm">by <span class="font-weight-bolder">Treejer Team</span> </p>
-              <p class="tr-white param position-absolute font-weight-bolder" style="bottom: 0">PRODUCT </p>
+              <p class="tr-white param-sm">by
+                <span
+                  class="font-weight-bolder"
+                  v-for="(item , index)  in item.authors" :key="index">{{ item ? item.name : "" }}</span></p>
+              <p v-if="item.tags" class="tr-white param position-absolute font-weight-bolder" style="bottom: 0">
+                <span class="position-relative param" v-for="(item,index) in item.tags"
+                      :key="index">{{ item ? item.name : "" }}</span>
+              </p>
 
             </div>
           </div>
@@ -51,7 +57,7 @@ export default {
   methods: {
     async getPosts() {
       this.loading = true
-      const treejerApi = 'https://blog.treejer.com/ghost/api/v3/content/posts/?key=0749370a54227533e6fd2795a1&limit=5'
+      const treejerApi = 'https://blog.treejer.com/ghost/api/v3/content/posts/?key=0749370a54227533e6fd2795a1&include=tags,authors,primary_tag'
       await this.$axios.get(treejerApi).then((res) => {
         this.posts = res.data.posts
         console.log(this.posts, "res")

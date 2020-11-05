@@ -20,7 +20,7 @@
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
-        <span class="img"><img style="border: solid 2px white" :src="'https://api.adorable.io/avatars/240/'+$cookies.get('account')" alt="accounting"
+        <span class="img"><img style="border: solid 2px white" :src="'https://www.gravatar.com/avatar/'+$cookies.get('account')" alt="accounting"
                                class="img-fluid   d-none d-md-block rounded-circle" width="42"
                                height="42"/></span>
       </div>

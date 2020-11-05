@@ -44,21 +44,21 @@
                 <tbody>
                 <tr v-if="leaderBoards" v-for="(item ,index) in leaderBoards">
                   <td v-if="index ===0" scope="row" class="d-flex justify-content-between"><span  class="rank" v-html="first" style="width: 15px;height: 15px" ></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    style="width:25px" class="rounded-circle" :src="'https://www.gravatar.com/avatar/' + item.owner"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index ===1" scope="row"><span  class="rank" v-html="second" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    style="width:25px" class="rounded-circle" :src="'https://www.gravatar.com/avatar/' + item.owner"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index ===2" scope="row"><span  class="rank" v-html="third" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                    style="width:25px" class="rounded-circle" :src="'https://www.gravatar.com/avatar/' + item.owner"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index >2" scope="row">
                     <span class="rank">{{ index + 1 }}</span>
                     <span style="margin:  0 5px"><img style="width:25px" class="rounded-circle"
-                                                      :src="'https://api.adorable.io/avatars/5/' + item.owner"
+                                                      :src="'https://www.gravatar.com/avatar/?r=pg' + item.owner"
                                                       alt="item.owner"></span>
                   </td>
 
@@ -118,7 +118,7 @@ export default {
           {name: "Top Forests", icon: "tree", href: "/forest"},
           {name: "Top Ambassadors", icon: "bell", href: "/updates"},
           {name: "Top Planters", icon: "trophy", href: "/leaderboard"},
-        ],
+          ],
         perPage: 10
 
 

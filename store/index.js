@@ -1,7 +1,6 @@
 import WalletConnect from "walletconnect";
 import Web3 from "web3";
 import { BToast } from "bootstrap-vue";
-
 export const state = () => ({
     token: null,
     toast: false,
@@ -52,12 +51,12 @@ export const actions = {
             function showToast(netName) {
                 bootStrapToaster.$bvToast.toast(
                     `You are now on ${netName || "unknown"} Test Network`, {
-                        title: `Switched network`,
-                        href: "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
-                        variant: "success",
-                        solid: true,
-                        toaster: "b-toaster-bottom-left"
-                    }
+                    title: `Switched network`,
+                    href: "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
+                    variant: "success",
+                    solid: true,
+                    toaster: "b-toaster-bottom-left"
+                }
                 );
             }
 
@@ -93,7 +92,7 @@ export const actions = {
                     default:
                         console.log("This is an unknown network.");
                         netName = "unknown";
-                        // showToast(netName)
+                    // showToast(netName)
                 }
                 commit("SET_NET_NAME", netName);
             });
@@ -250,6 +249,12 @@ export const actions = {
             `https://api.treejer.com/trees/leaderboard?perPage=10`
         );
         commit("SET_LEADERBOARDS", leaderBoards.leaderboard.data);
+    },
+    async getAllStats({ commit }) {
+        await this.$axios.get(`https://api.treejer.com/trees/stats`).then((res) => {
+            return res.data
+
+        })
     }
 };
 
