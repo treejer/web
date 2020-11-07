@@ -216,28 +216,36 @@ export const actions = {
                 .then(handleChainChanged)
                 .catch(err => console.error(err)); // This should never happen
 
-            function handleChainChanged(chainId) {
-                if (currentChainId !== chainId) {
-                    currentChainId = chainId;
-                    // Run any other necessary logic...
-                }
+          function handleChainChanged(chainId) {
+            if (currentChainId !== chainId) {
+              currentChainId = chainId;
+              // Run any other necessary logic...
             }
+          }
         }
-        await self.$cookies.set("account", null);
-        await commit("SET_USER", null);
-        // await self.$router.push("/");
-        window.location.reload()
+      await self.$cookies.set("account", null);
+      await commit("SET_USER", null);
+      // await self.$router.push("/");
+      // window.location.reload()
+      let bootStrapToaster = new BToast();
+      bootStrapToaster.$bvToast.toast(
+        `Please refresh your browser tab`, {
+          variant: "danger",
+          solid: true,
+          toaster: "b-toaster-bottom-left"
+        }
+      );
     },
-    hasDashboard({ commit }, { status }) {
-        commit("SET_DASHBOARD", status);
-    },
-    async ethPrices({ commit }, { err }) {
-        const ethPrice = await this.$axios.$get(
-            "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE"
-        );
-        commit("SET_ETH_PRICE", ethPrice.result);
-    },
-    signUpForm({ commit }) {
+  hasDashboard({commit}, {status}) {
+    commit("SET_DASHBOARD", status);
+  },
+  async ethPrices({commit}, {err}) {
+    const ethPrice = await this.$axios.$get(
+      "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE"
+    );
+    commit("SET_ETH_PRICE", ethPrice.result);
+  },
+  signUpForm({commit}) {
         this.$axios
             .$post("https://api.sg-form.com/signup", {
                 email: "iraj.habibzadeh70@gmail.com",
