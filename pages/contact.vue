@@ -69,6 +69,7 @@
 
   export default {
     name: "contactUs",
+    layout:"landing",
     components:{
       VueFormulate
     },

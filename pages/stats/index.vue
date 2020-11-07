@@ -61,7 +61,10 @@
             </p>
           </div>
           <div class="cards-count">
-            <h4 class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
+            <h4 v-if="index === 'total_eth_locked'" class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
+              {{ item | currency('', 0, {thousandsSeparator: ','})  | truncate(15) }}
+            </h4>
+            <h4 v-else class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
               {{ item | currency('', 0, {thousandsSeparator: ','})  | truncate(15) }}
             </h4>
           </div>
@@ -74,6 +77,7 @@
 <script>
 import LineChart from "~/plugins/lineChart";
 import Vue2Filters from 'vue2-filters'
+import web3 from '~/plugins/web3'
 
 
 
@@ -89,14 +93,15 @@ export default {
 
   data() {
     return {
+      totalEthLocked: null,
       downloads: null,
       labels: null,
       tabs: [
         {
-          text: "Tree Funding Growth",
+          text: "Tree Funding Volume",
         },
         {
-          text: "Tree Funding Volume ",
+          text: "Tree Planing Volume",
         },
         // {
         //   text: "User Acquisition",
@@ -175,8 +180,15 @@ export default {
     },
     fetchStats() {
       let self = this;
+
       self.$axios.get(`https://api.treejer.com/trees/stats`).then((res) => {
+
         self.allStats = res.data;
+        self.totalEthLocked = res.data.total_eth_locked
+        self.totalEthLocked = web3.utils.fromWei(res.data.total_eth_locked)
+        console.log(self.totalEthLocked, 'self.totalEthLocked')
+
+
         console.log("self.allStats", self.allStats)
 
       });
