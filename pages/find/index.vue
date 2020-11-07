@@ -77,7 +77,7 @@
                         width="64"
                         height="64"
                         :src="
-                          'https://www.gravatar.com/avatar/' + item.owner
+                          'https://www.gravatar.com/avatar/'+item.owner
                         "
                         :alt="item.owner"
                       />

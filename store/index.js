@@ -1,44 +1,47 @@
 import WalletConnect from "walletconnect";
 import Web3 from "web3";
-import { BToast } from "bootstrap-vue";
+import {BToast} from "bootstrap-vue";
+
 export const state = () => ({
-    token: null,
-    toast: false,
-    sliceAccount: null,
-    index: 0,
-    account: null,
-    dashboard: false,
-    users: null,
-    chainId: null,
-    trezorPopup: null,
-    ledger: null,
-    form: null,
-    ethPrice: null,
-    netWorkName: null,
-    leaderBoards: null,
-    hasMetaMask: false,
-    fortmatic: null,
-    connectingWallet: null,
-    modalFive: true,
-    adminSidebar: true
+  token: null,
+  toast: false,
+  sliceAccount: null,
+  index: 0,
+  account: null,
+  dashboard: false,
+  users: null,
+  chainId: null,
+  trezorPopup: null,
+  ledger: null,
+  form: null,
+  ethPrice: null,
+  netWorkName: null,
+  leaderBoards: null,
+  hasMetaMask: false,
+  fortmatic: null,
+  connectingWallet: null,
+  modalFive: true,
+  adminSidebar: true,
+  adminLayout: false
 });
 
 export const actions = {
     async metaMask({ commit }) {
-        let self = this;
-        await ethereum.enable();
-        const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts"
-        });
-        const account = accounts[0];
-        commit("SET_USER", account);
-        self.$cookies.set("account", account);
-        console.log(self.state.dashboard, "self");
-        if (self.state.dashboard) {
-            await self.$router.push(`forest/${self.$cookies.get("account")}`);
-        } else {
-            await self.$router.push(`forest/${self.$cookies.get("account")}`);
-        }
+      let self = this;
+      await ethereum.enable();
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+      const account = accounts[0];
+      commit("SET_USER", account);
+      self.$cookies.set("account", account);
+      console.log(self.state.dashboard, "self");
+      if (self.state.dashboard) {
+        await self.$router.push(`forest/${self.$cookies.get("account")}`);
+      }
+      if (self.state.adminLayout) {
+        await self.$router.push(`/stats/${self.$cookies.get("account")}`);
+      }
     },
     async networkNames({ commit }) {
         let bootStrapToaster = new BToast();
@@ -99,27 +102,28 @@ export const actions = {
         }
     },
     async walletConnect({ commit }) {
-        let self = this;
-        commit("SET_WALLET", "walletconnect");
-        self.$cookies.set("walletName", "walletconnect");
-        const wc = new WalletConnect();
-        const connector = await wc.connect();
-        const walletAccount = connector._accounts[0];
-        commit("SET_USER", null);
-        self.$cookies.set("account", null);
-        commit("SET_USER", walletAccount);
-        self.$cookies.set("account", walletAccount);
-        if (self.state.dashboard) {
-            await self.$router.push(`${self.$cookies.get("account")}`);
-        } else {
-            await self.$router.push(`forest/${self.$cookies.get("account")}`);
-        }
-        console.log(env, "walletConnectProjectID");
-        const web3Provider = await wc.getWeb3Provider({
-            infuraId: process.env.WALLETCONNECT_PROJECT_ID
-        });
+      let self = this;
+      commit("SET_WALLET", "walletconnect");
+      self.$cookies.set("walletName", "walletconnect");
+      const wc = new WalletConnect();
+      const connector = await wc.connect();
+      const walletAccount = connector._accounts[0];
+      commit("SET_USER", null);
+      self.$cookies.set("account", null);
+      commit("SET_USER", walletAccount);
+      self.$cookies.set("account", walletAccount);
+      if (self.state.dashboard) {
+        await self.$router.push(`${self.$cookies.get("account")}`);
+      }
+      if (self.state.adminLayout) {
+        await self.$router.push(`/stats/${self.$cookies.get("account")}`);
+      }
+      console.log(env, "walletConnectProjectID");
+      const web3Provider = await wc.getWeb3Provider({
+        infuraId: process.env.WALLETCONNECT_PROJECT_ID
+      });
 
-        const channelProvider = await wc.getChannelProvider();
+      const channelProvider = await wc.getChannelProvider();
     },
     async portis({ commit }) {
         commit("SET_WALLET", "portis");
@@ -133,16 +137,17 @@ export const actions = {
 
             const web3OnPortis = new Web3(portis.provider);
             await web3OnPortis.eth.getAccounts((error, accounts) => {
-                self.$cookies.set("account", null);
-                self.commit("SET_USER", null);
-                self.commit("SET_USER", accounts[0]);
-                self.$cookies.set("account", accounts[0]);
+              self.$cookies.set("account", null);
+              self.commit("SET_USER", null);
+              self.commit("SET_USER", accounts[0]);
+              self.$cookies.set("account", accounts[0]);
 
-                if (self.state.dashboard) {
-                    self.$router.push(`${self.$cookies.get("account")}`);
-                } else {
-                    self.$router.push(`forest/${self.$cookies.get("account")}`);
-                }
+              if (self.state.dashboard) {
+                self.$router.push(`${self.$cookies.get("account")}`);
+              }
+              if (self.state.adminLayout) {
+                self.$router.push(`/stats/${self.$cookies.get("account")}`);
+              }
             });
             await portis.onLogin(walletAddress => {
                 console.log(walletAddress, "walletAddress walletAddress");
@@ -159,17 +164,18 @@ export const actions = {
         const web3 = await new Web3(fm.getProvider());
         web3.currentProvider.enable();
         await web3.eth.getAccounts((err, accounts) => {
-            let address = accounts[0];
-            self.$cookies.set("account", null);
-            self.commit("SET_USER", null);
-            self.$cookies.set("account", address);
-            if (self.state.dashboard) {
-                self.$router.push(`${self.$cookies.get("account")}`);
-            } else {
-                self.$router.push(`forest/${self.$cookies.get("account")}`);
-            }
-            self.commit("SET_USER", address);
-            self.commit("SET_MODAL_FIVE", false);
+          let address = accounts[0];
+          self.$cookies.set("account", null);
+          self.commit("SET_USER", null);
+          self.$cookies.set("account", address);
+          if (self.state.dashboard) {
+            self.$router.push(`${self.$cookies.get("account")}`);
+          }
+          if (self.state.adminLayout) {
+            self.$router.push(`/stats/${self.$cookies.get("account")}`);
+          }
+          self.commit("SET_USER", address);
+          self.commit("SET_MODAL_FIVE", false);
         });
         // Get user balance (includes ERC20 tokens as well)
         let balances = await fm.user.getBalances();
@@ -219,7 +225,8 @@ export const actions = {
         }
         await self.$cookies.set("account", null);
         await commit("SET_USER", null);
-        await self.$router.push("/");
+        // await self.$router.push("/");
+        window.location.reload()
     },
     hasDashboard({ commit }, { status }) {
         commit("SET_DASHBOARD", status);
@@ -259,43 +266,46 @@ export const actions = {
 };
 
 export const mutations = {
-    SET_TOKEN(state, token) {
-        state.token = token;
-    },
-    SET_MODAL_FIVE(state, modalFive) {
-        state.modalFive = modalFive;
-    },
-    SET_FORTMATIC(state, fortmatic) {
-        state.fortmatic = fortmatic;
-    },
-    SET_WALLET(state, connectingWallet) {
-        state.connectingWallet = connectingWallet;
-    },
-    SLICE_ACCOUNT(state, sliceAccount) {
-        state.sliceAccount = sliceAccount;
-    },
-    SET_INDEX(state, index) {
-        state.index = index;
-    },
-    SET_LEADERBOARDS(state, leaderBoards) {
-        state.leaderBoards = leaderBoards;
-    },
-    SET_USER(state, account) {
-        state.account = account;
-    },
-    SET_NET_NAME(state, netId) {
-        state.netWorkName = netId;
-    },
-    SET_DASHBOARD(state, status) {
-        state.dashboard = status;
-    },
-    SET_ETH_PRICE(state, ethPrice) {
-        state.ethPrice = ethPrice;
-    },
-    SET_METAMASK(state, metaMask) {
-        state.hasMetaMask = metaMask;
-    },
-    SET_ADMIN_SIDE_BAR(state, adminSidebar) {
-        state.adminSidebar = adminSidebar;
-    }
+  SET_TOKEN(state, token) {
+    state.token = token;
+  },
+  SET_MODAL_FIVE(state, modalFive) {
+    state.modalFive = modalFive;
+  },
+  SET_FORTMATIC(state, fortmatic) {
+    state.fortmatic = fortmatic;
+  },
+  SET_WALLET(state, connectingWallet) {
+    state.connectingWallet = connectingWallet;
+  },
+  SLICE_ACCOUNT(state, sliceAccount) {
+    state.sliceAccount = sliceAccount;
+  },
+  SET_INDEX(state, index) {
+    state.index = index;
+  },
+  SET_LEADERBOARDS(state, leaderBoards) {
+    state.leaderBoards = leaderBoards;
+  },
+  SET_USER(state, account) {
+    state.account = account;
+  },
+  SET_NET_NAME(state, netId) {
+    state.netWorkName = netId;
+  },
+  SET_DASHBOARD(state, status) {
+    state.dashboard = status;
+  },
+  SET_ETH_PRICE(state, ethPrice) {
+    state.ethPrice = ethPrice;
+  },
+  SET_METAMASK(state, metaMask) {
+    state.hasMetaMask = metaMask;
+  },
+  SET_ADMIN_SIDE_BAR(state, adminSidebar) {
+    state.adminSidebar = adminSidebar;
+  },
+  SET_ADMIN_LAYOUT(state, adminLayout) {
+    state.adminLayout = adminLayout;
+  }
 };

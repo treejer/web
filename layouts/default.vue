@@ -16,10 +16,9 @@ import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
-import ThreeBox from "@/components/ThreeBox.vue";
 
 export default {
-  components: { Sidebar, Footer, TreejerHeader, Router, ThreeBox },
+  components: { Sidebar, Footer, TreejerHeader, Router },
   data() {
     return {
       account: {},

@@ -1,5 +1,5 @@
 <template>
-  <div class="container pr-0">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-9 admin-right-side">
         <div class="row">
@@ -20,7 +20,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-11 justify-content-center text-left mt-5">
+          <div class="col-12 col-md-11 justify-content-center text-left mt-5">
             <div class="small">
               <div class="header-tab position-relative pb-3">
                 <div class="row">
@@ -32,29 +32,37 @@
                 </div>
               </div>
               <div class="row line-chart">
-                <div class="col-12">
+                <div class="col-12" v-if="downloads">
                   <line-chart
-                    :styles="myStyles"
-                    :chart-data="datacollection"
+                    :chart-data="groupData"
                     :options="chartOptions"
                   ></line-chart>
-                  <button class="btn-gray mt-3" @click="fillData()">
-                    Randomize
-                  </button>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-3 admin-left-side">
-        <div class="cards" v-for="(item, index) in cards" :key="index">
+      <div class="col-12 col-md-3  admin-left-side pl-md-0">
+        <div class="cards" v-for="(item, index) in allStats" :key="index">
           <div class="cards-title">
-            <p class="param tr-gray-two">{{ item.text }}</p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_eth_locked'">
+              {{ 'Total Funding (ETH)' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_o1_supply'">
+              {{ 'Total O1 Supply' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_tree_supply'">
+              {{ 'Total tree supply' }}
+            </p>
+            <p class="param tr-gray-two text-capitalize" v-if="index === 'total_unique_wallets'">
+              {{ 'Total Users' }}
+            </p>
           </div>
           <div class="cards-count">
-            <h4 class="mb-0 title-sm font-weight-bolder tr-gray-two">
-              {{ item.count }}
+            <h4 class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
+              {{ item | currency('', 0, {thousandsSeparator: ','})  | truncate(15) }}
             </h4>
           </div>
         </div>
@@ -65,17 +73,24 @@
 
 <script>
 import LineChart from "~/plugins/lineChart";
+import Vue2Filters from 'vue2-filters'
+
+
 
 export default {
+  mixins: [Vue2Filters.mixin],
+
   components: {
     LineChart,
   },
 
-  name: "index",
+  name: "_id",
   layout: "admin",
 
   data() {
     return {
+      downloads: null,
+      labels: null,
       tabs: [
         {
           text: "Tree Funding Growth",
@@ -83,23 +98,24 @@ export default {
         {
           text: "Tree Funding Volume ",
         },
-        {
-          text: "User Acquisition",
-        },
-        {
-          text: "Planter Acquisition",
-        },
-        {
-          text: "Green Block Growth",
-        },
-        {
-          text: "O1 Supply",
-        },
-        {
-          text: "O2 Supply",
-        },
+        // {
+        //   text: "User Acquisition",
+        // },
+        // {
+        //   text: "Planter Acquisition",
+        // },
+        // {
+        //   text: "Green Block Growth",
+        // },
+        // {
+        //   text: "O1 Supply",
+        // },
+        // {
+        //   text: "O2 Supply",
+        // },
       ],
       tabsIndex: 0,
+      allStats: null,
       tabName: "Tree Funding Growth",
       cards: [
         {
@@ -131,88 +147,94 @@ export default {
           count: "8,539",
         },
       ],
-      datacollection: null,
+      dataCollection: null,
+      groupData: null,
       chartOptions: {
         responsive: true,
-        maintainAspectRatio:false,
-        aspectRatio:1,
-        scales: {
-          yAxes: [
-            {
-              stacked: false,
-              gridLines: {
-                display: true,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              stacked: false,
-              gridLines: {
-                display: true,
-              },
-            },
-          ],
-        },
+        maintainAspectRatio: false,
       },
     };
   },
   computed: {},
   mounted() {
-    this.fillData();
+    this.fetchStats();
+    this.fetchPlantedChartData();
+
   },
 
   methods: {
     setIndex(item, index) {
       this.tabsIndex = index;
       this.tabName = item;
-      this.fillData();
+      if (index === 0) {
+        this.fetchPlantedChartData()
+      }
+      if (index === 1) {
+        this.fetchFundedChartData()
+      }
     },
+    fetchStats() {
+      let self = this;
+      self.$axios.get(`https://api.treejer.com/trees/stats`).then((res) => {
+        self.allStats = res.data;
+        console.log("self.allStats", self.allStats)
 
-    fillData() {
-      this.datacollection = {
-        layout: {
-          padding: {
-            left: 15,
-            right: 15,
-            top: 15,
-            bottom: 15,
-          },
-        },
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-          {
-        
-            label: "Data One",
-            borderCapStyle: "butt",
-            borderColor: "#67B68C",
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
-            capBezierPoints: true,
-            pointBackgroundColor: "rgba(0, 0, 0, 0.1)",
-            data: [
-              {
-                x: this.getRandomInt(),
-                y: this.getRandomInt(),
-              },
-              {
-                x: this.getRandomInt(),
-                y: this.getRandomInt(),
-              },
-              {
-                x: this.getRandomInt(),
-                y: this.getRandomInt(),
-              },
-              {
-                x: this.getRandomInt(),
-                y: this.getRandomInt(),
-              },
-            ],
-          },
-        ],
-      };
+      });
     },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    fetchPlantedChartData() {
+      let self = this;
+      let api = 'https://api.treejer.com/trees/plantedChartData?howMany=12';
+      this.$axios.get(api).then(res => {
+        self.dataCollection = res.data;
+        self.labels = res.data.map(item => {
+          return item.labels;
+        });
+        self.downloads = res.data.map(item => {
+          return item.count;
+        });
+        self.fillData()
+      }).catch().finally()
+    },
+    fetchFundedChartData() {
+      let self = this;
+      let api = 'https://api.treejer.com/trees/fundedChartData?howMany=12';
+      this.$axios.get(api).then(res => {
+        self.dataCollection = res.data;
+        self.labels = res.data.map(item => {
+          return item.labels;
+        });
+        self.downloads = res.data.map(item => {
+          return item.count;
+        });
+        self.fillData()
+      }).catch().finally()
+    },
+    fillData() {
+      if (this.downloads) {
+        this.groupData = {
+          layout: {
+            padding: {
+              left: 15,
+              right: 15,
+              top: 15,
+              bottom: 15,
+            },
+          },
+          labels: this.labels,
+          datasets: [
+            {
+              label: this.tabName,
+              borderCapStyle: "butt",
+              borderColor: "#67B68C",
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              capBezierPoints: true,
+              pointBackgroundColor: "rgba(0, 0, 0, 0.1)",
+              data: this.downloads
+            }
+          ],
+        };
+      }
+
     },
   },
 };

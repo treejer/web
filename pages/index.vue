@@ -18,6 +18,7 @@ import Banner from "@/components/home/Banner";
 
 export default {
   name: "index",
+  layout:"landing",
   components: {
     Banner,
     Posts,

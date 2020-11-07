@@ -60,7 +60,6 @@ export default {
       const treejerApi = 'https://blog.treejer.com/ghost/api/v3/content/posts/?key=0749370a54227533e6fd2795a1&include=tags,authors,primary_tag'
       await this.$axios.get(treejerApi).then((res) => {
         this.posts = res.data.posts
-        console.log(this.posts, "res")
         this.loading = false
 
 

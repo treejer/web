@@ -24,6 +24,9 @@ export default {
   data() {
     return {};
   },
+  created() {
+    this.$store.commit('SET_ADMIN_LAYOUT',true)
+  }
 };
 </script>
 <style lang="scss">
