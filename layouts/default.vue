@@ -40,6 +40,7 @@ export default {
 
   mounted() {
     this.$store.commit("SET_DASHBOARD", false);
+    this.$store.commit("SET_ADMIN_LAYOUT", false);
     const url =
       "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE";
     this.$axios
