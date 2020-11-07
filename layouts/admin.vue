@@ -1,6 +1,7 @@
 <template>
   <div :class="'currentRouteName' + this.$route.name" class="container-fluid">
     <Sidebar />
+    <BackToHome />
     <div class="container-fluid">
       <div class="row">
         <div
@@ -18,9 +19,10 @@
 
 <script>
 import Sidebar from "@/components/admin/Sidebar";
+import BackToHome from "@/components/admin/BackToHome";
 export default {
   name: "admin",
-  components: { Sidebar },
+  components: { Sidebar,BackToHome },
   data() {
     return {};
   },
