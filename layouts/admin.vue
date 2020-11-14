@@ -1,7 +1,7 @@
 <template>
   <div :class="'currentRouteName' + this.$route.name" class="container-fluid">
     <Sidebar />
-    <BackToHome />
+<!--    <BackToHome />-->
     <div class="container-fluid">
       <div class="row">
         <div

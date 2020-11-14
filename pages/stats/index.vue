@@ -61,11 +61,14 @@
             </p>
           </div>
           <div class="cards-count">
-            <h4 v-if="index === 'total_eth_locked'" class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
-              {{ item | currency('', 0, {thousandsSeparator: ','})  | truncate(15) }}
+            <h4 v-if="index === 'total_eth_locked'" class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="totalEthLocked">
+              {{ totalEthLocked  | truncate(15) }}
             </h4>
-            <h4 v-else class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item | currency('', 0, { thousandsSeparator: ',' })">
-              {{ item | currency('', 0, {thousandsSeparator: ','})  | truncate(15) }}
+            <h4 v-else-if="index === 'total_o1_supply'" class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item">
+              {{ item  | truncate(15) }}
+            </h4>
+            <h4 v-else class="mb-0 title-sm font-weight-bolder tr-gray-two pointer-event" :tabindex="index" v-b-tooltip.lefttop :title="item">
+              {{ item }}
             </h4>
           </div>
         </div>
