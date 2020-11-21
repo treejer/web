@@ -34,7 +34,7 @@ export default {
        {rel: 'mask-icon', href: '//safari-pinned-tab.svg', color: '#5bbad5'},
      ]
    },
-  env: {
+    env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com/',
     contractGBFactoryAddress: process.env.CONTRACT_GBFACTORY_ADDRESS,
     contractTreeTypeAddress: process.env.CONTRACT_TRRETYPE_ADDRESS,
@@ -54,7 +54,7 @@ export default {
     walletConnectEndPointsRinkBey:process.env.WALLETCONNECT_ENDPOINTS_RINKEBY,
     walletConnectEndPointsGorli:process.env.WALLETCONNECT_ENDPOINTS_GORLI,
     fortmatic:process.env.FORTMATIC,
-    portis:process.env.PORTIS,
+    gravatar:process.env.GRAVATAR,
 
   },
   router: {

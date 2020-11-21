@@ -246,7 +246,7 @@
             <div class="box-right ">
               <div class="avatar-card border-0 text-center justify-content-center">
                 <div class="card-img position-relative"><img
-                  :src="$cookies.get('account') ? 'https://api.adorable.io/avatars/240/'+$cookies.get('account').slice(0,10) :avatar"
+                  :src="$cookies.get('account') ? icon : avatar"
                   alt="username"
                   class="avatar-pic img-fluid"/>
                   <!--              <span class="position-absolute">+</span>-->
@@ -319,6 +319,7 @@ export default {
   name: 'forest',
   layout: 'dashboard',
   components: {Metamask, Fas,Wallets},
+
   computed: {
     messages() {
       return content
@@ -340,7 +341,9 @@ export default {
   },
 
   data() {
+
     return {
+      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
       otherForest:false,
       ownerTreesLoaded: false,
       showMoreTreeData: false,

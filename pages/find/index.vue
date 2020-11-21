@@ -75,7 +75,7 @@
                       <img
                         width="64"
                         height="64"
-                        :src="'https://api.adorable.io/avatars/40/'+ item.owner.slice(0,10)"
+                        :src="icon"
                         :alt="item.owner"
                       />
                     </div>
@@ -255,6 +255,8 @@ export default {
   },
   data() {
     return {
+      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
+
       trees: {},
       leaderBoards: null,
       treeID: null,

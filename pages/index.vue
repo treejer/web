@@ -80,7 +80,7 @@ export default {
 <style lang="scss" scoped >
 
   .home {
-    background-image: url(../assets/images/home/treejerStory.png);
+    background-image: url('../assets/images/home/treejerStory.png');
     background-size: contain;
     background-repeat: no-repeat;
     height: 81vh;

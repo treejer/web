@@ -17,10 +17,12 @@
         class="img-fluid tree pointer-event"
       />
     </b-nav-form>
+
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
-        <span class="img"><img style="border: solid 2px white" :src="'https://api.adorable.io/avatars/240/'+$cookies.get('account').slice(0,10)" alt="accounting"
+        <span class="img"><img style="border: solid 2px white"
+                               :src="icon" alt="accounting"
                                class="img-fluid   d-none d-md-block rounded-circle" width="42"
                                height="42"/></span>
       </div>
@@ -80,6 +82,7 @@ export default {
   props: ['wallets'],
   data() {
     return {
+      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
       account: null,
       loading: false,
       hasAccount:false,
@@ -92,6 +95,7 @@ export default {
     }
   },
  async mounted() {
+    console.log(process.env.gravatar,"process.env.GRAVATAR")
    await ethereum.on('chainChanged', () => {
      document.location.reload()
    })

@@ -38,40 +38,6 @@ export const actions = {
       return method.name === 'add'
     })
 
-
-    // function add(
-    // 	uint8 _typeId,
-    // 	uint256 _gbId,
-    // 	string[] calldata _stringParams,
-    // 	uint8[] calldata _uintParams
-    // ) external {
-    // 	struct Tree {
-    // 		string name;
-    // 		string latitude;
-    // 		string longitude;
-    // 		uint256 plantedDate;
-    // 		uint256 birthDate;
-    // 		uint256 fundedDate;
-    // 		uint8 height;
-    // 		uint8 diameter;
-    // 		uint256 balance;
-    // 	}
-    // 	trees.push(
-    // 		Tree(
-    // 			_stringParams[0],
-    // 			_stringParams[1],
-    // 			_stringParams[2],
-    // 			now,
-    // 			now,
-    // 			0,
-    // 			_uintParams[0],
-    // 			_uintParams[1],
-    // 			0
-    // 		)
-    // 	);
-
-
-
     const plantMethodTransactionData = web3Abi.encodeFunctionCall(
       plantMethod,
       ['0', '0', ['firstTreeWeb3', '41.0157464', '28.6614805'], ['10', '20']]

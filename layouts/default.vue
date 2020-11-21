@@ -51,6 +51,7 @@ export default {
         noAutoHide:true
       })
     })
+
   },
 
   methods: {

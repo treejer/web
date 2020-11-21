@@ -44,21 +44,21 @@
                 <tbody>
                 <tr v-if="leaderBoards" v-for="(item ,index) in leaderBoards">
                   <td v-if="index ===0" scope="row" class="d-flex justify-content-between"><span  class="rank" v-html="first" style="width: 15px;height: 15px" ></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner.slice(0,10)"
+                    style="width:25px" class="rounded-circle" :src="icon"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index ===1" scope="row"><span  class="rank" v-html="second" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner.slice(0,10)"
+                    style="width:25px" class="rounded-circle" :src="icon"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index ===2" scope="row"><span  class="rank" v-html="third" style="width: 15px;height: 15px"></span> <span style="margin:  0 5px"><img
-                    style="width:25px" class="rounded-circle" :src="'https://api.adorable.io/avatars/5/' + item.owner.slice(0,10)"
+                    style="width:25px" class="rounded-circle" :src="icon"
                     alt="item.owner"></span>
                   </td>
                   <td class="d-flex justify-content-between" v-if="index >2" scope="row">
                     <span class="rank">{{ index + 1 }}</span>
                     <span style="margin:  0 5px"><img style="width:25px" class="rounded-circle"
-                                                      :src="'https://api.adorable.io/avatars/5/' + item.owner.slice(0,10)"
+                                                      :src="icon"
                                                       alt="item.owner"></span>
                   </td>
 
@@ -108,10 +108,12 @@ export default {
 
     data() {
       return {
+        icon: `${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
+
         activeIndex: 0,
-        first:`<img src=${require('~/assets/images/leaderBoards/first.svg')} />`,
-        second:`<img src=${require('~/assets/images/leaderBoards/second.svg')} />`,
-        third:`<img src=${require('~/assets/images/leaderBoards/third.svg')} />`,
+        first: `<img src=${require('~/assets/images/leaderBoards/first.svg')} />`,
+        second: `<img src=${require('~/assets/images/leaderBoards/second.svg')} />`,
+        third: `<img src=${require('~/assets/images/leaderBoards/third.svg')} />`,
         id: null,
         leaderBoards: null,
         stepsLeaderBoard: [
