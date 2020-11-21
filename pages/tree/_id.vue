@@ -74,7 +74,9 @@
             <div class="detail-card">
               <div class="location part">
                 <p class="param mb-0 tr-gray-three">Location</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two"> <span class="pr-2">{{
+                    parseFloat(tree.latitude).toFixed(4)
+                  }}</span>,<span class="pl-2">{{ parseFloat(tree.longitude).toFixed(4) }}</span></p>
               </div>
               <div class="gps part">
                 <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
@@ -105,7 +107,7 @@
               <GMap
                 ref="gMap"
                 :cluster="{options: {styles: clusterStyle}}"
-                :center="{lat: tree.latitude, lng: tree.longitude}"
+                :center="{lat:parseInt(tree.latitude) , lng: parseInt(tree.longitude)}"
                 :options="{
                 fullscreenControl: true
                 , streetViewControl: false,
@@ -389,6 +391,7 @@ export default {
         .then(function (response) {
           self.loading = false
           self.tree = response
+          console.log(self.tree,"self.tree")
 
         })
         .catch(function (error) {

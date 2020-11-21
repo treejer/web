@@ -18,6 +18,7 @@
       />
     </b-nav-form>
 
+
     <b-nav-form  class="pointer-event" v-if="isLoggedIn|| $cookies.get('account')">
       <div @click.prevent="logout()" class=" pointer-event accounting-card d-flex align-items-center align-self-center pointer-event">
         <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>

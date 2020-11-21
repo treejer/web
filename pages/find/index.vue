@@ -316,9 +316,6 @@ export default {
     };
   },
   methods: {
-    changeRoute(step, status) {
-      this.$router.push(`/find/${step}`);
-    },
     goToLeaderBoard() {
       if (
         this.$store.state.account === null ||
@@ -356,14 +353,11 @@ export default {
       this.errors = null;
       this.loading = true;
       let self = this;
-
       await this.$axios
         .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
         .then(function(response) {
           self.loading = false;
-          self.$router.push(`/find/${self.treeID}`);
-
-          // handle success
+          self.$router.push(`/tree/${self.treeID}`);
         })
         .catch(function(error) {
           self.loading = false;
@@ -373,10 +367,6 @@ export default {
             headerClass: "hide",
             variant: "danger"
           });
-          // self.errors = 'notFound'
-          // console.log(self.errors)
-
-          // handle error
         });
     },
     async listTrees(page = 1) {
