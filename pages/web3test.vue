@@ -151,7 +151,7 @@
     },
     methods:{
       async fund() {
-        this.transferReceipt = await this.$store.dispatch('fund/fund', {
+        this.transferReceipt = await this.$store.dispatch('treeFactory/fund', {
           count: 1
         })
       },
