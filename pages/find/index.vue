@@ -75,7 +75,7 @@
                       <img
                         width="64"
                         height="64"
-                        :src="icon"
+                        :src="`${icon}${item.owner.replace(/[^0-9\\.]+/g, '')}?d=robohash`"
                         :alt="item.owner"
                       />
                     </div>
@@ -251,11 +251,13 @@ export default {
     const leaderBoards = await this.$axios.$get(
       `https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`
     );
+
     this.leaderBoards = leaderBoards.leaderboard.data;
+    console.log(this.leaderBoards)
   },
   data() {
     return {
-      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
+      icon: process.env.gravatar,
 
       trees: {},
       leaderBoards: null,

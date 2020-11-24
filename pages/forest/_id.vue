@@ -343,7 +343,7 @@ export default {
   data() {
 
     return {
-      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
+      icon:`${process.env.gravatar}${this.$cookies.get('account').replace(/[^0-9\\.]+/g, "")}?d=robohash`,
       otherForest:false,
       ownerTreesLoaded: false,
       showMoreTreeData: false,
