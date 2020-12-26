@@ -11407,7 +11407,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0x77fc6126d260b6f2826b8ca23ba34c8e5d2d5015f490e0e6333ad5d50588d3da": {
           "anonymous": false,
@@ -11455,165 +11455,12 @@
         }
       },
       "links": {},
-      "address": "0x11b60d13673d94B0BcBc339A9e1DA2572651b6F8",
-      "transactionHash": "0xe6ee64e2710fb7d5469893cad2f0cb01fe8e4967cfacf446862e50522cb59a2f"
-    },
-    "1608912618200": {
-      "events": {
-        "0x77fc6126d260b6f2826b8ca23ba34c8e5d2d5015f490e0e6333ad5d50588d3da": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "byWho",
-              "type": "address"
-            }
-          ],
-          "name": "UpdateAccepted",
-          "type": "event"
-        },
-        "0xf21895d501301debf8e85ad6a202415a1c431fdb019be7e01b71870841b827d9": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "treeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "imageHash",
-              "type": "string"
-            }
-          ],
-          "name": "UpdateAdded",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x6647c07Df5A13b4bBc2b83F4cCa97DDd5b05e3C7",
-      "transactionHash": "0x183a8906771808a72fb5843f40ecd8ef33f587c5ed8d0c77ec75f15ecd322882"
-    },
-    "1608912875627": {
-      "events": {
-        "0x77fc6126d260b6f2826b8ca23ba34c8e5d2d5015f490e0e6333ad5d50588d3da": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "byWho",
-              "type": "address"
-            }
-          ],
-          "name": "UpdateAccepted",
-          "type": "event"
-        },
-        "0xf21895d501301debf8e85ad6a202415a1c431fdb019be7e01b71870841b827d9": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "treeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "imageHash",
-              "type": "string"
-            }
-          ],
-          "name": "UpdateAdded",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x91d40286c80877f9726d1907b30ACc8e2E945ce6",
-      "transactionHash": "0xfdd2b3560e6d86915b934d90bd09c0617047ba276256960cf81aede047512bb2"
-    },
-    "1608912986880": {
-      "events": {
-        "0x77fc6126d260b6f2826b8ca23ba34c8e5d2d5015f490e0e6333ad5d50588d3da": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "byWho",
-              "type": "address"
-            }
-          ],
-          "name": "UpdateAccepted",
-          "type": "event"
-        },
-        "0xf21895d501301debf8e85ad6a202415a1c431fdb019be7e01b71870841b827d9": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "updateId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "treeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "imageHash",
-              "type": "string"
-            }
-          ],
-          "name": "UpdateAdded",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xA4B5BAddF267CD6406ff1d948251545a6A7bAdF5",
-      "transactionHash": "0xb38dc0b2233f8e3ea425e8875a1ef1ce90807d73dd5e83ae81986a0b023ac25e"
+      "address": "0xDC824eAb3f0974332020aA3A70f35C17b1778509",
+      "transactionHash": "0xb19de6cc2ec414ef6ae0c94c94cd260823e67ab5d735e62bcbce6cb31497a356"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.327Z",
+  "updatedAt": "2020-12-26T11:36:26.849Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

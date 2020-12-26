@@ -11939,7 +11939,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0xee1d22c56adf8004e20c2c8046f654eadde31bf648109f0253c823879220f807": {
           "anonymous": false,
@@ -11962,90 +11962,12 @@
         }
       },
       "links": {},
-      "address": "0xF2ba5315F38923049A9BfE1f7B77Dd38a92b9e10",
-      "transactionHash": "0xdf557b1b99e786a94fed69bd367ff20a0aad5cd5d71c357a31e336f5817a3e50"
-    },
-    "1608912618200": {
-      "events": {
-        "0xee1d22c56adf8004e20c2c8046f654eadde31bf648109f0253c823879220f807": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalO2",
-              "type": "uint256"
-            }
-          ],
-          "name": "O2Minted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x5A81CcE22951D4CFAe23aEB217547ec8d81eeFBa",
-      "transactionHash": "0x25a87283e8b91ee00774605b7ae184efe19d2216cb311f95a6c14ace2290dd6b"
-    },
-    "1608912875627": {
-      "events": {
-        "0xee1d22c56adf8004e20c2c8046f654eadde31bf648109f0253c823879220f807": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalO2",
-              "type": "uint256"
-            }
-          ],
-          "name": "O2Minted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x69B40317A64dceFBC2184Bc25a8386ce4C834B01",
-      "transactionHash": "0x34cbbd4f4962e21e832d5c9e7044a44d6989106b64f14377cc17aa4024573619"
-    },
-    "1608912986880": {
-      "events": {
-        "0xee1d22c56adf8004e20c2c8046f654eadde31bf648109f0253c823879220f807": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalO2",
-              "type": "uint256"
-            }
-          ],
-          "name": "O2Minted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x976Dec6023437d44Dc255cC718755ef8042cCfc2",
-      "transactionHash": "0xd937caf7401c012d8c1f91d54e7b86a90af0cae41c8272aaece0d868f0e1b447"
+      "address": "0x03Fe69E3dB87aA8047F257d79Fa9ff8aBA62d9a8",
+      "transactionHash": "0x081e8a7a65170689bd14cf64a6c6014f234cded4e7bd20d69bb67bdfa3588ad2"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.335Z",
+  "updatedAt": "2020-12-26T11:36:26.858Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

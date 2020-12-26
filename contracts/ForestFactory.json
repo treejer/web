@@ -3171,7 +3171,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0xdf9aaac2a1a5d1aa96529bee031a9ccd434937fc2ae0fc1fe9cb88b09bcd4394": {
           "anonymous": false,
@@ -3188,72 +3188,12 @@
         }
       },
       "links": {},
-      "address": "0xbaAD8C497c2A0e3Bba43BBBA74F659F3da610386",
-      "transactionHash": "0x595c880f01ef81a3c26d36e73c73b9c34e31dc6f02d52d6d2ddbcd31032d6adb"
-    },
-    "1608912618200": {
-      "events": {
-        "0xdf9aaac2a1a5d1aa96529bee031a9ccd434937fc2ae0fc1fe9cb88b09bcd4394": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "forestAddress",
-              "type": "address"
-            }
-          ],
-          "name": "PublicForestCreated",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x08ED4DbBD6d7A9DF86250c104503774963dF44d8",
-      "transactionHash": "0xeb5742a4325c1105bad708ad60da95cf31b4185778e282ecec99446be42a39c9"
-    },
-    "1608912875627": {
-      "events": {
-        "0xdf9aaac2a1a5d1aa96529bee031a9ccd434937fc2ae0fc1fe9cb88b09bcd4394": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "forestAddress",
-              "type": "address"
-            }
-          ],
-          "name": "PublicForestCreated",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x869EB8cB8e69aD95c557C16313c43Cad12D5996F",
-      "transactionHash": "0x32559c8d39851ee2fc5a1c9c626fe349059adf1b6bf287a001ad204b533b03f7"
-    },
-    "1608912986880": {
-      "events": {
-        "0xdf9aaac2a1a5d1aa96529bee031a9ccd434937fc2ae0fc1fe9cb88b09bcd4394": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "forestAddress",
-              "type": "address"
-            }
-          ],
-          "name": "PublicForestCreated",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x08aE6d0887DD14ccf864300E884BAB6Af900E90c",
-      "transactionHash": "0x723f6a0029d31033f74d4ae13f3abe80ed243cb7389b10968afef8f5860204de"
+      "address": "0x879FF49b6053A98D66F2835a4cfF8Bcc800a1E30",
+      "transactionHash": "0x94d97c3f24e11e07736e7e16057e64a2a9ab29c83564f5afff753ac08ea9d2ed"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.347Z",
+  "updatedAt": "2020-12-26T11:36:26.875Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

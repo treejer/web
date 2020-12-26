@@ -3308,7 +3308,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf": {
           "anonymous": false,
@@ -3349,144 +3349,12 @@
         }
       },
       "links": {},
-      "address": "0x148581F9965fE31D000eAD9fc78A225Bbf228c6F",
-      "transactionHash": "0x794ca8b45c54ff88d7056d76a1ea8c6765b16abb500b35f11e9a8622fbec39de"
-    },
-    "1608912618200": {
-      "events": {
-        "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "typeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "scientificName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "O2Formula",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "price",
-              "type": "uint256"
-            }
-          ],
-          "name": "NewType",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xc1cAe7afA99B72dbf1E7e25d1F57332FBbD3C2c8",
-      "transactionHash": "0xf13796da88d4a9812048f0ea8f23542d274518c6c71566b5dcc073d6195dc978"
-    },
-    "1608912875627": {
-      "events": {
-        "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "typeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "scientificName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "O2Formula",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "price",
-              "type": "uint256"
-            }
-          ],
-          "name": "NewType",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xbCe494A98341A314939B8AbF849e3f9122cf8876",
-      "transactionHash": "0x0735445aa2c59f02f3dd71d6ca7686e55f140497db40fc67463c524ed6070b80"
-    },
-    "1608912986880": {
-      "events": {
-        "0x2487dd7f9b73172e67560419cf16d322bc9836c20aed2dc3edf57e9e9e9388bf": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "typeId",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "scientificName",
-              "type": "string"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "O2Formula",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "price",
-              "type": "uint256"
-            }
-          ],
-          "name": "NewType",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x1Ef8b02A773B1Aa2bb180aF67204C25B3D2948ae",
-      "transactionHash": "0xfb4160d89c77e71af020e1fa774821b77603d566b66f9802e4ef2217bf9bf6ff"
+      "address": "0x76fA47560eB39c5C3548AA52f6835aa98411BE47",
+      "transactionHash": "0x662a4768038301d54f637869641eae97f15a457e75c892e4071b00ebfe48aff7"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.288Z",
+  "updatedAt": "2020-12-26T11:36:26.795Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

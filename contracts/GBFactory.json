@@ -9321,7 +9321,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0x4adeb3818195a413c2596f3d00779157c33e838590dbd18f2e925568a62b8266": {
           "anonymous": false,
@@ -9376,186 +9376,12 @@
         }
       },
       "links": {},
-      "address": "0x5501385D4D9a917C6F1c27cDF92897cc92AaE671",
-      "transactionHash": "0x8d9999e063c5ea53493d3d7095833e014828bbe000651269a992afa959f55844"
-    },
-    "1608912618200": {
-      "events": {
-        "0x4adeb3818195a413c2596f3d00779157c33e838590dbd18f2e925568a62b8266": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            }
-          ],
-          "name": "GBActivated",
-          "type": "event"
-        },
-        "0x69edcd8f027d69da8f4d4c342db4c2b8ed9f3662514b8e5d90ea159df55aefed": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "title",
-              "type": "string"
-            }
-          ],
-          "name": "NewGBAdded",
-          "type": "event"
-        },
-        "0x113f7835c809ac6fd6e6a25d8bf7ea1dc2b6c19c57e57ec5bd4638eda27e3f88": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "planter",
-              "type": "address"
-            }
-          ],
-          "name": "PlanterJoinedGB",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x7c73a2D496B91B1F90DaEb4d0c3dca1e8936E86b",
-      "transactionHash": "0xd5713f36f78b8d10c16cb2a6efb4415bfaad6b6dbb762463d59653ff0ec2512b"
-    },
-    "1608912875627": {
-      "events": {
-        "0x4adeb3818195a413c2596f3d00779157c33e838590dbd18f2e925568a62b8266": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            }
-          ],
-          "name": "GBActivated",
-          "type": "event"
-        },
-        "0x69edcd8f027d69da8f4d4c342db4c2b8ed9f3662514b8e5d90ea159df55aefed": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "title",
-              "type": "string"
-            }
-          ],
-          "name": "NewGBAdded",
-          "type": "event"
-        },
-        "0x113f7835c809ac6fd6e6a25d8bf7ea1dc2b6c19c57e57ec5bd4638eda27e3f88": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "planter",
-              "type": "address"
-            }
-          ],
-          "name": "PlanterJoinedGB",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xacbD367bD2033446d9a38E027E8F1048c8A1FE99",
-      "transactionHash": "0xb38f189ea2cc3f350bc787c52bffb4b732dc84158549ff5dfd703198f7e46525"
-    },
-    "1608912986880": {
-      "events": {
-        "0x4adeb3818195a413c2596f3d00779157c33e838590dbd18f2e925568a62b8266": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            }
-          ],
-          "name": "GBActivated",
-          "type": "event"
-        },
-        "0x69edcd8f027d69da8f4d4c342db4c2b8ed9f3662514b8e5d90ea159df55aefed": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "string",
-              "name": "title",
-              "type": "string"
-            }
-          ],
-          "name": "NewGBAdded",
-          "type": "event"
-        },
-        "0x113f7835c809ac6fd6e6a25d8bf7ea1dc2b6c19c57e57ec5bd4638eda27e3f88": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "id",
-              "type": "uint256"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "planter",
-              "type": "address"
-            }
-          ],
-          "name": "PlanterJoinedGB",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x0d9926ec5E00B1e0f1718F5C859839892db175CC",
-      "transactionHash": "0xdd904a7b33594519cf1336fc2300ddb1dac9f554007aa12786f2923026d684b3"
+      "address": "0x1BE94b396704c3D541774Df8Cfec22812dCD7315",
+      "transactionHash": "0x2218aa0e51b2404980a0c286c69bc3196b6ef3298e2f8c16194f8c2dd1f24681"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.283Z",
+  "updatedAt": "2020-12-26T11:36:26.788Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

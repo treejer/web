@@ -12115,7 +12115,7 @@
     "version": "0.6.9+commit.3e3065ac.Emscripten.clang"
   },
   "networks": {
-    "1608881957178": {
+    "3": {
       "events": {
         "0x05968e6a947a2e5ef43c310f361ba8d6bf8fe89a180dd33e277f3cf464ee37fe": {
           "anonymous": false,
@@ -12151,129 +12151,12 @@
         }
       },
       "links": {},
-      "address": "0xfb5E6B5023e35f1bC12229c83Bfb615780298E66",
-      "transactionHash": "0x997085a5181b1918fc406ff72512afcb6a91ad410fcd933ba81546ed5f1d46ba"
-    },
-    "1608912618200": {
-      "events": {
-        "0x05968e6a947a2e5ef43c310f361ba8d6bf8fe89a180dd33e277f3cf464ee37fe": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "seedGeneratedPerSecond",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedGeneratedPerSecondChanged",
-          "type": "event"
-        },
-        "0x5b4dbe98f08230118ef4a43ac61456c89e4dab170bcb03065a106384c20352e8": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalSeed",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedMinted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0x626B9424Eeaaa9CfDFCC266f486A221cC252841d",
-      "transactionHash": "0xfb1574b8fa38b363f8a730174eb435b13f98e7c81a0a6ac7a60839401d0b5c7d"
-    },
-    "1608912875627": {
-      "events": {
-        "0x05968e6a947a2e5ef43c310f361ba8d6bf8fe89a180dd33e277f3cf464ee37fe": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "seedGeneratedPerSecond",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedGeneratedPerSecondChanged",
-          "type": "event"
-        },
-        "0x5b4dbe98f08230118ef4a43ac61456c89e4dab170bcb03065a106384c20352e8": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalSeed",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedMinted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xcA566C5AbBa0920d8A2007E57047Df1C9be1461b",
-      "transactionHash": "0x378b00465764323a4b57fd90e50ad5dc78271413b8e2ff3fcd4c2724ced83677"
-    },
-    "1608912986880": {
-      "events": {
-        "0x05968e6a947a2e5ef43c310f361ba8d6bf8fe89a180dd33e277f3cf464ee37fe": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "seedGeneratedPerSecond",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedGeneratedPerSecondChanged",
-          "type": "event"
-        },
-        "0x5b4dbe98f08230118ef4a43ac61456c89e4dab170bcb03065a106384c20352e8": {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "uint256",
-              "name": "totalSeed",
-              "type": "uint256"
-            }
-          ],
-          "name": "SeedMinted",
-          "type": "event"
-        }
-      },
-      "links": {},
-      "address": "0xFCf270b1c974CFc91740742AC04F193Cf8FB574c",
-      "transactionHash": "0xc083bfb6959a11309a616333f28ab740a92febc7801a6fe798fc5f62615fd86d"
+      "address": "0xCa3B40Ca08528CE1f8fdb33E642B4eFa68059667",
+      "transactionHash": "0x86cfcc49c01d813e17022cbc7db37085963e442cbb3193b17e5b06c2eede7e53"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-12-25T17:06:19.343Z",
+  "updatedAt": "2020-12-26T11:36:26.869Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
