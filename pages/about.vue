@@ -153,7 +153,7 @@ export default {
           answer: 'https://discuss.treejer.com/question/what-do-i-need-to-start-funding-a-forest-with-treejer-5f125c522a32a845340b2856'
         },
         {
-          question: 'What’s the difference between O1 and O2 credits?',
+          question: 'What’s the difference between Seed and O2 credits?',
           answer: 'https://discuss.treejer.com/question/what-is-the-difference-between-o1-and-o2-credits-5f23df01cdafd946b4edf352'
         },
         {

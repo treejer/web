@@ -76,15 +76,28 @@ export const actions = {
       return method.name === 'fund'
     })
 
+    console.log(fundMethod, "method");
+
     const fundMethodTransactionData = web3Abi.encodeFunctionCall(
       fundMethod,
       [params.count]
     )
+
+    console.log(fundMethodTransactionData, "fundMethodTransactionData");
     // const estimateGas = await web3.eth.estimateGas({
     // 	from: account,
     // 	to: tokenAddress,
     // 	data: fundMethodTransactionData
     // })
+
+    console.log({
+      from: account,
+      to: tokenAddress,
+      data: fundMethodTransactionData,
+      value: web3.utils.toWei('0.01') * params.count,
+      // gas: estimateGas * 2
+    });
+    // console.log(estimateGas);
 
 
 
@@ -93,8 +106,8 @@ export const actions = {
         from: account,
         to: tokenAddress,
         data: fundMethodTransactionData,
-        value: web3.utils.toWei('0.01') * params.count,
-        // gas: estimateGas * 4
+        value: web3.utils.toWei('0.01') * params.count
+        // gas: estimateGas * 2
       }).on('transactionHash', (resolve) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {

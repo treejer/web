@@ -1,10 +1,10 @@
 import web3 from '~/plugins/web3'
-import O1Factory from '~/contracts/O1Factory'
+import SeedFactory from '~/contracts/SeedFactory'
 import web3Abi from 'web3-eth-abi'
 import {BToast} from "bootstrap-vue";
 
-const tokenAddress = process.env.contractO1FactoryAddress // insert deployed O1Factory token address here
-const o1Factory = new web3.eth.Contract(O1Factory.abi, tokenAddress)
+const tokenAddress = process.env.contractSeedFactoryAddress // insert deployed SeedFactory token address here
+const seedFactory = new web3.eth.Contract(SeedFactory.abi, tokenAddress)
 
 let account
 web3.eth.getAccounts().then(res => {
@@ -17,27 +17,27 @@ export const mutations = {}
 
 export const actions = {
   getMyTreeCount() {
-    return o1Factory.methods.ownerTreesCount(account).call({ from: account });
+    return seedFactory.methods.ownerTreesCount(account).call({ from: account });
   },
   getTree(context, params) {
-    return o1Factory.methods.getTree(params.id).call({ from: account });
+    return seedFactory.methods.getTree(params.id).call({ from: account });
   },
   balanceOf() {
-    return o1Factory.methods.balanceOf(account).call({ from: account })
-      .then((o1Balance) => web3.utils.fromWei(o1Balance));
+    return seedFactory.methods.balanceOf(account).call({ from: account })
+      .then((seedBalance) => web3.utils.fromWei(seedBalance));
   },
-  calculateMintableO1() {
-    return o1Factory.methods.calculateMintableO1(account).call({ from: account })
-      .then((mintableO1) => web3.utils.fromWei(mintableO1));
+  calculateMintableSeed() {
+    return seedFactory.methods.calculateMintableSeed(account).call({ from: account })
+      .then((mintableSeed) => web3.utils.fromWei(mintableSeed));
   },
   getPrice() {
-    return o1Factory.methods.getPrice().call({ from: account })
+    return seedFactory.methods.getPrice().call({ from: account })
       .then((treeWeiPrice) => web3.utils.fromWei(treeWeiPrice));
   },
   async mint(context, params) {
     let self = this
 
-    const mintMethod = O1Factory.abi.find(method => {
+    const mintMethod = SeedFactory.abi.find(method => {
       return method.name === 'mint'
     })
 

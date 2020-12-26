@@ -135,7 +135,7 @@ export default {
          this.getLeaderBoards()
       },
      async getLeaderBoards(){
-       const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`)
+       const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`)
        this.leaderBoards =leaderBoards.leaderboard.data
       },
       activeMenu(item, index) {

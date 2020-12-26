@@ -18,9 +18,9 @@
               <ul>
                 <li class="list-style-none time-line" v-if="updates" v-for="(item , index) in updates">
                   <p class="param-md tr-gray-three font-weight-lighter one-minted"
-                     v-if="item.type ==='O1Minted'">
-                    You successfully sent <span class="tr-green font-weight-bold Montserrat-Medium">{{ totalO1 }}</span>
-                    O1 from your forest to your wallet. <a
+                     v-if="item.type ==='SeedMinted'">
+                    You successfully sent <span class="tr-green font-weight-bold Montserrat-Medium">{{ totalSeed }}</span>
+                    Seed from your forest to your wallet. <a
                     class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold" @click="openModal(item)">See
                     details</a>
                     <span class="d-flex justify-content-start tr-gray-four param-sm font-weight-lighter time-box">
@@ -91,7 +91,7 @@ import web3 from '~/plugins/web3'
         updates: null,
         modalsrc:null,
         activity:null,
-        totalO1:null
+        totalSeed:null
       }
     },
     computed:{
@@ -112,14 +112,14 @@ import web3 from '~/plugins/web3'
       }
     },
     async mounted() {
-      const updates = await this.$axios.$get(`https://api.treejer.com/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
+      const updates = await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
       this.activity = updates
       this.updates = updates.events.data
       updates.events.data.map((item, index) => {
-        if (item.type === 'O1Minted') {
+        if (item.type === 'SeedMinted') {
           const pars = JSON.parse(item.data)
           console.log( web3.utils, 'item,index heee')
-          this.totalO1 =web3.utils.fromWei(pars.totalO1)
+          this.totalSeed =web3.utils.fromWei(pars.totalSeed)
         }
       })
 

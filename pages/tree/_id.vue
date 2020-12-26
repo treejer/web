@@ -39,7 +39,7 @@
           <img class="img-fluid m-auto" src="../../assets/images/tree-profile/arrow-left.svg" alt="arrow-left">
         </div>
         <div class="col-4 tree-profile-name">
-          <h4 class="pt-3 text-center"> {{ tree.name }}</h4>
+          <h4 class="pt-3 text-center"> {{ tree.id }}</h4>
           <div class="new-name-tree-profile" v-if="newName">
             <div class="stats">
               <span class=" tr-green pointer-event pr-2" @click="setNewName()">&check;</span>
@@ -69,14 +69,12 @@
           </div>
           <div class="card-tree-profile position-relative mb-5 ">
             <div v-if="tree.owner === $cookies.get('account')" class="position-absolute edit-name-position-absolute">
-              <button class="btn-green edit-name " @click="editName(tree.name)">Edit Name</button>
+              <button class="btn-green edit-name " @click="editName(tree.id)">Edit Name</button>
             </div>
             <div class="detail-card">
               <div class="location part">
                 <p class="param mb-0 tr-gray-three">Location</p>
-                <p class="param-18 mb-0 tr-gray-two"> <span class="pr-2">{{
-                    parseFloat(tree.latitude).toFixed(4)
-                  }}</span>,<span class="pl-2">{{ parseFloat(tree.longitude).toFixed(4) }}</span></p>
+                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
               </div>
               <div class="gps part">
                 <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
@@ -97,7 +95,7 @@
                 <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
               </div>
               <div class="climate part">
-                <p class="param mb-0 tr-gray-three">Climate Credits (O1)</p>
+                <p class="param mb-0 tr-gray-three">Climate Credits (Seed)</p>
                 <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
               </div>
 
@@ -107,7 +105,7 @@
               <GMap
                 ref="gMap"
                 :cluster="{options: {styles: clusterStyle}}"
-                :center="{lat:parseInt(tree.latitude) , lng: parseInt(tree.longitude)}"
+                :center="{lat: tree.latitude, lng: tree.longitude}"
                 :options="{
                 fullscreenControl: true
                 , streetViewControl: false,
@@ -391,7 +389,6 @@ export default {
         .then(function (response) {
           self.loading = false
           self.tree = response
-          console.log(self.tree,"self.tree")
 
         })
         .catch(function (error) {
@@ -432,7 +429,7 @@ export default {
         toaster: 'b-toaster-bottom-left',
 
       })
-      this.tree.name = this.newNameTree
+      this.tree.id = this.newNameTree
       this.newName = false
     },
     goToForest(id) {

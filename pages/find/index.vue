@@ -249,7 +249,7 @@ export default {
    await this.listTrees();
 
     const leaderBoards = await this.$axios.$get(
-      `https://api.treejer.com/trees/leaderboard?perPage=${this.perPage}`
+      `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
     );
 
     this.leaderBoards = leaderBoards.leaderboard.data;

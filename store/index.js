@@ -59,42 +59,42 @@ export const actions = {
         });
       }
 
-      const network = await web3.version.getNetwork((err, netId, netName) => {
-        console.log(netId,'netId')
+      // const network = await web3.version.getNetwork((err, netId, netName) => {
+      //   console.log(netId,'netId')
 
-        switch (netId) {
-          case "1":
-            netName = 'mainnet';
-            console.log('This is mainnet')
-            // showToast(netName)
-            break
-          case "2":
-            console.log('This is the deprecated Morden test network.')
-            netName = 'Morden';
-            // showToast(netName)
-            break
-          case "3":
-            console.log('This is the ropsten test network.')
-            netName = 'ropsten';
-            // showToast(netName)
-            break
-          case "4":
-            console.log('This is the Rinkeby test network.')
-            netName = 'Rinkeby';
-            // showToast(netName)
-            break
-          case "5":
-            console.log('This is the Goerly test network.')
-            netName = 'Goerly';
-            // showToast(netName)
-            break
-          default:
-            console.log('This is an unknown network.')
-            netName = 'unknown';
-            // showToast(netName)
-        }
-        commit('SET_NET_NAME', netName)
-      })
+      //   switch (netId) {
+      //     case "1":
+      //       netName = 'mainnet';
+      //       console.log('This is mainnet')
+      //       // showToast(netName)
+      //       break
+      //     case "2":
+      //       console.log('This is the deprecated Morden test network.')
+      //       netName = 'Morden';
+      //       // showToast(netName)
+      //       break
+      //     case "3":
+      //       console.log('This is the ropsten test network.')
+      //       netName = 'ropsten';
+      //       // showToast(netName)
+      //       break
+      //     case "4":
+      //       console.log('This is the Rinkeby test network.')
+      //       netName = 'Rinkeby';
+      //       // showToast(netName)
+      //       break
+      //     case "5":
+      //       console.log('This is the Goerly test network.')
+      //       netName = 'Goerly';
+      //       // showToast(netName)
+      //       break
+      //     default:
+      //       console.log('This is an unknown network.')
+      //       netName = 'unknown';
+      //       // showToast(netName)
+      //   }
+      //   commit('SET_NET_NAME', netName)
+      // })
     }
 
   },
@@ -244,7 +244,7 @@ export const actions = {
     })
   },
     async getLeaderBoards({commit}){
-    const leaderBoards = await this.$axios.$get(`https://api.treejer.com/trees/leaderboard?perPage=10`)
+      const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)
     commit('SET_LEADERBOARDS',leaderBoards.leaderboard.data)
   }
 }

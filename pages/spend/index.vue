@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <h1 class="param-lg tr-gray-three mb-3">Use O1 to redeem coupons</h1>
+          <h1 class="param-lg tr-gray-three mb-3">Use Seed to redeem coupons</h1>
         </div>
       </div>
       <div class="row">

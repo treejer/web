@@ -43,7 +43,7 @@ export default {
     contractO2FactoryAddress: process.env.CONTRACT_O2FACTORY_ADDRESS,
     contractTreeSaleAddress: process.env.CONTRACT_TREESALE_ADDRESS,
     contractFundAddress: process.env.CONTRACT_FUND_ADDRESS,
-    contractO1FactoryAddress: process.env.CONTRACT_O1FACTORY_ADDRESS,
+    contractSeedFactoryAddress: process.env.CONTRACT_SEEDFACTORY_ADDRESS,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
     apiUrl: process.env.API_URL || 'https://api.treejer.com',
     walletConnectProjectID:process.env.WALLETCONNECT_PROJECT_ID,
