@@ -1,27 +1,29 @@
 <template>
-  <section class="position-relative pt-5 col-12 step-page mb-5 pb-5 tree-profile rotate-vert-left">
+  <section
+    class="position-relative pt-5 col-12 step-page mb-5 pb-5 tree-profile rotate-vert-left"
+  >
     <div class="container-fluid" v-if="tree">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
-            <span
-              class="icon position-absolute position-relative"
-              @click="findTree()"
+          <span
+            class="icon position-absolute position-relative"
+            @click="findTree()"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                width="17"
-                height="17"
-                viewBox="0 0 17 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16.2819 13.836L13.1669 10.721C13.0971 10.6514 13.0143 10.5962 12.9232 10.5586C12.8321 10.521 12.7345 10.5018 12.6359 10.502H12.1269C13.1461 9.19825 13.6296 7.55483 13.4788 5.90684C13.3281 4.25886 12.5545 2.73042 11.3157 1.63317C10.0769 0.535909 8.46624 -0.0475353 6.81211 0.00179246C5.15799 0.0511202 3.58496 0.729505 2.41375 1.89863C1.24255 3.06775 0.561371 4.63958 0.509105 6.29361C0.456839 7.94765 1.03742 9.55934 2.13248 10.8001C3.22753 12.0408 4.75459 12.8172 6.40231 12.9708C8.05002 13.1245 9.6943 12.6439 10.9999 11.627V12.136C10.9997 12.2346 11.0189 12.3322 11.0565 12.4234C11.094 12.5145 11.1492 12.5973 11.2189 12.667L14.3349 15.783C14.4043 15.8528 14.4868 15.9081 14.5777 15.9459C14.6686 15.9837 14.766 16.0031 14.8644 16.0031C14.9628 16.0031 15.0602 15.9837 15.1511 15.9459C15.242 15.9081 15.3245 15.8528 15.3939 15.783L16.2779 14.899C16.4188 14.7583 16.4983 14.5675 16.4991 14.3684C16.4998 14.1692 16.4218 13.9778 16.2819 13.836ZM6.99989 10.501C6.20877 10.501 5.43541 10.2664 4.77761 9.82691C4.11981 9.38739 3.60712 8.76267 3.30437 8.03177C3.00162 7.30087 2.92241 6.4966 3.07675 5.72067C3.23109 4.94475 3.61205 4.23202 4.17146 3.67261C4.73087 3.1132 5.44361 2.73224 6.21953 2.57789C6.99545 2.42355 7.79972 2.50277 8.53063 2.80552C9.26153 3.10827 9.88624 3.62096 10.3258 4.27875C10.7653 4.93655 10.9999 5.70991 10.9999 6.50104C10.9999 7.5619 10.5785 8.57932 9.82832 9.32946C9.07817 10.0796 8.06076 10.501 6.99989 10.501Z"
-                  fill="#9E9E9E"
-                />
-              </svg>
-            </span>
+              <path
+                d="M16.2819 13.836L13.1669 10.721C13.0971 10.6514 13.0143 10.5962 12.9232 10.5586C12.8321 10.521 12.7345 10.5018 12.6359 10.502H12.1269C13.1461 9.19825 13.6296 7.55483 13.4788 5.90684C13.3281 4.25886 12.5545 2.73042 11.3157 1.63317C10.0769 0.535909 8.46624 -0.0475353 6.81211 0.00179246C5.15799 0.0511202 3.58496 0.729505 2.41375 1.89863C1.24255 3.06775 0.561371 4.63958 0.509105 6.29361C0.456839 7.94765 1.03742 9.55934 2.13248 10.8001C3.22753 12.0408 4.75459 12.8172 6.40231 12.9708C8.05002 13.1245 9.6943 12.6439 10.9999 11.627V12.136C10.9997 12.2346 11.0189 12.3322 11.0565 12.4234C11.094 12.5145 11.1492 12.5973 11.2189 12.667L14.3349 15.783C14.4043 15.8528 14.4868 15.9081 14.5777 15.9459C14.6686 15.9837 14.766 16.0031 14.8644 16.0031C14.9628 16.0031 15.0602 15.9837 15.1511 15.9459C15.242 15.9081 15.3245 15.8528 15.3939 15.783L16.2779 14.899C16.4188 14.7583 16.4983 14.5675 16.4991 14.3684C16.4998 14.1692 16.4218 13.9778 16.2819 13.836ZM6.99989 10.501C6.20877 10.501 5.43541 10.2664 4.77761 9.82691C4.11981 9.38739 3.60712 8.76267 3.30437 8.03177C3.00162 7.30087 2.92241 6.4966 3.07675 5.72067C3.23109 4.94475 3.61205 4.23202 4.17146 3.67261C4.73087 3.1132 5.44361 2.73224 6.21953 2.57789C6.99545 2.42355 7.79972 2.50277 8.53063 2.80552C9.26153 3.10827 9.88624 3.62096 10.3258 4.27875C10.7653 4.93655 10.9999 5.70991 10.9999 6.50104C10.9999 7.5619 10.5785 8.57932 9.82832 9.32946C9.07817 10.0796 8.06076 10.501 6.99989 10.501Z"
+                fill="#9E9E9E"
+              />
+            </svg>
+          </span>
           <FormulateInput
-            class="search param-sm "
+            class="search param-sm"
             placeholder="Enter Tree ID"
             @keyup.enter="findTree()"
             type="text"
@@ -29,100 +31,140 @@
             name="treeID"
           />
         </div>
-        <div class="col-12 tree-profile-img justify-content-center ">
-          <img src="../../assets/images/find/tree.svg" alt="tree"/>
-          <span class="tr-gray-three tree-profile-number font-weight-bolder" id="edit_name">{{ tree.id }}</span>
+        <div class="col-12 tree-profile-img justify-content-center">
+          <img src="../../assets/images/find/tree.svg" alt="tree" />
+          <span
+            class="tr-gray-three tree-profile-number font-weight-bolder"
+            id="edit_name"
+            >{{ tree.id }}</span
+          >
         </div>
       </div>
       <div class="row justify-content-center arrows">
         <div class="col-4 arrow-left text-right pointer-event" @click="odd">
-          <img class="img-fluid m-auto" src="../../assets/images/tree-profile/arrow-left.svg" alt="arrow-left">
+          <img
+            class="img-fluid m-auto"
+            src="../../assets/images/tree-profile/arrow-left.svg"
+            alt="arrow-left"
+          />
         </div>
         <div class="col-4 tree-profile-name">
-          <h4 class="pt-3 text-center"> {{ tree.id }}</h4>
+          <h4 class="pt-3 text-center">{{ tree.id }}</h4>
           <div class="new-name-tree-profile" v-if="newName">
             <div class="stats">
-              <span class=" tr-green pointer-event pr-2" @click="setNewName()">&check;</span>
-              <span class=" tr-red  pointer-event" @click="newName = false">x</span>
+              <span class="tr-green pointer-event pr-2" @click="setNewName()"
+                >&check;</span
+              >
+              <span class="tr-red pointer-event" @click="newName = false"
+                >x</span
+              >
             </div>
 
-            <input placeholder="New name..."
-                   class="form-control border-0
-                      new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
-                   type="text" v-model="newNameTree"
-                   @keyup.enter="setNewName()"
-            >
-
-
+            <input
+              placeholder="New name..."
+              class="form-control border-0 new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
+              type="text"
+              v-model="newNameTree"
+              @keyup.enter="setNewName()"
+            />
           </div>
-
         </div>
         <div class="col-4 arrow-right text-left pointer-event" @click="add">
-          <img class="img-fluid m-auto" src="../../assets/images/tree-profile/arrow-right.svg" alt="arrow-right">
+          <img
+            class="img-fluid m-auto"
+            src="../../assets/images/tree-profile/arrow-right.svg"
+            alt="arrow-right"
+          />
         </div>
         <div class="col-12 col-md-5 text-center position-relative">
           <div class="box-tree-profile">
-            <p class="param tr-gray-two">Swipe to see more trees in <span class="tr-green pointer-event"
-                                                                          @click="goToForest(tree.owner)"
-                                                                          v-coin>{{ tree.owner }}</span> ’s
-              forest</p>
+            <p class="param tr-gray-two">
+              Swipe to see more trees in
+              <span
+                class="tr-green pointer-event"
+                @click="goToForest(tree.owner)"
+                v-coin
+                >{{ tree.owner }}</span
+              >
+              ’s forest
+            </p>
           </div>
-          <div class="card-tree-profile position-relative mb-5 ">
-            <div v-if="tree.owner === $cookies.get('account')" class="position-absolute edit-name-position-absolute">
-              <button class="btn-green edit-name " @click="editName(tree.id)">Edit Name</button>
+          <div class="card-tree-profile position-relative mb-5">
+            <div
+              v-if="tree.owner === $cookies.get('account')"
+              class="position-absolute edit-name-position-absolute"
+            >
+              <button class="btn-green edit-name" @click="editName(tree.id)">
+                Edit Name
+              </button>
             </div>
             <div class="detail-card">
               <div class="location part">
                 <p class="param mb-0 tr-gray-three">Location</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
               </div>
               <div class="gps part">
                 <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
-                <p class="param-18 mb-0 tr-gray-two"> <span class="pr-2">{{
+                <p class="param-18 mb-0 tr-gray-two">
+                  <span class="pr-2">{{
                     parseFloat(tree.latitude).toFixed(4)
-                  }}</span>,<span class="pl-2">{{ parseFloat(tree.longitude).toFixed(4) }}</span></p>
+                  }}</span
+                  >,<span class="pl-2">{{
+                    parseFloat(tree.longitude).toFixed(4)
+                  }}</span>
+                </p>
               </div>
               <div class="species part">
                 <p class="param mb-0 tr-gray-three">Species</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
               </div>
               <div class="planter part">
                 <p class="param mb-0 tr-gray-three">Planter</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
               </div>
               <div class="block part">
                 <p class="param mb-0 tr-gray-three">Green Block</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
               </div>
               <div class="climate part">
                 <p class="param mb-0 tr-gray-three">Climate Credits (Seed)</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ '---------' }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
               </div>
-
-
             </div>
             <div class="map-tree-profile mb-5">
               <GMap
                 ref="gMap"
-                :cluster="{options: {styles: clusterStyle}}"
-                :center="{lat: tree.latitude, lng: tree.longitude}"
+                :cluster="{ options: { styles: clusterStyle } }"
+                :center="{
+                  lat: parseInt(tree.latitude),
+                  lng: parseInt(tree.longitude),
+                }"
                 :options="{
-                fullscreenControl: true
-                , streetViewControl: false,
-                 mapTypeControl: false,
+                  fullscreenControl: true,
+                  streetViewControl: false,
+                  mapTypeControl: false,
                   zoomControl: true,
-                   gestureHandling: 'cooperative', styles: mapStyle}"
+                  gestureHandling: 'cooperative',
+                  styles: mapStyle,
+                }"
                 :zoom="7"
-                style="width: 100%; height: 400px;margin-top: 35px;overflow: hidden;border-radius: 0px;"
+                style="
+                  width: 100%;
+                  height: 400px;
+                  margin-top: 35px;
+                  overflow: hidden;
+                  border-radius: 0px;
+                "
               >
                 <GMapMarker
-                  :position="{lat:tree.latitude, lng:tree.longitude}"
-                  :options="{icon: pins.selected}"
+                  :position="{
+                    lat: parseInt(tree.latitude),
+                    lng: parseInt(tree.longitude),
+                  }"
+                  :options="{ icon: pins.selected }"
                 ></GMapMarker>
               </GMap>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -140,6 +182,8 @@ export default {
   data() {
     return {
       tree: null,
+      lat:null,
+      lng:null,
       newName:false,
       newNameTree:null,
       treeCount: null,
@@ -389,6 +433,9 @@ export default {
         .then(function (response) {
           self.loading = false
           self.tree = response
+          self.lat=  parseInt(self.tree.latitude)
+          self.lng=  parseInt(self.tree.longitude)
+          console.log(self.lat, self.lng,"self.tree")
 
         })
         .catch(function (error) {
@@ -413,11 +460,6 @@ export default {
     },
     changeRoute(item) {
       window.open(item, '_blank')
-    },
-    convertToGeoName(lat,lng){
-      this.$axios.$get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.GOOGLE_MAP_API_KEY}`).then((res)=>{
-        console.log(res,'res')
-      })
     },
     editName(item){
       console.log(item,'item')
@@ -457,7 +499,6 @@ export default {
       font-size: 22px;
       color: #424242;
       display: block;
-
     }
   }
 
@@ -469,7 +510,6 @@ export default {
       color: #424242;
       font-weight: bolder;
     }
-
   }
 
   .box-tree-profile {
@@ -479,34 +519,31 @@ export default {
 
     p {
       padding: 12px 15px;
-
     }
   }
-  .new-name-tree-profile{
+  .new-name-tree-profile {
     width: 100%;
-    .stats{
+    .stats {
       position: absolute;
       top: 15px;
       z-index: +999999;
       right: 0;
-      span{
+      span {
         font-size: 28px;
       }
-
     }
-    input{
+    input {
       position: absolute;
       z-index: +99999;
       width: 100%;
       top: 7px;
-      background: #faf8f2!important;
+      background: #faf8f2 !important;
       font-size: 28px;
     }
-
   }
   .card-tree-profile {
     height: 772px;
-    background: #FFFFFF;
+    background: #ffffff;
     box-shadow: 2px 6px 44px rgba(0, 0, 0, 0.09);
     border-radius: 12px;
     margin-top: 51px;
@@ -517,12 +554,11 @@ export default {
       top: -16px;
     }
 
-
     .edit-name {
       padding: 4px 24px;
       border-radius: 6px;
       font-size: 18px;
-      color: #FAFAFA;
+      color: #fafafa;
     }
 
     .detail-card {
@@ -531,12 +567,14 @@ export default {
       .part {
         padding-top: 32px;
       }
-
     }
   }
-
 }
-.rotate-vert-left{-webkit-animation:rotate-vert-left .9s cubic-bezier(.645,.045,.355,1.000) both;animation:rotate-vert-left .5s cubic-bezier(.645,.045,.355,1.000) both}
+.rotate-vert-left {
+  -webkit-animation: rotate-vert-left 0.9s cubic-bezier(0.645, 0.045, 0.355, 1)
+    both;
+  animation: rotate-vert-left 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) both;
+}
 /* ----------------------------------------------
  * Generated by Animista on 2020-9-23 16:2:53
  * Licensed under FreeBSD License.
@@ -544,5 +582,32 @@ export default {
  * w: http://animista.net, t: @cssanimista
  * ---------------------------------------------- */
 
-@-webkit-keyframes rotate-vert-left{0%{-webkit-transform:rotateY(0);transform:rotateY(0);-webkit-transform-origin:left;transform-origin:left}100%{-webkit-transform:rotateY(360deg);transform:rotateY(360deg);-webkit-transform-origin:left;transform-origin:left}}@keyframes rotate-vert-left{0%{-webkit-transform:rotateY(0);transform:rotateY(0);-webkit-transform-origin:left;transform-origin:left}100%{-webkit-transform:rotateY(360deg);transform:rotateY(360deg);-webkit-transform-origin:left;transform-origin:left}}
+@-webkit-keyframes rotate-vert-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+  }
+}
+@keyframes rotate-vert-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+    transform: rotateY(360deg);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+  }
+}
 </style>

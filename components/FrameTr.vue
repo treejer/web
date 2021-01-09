@@ -5,7 +5,7 @@
           type="email"
           class="mb-2"
           name="email"
-          label="Email "
+          label="Email"
           placeholder="exmaple@example.com"
           validation="email"
           error-behavior="blur"

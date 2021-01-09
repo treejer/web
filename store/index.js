@@ -1,11 +1,13 @@
 import WalletConnect from "walletconnect";
 import Web3 from 'web3';
-import { BToast } from 'bootstrap-vue'
+import {
+  BToast
+} from 'bootstrap-vue'
 
 
 export const state = () => ({
   token: null,
-  toast:false,
+  toast: false,
   sliceAccount: null,
   index: 0,
   account: null,
@@ -21,35 +23,43 @@ export const state = () => ({
   hasMetaMask: false,
   fortmatic: null,
   connectingWallet: null,
-  modalFive:true
+  modalFive: true
 })
 
 export const actions = {
- async metaMask({commit}) {
-    let self =this
+  async metaMask({
+    commit
+  }) {
+    let self = this
     await ethereum.enable()
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    });
     const account = accounts[0];
     commit('SET_USER', account)
     self.$cookies.set('account', account)
-   console.log(self.state.dashboard,'self')
-   if(self.state.dashboard) {
-     await self.$router.push(`forest/${self.$cookies.get('account')}`)
-   }else {
-      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
-   }
+    console.log(self.state.dashboard, 'self')
+    if (self.state.dashboard) {
+      await self.$router.push(`forest/${self.$cookies.get('account')}`)
+    } else {
+      await self.$router.push(`forest/${self.$cookies.get('account')}`)
+    }
 
 
 
   },
-  async networkNames({commit}) {
+  async networkNames({
+    commit
+  }) {
     let bootStrapToaster = new BToast();
 
     if (process.client) {
+
       const web3 = window.web3
       let net = null
-      let self =this
-      function showToast(netName){
+      let self = this
+
+      function showToast(netName) {
         bootStrapToaster.$bvToast.toast(`You are now on ${netName || 'unknown'} Test Network`, {
           title: `Switched network`,
           href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
@@ -58,63 +68,59 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
         });
       }
-
-      // const network = await web3.version.getNetwork((err, netId, netName) => {
-      //   console.log(netId,'netId')
-
-      //   switch (netId) {
-      //     case "1":
-      //       netName = 'mainnet';
-      //       console.log('This is mainnet')
-      //       // showToast(netName)
-      //       break
-      //     case "2":
-      //       console.log('This is the deprecated Morden test network.')
-      //       netName = 'Morden';
-      //       // showToast(netName)
-      //       break
-      //     case "3":
-      //       console.log('This is the ropsten test network.')
-      //       netName = 'ropsten';
-      //       // showToast(netName)
-      //       break
-      //     case "4":
-      //       console.log('This is the Rinkeby test network.')
-      //       netName = 'Rinkeby';
-      //       // showToast(netName)
-      //       break
-      //     case "5":
-      //       console.log('This is the Goerly test network.')
-      //       netName = 'Goerly';
-      //       // showToast(netName)
-      //       break
-      //     default:
-      //       console.log('This is an unknown network.')
-      //       netName = 'unknown';
-      //       // showToast(netName)
-      //   }
-      //   commit('SET_NET_NAME', netName)
-      // })
+      console.log(web3.version.network, "web3.version")
+      const ID = web3.version.network
+      const network = await web3.version.getNetwork((err, netId, netName) => {
+        console.log(netId, 'netId')
+        switch (netId || ID) {
+          case "1":
+            netName = 'mainnet';
+            console.log('This is mainnet')
+            break
+          case "2":
+            console.log('This is the deprecated Morden test network.')
+            netName = 'Morden';
+            break
+          case "3":
+            console.log('This is the ropsten test network.')
+            netName = 'ropsten';
+            break
+          case "4":
+            console.log('This is the Rinkeby test network.')
+            netName = 'Rinkeby';
+            break
+          case "5":
+            console.log('This is the Goerly test network.')
+            netName = 'Goerly';
+            break
+          default:
+            console.log('This is an unknown network.')
+            netName = 'unknown';
+        }
+        commit('SET_NET_NAME', netName)
+      })
     }
 
   },
-  async walletConnect({commit}) {
-   let self =this
-    commit('SET_WALLET','walletconnect')
+  async walletConnect({
+    commit
+  }) {
+    let self = this
+    commit('SET_WALLET', 'walletconnect')
     self.$cookies.set('walletName', 'walletconnect')
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
-    commit('SET_USER', null )
+    commit('SET_USER', null)
     self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
-    if(self.state.dashboard){
-      await  self.$router.push(`${self.$cookies.get('account')}`)
-    }else {
-      await  self.$router.push(`forest/${self.$cookies.get('account')}`)
+    if (self.state.dashboard) {
+      await self.$router.push(`${self.$cookies.get('account')}`)
+    } else {
+      await self.$router.push(`forest/${self.$cookies.get('account')}`)
     }
-    console.log(env,'walletConnectProjectID')
+    console.log(env, 'walletConnectProjectID')
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
@@ -122,14 +128,18 @@ export const actions = {
     const channelProvider = await wc.getChannelProvider();
 
   },
-  async portis({commit}) {
+  async portis({
+    commit
+  }) {
 
-    commit('SET_WALLET','portis')
+    commit('SET_WALLET', 'portis')
     this.$cookies.set('walletName', 'portis')
     if (process.client) {
       const Portis = require("@portis/web3");
       let self = this
-      const portis = new Portis(process.env.PORTIS, 'ropsten',{ scope: ['email']});
+      const portis = new Portis(process.env.PORTIS, 'ropsten', {
+        scope: ['email']
+      });
 
       const web3OnPortis = new Web3(portis.provider);
       await web3OnPortis.eth.getAccounts((error, accounts) => {
@@ -138,11 +148,12 @@ export const actions = {
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
 
-        if(self.state.dashboard){
-            self.$router.push(`${self.$cookies.get('account')}`)
-        }else {
-            self.$router.push(`forest/${self.$cookies.get('account')}`)
-        }      });
+        if (self.state.dashboard) {
+          self.$router.push(`${self.$cookies.get('account')}`)
+        } else {
+          self.$router.push(`forest/${self.$cookies.get('account')}`)
+        }
+      });
       await portis.onLogin(
         (walletAddress) => {
           console.log(walletAddress, "walletAddress walletAddress")
@@ -151,50 +162,58 @@ export const actions = {
 
     }
   },
-  async fortmatic({commit}) {
+  async fortmatic({
+    commit
+  }) {
     const Fortmatic = require("fortmatic");
-    let self =this
-      commit('SET_WALLET','fortmatic')
-      self.$cookies.set('walletName', 'fortmatic')
-      const fm =await new Fortmatic(process.env.FORTMATIC);
-      commit('SET_FORTMATIC',fm)
-      const web3 =await new Web3(fm.getProvider());
-      web3.currentProvider.enable();
-      await  web3.eth.getAccounts((err, accounts) => {
-        let address = accounts[0];
-        self.$cookies.set('account', null)
-        self.commit('SET_USER', null)
-        self.$cookies.set('account', address)
-        if(self.state.dashboard){
-            self.$router.push(`${self.$cookies.get('account')}`)
-        }else {
-            self.$router.push(`forest/${self.$cookies.get('account')}`)
-        }
-        self.commit('SET_USER', address)
-          self.commit('SET_MODAL_FIVE', false)
-      });
-        // Get user balance (includes ERC20 tokens as well)
-        let balances = await fm.user.getBalances();
-        let ethBalance = balances.find((e) => {
-          // return e.crypto_currency == 'ETH';
-        });
+    let self = this
+    commit('SET_WALLET', 'fortmatic')
+    self.$cookies.set('walletName', 'fortmatic')
+    const fm = await new Fortmatic(process.env.FORTMATIC);
+    commit('SET_FORTMATIC', fm)
+    const web3 = await new Web3(fm.getProvider());
+    web3.currentProvider.enable();
+    await web3.eth.getAccounts((err, accounts) => {
+      let address = accounts[0];
+      self.$cookies.set('account', null)
+      self.commit('SET_USER', null)
+      self.$cookies.set('account', address)
+      if (self.state.dashboard) {
+        self.$router.push(`${self.$cookies.get('account')}`)
+      } else {
+        self.$router.push(`forest/${self.$cookies.get('account')}`)
+      }
+      self.commit('SET_USER', address)
+      self.commit('SET_MODAL_FIVE', false)
+    });
+    // Get user balance (includes ERC20 tokens as well)
+    let balances = await fm.user.getBalances();
+    let ethBalance = balances.find((e) => {
+      // return e.crypto_currency == 'ETH';
+    });
   },
-  async activeIndex({commit}, {activeIndex}) {
-    await  commit('SET_INDEX', activeIndex)
+  async activeIndex({
+    commit
+  }, {
+    activeIndex
+  }) {
+    await commit('SET_INDEX', activeIndex)
   },
-  async refreshChain(){
-    if(process.client) {
-     ethereum.autoRefreshOnNetworkChange = false;
+  async refreshChain() {
+    if (process.client) {
+      ethereum.autoRefreshOnNetworkChange = false;
       let currentChainId = ethereum.chainId;
     }
   },
-  async logout({commit}) {
-   let self =this
+  async logout({
+    commit
+  }) {
+    let self = this
     if (this.$cookies.get('walletName') === 'portis') {
       const Portis = require("@portis/web3");
       const portis = await Portis(process.env.PORTIS, 'ropsten')
       portis.logout();
-      self.$cookies.set('account',null);
+      self.$cookies.set('account', null);
       commit('SET_USER', null)
     }
     if (this.$cookies.get('walletName') === 'metamask') {
@@ -202,7 +221,7 @@ export const actions = {
       const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
       eth.autoRefreshOnNetworkChange = false
       eth.publicConfigStore._state.isUnlocked = false
-      self.$cookies.set('account',null);
+      self.$cookies.set('account', null);
       self.commit('SET_USER', null)
       console.log(self.state.account)
       eth.on('chainChanged', handleChainChanged)
@@ -224,14 +243,24 @@ export const actions = {
     await commit('SET_USER', null)
     await self.$router.push('/')
   },
-  hasDashboard({commit}, {status}) {
+  hasDashboard({
+    commit
+  }, {
+    status
+  }) {
     commit('SET_DASHBOARD', status)
   },
-  async ethPrices({commit},{err}) {
+  async ethPrices({
+    commit
+  }, {
+    err
+  }) {
     const ethPrice = await this.$axios.$get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE')
     commit('SET_ETH_PRICE', ethPrice.result)
   },
-  signUpForm({commit}) {
+  signUpForm({
+    commit
+  }) {
     this.$axios.$post('https://api.sg-form.com/signup', {
       email: "iraj.habibzadeh70@gmail.com",
       first_name: "mehdi",
@@ -243,9 +272,11 @@ export const actions = {
       commit('SET_USERS_FROM', res)
     })
   },
-    async getLeaderBoards({commit}){
-      const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)
-    commit('SET_LEADERBOARDS',leaderBoards.leaderboard.data)
+  async getLeaderBoards({
+    commit
+  }) {
+    const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)
+    commit('SET_LEADERBOARDS', leaderBoards.leaderboard.data)
   }
 }
 
@@ -262,7 +293,7 @@ export const mutations = {
   SET_WALLET(state, connectingWallet) {
     state.connectingWallet = connectingWallet
   },
-  SLICE_ACCOUNT(state, sliceAccount){
+  SLICE_ACCOUNT(state, sliceAccount) {
     state.sliceAccount = sliceAccount
   },
   SET_INDEX(state, index) {

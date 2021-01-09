@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue'
+import PacmanLoader from 'vue-spinner/src/BeatLoader.vue'
 
 export default {
   name: "Wallets",
