@@ -49,7 +49,7 @@
           />
         </div>
         <div class="col-4 tree-profile-name">
-          <h4 class="pt-3 text-center">{{ tree.id }}</h4>
+          <h4 class="pt-3 text-center">{{ tree.tree_id }}</h4>
           <div class="new-name-tree-profile" v-if="newName">
             <div class="stats">
               <span class="tr-green pointer-event pr-2" @click="setNewName()"
@@ -100,8 +100,8 @@
             </div>
             <div class="detail-card">
               <div class="location part">
-                <p class="param mb-0 tr-gray-three">Location</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
+                <p class="param mb-0 tr-gray-three">Planted Date</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ tree.birthDate }}</p>
               </div>
               <div class="gps part">
                 <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
@@ -116,15 +116,16 @@
               </div>
               <div class="species part">
                 <p class="param mb-0 tr-gray-three">Species</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ tree.type.name }}</p>
               </div>
               <div class="planter part">
                 <p class="param mb-0 tr-gray-three">Planter</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
+                <p
+                 class="param-18 mb-0 tr-gray-two" v-coin>{{ tree.planter }}</p>
               </div>
               <div class="block part">
                 <p class="param mb-0 tr-gray-three">Green Block</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ tree.greenblock.title }}</p>
               </div>
               <div class="climate part">
                 <p class="param mb-0 tr-gray-three">Climate Credits (Seed)</p>
@@ -435,7 +436,7 @@ export default {
           self.tree = response
           self.lat=  parseInt(self.tree.latitude)
           self.lng=  parseInt(self.tree.longitude)
-          console.log(self.lat, self.lng,"self.tree")
+          console.log( self.tree,"self.tree")
 
         })
         .catch(function (error) {
