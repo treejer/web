@@ -36,7 +36,7 @@
           <span
             class="tr-gray-three tree-profile-number font-weight-bolder"
             id="edit_name"
-            >{{ tree.id }}</span
+            >{{ tree.tree_id }}</span
           >
         </div>
       </div>
