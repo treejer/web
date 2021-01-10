@@ -129,7 +129,7 @@
               </div>
               <div class="climate part">
                 <p class="param mb-0 tr-gray-three">Climate Credits (Seed)</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ "---------" }}</p>
+                <p class="param-18 mb-0 tr-gray-two">{{ 0 }}</p>
               </div>
             </div>
             <div class="map-tree-profile mb-5">
