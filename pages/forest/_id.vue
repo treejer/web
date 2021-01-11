@@ -373,33 +373,24 @@
               class="avatar-card border-0 text-center justify-content-center"
             >
               <div class="card-img position-relative">
-                <img
-                  v-if="!$cookies.get('account')"
-                  :src="avatar"
-                  alt="username"
-                  class="avatar-pic img-fluid"
-                />
-                <img
+                 <img
                   v-if="$cookies.get('account')"
                   :src="icon"
                   alt="username"
                   class="avatar-pic img-fluid"
                 />
+                <img
+                  v-else
+                                    :src="avatar"
+                  alt="username"
+                  class="avatar-pic img-fluid"
+                />
+               
               </div>
-              <p
-                v-if="$cookies.get('account')"
-                class="param-sm mt-3 tr-gray-three token"
-                v-coin
-              >
-                {{ $cookies.get("account") }}
+              <p v-coin class="param-sm mt-3 tr-gray-three token" >
+                {{$cookies.get("account") ? $cookies.get("account") : "Guest"}}
               </p>
-              <p
-                v-if="!$cookies.get('account')"
-                class="param-sm mt-3 tr-gray-three token"
-              >
-                Guest
-              </p>
-              <p class="param-sm mt-4 tr-gray-four font-weight-bold">
+              <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
                 Wallet Balance
               </p>
               <div class="row tokens">
@@ -508,9 +499,7 @@ export default {
 
   data() {
     return {
-      icon: `${process.env.gravatar}${this.$cookies
-        .get("account")
-        .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
+      icon: `${process.env.gravatar}${this.$cookies.get("account").replace(/[^0-9\\.]+/g, "")}?d=robohash`,
       otherForest: false,
       ownerTreesLoaded: false,
       showMoreTreeData: false,
