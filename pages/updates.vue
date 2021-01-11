@@ -29,7 +29,7 @@
 
                     </span>
                   </p>
-                  <p class="param-md tr-gray-three font-weight-lighter tree-funded" v-if="item.type ==='TreeFunded' ">
+                  <p class="param-md tr-gray-three font-weight-lighter tree-funded" v-if="item.type ==='Fund' ">
                     You successfully added 1 Tree with id <a
                     class="tr-green pointer-event Montserrat-Medium font-weight-bold">#{{ item.id }}</a> to your forest. <a
                     class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold" @click="openModal(item)">See
