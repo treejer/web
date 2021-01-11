@@ -83,7 +83,7 @@ export default {
   props: ['wallets'],
   data() {
     return {
-      icon:`${process.env.gravatar}${this.$cookies.get('account').replace(/[^0-9\\.]+/g, "")}?d=robohash`,
+      icon:`${process.env.gravatar}${this.$cookies.get('account')}?d=robohash`,
       account: null,
       loading: false,
       hasAccount:false,
