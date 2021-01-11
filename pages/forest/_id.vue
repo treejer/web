@@ -373,7 +373,7 @@
               class="avatar-card border-0 text-center justify-content-center"
             >
               <div class="card-img position-relative">
-                 <img
+                <img
                   v-if="$cookies.get('account')"
                   :src="icon"
                   alt="username"
@@ -381,15 +381,18 @@
                 />
                 <img
                   v-else
-                                    :src="avatar"
+                  :src="avatar"
                   alt="username"
                   class="avatar-pic img-fluid"
                 />
-               
               </div>
-              <p v-coin class="param-sm mt-3 tr-gray-three token" >
-                {{$cookies.get("account") ? $cookies.get("account") : "Guest"}}
-              </p>
+                <p v-if="$cookies.get('account')" v-coin class="param-sm mt-3 tr-gray-three token">
+                   {{$cookies.get("account")}}
+                </p>
+                 <p v-else class="param-sm mt-3 tr-gray-three token">
+                   Guest
+                </p>
+
               <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
                 Wallet Balance
               </p>
@@ -499,7 +502,9 @@ export default {
 
   data() {
     return {
-      icon: `${process.env.gravatar}${this.$cookies.get("account").replace(/[^0-9\\.]+/g, "")}?d=robohash`,
+      icon: `${process.env.gravatar}${this.$cookies
+        .get("account")
+        .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
       otherForest: false,
       ownerTreesLoaded: false,
       showMoreTreeData: false,
@@ -995,9 +1000,6 @@ export default {
     justify-content: space-evenly;
   }
   .token {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     width: 75%;
     margin: auto;
     background: #e5e7db;
