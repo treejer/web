@@ -380,18 +380,26 @@
                   class="avatar-pic img-fluid"
                 />
                 <img
-                  v-else
+                  v-if="$cookies.get('account')"
                   :src="icon"
                   alt="username"
                   class="avatar-pic img-fluid"
                 />
               </div>
-              <p class="param-sm mt-3 tr-gray-three token" style="" v-coin>
-                {{
-                  $cookies.get("account") ? $cookies.get("account") : "Guest"
-                }}
+              <p
+                v-if="$cookies.get('account')"
+                class="param-sm mt-3 tr-gray-three token"
+                v-coin
+              >
+                {{ $cookies.get("account") }}
               </p>
-              <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
+              <p
+                v-if="!$cookies.get('account')"
+                class="param-sm mt-3 tr-gray-three token"
+              >
+                Guest
+              </p>
+              <p class="param-sm mt-4 tr-gray-four font-weight-bold">
                 Wallet Balance
               </p>
               <div class="row tokens">
