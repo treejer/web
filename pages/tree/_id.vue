@@ -438,7 +438,6 @@ export default {
           self.tree = response
           self.lat=  parseInt(self.tree.latitude)
           self.lng=  parseInt(self.tree.longitude)
-          console.log( self.tree,"self.tree")
 
         })
         .catch(function (error) {
@@ -465,7 +464,6 @@ export default {
       window.open(item, '_blank')
     },
     editName(item){
-      console.log(item,'item')
       this.newName = !this.newName
     },
     setNewName() {

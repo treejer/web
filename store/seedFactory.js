@@ -66,7 +66,6 @@ export const actions = {
     }).on('error', (error) => {
       const bootStrapToaster = new BToast();
 
-      console.log(error, 'this here')
       if(error.code === 32602){
         bootStrapToaster.$bvToast.toast(['You don\'t have enough tokens'], {
           toaster: 'b-toaster-bottom-left',

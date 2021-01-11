@@ -251,9 +251,7 @@ export default {
     const leaderBoards = await this.$axios.$get(
       `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
     );
-
     this.leaderBoards = leaderBoards.leaderboard.data;
-    console.log(this.leaderBoards)
   },
   data() {
     return {
@@ -377,7 +375,6 @@ export default {
         .$get(`${process.env.apiUrl}/trees?page=${page}`)
         .then(function(response) {
           self.trees = response.trees;
-          console.log(typeof self.trees,'typeof self.trees',self.trees)
         })
         .catch(function(error) {});
     },

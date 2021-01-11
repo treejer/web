@@ -630,11 +630,6 @@ export default {
     }
   },
    mounted() {
-     console.log(this.$route.params.id)
-
-     // if (this.$route.params.id !== this.$cookies.get('account')) {
-     //   this.$router.push(`/forest/${this.$route.params.id ?this.$route.params.id : '' }`)
-     // }
      this.getEthBalance()
      this.getBalanceOfSeed()
      this.calculateMintableSeed()

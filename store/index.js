@@ -38,7 +38,6 @@ export const actions = {
     const account = accounts[0];
     commit('SET_USER', account)
     self.$cookies.set('account', account)
-    console.log(self.state.dashboard, 'self')
     if (self.state.dashboard) {
       await self.$router.push(`forest/${self.$cookies.get('account')}`)
     } else {
@@ -68,10 +67,8 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
         });
       }
-      console.log(web3.version.network, "web3.version")
       const ID = web3.version.network
       const network = await web3.version.getNetwork((err, netId, netName) => {
-        console.log(netId, 'netId')
         switch (netId || ID) {
           case "1":
             netName = 'mainnet';
@@ -120,7 +117,6 @@ export const actions = {
     } else {
       await self.$router.push(`forest/${self.$cookies.get('account')}`)
     }
-    console.log(env, 'walletConnectProjectID')
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
@@ -223,7 +219,6 @@ export const actions = {
       eth.publicConfigStore._state.isUnlocked = false
       self.$cookies.set('account', null);
       self.commit('SET_USER', null)
-      console.log(self.state.account)
       eth.on('chainChanged', handleChainChanged)
       let currentChainId = null
       ethereum.send('eth_chainId')

@@ -103,7 +103,6 @@ import web3 from '~/plugins/web3'
     },
     methods: {
       sendItem(item, index) {
-        console.log(item, index, 'item,index hereeee')
       },
       openModal(item) {
         this.modalsrc = JSON.parse(item.raw_data)
@@ -115,11 +114,9 @@ import web3 from '~/plugins/web3'
       const updates = await this.$axios.$get(`${process.env.apiUrl}/wallets/${this.$cookies.get('account')}/events?perPage=10&page=1`)
       this.activity = updates
       this.updates = updates.events.data
-      console.log(this.updates,this.activity,"this.updates,this.activity")
       updates.events.data.map((item, index) => {
         if (item.type === 'SeedMinted') {
           const pars = JSON.parse(item.data)
-          console.log( web3.utils, 'item,index heee')
           this.totalSeed =web3.utils.fromWei(pars.totalSeed)
         }
       })

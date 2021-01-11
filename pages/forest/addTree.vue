@@ -519,7 +519,6 @@ export default {
         history.map((item,index)=>{
           let name = item.name;
           res = name.match(/forest-id/g)
-          console.log(res,'item.name,item')
           if(res === 'forest-id'){
              this.$router.push(`/forest/${this.$cookies.get('account')}`)
           }

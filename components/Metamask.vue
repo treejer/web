@@ -96,7 +96,6 @@ export default {
     }
   },
  async mounted() {
-    console.log(process.env.gravatar,"process.env.GRAVATAR")
    await ethereum.on('chainChanged', () => {
      document.location.reload()
    })
