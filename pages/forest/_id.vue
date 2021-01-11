@@ -389,7 +389,7 @@
                 <p v-if="$cookies.get('account')" v-coin class="param-sm mt-3 tr-gray-three token" v-text="$cookies.get('account')">
                 
                 </p>
-                <p v-else class="param-sm mt-3 tr-gray-three token" v-text="'Geust'">
+                <p  v-if="!$cookies.get('account')" class="param-sm mt-3 tr-gray-three token" v-text="'Geust'">
                 
                 </p>
               <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
