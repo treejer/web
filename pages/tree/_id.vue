@@ -33,7 +33,7 @@
         </div>
         <div class="col-12 tree-profile-img justify-content-center">
           <img src="../../assets/images/find/tree.svg" alt="tree" />
-          <span
+          <span v-if="tree.tree_id"
             class="tr-gray-three tree-profile-number font-weight-bolder"
             id="edit_name"
             >{{ tree.tree_id }}</span
@@ -49,7 +49,9 @@
           />
         </div>
         <div class="col-4 tree-profile-name">
-          <h4 class="pt-3 text-center">{{ tree.tree_id }}</h4>
+          <h4
+            v-if="tree.tree_id "
+           class="pt-3 text-center">{{ tree.tree_id }}</h4>
           <div class="new-name-tree-profile" v-if="newName">
             <div class="stats">
               <span class="tr-green pointer-event pr-2" @click="setNewName()"
@@ -114,7 +116,7 @@
                   }}</span>
                 </p>
               </div>
-              <div class="species part">
+              <div class="species part" v-if="tree.type">
                 <p class="param mb-0 tr-gray-three">Species</p>
                 <p class="param-18 mb-0 tr-gray-two">{{ tree.type.name }}</p>
               </div>
@@ -125,7 +127,7 @@
               </div>
               <div class="block part">
                 <p class="param mb-0 tr-gray-three">Green Block</p>
-                <p class="param-18 mb-0 tr-gray-two">{{ tree.greenblock.title }}</p>
+                <p class="param-18 mb-0 tr-gray-two" v-if="tree.greenblock">{{ tree.greenblock.title }}</p>
               </div>
               <div class="climate part">
                 <p class="param mb-0 tr-gray-three">Climate Credits (Seed)</p>
