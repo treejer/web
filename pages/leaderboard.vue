@@ -64,10 +64,11 @@
 
                   <td v-coin id="accounting-card">{{ item.owner}}</td>
                   <td>{{ item.total_tree }}</td>
-                  <td @click="goToUserDashboard(item.owner)" class="pointer-event">
+                  <td  class="pointer-event">
                     <a href="#" class="pointer-event tr-green"></a>
                     <Fas class="tr-green pointer-event" i="eye"/>
                   </td>
+                  <!-- @click="goToUserDashboard(item.owner)" -->
 
                 </tr>
                 </tbody>
@@ -144,9 +145,10 @@ export default {
       },
       goToUserDashboard(id) {
         this.$store.commit('SET_INDEX',0)
-        this.$cookies.set('account',null)
+        // this.$cookies.set('account',null)
         let routeData = this.$router.resolve({path: `/forest/${id}`,params:{id:id}});
-        window.open(routeData.href, '_blank');
+        // window.open(routeData.href, '_blank');
+        this.$router.push(routeData)
       }
     }
   }
