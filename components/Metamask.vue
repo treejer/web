@@ -24,7 +24,7 @@
         <span v-coin class="param-sm tr-gray-three">{{ isLoggedIn || $cookies.get('account') }}</span>
         <span class="img"><img style="border: solid 2px white"
                                :src="icon" alt="accounting"
-                               class="img-fluid   d-none d-md-block rounded-circle" width="42"
+                               class="img-fluid  bg-white  d-none d-md-block rounded-circle" width="42"
                                height="42"/></span>
       </div>
 
@@ -49,7 +49,7 @@
             <span class="icon">
             <img v-if="$cookies.get('walletName')"
                  :src="require(`~/assets/images/wallets/${$cookies.get('walletName')}.svg`)"
-                 :alt="$cookies.get('walletName')" class="img-fluid"/>
+                 :alt="$cookies.get('walletName')" class="img-fluid bg-white"/>
             </span>
           </p>
         </li>

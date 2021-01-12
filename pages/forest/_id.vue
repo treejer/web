@@ -939,7 +939,7 @@ export default {
         self.$bvToast.show("four");
       } else {
         await this.$store.dispatch("seedFactory/mint").then(() => {
-          responsiveVoice.speak("Tokens transferred to wallet");
+          // responsiveVoice.speak("Tokens transferred to wallet");
 
           self.$bvToast.toast(["Your transfer was successful"], {
             toaster: "b-toaster-bottom-left",
@@ -1125,6 +1125,7 @@ export default {
     img {
       border: solid 1px gray;
       border-radius: 50px !important;
+      background-color: white;
     }
 
     span {
