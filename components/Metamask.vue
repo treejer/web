@@ -154,16 +154,10 @@ export default {
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
-      if (!this.$cookies.get("account")) {
-        this.showModal();
-      } else {
+     
         this.$store.commit("SET_INDEX", 0);
-        let routeData = this.$router.resolve({
-          path: item,
-          params: { id: `${this.$cookies.get("account")}` },
-        });
-        window.open(routeData.href, "_Self");
-      }
+        this.$router.push(`/forest/${this.$cookies.get("account")}`);
+   
     },
     copyClipboard(e) {},
     showModal() {
