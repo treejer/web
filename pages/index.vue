@@ -72,7 +72,7 @@ export default {
       if (this.$cookies.get("account")) {
         this.$router.push(`/forest/${this.$cookies.get("account")}`);
       } else {
-        this.$router.push(`/forest`);
+        this.$router.push(`/forest/`);
       }
     },
   },
