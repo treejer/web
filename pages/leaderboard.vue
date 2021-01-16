@@ -217,10 +217,10 @@ export default {
     },
     goToUserDashboard(id) {
       this.$store.commit("SET_INDEX", 0);
-      this.$router.push(`forest/${id}`);
+      // this.$router.push(`/forest/${id}`);
       // this.$cookies.set('account',null)
-      // let routeData = this.$router.resolve({path: `/forest/${id}`,params:{id:id}});
-      // window.open(routeData.href, '_blank');
+      let routeData = this.$router.resolve({path: `/forest/${id}`,params:{id:id}});
+      window.open(routeData.href, '_self');
     },
   },
 };
