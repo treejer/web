@@ -69,7 +69,7 @@ export default {
   methods: {
     goToDashboard() {
       if (!this.$cookies.get("account")) {
-        this.$bvToast.toast("you are not logged in. please login", {
+        this.$bvToast.toast("you are not logged in. please Connect your wallet", {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
