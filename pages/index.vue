@@ -79,7 +79,7 @@ export default {
       } else {
         this.$store.commit("SET_INDEX", 0);
         let routeData = this.$router.resolve({
-          path: item,
+          path: item, 
           params: { id: `${this.$cookies.get("account")}` },
         });
         window.open(routeData.href, "_Self");

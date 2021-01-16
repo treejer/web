@@ -27,33 +27,12 @@ export const state = () => ({
 })
 
 export const actions = {
-  async metaMask({
-    commit
-  }) {
-    let self = this
-    await ethereum.enable()
-    const accounts = await window.ethereum.request({
-      method: 'eth_requestAccounts'
-    });
-    const account = accounts[0];
-    commit('SET_USER', account)
-    self.$cookies.set('account', account)
-    if (self.state.dashboard) {
-      await self.$router.push(`forest/${self.$cookies.get('account')}`)
-    } else {
-      await self.$router.push(`forest/${self.$cookies.get('account')}`)
-    }
 
-
-
-  },
   async networkNames({
     commit
   }) {
     let bootStrapToaster = new BToast();
-
     if (process.client) {
-
       const web3 = window.web3
       let net = null
       let self = this
@@ -99,6 +78,22 @@ export const actions = {
     }
 
   },
+  async metaMask({
+    commit
+  }) {
+    let self = this
+    await ethereum.enable()
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts'
+    });
+    const account = accounts[0];
+    commit('SET_USER', account)
+    self.$cookies.set('account', account)
+    window.location.reload()
+
+
+
+  },
   async walletConnect({
     commit
   }) {
@@ -112,17 +107,14 @@ export const actions = {
     self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
-    if (self.state.dashboard) {
-      await self.$router.push(`${self.$cookies.get('account')}`)
-    } else {
-      await self.$router.push(`forest/${self.$cookies.get('account')}`)
-    }
+    window.location.reload()
+
     const web3Provider = await wc.getWeb3Provider({
       infuraId: process.env.WALLETCONNECT_PROJECT_ID,
     });
 
     const channelProvider = await wc.getChannelProvider();
-
+  
   },
   async portis({
     commit
@@ -143,18 +135,15 @@ export const actions = {
         self.commit('SET_USER', null)
         self.commit('SET_USER', accounts[0])
         self.$cookies.set('account', accounts[0])
+        window.location.reload()
 
-        if (self.state.dashboard) {
-          self.$router.push(`${self.$cookies.get('account')}`)
-        } else {
-          self.$router.push(`forest/${self.$cookies.get('account')}`)
-        }
       });
       await portis.onLogin(
         (walletAddress) => {
           console.log(walletAddress, "walletAddress walletAddress")
         }
       );
+
 
     }
   },
@@ -174,11 +163,8 @@ export const actions = {
       self.$cookies.set('account', null)
       self.commit('SET_USER', null)
       self.$cookies.set('account', address)
-      if (self.state.dashboard) {
-        self.$router.push(`${self.$cookies.get('account')}`)
-      } else {
-        self.$router.push(`forest/${self.$cookies.get('account')}`)
-      }
+      window.location.reload()
+
       self.commit('SET_USER', address)
       self.commit('SET_MODAL_FIVE', false)
     });
