@@ -154,19 +154,15 @@ export default {
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
-      if (this.$cookies.get("account")) {
+      if (!this.$cookies.get("account")) {
+        this.showModal();
+      } else {
         this.$store.commit("SET_INDEX", 0);
         let routeData = this.$router.resolve({
           path: item,
           params: { id: `${this.$cookies.get("account")}` },
         });
         window.open(routeData.href, "_Self");
-      } else {
-        this.$bvToast.toast(`This is toast number ${this.toastCount}`, {
-          title: 'BootstrapVue Toast',
-          autoHideDelay: 5000,
-          appendToast: append
-        })
       }
     },
     copyClipboard(e) {},
