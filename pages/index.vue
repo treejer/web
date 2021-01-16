@@ -68,21 +68,16 @@ export default {
   },
   methods: {
     goToDashboard() {
-      if (!this.$cookies.get("account")) {
+      if (this.$cookies.get("account") === null) {
         this.$bvToast.toast("Please connect your wallet", {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
           variant: "danger",
         });
-        
       } else {
         this.$store.commit("SET_INDEX", 0);
-        let routeData = this.$router.resolve({
-          path: item, 
-          params: { id: `${this.$cookies.get("account")}` },
-        });
-        window.open(routeData.href, "_Self");
+        this.$router.push(`/forest/${this.$cookies.get("account")}`);
       }
     },
   },
