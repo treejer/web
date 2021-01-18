@@ -58,9 +58,9 @@
   </section>
 </template>
 <script>
+
 export default {
   name: "index",
-
   data() {
     return {
       treeCount: null,
@@ -72,7 +72,7 @@ export default {
       if (this.$cookies.get("account")) {
         this.$router.push(`/forest/${this.$cookies.get("account")}`);
       } else {
-        this.$bvModal.show('five')
+        this.$bvModal.show("five");
       }
     },
   },
@@ -94,17 +94,6 @@ export default {
       text-align: center;
     }
   }
-
-  .loading {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-  }
-
   .planet-tree {
     border-right: solid 1px #67b68c;
     padding: 0 15px;

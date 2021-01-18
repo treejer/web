@@ -213,7 +213,7 @@
             </div>
             <div class="col-12 position-relative p-0">
               <div class="col-12 mb-3 p-0">
-                <span v-for="(item, index) in test" :key="item.id">
+                <span v-for="(item, index) in test" :key="index">
                   <img
                     class="img-fluid p-2"
                     src="~/assets/images/myforest/trees.png"
@@ -330,22 +330,7 @@
                   </GMapInfoWindow>
                 </GMapMarker>
               </GMap>
-              <GMap
-                v-if="ownerTreesLoaded === true && ownerTreesData.length <= 0"
-                ref="gMap"
-                :cluster="{ options: { styles: clusterStyle } }"
-                :center="{ lat: 24.06448, lng: 81.30946 }"
-                :options="{
-                  fullscreenControl: false,
-                  streetViewControl: false,
-                  mapTypeControl: false,
-                  zoomControl: true,
-                  gestureHandling: 'cooperative',
-                  styles: mapStyle,
-                }"
-                :zoom="2"
-              >
-              </GMap>
+
               <div v-if="ownerTreesLoaded === false">
                 <GMap
                   ref="gMap"
@@ -859,7 +844,7 @@ export default {
           .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
           .then(function (response) {
             self.loading = false;
-            self.$router.push(`/find/${self.treeID}`);
+            self.$router.push(`/tree/${self.treeID}`);
           })
           .catch(function (error) {
             self.loading = false;

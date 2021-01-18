@@ -2,8 +2,7 @@
   <b-navbar-nav class="metamask" ref="page">
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
-        <b-spinner v-if="loading" small class="mr-1"></b-spinner>
-        {{ loading ? " Loading..." : "Connect Wallet" }}
+        {{ "Connect Wallet" }}
       </b-button>
       <img
         alt="tree"
@@ -16,14 +15,14 @@
 
     <b-nav-form
       class="pointer-event"
-      v-if="isLoggedIn || $cookies.get('account')"
+      v-if="$cookies.get('account')"
     >
       <div
         @click.prevent="logout()"
         class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
       >
         <span v-coin class="param-sm tr-gray-three">{{
-          isLoggedIn || $cookies.get("account")
+          $cookies.get("account")
         }}</span>
         <span class="img"
           ><img
@@ -96,12 +95,7 @@
           >
         </li>
         <li class="d-flex mt-4 align-items-center justify-content-center">
-          <span
-            v-coin
-            id="tokens"
-            class="param-sm tr-gray-three p-2 avatar-card"
-            >{{ $cookies.get("account") }}</span
-          >
+          <CopyToClipBoard />
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button
@@ -118,19 +112,19 @@
 
 <script>
 import Wallets from "./Wallets";
+import CopyToClipBoard from "./CopyToClipBoard.vue";
 
 export default {
-  components: { Wallets },
+  components: { Wallets, CopyToClipBoard },
   props: ["wallets"],
+
   data() {
     return {
-      icon: `${process.env.gravatar}${this.$cookies
-        .get("account")
-        .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
+      icon: null,
       account: null,
-      loading: false,
       hasAccount: false,
       hasAccountSrc: `${this.$cookies.get("account")}`,
+      loading: false,
     };
   },
   computed: {
@@ -138,13 +132,24 @@ export default {
       return this.$store.state.account;
     },
   },
-  async mounted() {
-    await ethereum.on("chainChanged", () => {
-      document.location.reload();
-    });
-    this.checkDisconnect();
+  mounted() {
+    if (this.$cookies.get("account")) {
+      this.changeEthereum();
+    } else {
+      return null;
+    }
   },
   methods: {
+    async changeEthereum() {
+      let self = this;
+      self.icon = `${process.env.gravatar}${this.$cookies
+        .get("account")
+        .replace(/[^0-9\\.]+/g, "")}?d=robohash`;
+      await ethereum.on("chainChanged", () => {
+        document.location.reload();
+      });
+      self.checkDisconnect();
+    },
     changeWallet() {
       this.$store.dispatch("logout");
       this.$bvModal.hide("seven");
@@ -158,7 +163,7 @@ export default {
       if (this.$cookies.get("account")) {
         this.$router.push(`/forest/${this.$cookies.get("account")}`);
       } else {
-         this.$bvModal.show('five')
+        this.$bvModal.show("five");
       }
     },
     copyClipboard(e) {},
