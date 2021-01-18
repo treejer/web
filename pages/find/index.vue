@@ -1,10 +1,10 @@
 <template>
-  <section class="position-relative pt-5 col-12 find-my-tree ">
+  <section class="position-relative pt-5 col-12 find-my-tree">
     <div class="container">
       <div class="row justify-content-center text-center">
         <div class="col-12">
           <div class="title">
-            <h1 class="title-sm  tr-gray-two">Looking for your tree?</h1>
+            <h1 class="title-sm tr-gray-two">Looking for your tree?</h1>
             <p class="param-xl tr-gray-four mt-4">
               Enter the Tree ID below and we'll find it for you! :)
             </p>
@@ -28,7 +28,7 @@
               </svg>
             </span>
             <FormulateInput
-              class="search param-sm "
+              class="search param-sm"
               placeholder="Search"
               @keyup.enter="findTree()"
               type="text"
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="row justify-content-center text-center">
-        <div class="col-12 ">
+        <div class="col-12">
           <div class="find-my-tree-btn mt-4">
             <button
               :class="{ disable: !treeID }"
@@ -57,7 +57,7 @@
       <div class="row mt-5 pt-5 justify-content-center text-center">
         <div class="col-12">
           <div class="title">
-            <h1 class="title-sm  tr-gray-two">Explore Forests</h1>
+            <h1 class="title-sm tr-gray-two">Explore Forests</h1>
           </div>
         </div>
       </div>
@@ -68,23 +68,28 @@
               <div
                 class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
                 v-for="(item, index) in leaderBoards"
+                :key="index"
               >
                 <div class="card-box" @click="goToDashboard(item)">
                   <div class="tr-card box-shadow border">
-                    <div class="card-img justify-content-center text-center ">
+                    <div class="card-img justify-content-center text-center">
                       <img
-                      class="bg-white"
+                        class="bg-white"
                         width="64"
                         height="64"
-                        :src="`${icon}${item.owner.replace(/[^0-9\\.]+/g, '')}?d=robohash`"
+                        :src="`${icon}${item.owner.replace(
+                          /[^0-9\\.]+/g,
+                          ''
+                        )}?d=robohash`"
                         :alt="item.owner"
                       />
                     </div>
                     <div class="card-title">
-                      <p v-html="item.owner"
-                         class="tr-gray-two param-sm mb-1"  v-coin  >
-
-                      </p>
+                      <p
+                        v-html="item.owner"
+                        class="tr-gray-two param-sm mb-1"
+                        v-coin
+                      ></p>
                       <p class="tr-green mb-1">{{ item.total_tree }} trees</p>
                     </div>
                   </div>
@@ -92,9 +97,9 @@
               </div>
             </div>
             <div class="row mt-5">
-              <div class="col-12 justify-content-center text-center ">
+              <div class="col-12 justify-content-center text-center">
                 <button
-                  class="btn-outline-green param-md tr-green position-relative pointer-event "
+                  class="btn-outline-green param-md tr-green position-relative pointer-event"
                   style="padding: 8px 25px"
                   @click="goToLeaderBoard()"
                 >
@@ -108,7 +113,7 @@
       <div class="row tree-status mt-5 pt-5 justify-content-center text-center">
         <div class="col-12">
           <div class="title">
-            <h1 class="title-sm  tr-gray-two">Tree Status Explorer</h1>
+            <h1 class="title-sm tr-gray-two">Tree Status Explorer</h1>
           </div>
         </div>
         <div class="col-12 col-md-10">
@@ -116,13 +121,19 @@
             <div class="table-toolbar">
               <div class="row mb-3">
                 <div class="col-12 col-md-6">
-                  <p class="param-md tr-gray-two text-left ml-5 pt-2 ">
+                  <p class="param-md tr-gray-two text-left ml-5 pt-2">
                     Enter a tree ID to check its status
                   </p>
                 </div>
                 <div class="col-12 col-md-6 d-flex justify-content-around">
-                  <div class="search-bar-table position-relative"   @keyup.enter="findTree">
-                    <span class="position-absolute pointer-event"   @click="findTree">
+                  <div
+                    class="search-bar-table position-relative"
+                    @keyup.enter="findTree"
+                  >
+                    <span
+                      class="position-absolute pointer-event"
+                      @click="findTree"
+                    >
                       <svg
                         width="16"
                         height="17"
@@ -178,7 +189,7 @@
                   <th scope="col" class="pointer-event">
                     <i class="pointer-event fas fa-sort-up"></i>Status
                   </th>
-                  <th scope="col" class="pointer-event d-none  d-md-block ">
+                  <th scope="col" class="pointer-event d-none d-md-block">
                     <i class="pointer-event fas fa-sort-up"></i>Location
                   </th>
                 </tr>
@@ -192,27 +203,31 @@
                   >
                     Funded & Planted
                   </td>
-                  <td v-else-if="tree.plantedDate !== null">
-                    Planted
+                  <td v-else-if="tree.plantedDate !== null">Planted</td>
+                  <td v-else-if="tree.fundedDate !== null">Funded</td>
+                  <td class="d-none d-md-block">
+                    {{ tree.latitude + "," + tree.longitude }}
                   </td>
-                  <td v-else-if="tree.fundedDate !== null">
-                    Funded
-                  </td>
-                  <td class="d-none  d-md-block">{{ tree.latitude + "," + tree.longitude }}</td>
                 </tr>
               </tbody>
             </table>
-            <div class="tr-pagination d-flex justify-content-center w-100 position-relative">
-              <pagination size="small" align="center" :limit="2" :data="trees" @pagination-change-page="listTrees"></pagination>
-
+            <div
+              class="tr-pagination d-flex justify-content-center w-100 position-relative"
+            >
+              <pagination
+                size="small"
+                align="center"
+                :limit="2"
+                :data="trees"
+                @pagination-change-page="listTrees"
+              ></pagination>
             </div>
-
           </div>
         </div>
       </div>
     </div>
 
-    <div
+    <!-- <div
       class="alert position-relative"
       v-if="errors"
       v-for="(item, index) in errors"
@@ -221,19 +236,19 @@
       <b-alert
         class="position-fixed"
         :dismissible="errors"
-        style="top: 2px;right: 1px"
+        style="top: 2px; right: 1px"
         show
         variant="danger"
       >
         {{ item.toString() }}
       </b-alert>
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
-import pagination from 'laravel-vue-pagination'
+import pagination from "laravel-vue-pagination";
 
 export default {
   name: "findMyTree",
@@ -241,13 +256,11 @@ export default {
 
   components: {
     Fab,
-    pagination
+    pagination,
   },
-  computed: {
-
-  },
+  computed: {},
   async mounted() {
-   await this.listTrees();
+    await this.listTrees();
 
     const leaderBoards = await this.$axios.$get(
       `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
@@ -266,7 +279,7 @@ export default {
       errors: null,
       step: null,
       search: "",
-      activeIndex: null
+      activeIndex: null,
     };
   },
   methods: {
@@ -279,7 +292,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
-          variant: "danger"
+          variant: "danger",
         });
         this.$bvModal.show("five");
       } else {
@@ -291,14 +304,14 @@ export default {
         this.$store.commit("SET_INDEX", 0);
         this.$router.push({
           path: "/forest/" + item.owner,
-          params: { id: item.owner }
+          params: { id: item.owner },
         });
       } else {
         this.$bvToast.toast("you are not logged in. please login", {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
-          variant: "danger"
+          variant: "danger",
         });
         this.$bvModal.show("five");
       }
@@ -307,38 +320,46 @@ export default {
       this.errors = null;
       this.loading = true;
       let self = this;
-      await this.$axios
-        .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
-        .then(function(response) {
-          self.loading = false;
-          self.$router.push(`/tree/${self.treeID}`);
-        })
-        .catch(function(error) {
-          self.loading = false;
-          self.$bvToast.toast("Tree Not found!", {
-            toaster: "b-toaster-bottom-left",
-            solid: true,
-            headerClass: "hide",
-            variant: "danger"
+      if (self.treeID) {
+        await this.$axios
+          .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
+          .then(function (response) {
+            self.loading = false;
+            self.$router.push(`/tree/${self.treeID}`);
+          })
+          .catch(function (error) {
+            self.loading = false;
+            self.$bvToast.toast("Tree Not found!", {
+              toaster: "b-toaster-bottom-left",
+              solid: true,
+              headerClass: "hide",
+              variant: "danger",
+            });
           });
+      } else {
+        self.$bvToast.toast("Tree Not found!", {
+          toaster: "b-toaster-bottom-left",
+          solid: true,
+          headerClass: "hide",
+          variant: "danger",
         });
+      }
     },
     async listTrees(page = 1) {
       let self = this;
       await this.$axios
         .$get(`${process.env.apiUrl}/trees?page=${page}`)
-        .then(function(response) {
+        .then(function (response) {
           self.trees = response.trees;
         })
-        .catch(function(error) {});
+        .catch(function (error) {});
     },
-  }
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .find-my-tree {
-
   .search-bar {
     span {
       z-index: +99;

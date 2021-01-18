@@ -40,8 +40,8 @@
                     <th scope="col">LINK</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr v-if="leaderBoards" v-for="(item, index) in leaderBoards">
+                <tbody v-if="leaderBoards">
+                  <tr v-for="(item, index) in leaderBoards" :key="index">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -125,12 +125,11 @@
 
                     <td v-coin id="accounting-card">{{ item.owner }}</td>
                     <td>{{ item.total_tree }}</td>
-                    <td @click="goToUserDashboard(item.owner)" class="pointer-event">
-                      <a
-                        
-                        href="#"
-                        class="pointer-event tr-green"
-                      ></a>
+                    <td
+                      @click="goToUserDashboard(item.owner)"
+                      class="pointer-event"
+                    >
+                      <a href="#" class="pointer-event tr-green"></a>
                       <Fas class="tr-green pointer-event" i="eye" />
                     </td>
                     <!-- -->
@@ -219,8 +218,11 @@ export default {
       this.$store.commit("SET_INDEX", 0);
       // this.$router.push(`/forest/${id}`);
       // this.$cookies.set('account',null)
-      let routeData = this.$router.resolve({path: `/forest/${id}`,params:{id:id}});
-      window.open(routeData.href, '_self');
+      let routeData = this.$router.resolve({
+        path: `/forest/${id}`,
+        params: { id: id },
+      });
+      window.open(routeData.href, "_self");
     },
   },
 };

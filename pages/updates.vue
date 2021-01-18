@@ -15,8 +15,8 @@
 
             </div>
             <div class="col-12 mb-5 mt-2">
-              <ul>
-                <li class="list-style-none time-line" v-if="updates" v-for="(item , index) in updates">
+              <ul  v-if="updates">
+                <li class="list-style-none time-line" v-for="(item , index) in updates" :key="index">
                   <p class="param-md tr-gray-three font-weight-lighter one-minted"
                      v-if="item.type ==='SeedMinted'">
                     You successfully sent <span class="tr-green font-weight-bold Montserrat-Medium">{{ totalSeed }}</span>
