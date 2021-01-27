@@ -151,7 +151,11 @@ export default {
       self.checkDisconnect();
     },
     changeWallet() {
-      this.$store.dispatch("logout");
+      let self = this
+      this.$store.dispatch("logout").then(()=>{
+        // window.location.reload()
+        self.$router.push(`/`);
+      });
       this.$bvModal.hide("seven");
       this.$bvModal.show("five");
     },

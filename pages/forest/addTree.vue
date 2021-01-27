@@ -502,7 +502,7 @@ export default {
       this.loading = true
       let self =this
       this.transferReceipt = await this.$store.dispatch('treeFactory/fund', {
-        count: this.count,
+        count: this.count, context: self
 
       },)
       if(this.transferReceipt !== null) {
