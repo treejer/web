@@ -145,10 +145,9 @@ export default {
       self.icon = `${process.env.gravatar}${this.$cookies
         .get("account")
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`;
-      await ethereum.on("chainChanged", () => {
-        document.location.reload();
-      });
-      self.checkDisconnect();
+      // await ethereum.on("chainChanged", () => {
+      //   document.location.reload();
+      // });
     },
     changeWallet() {
       let self = this
@@ -180,13 +179,7 @@ export default {
       } else {
         this.activeIndex = index;
       }
-    },
-    checkDisconnect() {
-      if (this.$cookies.get("walletName") !== "metamask") {
-      } else {
-        ethereum.on("disconnect", (error) => {});
-      }
-    },
+    }
   },
 };
 </script>
