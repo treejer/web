@@ -21,7 +21,11 @@
               <div class="col-12 mt-5 input">
                 <h1 class="title-sm">How many trees to plant?</h1>
                 <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in counts" :key="index" class="pointer-event">
+                  <li
+                    v-for="(item, index) in counts"
+                    :key="index"
+                    class="pointer-event"
+                  >
                     <div v-if="!item.placeHolder">
                       <p
                         @click="activeCounts(item, index)"
@@ -122,14 +126,13 @@
                 <div class="body mt-5">
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all 0.5s">
-                    {{
-                      parseFloat((treePrice * count).toFixed(0)) + " DAI"
-                    }}
+                    {{ parseFloat((treePrice * count).toFixed(0)) + " DAI" }}
 
                     <span class="small">
                       {{
-                       "~$" +parseFloat(( daiUSDPrice * treePrice * count).toFixed(0)) 
-                    }}
+                        "~$" +
+                        parseFloat((daiUSDPrice * treePrice * count).toFixed(0))
+                      }}
                     </span>
                   </h1>
                   <!-- <button
@@ -187,8 +190,6 @@
                     >
                     {{ loading ? "Loading" : " Approve" }}
                   </button>
-
-                  
 
                   <!--                  <p class="pointer-event">-->
                   <!--                    <a class="param mb-0" href=""-->
@@ -443,8 +444,10 @@
               </h1>
               <p class="tr-gray-three mt-5">
                 You're adding
-                <span class="tr-green">{{ count + (count > 1 ? " trees" : " tree") }}</span> to your
-                forest!
+                <span class="tr-green">{{
+                  count + (count > 1 ? " trees" : " tree")
+                }}</span>
+                to your forest!
               </p>
             </div>
 
@@ -477,13 +480,9 @@
 
                     <p class="param tr-gray-four">
                       <span id="eth">{{ treePrice * count }} </span
-                      ><span class="usd"
-                        >{{
-                          parseFloat(
-                            (daiUSDPrice * treePrice * count).toFixed(2)
-                          )
-                        }}</span
-                      >
+                      ><span class="usd">{{
+                        parseFloat((daiUSDPrice * treePrice * count).toFixed(2))
+                      }}</span>
                     </p>
                     <p class="param tr-gray-four">
                       <span id="eths"></span><span class="usds"></span>
@@ -497,8 +496,6 @@
               >
                 CONFIRM
               </button>
-
-              
             </div>
             <div
               class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center h-100"
@@ -554,8 +551,19 @@ export default {
 
   mounted() {
     this.getPrice();
-    this.setIsAllowance(this.count);
     this.setDaiBalance();
+    this.setIsAllowance(this.count);
+
+    let self = this;
+
+    setTimeout(() => {
+      self.setIsAllowance(self.count);
+      self.setDaiBalance();
+    }, 1000);
+
+    // setInterval(() => {
+    //   self.setDaiBalance();
+    // }, 5000);
   },
   async created() {
     // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
@@ -620,6 +628,8 @@ export default {
         });
 
         this.loading = false;
+
+        await this.fund();
       }
     },
     showWalletError() {
@@ -669,7 +679,7 @@ export default {
         widgetHeight: "550px",
         widgetWidth: "450px",
         networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork
+        defaultNetwork: process.env.transakDefaultNetwork,
       });
 
       transak.init();
