@@ -557,13 +557,14 @@ export default {
     let self = this;
 
     setTimeout(() => {
-      self.setIsAllowance(self.count);
+      self.setIsAllowance(self.count, true);
       self.setDaiBalance();
     }, 1000);
 
-    // setInterval(() => {
-    //   self.setDaiBalance();
-    // }, 5000);
+    setInterval(() => {
+      self.setIsAllowance(self.count, true);
+      self.setDaiBalance();
+    }, 3000);
   },
   async created() {
     // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
@@ -609,8 +610,10 @@ export default {
     };
   },
   methods: {
-    async allowSpendDai() {
-      this.loading = true;
+    async allowSpendDai(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
       let self = this;
 
       const transaction = await this.$store.dispatch("dai/approve", {
@@ -627,7 +630,9 @@ export default {
           href: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
         });
 
-        this.loading = false;
+        if (silent === false) {
+          this.loading = false;
+        }
 
         await this.fund();
       }
@@ -659,8 +664,6 @@ export default {
     },
     async setDaiBalance() {
       this.daiBalance = await this.$store.dispatch("dai/balanceOf");
-
-      console.log(this.daiBalance, "this.daiBalance");
     },
 
     async buyDai() {
@@ -738,14 +741,18 @@ export default {
     async getPrice() {
       this.treePrice = await this.$store.dispatch("treeFactory/getPrice", {});
     },
-    async setIsAllowance(count) {
-      this.loading = true;
+    async setIsAllowance(count, silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
 
       let allowance = await this.$store.dispatch("dai/allowance");
       this.isAllowedSpendDai =
         parseInt(allowance) >= parseInt(count * this.treePrice);
 
-      this.loading = false;
+      if (silent === false) {
+        this.loading = false;
+      }
     },
   },
   watch: {
