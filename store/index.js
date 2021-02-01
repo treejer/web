@@ -22,6 +22,7 @@ export const state = () => ({
   leaderBoards: null,
   hasMetaMask: false,
   fortmatic: null,
+  torus: null,
   connectingWallet: null,
   modalFive: true
 })
@@ -33,7 +34,7 @@ export const actions = {
   }) {
     let bootStrapToaster = new BToast();
     if (process.client) {
-      const web3 = window.web3
+      const web3 = this.$web3
       let net = null
       let self = this
 
@@ -46,35 +47,37 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
         });
       }
-      const ID = web3.version.network
-      const network = await web3.version.getNetwork((err, netId, netName) => {
-        switch (netId || ID) {
+      // const ID = web3.version.network
+      let netName = 'mainnet';
+
+      const networkId = await web3.eth.net.getId();
+      switch (networkId.toString()) {
           case "1":
-            netName = 'mainnet';
-            console.log('This is mainnet')
-            break
-          case "2":
-            console.log('This is the deprecated Morden test network.')
-            netName = 'Morden';
-            break
-          case "3":
-            console.log('This is the ropsten test network.')
-            netName = 'ropsten';
-            break
-          case "4":
-            console.log('This is the Rinkeby test network.')
-            netName = 'Rinkeby';
-            break
-          case "5":
-            console.log('This is the Goerly test network.')
-            netName = 'Goerly';
-            break
-          default:
-            console.log('This is an unknown network.')
-            netName = 'unknown';
-        }
-        commit('SET_NET_NAME', netName)
-      })
+      let netName = 'mainnet';
+          console.log('This is mainnet')
+          break
+        case "2":
+          console.log('This is the deprecated Morden test network.')
+          netName = 'Morden';
+          break
+        case "3":
+          console.log('This is the ropsten test network.')
+          netName = 'ropsten';
+          break
+        case "4":
+          console.log('This is the Rinkeby test network.')
+          netName = 'Rinkeby';
+          break
+        case "5":
+          console.log('This is the Goerly test network.')
+          netName = 'Goerly';
+          break
+        default:
+          console.log('This is an unknown network.')
+          netName = 'unknown';
+      }
+      commit('SET_NET_NAME', netName);
+
     }
 
   },
@@ -103,77 +106,76 @@ export const actions = {
     const wc = new WalletConnect();
     const connector = await wc.connect();
     const walletAccount = connector._accounts[0]
-    commit('SET_USER', null)
-    self.$cookies.set('account', null)
     commit('SET_USER', walletAccount)
     self.$cookies.set('account', walletAccount)
     window.location.reload()
 
-    const web3Provider = await wc.getWeb3Provider({
-      infuraId: process.env.WALLETCONNECT_PROJECT_ID,
-    });
+    // const web3Provider = await wc.getWeb3Provider({
+    //   infuraId: process.env.WALLETCONNECT_PROJECT_ID,
+    // });
 
-    const channelProvider = await wc.getChannelProvider();
+    // const channelProvider = await wc.getChannelProvider();
 
   },
   async portis({
     commit
-  }) {
+  }, data) {
+    let self = this
+
+    const portis = data.portis
+    const web3 = data.web3
 
     commit('SET_WALLET', 'portis')
     this.$cookies.set('walletName', 'portis')
-    if (process.client) {
-      const Portis = require("@portis/web3");
-      let self = this
-      const portis = new Portis(process.env.PORTIS, 'ropsten', {
-        scope: ['email']
-      });
 
-      const web3OnPortis = new Web3(portis.provider);
-      await web3OnPortis.eth.getAccounts((error, accounts) => {
-        self.$cookies.set('account', null)
-        self.commit('SET_USER', null)
-        self.commit('SET_USER', accounts[0])
-        self.$cookies.set('account', accounts[0])
-        window.location.reload()
-
-      });
-      await portis.onLogin(
-        (walletAddress) => {
-          console.log(walletAddress, "walletAddress walletAddress")
-        }
-      );
+    await web3.eth.getAccounts((error, accounts) => {
+      self.commit('SET_USER', accounts[0])
+      self.$cookies.set('account', accounts[0])
+    });
+    await portis.onLogin(
+      (walletAddress) => {
+        console.log(walletAddress, "walletAddress walletAddress")
+      }
+    );
 
 
-    }
+
   },
   async fortmatic({
     commit
-  }) {
-    const Fortmatic = require("fortmatic");
+  }, data) {
+    const fm = data.fm
+    const web3 = data.web3
+
+
     let self = this
     commit('SET_WALLET', 'fortmatic')
     self.$cookies.set('walletName', 'fortmatic')
-    const fm = await new Fortmatic(process.env.FORTMATIC);
-    commit('SET_FORTMATIC', fm)
-    const web3 = await new Web3(fm.getProvider());
-    web3.currentProvider.enable();
+
     await web3.eth.getAccounts((err, accounts) => {
       let address = accounts[0];
-      self.$cookies.set('account', null)
-      self.commit('SET_USER', null)
       self.$cookies.set('account', address)
-      window.location.reload()
-
       self.commit('SET_USER', address)
       self.commit('SET_MODAL_FIVE', false)
     });
-    // Get user balance (includes ERC20 tokens as well)
-    let balances = await fm.user.getBalances();
-    console.log(balances, "balances")
-    let ethBalance = balances.find((e) => {
-      // return e.crypto_currency == 'ETH';
 
+  },
+  async torus({
+    commit
+  }, data) {
+    let self = this
+    commit('SET_WALLET', 'torus')
+    self.$cookies.set('walletName', 'torus')
+
+    const torus = data.torus
+    const web3 = data.web3
+
+    await web3.eth.getAccounts((err, accounts) => {
+
+      let address = accounts[0];
+      self.$cookies.set('account', address)
+      self.commit('SET_USER', address)
+      self.commit('SET_MODAL_FIVE', false)
     });
   },
   async activeIndex({
@@ -193,38 +195,40 @@ export const actions = {
     commit
   }) {
     let self = this
-    if (this.$cookies.get('walletName') === 'portis') {
+    const walletName = this.$cookies.get('walletName')
+    if (walletName === 'portis') {
       const Portis = require("@portis/web3");
       const portis = await Portis(process.env.PORTIS, 'ropsten')
       portis.logout();
-      self.$cookies.set('account', null);
-      commit('SET_USER', null)
+
     }
-    if (this.$cookies.get('walletName') === 'metamask') {
+    if (walletName === 'metamask') {
       const eth = await ethereum;
       const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
       eth.autoRefreshOnNetworkChange = false
-      eth.publicConfigStore._state.isUnlocked = false
-      self.$cookies.set('account', null);
-      self.commit('SET_USER', null)
-      eth.on('chainChanged', handleChainChanged)
-      let currentChainId = null
-      ethereum.send('eth_chainId')
-        .then(handleChainChanged)
-        .catch(err => console.error(err)) // This should never happen
+      // eth.publicConfigStore._state.isUnlocked = false
+      // eth.on('chainChanged', handleChainChanged)
+      // let currentChainId = null
+      // ethereum.send('eth_chainId')
+      //   .then(handleChainChanged)
+      //   .catch(err => console.error(err)) // This should never happen
 
-      function handleChainChanged(chainId) {
-
-        if (currentChainId !== chainId) {
-
-          currentChainId = chainId
-          // Run any other necessary logic...
-        }
-      }
     }
-    await self.$cookies.set('account', null);
-    await commit('SET_USER', null)
-    await self.$router.push('/')
+
+    if (walletName === 'torus') {
+
+      const Torus = require("@toruslabs/torus-embed");
+      const torus = new Torus();
+
+      await torus.init();
+
+      await torus.logout();
+    }
+
+    self.$cookies.set('walletName', null)
+    self.$cookies.set('account', null);
+    commit('SET_USER', null)
+    commit('SET_WALLET', null)
   },
   hasDashboard({
     commit
@@ -297,7 +301,5 @@ export const mutations = {
   SET_ETH_PRICE(state, ethPrice) {
     state.ethPrice = ethPrice
   },
-  SET_METAMASK(state, metaMask) {
-    state.hasMetaMask = metaMask
-  },
+
 }

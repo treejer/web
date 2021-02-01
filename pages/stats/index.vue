@@ -80,7 +80,6 @@
 <script>
 // import LineChart from "~/plugins/lineChart";
 import Vue2Filters from 'vue2-filters'
-import web3 from '~/plugins/web3'
 
 
 
@@ -190,8 +189,8 @@ export default {
         self.allStats = res.data;
         self.totalEthLocked = res.data.total_eth_locked
         self.totalSeedSupply = res.data.total_seed_supply
-        self.totalEthLocked = web3.utils.fromWei(res.data.total_eth_locked)
-        self.totalSeedSupply = web3.utils.fromWei(res.data.total_seed_supply)
+        self.totalEthLocked = this.$web3.utils.fromWei(res.data.total_eth_locked)
+        self.totalSeedSupply = this.$web3.utils.fromWei(res.data.total_seed_supply)
         console.log(self.totalEthLocked, 'self.totalEthLocked')
 
 

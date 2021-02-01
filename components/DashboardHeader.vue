@@ -1,14 +1,33 @@
 <template>
   <div class="head">
-    <div class="networkname text-center d-flex align-items-center justify-content-center " style="height: 32px;background: #424242;">
+    <div
+      class="networkname text-center d-flex align-items-center justify-content-center"
+      style="height: 32px; background: #424242"
+    >
       <p class="param-sm text-white mb-0">
-        Treejer is now live on testnet. Connect your wallet to Ropsten Test Network and start your forest! !
-        <a class="text-white" target="_blank" href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ ">
-          <img class="d-inline-flex align-self-start" src="../assets/images/all/hand-right.png" width="15px" height="15px" alt="read more"> Read More <img src="../assets/images/all/hand-left.png" width="15px" height="15px" alt="read more" /></a>
-
+        Treejer is now live on testnet. Connect your wallet to Ropsten Test
+        Network and start your forest! !
+        <a
+          class="text-white"
+          target="_blank"
+          href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ "
+        >
+          <img
+            class="d-inline-flex align-self-start"
+            src="../assets/images/all/hand-right.png"
+            width="15px"
+            height="15px"
+            alt="read more" />
+          Read More
+          <img
+            src="../assets/images/all/hand-left.png"
+            width="15px"
+            height="15px"
+            alt="read more"
+        /></a>
       </p>
     </div>
-    <div class="headers container"  style="min-height:5vh">
+    <div class="headers container" style="min-height: 5vh">
       <keep-alive>
         <b-navbar toggleable="lg">
           <b-navbar-brand
@@ -25,58 +44,55 @@
           <b-navbar-nav>
             <client-only>
               <div class="d-lg-none d-block">
-                <Metamask @showModal="showModal"/>
-
+                <Metamask @showModal="showModal" />
               </div>
-
             </client-only>
           </b-navbar-nav>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
 
           <b-collapse
             class="text-right justify-content-between"
             id="nav-collapse"
             is-nav
           >
-            <b-navbar-nav class="header-menu">
-            </b-navbar-nav>
+            <b-navbar-nav class="header-menu"> </b-navbar-nav>
             <client-only>
               <div class="d-lg-block d-none">
-                <Metamask @showModal="showModal"/>
+                <Metamask @showModal="showModal" />
               </div>
             </client-only>
           </b-collapse>
         </b-navbar>
-
-
       </keep-alive>
-      <b-modal
-        centered
-        hide-footer
-        id="five" title=" ">
-        <Wallets/>
+      <b-modal centered hide-footer id="five" title=" ">
+        <Wallets />
       </b-modal>
-      <b-modal id="netName" hide-footer class="justify-content-center text-center" size="md" ok-only no-stacking>
+      <b-modal
+        id="netName"
+        hide-footer
+        class="justify-content-center text-center"
+        size="md"
+        ok-only
+        no-stacking
+      >
         <div class="text-center justify-content-center m-auto">
           <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
-          <p class="param tr-gray-three">Metamask should be on <strong>Ropsten </strong> network.</p>
-          <p class="param tr-gray-three">Currently it on {{ $store.state.netWorkName }} instead</p>
+          <p class="param tr-gray-three">
+            Metamask should be on <strong>Ropsten </strong> network.
+          </p>
+          <p class="param tr-gray-three">
+            Currently it on {{ $store.state.netWorkName }} instead
+          </p>
         </div>
-
       </b-modal>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
 
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
-import web3 from '~/plugins/web3'
 
 export default {
   layout: 'dashboard',
@@ -115,7 +131,11 @@ export default {
     // })
     await self.accountChange()
     setTimeout(()=>{
-      self.$store.state.netWorkName !== 'ropsten' ?
+      this.$web3.eth.net.getId().then(netId => {
+
+        if(netId.toString() === '3') {
+          return
+        }
         self.$bvToast.toast('Switch to Ropsten Test Network', {
           title: `Wrong network`,
           href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
@@ -123,7 +143,9 @@ export default {
           solid: true,
           toaster: 'b-toaster-bottom-left',
           noAutoHide: true,
-        }) :null
+        }) 
+      })
+        
 
     },1000)
 
@@ -185,31 +207,30 @@ export default {
 </script>
 
 <style lang="scss">
-  @media (max-width: 1023px) {
-    .headers {
-      padding: 0 10px;
+@media (max-width: 1023px) {
+  .headers {
+    padding: 0 10px;
 
-      .header-menu {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin: 0!important;
-      }
+    .header-menu {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 0 !important;
+    }
 
-      .navbar-light .navbar-toggler-icon {
-        background-image: url("../assets/images/home/burger.svg");
-        background-size: auto;
-      }
+    .navbar-light .navbar-toggler-icon {
+      background-image: url("../assets/images/home/burger.svg");
+      background-size: auto;
+    }
 
-      .navbar-light .navbar-toggler {
-        color: rgba(0, 0, 0, 0.5);
-        border-color: transparent;
-      }
+    .navbar-light .navbar-toggler {
+      color: rgba(0, 0, 0, 0.5);
+      border-color: transparent;
+    }
 
-      .navbar {
-
-        padding: 0;
-      }
+    .navbar {
+      padding: 0;
     }
   }
+}
 </style>

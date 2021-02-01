@@ -122,9 +122,15 @@
                 <div class="body mt-5">
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all 0.5s">
-                    ${{
-                      parseFloat((dollorPrice * treePrice * count).toFixed(0))
+                    {{
+                      parseFloat((treePrice * count).toFixed(0)) + " DAI"
                     }}
+
+                    <span class="small">
+                      {{
+                       "~$" +parseFloat(( daiUSDPrice * treePrice * count).toFixed(0)) 
+                    }}
+                    </span>
                   </h1>
                   <!-- <button
                     v-if="$store.state.netWorkName !== 'ropsten'"
@@ -133,7 +139,33 @@
                     <BSpinner class="mr-2" type="grow" small v-if="loading">loading</BSpinner>
                     {{ loading ? 'Loading' : ' Switch to Ropsten Network' }}
                   </button> -->
+
+                  <!-- <button
+
+                    @click="activeIndex = 2"
+                    :class="{ disable: loading }"
+                    class="btn-green-md mt-4 mb-3"
+                  >
+                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                      >loading</BSpinner
+                    >
+                    {{ loading ? "Loading" : " Next" }}
+                  </button> -->
+
                   <button
+                    v-if="daiBalance <= 0"
+                    @click="buyDai()"
+                    :class="{ disable: loading }"
+                    class="btn-green-md mt-4 mb-3"
+                  >
+                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                      >loading</BSpinner
+                    >
+                    {{ loading ? "Loading" : " Buy Dai" }}
+                  </button>
+
+                  <button
+                    v-if="daiBalance > 0 && isAllowedSpendDai"
                     @click="fund()"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
@@ -141,8 +173,22 @@
                     <BSpinner class="mr-2" type="grow" small v-if="loading"
                       >loading</BSpinner
                     >
-                    {{ loading ? "Loading" : " NEXT" }}
+                    {{ loading ? "Loading" : " Confirm" }}
                   </button>
+
+                  <button
+                    v-if="daiBalance > 0 && !isAllowedSpendDai"
+                    @click="allowSpendDai()"
+                    :class="{ disable: loading }"
+                    class="btn-green-md mt-4 mb-3"
+                  >
+                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                      >loading</BSpinner
+                    >
+                    {{ loading ? "Loading" : " Approve" }}
+                  </button>
+
+                  
 
                   <!--                  <p class="pointer-event">-->
                   <!--                    <a class="param mb-0" href=""-->
@@ -341,7 +387,7 @@
                 Total
               </p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                {{ parseFloat((dollorPrice * treePrice * count).toFixed(0)) }}$
+                {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
               </p>
               <hr />
             </div>
@@ -383,7 +429,7 @@
                 Total
               </p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                ${{ parseFloat((dollorPrice * treePrice * count).toFixed(0)) }}
+                ${{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}
               </p>
               <hr />
             </div>
@@ -397,7 +443,7 @@
               </h1>
               <p class="tr-gray-three mt-5">
                 You're adding
-                <span class="tr-green">{{ count + " tree" }}</span> to your
+                <span class="tr-green">{{ count + (count > 1 ? " trees" : " tree") }}</span> to your
                 forest!
               </p>
             </div>
@@ -426,15 +472,15 @@
                     <p
                       class="param tr-gray-five font-weight-light position-absolute"
                     >
-                      <span>ETH</span><span>USD</span>
+                      <span>DAI</span><span>USD</span>
                     </p>
 
                     <p class="param tr-gray-four">
-                      <span id="eth">{{ treePrice * count }}</span
+                      <span id="eth">{{ treePrice * count }} </span
                       ><span class="usd"
-                        >${{
+                        >{{
                           parseFloat(
-                            (dollorPrice * treePrice * count).toFixed(0)
+                            (daiUSDPrice * treePrice * count).toFixed(2)
                           )
                         }}</span
                       >
@@ -451,6 +497,8 @@
               >
                 CONFIRM
               </button>
+
+              
             </div>
             <div
               class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center h-100"
@@ -458,7 +506,7 @@
               <hr />
               <p class="title-sm tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
-                {{ parseFloat((dollorPrice * treePrice * count).toFixed(0)) }}$
+                {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
               </p>
 
               <hr />
@@ -494,8 +542,7 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import Fortmatic from "fortmatic";
-import web3 from '~/plugins/web3'
+import transakSDK from "@transak/transak-sdk";
 
 export default {
   name: "giftTree",
@@ -507,25 +554,23 @@ export default {
 
   mounted() {
     this.getPrice();
-    console.log(
-      this.$cookies.get("walletName"),
-      "this.$cookies.get('walletName')"
-    );
+    this.setIsAllowance(this.count);
+    this.setDaiBalance();
   },
   async created() {
-    const res = await this.$axios.get(
-      "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=" +
-        process.env.etherscanApiKEY
-    );
-    this.dollorPrice = res.data.result.ethusd;
+    // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
+    // this.daiUSDPrice = res.data.result.ethusd
+
+    this.daiUSDPrice = 1.01;
   },
   data() {
     return {
+      daiBalance: 0,
+      isAllowedSpendDai: false,
       treePrice: null,
-      dollorPrice: null,
+      daiUSDPrice: null,
       sendAsTreeCard: false,
       loading: false,
-      tokenAddress: process.env.contractTreeFactoryAddress,
       count: 1,
       slectedPays: null,
       ethPrice: this.$store.state.ethPrice,
@@ -556,6 +601,27 @@ export default {
     };
   },
   methods: {
+    async allowSpendDai() {
+      this.loading = true;
+      let self = this;
+
+      const transaction = await this.$store.dispatch("dai/approve", {
+        count: this.count,
+        context: self,
+      });
+
+      if (transaction !== null) {
+        this.setIsAllowance(this.count);
+        this.$bvToast.toast(["Transaction successfull"], {
+          toaster: "b-toaster-bottom-left",
+          title: "You approved to spend dai",
+          variant: "success",
+          href: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
+        });
+
+        this.loading = false;
+      }
+    },
     showWalletError() {
       let self = this;
       self.$bvToast.toast("Switch to Ropsten Test Network", {
@@ -581,32 +647,61 @@ export default {
     activeWallets(item, index) {
       this.activeWallet = index;
     },
-    fortmatic() {
-      const fm = new Fortmatic(process.env.FORTMATIC);
-      console.log(fm, "window.web3 ");
-      window.web3 = new Web3(fm.getProvider());
-      console.log(window.web3, "window.web3 ");
-      window.web3.eth.getAccounts((error, accounts) => {
-        if (error) console.log(error);
-        console.log(accounts, "accounts");
+    async setDaiBalance() {
+      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
 
-        // Construct Ether transaction params
-        const txnParams = {
-          from: this.$cookies.get("account"),
-          to: this.tokenAddress,
-          value: web3.utils.toWei("0", "ether") * this.count,
-        };
+      console.log(this.daiBalance, "this.daiBalance");
+    },
 
-        // Send Ether transaction with web3
-         window.web3.eth.sendTransaction(txnParams, (error, txnHash) => {
-          if (error) console.log(error);
-          console.log(txnHash);
+    async buyDai() {
+      let self = this;
+      let transak = new transakSDK({
+        apiKey: process.env.TRANSAK_API_KEY, // Your API Key
+        environment: process.env.TRANSAK_ENV, // STAGING/PRODUCTION
+        defaultCryptoCurrency: "Dai",
+        // defaultCryptoAmount: this.treePrice * this.count,
+        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+        themeColor: "000000", // App theme color
+        fiatCurrency: "USD", // INR/GBP
+        email: "", // Your customer's email address
+        redirectURL: "",
+        hostURL: window.location.origin,
+        widgetHeight: "550px",
+        widgetWidth: "450px",
+        networks: process.env.TRANSAK_NETWROKS,
+        defaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK
+      });
+
+      transak.init();
+
+      // To get all the events
+      transak.on(transak.ALL_EVENTS, (data) => {
+        console.log(data);
+      });
+
+      // This will trigger when the user marks payment is made.
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+        console.log(orderData);
+        self.$bvToast.toast(["Your payment was successful"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Your wallet charged",
+          variant: "success",
+          href: `https://ropsten.etherscan.io/address/${self.$cookies.get(
+            "account"
+          )}`,
         });
+        self.setDaiBalance();
+        transak.close();
       });
     },
-    async metaMask() {
+
+    async fund() {
+      this.loading = true;
+      let self = this;
+
       this.transferReceipt = await this.$store.dispatch("treeFactory/fund", {
         count: this.count,
+        context: self,
       });
       if (this.transferReceipt !== null) {
         this.activeIndex = 3;
@@ -628,23 +723,27 @@ export default {
           }
         });
       }
-    },
-    fund() {
-      this.loading = true;
-      let self = this;
-      switch (this.$cookies.get("walletName")) {
-        case "fortmatic":
-          return this.fortmatic();
-          break;
-        case "metamask":
-          return this.metaMask();
-          break;
-      }
-
       this.loading = false;
     },
     async getPrice() {
       this.treePrice = await this.$store.dispatch("treeFactory/getPrice", {});
+    },
+    async setIsAllowance(count) {
+      this.loading = true;
+
+      let allowance = await this.$store.dispatch("dai/allowance");
+      this.isAllowedSpendDai =
+        parseInt(allowance) >= parseInt(count * this.treePrice);
+
+      this.loading = false;
+    },
+  },
+  watch: {
+    async count(newCount, oldCount) {
+      this.setIsAllowance(newCount);
+
+      // Our fancy notification (2).
+      // console.log(`We have ${newCount} fruits now, yay!`)
     },
   },
 };

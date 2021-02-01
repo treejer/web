@@ -15,7 +15,7 @@
           :key="index"
           :name="item.name"
         >
-          <span v-if="index === 0" class=""
+          <span v-if="item.name === 'Metamask'" class=""
             ><a
               href="https://metamask.io/"
               target="_blank"
@@ -91,7 +91,7 @@
     <b-modal hide-footer centered id="six">
       <ul
         class="list-style-none six"
-        v-if="$store.state.connectingWallet || $cookies.get('walletName')"
+        v-if="connectingWallet || $cookies.get('walletName')"
       >
         <li
           class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"
@@ -101,21 +101,17 @@
         <li class="pointer-event mb-2">
           <p class="tr-gray-three param font-weight-bold">
             <span class="name text-capitalize">{{
-              $store.state.connectingWallet || $cookies.get("walletName")
+              connectingWallet || $cookies.get("walletName")
             }}</span>
             <span class="icon">
               <img
-                v-if="
-                  $store.state.connectingWallet || $cookies.get('walletName')
-                "
+                v-if="connectingWallet || $cookies.get('walletName')"
                 :src="
                   require(`~/assets/images/wallets/${
-                    $store.state.connectingWallet || $cookies.get('walletName')
+                    connectingWallet || $cookies.get('walletName')
                   }.svg`)
                 "
-                :alt="
-                  $store.state.connectingWallet || $cookies.get('walletName')
-                "
+                :alt="connectingWallet || $cookies.get('walletName')"
                 class="img-fluid"
               />
             </span>
@@ -131,6 +127,7 @@
 
 <script>
 import PacmanLoader from "vue-spinner/src/BeatLoader.vue";
+import Web3 from "web3";
 
 export default {
   name: "Wallets",
@@ -146,18 +143,23 @@ export default {
           src: require("~/assets/images/wallets/metamask.svg"),
         },
         {
-          name: "Fortmatic",
+          name: "Torus",
           step: 2,
+          src: require("~/assets/images/wallets/torus.svg"),
+        },
+        {
+          name: "Fortmatic",
+          step: 3,
           src: require("~/assets/images/wallets/fortmatic.svg"),
         },
         {
           name: "Wallet Connect",
-          step: 3,
+          step: 4,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },
         {
           name: "Portis",
-          step: 3,
+          step: 5,
           src: require("~/assets/images/wallets/portis.svg"),
         },
       ],
@@ -165,6 +167,7 @@ export default {
       screenX: null,
       screenY: null,
       hasMetaMask: false,
+      connectingWallet: null,
       account: this.$cookies.get("account"),
     };
   },
@@ -173,6 +176,7 @@ export default {
     async activeWallets(item, index, event) {
       let self = this;
       self.activeWallet = index;
+      self.connectingWallet = item.name.toLowerCase();
       switch (item.name) {
         case "Metamask":
           if (self.hasMetaMask) {
@@ -207,12 +211,23 @@ export default {
             .then(() => {});
           break;
         case "Fortmatic":
+          const Fortmatic = require("fortmatic");
+          const fm = await new Fortmatic(process.env.FORTMATIC, "ropsten");
+          const web3 = await new Web3(fm.getProvider());
+          web3.currentProvider.enable();
+
           this.$bvModal.show("six");
           if (process.client) {
-            this.$store.dispatch("fortmatic").then(() => {
-              self.$bvModal.hide("six");
-              self.$bvModal.hide("five");
-            });
+            this.$store
+              .dispatch("fortmatic", {
+                fm: fm,
+                web3: web3,
+              })
+              .then(() => {
+                self.$bvModal.hide("six");
+                self.$bvModal.hide("five");
+                window.location.reload();
+              });
             if (this.$store.state.modalFive === false) {
               this.$bvModal.hide("five");
               this.$bvModal.hide("six");
@@ -220,18 +235,67 @@ export default {
           }
           break;
         case "Portis":
+          if (process.client) {
+            const Portis = require("@portis/web3");
+            let self = this;
+            const portis = new Portis(process.env.PORTIS, "ropsten", {
+              scope: ["email"],
+            });
+
+            const web3 = new Web3(portis.provider);
+            await web3.currentProvider.enable();
+
+            this.$bvModal.show("six");
+            this.$store
+              .dispatch("portis", {
+                portis: portis,
+                web3: web3,
+              })
+              .then(() => {
+                self.$bvModal.hide("six");
+                self.$bvModal.hide("five");
+                window.location.reload();
+              })
+              .catch((err) => {
+                self.$bvModal.hide("six");
+                self.$bvModal.hide("five");
+              })
+              .then(() => {});
+          }
+          break;
+
+        case "Torus":
           this.$bvModal.show("six");
-          this.$store
-            .dispatch("portis")
-            .then(() => {
-              self.$bvModal.hide("six");
-              self.$bvModal.hide("five");
-            })
-            .catch((err) => {
-              self.$bvModal.hide("six");
-              self.$bvModal.hide("five");
-            })
-            .then(() => {});
+
+          if (process.client) {
+            const Torus = require("@toruslabs/torus-embed");
+
+            let self = this;
+            const torus = new Torus();
+            await torus.init();
+            await torus.login(); // await torus.ethereum.enable()
+            
+            const web3 = new Web3(torus.provider);
+
+            await web3.currentProvider.enable();
+            await torus.ethereum.enable();
+
+            this.$store
+              .dispatch("torus", {
+                torus: torus,
+                web3: web3,
+              })
+              .then(() => {
+                self.$bvModal.hide("six");
+                self.$bvModal.hide("five");
+                window.location.reload();
+              })
+              .catch((err) => {
+                self.$bvModal.hide("six");
+                self.$bvModal.hide("five");
+              });
+          }
+
           break;
       }
     },
@@ -260,6 +324,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$cookies.get("account"), "accountwallets");
     if (process.client) {
       if (
         window.ethereum === "undefined" ||
