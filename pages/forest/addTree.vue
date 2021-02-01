@@ -656,8 +656,8 @@ export default {
     async buyDai() {
       let self = this;
       let transak = new transakSDK({
-        apiKey: process.env.TRANSAK_API_KEY, // Your API Key
-        environment: process.env.TRANSAK_ENV, // STAGING/PRODUCTION
+        apiKey: process.env.transakApiKey, // Your API Key
+        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
         defaultCryptoCurrency: "Dai",
         // defaultCryptoAmount: this.treePrice * this.count,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
@@ -668,8 +668,8 @@ export default {
         hostURL: window.location.origin,
         widgetHeight: "550px",
         widgetWidth: "450px",
-        networks: process.env.TRANSAK_NETWROKS,
-        defaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK
+        networks: process.env.transakNetworks,
+        defaultNetwork: process.env.transakDefaultNetwork
       });
 
       transak.init();
