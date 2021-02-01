@@ -91,6 +91,7 @@ export const actions = {
     // })
 
     console.log({
+      
       from: account,
       to: tokenAddress,
       data: fundMethodTransactionData,

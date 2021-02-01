@@ -114,7 +114,7 @@ export const actions = {
     });
 
     const channelProvider = await wc.getChannelProvider();
-  
+
   },
   async portis({
     commit
@@ -170,8 +170,10 @@ export const actions = {
     });
     // Get user balance (includes ERC20 tokens as well)
     let balances = await fm.user.getBalances();
+    console.log(balances, "balances")
     let ethBalance = balances.find((e) => {
       // return e.crypto_currency == 'ETH';
+
     });
   },
   async activeIndex({
