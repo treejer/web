@@ -180,7 +180,6 @@
   </section>
 </template>
 <script>
-import web3 from "~/plugins/web3";
 export default {
   name: "updates",
   layout: "dashboard",
@@ -227,7 +226,7 @@ export default {
       if (item.type === "SeedMinted") {
         const pars = JSON.parse(item.data);
         this.totalSeed.push({
-          totalSeed: web3.utils.fromWei(pars.totalSeed),
+          totalSeed: this.$web3.utils.fromWei(pars.totalSeed),
           created_at: item.created_at,
           updated_at: item.updated_at,
         });

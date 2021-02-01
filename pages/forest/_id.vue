@@ -462,7 +462,6 @@
 <script>
 import Fas from "@/components/font-awsome/Fas";
 import content from "./world.json";
-import web3 from "~/plugins/web3";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
 import route from "@/middleware/route";
@@ -491,8 +490,8 @@ export default {
 
   data() {
     return {
-      icon: `${process.env.gravatar}${this.$cookies
-        .get("account")
+      icon: `${process.env.gravatar}${(this.$cookies
+        .get("account") ?? '0' )
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
       otherForest: false,
       ownerTreesLoaded: false,
@@ -898,7 +897,7 @@ export default {
           `${process.env.apiUrl}/wallets/${this.$route.params.id}/seed/balanceOf`
         )
         .then(function (response) {
-          self.walletSeed = web3.utils.fromWei(response.amount);
+          self.walletSeed = self.$web3.utils.fromWei(response.amount);
         })
         .catch(function (error) {});
     },
@@ -911,7 +910,7 @@ export default {
           )
           .then(function (response) {
             if (response.amount) {
-              const mintableSeeds = web3.utils.fromWei(response.amount);
+              const mintableSeeds = self.$web3.utils.fromWei(response.amount);
               self.mintableSeed = parseFloat(mintableSeeds).toFixed(4);
             }
           })
@@ -945,10 +944,11 @@ export default {
       }
     },
     async getEthBalance() {
-      await web3.eth
+      let self = this
+      await this.$web3.eth
         .getBalance(this.$cookies.get("account"))
         .then(async (ethBalance) => {
-          const test = await web3.utils.fromWei(ethBalance);
+          const test = await self.$web3.utils.fromWei(ethBalance);
           this.ethBalance = parseFloat(test).toFixed(4);
         });
     },

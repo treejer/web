@@ -145,13 +145,16 @@ export default {
       self.icon = `${process.env.gravatar}${this.$cookies
         .get("account")
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`;
-      await ethereum.on("chainChanged", () => {
-        document.location.reload();
-      });
-      self.checkDisconnect();
+      // await ethereum.on("chainChanged", () => {
+      //   document.location.reload();
+      // });
     },
     changeWallet() {
-      this.$store.dispatch("logout");
+      let self = this
+      this.$store.dispatch("logout").then(()=>{
+        // window.location.reload()
+        self.$router.push(`/`);
+      });
       this.$bvModal.hide("seven");
       this.$bvModal.show("five");
     },
@@ -176,13 +179,7 @@ export default {
       } else {
         this.activeIndex = index;
       }
-    },
-    checkDisconnect() {
-      if (this.$cookies.get("walletName") !== "metamask") {
-      } else {
-        ethereum.on("disconnect", (error) => {});
-      }
-    },
+    }
   },
 };
 </script>

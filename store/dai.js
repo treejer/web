@@ -1,4 +1,6 @@
 import { BToast } from 'bootstrap-vue'
+import Dai from '~/contracts/IERC20'
+
 
 export const state = () => ({})
 
@@ -6,26 +8,54 @@ export const mutations = {}
 
 export const actions = {
 
-  async getPrice() {
-    let self = this
-    return this.$treeFactory.methods.price().call()
-      .then((treeWeiPrice) => self.$web3.utils.fromWei(treeWeiPrice));
-  },
-  async fund(context, params) {
-    let self = this;
-
+  async balanceOf() {
+    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
 
+    let self = this
+    return daiContract.methods.balanceOf(account).call()
+      .then((balanceInWei) => {
+        return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
+      });
+  },
+
+
+
+  async allowance() {
+    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+    let account = this.$cookies.get('account');
+
+    let self = this
+    return daiContract.methods.allowance(account, process.env.contractTreeFactoryAddress).call()
+      .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+  },
+  async approve(context, params) {
+    let self = this;
+
+    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+    let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = this.$treeFactory.methods.fund(params.count);
+    // const price = await this.$treeFactory.methods.price().call()
+    //   .then((price) =>
+    //   price.toString()
+    // )
+    // console.log(price, "price");
+    const tx = daiContract.methods.approve(process.env.contractTreeFactoryAddress, (params.count * 7000000000000000000).toString());
+
+    console.log(tx, "tx");
     const data = tx.encodeABI();
-    // const price = await this.$treeFactory.methods.price().call();
+    // ;
+
+
+    console.log(data, "data");
+
+    console.log(daiContract._address, "daiContract._address");
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
-        to: this.$treeFactory._address,
+        to: daiContract._address,
         value: 0,
         data: data
       }).on('transactionHash', (transactionHash) => {
