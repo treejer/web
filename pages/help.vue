@@ -5,9 +5,6 @@
         <b-spinner v-if="helpLoading"  large class="tr-green help-spinner" label="Spinning"></b-spinner>
       </div>
     </client-only>
-
-
-
     <div class="container-fluid">
       <div class="row article">
         <div class="col-md-8 col-12">
@@ -15,40 +12,26 @@
             <div class="col-12 position-relative">
               <h2 class="title-sm">
                 Get Help
-
               </h2>
               <client-only>
                 <div id="questions-widget" style="min-height: 100vh">
                   <iframe @load="$nuxt.$loading.finish()" src="https://discuss.treejer.com/" class="border-0" height="700" width="100%" title="Iframe typeform"></iframe>
-
                 </div>
-
               </client-only>
-
-
             </div>
             <div class="col-12 mt-2">
             </div>
           </div>
         </div>
-
         <div class="col-4 d-md-block d-none justify-content-center">
-
-
           <img src="~/assets/images/help/get-help.svg" id="help_img" alt="get-help"
                class=" img-fluid"/>
-
         </div>
       </div>
     </div>
-
-
-
   </section>
 </template>
 <script>
-
-
 if (process.client) {
   let Tribe = require('../components/tribe')
 }
@@ -61,27 +44,14 @@ export default {
       helpLoading:true,
     }
   },
-  // head() {
-  //   return {
-  //     script: [
-  //       {
-  //         src: require('../components/tribe.js')
-  //       }
-  //     ],
-  //   }
-  // },
+ 
   mounted() {
-
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
-
       setTimeout(() => {
         this.$nuxt.$loading.finish()
         this.helpLoading = false
-
-
       }, 2000)
-
     })
   }
 };
