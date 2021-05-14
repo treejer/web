@@ -12,16 +12,21 @@
         <!--            >-->
         <!--              <p>{{ item.name }}</p>-->
         <!--              <p :class="{ active: activeIndex === index }">{{ item.step }}</p>-->
-        <!--            </li>-->
+        <!--            </li>-khk->
         <!--          </ul>-->
         <!--        </div>-->
+  
         <div class="col-12 step-one" v-if="activeIndex === 0">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="title-sm">How many trees to plant?</h1>
                 <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in counts" :key="index" class="pointer-event">
+                  <li
+                    v-for="(item, index) in counts"
+                    :key="index"
+                    class="pointer-event"
+                  >
                     <div v-if="!item.placeHolder">
                       <p
                         @click="activeCounts(item, index)"
@@ -122,14 +127,13 @@
                 <div class="body mt-5">
                   <h4>Total</h4>
                   <h1 v-if="treePrice" style="transition: ease-out all 0.5s">
-                    {{
-                      parseFloat((treePrice * count).toFixed(0)) + " DAI"
-                    }}
+                    {{ parseFloat((treePrice * count).toFixed(0)) + " DAI" }}
 
                     <span class="small">
                       {{
-                       "~$" +parseFloat(( daiUSDPrice * treePrice * count).toFixed(0)) 
-                    }}
+                        "~$" +
+                        parseFloat((daiUSDPrice * treePrice * count).toFixed(0))
+                      }}
                     </span>
                   </h1>
                   <!-- <button
@@ -187,8 +191,6 @@
                     >
                     {{ loading ? "Loading" : " Approve" }}
                   </button>
-
-                  
 
                   <!--                  <p class="pointer-event">-->
                   <!--                    <a class="param mb-0" href=""-->
@@ -443,8 +445,10 @@
               </h1>
               <p class="tr-gray-three mt-5">
                 You're adding
-                <span class="tr-green">{{ count + (count > 1 ? " trees" : " tree") }}</span> to your
-                forest!
+                <span class="tr-green">{{
+                  count + (count > 1 ? " trees" : " tree")
+                }}</span>
+                to your forest!
               </p>
             </div>
 
@@ -477,13 +481,9 @@
 
                     <p class="param tr-gray-four">
                       <span id="eth">{{ treePrice * count }} </span
-                      ><span class="usd"
-                        >{{
-                          parseFloat(
-                            (daiUSDPrice * treePrice * count).toFixed(2)
-                          )
-                        }}</span
-                      >
+                      ><span class="usd">{{
+                        parseFloat((daiUSDPrice * treePrice * count).toFixed(2))
+                      }}</span>
                     </p>
                     <p class="param tr-gray-four">
                       <span id="eths"></span><span class="usds"></span>
@@ -497,8 +497,6 @@
               >
                 CONFIRM
               </button>
-
-              
             </div>
             <div
               class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center h-100"
@@ -551,11 +549,27 @@ export default {
     Wallets,
     Fab,
   },
+  beforeMount() {
+    
+  },
+  
 
   mounted() {
     this.getPrice();
-    this.setIsAllowance(this.count);
     this.setDaiBalance();
+    this.setIsAllowance(this.count);
+
+    let self = this;
+
+    setTimeout(() => {
+      self.setIsAllowance(self.count, true);
+      self.setDaiBalance();
+    }, 1000);
+
+    setInterval(() => {
+      self.setIsAllowance(self.count, true);
+      self.setDaiBalance();
+    }, 3000);
   },
   async created() {
     // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
@@ -601,8 +615,10 @@ export default {
     };
   },
   methods: {
-    async allowSpendDai() {
-      this.loading = true;
+    async allowSpendDai(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
       let self = this;
 
       const transaction = await this.$store.dispatch("dai/approve", {
@@ -619,7 +635,11 @@ export default {
           href: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
         });
 
-        this.loading = false;
+        if (silent === false) {
+          this.loading = false;
+        }
+
+        await this.fund();
       }
     },
     showWalletError() {
@@ -649,15 +669,13 @@ export default {
     },
     async setDaiBalance() {
       this.daiBalance = await this.$store.dispatch("dai/balanceOf");
-
-      console.log(this.daiBalance, "this.daiBalance");
     },
 
     async buyDai() {
       let self = this;
       let transak = new transakSDK({
-        apiKey: process.env.TRANSAK_API_KEY, // Your API Key
-        environment: process.env.TRANSAK_ENV, // STAGING/PRODUCTION
+        apiKey: process.env.transakApiKey, // Your API Key
+        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
         defaultCryptoCurrency: "Dai",
         // defaultCryptoAmount: this.treePrice * this.count,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
@@ -668,8 +686,8 @@ export default {
         hostURL: window.location.origin,
         widgetHeight: "550px",
         widgetWidth: "450px",
-        networks: process.env.TRANSAK_NETWROKS,
-        defaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK
+        networks: process.env.transakNetworks,
+        defaultNetwork: process.env.transakDefaultNetwork,
       });
 
       transak.init();
@@ -728,14 +746,18 @@ export default {
     async getPrice() {
       this.treePrice = await this.$store.dispatch("treeFactory/getPrice", {});
     },
-    async setIsAllowance(count) {
-      this.loading = true;
+    async setIsAllowance(count, silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
 
       let allowance = await this.$store.dispatch("dai/allowance");
       this.isAllowedSpendDai =
         parseInt(allowance) >= parseInt(count * this.treePrice);
 
-      this.loading = false;
+      if (silent === false) {
+        this.loading = false;
+      }
     },
   },
   watch: {
