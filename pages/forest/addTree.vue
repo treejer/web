@@ -12,10 +12,10 @@
         <!--            >-->
         <!--              <p>{{ item.name }}</p>-->
         <!--              <p :class="{ active: activeIndex === index }">{{ item.step }}</p>-->
-        <!--            </li>-khk->
+        <!--            </li>-khk -->
         <!--          </ul>-->
         <!--        </div>-->
-  
+
         <div class="col-12 step-one" v-if="activeIndex === 0">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
@@ -550,9 +550,9 @@ export default {
     Fab,
   },
   beforeMount() {
-    
+
   },
-  
+
 
   mounted() {
     this.getPrice();
@@ -632,7 +632,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend dai",
           variant: "success",
-          href: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
+          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
         });
 
         if (silent === false) {
@@ -704,7 +704,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `https://ropsten.etherscan.io/address/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -727,7 +727,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `https://ropsten.etherscan.io/address/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
             "account"
           )}`,
         });

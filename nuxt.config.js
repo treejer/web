@@ -3,7 +3,7 @@
 require('dotenv').config()
 
 export default {
-  
+
   mode: 'universal',
   head: {
     title: 'Treejer',
@@ -37,6 +37,7 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com/',
+    ethPrice: process.env.eth_price,
     contractGBFactoryAddress: process.env.CONTRACT_GBFACTORY_ADDRESS,
     contractTreeTypeAddress: process.env.CONTRACT_TRRETYPE_ADDRESS,
     contractTreeFactoryAddress: process.env.CONTRACT_TREEFACTORY_ADDRESS,
@@ -60,7 +61,9 @@ export default {
     transakApiKey: process.env.TRANSAK_API_KEY, // Your API Key
     transakEnvironment: process.env.TRANSAK_ENV, // STAGING/PRODUCTION
     transakNetworks: process.env.TRANSAK_NETWROKS,
-    transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK
+    transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK,
+    treeActionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
+    etherScanUrl:process.env.ETHERSCAN_URL,
 
   },
   router: {

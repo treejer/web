@@ -118,7 +118,7 @@
           </p>
         </li>
         <li class="text-center m-auto pt-5 d-flex justify-content-center">
-          <pacman-loader></pacman-loader>
+          <BeatLoader />
         </li>
       </ul>
     </b-modal>
@@ -126,13 +126,13 @@
 </template>
 
 <script>
-import PacmanLoader from "vue-spinner/src/BeatLoader.vue";
+import BeatLoader from "vue-spinner/src/BeatLoader.vue";
 import Web3 from "web3";
 
 export default {
   name: "Wallets",
   components: {
-    PacmanLoader,
+    BeatLoader,
   },
   data() {
     return {

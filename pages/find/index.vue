@@ -270,7 +270,6 @@ export default {
   data() {
     return {
       icon: process.env.gravatar,
-
       trees: {},
       leaderBoards: null,
       treeID: null,
@@ -337,6 +336,7 @@ export default {
             });
           });
       } else {
+        self.loading = false;
         self.$bvToast.toast("Tree Not found!", {
           toaster: "b-toaster-bottom-left",
           solid: true,

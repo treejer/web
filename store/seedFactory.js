@@ -29,7 +29,7 @@ export const actions = {
         toaster: 'b-toaster-bottom-left',
         title: 'Processing transaction...',
         variant: 'warning',
-        href: `https://ropsten.etherscan.io/tx/${transactionHash}`,
+        href: `${proccess.env.etherScanUrl}/txsPending`,
         bodyClass: 'fund-error',
         noAutoHide: true
 

@@ -936,7 +936,7 @@ export default {
             toaster: "b-toaster-bottom-left",
             title: "Tokens transferred to wallet",
             variant: "success",
-            href: `https://ropsten.etherscan.io/address/${self.$cookies.get(
+            href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
               "account"
             )}`,
           });

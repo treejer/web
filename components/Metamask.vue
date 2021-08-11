@@ -152,8 +152,8 @@ export default {
     changeWallet() {
       let self = this
       this.$store.dispatch("logout").then(()=>{
-        // window.location.reload()
-        self.$router.push(`/`);
+        window.location.reload()
+        // self.$router.push(`/`);
       });
       this.$bvModal.hide("seven");
       this.$bvModal.show("five");

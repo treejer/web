@@ -1,5 +1,5 @@
 <template>
-  <ul class="d-flex justify-content-center socials list-style-none justify-content-between align-items-center">
+  <ul class="d-flex  list-style-none justify-content-between align-items-center">
     <li v-for="(item,index) in socials" :key="index" class="pointer-event" @click.prevent="goToSocials(item.href,'_blank')">
       <img :src="item.src" :alt="item.name" >
     </li>
@@ -37,6 +37,6 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
 
 </style>

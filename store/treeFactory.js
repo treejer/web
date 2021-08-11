@@ -1,4 +1,6 @@
-import { BToast } from 'bootstrap-vue'
+import {
+  BToast
+} from 'bootstrap-vue'
 
 export const state = () => ({})
 
@@ -24,22 +26,22 @@ export const actions = {
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
-        from: account,
-        to: this.$treeFactory._address,
-        value: 0,
-        data: data
-      }).on('transactionHash', (transactionHash) => {
-        let bootStrapToaster = new BToast();
-        bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
-          toaster: 'b-toaster-bottom-left',
-          title: 'Processing transaction...',
-          variant: 'warning',
-          href: `https://ropsten.etherscan.io/tx/${transactionHash}`,
-          bodyClass: 'fund-error',
-          noAutoHide: true
+          from: account,
+          to: this.$treeFactory._address,
+          value: 0,
+          data: data
+        }).on('transactionHash', (transactionHash) => {
+          let bootStrapToaster = new BToast();
+          bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Processing transaction...',
+            variant: 'warning',
+            href: `${procces.env.etherScanUrl}/txsPending`,
+            bodyClass: 'fund-error',
+            noAutoHide: true
 
+          })
         })
-      })
         .on('error', (error) => {
           console.log(error, "errorr");
           const bootStrapToaster = new BToast();

@@ -2,8 +2,8 @@
   <div class="col-md-4 peoples">
     <div class="border-0" v-for="(item, index) in peoples" :key="index">
       <img :src="item.src" :alt="item.name" />
-      <p class="type tr-gra-two">{{ item.type }}</p>
-      <p class="address-wallet tr-gray-three adrees-wallet">
+      <p class="param tr-gray-two mt-2">{{ item.type }}</p>
+      <p class="address-wallet tr-gray-three adrees-wallet param">
         {{ item.adressWallet }}
       </p>
     </div>

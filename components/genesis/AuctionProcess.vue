@@ -1,23 +1,21 @@
 <template>
-  <div class="w-100 text-center mt-md-5 mt-3 auction-process-steps">
+  <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
     <button
-      v-if="placeBidStep"
+      v-show="placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('one')"
     >
-      Place a bid
+      {{ !loading ? "Place a bid" : "Loading..." }}
     </button>
-    <div v-if="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
+    <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
-        <p class="mb-0 param-xl font-weight-bolder tr-gray-one">
-          {{ "1.23 ETH" }}
-        </p>
+        <input class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder" type="text" placeholder="0 eth" v-model="bidValue"/>
       </div>
       <div class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p class="mb-0 param-xl font-weight-bolder tr-gray-one" id="timer">
-          {{ "02h 32m 24s" }}
+        <p class="mb-0 param-xl font-weight-bolder tr-gray-one mt-3" id="timer">
+          <CountDown :date="endingTimeBid"></CountDown>
         </p>
       </div>
       <button
@@ -27,7 +25,7 @@
         Place a bid
       </button>
     </div>
-    <div v-if="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
+    <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ 0 }}</span
         ><span class="tr-gray-two"> ETH</span>
@@ -39,12 +37,12 @@
         </div>
         <div class="col-md-6 pl-md-0">
           <span class="btn-green" @click.prevent="placeBid('three')"
-            >Approve</span
+          >Approve</span
           >
         </div>
       </div>
     </div>
-    <div v-if="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
+    <div v-show="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ 1.55 }}</span
         ><span class="tr-gray-two"> ETH</span>
@@ -56,12 +54,12 @@
         </div>
         <div class="col-md-6 pl-md-0">
           <span class="btn-green" @click.prevent="placeBid('four')"
-            >Approve</span
+          >Approve</span
           >
         </div>
       </div>
     </div>
-    <div v-if="placeBidStepFive" class="w-100 place-bid-step-three pt-3">
+    <div v-show="placeBidStepFive" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ 1.55 }}</span
         ><span class="tr-gray-two">ETH</span>
@@ -73,12 +71,12 @@
             class="btn-green"
             id="btn-finish"
             @click.prevent="placeBid('finish')"
-            >Finish</span
+          >Finish</span
           >
         </div>
       </div>
     </div>
-    <div v-if="placeBidStepSix" class="w-100 place-bid-step-three pt-3 pb-3">
+    <div v-show="placeBidStepSix" class="w-100 place-bid-step-three pt-3 pb-3">
       <p class="tr-gray-three title-md mb-0">
         <span class="tr-gray-two font-weight-bolder">Please Wait...</span>
       </p>
@@ -86,17 +84,27 @@
         This may take {{ timer }} seconds
       </p>
     </div>
-    <div v-if="placeBidStepSeven" class="w-100 place-bid-step-three pt-3">
-      <p class="tr-gray-three param-xl">
-      Your bid was placed successfully. Congrats!
+    <div v-show="placeBidStepSeven" class="w-100 place-bid-step-three pt-3">
+      <p class="tr-gray-three param-xl step-seven">
+        Your bid was placed successfully. Congrats!
       </p>
-    
+
       <div class="row">
         <div class="col-md-6 pr-md-0">
-          <span class="btn-gray">Not now</span>
+          <span class="btn-gray" @click="goToHere()">Not now</span>
         </div>
         <div class="col-md-6 pl-md-0">
-          <span class="btn-green">Share</span>
+          <span class="btn-green" id="social" @click="shareModal()">Share</span>
+          <b-modal
+            id="social-target"
+            hide-footer
+
+            size="md"
+            centered
+
+          >
+            <Socials/>
+          </b-modal>
         </div>
       </div>
     </div>
@@ -104,7 +112,17 @@
 </template>
 
 <script>
+import Socials from "~/components/Socials.vue";
+import CountDown from "~/components/CountDown.Vue";
+
 export default {
+  components: {
+    CountDown,
+    Socials,
+  },
+  created() {
+  },
+
   data() {
     return {
       placeBidStep: true,
@@ -115,18 +133,59 @@ export default {
       placeBidStepSix: false,
       placeBidStepSeven: false,
       timer: 20,
+      loading: false,
+      endingTimeBid: "2022-07-06 08:15:00",
+      bidValue: null
     };
   },
+
   methods: {
+    toast(){
+      this.$bvToast.toast(['Please fill the input'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Transaction failed',
+        variant: 'danger',
+        noAutoHide: true,
+        bodyClass: 'fund-error'
+      })
+    },
+    async bid() {
+      if(!this.bidValue){
+        this.toast()
+      }
+      this.loading = true;
+      let self = this;
+
+      this.transferReceipt = await this.$store.dispatch("treeAuction/bid", {
+        context: self,
+        auctionId: '33',
+        bidValue: self.bidValue
+      });
+      if (this.transferReceipt !== null) {
+        self.$bvToast.toast(["Bid successfully added"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Bid successfully added",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+
+
+        this.placeBidStepTwo = false;
+        this.placeBidStepThree = true;
+      }
+      this.loading = false;
+      this.bidValue = null
+    },
+
     placeBid(id) {
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
       }
-
       if (id === "two") {
-        this.placeBidStepTwo = false;
-        this.placeBidStepThree = true;
+        this.bid();
       }
       if (id === "three") {
         this.placeBidStepThree = false;
@@ -147,9 +206,9 @@ export default {
       this.placeBidStepThree = false;
       this.placeBidStep = true;
     },
-    getTime(a, b) {
+    getTime() {
       setInterval(() => {
-        if (this.timer <= 0) {
+        if (this.timer <= 18) {
           this.placeBidStepSix = false;
           this.placeBidStepSeven = true;
         } else {
@@ -157,19 +216,41 @@ export default {
         }
       }, 1000);
     },
+    goToHere() {
+      window.location.reload();
+    },
+    shareModal() {
+      this.$bvModal.show("social-target");
+    },
   },
+
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .auction-process-steps {
+  .step-seven {
+    display: flex;
+    line-height: 110px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 5px 15px;
+    @media (max-width: 767px) {
+      margin-bottom: 35px;
+      line-height: inherit;
+      vertical-align: middle;
+    }
+  }
+
   .place-bid-step-two {
     background: rgba(208, 169, 69, 0.25);
     border-radius: 12px;
+    transition: all 0.3 ease;
 
     button {
       border-radius: 0px 0px 12px 12px;
     }
+
     .border-right-bid::after {
       border-right: 2px solid #757575;
       position: absolute;
@@ -182,8 +263,10 @@ export default {
   }
 
   .place-bid-step-three {
+    transition: all 0.3 ease;
     background: #f0e4c6;
     border-radius: 12px;
+
     .btn-gray,
     .btn-green {
       background: #757575;
@@ -194,14 +277,39 @@ export default {
       justify-content: center;
       align-items: center;
       color: white;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
+
     .btn-green {
       background: #67b68c;
       border-radius: 0px 0px 12px 0px;
     }
   }
+
   #btn-finish {
     border-radius: 0px 0px 12px 12px;
+  }
+
+  @media (max-width: 767px) {
+    margin-bottom: 35px;
+  }
+
+  .social-target {
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    color: white;
+  }
+  .auction-bid-input{
+    border: none;
+    background: transparent;
+    width: 100px;
+
   }
 }
 </style>
