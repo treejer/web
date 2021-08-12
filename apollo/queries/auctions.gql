@@ -1,0 +1,13 @@
+{
+  auctions {
+    id
+    tree
+    initialPrice
+    priceInterval
+    startDate
+    expireDate
+    winner
+    highestBid
+    isActive
+  }
+}

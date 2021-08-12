@@ -166,9 +166,16 @@ export default {
     ['nuxt-gmaps', {
       key: process.env.GOOGLE_MAP_API_KEY,
       //you can use libraries: ['places']
-    }]
-
+    }],
+    '@nuxtjs/apollo'
   ],
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: process.env.GRAPHQL_URL
+      }
+    }
+  },
   i18n: {
     locales: [{
       name: 'English',
