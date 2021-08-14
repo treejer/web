@@ -20,6 +20,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "@metamask/detect-provider": "^1.1.0",
     "@netsells/nuxt-hotjar": "^0.1.2",
+    "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/axios": "^5.12.1",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/google-gtag": "^1.0.4",
