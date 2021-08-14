@@ -10,7 +10,8 @@
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
-        <input class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder" type="text" placeholder="0 eth" v-model="bidValue"/>
+        <input class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder" type="text" placeholder="0 eth"
+               v-model="bidValue"/>
       </div>
       <div class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
@@ -120,7 +121,10 @@ export default {
     CountDown,
     Socials,
   },
-  created() {
+  mounted() {
+    this.auctions()
+    this.endAuction()
+    // console.log(this.$TreeAuction.methods.auctions(())
   },
 
   data() {
@@ -140,7 +144,7 @@ export default {
   },
 
   methods: {
-    toast(){
+    toast() {
       this.$bvToast.toast(['Please fill the input'], {
         toaster: 'b-toaster-bottom-left',
         title: 'Transaction failed',
@@ -149,34 +153,15 @@ export default {
         bodyClass: 'fund-error'
       })
     },
-    async bid() {
-      if(!this.bidValue){
-        this.toast()
-      }
-      this.loading = true;
-      let self = this;
 
-      this.transferReceipt = await this.$store.dispatch("treeAuction/bid", {
-        context: self,
-        auctionId: '33',
-        bidValue: self.bidValue
-      });
-      if (this.transferReceipt !== null) {
-        self.$bvToast.toast(["Bid successfully added"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Bid successfully added",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-
-
-        this.placeBidStepTwo = false;
-        this.placeBidStepThree = true;
-      }
-      this.loading = false;
-      this.bidValue = null
+    async auctions() {
+      await this.$store.dispatch('treeAuction/auctions', {})
+    },
+    async endAuction() {
+      this.endingTimeBid = await this.$store.dispatch('treeAuction/endAuction', {
+        auctionId: 33
+      })
+      console.log(this.endingTimeBid,"this.endingTimeBid")
     },
 
     placeBid(id) {
@@ -305,7 +290,8 @@ export default {
 
     color: white;
   }
-  .auction-bid-input{
+
+  .auction-bid-input {
     border: none;
     background: transparent;
     width: 100px;

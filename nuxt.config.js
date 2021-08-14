@@ -1,5 +1,3 @@
-
-
 require('dotenv').config()
 
 export default {
@@ -8,31 +6,31 @@ export default {
   head: {
     title: 'Treejer',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'content', content: 'Treejer description' },
-      { name: 'robots', content: 'width=device-width, initial-scale=1' },
-      { name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U' },
-      { name: 'msapplication-TileColor', content: '#ffffff' },
-      { name: 'theme-color', content: '#67B68C' },
-      { hid: 'description', name: 'description', content: 'Treejer' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:title', content: 'Home - Treejer' },
+      {charset: 'utf-8'},
+      {name: 'content', content: 'Treejer description'},
+      {name: 'robots', content: 'width=device-width, initial-scale=1'},
+      {name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U'},
+      {name: 'msapplication-TileColor', content: '#ffffff'},
+      {name: 'theme-color', content: '#67B68C'},
+      {hid: 'description', name: 'description', content: 'Treejer'},
+      {property: 'og:type', content: 'website'},
+      {property: 'og:title', content: 'Home - Treejer'},
       // { property: 'og:url', content: process.env.websiteUrl },
-      { property: 'og:site_name', content: 'Treejer' },
-      { property: 'twitter:card', content: 'summary_large_image' },
-      { property: 'twitter:title', content: 'Home - Treejer' },
-      { property: 'og:locale:alternate', content: 'en' }
+      {property: 'og:site_name', content: 'Treejer'},
+      {property: 'twitter:card', content: 'summary_large_image'},
+      {property: 'twitter:title', content: 'Home - Treejer'},
+      {property: 'og:locale:alternate', content: 'en'}
     ],
     script: [{
       src: 'https://code.responsivevoice.org/responsivevoice.js?key=U26BzgW7',
       name: 'responsivevoice'
     }],
     link: [
-      { rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png', href: '/apple-touch-icon.png' },
-      { rel: 'icon', sizes: '32x32', type: 'image/png', href: '/favicon-32x32.png' },
-      { rel: 'icon', sizes: '16x16', type: 'image/png', href: '/favicon-16x16.png' },
-      { rel: 'manifest', href: '/site.webmanifest' },
-      { rel: 'mask-icon', href: '//safari-pinned-tab.svg', color: '#5bbad5' },
+      {rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png', href: '/apple-touch-icon.png'},
+      {rel: 'icon', sizes: '32x32', type: 'image/png', href: '/favicon-32x32.png'},
+      {rel: 'icon', sizes: '16x16', type: 'image/png', href: '/favicon-16x16.png'},
+      {rel: 'manifest', href: '/site.webmanifest'},
+      {rel: 'mask-icon', href: '//safari-pinned-tab.svg', color: '#5bbad5'},
     ]
   },
   env: {
@@ -63,7 +61,8 @@ export default {
     transakNetworks: process.env.TRANSAK_NETWROKS,
     transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK,
     treeActionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
-    etherScanUrl:process.env.ETHERSCAN_URL,
+    incrementalSellAddress: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
+    etherScanUrl: process.env.ETHERSCAN_URL,
 
   },
   router: {
@@ -86,15 +85,15 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~plugins/swiper.js', mode: 'client', ssr: false },
-    { src: '~plugins/typer.js', mode: 'client', ssr: false },
-    { src: '~plugins/maps.js', ssr: false },
-    { src: '~plugins/vueFormulate.js', ssr: false },
-    { src: '~plugins/web3.js', ssr: false },
-    { src: '~plugins/accountSlice.js', ssr: false },
+    {src: '~plugins/swiper.js', mode: 'client', ssr: false},
+    {src: '~plugins/typer.js', mode: 'client', ssr: false},
+    {src: '~plugins/maps.js', ssr: false},
+    {src: '~plugins/vueFormulate.js', ssr: false},
+    {src: '~plugins/web3.js', ssr: false},
+    {src: '~plugins/accountSlice.js', ssr: false},
   ],
   buildModules: [
-    ['@nuxtjs/dotenv', { filename: '.env' }]
+    ['@nuxtjs/dotenv', {filename: '.env'}]
   ],
   module: {
     rules: [{
@@ -116,31 +115,31 @@ export default {
         }
       }]
     },
-    // {
-    //   test: /\.vue$/,
-    //   loader: 'vue-loader',
-    //   options: {
-    //     loaders: {
-    //       i18n: '@kazupon/vue-i18n-loader'
-    //     }
-    //   }
-    // },
-    {
-      test: /\.(png|jpe?g|gif|svg|webp)$/,
-      loader: 'url-loader',
-      query: {
-        // limit: 1000, // 1kB
-        name: 'img/[name].[hash:7].[ext]'
+      // {
+      //   test: /\.vue$/,
+      //   loader: 'vue-loader',
+      //   options: {
+      //     loaders: {
+      //       i18n: '@kazupon/vue-i18n-loader'
+      //     }
+      //   }
+      // },
+      {
+        test: /\.(png|jpe?g|gif|svg|webp)$/,
+        loader: 'url-loader',
+        query: {
+          // limit: 1000, // 1kB
+          name: 'img/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        query: {
+          // limit: 1000, // 1kB
+          name: 'fonts/[name].[hash:7].[ext]'
+        }
       }
-    },
-    {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-      loader: 'url-loader',
-      query: {
-        // limit: 1000, // 1kB
-        name: 'fonts/[name].[hash:7].[ext]'
-      }
-    }
     ]
   },
   /*
@@ -176,24 +175,24 @@ export default {
       iso: 'en-US',
       file: 'en.js'
     },
-    {
-      name: 'Farsi',
-      code: 'fa',
-      iso: 'fa-FA',
-      file: 'fa.js'
-    },
-    {
-      name: 'Turkish',
-      code: 'tr',
-      iso: 'tr-TR',
-      file: 'tr.js'
-    },
-    {
-      name: 'Arabic',
-      code: 'ar',
-      iso: 'ar-AR',
-      file: 'ar.js'
-    }
+      {
+        name: 'Farsi',
+        code: 'fa',
+        iso: 'fa-FA',
+        file: 'fa.js'
+      },
+      {
+        name: 'Turkish',
+        code: 'tr',
+        iso: 'tr-TR',
+        file: 'tr.js'
+      },
+      {
+        name: 'Arabic',
+        code: 'ar',
+        iso: 'ar-AR',
+        file: 'ar.js'
+      }
     ],
     defaultLocale: 'en',
     loadLanguagesAsync: true,
@@ -208,10 +207,10 @@ export default {
       set: '@fortawesome/free-solid-svg-icons', // Solid icons
       icons: ['faEye', 'faPlaneDeparture', 'faExternalLinkAlt', 'faLifeRing', 'faTrophy', 'faBell', 'faTree', 'faCalendarAlt', 'faCaretDown', 'faBars', 'faCaretRight', 'faTimes', 'faAngleRight', 'faPhoneSquareAlt', 'faEnvelope', 'faAngleDown', 'faArrowCircleDown', 'faArrowCircleUp', 'faUser', 'faShoppingCart', 'faSearch', 'faUsers', 'faAngleDoubleDown', 'faAngleDoubleUp']
     },
-    {
-      set: '@fortawesome/free-brands-svg-icons', // Brand icons
-      icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
-    }
+      {
+        set: '@fortawesome/free-brands-svg-icons', // Brand icons
+        icons: ['faEthereum', 'faCcStripe', 'faCcVisa', 'faFacebook', 'faInstagram', 'faTelegram', 'faWhatsapp', 'faTwitter', 'faLinkedinIn']
+      }
     ]
   },
   recaptcha: {
@@ -234,6 +233,7 @@ export default {
     /*
       ** You can extend webpack config here
       */
-    extend(config, ctx) { }
+    extend(config, ctx) {
+    }
   }
 }

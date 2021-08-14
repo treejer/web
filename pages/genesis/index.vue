@@ -16,7 +16,7 @@
             />
             <p class="param-xl pl-md-4">Tree of Life</p>
             <PlaceBid :placeBidNumber="0" class="mt-2 mb-4 mb-md-0"/>
-            <button class="btn btn-success" @click="placeBid()">here</button>
+            <button class="btn btn-success" @click="buyTree()">here</button>
           </div>
           <div class="col-md-7 mt-md-5 pt-md-4 pl-md-0 pr-md-5">
             <p class="param tr-gray-four">
@@ -121,7 +121,7 @@ export default {
 
   data() {
     return {
-      loading:false,
+      loading: false,
       treeBids: [
         {src: require("~/assets/images/genesis/Frame-78.svg")},
         {src: require("~/assets/images/genesis/Frame-79.svg")},
@@ -138,16 +138,31 @@ export default {
   },
   components: {PlaceBid, BidCard, AvatarBidders},
   methods: {
+    async buyTree() {
+
+
+      this.loading = true;
+      let self = this;
+
+      this.transferReceipt = await this.$store.dispatch("incrementalSell/buyTree", {
+        context: self,
+        auctionId: 33,
+        bidValue: self.bidValue
+      });
+      if (this.transferReceipt !== null) {
+        self.$bvToast.toast(["Bid successfully added"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Bid successfully added",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+      }
+    },
   },
   mounted() {
 
-    // console.log(this.$ITreeAuction.methods.createAuction((res) => {
-    //
-    // }), "web3 is here")
-
-    // this.$web3.eth.getTransactionCount.call().then((res) => {
-    //   console.log(res,"res is here")
-    // })
   }
 };
 </script>

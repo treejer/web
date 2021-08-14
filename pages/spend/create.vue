@@ -136,7 +136,7 @@
 
                             <p for="product_category" class="tr-gray-three param expiration-date">Region</p>
                             <select name="'choice your country'" v-model="form.country">
-                              <option class="tr-black" v-for="(item , index) in regions" :value="form.country ">
+                              <option class="tr-black" v-for="(item , index) in regions" :key="index" :value="form.country ">
                                 {{item.country }}
                               </option>
                             </select>
@@ -148,12 +148,12 @@
                       <div class="form-group coupon-count  mt-4">
                         <p for="product_category" class="tr-gray-three param">Number of coupons</p>
                         <ul class="d-flex input p-0 list-style-none mt-2">
-                          <li v-for="(item, index) in counts" class="pointer-event">
+                          <li v-for="(item, index) in counts" class="pointer-event"   :key="index">
                             <div v-if="!item.placeHolder">
                               <p
                                 @click="activeCounts(item, index)"
                                 :class="{ active: activeCount === index }"
-                                :key="index"
+
                                 :name="item.name"
                               >
                                 {{ item.name }}
