@@ -1,14 +1,18 @@
 import {BToast} from 'bootstrap-vue'
 
-export const state = () => ({})
+export const state = () => ({
+  price: null
+})
 
 
 export const actions = {
-  async getPrice() {
+  async getPrice({commit}) {
     let self = this
     return self.$RegularSell.methods.treePrice().call()
       .then((treeWeiPrice) => {
-        return self.$web3.utils.fromWei(treeWeiPrice)
+        let treeprice = self.$web3.utils.fromWei(treeWeiPrice);
+        commit('SET_PRICE', treeprice)
+        return treeprice;
       });
   },
   async requestTrees(context, params) {
@@ -18,14 +22,9 @@ export const actions = {
 
     this.$web3.currentProvider.enable();
 
-    console.log(params.count, "params.count")
-    console.log(this.$RegularSell._address, "this.$RegularSell._address")
-
     const tx = this.$RegularSell.methods.requestTrees(params.count);
     const data = tx.encodeABI();
     // const price = await this.$RegularSell.methods.price().call();
-
-    console.log(data, "data")
 
 
     try {
@@ -84,4 +83,10 @@ export const actions = {
 
   }
 
+}
+
+export const mutations = {
+  SET_PRICE(state, price) {
+    state.price = price
+  }
 }

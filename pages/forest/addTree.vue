@@ -759,8 +759,6 @@ export default {
 
       let allowance = await this.$store.dispatch("dai/allowance");
 
-      console.log(allowance, "allowance")
-      console.log(this.treePrice, "this.treePrice")
       this.isAllowedSpendDai =
         parseInt(allowance) >= parseInt(count * this.treePrice);
 
