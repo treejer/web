@@ -171,7 +171,7 @@
 
                   <button
                     v-if="daiBalance > 0 && isAllowedSpendDai"
-                    @click="fund()"
+                    @click="requestTrees()"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
                   >
@@ -566,11 +566,13 @@ export default {
     let self = this;
 
     setTimeout(() => {
+      this.getPrice();
       self.setIsAllowance(self.count, true);
       self.setDaiBalance();
     }, 1000);
 
     setInterval(() => {
+      this.getPrice();
       self.setIsAllowance(self.count, true);
       self.setDaiBalance();
     }, 3000);
@@ -643,7 +645,7 @@ export default {
           this.loading = false;
         }
 
-        await this.fund();
+        await this.requestTrees();
       }
     },
     showWalletError() {
@@ -717,11 +719,11 @@ export default {
       });
     },
 
-    async fund() {
+    async requestTrees() {
       this.loading = true;
       let self = this;
 
-      this.transferReceipt = await this.$store.dispatch("treeFactory/fund", {
+      this.transferReceipt = await this.$store.dispatch("regularSell/requestTrees", {
         count: this.count,
         context: self,
       });
@@ -756,6 +758,9 @@ export default {
       }
 
       let allowance = await this.$store.dispatch("dai/allowance");
+
+      console.log(allowance, "allowance")
+      console.log(this.treePrice, "this.treePrice")
       this.isAllowedSpendDai =
         parseInt(allowance) >= parseInt(count * this.treePrice);
 

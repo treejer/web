@@ -6,44 +6,46 @@ export const state = () => ({})
 export const actions = {
   async getPrice() {
     let self = this
-    return await self.$RegularSell.methods.treePrice().call()
+    return self.$RegularSell.methods.treePrice().call()
       .then((treeWeiPrice) => {
-        self.$web3.utils.fromWei(treeWeiPrice)
-        console.log(self.$web3.utils.fromWei(treeWeiPrice))
+        return self.$web3.utils.fromWei(treeWeiPrice)
       });
   },
+  async requestTrees(context, params) {
+    let self = this;
 
-  async endAuction(params) {
     let account = this.$cookies.get('account');
-    this.$web3.currentProvider.enable();
-    const tx = this.$TreeAuction.methods.bid(params.auctionId);
-    const data = tx.encodeABI();
 
-    console.log({
-      from: account,
-      to: process.env.treeAuctionAddress,
-      // value: self.$web3.utils.toWei(params.bidValue),
-      data: data
-    }, "bidCount")
+    this.$web3.currentProvider.enable();
+
+    console.log(params.count, "params.count")
+    console.log(this.$RegularSell._address, "this.$RegularSell._address")
+
+    const tx = this.$RegularSell.methods.requestTrees(params.count);
+    const data = tx.encodeABI();
+    // const price = await this.$RegularSell.methods.price().call();
+
+    console.log(data, "data")
+
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
-        from: account,
-        to: process.env.treeAuctionAddress,
-        // value: self.$web3.utils.toWei(params.bidValue),
-        data: data
-      }).on('transactionHash', (transactionHash) => {
-        let bootStrapToaster = new BToast();
-        bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
-          toaster: 'b-toaster-bottom-left',
-          title: 'Processing transaction...',
-          variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
-          bodyClass: 'bid error',
-          noAutoHide: true
+          from: account,
+          to: this.$RegularSell._address,
+          value: 0,
+          data: data
+        }).on('transactionHash', (transactionHash) => {
+          let bootStrapToaster = new BToast();
+          bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Processing transaction...',
+            variant: 'warning',
+            href: `${process.env.etherScanUrl}/txsPending`,
+            bodyClass: 'fund-error',
+            noAutoHide: true
 
+          })
         })
-      })
         .on('error', (error) => {
           console.log(error, "errorr");
           const bootStrapToaster = new BToast();
@@ -52,6 +54,7 @@ export const actions = {
               toaster: 'b-toaster-bottom-left',
               title: 'Transaction failed',
               variant: 'danger',
+              to: '/forest/addTree',
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
@@ -60,11 +63,15 @@ export const actions = {
               toaster: 'b-toaster-bottom-left',
               title: 'Transaction failed',
               variant: 'danger',
+              to: '/forest/addTree',
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
           }
+
+
           return null
+
         })
 
       return receipt
@@ -75,81 +82,6 @@ export const actions = {
       return null;
     }
 
-  },
-  async getAuctions({commit}, param) {
-    await this.$axios.$post(process.env.graphqlUrl, {
+  }
 
-      query: `query auction {
-          auction(id:${param.id}){
-           id
-           tree
-           initialPrice
-           priceInterval
-           startDate
-           expireDate
-           winner
-           highestBid
-           isActive
-        }
-      }`,
-      prefetch: false,
-    }).then(res => {
-      commit('SET_AUCTION', res)
-    }).catch(error => {
-      console.log(error)
-    })
-  },
-  async planter({commit}, id = 33) {
-    await this.$axios.$post(process.env.graphqlUrl, {
-      query: `query planter {
-          planter(id:${id}){
-          id
-          planterType
-          status
-          countryCode
-          score
-          capacity
-          plantedCount
-          longitude
-          latitude
-        }
-      }`,
-    }, commit).then(res => {
-      commit('SET_PLANTER', res.data)
-    })
-  },
-  async tree({commit}, id = 33) {
-    await this.$axios.$post(process.env.graphqlUrl, {
-      query: `query tree {
-          tree(id:${id}){
-          id
-          planterType
-          status
-          countryCode
-          score
-          capacity
-          plantedCount
-          longitude
-          latitude
-        }
-      }`,
-    }, commit).then(res => {
-      commit('SET_TREE', res.data)
-    })
-  },
-}
-
-export const mutations = {
-  SET_AUCTION(state, auction) {
-    state.auction = auction
-  },
-  SET_PLANTER(state, planters) {
-    state.planters = planters
-  },
-  SET_TREE(state, trees) {
-    state.trees = trees
-  },
-  SET_PLANTER_COUNT(state, count) {
-    state.planterCount = count
-  },
 }

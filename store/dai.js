@@ -23,7 +23,7 @@ export const actions = {
     let account = this.$cookies.get('account');
 
     let self = this
-    return daiContract.methods.allowance(account, process.env.contractTreeFactoryAddress).call()
+    return daiContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
       .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
   },
   async approve(context, params) {
@@ -31,6 +31,7 @@ export const actions = {
 
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
+    console.log(account)
     this.$web3.currentProvider.enable();
 
     // const price = await this.$treeFactory.methods.price().call()
@@ -38,7 +39,7 @@ export const actions = {
     //   price.toString()
     // )
     // console.log(price, "price");
-    const tx = daiContract.methods.approve(process.env.contractTreeFactoryAddress, (params.count * 7000000000000000000).toString());
+    const tx = daiContract.methods.approve(process.env.contractTreeRegularSell, (params.count * 7000000000000000000).toString());
 
     console.log(tx, "tx");
     const data = tx.encodeABI();
