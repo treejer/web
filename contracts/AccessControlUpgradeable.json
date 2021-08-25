@@ -223,22 +223,22 @@
         395
       ],
       "ContextUpgradeable": [
-        1850
+        1928
       ],
       "ERC165Upgradeable": [
-        2173
+        2251
       ],
       "IAccessControlUpgradeable": [
         44
       ],
       "IERC165Upgradeable": [
-        2185
+        2263
       ],
       "Initializable": [
         441
       ],
       "StringsUpgradeable": [
-        2127
+        2205
       ]
     },
     "id": 396,
@@ -263,7 +263,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 1851,
+        "sourceUnit": 1929,
         "src": "58:41:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -275,7 +275,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 2128,
+        "sourceUnit": 2206,
         "src": "100:41:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -287,7 +287,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 2174,
+        "sourceUnit": 2252,
         "src": "142:54:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -792,7 +792,7 @@
               "id": 48,
               "name": "ContextUpgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1850,
+              "referencedDeclaration": 1928,
               "src": "2323:18:0"
             },
             "id": 49,
@@ -816,7 +816,7 @@
               "id": 52,
               "name": "ERC165Upgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2173,
+              "referencedDeclaration": 2251,
               "src": "2370:17:0"
             },
             "id": 53,
@@ -836,10 +836,10 @@
         "id": 395,
         "linearizedBaseContracts": [
           395,
-          2173,
-          2185,
+          2251,
+          2263,
           44,
-          1850,
+          1928,
           441
         ],
         "name": "AccessControlUpgradeable",
@@ -861,7 +861,7 @@
                       "name": "__Context_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1827,
+                      "referencedDeclaration": 1905,
                       "src": "2457:24:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -896,7 +896,7 @@
                       "name": "__ERC165_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2151,
+                      "referencedDeclaration": 2229,
                       "src": "2493:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -1574,7 +1574,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "4377:10:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -1695,7 +1695,7 @@
           },
           {
             "baseFunctions": [
-              2168
+              2246
             ],
             "body": {
               "id": 150,
@@ -1848,7 +1848,7 @@
                         "lValueRequested": false,
                         "memberName": "supportsInterface",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2168,
+                        "referencedDeclaration": 2246,
                         "src": "4645:23:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_view$_t_bytes4_$returns$_t_bool_$",
@@ -2401,10 +2401,10 @@
                                           "name": "StringsUpgradeable",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 2127,
+                                          "referencedDeclaration": 2205,
                                           "src": "5456:18:0",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2127_$",
+                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2205_$",
                                             "typeString": "type(library StringsUpgradeable)"
                                           }
                                         },
@@ -2415,7 +2415,7 @@
                                         "lValueRequested": false,
                                         "memberName": "toHexString",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2126,
+                                        "referencedDeclaration": 2204,
                                         "src": "5456:30:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -2544,10 +2544,10 @@
                                           "name": "StringsUpgradeable",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 2127,
+                                          "referencedDeclaration": 2205,
                                           "src": "5579:18:0",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2127_$",
+                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2205_$",
                                             "typeString": "type(library StringsUpgradeable)"
                                           }
                                         },
@@ -2558,7 +2558,7 @@
                                         "lValueRequested": false,
                                         "memberName": "toHexString",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2126,
+                                        "referencedDeclaration": 2204,
                                         "src": "5579:30:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -3498,7 +3498,7 @@
                             "name": "_msgSender",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1836,
+                            "referencedDeclaration": 1914,
                             "src": "7374:10:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -4455,7 +4455,7 @@
                                 "name": "_msgSender",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1836,
+                                "referencedDeclaration": 1914,
                                 "src": "8674:10:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -4835,7 +4835,7 @@
                                 "name": "_msgSender",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1836,
+                                "referencedDeclaration": 1914,
                                 "src": "8905:10:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -5056,22 +5056,22 @@
         395
       ],
       "ContextUpgradeable": [
-        1850
+        1928
       ],
       "ERC165Upgradeable": [
-        2173
+        2251
       ],
       "IAccessControlUpgradeable": [
         44
       ],
       "IERC165Upgradeable": [
-        2185
+        2263
       ],
       "Initializable": [
         441
       ],
       "StringsUpgradeable": [
-        2127
+        2205
       ]
     },
     "id": 396,
@@ -5096,7 +5096,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 1851,
+        "sourceUnit": 1929,
         "src": "58:41:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5108,7 +5108,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 2128,
+        "sourceUnit": 2206,
         "src": "100:41:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5120,7 +5120,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 396,
-        "sourceUnit": 2174,
+        "sourceUnit": 2252,
         "src": "142:54:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5625,7 +5625,7 @@
               "id": 48,
               "name": "ContextUpgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1850,
+              "referencedDeclaration": 1928,
               "src": "2323:18:0"
             },
             "id": 49,
@@ -5649,7 +5649,7 @@
               "id": 52,
               "name": "ERC165Upgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2173,
+              "referencedDeclaration": 2251,
               "src": "2370:17:0"
             },
             "id": 53,
@@ -5669,10 +5669,10 @@
         "id": 395,
         "linearizedBaseContracts": [
           395,
-          2173,
-          2185,
+          2251,
+          2263,
           44,
-          1850,
+          1928,
           441
         ],
         "name": "AccessControlUpgradeable",
@@ -5694,7 +5694,7 @@
                       "name": "__Context_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1827,
+                      "referencedDeclaration": 1905,
                       "src": "2457:24:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -5729,7 +5729,7 @@
                       "name": "__ERC165_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2151,
+                      "referencedDeclaration": 2229,
                       "src": "2493:23:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -6407,7 +6407,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "4377:10:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -6528,7 +6528,7 @@
           },
           {
             "baseFunctions": [
-              2168
+              2246
             ],
             "body": {
               "id": 150,
@@ -6681,7 +6681,7 @@
                         "lValueRequested": false,
                         "memberName": "supportsInterface",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2168,
+                        "referencedDeclaration": 2246,
                         "src": "4645:23:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_view$_t_bytes4_$returns$_t_bool_$",
@@ -7234,10 +7234,10 @@
                                           "name": "StringsUpgradeable",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 2127,
+                                          "referencedDeclaration": 2205,
                                           "src": "5456:18:0",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2127_$",
+                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2205_$",
                                             "typeString": "type(library StringsUpgradeable)"
                                           }
                                         },
@@ -7248,7 +7248,7 @@
                                         "lValueRequested": false,
                                         "memberName": "toHexString",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2126,
+                                        "referencedDeclaration": 2204,
                                         "src": "5456:30:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -7377,10 +7377,10 @@
                                           "name": "StringsUpgradeable",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 2127,
+                                          "referencedDeclaration": 2205,
                                           "src": "5579:18:0",
                                           "typeDescriptions": {
-                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2127_$",
+                                            "typeIdentifier": "t_type$_t_contract$_StringsUpgradeable_$2205_$",
                                             "typeString": "type(library StringsUpgradeable)"
                                           }
                                         },
@@ -7391,7 +7391,7 @@
                                         "lValueRequested": false,
                                         "memberName": "toHexString",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2126,
+                                        "referencedDeclaration": 2204,
                                         "src": "5579:30:0",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -8331,7 +8331,7 @@
                             "name": "_msgSender",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1836,
+                            "referencedDeclaration": 1914,
                             "src": "7374:10:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -9288,7 +9288,7 @@
                                 "name": "_msgSender",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1836,
+                                "referencedDeclaration": 1914,
                                 "src": "8674:10:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -9668,7 +9668,7 @@
                                 "name": "_msgSender",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1836,
+                                "referencedDeclaration": 1914,
                                 "src": "8905:10:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -9888,7 +9888,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-08-05T11:17:30.502Z",
+  "updatedAt": "2021-08-13T04:41:01.378Z",
   "devdoc": {
     "details": "Contract module that allows children to implement role-based access control mechanisms. This is a lightweight version that doesn't allow enumerating role members except through off-chain means by accessing the contract event logs. Some applications may benefit from on-chain enumerability, for those cases see {AccessControlEnumerable}. Roles are referred to by their `bytes32` identifier. These should be exposed in the external API and be unique. The best way to achieve this is by using `public constant` hash digests: ``` bytes32 public constant MY_ROLE = keccak256(\"MY_ROLE\"); ``` Roles can be used to represent a set of permissions. To restrict access to a function call, use {hasRole}: ``` function foo() public {     require(hasRole(MY_ROLE, msg.sender));     ... } ``` Roles can be granted and revoked dynamically via the {grantRole} and {revokeRole} functions. Each role has an associated admin role, and only accounts that have a role's admin role can call {grantRole} and {revokeRole}. By default, the admin role for all roles is `DEFAULT_ADMIN_ROLE`, which means that only accounts with this role will be able to grant or revoke other roles. More complex role relationships can be created by using {_setRoleAdmin}. WARNING: The `DEFAULT_ADMIN_ROLE` is also its own admin: it has permission to grant and revoke this role. Extra precautions should be taken to secure accounts that have been granted it.",
     "events": {

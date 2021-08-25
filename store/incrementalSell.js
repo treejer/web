@@ -10,7 +10,6 @@ export const actions = {
     this.$web3.currentProvider.enable();
 
     const tx = this.$IncrementalSell.methods.buyTree(10);
-    debugger
     const data = tx.encodeABI();
     try {
       const receipt = await this.$web3.eth.sendTransaction({

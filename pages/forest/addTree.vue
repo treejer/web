@@ -163,7 +163,8 @@
                     class="btn-green-md mt-4 mb-3"
                   >
                     <BSpinner class="mr-2" type="grow" small v-if="loading"
-                      >loading</BSpinner
+                    >loading
+                    </BSpinner
                     >
                     {{ loading ? "Loading" : " Buy Dai" }}
                   </button>
@@ -175,7 +176,8 @@
                     class="btn-green-md mt-4 mb-3"
                   >
                     <BSpinner class="mr-2" type="grow" small v-if="loading"
-                      >loading</BSpinner
+                    >loading
+                    </BSpinner
                     >
                     {{ loading ? "Loading" : " Confirm" }}
                   </button>
@@ -187,7 +189,8 @@
                     class="btn-green-md mt-4 mb-3"
                   >
                     <BSpinner class="mr-2" type="grow" small v-if="loading"
-                      >loading</BSpinner
+                    >loading
+                    </BSpinner
                     >
                     {{ loading ? "Loading" : " Approve" }}
                   </button>
@@ -215,7 +218,7 @@
                     </div>
                     <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium"
-                        >First name
+                      >First name
                         <input
                           class="param-sm tr-gray-five"
                           type="text"
@@ -225,7 +228,7 @@
                     </div>
                     <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium"
-                        >Last name (optional)
+                      >Last name (optional)
                         <input
                           class="param-sm tr-gray-five"
                           type="text"
@@ -235,7 +238,7 @@
                     </div>
                     <div class="col-lg-4">
                       <label class="param tr-gray-two Montserrat-Medium"
-                        >Your email
+                      >Your email
                         <input
                           class="param-sm tr-gray-five"
                           type="text"
@@ -316,7 +319,7 @@
                         <p class="param-sm mt-3">
                           Or upload email addresses using our
                           <span class="tr-green pointer-event"
-                            >CSV template</span
+                          >CSV template</span
                           >
                         </p>
                       </div>
@@ -358,7 +361,7 @@
             <div
               class="col-12 col-lg-4 mt-3 justify-content-center text-center"
             >
-              <Wallets />
+              <Wallets/>
 
               <!--              <ul class="wallets tr-gray-three list-style-none">-->
               <!--                <li v-for="(item, index) in wallets" class="pointer-event">-->
@@ -384,14 +387,14 @@
             <div
               class="col-12 col-lg-4 d-none d-lg-block flex-row align-items-center align-self-center h-100"
             >
-              <hr />
+              <hr/>
               <p class="param-md font-weight-bold tr-gray-three text-center">
                 Total
               </p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
                 {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
               </p>
-              <hr />
+              <hr/>
             </div>
           </div>
           <div class="row" v-if="this.$store.state.account !== null">
@@ -426,14 +429,14 @@
             <div
               class="col-12 col-lg-4 d-none d-lg-block flex-row align-items-center align-self-center h-100"
             >
-              <hr />
+              <hr/>
               <p class="param-md font-weight-bold tr-gray-three text-center">
                 Total
               </p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
                 ${{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}
               </p>
-              <hr />
+              <hr/>
             </div>
           </div>
         </div>
@@ -446,8 +449,8 @@
               <p class="tr-gray-three mt-5">
                 You're adding
                 <span class="tr-green">{{
-                  count + (count > 1 ? " trees" : " tree")
-                }}</span>
+                    count + (count > 1 ? " trees" : " tree")
+                  }}</span>
                 to your forest!
               </p>
             </div>
@@ -501,13 +504,13 @@
             <div
               class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center h-100"
             >
-              <hr />
+              <hr/>
               <p class="title-sm tr-gray-three text-center">Total</p>
               <p class="title-md text-center tr-gray-three font-weight-bolder">
                 {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
               </p>
 
-              <hr />
+              <hr/>
             </div>
           </div>
         </div>
@@ -529,7 +532,8 @@
           <nuxt-link
             class="tr-green param pt-5"
             :to="localePath('/forest/' + $cookies.get('account'))"
-            >Go back to My Forest</nuxt-link
+          >Go back to My Forest
+          </nuxt-link
           >
         </div>
       </div>
@@ -589,22 +593,22 @@ export default {
       slectedPays: null,
       ethPrice: this.$store.state.ethPrice,
       steps: [
-        { name: "Collect", step: 1 },
-        { name: "Connect to wallet", step: 2 },
-        { name: "Checkout", step: 3 },
+        {name: "Collect", step: 1},
+        {name: "Connect to wallet", step: 2},
+        {name: "Checkout", step: 3},
 
         // { name: "final-step", step: 4 }
       ],
       counts: [
-        { name: 1, step: 1 },
-        { name: 5, step: 2 },
-        { name: 10, step: 3 },
-        { name: 20, step: 3 },
-        { name: this.countTree, step: 3, placeHolder: "Enter Number" },
+        {name: 1, step: 1},
+        {name: 5, step: 2},
+        {name: 10, step: 3},
+        {name: 20, step: 3},
+        {name: this.countTree, step: 3, placeHolder: "Enter Number"},
       ],
       payMethods: [
         // {name: "visa", icon: "cc-visa", step: 1},
-        { name: "bitcoin", icon: "ethereum", step: 2 },
+        {name: "bitcoin", icon: "ethereum", step: 2},
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
 
@@ -644,7 +648,7 @@ export default {
     },
     showWalletError() {
       let self = this;
-      self.$bvToast.toast("Switch to Ropsten Test Network", {
+      self.$bvToast.toast("Switch to Rinkeby Test Network", {
         title: `Wrong network`,
         href:
           "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
@@ -744,7 +748,7 @@ export default {
       this.loading = false;
     },
     async getPrice() {
-      this.treePrice = await this.$store.dispatch("treeFactory/getPrice", {});
+      this.treePrice = await this.$store.dispatch('regularSell/getPrice')
     },
     async setIsAllowance(count, silent = false) {
       if (silent === false) {
@@ -781,27 +785,32 @@ export default {
     opacity: 0.8;
     background-color: blanchedalmond;
   }
+
   .pay-badge:hover,
   .disable {
     cursor: not-allowed;
   }
+
   hr {
     width: 50%;
 
     border-top: solid 3px #bdbdbd;
     margin: 25px auto;
   }
+
   .form-name {
     .finish {
       padding: 0px 45px !important;
       opacity: 0.95;
       border-radius: 6px;
     }
+
     label {
       font-family: Montserrat-Medium;
       font-size: 14px;
       font-weight: 500;
     }
+
     input {
       border-radius: 10px;
       background-color: #e5e7db;
@@ -813,6 +822,7 @@ export default {
       font-family: Montserrat-Medium;
       margin-top: 7px;
     }
+
     .cv-team {
       border-radius: 6px;
       border: dashed 1px #9e9e9e;
@@ -934,6 +944,7 @@ export default {
   box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
   background-color: #ffffff;
   float: right;
+
   .btn-green {
     width: 160px;
     height: 36px;
@@ -947,11 +958,13 @@ export default {
   ul {
     padding: 0;
   }
+
   .input {
     p {
       width: 48px !important;
       height: 48px;
     }
+
     p.active {
       width: 48px !important;
       height: 48px;
@@ -1080,14 +1093,15 @@ export default {
     }
   }
 }
+
 @media (max-width: 678px) {
   .step-three
-    > div
-    > div.col-12.col-lg-4.mt-3.justify-content-center.text-center
-    > div
-    > div
-    > div.col-lg-7
-    > p.param.tr-gray-five.font-weight-light.position-absolute {
+  > div
+  > div.col-12.col-lg-4.mt-3.justify-content-center.text-center
+  > div
+  > div
+  > div.col-lg-7
+  > p.param.tr-gray-five.font-weight-light.position-absolute {
     position: relative !important;
     display: block;
     top: 0;

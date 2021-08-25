@@ -55,7 +55,7 @@
     "absolutePath": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
     "exportedSymbols": {
       "ContextUpgradeable": [
-        1850
+        1928
       ],
       "Initializable": [
         441
@@ -86,7 +86,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 555,
-        "sourceUnit": 1851,
+        "sourceUnit": 1929,
         "src": "58:41:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -123,7 +123,7 @@
               "id": 449,
               "name": "ContextUpgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1850,
+              "referencedDeclaration": 1928,
               "src": "640:18:2"
             },
             "id": 450,
@@ -143,7 +143,7 @@
         "id": 554,
         "linearizedBaseContracts": [
           554,
-          1850,
+          1928,
           441
         ],
         "name": "PausableUpgradeable",
@@ -292,7 +292,7 @@
                       "name": "__Context_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1827,
+                      "referencedDeclaration": 1905,
                       "src": "1049:24:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -913,7 +913,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "2170:10:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -1084,7 +1084,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "2419:10:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -1255,7 +1255,7 @@
     "absolutePath": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol",
     "exportedSymbols": {
       "ContextUpgradeable": [
-        1850
+        1928
       ],
       "Initializable": [
         441
@@ -1286,7 +1286,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 555,
-        "sourceUnit": 1851,
+        "sourceUnit": 1929,
         "src": "58:41:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1323,7 +1323,7 @@
               "id": 449,
               "name": "ContextUpgradeable",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1850,
+              "referencedDeclaration": 1928,
               "src": "640:18:2"
             },
             "id": 450,
@@ -1343,7 +1343,7 @@
         "id": 554,
         "linearizedBaseContracts": [
           554,
-          1850,
+          1928,
           441
         ],
         "name": "PausableUpgradeable",
@@ -1492,7 +1492,7 @@
                       "name": "__Context_init_unchained",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1827,
+                      "referencedDeclaration": 1905,
                       "src": "1049:24:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$__$returns$__$",
@@ -2113,7 +2113,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "2170:10:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -2284,7 +2284,7 @@
                           "name": "_msgSender",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1836,
+                          "referencedDeclaration": 1914,
                           "src": "2419:10:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
@@ -2457,7 +2457,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-08-05T11:17:30.509Z",
+  "updatedAt": "2021-08-13T04:41:01.386Z",
   "devdoc": {
     "details": "Contract module which allows children to implement an emergency stop mechanism that can be triggered by an authorized account. This module is used through inheritance. It will make available the modifiers `whenNotPaused` and `whenPaused`, which can be applied to the functions of your contract. Note that they will not be pausable by simply including this module, only once the modifiers are put in place.",
     "events": {

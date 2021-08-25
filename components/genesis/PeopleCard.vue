@@ -11,6 +11,7 @@
 </template>
 
 <script>
+
 export default {
   watch: {},
   data() {
@@ -25,6 +26,7 @@ export default {
       ],
     };
   },
+
   created() {},
 };
 </script>

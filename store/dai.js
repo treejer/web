@@ -18,9 +18,6 @@ export const actions = {
         return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
       });
   },
-
-
-
   async allowance() {
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');

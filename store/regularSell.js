@@ -1,76 +1,18 @@
 import {BToast} from 'bootstrap-vue'
 
-export const state = () => ({
-  auction: null,
-  planterCount: null,
-  planter: null,
-  tree: null,
-  auctions:null
-})
+export const state = () => ({})
 
 
 export const actions = {
-  async bid({context, commit}, params) {
-    let self = this;
-    let account = this.$cookies.get('account');
-
-    const tx = this.$TreeAuction.methods.bid(params.auctionId);
-    const data = tx.encodeABI();
-
-
-    try {
-      const receipt = await this.$web3.eth.sendTransaction({
-        from: account,
-        to: process.env.treeAuctionAddress,
-        value: self.$web3.utils.toWei(params.bidValue),
-        data: data
-      }).on('transactionHash', (transactionHash) => {
-        let bootStrapToaster = new BToast();
-        bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
-          toaster: 'b-toaster-bottom-left',
-          title: 'Processing transaction...',
-          variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
-          bodyClass: 'bid error',
-          noAutoHide: true
-
-        })
-      })
-        .on('error', (error) => {
-          console.log(error, "errorr");
-          const bootStrapToaster = new BToast();
-          if (error.code === 32602) {
-            bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
-              toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
-              variant: 'danger',
-              noAutoHide: true,
-              bodyClass: 'fund-error'
-            })
-          } else {
-            bootStrapToaster.$bvToast.toast([error.message], {
-              toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
-              variant: 'danger',
-              noAutoHide: true,
-              bodyClass: 'fund-error'
-            })
-          }
-
-
-          return null
-
-        })
-
-      return receipt
-
-    } catch (error) {
-      console.log(error, "errorr");
-
-      return null;
-    }
-
+  async getPrice() {
+    let self = this
+    return await self.$RegularSell.methods.treePrice().call()
+      .then((treeWeiPrice) => {
+        self.$web3.utils.fromWei(treeWeiPrice)
+        console.log(self.$web3.utils.fromWei(treeWeiPrice))
+      });
   },
+
   async endAuction(params) {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
@@ -134,11 +76,13 @@ export const actions = {
     }
 
   },
-  async getAuction({commit}, param) {
+  async getAuctions({commit}, param) {
     await this.$axios.$post(process.env.graphqlUrl, {
-      query: `{
-          auction(id:0x${param.id}){
+
+      query: `query auction {
+          auction(id:${param.id}){
            id
+           tree
            initialPrice
            priceInterval
            startDate
@@ -148,9 +92,9 @@ export const actions = {
            isActive
         }
       }`,
+      prefetch: false,
     }).then(res => {
       commit('SET_AUCTION', res)
-      return res
     }).catch(error => {
       console.log(error)
     })
@@ -193,37 +137,11 @@ export const actions = {
       commit('SET_TREE', res.data)
     })
   },
-  async getGenesisAuctions({commit}){
-    await this.$axios.$post(process.env.graphqlUrl, {
-
-      query: `{
-          auctions{
-          id
-          startDate
-          expireDate
-          initialPrice
-          priceInterval
-          winner {
-             id
-           }
-      }
-    }`,
-      prefetch: false,
-    }).then((res) => {
-      commit('SET_AUCTIONS', res.data)
-      return res
-    }).catch(error => {
-      console.log(error)
-    })
-  },
 }
 
 export const mutations = {
   SET_AUCTION(state, auction) {
     state.auction = auction
-  },
-  SET_AUCTIONS(state, auctions) {
-    state.auctions = auctions
   },
   SET_PLANTER(state, planters) {
     state.planters = planters

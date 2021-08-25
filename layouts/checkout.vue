@@ -16,7 +16,7 @@
   import Footer from "../components/Footer";
 
   export default {
-    components: { Footer, DashboardHeader,  },
+    components: { Footer, DashboardHeader},
     data() {
       return {
       };
@@ -33,7 +33,6 @@
     },
     mounted() {
       this.$store.commit('SET_DASHBOARD' , true)
-
     }
   };
 </script>

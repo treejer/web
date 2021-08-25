@@ -11,8 +11,8 @@
             <p class="title-md tr-gray-two font-weight-bolder">Tree of Life</p>
             <img
               id="tree-of-life"
-              src="~assets/images/genesis/tree-of-life.svg"
               alt="tree-of-life"
+              src="~assets/images/genesis/tree-of-life.svg"
             />
             <p class="param-xl pl-md-4">Tree of Life</p>
             <PlaceBid :placeBidNumber="0" class="mt-2 mb-4 mb-md-0"/>
@@ -36,9 +36,13 @@
         <div class="row">
           <div class="col-12">
             <p class="param-18 tr-gray-four">Bidders</p>
-            <AvatarBidders/>
-            <AvatarBidders/>
-            <AvatarBidders/>
+            <AvatarBidders
+              :data="auctions"
+            >
+
+
+
+            </AvatarBidders>
           </div>
           <div class="col-md-6 mt-5">
             <p class="tr-gray-four param-18">Planted Trees</p>
@@ -66,9 +70,9 @@
 
       <BidCard
         v-for="(item, index) in treeBids"
+        :id="index"
         :key="index"
         :img="item.src"
-        :id="index"
       />
     </div>
     <div class="row my-5 py-5 justify-content-center">
@@ -103,9 +107,9 @@
 
       <BidCard
         v-for="(item, index) in treeBids"
+        :id="index + 100"
         :key="index + 100"
         :img="item.src"
-        :id="index + 100"
       />
     </div>
   </section>
@@ -134,6 +138,10 @@ export default {
         {src: require("~/assets/images/genesis/Frame2.svg")},
         {src: require("~/assets/images/genesis/Frame3.svg")},
       ],
+      planters: null,
+      auctions: null,
+      treeOfLife: null,
+      treeOfAuctions: null,
     };
   },
   components: {PlaceBid, BidCard, AvatarBidders},
@@ -144,25 +152,18 @@ export default {
       this.loading = true;
       let self = this;
 
-      this.transferReceipt = await this.$store.dispatch("incrementalSell/buyTree", {
-        context: self,
-        auctionId: 33,
-        bidValue: self.bidValue
-      });
-      if (this.transferReceipt !== null) {
-        self.$bvToast.toast(["Bid successfully added"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Bid successfully added",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-      }
-    },
-  },
-  mounted() {
 
+    },
+    async getAuctions() {
+      await this.$store.dispatch('treeAuction/getGenesisAuctions')
+      this.auctions = await this.$store.state.treeAuction.auctions.auctions
+      this.treeOfLife = this.auctions["0"]
+      this.treeOfAuctions = this.auctions.slice(0, 10)
+      console.log(this.auctions, "auctions", this.treeOfLife,"treeOflife", this.treeOfAuctions,"treeOfAuctions")
+    }
+  },
+  async created() {
+    await this.getAuctions()
   }
 };
 </script>

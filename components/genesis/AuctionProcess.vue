@@ -7,6 +7,8 @@
     >
       {{ !loading ? "Place a bid" : "Loading..." }}
     </button>
+    <!--    <h1 v-if="auction" v-text="new Date(auction.expireDate * 1000)"></h1>-->
+
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
@@ -24,6 +26,7 @@
         @click.prevent="placeBid('two')"
       >
         Place a bid
+
       </button>
     </div>
     <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
@@ -121,10 +124,8 @@ export default {
     CountDown,
     Socials,
   },
-  mounted() {
-    this.auctions()
-    this.endAuction()
-    // console.log(this.$TreeAuction.methods.auctions(())
+ async created() {
+   //  console.log(this.$store.state.treeAuction.auction, "self.dataAuctions")
   },
 
   data() {
@@ -139,7 +140,9 @@ export default {
       timer: 20,
       loading: false,
       endingTimeBid: "2022-07-06 08:15:00",
-      bidValue: null
+      bidValue: null,
+      dataAuctions: null,
+      dataAuction: null,
     };
   },
 
@@ -153,17 +156,35 @@ export default {
         bodyClass: 'fund-error'
       })
     },
+    async bid() {
+      if (!this.bidValue) {
+        this.toast()
+      }
+      let self = this;
+      self.loading = true;
 
-    async auctions() {
-      await this.$store.dispatch('treeAuction/auctions', {})
-    },
-    async endAuction() {
-      this.endingTimeBid = await this.$store.dispatch('treeAuction/endAuction', {
-        auctionId: 33
-      })
-      console.log(this.endingTimeBid,"this.endingTimeBid")
-    },
+      self.transferReceipt = await self.$store.dispatch("treeAuction/bid", {
+        context: self,
+        auctionId: 33,
+        bidValue: self.bidValue
+      });
+      if (self.transferReceipt !== null) {
+        self.$bvToast.toast(["Bid successfully added"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Bid successfully added",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+            "account"
+          )}`,
+        });
 
+
+        self.placeBidStepTwo = false;
+        self.placeBidStepThree = true;
+      }
+      this.loading = false;
+      this.bidValue = null
+    },
     placeBid(id) {
       if (id === "one") {
         this.placeBidStep = false;
@@ -207,6 +228,8 @@ export default {
     shareModal() {
       this.$bvModal.show("social-target");
     },
+
+
   },
 
 };

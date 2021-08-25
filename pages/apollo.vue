@@ -2,7 +2,7 @@
   <section
     class="position-relative pt-5 col-12 mb-5 pb-5 genesis-first-page"
   >
-      
+
       <div>
         <h3>Auctions</h3>
         <ul>
@@ -16,15 +16,14 @@
           auction id {{ auction.id }} - startdate {{ auction.startDate }} - endDate {{ auction.endDate }}
         </span>
       </div>
-      
 
-    
+
+
   </section>
 </template>
 
 <script>
 
-import auctions from '~/apollo/queries/auctions';
 import auction from '~/apollo/queries/auction'
 
 

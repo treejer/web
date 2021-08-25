@@ -133,10 +133,10 @@ export default {
     setTimeout(() => {
       this.$web3.eth.net.getId().then(netId => {
 
-        if (netId.toString() === '3') {
+        if (netId.toString() === '4') {
           return
         }
-        self.$bvToast.toast('Switch to Ropsten Test Network', {
+        self.$bvToast.toast('Switch to Rinkeby Test Network', {
           title: `Wrong network`,
           href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
           variant: 'danger',

@@ -58,7 +58,7 @@
               @keyup.enter="setNewName()"
             />
           </div>
-          <AuctionProcess/>
+          <AuctionProcess />
         </div>
         <div class="col-3 arrow-right text-left pointer-event" @click="add">
           <img
@@ -120,8 +120,8 @@
                   <div class="detail-card">
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
-                      <p class="param-18 mb-0 tr-gray-two">
-                        {{ tree.birthDate }}
+                      <p class="param-18 mb-0 tr-gray-two" v-if="genesisTree">
+                        {{birthDate(genesisTree.birthDate)}}
                       </p>
                     </div>
                     <div class="gps part">
@@ -168,8 +168,8 @@
                       ref="gMap"
                       :cluster="{ options: { styles: clusterStyle } }"
                       :center="{
-                        lat: parseInt(tree.latitude),
-                        lng: parseInt(tree.longitude),
+                        lat: lat,
+                        lng: lng,
                       }"
                       :options="{
                         fullscreenControl: true,
@@ -190,8 +190,8 @@
                     >
                       <GMapMarker
                         :position="{
-                          lat: parseInt(tree.latitude),
-                          lng: parseInt(tree.longitude),
+                          lat: lat,
+                          lng: lng,
                         }"
                         :options="{ icon: pins.selected }"
                       ></GMapMarker>
@@ -278,6 +278,8 @@ import SearchBar from "~/components/SearchBar";
 import HistoryCard from "../../components/genesis/HistoryCard.vue";
 import PeopleCard from "../../components/genesis/PeopleCard.vue";
 import AuctionProcess from "../../components/genesis/AuctionProcess.vue";
+import moment from "moment"
+
 
 export default {
   name: "tree-profile",
@@ -286,6 +288,7 @@ export default {
   data() {
     return {
       tree: null,
+      genesisTree:null,
       lat: null,
       lng: null,
       newName: false,
@@ -527,24 +530,31 @@ export default {
   mounted() {
     this.findTree();
   },
+  async created() {
+    await this.$store.dispatch('findTree/getFindTree', {id:this.$route.params.id})
+    this.genesisTree =  await this.$store.state.findTree.tree.trees[0]
+    console.log(this.genesisTree,"this.genesisTree")
+  },
   methods: {
     async findTree() {
       let self = this;
       self.loading = true;
-      await this.$axios
+      await self.$axios
         .$get(
           `${process.env.apiUrl}/trees/${
-            this.treeID ? this.treeID : this.$route.params.id
+            self.treeID ? self.treeID : self.$route.params.id
           }`
         )
-        .then(function (response) {
+        .then( (res) =>{
           self.loading = false;
-          self.tree = response;
-          self.lat = parseInt(self.tree.latitude);
-          self.lng = parseInt(self.tree.longitude);
+          self.tree = res;
+
+          self.lat = Number(self.tree.latitude);
+          self.lng = Number(self.tree.longitude);
+          console.log(self.lat, self.lng,"  self.tree")
           self.$router.push(self.treeID)
         })
-        .catch(function (error) {
+        .catch( (error)=> {
         });
     },
     add() {
@@ -575,7 +585,6 @@ export default {
       }
       this.loading = false;
     },
-
     odd() {
       this.treeID = this.$route.params.id;
       this.treeID--;
@@ -604,6 +613,10 @@ export default {
         this.localePath({name: "forest-id", params: {id: id}})
       );
     },
+     birthDate(date){
+       let moments =  moment.unix(date).utc()
+       return moment(moments,'YYYY MM DD HH').format()
+    }
   },
 };
 </script>

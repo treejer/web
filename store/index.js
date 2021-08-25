@@ -125,7 +125,7 @@ export const actions = {
   },
   async refreshChain() {
     if (process.client) {
-      ethereum.autoRefreshOnNetworkChange = false;
+      ethereum.autoRefreshOnNetworkChange = true;
       let currentChainId = ethereum.chainId;
     }
   },
@@ -140,7 +140,7 @@ export const actions = {
     if (walletName === 'metamask') {
       const eth = await ethereum;
       const dc = eth.on('disconnect', (error) => console.log(err, 'err'));
-      eth.autoRefreshOnNetworkChange = false
+      eth.autoRefreshOnNetworkChange = true
     }
     if (walletName === 'torus') {
       const Torus = require("@toruslabs/torus-embed");

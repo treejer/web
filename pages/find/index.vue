@@ -181,34 +181,34 @@
             </div>
             <table class="table border-0 dir-ltr">
               <thead>
-                <tr>
-                  <th scope="col">Tree ID</th>
-                  <th scope="col" class="pointer-event">
-                    <i class="pointer-event fas fa-sort-up"></i>Owner
-                  </th>
-                  <th scope="col" class="pointer-event">
-                    <i class="pointer-event fas fa-sort-up"></i>Status
-                  </th>
-                  <th scope="col" class="pointer-event d-none d-md-block">
-                    <i class="pointer-event fas fa-sort-up"></i>Location
-                  </th>
-                </tr>
+              <tr>
+                <th scope="col">Tree ID</th>
+                <th scope="col" class="pointer-event">
+                  <i class="pointer-event fas fa-sort-up"></i>Owner
+                </th>
+                <th scope="col" class="pointer-event">
+                  <i class="pointer-event fas fa-sort-up"></i>Status
+                </th>
+                <th scope="col" class="pointer-event d-none d-md-block">
+                  <i class="pointer-event fas fa-sort-up"></i>Location
+                </th>
+              </tr>
               </thead>
               <tbody>
-                <tr v-for="tree in trees.data" :key="tree.tree_id">
-                  <th scope="row">{{ tree.tree_id }}</th>
-                  <td v-coin>{{ tree.owner }}</td>
-                  <td
-                    v-if="tree.fundedDate !== null && tree.plantedDate !== null"
-                  >
-                    Funded & Planted
-                  </td>
-                  <td v-else-if="tree.plantedDate !== null">Planted</td>
-                  <td v-else-if="tree.fundedDate !== null">Funded</td>
-                  <td class="d-none d-md-block">
-                    {{ tree.latitude + "," + tree.longitude }}
-                  </td>
-                </tr>
+              <tr v-for="tree in trees.data" :key="tree.tree_id">
+                <th scope="row">{{ tree.tree_id }}</th>
+                <td v-coin>{{ tree.owner }}</td>
+                <td
+                  v-if="tree.fundedDate !== null && tree.plantedDate !== null"
+                >
+                  Funded & Planted
+                </td>
+                <td v-else-if="tree.plantedDate !== null">Planted</td>
+                <td v-else-if="tree.fundedDate !== null">Funded</td>
+                <td class="d-none d-md-block">
+                  {{ tree.latitude + "," + tree.longitude }}
+                </td>
+              </tr>
               </tbody>
             </table>
             <div
@@ -303,7 +303,7 @@ export default {
         this.$store.commit("SET_INDEX", 0);
         this.$router.push({
           path: "/forest/" + item.owner,
-          params: { id: item.owner },
+          params: {id: item.owner},
         });
       } else {
         this.$bvToast.toast("you are not logged in. please login", {
@@ -320,21 +320,32 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-        await this.$axios
-          .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
-          .then(function (response) {
-            self.loading = false;
-            self.$router.push(`/tree/${self.treeID}`);
-          })
-          .catch(function (error) {
-            self.loading = false;
-            self.$bvToast.toast("Tree Not found!", {
-              toaster: "b-toaster-bottom-left",
-              solid: true,
-              headerClass: "hide",
-              variant: "danger",
-            });
-          });
+       await self.$store.dispatch('findTree/getFindTree',{
+          id:self.treeID
+        }).then((res)=>{
+          console.log(self.$store.state.findTree.tree,"res is here")
+
+          self.loading = false;
+
+          self.$router.push(`/genesis/${self.treeID}`);
+        })
+
+
+        // await this.$axios
+        //   .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
+        //   .then(function (response) {
+        //     self.loading = false;
+        //     self.$router.push(`/tree/${self.treeID}`);
+        //   })
+        //   .catch(function (error) {
+        //     self.loading = false;
+        //     self.$bvToast.toast("Tree Not found!", {
+        //       toaster: "b-toaster-bottom-left",
+        //       solid: true,
+        //       headerClass: "hide",
+        //       variant: "danger",
+        //     });
+        //   });
       } else {
         self.loading = false;
         self.$bvToast.toast("Tree Not found!", {
@@ -352,7 +363,8 @@ export default {
         .then(function (response) {
           self.trees = response.trees;
         })
-        .catch(function (error) {});
+        .catch(function (error) {
+        });
     },
   },
 };
@@ -387,6 +399,7 @@ export default {
     background-size: 250% 250%;
     padding: 25px 10px;
     border: 1px solid #bdbdbd;
+
     .search-bar-table {
       input {
         background: #faf8f1;
@@ -394,6 +407,7 @@ export default {
         padding: 10px 35px;
         border-radius: 16px;
       }
+
       span {
         margin: 10px;
       }
