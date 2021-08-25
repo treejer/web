@@ -31,25 +31,11 @@ export const actions = {
 
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
-    console.log(account)
     this.$web3.currentProvider.enable();
 
-    // const price = await this.$treeFactory.methods.price().call()
-    //   .then((price) =>
-    //   price.toString()
-    // )
-    // console.log(price, "price");
-    const tx = daiContract.methods.approve(process.env.contractTreeRegularSell, (params.count * 7000000000000000000).toString());
+    const tx = daiContract.methods.approve(process.env.contractTreeRegularSell, (params.count * this.$web3.utils.toWei(this.state.regularSell.price)).toString());
 
-    console.log(tx, "tx");
     const data = tx.encodeABI();
-    // ;
-
-
-    console.log(data, "data");
-    // debugger
-
-    console.log(daiContract._address, "daiContract._address");
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
