@@ -8,6 +8,7 @@
         <ul>
           <li v-for="auction in auctions" :key="auction.id">
             auction id {{ auction.id }} - startdate {{ auction.startDate }}
+            <button></button>
           </li>
         </ul>
 
@@ -25,6 +26,7 @@
 <script>
 
 import auction from '~/apollo/queries/auction'
+import auctions from '~/apollo/queries/auctions'
 
 
 
@@ -62,6 +64,7 @@ export default {
   methods: {
   },
   mounted() {
+      this.auctions = this.auctions.slice(0,3)
   }
 };
 </script>
