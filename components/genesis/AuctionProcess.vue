@@ -13,7 +13,7 @@
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
         <input class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder" type="text" placeholder="0 eth"
-               v-model="bidValue"/>
+               v-model.number="bidValue"/>
       </div>
       <div class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
@@ -21,6 +21,7 @@
           <CountDown :date="endingTimeBid"></CountDown>
         </p>
       </div>
+      <BuyERC20 tokenName="WETH" :spenderContract="spenderContract" :amount="bidValue" />
       <button
         class="btn-green w-100 font-white param-md m-auto py-2 pr-5 pl-5"
         @click.prevent="placeBid('two')"
@@ -118,11 +119,13 @@
 <script>
 import Socials from "~/components/Socials.vue";
 import CountDown from "~/components/CountDown.Vue";
+import BuyERC20 from "@/components/BuyERC20";
 
 export default {
   components: {
     CountDown,
     Socials,
+    BuyERC20
   },
  async created() {
    //  console.log(this.$store.state.treeAuction.auction, "self.dataAuctions")
@@ -143,6 +146,7 @@ export default {
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
+      spenderContract: process.env.treeAuctionAddress
     };
   },
 
