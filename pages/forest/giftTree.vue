@@ -392,6 +392,15 @@ import Fas from "../../components/font-awsome/Fas";
 export default {
   name: "addTree",
   layout: "dashboard",
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
 
   components: { Fas },
   data() {

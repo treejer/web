@@ -1,5 +1,5 @@
 import { BToast } from 'bootstrap-vue'
-import Dai from '~/contracts/IERC20'
+import Weth from '~/contracts/IERC20'
 
 
 export const state = () => ({})
@@ -9,38 +9,38 @@ export const mutations = {}
 export const actions = {
 
   async balanceOf() {
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
     let account = this.$cookies.get('account');
 
     let self = this
-    return daiContract.methods.balanceOf(account).call()
+    return wethContract.methods.balanceOf(account).call()
       .then((balanceInWei) => {
         return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
       });
   },
   async allowance() {
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
     let account = this.$cookies.get('account');
 
     let self = this
-    return daiContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
+    return wethContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
       .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
   },
   async approve(context, params) {
     let self = this;
-    console.log(context,"context is here")
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+
+    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = daiContract.methods.approve(process.env.contractTreeRegularSell, (params.count * this.$web3.utils.toWei(this.state.regularSell.price)).toString());
+    const tx = wethContract.methods.approve(process.env.contractTreeRegularSell, (params.count * this.$web3.utils.toWei(this.state.regularSell.price)).toString());
 
     const data = tx.encodeABI();
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
-        to: daiContract._address,
+        to: wethContract._address,
         value: 0,
         data: data
       }).on('transactionHash', (transactionHash) => {

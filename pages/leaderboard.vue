@@ -173,7 +173,15 @@ import Fas from "../components/font-awsome/Fas";
 export default {
   name: "leaderBoards",
   layout: "dashboard",
-
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"contact our business and team"},
+    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
+  ]
+  }
+  },
   components: {
     Fas,
   },

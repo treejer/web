@@ -10,11 +10,12 @@ export const state = () => ({
 
 
 export const actions = {
-  async bid({context, commit}, params) {
+  async bid({commit},context,auctionId) {
+    console.log(context.auctionId,context,"context,params is here")
     let self = this;
     let account = this.$cookies.get('account');
 
-    const tx = this.$TreeAuction.methods.bid(params.auctionId);
+    const tx = this.$TreeAuction.methods.bid(context.auctionId);
     const data = tx.encodeABI();
 
 
@@ -22,7 +23,7 @@ export const actions = {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: process.env.treeAuctionAddress,
-        value: self.$web3.utils.toWei(params.bidValue),
+        value: self.$web3.utils.toWei(context.bidValue),
         data: data
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();

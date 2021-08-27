@@ -136,6 +136,15 @@ import Fas from "../components/font-awsome/Fas";
 export default {
   name: "about",
   layout: 'landing',
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"About us page:"},
+        { hid: 'keywords', name: 'keywords', content: 'ourteam culture treejerteam contactus ' }
+      ]
+    }
+  },
   components: {Arrow, AboutCard, FrameTr, Fas},
   data() {
     return {

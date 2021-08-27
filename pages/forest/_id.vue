@@ -471,6 +471,16 @@ export default {
   layout: "dashboard",
   components: { Metamask, Fas, Wallets },
 
+  head() {
+    return {
+      title:"Treejer",
+      meta:[
+        { hid: 'description', name: 'description', content:"My Forest\n profile your forest page"},
+        { hid: 'keywords', name: 'keywords', content: "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status"}
+      ]
+    }
+  },
+
   computed: {
     messages() {
       return content;
@@ -490,6 +500,8 @@ export default {
 
   data() {
     return {
+      title:this.$route.name,
+
       icon: `${process.env.gravatar}${(this.$cookies
         .get("account") ?? '0' )
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
@@ -988,7 +1000,8 @@ export default {
   }
   .logo-tokens {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding:0 20px;
   }
   .token {
     width: 75%;

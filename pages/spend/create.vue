@@ -305,6 +305,7 @@
   import VueRangeSlider from 'vue-range-component'
 
   export default {
+
     name: "create",
     components: {
       'vue-range-slider':VueRangeSlider,
@@ -312,6 +313,15 @@
       Coupon
     },
     layout: "checkout",
+    head() {
+      return {
+        title:`Treejer`,
+        meta:[
+          { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+          { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+        ]
+      }
+    },
     data() {
       return {
         category: null,

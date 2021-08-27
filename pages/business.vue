@@ -291,6 +291,15 @@
       name: "forBusiness",
       layout:'landing',
       components: {Arrow},
+      head() {
+        return {
+          title:`Treejer`,
+          meta:[
+            { hid: 'description', name: 'description', content:"About our business and team"},
+            { hid: 'keywords', name: 'keywords', content: 'business teambusiness ' }
+          ]
+        }
+      },
       methods: {
         activeMenu(item, index) {
           this.activeIndex = index;

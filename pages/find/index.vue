@@ -250,18 +250,28 @@
 import Fab from "@/components/font-awsome/Fab";
 import pagination from "laravel-vue-pagination";
 
+
+
 export default {
   name: "findMyTree",
   // layout:"checkout",
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
 
   components: {
     Fab,
     pagination,
   },
-  computed: {},
   async mounted() {
     await this.listTrees();
-
+    console.log(this.$routeFixer,this,"fixxxxxx")
     const leaderBoards = await this.$axios.$get(
       `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
     );
@@ -269,6 +279,7 @@ export default {
   },
   data() {
     return {
+      title:this.$route.name,
       icon: process.env.gravatar,
       trees: {},
       leaderBoards: null,
@@ -282,6 +293,7 @@ export default {
     };
   },
   methods: {
+
     goToLeaderBoard() {
       if (
         this.$store.state.account === null ||

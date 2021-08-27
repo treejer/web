@@ -42,7 +42,7 @@
                         <input
                           :class="{ active: activeIndex === index }"
                           style="width: initial"
-                          v-model="count"
+                          v-model.number="count"
                           :placeholder="item.placeHolder"
                           type="number"
                           :key="index"
@@ -155,53 +155,22 @@
                     >
                     {{ loading ? "Loading" : " Next" }}
                   </button> -->
+                  <BuyDai
+                    :loading="loading"
+                    :count="count"
+                  
+                   />
 
-                  <button
-                    v-if="daiBalance <= 0"
-                    @click="buyDai()"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                  >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? "Loading" : " Buy Dai" }}
-                  </button>
 
-                  <button
-                    v-if="daiBalance > 0 && isAllowedSpendDai"
-                    @click="requestTrees()"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                  >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? "Loading" : " Confirm" }}
-                  </button>
+           
 
-                  <button
-                    v-if="daiBalance > 0 && !isAllowedSpendDai"
-                    @click="allowSpendDai()"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                  >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? "Loading" : " Approve" }}
-                  </button>
-
-                  <!--                  <p class="pointer-event">-->
-                  <!--                    <a class="param mb-0" href=""-->
-                  <!--                      >By proceeding I agree to-->
-                  <!--                      <span class="param tr-green">terms</span> and-->
-                  <!--                      <span class="param tr-green">conditions.</span></a-->
-                  <!--                    >-->
-                  <!--                  </p>-->
+                      <p class="pointer-event">
+                        <a class="param mb-0" href="https://docs.treejer.com/legal/terms-of-service"
+                          >By proceeding I agree to
+                          <span class="param tr-green">terms</span> and
+                          <span class="param tr-green">conditions.</span></a>
+                      
+                      </p>
                 </div>
               </div>
             </div>
@@ -544,14 +513,24 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import transakSDK from "@transak/transak-sdk";
+import BuyDai from "@/components/BuyDai";
 
 export default {
   name: "giftTree",
   layout: "checkout",
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
   components: {
     Wallets,
     Fab,
+    BuyDai
   },
   beforeMount() {
 
@@ -560,22 +539,22 @@ export default {
 
   mounted() {
     this.getPrice();
-    this.setDaiBalance();
-    this.setIsAllowance(this.count);
+    // this.setDaiBalance();
+    // this.setIsAllowance(this.count);
 
     let self = this;
 
-    setTimeout(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.getPrice();
+    //   self.setIsAllowance(self.count, true);
+    //   self.setDaiBalance();
+    // }, 1000);
 
-    setInterval(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 3000);
+    // setInterval(() => {
+    //   this.getPrice();
+    //   self.setIsAllowance(self.count, true);
+    //   self.setDaiBalance();
+    // }, 3000);
   },
   async created() {
     // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
@@ -613,7 +592,6 @@ export default {
         {name: "bitcoin", icon: "ethereum", step: 2},
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
-
       activeIndex: 0,
       activeCount: 0,
       activePay: 0,
@@ -621,33 +599,11 @@ export default {
     };
   },
   methods: {
-    async allowSpendDai(silent = false) {
-      if (silent === false) {
-        this.loading = true;
-      }
-      let self = this;
-
-      const transaction = await this.$store.dispatch("dai/approve", {
-        count: this.count,
-        context: self,
-      });
-
-      if (transaction !== null) {
-        this.setIsAllowance(this.count);
-        this.$bvToast.toast(["Transaction successfull"], {
-          toaster: "b-toaster-bottom-left",
-          title: "You approved to spend dai",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
-        });
-
-        if (silent === false) {
-          this.loading = false;
-        }
-
-        await this.requestTrees();
-      }
+   
+    async getPrice() {
+      this.treePrice = await this.$store.dispatch('regularSell/getPrice')
     },
+  
     showWalletError() {
       let self = this;
       self.$bvToast.toast("Switch to Rinkeby Test Network", {
@@ -673,108 +629,7 @@ export default {
     activeWallets(item, index) {
       this.activeWallet = index;
     },
-    async setDaiBalance() {
-      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
-    },
-
-    async buyDai() {
-      let self = this;
-      let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "Dai",
-        // defaultCryptoAmount: this.treePrice * this.count,
-        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-        themeColor: "000000", // App theme color
-        fiatCurrency: "USD", // INR/GBP
-        email: "", // Your customer's email address
-        redirectURL: "",
-        hostURL: window.location.origin,
-        widgetHeight: "550px",
-        widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
-      });
-
-      transak.init();
-
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
-      });
-
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        self.setDaiBalance();
-        transak.close();
-      });
-    },
-
-    async requestTrees() {
-      this.loading = true;
-      let self = this;
-
-      this.transferReceipt = await this.$store.dispatch("regularSell/requestTrees", {
-        count: this.count,
-        context: self,
-      });
-      if (this.transferReceipt !== null) {
-        this.activeIndex = 3;
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Trees added to forest",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        const history = this.$router.currentRoute.matched;
-        let res = null;
-        history.map((item, index) => {
-          let name = item.name;
-          res = name.match(/forest-id/g);
-          if (res === "forest-id") {
-            this.$router.push(`/forest/${this.$cookies.get("account")}`);
-          }
-        });
-      }
-      this.loading = false;
-    },
-    async getPrice() {
-      this.treePrice = await this.$store.dispatch('regularSell/getPrice')
-    },
-    async setIsAllowance(count, silent = false) {
-      if (silent === false) {
-        this.loading = true;
-      }
-
-      let allowance = await this.$store.dispatch("dai/allowance");
-
-      this.isAllowedSpendDai =
-        parseInt(allowance) >= parseInt(count * this.treePrice);
-
-      if (silent === false) {
-        this.loading = false;
-      }
-    },
-  },
-  watch: {
-    async count(newCount, oldCount) {
-      this.setIsAllowance(newCount);
-
-      // Our fancy notification (2).
-      // console.log(`We have ${newCount} fruits now, yay!`)
-    },
-  },
+  },        
 };
 </script>
 

@@ -122,7 +122,15 @@ import AvatarBidders from "../../components/genesis/AvatarBidders.vue";
 
 export default {
   layout: "landing",
-
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
   data() {
     return {
       loading: false,

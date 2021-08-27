@@ -285,6 +285,15 @@ export default {
   name: "tree-profile",
   layout: "landing",
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess},
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
   data() {
     return {
       tree: null,
