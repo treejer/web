@@ -278,7 +278,7 @@
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
-import exploreForestsQuery from "~/apollo/queries/exploreForestsQuery";
+import ownersSorted from "~/apollo/queries/ownersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import treesPagination from "~/apollo/queries/treesPagination";
 
@@ -324,7 +324,10 @@ export default {
   apollo: {
     owners: {
       prefetch: true,
-      query: exploreForestsQuery,
+      query: ownersSorted,
+      variables () {
+        return { limit: 12, orderBy: 'treeCount', orderDirection: 'desc' }
+      }
     },
   },
   async mounted() {

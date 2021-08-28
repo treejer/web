@@ -23,25 +23,28 @@
                   :class="{ active: activeIndex === index }"
                   :name="item.name"
                   :key="item.id"
+                  @click="activeMenu(item, index)"
                 >
                   {{ item.name }}
                 </li>
               </ul>
             </div>
           </div>
-          <div class="row tr-table mt-5 mb-4">
+
+          
+          <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 0">
             <div class="col-12">
               <table class="table tr-table" style="overflow-x: scroll">
                 <thead>
                   <tr>
                     <th scope="col">RANK</th>
-                    <th scope="col">USER</th>
+                    <th scope="col">OWNER</th>
                     <th scope="col">TREES</th>
                     <th scope="col">LINK</th>
                   </tr>
                 </thead>
-                <tbody v-if="leaderBoards">
-                  <tr v-for="(item, index) in leaderBoards" :key="index">
+                <tbody v-if="owners">
+                  <tr v-for="(item, index) in owners" :key="index">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -56,11 +59,11 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.owner.replace(
+                          :src="`${icon}${item.id.replace(
                             /[^0-9\\.]+/g,
                             ''
                           )}?d=robohash`"
-                          alt="item.owner"
+                          :alt="item.id"
                       /></span>
                     </td>
                     <td
@@ -77,11 +80,11 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.owner.replace(
+                          :src="`${icon}${item.id.replace(
                             /[^0-9\\.]+/g,
                             ''
                           )}?d=robohash`"
-                          alt="item.owner"
+                          :alt="item.id"
                       /></span>
                     </td>
                     <td
@@ -98,11 +101,11 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.owner.replace(
+                          :src="`${icon}${item.id.replace(
                             /[^0-9\\.]+/g,
                             ''
                           )}?d=robohash`"
-                          alt="item.owner"
+                          :alt="item.id"
                       /></span>
                     </td>
                     <td
@@ -115,18 +118,18 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.owner.replace(
+                          :src="`${icon}${item.id.replace(
                             /[^0-9\\.]+/g,
                             ''
                           )}?d=robohash`"
-                          alt="item.owner"
+                          :alt="item.id"
                       /></span>
                     </td>
 
-                    <td v-coin id="accounting-card">{{ item.owner }}</td>
-                    <td>{{ item.total_tree }}</td>
+                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td>{{ item.treeCount }}</td>
                     <td
-                      @click="goToUserDashboard(item.owner)"
+                      @click="goToUserDashboard(item.id)"
                       class="pointer-event"
                     >
                       <a href="#" class="pointer-event tr-green"></a>
@@ -136,9 +139,9 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="leaderBoards">
+              <div v-if="owners">
                 <button
-                  v-if="leaderBoards.length > 10"
+                  v-if="owners.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -147,6 +150,247 @@
               </div>
             </div>
           </div>
+
+          <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 1">
+            <div class="col-12">
+              <table class="table tr-table" style="overflow-x: scroll">
+                <thead>
+                  <tr>
+                    <th scope="col">RANK</th>
+                    <th scope="col">PLANTER</th>
+                    <th scope="col">TREES</th>
+                    <!-- <th scope="col">LINK</th> -->
+                  </tr>
+                </thead>
+                <tbody v-if="planters">
+                  <tr v-for="(item, index) in planters" :key="index">
+                    <td
+                      v-if="index === 0"
+                      scope="row"
+                      class="d-flex justify-content-between"
+                    >
+                      <span
+                        class="rank"
+                        v-html="first"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index === 1"
+                      scope="row"
+                    >
+                      <span
+                        class="rank"
+                        v-html="second"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index === 2"
+                      scope="row"
+                    >
+                      <span
+                        class="rank"
+                        v-html="third"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index > 2"
+                      scope="row"
+                    >
+                      <span class="rank">{{ index + 1 }}</span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+
+                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td>{{ item.plantedCount }}</td>
+                    <!-- <td
+                      @click="goToUserDashboard(item.id)"
+                      class="pointer-event"
+                    >
+                      <a href="#" class="pointer-event tr-green"></a>
+                      <Fas class="tr-green pointer-event" i="eye" />
+                    </td> -->
+                    <!-- -->
+                  </tr>
+                </tbody>
+              </table>
+              <div v-if="owners">
+                <button
+                  v-if="owners.length > 10"
+                  @click="addTen"
+                  class="btn-green"
+                >
+                  show more
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 2">
+            <div class="col-12">
+              <table class="table tr-table" style="overflow-x: scroll">
+                <thead>
+                  <tr>
+                    <th scope="col">RANK</th>
+                    <th scope="col">PLANTER</th>
+                    <th scope="col">REFERRED</th>
+                    <!-- <th scope="col">LINK</th> -->
+                  </tr>
+                </thead>
+                <tbody v-if="planters">
+                  <tr v-for="(item, index) in planters" :key="index">
+                    <td
+                      v-if="index === 0"
+                      scope="row"
+                      class="d-flex justify-content-between"
+                    >
+                      <span
+                        class="rank"
+                        v-html="first"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index === 1"
+                      scope="row"
+                    >
+                      <span
+                        class="rank"
+                        v-html="second"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index === 2"
+                      scope="row"
+                    >
+                      <span
+                        class="rank"
+                        v-html="third"
+                        style="width: 15px; height: 15px"
+                      ></span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+                    <td
+                      class="d-flex justify-content-between"
+                      v-if="index > 2"
+                      scope="row"
+                    >
+                      <span class="rank">{{ index + 1 }}</span>
+                      <span style="margin: 0 5px"
+                        ><img
+                          style="width: 25px"
+                          class="rounded-circle"
+                          :src="`${icon}${item.id.replace(
+                            /[^0-9\\.]+/g,
+                            ''
+                          )}?d=robohash`"
+                          :alt="item.id"
+                      /></span>
+                    </td>
+
+                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td>{{ item.referrerCount }}</td>
+                    <!-- <td
+                      @click="goToUserDashboard(item.id)"
+                      class="pointer-event"
+                    >
+                      <a href="#" class="pointer-event tr-green"></a>
+                      <Fas class="tr-green pointer-event" i="eye" />
+                    </td> -->
+                    <!-- -->
+                  </tr>
+                </tbody>
+              </table>
+              <div v-if="owners">
+                <button
+                  v-if="owners.length > 10"
+                  @click="addTen"
+                  class="btn-green"
+                >
+                  show more
+                </button>
+              </div>
+            </div>
+          </div>
+
+
         </div>
 
         <div class="col-lg-4 d-none d-md-block justify-content-center">
@@ -169,21 +413,55 @@
 </template>
 <script>
 import Fas from "../components/font-awsome/Fas";
+import ownersSorted from "~/apollo/queries/ownersSorted";
+import plantersSorted from "~/apollo/queries/plantersSorted";
 
 export default {
   name: "leaderBoards",
   layout: "dashboard",
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"contact our business and team"},
-    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
-  ]
-  }
+      title: `Treejer`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "contact our business and team",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: "business team_business treejer treejer_contact_us teams ",
+        },
+      ],
+    };
   },
   components: {
     Fas,
+  },
+  apollo: {
+    owners: {
+      prefetch: true,
+      query: ownersSorted,
+      variables () {
+        return { limit: 20, orderBy: 'treeCount', orderDirection: 'desc' }
+      }
+    },
+    planters: {
+      prefetch: true,
+      query: plantersSorted,
+      variables () {
+        return { limit: 20, orderBy: 'plantedCount', orderDirection: 'desc' }
+      }
+    },
+    plantersReferrer: {
+      prefetch: true,
+      query: plantersSorted,
+      variables () {
+        return { limit: 20, orderBy: 'referrerCount', orderDirection: 'desc' }
+      },
+      update: data => data.planters
+    },
   },
   computed: {},
 
@@ -196,29 +474,18 @@ export default {
       second: `<img src=${require("~/assets/images/leaderBoards/second.svg")} />`,
       third: `<img src=${require("~/assets/images/leaderBoards/third.svg")} />`,
       id: null,
-      leaderBoards: null,
       stepsLeaderBoard: [
-        { name: "Top Forests", icon: "tree", href: "/forest" },
-        { name: "Top Ambassadors", icon: "bell", href: "/updates" },
-        { name: "Top Planters", icon: "trophy", href: "/leaderboard" },
+        { name: "Top Forests", icon: "tree" },
+        { name: "Top Planters", icon: "trophy" },
+        { name: "Top Referrers", icon: "bell"},
+
       ],
       perPage: 10,
     };
   },
   async mounted() {
-    await this.getLeaderBoards();
   },
   methods: {
-    addTen() {
-      this.perPage += 10;
-      this.getLeaderBoards();
-    },
-    async getLeaderBoards() {
-      const leaderBoards = await this.$axios.$get(
-        `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
-      );
-      this.leaderBoards = leaderBoards.leaderboard.data;
-    },
     activeMenu(item, index) {
       this.activeIndex = index;
     },

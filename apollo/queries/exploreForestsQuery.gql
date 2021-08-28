@@ -1,6 +1,0 @@
-{
-  owners(first: 12, orderBy: treeCount, orderDirection: desc) {
-    id
-    treeCount
-  }
-}

@@ -1,0 +1,10 @@
+
+query plantersSorted($limit: Int!, $orderBy: String!, $orderDirection: String) {
+  planters(first: $limit, orderBy: $orderBy, orderDirection: $orderDirection) {
+    id
+    verifiedPlantedCount
+    plantedCount
+    referrerCount
+  }
+
+}

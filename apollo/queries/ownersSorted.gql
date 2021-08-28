@@ -1,0 +1,8 @@
+
+query ownersSorted($limit: Int!, $orderBy: String!, $orderDirection: String) {
+  owners(first: $limit, orderBy: $orderBy, orderDirection: $orderDirection) {
+    id
+    treeCount
+  }
+
+}
