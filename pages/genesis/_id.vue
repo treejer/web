@@ -45,7 +45,9 @@
               <span class="tr-green pointer-event pr-2" @click="setNewName()"
               >&check;</span
               >
-              <span class="tr-red pointer-event" @click="newName = false"
+              <span
+               class="tr-red pointer-event"
+               @click="newName = false"
               >x</span
               >
             </div>

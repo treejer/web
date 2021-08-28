@@ -26,8 +26,8 @@
 
        <div class="col-12 p-0 ">
           <button
-            v-if="erc20Balance <= 0.00000000000"
-            @click.prevent="placeBid('two')"
+            v-if="!erc20Balance"
+            @click.prevent="buyERC20"
             :class="{ disable: loading }"
             class="btn-green-md mt-4 mb-3 w-100 h-100"
           >
@@ -37,79 +37,71 @@
             {{ loading ? "Loading" : `Buy WETH` }}
           </button>
           <button
-            v-if="erc20Balance > 0 && isAllowedSpendERC20"
+            v-if="erc20Balance"
+            @click.prevent="placeBid('two')"
             :class="{ disable: loading }"
-           class="btn-green-md mt-4 mb-3 w-100 h-100"
+            class="btn-green-md mt-4 mb-3 w-100 h-100"
           >
-            APPROVED
+            <BSpinner class="mr-2" type="grow" small v-if="loading"
+              >loading
+            </BSpinner>
+            {{ loading ? "Loading" : `PlaceBid` }}
           </button>
 
-            <button
+
+            </div>
+
+    </div>
+    <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
+      <p class="tr-gray-three title-md">
+        <span>{{ bidValue }}</span
+        ><span class="tr-gray-two"> ETH</span>
+      </p>
+      <p class="tr-gray-four param-18">[$0] Reserve Price:{{bidValue}}ETH</p>
+      <div class="row">
+        <div class="col-md-6 pr-md-0">
+          <span class="btn-gray" @click.prevent="backToStep()">Back</span>
+        </div>
+        <div class="col-md-6 pl-md-0">
+           <button
               v-if="erc20Balance > 0 && !isAllowedSpendERC20"
               @click="allowSpendERC20()"
               :class="{ disable: loading }"
-             class="btn-green-md mt-4 mb-3 w-100 h-100"
+             class="btn-green"
             >
               <BSpinner class="mr-2" type="grow" small v-if="loading"
                 >loading
               </BSpinner>
               {{ loading ? "Loading" : " Approve" }}
             </button>
-            </div>
-
-    </div>
-    <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
-      <p class="tr-gray-three title-md">
-        <span>{{ 0 }}</span
-        ><span class="tr-gray-two"> ETH</span>
-      </p>
-      <p class="tr-gray-four param-18">[$0] Reserve Price: 1.00 ETH</p>
-      <div class="row">
-        <div class="col-md-6 pr-md-0">
-          <span class="btn-gray" @click.prevent="backToStep()">Back</span>
-        </div>
-        <div class="col-md-6 pl-md-0">
-          <span class="btn-green" @click.prevent="placeBid('three')"
-          >Approve</span
-          >
         </div>
       </div>
     </div>
     <div v-show="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
-        <span>{{ 1.55 }}</span
+        <span v-if="bidValue">{{ bidValue }}</span
         ><span class="tr-gray-two"> ETH</span>
       </p>
-      <p class="tr-gray-four param-18">[$5831] Reserve Price: 1.00 ETH</p>
+      <p class="tr-gray-four param-18">[$$$$] Reserve Price: {{bidValue}} ETH</p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
           <span class="btn-gray" @click.prevent="backToStep()">Back</span>
         </div>
         <div class="col-md-6 pl-md-0">
-          <span class="btn-green" @click.prevent="placeBid('four')"
-          >Approve</span
+           <button
+            v-if="erc20Balance > 0 && isAllowedSpendERC20"
+            @click="setIsAllowance"
+            :class="{ disable: loading }"
+           class="btn-green"
           >
+            Confirm
+          </button>
+
         </div>
       </div>
     </div>
-    <div v-show="placeBidStepFive" class="w-100 place-bid-step-three pt-3">
-      <p class="tr-gray-three title-md">
-        <span>{{ 1.55 }}</span
-        ><span class="tr-gray-two">ETH</span>
-      </p>
-      <p class="tr-gray-four param-18">[$5831] Reserve Price: 1.00 ETH</p>
-      <div class="row">
-        <div class="col-md-12">
-          <span
-            class="btn-green"
-            id="btn-finish"
-            @click.prevent="placeBid('finish')"
-          >Finish</span
-          >
-        </div>
-      </div>
-    </div>
-    <div v-show="placeBidStepSix" class="w-100 place-bid-step-three pt-3 pb-3">
+
+    <div v-show="placeBidStepFive" class="w-100 place-bid-step-three pt-3 pb-3">
       <p class="tr-gray-three title-md mb-0">
         <span class="tr-gray-two font-weight-bolder">Please Wait...</span>
       </p>
@@ -117,7 +109,7 @@
         This may take {{ timer }} seconds
       </p>
     </div>
-    <div v-show="placeBidStepSeven" class="w-100 place-bid-step-three pt-3">
+    <div v-show="placeBidStepSix" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three param-xl step-seven">
         Your bid was placed successfully. Congrats!
       </p>
@@ -146,15 +138,12 @@
 
 <script>
 import Socials from "~/components/Socials.vue";
-import CountDown from "~/components/CountDown.Vue";
-import BuyERC20 from "@/components/BuyERC20";
+import CountDown from "~/components/CountDown.vue";
 import transakSDK from "@transak/transak-sdk";
-
 export default {
   components: {
     CountDown,
     Socials,
-    BuyERC20
   },
     data() {
     return {
@@ -176,99 +165,106 @@ export default {
       tokenAddress:process.env.wethTokenAddress,
       erc20Balance: null,
       isAllowedSpendERC20: false,
-      loading: false,
       treePrice: null,
       erc20USDPrice: 1.01,
 
-    };
+    }
   },
   async created() {
-
+    if(!this.erc20Balance){
+      await this.setERC20Balance()
+    }
 
   },
    methods: {
+     async buyERC20() {
+       let self = this;
+       let transak = new transakSDK({
+         apiKey: process.env.transakApiKey, // Your API Key
+         environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+         defaultCryptoCurrency: "WETH",
+         // defaultCryptoAmount: this.treePrice * this.localAmount,
+         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+         themeColor: "000000", // App theme color
+         fiatCurrency: "USD", // INR/GBP
+         email: "", // Your customer's email address
+         redirectURL: "",
+         hostURL: window.location.origin,
+         widgetHeight: "550px",
+         widgetWidth: "450px",
+         networks: process.env.transakNetworks,
+         defaultNetwork: process.env.transakDefaultNetwork,
+       });
+
+       transak.init();
+
+       // To get all the events
+       transak.on(transak.ALL_EVENTS, (data) => {
+         console.log(data);
+       });
+
+       // This will trigger when the user marks payment is made.
+       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+         console.log(orderData);
+         self.$bvToast.toast(["Your payment was successful"], {
+           toaster: "b-toaster-bottom-left",
+           title: "Your wallet charged",
+           variant: "success",
+           href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+             "account"
+           )}`,
+         });
+         self.setERC20Balance();
+         transak.close();
+       });
+     },
       async allowSpendERC20(silent = false) {
-      if (silent === false ) {
-        this.loading = true;
-      }
-      let self = this;
 
-      console.log({
-        spenderContract:this.spenderContract,
-        tokenAddress: this.tokenAddress
-      }, "allowSpendERC20");
+            if (silent === false ) {
+              this.loading = true;
+            }
+            let self = this;
+
+            console.log({
+              spenderContract:this.spenderContract,
+              tokenAddress: this.tokenAddress
+            }, "allowSpendERC20");
 
 
-      const transaction = await this.$store.dispatch("erc20/approve", {
-        amount: this.bidValue,
-        spenderContract:this.spenderContract,
-        tokenAddress: this.tokenAddress
-      });
+            const transaction = await this.$store.dispatch("erc20/approve", {
+              amount: this.bidValue,
+              spenderContract:this.spenderContract,
+              tokenAddress: this.tokenAddress
+            });
 
-      if (transaction !== null) {
-        this.setIsAllowance();
-        this.$bvToast.toast(["Transaction successfull"], {
-          toaster: "b-toaster-bottom-left",
-          title: "You approved to spend erc20",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
-        });
+            if (transaction !== null) {
+              this.setIsAllowance();
+              this.$bvToast.toast(["Transaction successfull"], {
+                toaster: "b-toaster-bottom-left",
+                title: "You approved to spend erc20",
+                variant: "success",
+                href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+              });
 
-        if (silent === false) {
-          this.loading = false;
-        }
-      }
-
-    },
-    async setERC20Balance() {
+              if (silent === false) {
+                this.loading = false;
+                this.placeBidStepFive = true;
+                this.placeBidStepFour = false;
+                this.placeBidStepThree = false;
+                this.placeBidStepTwo = false;
+                this.placeBidStep = false;
+              }
+            }
+            },
+      async setERC20Balance() {
       console.log(this.tokenAddress, "this.tokenAddress")
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress,
       });
       console.log(this.erc20Balance, "this.erc20Balance")
     },
-    async buyERC20() {
-      let self = this;
-      let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "WETH",
-        // defaultCryptoAmount: this.treePrice * this.localAmount,
-        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-        themeColor: "000000", // App theme color
-        fiatCurrency: "USD", // INR/GBP
-        email: "", // Your customer's email address
-        redirectURL: "",
-        hostURL: window.location.origin,
-        widgetHeight: "550px",
-        widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
-      });
 
-      transak.init();
-
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
-      });
-
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        self.setERC20Balance();
-        transak.close();
-      });
-    },
-    async setIsAllowance(silent = false) {
+      async setIsAllowance(silent = false) {
       if (silent === false) {
         this.loading = true;
       }
@@ -286,9 +282,14 @@ export default {
 
       if (silent === false) {
         this.loading = false;
+        this.placeBidStepThree = false;
+        this.placeBidStepTwo = false;
+        this.placeBidStepFive = false;
+        this.placeBidStepFive = false;
+        this.placeBidStepSix = true;
       }
     },
-    toast() {
+     toast() {
       this.$bvToast.toast(['Please fill the input'], {
         toaster: 'b-toaster-bottom-left',
         title: 'Transaction failed',
@@ -297,22 +298,18 @@ export default {
         bodyClass: 'fund-error'
       })
     },
-   async placeBid(id) {
+    async placeBid(id) {
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
         if(this.bidValue){
-          await  this.setERC20Balance();
-          await  this.setIsAllowance();
-          await  this.buyERC20()
+          this.placeBidStepTwo = false;
+          this.placeBidStepThree = true;
         }else{
           this.toast()
         }
-
-
-
 
       }
       if (id === "three") {

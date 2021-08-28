@@ -21,7 +21,7 @@
 
 </template>
 <script>
-import CountDown from "~/components/CountDown.Vue";
+import CountDown from "~/components/CountDown.vue";
 
 export default {
   components: {
