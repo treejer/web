@@ -355,8 +355,8 @@ export default {
       if (this.$cookies.get("account")) {
         this.$store.commit("SET_INDEX", 0);
         this.$router.push({
-          path: "/forest/" + item.owner,
-          params: { id: item.owner },
+          path: "/forest/" + item.id,
+          params: { id: item.id },
         });
       } else {
         this.$bvToast.toast("you are not logged in. please login", {

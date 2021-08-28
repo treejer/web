@@ -9,16 +9,9 @@
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
               <h2
-                v-if="!otherForest"
                 class="title-sm d-inline-flex Montserrat-Medium"
               >
-                {{ state }} Forest
-              </h2>
-              <h2
-                v-if="otherForest"
-                class="title-sm d-inline-flex Montserrat-Medium"
-              >
-                <span class="pr-4 pl-0" v-coin>{{ $route.params.id }}</span>
+                <span class="pr-4 pl-0" v-coin>{{ $route.params.id != $cookies.get('account') ? $route.params.id : 'MY' }}</span>
                 Forest
               </h2>
             </div>
@@ -52,15 +45,7 @@
                     alt="tree"
                 /></span>
                 <span>
-                  <span v-if="!loading">{{ treeCount || 0 }}</span>
-                  <span v-if="loading">
-                    <b-spinner
-                      type="grow"
-                      label="Spinning"
-                      small
-                      class="mb-1"
-                    ></b-spinner
-                  ></span>
+                  <span>{{ owner ? owner.treeCount : 0 }}</span>
                 </span>
               </p>
             </div>
@@ -70,8 +55,8 @@
                 <span
                   ><img src="~/assets/images/myforest/SeedLogo.svg" alt="seed"
                 /></span>
-                <span class="param-18 font-weight-bold"
-                  >{{ mintableSeed !== null ? mintableSeed : 0 }}
+                <span class="param-18 font-weight-bold">
+                  {{ 0 }}
                 </span>
               </p>
             </div>
@@ -86,13 +71,13 @@
                 <span>{{ 0 }}</span>
               </p>
             </div>
-            <div
+            <!-- <div
               class="col-lg-3 col-md-6 col-12 align-items-center justify-content-center p-0 mt-3"
             >
-              <button class="btn-outline-green btn-wallet" @click="mintSeed">
+              <button class="btn-outline-green btn-wallet">
                 Send to Wallet
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="row treejer-user-flow">
             <div class="col-12">
@@ -140,48 +125,20 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              treeCount ? 'btn-outline-green' : 'btn-green'
+                              owner && owner.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
                             "
                             @click.prevent="goToAddTree"
                           >
-                            {{ treeCount ? "Done" : "step 2" }}
+                            {{ owner && owner.treeCount > 0 ? "Done" : "step 2" }}
                           </button>
                         </span>
                         <span
-                          :class="treeCount ? 'tr-gray-four' : 'tr-gray-two'"
+                          :class="owner && owner.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
                         >
                           Add trees to your forest
                         </span>
                       </li>
-                      <li
-                        class="list-style-none param-sm mb-1 Montserrat-Medium"
-                      >
-                        <span class="step-number mr-2">
-                          <button
-                            @click.prevent="calculateMintableSeed"
-                            :class="
-                              mintableSeed != 0 && mintableSeed
-                                ? 'btn-outline-green'
-                                : 'btn-green'
-                            "
-                          >
-                            {{
-                              mintableSeed != 0 && mintableSeed
-                                ? "Done"
-                                : "step 3"
-                            }}
-                          </button>
-                        </span>
-                        <span
-                          :class="
-                            mintableSeed != 0 && mintableSeed
-                              ? 'tr-gray-four'
-                              : 'tr-gray-two'
-                          "
-                        >
-                          Release Seed/O2 to your wallet
-                        </span>
-                      </li>
+
                       <li
                         class="list-style-none param-sm mb-1 Montserrat-Medium"
                       >
@@ -189,12 +146,12 @@
                           <button
                             @click="comunity()"
                             :class="
-                              mintableSeed != 0 && mintableSeed
+                              owner && owner.treeCount > 0
                                 ? 'btn-outline-green'
                                 : 'btn-green'
                             "
                           >
-                            step 4
+                            step 3
                           </button>
                         </span>
                         <span> Join our community! </span>
@@ -224,21 +181,20 @@
               <div
                 class="col-12 p-0 befor-res"
                 style="left: 0"
-                v-if="$cookies.get('account')"
+                v-if="owner && owner.treeCount > 0"
               >
                 <span
-                  v-if="ownerTreesData"
                   class=""
-                  v-for="(item, index) in ownerTreesData.slice(0, 50)"
-                  :id="item.tree_id"
+                  v-for="(item, index) in owner.trees.slice(0, 50)"
+                  :id="item.id"
                   :key="index"
                 >
                   <b-button
-                    @click="goToTreeProfile(item.tree_id)"
+                    @click="goToTreeProfile(item.id)"
                     class="p-2 bg-transparent border-0"
                     :tabindex="index"
                     v-b-tooltip.top
-                    :title="item.tree_id"
+                    :title="item.id"
                   >
                     <img
                       class="img-fluid"
@@ -250,15 +206,14 @@
               </div>
               <div
                 class="col-12 p-0"
-                v-if="ownerTreesData.length > 50"
+                v-if="owner && owner.treeCount > 50 && showMoreTreeData"
                 style="transition: all 0.3s ease"
               >
                 <span
-                  v-if="showMoreTreeData"
                   style="transition: all 0.3s ease"
                   class="pointer-event"
-                  v-for="(item, index) in ownerTreesData.slice(50)"
-                  :id="item.tree_id"
+                  v-for="(item, index) in owner.trees.slice(50)"
+                  :id="item.id"
                   :key="index"
                 >
                   <b-button
@@ -266,7 +221,7 @@
                     class="p-2 bg-transparent border-0"
                     :tabindex="index"
                     v-b-tooltip.top
-                    :title="item.tree_id"
+                    :title="item.id"
                   >
                     <img
                       class="img-fluid pointer-event"
@@ -291,12 +246,12 @@
             </div>
             <div class="col-12 mt-5">
               <GMap
-                v-if="ownerTreesLoaded === true && ownerTreesData.length > 0"
+                v-if="owner && owner.treeCount > 0"
                 ref="gMap"
                 :cluster="{ options: { styles: clusterStyle } }"
                 :center="{
-                  lat: ownerTreesData[0].latitude || 24.06448,
-                  lng: ownerTreesData[0].longitude || 81.30946,
+                  lat: owner.trees[0].latitude || 24.06448,
+                  lng: owner.trees[0].longitude || 81.30946,
                 }"
                 :options="{
                   fullscreenControl: true,
@@ -309,7 +264,7 @@
                 :zoom="6"
               >
                 <GMapMarker
-                  v-for="tree in ownerTreesData"
+                  v-for="tree in owner.trees"
                   :key="tree.id"
                   :position="{ lat: tree.latitude, lng: tree.longitude }"
                   :options="{
@@ -359,29 +314,18 @@
             >
               <div class="card-img position-relative">
                 <img
-                  v-if="$cookies.get('account')"
                   :src="icon"
-                  alt="username"
+                  :alt="$route.params.id"
                   class="avatar-pic img-fluid"
                 />
-                <img
-                  v-else
-                  :src="avatar"
-                  alt="username"
-                  class="avatar-pic img-fluid"
-                />
+
               </div>
               <p
-                v-if="$cookies.get('account')"
                 v-coin
                 class="param-sm mt-3 tr-gray-three token"
-                v-text="$cookies.get('account')"
+                v-text="$route.params.id"
               ></p>
-              <p
-                v-if="!$cookies.get('account')"
-                class="param-sm mt-3 tr-gray-three token"
-                v-text="'Geust'"
-              ></p>
+
               <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
                 Wallet Balance
               </p>
@@ -425,7 +369,7 @@
                   <p
                     class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold border-bottom"
                   >
-                    {{ walletSeed ? walletSeed : 0 }}
+                    {{ 0 }}
                   </p>
                   <p
                     class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold"
@@ -464,7 +408,9 @@ import Fas from "@/components/font-awsome/Fas";
 import content from "./world.json";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
-import route from "@/middleware/route";
+import treesSearchById from "~/apollo/queries/treesSearchById";
+import owner from "~/apollo/queries/owner";
+
 
 export default {
   name: "forest",
@@ -480,34 +426,30 @@ export default {
       ]
     }
   },
-
+  apollo: {
+    owner: {
+      query: owner,
+      prefetch: false,
+      // prefetch: ({ route }) => ({ id: route.params.id }),
+      variables () {
+        return { id: this.$route.params.id }
+      }
+    },
+  },
   computed: {
     messages() {
       return content;
-    },
-    state() {
-      if (!this.$cookies.get("account") && !this.$route.params.id) {
-        return "Guest";
-      }
-      if (this.$cookies.get("account") === this.$route.params.id) {
-        return "My";
-      }
-      if (this.$cookies.get("account") !== this.$route.params.id) {
-        this.otherForest = true;
-      }
-    },
+    }
   },
 
   data() {
     return {
       title:this.$route.name,
 
-      icon: `${process.env.gravatar}${(this.$cookies
-        .get("account") ?? '0' )
+      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0' )
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
-      otherForest: false,
-      ownerTreesLoaded: false,
       showMoreTreeData: false,
+      ownerTreesLoaded: false,
       test: [
         {},
         {},
@@ -573,13 +515,6 @@ export default {
       ],
       activeIndexSteps: null,
       loading: false,
-      search: null,
-      treeCount: null,
-      redeem: null,
-      forestSize: 47,
-      walletSeed: null,
-      mintableSeed: null,
-      ownerTreesData: [],
       ethBalance: 0,
       geographyConfig: {
         dataUrl:
@@ -839,39 +774,36 @@ export default {
     };
   },
   mounted() {
-    if (this.$cookies.get("account")) {
-      this.getEthBalance();
-      this.getBalanceOfSeed();
-      this.calculateMintableSeed();
-      this.getOwnerTreesData();
-    }
+    this.getEthBalance();
   },
   methods: {
     async goToFindTree() {
       this.loading = true;
       let self = this;
-      if (this.treeID) {
-        await this.$axios
-          .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
-          .then(function (response) {
-            self.loading = false;
-            self.$router.push(`/tree/${self.treeID}`);
-          })
-          .catch(function (error) {
-            self.loading = false;
+      if (self.treeID) {
+        let result = await this.$apollo.query({
+          query: treesSearchById,
+          variables: {
+            id: `0x${self.treeID}`,
+          },
+        });
+
+        if (result) {
+          if (result.data.trees.length > 0) {
+            self.$router.push(`/genesis/${self.treeID}`);
+          } else {
             self.$bvToast.toast("Tree Not found!", {
               toaster: "b-toaster-bottom-left",
               solid: true,
               headerClass: "hide",
               variant: "danger",
             });
-            // self.errors = 'notFound'
-            // console.log(self.errors)
-
-            // handle error
-          });
+          }
+          this.loading = false;
+        }
       } else {
-        self.$bvToast.toast("Tree Not found!", {
+        self.loading = false;
+        self.$bvToast.toast("TreeId is empty!", {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
@@ -882,12 +814,12 @@ export default {
     goToAddTree() {
       let self = this;
       if (!self.$cookies.get("account")) {
-        // self.$bvToast.toast("you're not login", {
-        //   toaster: 'b-toaster-bottom-left',
-        //   solid: true,
-        //   headerClass: 'hide',
-        //   variant: 'danger'
-        // })
+        self.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
         self.$bvModal.show("five");
       } else {
         self.$router.push("/forest/addTree");
@@ -902,82 +834,14 @@ export default {
     changeRoute(item) {
       window.open(item, "_blank");
     },
-    async getBalanceOfSeed() {
-      let self = this;
-      await this.$axios
-        .$get(
-          `${process.env.apiUrl}/wallets/${this.$route.params.id}/seed/balanceOf`
-        )
-        .then(function (response) {
-          self.walletSeed = self.$web3.utils.fromWei(response.amount);
-        })
-        .catch(function (error) {});
-    },
-    calculateMintableSeed() {
-      let self = this;
-      if (self.$cookies.get("account")) {
-        self.$axios
-          .$get(
-            `${process.env.apiUrl}/wallets/${self.$route.params.id}/seed/mintable`
-          )
-          .then(function (response) {
-            if (response.amount) {
-              const mintableSeeds = self.$web3.utils.fromWei(response.amount);
-              self.mintableSeed = parseFloat(mintableSeeds).toFixed(4);
-            }
-          })
-          .catch(function (error) {});
-      } else {
-        // self.$bvToast.toast("you're not login", {
-        //   toaster: 'b-toaster-bottom-left',
-        //   solid: true,
-        //   headerClass: 'hide',
-        //   variant: 'danger'
-        // })
-      }
-    },
-    async mintSeed() {
-      let self = this;
-      if (!self.$cookies.get("account")) {
-        self.$bvToast.show("four");
-      } else {
-        await this.$store.dispatch("seedFactory/mint").then(() => {
-          // responsiveVoice.speak("Tokens transferred to wallet");
-
-          self.$bvToast.toast(["Your transfer was successful"], {
-            toaster: "b-toaster-bottom-left",
-            title: "Tokens transferred to wallet",
-            variant: "success",
-            href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-              "account"
-            )}`,
-          });
-        });
-      }
-    },
     async getEthBalance() {
       let self = this
       await this.$web3.eth
-        .getBalance(this.$cookies.get("account"))
+        .getBalance(this.$route.params.id)
         .then(async (ethBalance) => {
           const test = await self.$web3.utils.fromWei(ethBalance);
           this.ethBalance = parseFloat(test).toFixed(4);
         });
-    },
-    async getOwnerTreesData() {
-      let self = this;
-      await this.$axios
-        .$get(`${process.env.apiUrl}/wallets/${this.$route.params.id}/trees`)
-        .then(function (response) {
-          self.ownerTreesData = response.trees.data.map((tree) => {
-            tree.latitude = parseFloat(tree.latitude);
-            tree.longitude = parseFloat(tree.longitude);
-            return tree;
-          });
-          self.treeCount = response.trees.total;
-        })
-        .catch(function (error) {});
-      this.ownerTreesLoaded = true;
     },
     goToTreeProfile(item) {
       this.$router.push(

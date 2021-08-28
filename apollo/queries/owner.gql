@@ -1,0 +1,9 @@
+query owner($id: ID!) {
+  owner(id: $id) {
+    id
+    trees {
+      id
+    }
+    treeCount
+  }
+}
