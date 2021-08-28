@@ -352,21 +352,10 @@ export default {
       }
     },
     goToDashboard(item) {
-      if (this.$cookies.get("account")) {
-        this.$store.commit("SET_INDEX", 0);
-        this.$router.push({
-          path: "/forest/" + item.id,
-          params: { id: item.id },
-        });
-      } else {
-        this.$bvToast.toast("you are not logged in. please login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-        this.$bvModal.show("five");
-      }
+      this.$router.push({
+        path: "/forest/" + item.id,
+        params: { id: item.id },
+      });
     },
     async findTree() {
       this.errors = null;
