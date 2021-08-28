@@ -67,7 +67,7 @@
             <div class="row">
               <div
                 class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
-                v-for="(item, index) in leaderBoards"
+                v-for="(item, index) in owners"
                 :key="index"
               >
                 <div class="card-box" @click="goToDashboard(item)">
@@ -77,20 +77,20 @@
                         class="bg-white"
                         width="64"
                         height="64"
-                        :src="`${icon}${item.owner.replace(
+                        :src="`${icon}${item.id.replace(
                           /[^0-9\\.]+/g,
                           ''
                         )}?d=robohash`"
-                        :alt="item.owner"
+                        :alt="item.id"
                       />
                     </div>
                     <div class="card-title">
                       <p
-                        v-html="item.owner"
+                        v-html="item.id"
                         class="tr-gray-two param-sm mb-1"
                         v-coin
                       ></p>
-                      <p class="tr-green mb-1">{{ item.total_tree }} trees</p>
+                      <p class="tr-green mb-1">{{ item.treeCount }} trees</p>
                     </div>
                   </div>
                 </div>
@@ -249,12 +249,18 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import pagination from "laravel-vue-pagination";
+import exploreForestsQuery from '~/apollo/queries/exploreForestsQuery'
+import gql from 'graphql-tag';
 
 
 
 export default {
   name: "findMyTree",
   // layout:"checkout",
+  components: {
+    Fab,
+    pagination,
+  },
   head() {
     return {
       title:`Treejer`,
@@ -263,19 +269,6 @@ export default {
         { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
       ]
     }
-  },
-
-  components: {
-    Fab,
-    pagination,
-  },
-  async mounted() {
-    await this.listTrees();
-    console.log(this.$routeFixer,this,"fixxxxxx")
-    const leaderBoards = await this.$axios.$get(
-      `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
-    );
-    this.leaderBoards = leaderBoards.leaderboard.data;
   },
   data() {
     return {
@@ -291,6 +284,20 @@ export default {
       search: "",
       activeIndex: null,
     };
+  },
+   apollo: {
+    owners: {
+      prefetch: true,
+      query: exploreForestsQuery
+    },
+  },
+  async mounted() {
+    await this.listTrees();
+    console.log(this.$routeFixer,this,"fixxxxxx")
+    const leaderBoards = await this.$axios.$get(
+      `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
+    );
+    this.leaderBoards = leaderBoards.leaderboard.data;
   },
   methods: {
 
@@ -332,35 +339,36 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-       await self.$store.dispatch('findTree/getFindTree',{
-          id:self.treeID
-        }).then((res)=>{
-          console.log(self.$store.state.findTree.tree,"res is here")
 
-          self.loading = false;
-
-          self.$router.push(`/genesis/${self.treeID}`);
+        let result  = await this.$apollo.query({
+          query: gql`query SearchTree($id: String) {            
+            trees(where: {id: $id}) {
+              id
+            }
+          }`,
+          variables: {
+            id: `0x${self.treeID}`,
+          },  
         })
 
+        if(result) {
+          // console.log(result.data.trees)
+          if(result.data.trees.length > 0) {
+            self.$router.push(`/genesis/${self.treeID}`);
+          } else {
+            self.$bvToast.toast("Tree Not found!", {
+              toaster: "b-toaster-bottom-left",
+              solid: true,
+              headerClass: "hide",
+              variant: "danger",
+            });
+          }
+          this.loading = false;
+        }
 
-        // await this.$axios
-        //   .$get(`${process.env.apiUrl}/trees/${self.treeID}`)
-        //   .then(function (response) {
-        //     self.loading = false;
-        //     self.$router.push(`/tree/${self.treeID}`);
-        //   })
-        //   .catch(function (error) {
-        //     self.loading = false;
-        //     self.$bvToast.toast("Tree Not found!", {
-        //       toaster: "b-toaster-bottom-left",
-        //       solid: true,
-        //       headerClass: "hide",
-        //       variant: "danger",
-        //     });
-        //   });
       } else {
         self.loading = false;
-        self.$bvToast.toast("Tree Not found!", {
+        self.$bvToast.toast("TreeId is empty!", {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
