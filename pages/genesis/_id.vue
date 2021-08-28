@@ -8,14 +8,14 @@
         <div class="col-auto search-bar-tree-profile position-relative">
           <span
             class="icon position-absolute position-relative"
-            @click="findTree()"
+            @click="goToFindTree()"
           >
             <img src="~/assets/images/tree-profile/search.svg"/>
           </span>
           <FormulateInput
             class="search param-sm"
             placeholder="Enter Tree ID"
-            @keyup.enter="findTree()"
+            @keyup.enter="goToFindTree()"
             type="text"
             v-model="treeID"
             name="treeID"
@@ -26,7 +26,7 @@
           <span
             class="tr-gray-three tree-profile-number font-weight-bolder"
             id="edit_name"
-          >{{ tree.tree_id }}</span
+          >{{ tree.id }}</span
           >
         </div>
       </div>
@@ -109,7 +109,7 @@
               <div class="col-md-12">
                 <div class="card-tree-profile position-relative">
                   <div
-                    v-if="tree.owner === $cookies.get('account')"
+                    v-if="tree.owner && tree.owner.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
                   >
                     <button
@@ -122,19 +122,15 @@
                   <div class="detail-card">
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
-                      <p class="param-18 mb-0 tr-gray-two" v-if="genesisTree">
-<!--                        {{birthDate(genesisTree.birthDate)}}-->
+                      <p class="param-18 mb-0 tr-gray-two">
+                       {{ tree.plantDate }}
                       </p>
                     </div>
                     <div class="gps part">
                       <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                        <span class="pr-2">{{
-                            parseFloat(tree.latitude).toFixed(4)
-                          }}</span
-                        >,<span class="pl-2">{{
-                          parseFloat(tree.longitude).toFixed(4)
-                        }}</span>
+                        <span class="pr-2">{{ 'tree-lat' }}</span
+                        >,<span class="pl-2">{{ 'tree-lng' }}</span>
                       </p>
                     </div>
                     <div class="species part" v-if="tree.type">
@@ -145,11 +141,11 @@
                     </div>
                     <div class="planter part">
                       <p class="param mb-0 tr-gray-three">Planter</p>
-                      <p class="param-18 mb-0 tr-gray-two" v-coin>
-                        {{ tree.planter }}
+                      <p class="param-18 mb-0 tr-gray-two">
+                        {{ tree.planter ? tree.planter.id : '-' }}
                       </p>
                     </div>
-                    <div class="block part">
+                    <!-- <div class="block part">
                       <p class="param mb-0 tr-gray-three">Green Block</p>
                       <p
                         class="param-18 mb-0 tr-gray-two"
@@ -157,7 +153,7 @@
                       >
                         {{ tree.greenblock.title }}
                       </p>
-                    </div>
+                    </div> -->
                     <div class="climate part">
                       <p class="param mb-0 tr-gray-three">
                         Climate Credits (Seed)
@@ -170,8 +166,8 @@
                       ref="gMap"
                       :cluster="{ options: { styles: clusterStyle } }"
                       :center="{
-                        lat: lat,
-                        lng: lng,
+                        lat: 36.8566787,
+                        lng: 30.7924575
                       }"
                       :options="{
                         fullscreenControl: true,
@@ -192,8 +188,8 @@
                     >
                       <GMapMarker
                         :position="{
-                          lat: lat,
-                          lng: lng,
+                          lat: 36.8566787,
+                          lng: 30.7924575
                         }"
                         :options="{ icon: pins.selected }"
                       ></GMapMarker>
@@ -270,6 +266,8 @@ import HistoryCard from "../../components/genesis/HistoryCard.vue";
 import PeopleCard from "../../components/genesis/PeopleCard.vue";
 import AuctionProcess from "../../components/genesis/AuctionProcess.vue";
 import moment from "moment"
+import treesSearchById from "~/apollo/queries/treesSearchById";
+import tree from "~/apollo/queries/tree";
 
 
 export default {
@@ -285,15 +283,20 @@ export default {
       ]
     }
   },
+  apollo: {
+    tree: {
+      query: tree,
+      prefetch: false,
+      // prefetch: ({ route }) => ({ id: `0x${route.params.id}` }),
+      variables () {
+        return { id: `0x${this.$route.params.id}`  }
+      }
+    },
+  },
   data() {
     return {
-      tree: null,
-      genesisTree:null,
-      lat: null,
-      lng: null,
       newName: false,
       newNameTree: null,
-      treeCount: null,
       loading: false,
       treeID: null,
       clusterStyle: [
@@ -528,39 +531,47 @@ export default {
     };
   },
   mounted() {
-    this.findTree();
   },
   async created() {
-    // await this.$store.dispatch('findTree/getFindTree', {id:this.$route.params.id})
-    // this.genesisTree =  await this.$store.state.findTree.tree.trees[0]
-    // console.log(this.genesisTree,"this.genesisTree")
   },
   methods: {
-    async findTree() {
+    async goToFindTree() {
+      this.loading = true;
       let self = this;
-      self.loading = true;
-      await self.$axios
-        .$get(
-          `${process.env.apiUrl}/trees/${
-            self.treeID ? self.treeID : self.$route.params.id
-          }`
-        )
-        .then( (res) =>{
-          self.loading = false;
-          self.tree = res;
-
-          self.lat = Number(self.tree.latitude);
-          self.lng = Number(self.tree.longitude);
-          console.log(self.lat, self.lng,"  self.tree")
-          self.$router.push(self.treeID)
-        })
-        .catch( (error)=> {
+      if (self.treeID) {
+        let result = await this.$apollo.query({
+          query: treesSearchById,
+          variables: {
+            id: `0x${self.treeID}`,
+          },
         });
+
+        if (result) {
+          if (result.data.trees.length > 0) {
+            self.$router.push(`/genesis/${self.treeID}`);
+          } else {
+            self.$bvToast.toast("Tree Not found!", {
+              toaster: "b-toaster-bottom-left",
+              solid: true,
+              headerClass: "hide",
+              variant: "danger",
+            });
+          }
+          this.loading = false;
+        }
+      } else {
+        self.loading = false;
+        self.$bvToast.toast("TreeId is empty!", {
+          toaster: "b-toaster-bottom-left",
+          solid: true,
+          headerClass: "hide",
+          variant: "danger",
+        });
+      }
     },
     add() {
       this.treeID = this.$route.params.id;
       this.treeID++;
-      this.findTree();
       this.$router.push(
         this.localePath({name: "genesis-id", params: {id: this.treeID}})
       );
@@ -569,7 +580,6 @@ export default {
       this.treeID = this.$route.params.id;
       this.treeID--;
 
-      this.findTree();
       this.$router.push(
         this.localePath({name: "genesis-id", params: {id: this.treeID}})
       );

@@ -1,0 +1,18 @@
+query tree($id: ID!) {
+  tree(id: $id) {
+    id
+    planter{
+      id
+    }
+    owner{
+      id
+    }
+    treeType
+    mintStatus
+    countryCode
+    provideStatus
+    treeStatus
+    plantDate
+    birthDate
+  }
+}

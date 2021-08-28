@@ -429,8 +429,7 @@ export default {
   apollo: {
     owner: {
       query: owner,
-      prefetch: false,
-      // prefetch: ({ route }) => ({ id: route.params.id }),
+      prefetch: ({ route }) => ({ id: route.params.id }),
       variables () {
         return { id: this.$route.params.id }
       }
