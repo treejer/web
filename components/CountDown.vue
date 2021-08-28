@@ -33,6 +33,7 @@ Vue.filter("two_digits", (value) => {
 });
 
 export default {
+  name:"Countdown",
   props: {
 
     date: {
