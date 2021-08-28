@@ -48,10 +48,7 @@ export default {
       type: String,
       default: "DAI",
     },
-    spenderContract: {
-      type: String,
-      default: process.env.daiTokenAddress,
-    },
+    
   },
   data() {
     return {
@@ -85,7 +82,14 @@ export default {
     // }, 3000);
   },
   async created() {
-    console.log(this.tokenName, "this.tokenName")
+    this.tokenName
+ 
+    console.log(this.tokenAddress, "this.tokenAddress")
+    console.log(this.localAmount, "this.localAmount")
+    this.erc20USDPrice = 1.01;
+  },
+  methods: {
+    checkTokenName(){
     if (this.tokenName === "DAI") {
       this.tokenAddress = process.env.daiTokenAddress;
     } else if (this.tokenName === "WETH") {
@@ -93,13 +97,9 @@ export default {
     } else {
       console.log("TOKEN IS NOT defined!");
     }
-    console.log(this.tokenAddress, "this.tokenAddress")
-    console.log(this.localAmount, "this.localAmount")
-    this.erc20USDPrice = 1.01;
-  },
-  methods: {
+    },
     async allowSpendERC20(silent = false) {
-      if (silent === false) {
+      if (silent === false ) {
         this.loading = true;
       }
       let self = this;
@@ -188,6 +188,7 @@ export default {
       if (silent === false) {
         this.loading = true;
       }
+      console.log(this.localAmount ,"this localAmount")
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
         tokenAddress: this.tokenAddress,

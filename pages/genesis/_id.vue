@@ -121,7 +121,7 @@
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
                       <p class="param-18 mb-0 tr-gray-two" v-if="genesisTree">
-                        {{birthDate(genesisTree.birthDate)}}
+<!--                        {{birthDate(genesisTree.birthDate)}}-->
                       </p>
                     </div>
                     <div class="gps part">
@@ -255,18 +255,7 @@
               </div>
             </div>
           </div>
-          <!-- <div class="box-tree-profile">
-            <p class="param tr-gray-two">
-              Swipe to see more trees in
-              <span
-                class="tr-green pointer-event"
-                @click="goToForest(tree.owner)"
-                v-coin
-                >{{ tree.owner }}</span
-              >
-              ’s forest
-            </p>
-          </div> -->
+
         </div>
       </div>
     </div>
@@ -540,9 +529,9 @@ export default {
     this.findTree();
   },
   async created() {
-    await this.$store.dispatch('findTree/getFindTree', {id:this.$route.params.id})
-    this.genesisTree =  await this.$store.state.findTree.tree.trees[0]
-    console.log(this.genesisTree,"this.genesisTree")
+    // await this.$store.dispatch('findTree/getFindTree', {id:this.$route.params.id})
+    // this.genesisTree =  await this.$store.state.findTree.tree.trees[0]
+    // console.log(this.genesisTree,"this.genesisTree")
   },
   methods: {
     async findTree() {
@@ -574,26 +563,6 @@ export default {
         this.localePath({name: "genesis-id", params: {id: this.treeID}})
       );
     },
-    async placeBid() {
-      this.loading = true;
-      let self = this;
-
-      this.transferReceipt = await this.$store.dispatch("treeAuction/bid", {
-        auctionId: 0,
-        context: self,
-      });
-      if (this.transferReceipt !== null) {
-        self.$bvToast.toast(["Bid successfully added"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Bid successfully added",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-      }
-      this.loading = false;
-    },
     odd() {
       this.treeID = this.$route.params.id;
       this.treeID--;
@@ -622,10 +591,10 @@ export default {
         this.localePath({name: "forest-id", params: {id: id}})
       );
     },
-     birthDate(date){
-       let moments =  moment.unix(date).utc()
-       return moment(moments,'YYYY MM DD HH').format()
-    }
+    //  birthDate(date){
+    //    let moments =  moment.unix(date).utc()
+    //    return moment(moments).format('YY/MM/DD/HH')
+    // }
   },
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
+
+
     <button
       v-show="placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
@@ -21,14 +23,40 @@
           <CountDown :date="endingTimeBid"></CountDown>
         </p>
       </div>
-      <BuyERC20 tokenName="WETH" :spenderContract="spenderContract" :amount="bidValue" />
-      <button
-        class="btn-green w-100 font-white param-md m-auto py-2 pr-5 pl-5"
-        @click.prevent="placeBid('two')"
-      >
-        Place a bid
 
-      </button>
+       <div class="col-12 p-0 ">
+          <button
+            v-if="erc20Balance <= 0.00000000000"
+            @click.prevent="placeBid('two')"
+            :class="{ disable: loading }"
+            class="btn-green-md mt-4 mb-3 w-100 h-100"
+          >
+            <BSpinner class="mr-2" type="grow" small v-if="loading"
+              >loading
+            </BSpinner>
+            {{ loading ? "Loading" : `Buy WETH` }}
+          </button>
+          <button
+            v-if="erc20Balance > 0 && isAllowedSpendERC20"
+            :class="{ disable: loading }"
+           class="btn-green-md mt-4 mb-3 w-100 h-100"
+          >
+            APPROVED
+          </button>
+
+            <button
+              v-if="erc20Balance > 0 && !isAllowedSpendERC20"
+              @click="allowSpendERC20()"
+              :class="{ disable: loading }"
+             class="btn-green-md mt-4 mb-3 w-100 h-100"
+            >
+              <BSpinner class="mr-2" type="grow" small v-if="loading"
+                >loading
+              </BSpinner>
+              {{ loading ? "Loading" : " Approve" }}
+            </button>
+            </div>
+
     </div>
     <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
@@ -120,6 +148,7 @@
 import Socials from "~/components/Socials.vue";
 import CountDown from "~/components/CountDown.Vue";
 import BuyERC20 from "@/components/BuyERC20";
+import transakSDK from "@transak/transak-sdk";
 
 export default {
   components: {
@@ -127,12 +156,9 @@ export default {
     Socials,
     BuyERC20
   },
- async created() {
-   //  console.log(this.$store.state.treeAuction.auction, "self.dataAuctions")
-  },
-
-  data() {
+    data() {
     return {
+      bidValueStep:false,
       placeBidStep: true,
       placeBidStepTwo: false,
       placeBidStepThree: false,
@@ -146,11 +172,122 @@ export default {
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
-      spenderContract: process.env.treeAuctionAddress
+      spenderContract:process.env.treeAuctionAddress,
+      tokenAddress:process.env.wethTokenAddress,
+      erc20Balance: null,
+      isAllowedSpendERC20: false,
+      loading: false,
+      treePrice: null,
+      erc20USDPrice: 1.01,
+
     };
   },
+  async created() {
 
-  methods: {
+
+  },
+   methods: {
+      async allowSpendERC20(silent = false) {
+      if (silent === false ) {
+        this.loading = true;
+      }
+      let self = this;
+
+      console.log({
+        spenderContract:this.spenderContract,
+        tokenAddress: this.tokenAddress
+      }, "allowSpendERC20");
+
+
+      const transaction = await this.$store.dispatch("erc20/approve", {
+        amount: this.bidValue,
+        spenderContract:this.spenderContract,
+        tokenAddress: this.tokenAddress
+      });
+
+      if (transaction !== null) {
+        this.setIsAllowance();
+        this.$bvToast.toast(["Transaction successfull"], {
+          toaster: "b-toaster-bottom-left",
+          title: "You approved to spend erc20",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+        });
+
+        if (silent === false) {
+          this.loading = false;
+        }
+      }
+
+    },
+    async setERC20Balance() {
+      console.log(this.tokenAddress, "this.tokenAddress")
+      this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
+        tokenAddress: this.tokenAddress,
+      });
+      console.log(this.erc20Balance, "this.erc20Balance")
+    },
+    async buyERC20() {
+      let self = this;
+      let transak = new transakSDK({
+        apiKey: process.env.transakApiKey, // Your API Key
+        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+        defaultCryptoCurrency: "WETH",
+        // defaultCryptoAmount: this.treePrice * this.localAmount,
+        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+        themeColor: "000000", // App theme color
+        fiatCurrency: "USD", // INR/GBP
+        email: "", // Your customer's email address
+        redirectURL: "",
+        hostURL: window.location.origin,
+        widgetHeight: "550px",
+        widgetWidth: "450px",
+        networks: process.env.transakNetworks,
+        defaultNetwork: process.env.transakDefaultNetwork,
+      });
+
+      transak.init();
+
+      // To get all the events
+      transak.on(transak.ALL_EVENTS, (data) => {
+        console.log(data);
+      });
+
+      // This will trigger when the user marks payment is made.
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+        console.log(orderData);
+        self.$bvToast.toast(["Your payment was successful"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Your wallet charged",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+        self.setERC20Balance();
+        transak.close();
+      });
+    },
+    async setIsAllowance(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+
+      let allowance = await this.$store.dispatch("erc20/allowance", {
+        tokenAddress: this.tokenAddress,
+        spenderContract: this.spenderContract,
+      });
+      console.log(allowance, this.bidValue)
+      console.log("allowance, this.amount")
+
+      this.isAllowedSpendERC20 = allowance >= this.bidValue;
+
+      console.log(this.isAllowedSpendERC20)
+
+      if (silent === false) {
+        this.loading = false;
+      }
+    },
     toast() {
       this.$bvToast.toast(['Please fill the input'], {
         toaster: 'b-toaster-bottom-left',
@@ -160,42 +297,23 @@ export default {
         bodyClass: 'fund-error'
       })
     },
-    async bid() {
-      if (!this.bidValue) {
-        this.toast()
-      }
-      let self = this;
-      self.loading = true;
-
-      self.transferReceipt = await self.$store.dispatch("treeAuction/bid", {
-        context: self,
-        auctionId: 33,
-        bidValue: self.bidValue
-      });
-      if (self.transferReceipt !== null) {
-        self.$bvToast.toast(["Bid successfully added"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Bid successfully added",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-
-
-        self.placeBidStepTwo = false;
-        self.placeBidStepThree = true;
-      }
-      this.loading = false;
-      this.bidValue = null
-    },
-    placeBid(id) {
+   async placeBid(id) {
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
-        this.bid();
+        if(this.bidValue){
+          await  this.setERC20Balance();
+          await  this.setIsAllowance();
+          await  this.buyERC20()
+        }else{
+          this.toast()
+        }
+
+
+
+
       }
       if (id === "three") {
         this.placeBidStepThree = false;
@@ -241,6 +359,9 @@ export default {
 
 <style lang="scss">
 .auction-process-steps {
+  .disable:hover{
+    pointer-events: unset;
+  }
   .step-seven {
     display: flex;
     line-height: 110px;

@@ -153,26 +153,6 @@ export default {
     };
   },
   components: {PlaceBid, BidCard, AvatarBidders},
-  methods: {
-    async buyTree() {
-
-
-      this.loading = true;
-      let self = this;
-
-
-    },
-    async getAuctions() {
-      await this.$store.dispatch('treeAuction/getGenesisAuctions')
-      this.auctions = await this.$store.state.treeAuction.auctions.auctions
-      this.treeOfLife = this.auctions["0"]
-      this.treeOfAuctions = this.auctions.slice(0, 10)
-      console.log(this.auctions, "auctions", this.treeOfLife,"treeOflife", this.treeOfAuctions,"treeOfAuctions")
-    }
-  },
-  async created() {
-    await this.getAuctions()
-  }
 };
 </script>
 

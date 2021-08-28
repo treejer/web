@@ -5,6 +5,7 @@ import TreeAuction from  '~/contracts/TreeAuction'
 import IncrementalSell from  '~/contracts/IncrementalSell'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
+
 export default async ({ app }, inject) => {
     const walletName = app.$cookies.get('walletName');
 
