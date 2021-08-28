@@ -1,0 +1,5 @@
+query SearchTree($id: String!) {            
+  trees(where: {id: $id}) {
+    id
+  }
+}

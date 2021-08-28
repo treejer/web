@@ -1,0 +1,15 @@
+query PaginatedTrees($first: Int!, $skip: Int!, $orderBy: String!, $orderDirection: String!) { 
+  trees(first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection) {
+    id
+    planter {
+      id
+    }
+    owner {
+      id
+    }
+    plantDate
+    birthDate
+    provideStatus
+    treeStatus
+  }
+}

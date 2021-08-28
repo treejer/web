@@ -99,7 +99,13 @@
             <div class="row mt-5">
               <div class="col-12 justify-content-center text-center">
                 <button
-                  class="btn-outline-green param-md tr-green position-relative pointer-event"
+                  class="
+                    btn-outline-green
+                    param-md
+                    tr-green
+                    position-relative
+                    pointer-event
+                  "
                   style="padding: 8px 25px"
                   @click="goToLeaderBoard()"
                 >
@@ -181,46 +187,70 @@
             </div>
             <table class="table border-0 dir-ltr">
               <thead>
-              <tr>
-                <th scope="col">Tree ID</th>
-                <th scope="col" class="pointer-event">
-                  <i class="pointer-event fas fa-sort-up"></i>Owner
-                </th>
-                <th scope="col" class="pointer-event">
-                  <i class="pointer-event fas fa-sort-up"></i>Status
-                </th>
-                <th scope="col" class="pointer-event d-none d-md-block">
-                  <i class="pointer-event fas fa-sort-up"></i>Location
-                </th>
-              </tr>
+                <tr>
+                  <th scope="col">Tree ID</th>
+                  <th scope="col" class="pointer-event">
+                    <i class="pointer-event fas fa-sort-up"></i>Owner
+                  </th>
+                  <th scope="col" class="pointer-event">
+                    <i class="pointer-event fas fa-sort-up"></i>Status
+                  </th>
+                  <th scope="col" class="pointer-event d-none d-md-block">
+                    <i class="pointer-event fas fa-sort-up"></i>Location
+                  </th>
+                </tr>
               </thead>
               <tbody>
-              <tr v-for="tree in trees.data" :key="tree.tree_id">
-                <th scope="row">{{ tree.tree_id }}</th>
-                <td v-coin>{{ tree.owner }}</td>
-                <td
-                  v-if="tree.fundedDate !== null && tree.plantedDate !== null"
-                >
-                  Funded & Planted
-                </td>
-                <td v-else-if="tree.plantedDate !== null">Planted</td>
-                <td v-else-if="tree.fundedDate !== null">Funded</td>
-                <td class="d-none d-md-block">
-                  {{ tree.latitude + "," + tree.longitude }}
-                </td>
-              </tr>
+                <tr v-for="tree in trees" :key="tree.id">
+                  <th scope="row">{{ tree.id }}</th>
+                  <td v-coin>
+                    {{ tree.owner !== null ? tree.owner.id : "-" }}
+                  </td>
+                  <td>
+                    {{ tree.treeStatus }}
+                  </td>
+                  <td class="d-none d-md-block">
+                    <!-- {{ tree.latitude + "," + tree.longitude }} -->
+                  </td>
+                </tr>
               </tbody>
             </table>
             <div
-              class="tr-pagination d-flex justify-content-center w-100 position-relative"
+              class="
+                tr-pagination
+                d-flex
+                justify-content-center
+                w-100
+                position-relative
+              "
             >
-              <pagination
-                size="small"
-                align="center"
-                :limit="2"
-                :data="trees"
-                @pagination-change-page="listTrees"
-              ></pagination>
+              <ul class="pagination">
+                <li class="page-item pagination-prev-nav">
+                  <a
+                    class="page-link"
+                    aria-label="Previous"
+                    @click="updatePagination(false)"
+                  >
+                    <slot name="prev-nav">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </slot>
+                  </a>
+                </li>
+
+                <li class="page-item pagination-next-nav">
+                  <a
+                    class="page-link"
+                    aria-label="Next"
+                    @click="updatePagination(true)"
+                  >
+                    <slot name="next-nav">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </slot>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -248,33 +278,39 @@
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
-import pagination from "laravel-vue-pagination";
-import exploreForestsQuery from '~/apollo/queries/exploreForestsQuery'
-import gql from 'graphql-tag';
-
-
+import exploreForestsQuery from "~/apollo/queries/exploreForestsQuery";
+import treesSearchById from "~/apollo/queries/treesSearchById";
+import treesPagination from "~/apollo/queries/treesPagination";
 
 export default {
   name: "findMyTree",
   // layout:"checkout",
   components: {
-    Fab,
-    pagination,
+    Fab
   },
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
-        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
-      ]
-    }
+      title: `Treejer`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Enter the Tree ID below and we'll find it for you! :)",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard",
+        },
+      ],
+    };
   },
   data() {
     return {
-      title:this.$route.name,
+      title: this.$route.name,
       icon: process.env.gravatar,
-      trees: {},
+      trees: [],
       leaderBoards: null,
       treeID: null,
       loading: false,
@@ -282,25 +318,23 @@ export default {
       errors: null,
       step: null,
       search: "",
-      activeIndex: null,
+      activeIndex: 0,
     };
   },
-   apollo: {
+  apollo: {
     owners: {
       prefetch: true,
-      query: exploreForestsQuery
+      query: exploreForestsQuery,
     },
   },
   async mounted() {
     await this.listTrees();
-    console.log(this.$routeFixer,this,"fixxxxxx")
     const leaderBoards = await this.$axios.$get(
       `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
     );
     this.leaderBoards = leaderBoards.leaderboard.data;
   },
   methods: {
-
     goToLeaderBoard() {
       if (
         this.$store.state.account === null ||
@@ -322,7 +356,7 @@ export default {
         this.$store.commit("SET_INDEX", 0);
         this.$router.push({
           path: "/forest/" + item.owner,
-          params: {id: item.owner},
+          params: { id: item.owner },
         });
       } else {
         this.$bvToast.toast("you are not logged in. please login", {
@@ -339,21 +373,15 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-
-        let result  = await this.$apollo.query({
-          query: gql`query SearchTree($id: String) {            
-            trees(where: {id: $id}) {
-              id
-            }
-          }`,
+        let result = await this.$apollo.query({
+          query: treesSearchById,
           variables: {
             id: `0x${self.treeID}`,
-          },  
-        })
+          },
+        });
 
-        if(result) {
-          // console.log(result.data.trees)
-          if(result.data.trees.length > 0) {
+        if (result) {
+          if (result.data.trees.length > 0) {
             self.$router.push(`/genesis/${self.treeID}`);
           } else {
             self.$bvToast.toast("Tree Not found!", {
@@ -365,7 +393,6 @@ export default {
           }
           this.loading = false;
         }
-
       } else {
         self.loading = false;
         self.$bvToast.toast("TreeId is empty!", {
@@ -376,15 +403,48 @@ export default {
         });
       }
     },
-    async listTrees(page = 1) {
-      let self = this;
-      await this.$axios
-        .$get(`${process.env.apiUrl}/trees?page=${page}`)
-        .then(function (response) {
-          self.trees = response.trees;
-        })
-        .catch(function (error) {
-        });
+    async updatePagination(nextPage = true) {
+      if (nextPage) {
+        this.activeIndex = this.activeIndex + this.perPage;
+      } else {
+        if (this.activeIndex === 0) {
+          this.$bvToast.toast("There is no previos page!", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          });
+          return;
+        }
+        this.activeIndex = this.activeIndex - this.perPage;
+      }
+      this.listTrees();
+    },
+    async listTrees() {
+      this.loading = true;
+      let result = await this.$apollo.query({
+        query: treesPagination,
+        variables: {
+          first: this.perPage,
+          skip: this.activeIndex,
+          orderBy: "id",
+          orderDirection: "desc",
+        },
+      });
+
+      if (result) {
+        if (result.data.trees.length > 0) {
+          this.trees = result.data.trees;
+        } else {
+          self.$bvToast.toast("Tree is no more trees!", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          });
+        }
+        this.loading = false;
+      }
     },
   },
 };
