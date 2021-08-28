@@ -1,7 +1,5 @@
 <template>
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
-
-
     <button
       v-show="placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
@@ -14,8 +12,12 @@
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
-        <input class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder" type="text" placeholder="0 eth"
-               v-model.number="bidValue"/>
+        <input
+          class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
+          type="text"
+          placeholder="0 eth"
+          v-model.number="bidValue"
+        />
       </div>
       <div class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
@@ -24,56 +26,53 @@
         </p>
       </div>
 
-       <div class="col-12 p-0 ">
-          <button
-            v-if="!erc20Balance"
-            @click.prevent="buyERC20"
-            :class="{ disable: loading }"
-            class="btn-green-md mt-4 mb-3 w-100 h-100"
-          >
-            <BSpinner class="mr-2" type="grow" small v-if="loading"
-              >loading
-            </BSpinner>
-            {{ loading ? "Loading" : `Buy WETH` }}
-          </button>
-          <button
-            v-if="erc20Balance"
-            @click.prevent="placeBid('two')"
-            :class="{ disable: loading }"
-            class="btn-green-md mt-4 mb-3 w-100 h-100"
-          >
-            <BSpinner class="mr-2" type="grow" small v-if="loading"
-              >loading
-            </BSpinner>
-            {{ loading ? "Loading" : `PlaceBid` }}
-          </button>
-
-
-            </div>
-
+      <div class="col-12 p-0">
+        <button
+          v-if="!erc20Balance"
+          @click.prevent="buyERC20"
+          :class="{ disable: loading }"
+          class="btn-green-md mt-4 mb-3 w-100 h-100"
+        >
+          <BSpinner class="mr-2" type="grow" small v-if="loading"
+            >loading
+          </BSpinner>
+          {{ loading ? "Loading" : `Buy WETH` }}
+        </button>
+        <button
+          v-if="erc20Balance"
+          @click.prevent="placeBid('two')"
+          :class="{ disable: loading }"
+          class="btn-green-md mt-4 mb-3 w-100 h-100"
+        >
+          <BSpinner class="mr-2" type="grow" small v-if="loading"
+            >loading
+          </BSpinner>
+          {{ loading ? "Loading" : `PlaceBid` }}
+        </button>
+      </div>
     </div>
     <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ bidValue }}</span
         ><span class="tr-gray-two"> ETH</span>
       </p>
-      <p class="tr-gray-four param-18">[$0] Reserve Price:{{bidValue}}ETH</p>
+      <p class="tr-gray-four param-18">[$0] Reserve Price:{{ bidValue }}ETH</p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
           <span class="btn-gray" @click.prevent="backToStep()">Back</span>
         </div>
         <div class="col-md-6 pl-md-0">
-           <button
-              v-if="erc20Balance > 0 && !isAllowedSpendERC20"
-              @click="allowSpendERC20()"
-              :class="{ disable: loading }"
-             class="btn-green"
-            >
-              <BSpinner class="mr-2" type="grow" small v-if="loading"
-                >loading
-              </BSpinner>
-              {{ loading ? "Loading" : " Approve" }}
-            </button>
+          <button
+            v-if="erc20Balance > 0 && !isAllowedSpendERC20"
+            @click="allowSpendERC20()"
+            :class="{ disable: loading }"
+            class="btn-green"
+          >
+            <BSpinner class="mr-2" type="grow" small v-if="loading"
+              >loading
+            </BSpinner>
+            {{ loading ? "Loading" : " Approve" }}
+          </button>
         </div>
       </div>
     </div>
@@ -82,21 +81,22 @@
         <span v-if="bidValue">{{ bidValue }}</span
         ><span class="tr-gray-two"> ETH</span>
       </p>
-      <p class="tr-gray-four param-18">[$$$$] Reserve Price: {{bidValue}} ETH</p>
+      <p class="tr-gray-four param-18">
+        [$$$$] Reserve Price: {{ bidValue }} ETH
+      </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
           <span class="btn-gray" @click.prevent="backToStep()">Back</span>
         </div>
         <div class="col-md-6 pl-md-0">
-           <button
+          <button
             v-if="erc20Balance > 0 && isAllowedSpendERC20"
-            @click="setIsAllowance"
+            @click="bidAction()"
             :class="{ disable: loading }"
-           class="btn-green"
+            class="btn-green"
           >
             Confirm
           </button>
-
         </div>
       </div>
     </div>
@@ -120,15 +120,8 @@
         </div>
         <div class="col-md-6 pl-md-0">
           <span class="btn-green" id="social" @click="shareModal()">Share</span>
-          <b-modal
-            id="social-target"
-            hide-footer
-
-            size="md"
-            centered
-
-          >
-            <Socials/>
+          <b-modal id="social-target" hide-footer size="md" centered>
+            <Socials />
           </b-modal>
         </div>
       </div>
@@ -145,9 +138,9 @@ export default {
     CountDown,
     Socials,
   },
-    data() {
+  data() {
     return {
-      bidValueStep:false,
+      bidValueStep: false,
       placeBidStep: true,
       placeBidStepTwo: false,
       placeBidStepThree: false,
@@ -161,110 +154,101 @@ export default {
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
-      spenderContract:process.env.treeAuctionAddress,
-      tokenAddress:process.env.wethTokenAddress,
+      spenderContract: process.env.treeAuctionAddress,
+      tokenAddress: process.env.wethTokenAddress,
       erc20Balance: null,
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-
-    }
+    };
   },
   async created() {
-    if(!this.erc20Balance){
-      await this.setERC20Balance()
+    if (!this.erc20Balance) {
+      await this.setERC20Balance();
     }
-
   },
-   methods: {
-     async buyERC20() {
-       let self = this;
-       let transak = new transakSDK({
-         apiKey: process.env.transakApiKey, // Your API Key
-         environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-         defaultCryptoCurrency: "WETH",
-         // defaultCryptoAmount: this.treePrice * this.localAmount,
-         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-         themeColor: "000000", // App theme color
-         fiatCurrency: "USD", // INR/GBP
-         email: "", // Your customer's email address
-         redirectURL: "",
-         hostURL: window.location.origin,
-         widgetHeight: "550px",
-         widgetWidth: "450px",
-         networks: process.env.transakNetworks,
-         defaultNetwork: process.env.transakDefaultNetwork,
-       });
+  methods: {
+    async buyERC20() {
+      let self = this;
+      let transak = new transakSDK({
+        apiKey: process.env.transakApiKey, // Your API Key
+        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+        defaultCryptoCurrency: "WETH",
+        // defaultCryptoAmount: this.treePrice * this.localAmount,
+        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+        themeColor: "000000", // App theme color
+        fiatCurrency: "USD", // INR/GBP
+        email: "", // Your customer's email address
+        redirectURL: "",
+        hostURL: window.location.origin,
+        widgetHeight: "550px",
+        widgetWidth: "450px",
+        networks: process.env.transakNetworks,
+        defaultNetwork: process.env.transakDefaultNetwork,
+      });
 
-       transak.init();
+      transak.init();
 
-       // To get all the events
-       transak.on(transak.ALL_EVENTS, (data) => {
-         console.log(data);
-       });
+      // To get all the events
+      transak.on(transak.ALL_EVENTS, (data) => {
+        console.log(data);
+      });
 
-       // This will trigger when the user marks payment is made.
-       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-         console.log(orderData);
-         self.$bvToast.toast(["Your payment was successful"], {
-           toaster: "b-toaster-bottom-left",
-           title: "Your wallet charged",
-           variant: "success",
-           href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-             "account"
-           )}`,
-         });
-         self.setERC20Balance();
-         transak.close();
-       });
-     },
-      async allowSpendERC20(silent = false) {
+      // This will trigger when the user marks payment is made.
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+        console.log(orderData);
+        self.$bvToast.toast(["Your payment was successful"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Your wallet charged",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+        self.setERC20Balance();
+        transak.close();
+      });
+    },
+    async allowSpendERC20(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+      let self = this;
 
-            if (silent === false ) {
-              this.loading = true;
-            }
-            let self = this;
+      const transaction = await this.$store.dispatch("erc20/approve", {
+        amount: this.bidValue,
+        spenderContract: this.spenderContract,
+        tokenAddress: this.tokenAddress,
+      });
 
-            console.log({
-              spenderContract:this.spenderContract,
-              tokenAddress: this.tokenAddress
-            }, "allowSpendERC20");
+      if (transaction !== null) {
+        this.setIsAllowance();
+        this.$bvToast.toast(["Transaction successfull"], {
+          toaster: "b-toaster-bottom-left",
+          title: "You approved to spend erc20",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+        });
 
-
-            const transaction = await this.$store.dispatch("erc20/approve", {
-              amount: this.bidValue,
-              spenderContract:this.spenderContract,
-              tokenAddress: this.tokenAddress
-            });
-
-            if (transaction !== null) {
-              this.setIsAllowance();
-              this.$bvToast.toast(["Transaction successfull"], {
-                toaster: "b-toaster-bottom-left",
-                title: "You approved to spend erc20",
-                variant: "success",
-                href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
-              });
-
-              if (silent === false) {
-                this.loading = false;
-                this.placeBidStepFive = true;
-                this.placeBidStepFour = false;
-                this.placeBidStepThree = false;
-                this.placeBidStepTwo = false;
-                this.placeBidStep = false;
-              }
-            }
-            },
-      async setERC20Balance() {
-      console.log(this.tokenAddress, "this.tokenAddress")
+        if (silent === false) {
+          this.loading = false;
+          this.placeBidStepFive = false;
+          this.placeBidStepFour = true;
+          this.placeBidStepThree = false;
+          this.placeBidStepTwo = false;
+          this.placeBidStep = false;
+        }
+      }
+    },
+    async setERC20Balance() {
+      console.log(this.tokenAddress, "this.tokenAddress");
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress,
       });
-      console.log(this.erc20Balance, "this.erc20Balance")
+      console.log(this.erc20Balance, "this.erc20Balance");
     },
 
-      async setIsAllowance(silent = false) {
+    async setIsAllowance(silent = false) {
       if (silent === false) {
         this.loading = true;
       }
@@ -273,30 +257,64 @@ export default {
         tokenAddress: this.tokenAddress,
         spenderContract: this.spenderContract,
       });
-      console.log(allowance, this.bidValue)
-      console.log("allowance, this.amount")
+      console.log(allowance, this.bidValue);
+      console.log("allowance, this.amount");
 
       this.isAllowedSpendERC20 = allowance >= this.bidValue;
 
-      console.log(this.isAllowedSpendERC20)
+      console.log(this.isAllowedSpendERC20);
 
       if (silent === false) {
         this.loading = false;
         this.placeBidStepThree = false;
         this.placeBidStepTwo = false;
         this.placeBidStepFive = false;
-        this.placeBidStepFive = false;
         this.placeBidStepSix = true;
       }
     },
-     toast() {
-      this.$bvToast.toast(['Please fill the input'], {
-        toaster: 'b-toaster-bottom-left',
-        title: 'Transaction failed',
-        variant: 'danger',
+    async bidAction(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+
+      let tx = await this.$store.dispatch("treeAuction/bid", {
+        auctionId: this.$route.params.id,
+        bidValue: this.bidValue
+      });
+
+      if (this.transferReceipt !== null) {
+        this.activeIndex = 3;
+        self.$bvToast.toast(["Your bid was successful"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Trees added to forest",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+        
+        if (silent === false) {
+          this.loading = false;
+          this.placeBidStepFive = true;
+          this.placeBidStepFour = false;
+          this.placeBidStepThree = false;
+          this.placeBidStepTwo = false;
+          this.placeBidStep = false;
+        }
+      }
+      this.loading = false;
+      
+
+      
+    },
+    toast() {
+      this.$bvToast.toast(["Please fill the input"], {
+        toaster: "b-toaster-bottom-left",
+        title: "Transaction failed",
+        variant: "danger",
         noAutoHide: true,
-        bodyClass: 'fund-error'
-      })
+        bodyClass: "fund-error",
+      });
     },
     async placeBid(id) {
       if (id === "one") {
@@ -304,13 +322,12 @@ export default {
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
-        if(this.bidValue){
+        if (this.bidValue) {
           this.placeBidStepTwo = false;
           this.placeBidStepThree = true;
-        }else{
-          this.toast()
+        } else {
+          this.toast();
         }
-
       }
       if (id === "three") {
         this.placeBidStepThree = false;
@@ -347,16 +364,13 @@ export default {
     shareModal() {
       this.$bvModal.show("social-target");
     },
-
-
   },
-
 };
 </script>
 
 <style lang="scss">
 .auction-process-steps {
-  .disable:hover{
+  .disable:hover {
     pointer-events: unset;
   }
   .step-seven {
@@ -440,7 +454,6 @@ export default {
     border: none;
     background: transparent;
     width: 100px;
-
   }
 }
 </style>
