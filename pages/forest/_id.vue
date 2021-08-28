@@ -190,11 +190,11 @@
                   :key="index"
                 >
                   <b-button
-                    @click="goToTreeProfile(item.id)"
+                    @click="goToTreeProfile($hex2Dec(item.id))"
                     class="p-2 bg-transparent border-0"
                     :tabindex="index"
                     v-b-tooltip.top
-                    :title="item.id"
+                    :title="$hex2Dec(item.id)"
                   >
                     <img
                       class="img-fluid"
@@ -217,11 +217,11 @@
                   :key="index"
                 >
                   <b-button
-                    @click="goToTreeProfile(item.id)"
+                    @click="goToTreeProfile($hex2Dec(item.id))"
                     class="p-2 bg-transparent border-0"
                     :tabindex="index"
                     v-b-tooltip.top
-                    :title="item.id"
+                    :title="$hex2Dec(item.id)"
                   >
                     <img
                       class="img-fluid pointer-event"
@@ -783,7 +783,7 @@ export default {
         let result = await this.$apollo.query({
           query: treesSearchById,
           variables: {
-            id: `0x${self.treeID}`,
+            id: this.$dec2hex(self.treeID),
           },
         });
 

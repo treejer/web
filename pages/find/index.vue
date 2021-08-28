@@ -202,7 +202,7 @@
               </thead>
               <tbody>
                 <tr v-for="tree in trees" :key="tree.id">
-                  <th scope="row">{{ tree.id }}</th>
+                  <th scope="row">{{ $hex2Dec(tree.id)  }}</th>
                   <td v-coin>
                     {{ tree.owner !== null ? tree.owner.id : "-" }}
                   </td>
@@ -358,6 +358,7 @@ export default {
       });
     },
     async findTree() {
+      
       this.errors = null;
       this.loading = true;
       let self = this;
@@ -365,7 +366,7 @@ export default {
         let result = await this.$apollo.query({
           query: treesSearchById,
           variables: {
-            id: `0x${self.treeID}`,
+            id: this.$dec2hex(self.treeID),
           },
         });
 

@@ -26,7 +26,7 @@
           <span
             class="tr-gray-three tree-profile-number font-weight-bolder"
             id="edit_name"
-          >{{ tree.id }}</span
+          >{{ $hex2Dec(tree.id) }}</span
           >
         </div>
       </div>
@@ -289,7 +289,7 @@ export default {
       prefetch: false,
       // prefetch: ({ route }) => ({ id: `0x${route.params.id}` }),
       variables () {
-        return { id: `0x${this.$route.params.id}`  }
+        return { id: this.$dec2hex(this.$route.params.id)  }
       }
     },
   },
@@ -542,7 +542,7 @@ export default {
         let result = await this.$apollo.query({
           query: treesSearchById,
           variables: {
-            id: `0x${self.treeID}`,
+            id: this.$dec2hex(self.treeID),
           },
         });
 
