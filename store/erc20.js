@@ -68,6 +68,7 @@ export const actions = {
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
+           params.loading =false
           } else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
@@ -79,6 +80,9 @@ export const actions = {
             })
           }
 
+         params.loading =false
+
+
 
           return null
 
@@ -88,6 +92,8 @@ export const actions = {
 
     } catch (error) {
       console.log(error, "errorr");
+      params.loading =false
+
 
       return null;
     }

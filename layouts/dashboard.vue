@@ -34,6 +34,15 @@ export default {
 
   mounted() {
     this.$store.commit('SET_DASHBOARD' , true)
+    if($nuxt.isOffline){
+      this.$bvToast.toast(['Please check your connection'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Connection is broked',
+        variant: 'danger',
+        noAutoHide: true,
+        bodyClass: 'fund-error'
+      })
+    }
   },
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})

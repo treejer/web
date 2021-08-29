@@ -35,7 +35,7 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com/',
-    ethPrice: process.env.eth_price,
+    ethPrice: process.env.ETH_PRICE,
     contractTreeFactoryAddress: process.env.CONTRACT_TREE_FACTORY_ADDRESS,
     treeAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
     incrementalSellAddress: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
@@ -171,6 +171,11 @@ export default {
         httpEndpoint: process.env.GRAPHQL_URL
       }
     }
+  },
+  pwa: {
+    icon:[{
+      src:'/logo/treejer.png'
+    }]
   },
   i18n: {
     locales: [{

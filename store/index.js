@@ -159,6 +159,7 @@ export const actions = {
   async ethPrices({ commit }, {err}) {
     const ethPrice = await this.$axios.$get(process.env.ethPrice)
     commit('SET_ETH_PRICE', ethPrice.result)
+    return ethPrice.result
   },
   async getLeaderBoards({ commit }) {
     const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)

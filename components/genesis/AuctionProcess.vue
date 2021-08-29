@@ -17,6 +17,7 @@
           type="text"
           placeholder="0 eth"
           v-model.number="bidValue"
+          @keyup.enter="placeBid('two')"
         />
       </div>
       <div class="col-md-6 pb-4 text-left">
@@ -56,7 +57,11 @@
         <span>{{ bidValue }}</span
         ><span class="tr-gray-two"> ETH</span>
       </p>
-      <p class="tr-gray-four param-18">[$0] Reserve Price:{{ bidValue }}ETH</p>
+      <p class="tr-gray-four param-18">
+               <strong>$ {{parseInt(ethPrice * bidValue)}}</strong> Reserve Price: <strong>{{ bidValue }}</strong>  ETH
+
+
+      </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
           <span class="btn-gray" @click.prevent="backToStep()">Back</span>
@@ -81,8 +86,8 @@
         <span v-if="bidValue">{{ bidValue }}</span
         ><span class="tr-gray-two"> ETH</span>
       </p>
-      <p class="tr-gray-four param-18">
-        [$$$$] Reserve Price: {{ bidValue }} ETH
+      <p class="tr-gray-four param-18 ">
+         <strong>$ {{parseInt(ethPrice * bidValue)}}</strong> Reserve Price: <strong>{{ bidValue }}</strong>  ETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -163,12 +168,19 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
+      ethPrice: null,
     };
   },
   async created() {
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
+    console.log(process.env.ethPrice,"process.env.ethPrice")
+    this.$axios.$get(process.env.ethPrice).then((res)=>{
+    this.ethPrice = res.result.ethusd
+    })
+    // const ethPrices = await this.$store.dispatch('ethPrices')
+    // console.log(ethPrices)
   },
   methods: {
     async buyERC20() {
@@ -222,6 +234,7 @@ export default {
         amount: this.bidValue,
         spenderContract: this.spenderContract,
         tokenAddress: this.tokenAddress,
+        loading:this.loading
       });
 
       if (transaction !== null) {
