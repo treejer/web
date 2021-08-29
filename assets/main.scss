@@ -689,7 +689,9 @@ h6,
 input {
   font-family: Montserrat-Regular;
 }
-
+.disabled:hover{
+  curser:unset!important;
+}
 .list-style-none {
   list-style-type: none;
 }

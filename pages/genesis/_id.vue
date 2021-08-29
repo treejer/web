@@ -31,7 +31,10 @@
         </div>
       </div>
       <div class="row justify-content-center arrows">
-        <div class="col-3 arrow-left text-right pointer-event" @click="odd">
+        <div
+          :class="treeID <= 0 ? 'disabled' :'pointer-event' "
+          class="col-3 arrow-left text-right "
+              @click="treeID <= 0 ? toast('There are no trees') : odd">
           <img
             class="img-fluid m-auto"
             src="../../assets/images/tree-profile/arrow-left.svg"
@@ -298,7 +301,7 @@ export default {
       newName: false,
       newNameTree: null,
       loading: false,
-      treeID: null,
+      treeID:this.$route.params.id,
       clusterStyle: [
         {
           url:
@@ -561,28 +564,39 @@ export default {
         }
       } else {
         self.loading = false;
-        self.$bvToast.toast("TreeId is empty!", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
+        self.toast("TreeId is empty!")
       }
     },
     add() {
       this.treeID = this.$route.params.id;
-      this.treeID++;
-      this.$router.push(
-        this.localePath({name: "genesis-id", params: {id: this.treeID}})
-      );
+
+        this.treeID++;
+        this.$router.push(
+          this.localePath({name: "genesis-id", params: {id: this.treeID}})
+        );
+
+
+    },
+    toast(msg){
+      this.$bvToast.toast(msg , {
+        toaster: "b-toaster-bottom-left",
+        solid: true,
+        headerClass: "hide",
+        variant: "danger",
+      })
     },
     odd() {
       this.treeID = this.$route.params.id;
-      this.treeID--;
+      if(this.treeID > 0){
+          return null
+      }else{
+        this.treeID--;
+        this.$router.push(
+          this.localePath({name: "genesis-id", params: {id: this.treeID}})
+        );
+      }
 
-      this.$router.push(
-        this.localePath({name: "genesis-id", params: {id: this.treeID}})
-      );
+
     },
     changeRoute(item) {
       window.open(item, "_blank");

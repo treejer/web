@@ -58,9 +58,8 @@
         ><span class="tr-gray-two"> ETH</span>
       </p>
       <p class="tr-gray-four param-18">
-               <strong>$ {{parseInt(ethPrice * bidValue)}}</strong> Reserve Price: <strong>{{ bidValue }}</strong>  ETH
-
-
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>{{ bidValue }}</strong> ETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -87,7 +86,8 @@
         ><span class="tr-gray-two"> ETH</span>
       </p>
       <p class="tr-gray-four param-18 ">
-         <strong>$ {{parseInt(ethPrice * bidValue)}}</strong> Reserve Price: <strong>{{ bidValue }}</strong>  ETH
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>{{ bidValue }}</strong> ETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -100,10 +100,10 @@
             :class="{ disable: loading }"
             class="btn-green"
           >
-           <BSpinner class="mr-2" type="grow" small v-if="loading"
+            <BSpinner class="mr-2" type="grow" small v-if="loading"
               >loading
             </BSpinner>
-              {{ loading ? "Loading" : " Confirm" }}
+            {{ loading ? "Loading" : " Confirm" }}
           </button>
         </div>
       </div>
@@ -144,7 +144,7 @@ import transakSDK from "@transak/transak-sdk";
 export default {
   components: {
     CountDown,
-    Socials,
+    Socials
   },
   data() {
     return {
@@ -168,17 +168,17 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-      ethPrice: null,
+      ethPrice: null
     };
   },
   async created() {
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
-    console.log(process.env.ethPrice,"process.env.ethPrice")
-    this.$axios.$get(process.env.ethPrice).then((res)=>{
-    this.ethPrice = res.result.ethusd
-    })
+    console.log(process.env.ethPrice, "process.env.ethPrice");
+    this.$axios.$get(process.env.ethPrice).then(res => {
+      this.ethPrice = res.result.ethusd;
+    });
     // const ethPrices = await this.$store.dispatch('ethPrices')
     // console.log(ethPrices)
   },
@@ -199,26 +199,24 @@ export default {
         widgetHeight: "550px",
         widgetWidth: "450px",
         networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
+        defaultNetwork: process.env.transakDefaultNetwork
       });
 
       transak.init();
 
       // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
+      transak.on(transak.ALL_EVENTS, data => {
         console.log(data);
       });
 
       // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, orderData => {
         console.log(orderData);
         self.$bvToast.toast(["Your payment was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get("account")}`
         });
         self.setERC20Balance();
         transak.close();
@@ -233,17 +231,22 @@ export default {
       const transaction = await this.$store.dispatch("erc20/approve", {
         amount: this.bidValue,
         spenderContract: this.spenderContract,
-        tokenAddress: this.tokenAddress,
-        loading:this.loading
+        tokenAddress: this.tokenAddress
       });
-
-      if (transaction !== null) {
+      console.log(transaction, "transaction is here");
+      if (transaction.code === 4001) {
+      
+          self.loading = false;
+          
+          
+      }
+      else if (transaction) {
         this.setIsAllowance();
         this.$bvToast.toast(["Transaction successfull"], {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend erc20",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`
         });
 
         if (silent === false) {
@@ -258,7 +261,7 @@ export default {
     async setERC20Balance() {
       console.log(this.tokenAddress, "this.tokenAddress");
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
-        tokenAddress: this.tokenAddress,
+        tokenAddress: this.tokenAddress
       });
       console.log(this.erc20Balance, "this.erc20Balance");
     },
@@ -270,7 +273,7 @@ export default {
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
         tokenAddress: this.tokenAddress,
-        spenderContract: this.spenderContract,
+        spenderContract: this.spenderContract
       });
       console.log(allowance, this.bidValue);
       console.log("allowance, this.amount");
@@ -287,26 +290,22 @@ export default {
       }
     },
     async bidAction() {
-
-        this.loading = true;
+      this.loading = true;
 
       let tx = await this.$store.dispatch("treeAuction/bid", {
         auctionId: this.$route.params.id,
         bidValue: this.bidValue
       });
-      console.log(tx,"txis here")
+      console.log(tx, "txis here");
       if (tx !== null) {
         self.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
+          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get("account")}`
         });
       }
       this.loading = false;
-
     },
     toast() {
       this.$bvToast.toast(["Please fill the input"], {
@@ -314,7 +313,7 @@ export default {
         title: "Transaction failed",
         variant: "danger",
         noAutoHide: true,
-        bodyClass: "fund-error",
+        bodyClass: "fund-error"
       });
     },
     async placeBid(id) {
@@ -341,6 +340,8 @@ export default {
     backToStep() {
       this.placeBidStepTwo = false;
       this.placeBidStepThree = false;
+      this.placeBidStepFour = false;
+      this.placeBidStepFive = false;
       this.placeBidStep = true;
     },
     getTime() {
@@ -358,8 +359,8 @@ export default {
     },
     shareModal() {
       this.$bvModal.show("social-target");
-    },
-  },
+    }
+  }
 };
 </script>
 

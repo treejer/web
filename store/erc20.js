@@ -2,7 +2,9 @@ import { BToast } from 'bootstrap-vue'
 import ERC20 from '~/contracts/IERC20'
 
 
-export const state = () => ({})
+export const state = () => ({
+  approveLoading:false,
+})
 
 export const mutations = {}
 
@@ -57,7 +59,8 @@ export const actions = {
         })
       })
         .on('error', (error) => {
-          console.log(error, "errorr");
+          console.log(error, "errorr"); 
+         const err = error
           const bootStrapToaster = new BToast();
           if (error.code === 32602) {
             bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
@@ -68,7 +71,6 @@ export const actions = {
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
-           params.loading =false
           } else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
@@ -80,11 +82,10 @@ export const actions = {
             })
           }
 
-         params.loading =false
 
 
 
-          return null
+          return err
 
         })
 
@@ -95,7 +96,7 @@ export const actions = {
       params.loading =false
 
 
-      return null;
+      return error;
     }
 
   }
