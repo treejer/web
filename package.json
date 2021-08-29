@@ -71,12 +71,13 @@
     "web3-eth-abi": "^1.2.11"
   },
   "devDependencies": {
+    "@nuxt/types": "~2.15.0",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.2.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.2"
   }
 }

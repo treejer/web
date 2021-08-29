@@ -1,10 +1,4 @@
 <template>
-  <!--  <div class="x-page" style="background-color: #313131">-->
-
-  <!--      <h1  class="  text-center ">Page not found.</h1>-->
-  <!--      <nuxt-link :to="localePath('index')">home</nuxt-link>-->
-
-  <!--  </div>-->
   <div class="x-page">
     <div class="stars">
       <div class="star"></div>
@@ -185,19 +179,11 @@
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script>
 export default {
   name: 'error.vue',
-  asyncData (context) {
-    // called every time before loading the component
-    // as the name said, it can be async
-    // Also, the returned object will be merged with your data object
-    return { name: context }
-  },
   mounted () {
     console.log(this.$route.name === null )
   },
@@ -217,7 +203,6 @@ export default {
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,800");
-
 .x-page {
   height: 100vh;
   position: relative;
@@ -247,7 +232,7 @@ export default {
       transform: translateY(0px);
     }
     65% {
-      transform: translateY(15px);
+      transform: translateY(35px);
     }
     to {
       transform: translateY(0px);
@@ -3286,7 +3271,4 @@ export default {
 
 
 }
-
-
-
 </style>

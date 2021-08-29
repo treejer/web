@@ -19,13 +19,13 @@ export const actions = {
     let account = this.$cookies.get('account');
 
     const tx = this.$TreeAuction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()));
+
     const data = tx.encodeABI();
-
-
+    console.log(process.env.treeAuctionAddress,"data tx is here")
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
-        to: process.env.treeAuctionAddress,
+        to:process.env.treeAuctionAddress,
         value: 0,
         data: data
       }).on('transactionHash', (transactionHash) => {
@@ -221,7 +221,6 @@ export const actions = {
     })
   },
 }
-
 export const mutations = {
   SET_AUCTION(state, auction) {
     state.auction = auction

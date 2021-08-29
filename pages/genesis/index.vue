@@ -16,7 +16,6 @@
             />
             <p class="param-xl pl-md-4">Tree of Life</p>
             <PlaceBid :placeBidNumber="0" class="mt-2 mb-4 mb-md-0"/>
-            <button class="btn btn-success" @click="buyTree()">here</button>
           </div>
           <div class="col-md-7 mt-md-5 pt-md-4 pl-md-0 pr-md-5">
             <p class="param tr-gray-four">

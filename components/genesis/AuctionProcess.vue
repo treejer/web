@@ -95,7 +95,10 @@
             :class="{ disable: loading }"
             class="btn-green"
           >
-            Confirm
+           <BSpinner class="mr-2" type="grow" small v-if="loading"
+              >loading
+            </BSpinner>
+              {{ loading ? "Loading" : " Confirm" }}
           </button>
         </div>
       </div>
@@ -232,7 +235,6 @@ export default {
 
         if (silent === false) {
           this.loading = false;
-          this.placeBidStepFive = false;
           this.placeBidStepFour = true;
           this.placeBidStepThree = false;
           this.placeBidStepTwo = false;
@@ -268,22 +270,19 @@ export default {
         this.loading = false;
         this.placeBidStepThree = false;
         this.placeBidStepTwo = false;
-        this.placeBidStepFive = false;
-        this.placeBidStepSix = true;
+        this.placeBidStepFour = true;
       }
     },
-    async bidAction(silent = false) {
-      if (silent === false) {
+    async bidAction() {
+
         this.loading = true;
-      }
 
       let tx = await this.$store.dispatch("treeAuction/bid", {
         auctionId: this.$route.params.id,
         bidValue: this.bidValue
       });
-
-      if (this.transferReceipt !== null) {
-        this.activeIndex = 3;
+      console.log(tx,"txis here")
+      if (tx !== null) {
         self.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
@@ -292,20 +291,9 @@ export default {
             "account"
           )}`,
         });
-        
-        if (silent === false) {
-          this.loading = false;
-          this.placeBidStepFive = true;
-          this.placeBidStepFour = false;
-          this.placeBidStepThree = false;
-          this.placeBidStepTwo = false;
-          this.placeBidStep = false;
-        }
       }
       this.loading = false;
-      
 
-      
     },
     toast() {
       this.$bvToast.toast(["Please fill the input"], {
@@ -329,17 +317,11 @@ export default {
           this.toast();
         }
       }
-      if (id === "three") {
-        this.placeBidStepThree = false;
-        this.placeBidStepFour = true;
-      }
-      if (id === "four") {
-        this.placeBidStepFour = false;
-        this.placeBidStepFive = true;
-      }
       if (id === "finish") {
         this.placeBidStepSix = true;
         this.placeBidStepFive = false;
+        this.placeBidStepFour = false;
+        this.placeBidStepThree = false;
         this.getTime();
       }
     },

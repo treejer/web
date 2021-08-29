@@ -77,6 +77,7 @@ export default {
   data() {
     return {
       listOne: [
+        {name: 'Genesis', href: '/genesis'},
         {name: 'Find My Tree', href: '/find'},
         {name: 'Redeem Trees', href: '#'},
         {name: 'Start a Green Block', href: '#'},

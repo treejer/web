@@ -361,7 +361,7 @@ export default {
       });
     },
     async findTree() {
-      
+
       this.errors = null;
       this.loading = true;
       let self = this;
@@ -401,7 +401,7 @@ export default {
         this.activeIndex = this.activeIndex + this.perPage;
       } else {
         if (this.activeIndex === 0) {
-          this.$bvToast.toast("There is no previos page!", {
+          this.$bvToast.toast("There is no previous page!", {
             toaster: "b-toaster-bottom-left",
             solid: true,
             headerClass: "hide",
