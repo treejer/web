@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100vh">
     <TreejerHeader />
-    <div class="container" :class="$route.name" style="min-height: 85vh">
+    <div :class="$route.name" class="container" style="min-height: 85vh">
       <div class="row">
         <nuxt />
       </div>
@@ -29,6 +29,7 @@ export default {
         bodyClass: 'fund-error'
       })
     }
+
   },
 
   methods: {

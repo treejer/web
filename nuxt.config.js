@@ -77,6 +77,8 @@ export default {
   css: [
     '@/assets/main.scss'
   ],
+  middleware: ['auth', 'stats'],
+
   /*
    ** Plugins to load before mounting the App
    */

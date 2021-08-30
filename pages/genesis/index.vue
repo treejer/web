@@ -69,8 +69,8 @@
 
       <BidCard
         v-for="(item, index) in treeBids"
-        :id="index"
-        :key="index"
+        :id="index+1"
+        :key="index+1"
         :img="item.src"
       />
     </div>
@@ -121,6 +121,8 @@ import AvatarBidders from "../../components/genesis/AvatarBidders.vue";
 
 export default {
   layout: "landing",
+  middleware:'auth',
+
   head() {
     return {
       title:`Treejer`,

@@ -64,8 +64,8 @@
             />
           </div>
           <AuctionProcess
-            :expireDates="expireDate"
             :expireDateText="expireDateText"
+            :expireDates="expireDate"
 
           />
         </div>
@@ -281,6 +281,8 @@ import currentBid from "~/apollo/queries/currentBid"
 export default {
   name: "tree-profile",
   layout: "landing",
+  middleware:'auth',
+
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess},
   head() {
     return {
@@ -541,13 +543,11 @@ export default {
       currentTreeBid:null,
     };
   },
-  mounted() {
-    this.treeID = parseInt(this.$route.params.id)
-  },
   async created() {
-    console.log(await this.currentBidPlace(), await this.currentTreeBid,"currentBid")
-    await this.checkExpireDate()
-
+    this.treeID = parseInt(this.$route.params.id)
+    if(this.treeID < 10){
+       await this.currentBidPlace()
+    }
   },
   methods: {
     async goToFindTree() {
@@ -586,36 +586,21 @@ export default {
           query: currentBid,
           prefetch:true,
           variables:{
-              tree:`0x${self.$route.params.id}`,
-              isActive:true
+            tree:`0x${self.$route.params.id}`,
+            isActive:true
           }
         });
       if(result){
-        self.currentTreeBid = result.data.auctions[0]
-        if(self.currentTreeBid){
-          self.expireDate =self.birthDate(self.currentTreeBid.expireDate)
-          console.log( self.expireDate," self.expireDate is here")
+          self.currentTreeBid = result.data.auctions[0]
+          if(self.currentTreeBid){
+            self.expireDate =self.birthDate(self.currentTreeBid.expireDate)
+            console.log( self.expireDate," self.expireDate is here")
+          }
+
+
+
+
         }
-
-
-
-
-      }
-
-        // if (result) {
-        //   if (result.data.trees.length > 0) {
-        //     self.$router.push(`/genesis/${self.treeID}`);
-        //   } else {
-        //     self.$bvToast.toast("Tree Not found!", {
-        //       toaster: "b-toaster-bottom-left",
-        //       solid: true,
-        //       headerClass: "hide",
-        //       variant: "danger",
-        //     });
-        //   }
-        //   this.loading = false;
-        // }
-
     },
     add() {
         this.treeID++;
@@ -634,7 +619,6 @@ export default {
       })
     },
     odd() {
-
       if(this.treeID > 0){
         this.treeID--;
         this.$router.push(

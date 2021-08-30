@@ -30,7 +30,6 @@
          <p v-if="!checkExpireDateText" id="timer" class="mb-0 param-xl font-weight-bolder tr-gray-one mt-3">
 
           <CountDown
-
           :date="expireDates"></CountDown>
 
         </p>

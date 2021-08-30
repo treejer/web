@@ -20,7 +20,7 @@ export const state = () => ({
   fortmatic: null,
   torus: null,
   connectingWallet: null,
-  modalFive: true
+  modalFive: false
 })
 
 export const actions = {

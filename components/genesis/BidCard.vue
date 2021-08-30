@@ -3,7 +3,7 @@
   <div class="justify-content-center"  v-if="id === 0" >
    <img :src="img" :alt="id" />
     <p class="param tr-gray-four font-weight-bolder text-center mt-3">
-      TREE #{{ id + 1 }}
+      TREE #{{ id  }}
     </p>
       <BidOwn
       />
@@ -11,7 +11,7 @@
   <div class="justify-content-center"  v-else >
    <img :src="img" :alt="id" />
     <p class="param tr-gray-four font-weight-bolder genesis-bid-cards text-center mt-3">
-      TREE #{{ id + 1 }}
+      TREE #{{ id }}
     </p>
     <PlaceBid  :placeBidNumber="id" size="sm" />
     </div>
