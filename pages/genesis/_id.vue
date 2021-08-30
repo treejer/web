@@ -3,7 +3,7 @@
     :class="$route.name"
     class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile rotate-vert-left"
   >
-    <div class="container-fluid" v-if="tree">
+    <div v-if="tree" class="container-fluid">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
           <span
@@ -13,19 +13,19 @@
             <img src="~/assets/images/tree-profile/search.svg"/>
           </span>
           <FormulateInput
-            class="search param-sm"
-            placeholder="Enter Tree ID"
-            @keyup.enter="goToFindTree()"
-            type="text"
             v-model="treeID"
+            class="search param-sm"
             name="treeID"
+            placeholder="Enter Tree ID"
+            type="text"
+            @keyup.enter="goToFindTree()"
           />
         </div>
         <div class="col-12 tree-profile-img justify-content-center">
-          <img src="../../assets/images/find/tree.svg" alt="tree"/>
+          <img alt="tree" src="../../assets/images/find/tree.svg"/>
           <span
-            class="tr-gray-three tree-profile-number font-weight-bolder"
             id="edit_name"
+            class="tr-gray-three tree-profile-number font-weight-bolder"
           >{{ $hex2Dec(tree.id) }}</span
           >
         </div>
@@ -34,16 +34,16 @@
         <div
           :class="treeID <= 0 ? 'disabled' :'pointer-event' "
           class="col-3 arrow-left text-right "
-              @click="treeID <= 0 ? toast('There are no trees') : odd">
+              @click="odd()">
           <img
+            alt="arrow-left"
             class="img-fluid m-auto"
             src="../../assets/images/tree-profile/arrow-left.svg"
-            alt="arrow-left"
           />
         </div>
         <div class="col-md-6 tree-profile-name m-auto">
           <h4 class="pt-3 text-center title-lg">{{ "TREE OF LIFE" }}</h4>
-          <div class="new-name-tree-profile" v-if="newName">
+          <div v-if="newName" class="new-name-tree-profile">
             <div class="stats">
               <span class="tr-green pointer-event pr-2" @click="setNewName()"
               >&check;</span
@@ -56,20 +56,24 @@
             </div>
 
             <input
-              placeholder="New name..."
-              class="form-control border-0 new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
-              type="text"
               v-model="newNameTree"
+              class="form-control border-0 new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
+              placeholder="New name..."
+              type="text"
               @keyup.enter="setNewName()"
             />
           </div>
-          <AuctionProcess />
+          <AuctionProcess
+            :expireDates="expireDate"
+            :expireDateText="expireDateText"
+
+          />
         </div>
         <div class="col-3 arrow-right text-left pointer-event" @click="add">
           <img
+            alt="arrow-right"
             class="img-fluid m-auto"
             src="../../assets/images/tree-profile/arrow-right.svg"
-            alt="arrow-right"
           />
         </div>
         <div class="col-12 text-center position-relative mt-md-5 genesis-des">
@@ -136,7 +140,7 @@
                         >,<span class="pl-2">{{ 'tree-lng' }}</span>
                       </p>
                     </div>
-                    <div class="species part" v-if="tree.type">
+                    <div v-if="tree.type" class="species part">
                       <p class="param mb-0 tr-gray-three">Species</p>
                       <p class="param-18 mb-0 tr-gray-two">
                         {{ tree.type.name }}
@@ -167,11 +171,11 @@
                   <div class="map-tree-profile mb-5" style="min-height: 400px">
                     <GMap
                       ref="gMap"
-                      :cluster="{ options: { styles: clusterStyle } }"
                       :center="{
                         lat: 36.8566787,
                         lng: 30.7924575
                       }"
+                      :cluster="{ options: { styles: clusterStyle } }"
                       :options="{
                         fullscreenControl: true,
                         streetViewControl: false,
@@ -190,11 +194,11 @@
                       "
                     >
                       <GMapMarker
+                        :options="{ icon: pins.selected }"
                         :position="{
                           lat: 36.8566787,
                           lng: 30.7924575
                         }"
-                        :options="{ icon: pins.selected }"
                       ></GMapMarker>
                     </GMap>
                   </div>
@@ -271,6 +275,7 @@ import AuctionProcess from "../../components/genesis/AuctionProcess.vue";
 import moment from "moment"
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import tree from "~/apollo/queries/tree";
+import currentBid from "~/apollo/queries/currentBid"
 
 
 export default {
@@ -531,11 +536,18 @@ export default {
         selected: require("~/assets/images/map/tag.png"),
         notSelected: require("~/assets/images/map/tag.png"),
       },
+      expireDate:null,
+      expireDateText:null,
+      currentTreeBid:null,
     };
   },
   mounted() {
+    this.treeID = parseInt(this.$route.params.id)
   },
   async created() {
+    console.log(await this.currentBidPlace(), await this.currentTreeBid,"currentBid")
+    await this.checkExpireDate()
+
   },
   methods: {
     async goToFindTree() {
@@ -567,9 +579,45 @@ export default {
         self.toast("TreeId is empty!")
       }
     },
-    add() {
-      this.treeID = this.$route.params.id;
+    async currentBidPlace() {
+      this.loading = true;
+      let self = this;
+      let result = await this.$apollo.query({
+          query: currentBid,
+          prefetch:true,
+          variables:{
+              tree:`0x${self.$route.params.id}`,
+              isActive:true
+          }
+        });
+      if(result){
+        self.currentTreeBid = result.data.auctions[0]
+        if(self.currentTreeBid){
+          self.expireDate =self.birthDate(self.currentTreeBid.expireDate)
+          console.log( self.expireDate," self.expireDate is here")
+        }
 
+
+
+
+      }
+
+        // if (result) {
+        //   if (result.data.trees.length > 0) {
+        //     self.$router.push(`/genesis/${self.treeID}`);
+        //   } else {
+        //     self.$bvToast.toast("Tree Not found!", {
+        //       toaster: "b-toaster-bottom-left",
+        //       solid: true,
+        //       headerClass: "hide",
+        //       variant: "danger",
+        //     });
+        //   }
+        //   this.loading = false;
+        // }
+
+    },
+    add() {
         this.treeID++;
         this.$router.push(
           this.localePath({name: "genesis-id", params: {id: this.treeID}})
@@ -586,17 +634,16 @@ export default {
       })
     },
     odd() {
-      this.treeID = this.$route.params.id;
+
       if(this.treeID > 0){
-          return null
-      }else{
         this.treeID--;
         this.$router.push(
           this.localePath({name: "genesis-id", params: {id: this.treeID}})
         );
       }
-
-
+       if(this.treeID <= 0){
+        this.toast('There are no trees')
+      }
     },
     changeRoute(item) {
       window.open(item, "_blank");
@@ -617,10 +664,18 @@ export default {
         this.localePath({name: "forest-id", params: {id: id}})
       );
     },
-    //  birthDate(date){
-    //    let moments =  moment.unix(date).utc()
-    //    return moment(moments).format('YY/MM/DD/HH')
-    // }
+    checkExpireDate(){
+
+    },
+     birthDate(date){
+      const now =  moment().format('X')
+
+       let moments =  moment.unix(date).utc()
+       if(date < now){
+         this.expireDateText = "This auction is over."
+       }
+       return moment(moments).format('YYYY-MM-DD h:mm:ss')
+    }
   },
 };
 </script>

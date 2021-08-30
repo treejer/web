@@ -13,42 +13,54 @@
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Current bid</p>
         <input
-          class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
-          type="text"
-          placeholder="0 eth"
           v-model.number="bidValue"
+          class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
+          placeholder="0 eth"
+          type="text"
           @keyup.enter="placeBid('two')"
         />
       </div>
-      <div class="col-md-6 pb-4 text-left">
+      <div v-if="expireDates" class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p class="mb-0 param-xl font-weight-bolder tr-gray-one mt-3" id="timer">
-          <CountDown :date="endingTimeBid"></CountDown>
+        <p v-if="checkExpireDateText" id="timer" class="mb-0  param font-weight-bolder tr-gray-one mt-3">
+
+          This auction is over in <br>{{expireDates}}
+
+        </p>
+         <p v-if="!checkExpireDateText" id="timer" class="mb-0 param-xl font-weight-bolder tr-gray-one mt-3">
+
+          <CountDown
+
+          :date="expireDates"></CountDown>
+
         </p>
       </div>
 
       <div class="col-12 p-0">
         <button
           v-if="!erc20Balance"
-          @click.prevent="buyERC20"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
+          @click.prevent="buyERC20"
         >
-          <BSpinner class="mr-2" type="grow" small v-if="loading"
+          <BSpinner v-if="loading" class="mr-2" small type="grow"
             >loading
           </BSpinner>
           {{ loading ? "Loading" : `Buy WETH` }}
         </button>
         <button
           v-if="erc20Balance"
-          @click.prevent="placeBid('two')"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
+          @click.prevent="placeBid('two')"
         >
-          <BSpinner class="mr-2" type="grow" small v-if="loading"
+          <BSpinner v-if="loading" class="mr-2" small type="grow"
             >loading
           </BSpinner>
-          {{ loading ? "Loading" : `PlaceBid` }}
+          <span v-if="!checkExpireDateText">     {{ loading && checkExpireDateText ? "Loading" : `PlaceBid` }}</span>
+          <span v-if="checkExpireDateText">     {{loading && !checkExpireDateText ? "Loading"  : "Auction is over." }}</span>
+
+
         </button>
       </div>
     </div>
@@ -68,11 +80,11 @@
         <div class="col-md-6 pl-md-0">
           <button
             v-if="erc20Balance > 0 && !isAllowedSpendERC20"
-            @click="allowSpendERC20()"
             :class="{ disable: loading }"
             class="btn-green"
+            @click="allowSpendERC20()"
           >
-            <BSpinner class="mr-2" type="grow" small v-if="loading"
+            <BSpinner v-if="loading" class="mr-2" small type="grow"
               >loading
             </BSpinner>
             {{ loading ? "Loading" : " Approve" }}
@@ -96,11 +108,11 @@
         <div class="col-md-6 pl-md-0">
           <button
             v-if="erc20Balance > 0 && isAllowedSpendERC20"
-            @click="bidAction()"
             :class="{ disable: loading }"
             class="btn-green"
+            @click="bidAction()"
           >
-            <BSpinner class="mr-2" type="grow" small v-if="loading"
+            <BSpinner v-if="loading" class="mr-2" small type="grow"
               >loading
             </BSpinner>
             {{ loading ? "Loading" : " Confirm" }}
@@ -127,8 +139,8 @@
           <span class="btn-gray" @click="goToHere()">Not now</span>
         </div>
         <div class="col-md-6 pl-md-0">
-          <span class="btn-green" id="social" @click="shareModal()">Share</span>
-          <b-modal id="social-target" hide-footer size="md" centered>
+          <span id="social" class="btn-green" @click="shareModal()">Share</span>
+          <b-modal id="social-target" centered hide-footer size="md">
             <Socials />
           </b-modal>
         </div>
@@ -141,11 +153,37 @@
 import Socials from "~/components/Socials.vue";
 import CountDown from "~/components/CountDown.vue";
 import transakSDK from "@transak/transak-sdk";
+import moment from "moment"
+
+
+
+
 export default {
   components: {
     CountDown,
     Socials
   },
+  props:{
+    expireDates:{
+      type:String,
+      default:"2022-07-06 08:15:00"
+    },
+    expireDateText:{
+      type:String,
+      default:""
+    }
+  },
+  computed:{
+    checkExpireDateText(){
+      if(this.expireDateText === 'This auction is over.'){
+        return true
+      }
+      if (this.expireDateText !== 'This auction is over.'){
+        return false
+      }
+    }
+  },
+
   data() {
     return {
       bidValueStep: false,
@@ -158,7 +196,7 @@ export default {
       placeBidStepSeven: false,
       timer: 20,
       loading: false,
-      endingTimeBid: "2022-07-06 08:15:00",
+      endingTimeBid:this.expireDate,
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
@@ -235,10 +273,10 @@ export default {
       });
       console.log(transaction, "transaction is here");
       if (transaction.code === 4001) {
-      
+
           self.loading = false;
-          
-          
+
+
       }
       else if (transaction) {
         this.setIsAllowance();
@@ -359,8 +397,10 @@ export default {
     },
     shareModal() {
       this.$bvModal.show("social-target");
-    }
-  }
+    },
+
+  },
+
 };
 </script>
 

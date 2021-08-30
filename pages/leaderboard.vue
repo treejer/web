@@ -31,7 +31,7 @@
             </div>
           </div>
 
-          
+
           <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 0">
             <div class="col-12">
               <table class="table tr-table" style="overflow-x: scroll">
@@ -468,7 +468,6 @@ export default {
   data() {
     return {
       icon: process.env.gravatar,
-
       activeIndex: 0,
       first: `<img src=${require("~/assets/images/leaderBoards/first.svg")} />`,
       second: `<img src=${require("~/assets/images/leaderBoards/second.svg")} />`,
