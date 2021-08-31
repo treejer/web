@@ -121,7 +121,6 @@ import AvatarBidders from "../../components/genesis/AvatarBidders.vue";
 
 export default {
   layout: "landing",
-  middleware:'auth',
 
   head() {
     return {
@@ -173,7 +172,7 @@ export default {
     border-radius: 6px;
   }
 
-  .genesis-bid-card {
+  .genesis-bid-card { 
 
     .border-right-bid::after {
       border: none;
