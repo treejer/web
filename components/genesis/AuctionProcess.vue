@@ -335,12 +335,14 @@ export default {
       });
       console.log(tx, "txis here");
       if (tx !== null) {
-        self.$bvToast.toast(["Your bid was successful"], {
+        this.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get("account")}`
+          href: `${process.env.etherScanUrl}/tx/${this.$cookies.get("account")}`
         });
+        this.placeBidStepFour = false;
+        this.placeBidStepSix = true;
       }
       this.loading = false;
     },
