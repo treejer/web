@@ -1,9 +1,9 @@
 <template>
   <section
     :class="$route.name"
-    class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile rotate-vert-left"
+    class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile"
   >
-    <div v-if="tree" class="container-fluid">
+    <div  class="container-fluid">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
           <span
@@ -23,15 +23,16 @@
         </div>
         <div class="col-12 tree-profile-img justify-content-center">
           <img alt="tree" src="../../assets/images/find/tree.svg"/>
-          <span
+          <span v-if="tree"
             id="edit_name"
             class="tr-gray-three tree-profile-number font-weight-bolder"
           >{{ $hex2Dec(tree.id) }}</span
           >
         </div>
       </div>
-      <div class="row justify-content-center arrows">
+      <div class="row justify-content-center arrows" >
         <div
+
           :class="treeID <= 0 ? 'disabled' :'pointer-event' "
           class="col-3 arrow-left text-right "
               @click="odd()">
@@ -64,6 +65,7 @@
             />
           </div>
           <AuctionProcess
+            v-if="tree"
             :expireDateText="expireDateText"
             :expireDates="expireDate"
 
@@ -114,7 +116,7 @@
                 <HistoryCard :minted="true"/>
               </div>
               <div class="col-md-12">
-                <div class="card-tree-profile position-relative">
+                <div class="card-tree-profile position-relative" v-if="tree">
                   <div
                     v-if="tree.owner && tree.owner.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
