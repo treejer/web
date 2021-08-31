@@ -9,15 +9,12 @@
                 <h1 class="tr-gray-three font-weight-bold text-dn">
                   A more
                   <vue-typer
+                    :erase-delay="50"
+                    :erase-on-complete="false"
+                    :pre-erase-delay="2000"
+                    :pre-type-delay="80"
                     :repeat="Infinity"
                     :shuffle="false"
-                    initial-action="typing"
-                    :pre-type-delay="80"
-                    :type-delay="200"
-                    :pre-erase-delay="2000"
-                    :erase-delay="50"
-                    erase-style="backspace"
-                    :erase-on-complete="false"
                     :text="[
                       ' affordable',
                       ' sustainable',
@@ -28,23 +25,26 @@
                       ' gamified',
                       ' measurable',
                     ]"
+                    :type-delay="200"
+                    erase-style="backspace"
+                    initial-action="typing"
                   ></vue-typer>
-                  Climate Action through<br class="d-md-block d-none" />
+                  Climate Action through<br class="d-md-block d-none"/>
                   financial inclusion of rural communities.
                 </h1>
               </client-only>
             </div>
             <div class="col-12 form-group mt-3">
               <button
-                @click="goToDashboard"
                 class="position-relative pointer-event leader btn-lg btn-green pointer-event param"
+                @click="goToDashboard"
               >
                 Plant One Tree
               </button>
 
               <nuxt-link
-                class="position-relative pointer-event leader"
                 :to="localePath('find')"
+                class="position-relative pointer-event leader"
               >
                 <button class="btn-lg btn-outline-green pointer-event param">
                   Find My Tree
@@ -68,12 +68,12 @@ export default {
   },
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"contact our business and team"},
-    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
-  ]
-  }
+      title: `Treejer`,
+      meta: [
+        {hid: 'description', name: 'description', content: "contact our business and team"},
+        {hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams '}
+      ]
+    }
   },
   methods: {
     goToDashboard() {
@@ -88,7 +88,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 .home {
   background-image: url("../assets/images/home/treejerStory.png");
   background-size: contain;
@@ -96,6 +96,7 @@ export default {
   height: 81vh;
   background-position-y: 30%;
   background-position-x: 96%;
+
   .vue-typer {
     span {
       min-width: 200px !important;
@@ -103,10 +104,12 @@ export default {
       text-align: center;
     }
   }
+
   .planet-tree {
     border-right: solid 1px #67b68c;
     padding: 0 15px;
   }
+
   .rural-communities {
     padding: 0 15px;
   }

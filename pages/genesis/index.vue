@@ -40,7 +40,6 @@
             >
 
 
-
             </AvatarBidders>
           </div>
           <div class="col-md-6 mt-5">
@@ -124,10 +123,14 @@ export default {
 
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
-        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      title: `Treejer`,
+      meta: [
+        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
+        }
       ]
     }
   },
@@ -172,7 +175,7 @@ export default {
     border-radius: 6px;
   }
 
-  .genesis-bid-card { 
+  .genesis-bid-card {
 
     .border-right-bid::after {
       border: none;

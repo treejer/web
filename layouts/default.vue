@@ -1,12 +1,12 @@
 <template>
   <div style="min-height: 100vh">
-    <TreejerHeader />
+    <TreejerHeader/>
     <div :class="$route.name" class="container" style="min-height: 85vh">
       <div class="row">
-        <nuxt />
+        <nuxt/>
       </div>
     </div>
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
@@ -15,12 +15,13 @@
 import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
+
 export default {
-  components: { Sidebar, Footer, TreejerHeader },
+  components: {Sidebar, Footer, TreejerHeader},
   mounted() {
     this.$store.commit("SET_DASHBOARD", false);
-    console.log($nuxt.isOffline,"$nuxt.isOffline")
-    if($nuxt.isOffline){
+    console.log($nuxt.isOffline, "$nuxt.isOffline")
+    if ($nuxt.isOffline) {
       this.$bvToast.toast(['Please check your connection'], {
         toaster: 'b-toaster-bottom-left',
         title: 'Connection is broked',

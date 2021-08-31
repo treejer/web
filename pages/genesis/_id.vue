@@ -42,7 +42,7 @@
             src="../../assets/images/tree-profile/arrow-left.svg"
           />
         </div>
-        <div class="col-md-6 tree-profile-name m-auto">
+        <div class="col-md-6 tree-profile-name m-md-auto mb-5 mb-md-0">
           <h4 class="pt-3 text-center title-lg">{{ "TREE OF LIFE" }}</h4>
           <div v-if="newName" class="new-name-tree-profile">
             <div class="stats">
