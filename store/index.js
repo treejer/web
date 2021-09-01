@@ -121,7 +121,7 @@ export const actions = {
     });
   },
   async activeIndex({commit}, {activeIndex}) {
-    await commit('SET_INDEX', activeIndex)
+    await commit('SET_SIDEBAR_INDEX', activeIndex)
   },
   async refreshChain() {
     if (process.client) {
@@ -174,16 +174,14 @@ export const mutations = {
   SET_MODAL_FIVE(state, modalFive) {
     state.modalFive = modalFive
   },
-  SET_FORTMATIC(state, fortmatic) {
-    state.fortmatic = fortmatic
-  },
+  // SET_FORTMATIC(state, fortmatic) {
+  //   state.fortmatic = fortmatic
+  // },
   SET_WALLET(state, connectingWallet) {
     state.connectingWallet = connectingWallet
   },
-  SLICE_ACCOUNT(state, sliceAccount) {
-    state.sliceAccount = sliceAccount
-  },
-  SET_INDEX(state, index) {
+
+  SET_SIDEBAR_INDEX(state, index) {
     state.index = index
   },
   SET_LEADERBOARDS(state, leaderBoards) {

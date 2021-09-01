@@ -489,7 +489,7 @@ export default {
       this.activeIndex = index;
     },
     goToUserDashboard(id) {
-      this.$store.commit("SET_INDEX", 0);
+      this.$store.commit("SET_SIDEBAR_INDEX", 0);
       // this.$router.push(`/forest/${id}`);
       // this.$cookies.set('account',null)
       let routeData = this.$router.resolve({

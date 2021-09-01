@@ -339,10 +339,7 @@ export default {
   },
   methods: {
     goToLeaderBoard() {
-      if (
-        this.$store.state.account === null ||
-        this.$cookies.get("account") === null
-      ) {
+      if (!this.$cookies.get('account')) {
         this.$bvToast.toast("you are not logged in. please login", {
           toaster: "b-toaster-bottom-left",
           solid: true,

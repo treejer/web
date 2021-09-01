@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     goToDashboard() {
-      this.$store.commit("SET_INDEX", 0);
+      this.$store.commit("SET_SIDEBAR_INDEX", 0);
       if (this.$cookies.get("account")) {
         this.$router.push(`/forest/${this.$cookies.get("account")}`);
       } else {

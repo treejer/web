@@ -190,7 +190,7 @@ export default {
   methods:{
     goToDashboard() {
       const id= this.$cookies.get('account')
-      this.$store.commit('SET_INDEX',0)
+      this.$store.commit('SET_SIDEBAR_INDEX',0)
       if(id){
         this.$router.push({ path: `/forest/${id}` });
       }else{

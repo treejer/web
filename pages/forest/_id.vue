@@ -11,7 +11,9 @@
               <h2
                 class="title-sm d-inline-flex Montserrat-Medium"
               >
-                <span class="pr-4 pl-0" v-coin>{{ $route.params.id != $cookies.get('account') ? $route.params.id : 'MY' }}</span>
+                <span v-coin class="pr-4 pl-0">{{
+                    $route.params.id != $cookies.get('account') ? $route.params.id : 'MY'
+                  }}</span>
                 Forest
               </h2>
             </div>
@@ -19,14 +21,14 @@
               <div class="form-group">
                 <label>
                   <img
-                    src="../../assets/images/search.svg"
                     alt="search"
                     class="pointer-event"
+                    src="../../assets/images/search.svg"
                     @click="goToFindTree"
                   />
                   <input
-                    class="form-control-lg"
                     v-model="treeID"
+                    class="form-control-lg"
                     placeholder="Enter Tree ID"
                     @keyup.enter="goToFindTree()"
                   />
@@ -39,10 +41,10 @@
               <p class="tr-gray-two">FOREST SIZE</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
-                  ><img
-                    class="img-fluid"
-                    src="../../assets/images/myforest/tree.svg"
-                    alt="tree"
+                ><img
+                  alt="tree"
+                  class="img-fluid"
+                  src="../../assets/images/myforest/tree.svg"
                 /></span>
                 <span>
                   <span>{{ owner ? owner.treeCount : 0 }}</span>
@@ -53,7 +55,7 @@
               <p>RELEASED Seed</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
-                  ><img src="~/assets/images/myforest/SeedLogo.svg" alt="seed"
+                ><img alt="seed" src="~/assets/images/myforest/SeedLogo.svg"
                 /></span>
                 <span class="param-18 font-weight-bold">
                   {{ 0 }}
@@ -65,7 +67,7 @@
               <p>RELEASED O2</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
-                  ><img src="../../assets/images/myforest/O2Logo.svg" alt="o2"
+                ><img alt="o2" src="../../assets/images/myforest/O2Logo.svg"
                 /></span>
 
                 <span>{{ 0 }}</span>
@@ -99,12 +101,12 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            @click="showModal"
                             :class="
                               $cookies.get('account')
                                 ? 'btn-outline-green disabled'
                                 : 'btn-green'
                             "
+                            @click="showModal"
                           >
                             {{ $cookies.get("account") ? "Done" : "step 1" }}
                           </button>
@@ -144,12 +146,12 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            @click="comunity()"
                             :class="
                               owner && owner.treeCount > 0
                                 ? 'btn-outline-green'
                                 : 'btn-green'
                             "
+                            @click="comunity()"
                           >
                             step 3
                           </button>
@@ -179,22 +181,22 @@
                 </span>
               </div>
               <div
+                v-if="owner && owner.treeCount > 0"
                 class="col-12 p-0 befor-res"
                 style="left: 0"
-                v-if="owner && owner.treeCount > 0"
               >
                 <span
-                  class=""
                   v-for="(item, index) in owner.trees.slice(0, 50)"
                   :id="item.id"
                   :key="index"
+                  class=""
                 >
                   <b-button
-                    @click="goToTreeProfile($hex2Dec(item.id))"
-                    class="p-2 bg-transparent border-0"
-                    :tabindex="index"
                     v-b-tooltip.top
+                    :tabindex="index"
                     :title="$hex2Dec(item.id)"
+                    class="p-2 bg-transparent border-0"
+                    @click="goToTreeProfile($hex2Dec(item.id))"
                   >
                     <img
                       class="img-fluid"
@@ -205,23 +207,23 @@
                 </span>
               </div>
               <div
-                class="col-12 p-0"
                 v-if="owner && owner.treeCount > 50 && showMoreTreeData"
+                class="col-12 p-0"
                 style="transition: all 0.3s ease"
               >
                 <span
-                  style="transition: all 0.3s ease"
-                  class="pointer-event"
                   v-for="(item, index) in owner.trees.slice(50)"
                   :id="item.id"
                   :key="index"
+                  class="pointer-event"
+                  style="transition: all 0.3s ease"
                 >
                   <b-button
-                    @click="goToTreeProfile($hex2Dec(item.id))"
-                    class="p-2 bg-transparent border-0"
-                    :tabindex="index"
                     v-b-tooltip.top
+                    :tabindex="index"
                     :title="$hex2Dec(item.id)"
+                    class="p-2 bg-transparent border-0"
+                    @click="goToTreeProfile($hex2Dec(item.id))"
                   >
                     <img
                       class="img-fluid pointer-event"
@@ -232,7 +234,7 @@
                 <span
                   class="btn-green d-block text-center mt-3 pointer-event show-more-tree-all"
                   @click="showMoreTreeData = !showMoreTreeData"
-                  >{{ showMoreTreeData ? "&#8679;" : "&#8681;" }}</span
+                >{{ showMoreTreeData ? "&#8679;" : "&#8681;" }}</span
                 >
               </div>
             </div>
@@ -248,11 +250,11 @@
               <GMap
                 v-if="owner && owner.treeCount > 0"
                 ref="gMap"
-                :cluster="{ options: { styles: clusterStyle } }"
                 :center="{
                   lat: owner.trees[0].latitude || 24.06448,
                   lng: owner.trees[0].longitude || 81.30946,
                 }"
+                :cluster="{ options: { styles: clusterStyle } }"
                 :options="{
                   fullscreenControl: true,
                   streetViewControl: false,
@@ -266,20 +268,20 @@
                 <GMapMarker
                   v-for="tree in owner.trees"
                   :key="tree.id"
-                  :position="{ lat: tree.latitude, lng: tree.longitude }"
                   :options="{
                     icon:
                       tree === currentTree ? pins.selected : pins.notSelected,
                   }"
+                  :position="{ lat: tree.latitude, lng: tree.longitude }"
                   @click="currentTree = tree"
                 >
                   <GMapInfoWindow :options="{ maxWidth: 200 }">
                     <b>{{ tree.id }}</b>
-                    <br />
-                    <br />
+                    <br/>
+                    <br/>
                     <code>
                       Lat: {{ tree.latitude }},
-                      <br />
+                      <br/>
                       Lng: {{ tree.longitude }}
                     </code>
                   </GMapInfoWindow>
@@ -289,8 +291,8 @@
               <div v-if="ownerTreesLoaded === false">
                 <GMap
                   ref="gMap"
-                  :cluster="{ options: { styles: clusterStyle } }"
                   :center="{ lat: 24.06448, lng: 81.30946 }"
+                  :cluster="{ options: { styles: clusterStyle } }"
                   :options="{
                     fullscreenControl: true,
                     streetViewControl: false,
@@ -314,8 +316,8 @@
             >
               <div class="card-img position-relative">
                 <img
-                  :src="icon"
                   :alt="$route.params.id"
+                  :src="icon"
                   class="avatar-pic img-fluid"
                 />
 
@@ -335,8 +337,8 @@
                     class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom"
                   >
                     <img
-                      src="~/assets/images/myforest/ETHLogo.svg"
                       class="img-fluid"
+                      src="~/assets/images/myforest/ETHLogo.svg"
                     />
                     ETH
                   </p>
@@ -344,9 +346,9 @@
                     class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom"
                   >
                     <img
-                      style="margin-right: 7px"
-                      src="~/assets/images/myforest/SeedLogo.svg"
                       class="img-fluid"
+                      src="~/assets/images/myforest/SeedLogo.svg"
+                      style="margin-right: 7px"
                     />
                     Seed
                   </p>
@@ -354,8 +356,8 @@
                     class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
                   >
                     <img
-                      src="~/assets/images/myforest/O2Logo.svg"
                       class="img-fluid"
+                      src="~/assets/images/myforest/O2Logo.svg"
                     />
                     O2
                   </p>
@@ -382,7 +384,7 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <button @click="goToAddTree()" class="btn-lg">
+                <button class="btn-lg" @click="goToAddTree()">
                   ADD A TREE
                 </button>
               </div>
@@ -415,23 +417,27 @@ import owner from "~/apollo/queries/owner";
 export default {
   name: "forest",
   layout: "dashboard",
-  components: { Metamask, Fas, Wallets },
+  components: {Metamask, Fas, Wallets},
 
   head() {
     return {
-      title:"Treejer",
-      meta:[
-        { hid: 'description', name: 'description', content:"My Forest\n profile your forest page"},
-        { hid: 'keywords', name: 'keywords', content: "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status"}
+      title: "Treejer",
+      meta: [
+        {hid: 'description', name: 'description', content: "My Forest\n profile your forest page"},
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status"
+        }
       ]
     }
   },
   apollo: {
     owner: {
       query: owner,
-      prefetch: ({ route }) => ({ id: route.params.id }),
-      variables () {
-        return { id: this.$route.params.id }
+      prefetch: ({route}) => ({id: route.params.id}),
+      variables() {
+        return {id: this.$route.params.id}
       }
     },
   },
@@ -443,9 +449,9 @@ export default {
 
   data() {
     return {
-      title:this.$route.name,
+      title: this.$route.name,
 
-      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0' )
+      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0')
         .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
       showMoreTreeData: false,
       ownerTreesLoaded: false,
@@ -503,14 +509,14 @@ export default {
       ],
       avatar: require("~/assets/images/myforest/avatar.png"),
       steps: [
-        { active: true, step: "step 1", text: "Connect your wallet" },
-        { active: false, step: "step 2", text: "Add trees to your forest" },
+        {active: true, step: "step 1", text: "Connect your wallet"},
+        {active: false, step: "step 2", text: "Add trees to your forest"},
         {
           active: false,
           step: "step 3",
           text: "Release Seed/O2 to your wallet",
         },
-        { active: false, step: "step 4", text: "Join our community!" },
+        {active: false, step: "step 4", text: "Join our community!"},
       ],
       activeIndexSteps: null,
       loading: false,
@@ -531,10 +537,10 @@ export default {
         defaultFill: "#edebe5",
       },
       data: {
-        IRN: { fillKey: "Trejer" },
-        IND: { fillKey: "Trejer" },
-        KEN: { fillKey: "Trejer" },
-        ZAF: { fillKey: "Trejer" },
+        IRN: {fillKey: "Trejer"},
+        IND: {fillKey: "Trejer"},
+        KEN: {fillKey: "Trejer"},
+        ZAF: {fillKey: "Trejer"},
       },
       currentTree: {},
       locationsVisibleOnMap: "",
@@ -810,6 +816,7 @@ export default {
         });
       }
     },
+
     goToAddTree() {
       let self = this;
       if (!self.$cookies.get("account")) {
@@ -844,7 +851,7 @@ export default {
     },
     goToTreeProfile(item) {
       this.$router.push(
-        this.localePath({ name: "tree-id", params: { id: item } })
+        this.localePath({name: "tree-id", params: {id: item}})
       );
     },
   },
@@ -861,11 +868,13 @@ export default {
 
     margin: auto;
   }
+
   .logo-tokens {
     display: flex;
     justify-content: space-between;
-    padding:0 20px;
+    padding: 0 20px;
   }
+
   .token {
     width: 75%;
     margin: auto;
@@ -875,12 +884,14 @@ export default {
     border-radius: 18px;
     padding: 5px 15px;
   }
+
   .bg-brown {
     background: rgba(208, 169, 69, 0.25);
     border-radius: 12px;
     padding: 30px 20px;
     margin-top: 48px;
     font-family: Montserrat-Medium;
+
     button.bg-outline-green {
       width: 48px;
       height: 16px;
@@ -889,10 +900,12 @@ export default {
       border-radius: 10px;
     }
   }
+
   .avatar-pic {
     width: 80px;
     height: 80px;
   }
+
   .treejer-desc {
     margin-top: 35px;
 
@@ -903,6 +916,7 @@ export default {
       font-stretch: normal;
       font-style: normal;
       color: #424242;
+
       span:nth-child(1) {
         font-size: 24px;
         font-weight: bold;
@@ -925,6 +939,7 @@ export default {
       }
     }
   }
+
   .btn-wallet {
     border: 1px solid #5a9d79;
     box-sizing: border-box;
@@ -933,6 +948,7 @@ export default {
     padding: 10px 20px;
     font-weight: bolder;
   }
+
   .add-tree {
     button {
       box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
@@ -1010,6 +1026,7 @@ export default {
   .article {
     label {
       position: relative;
+
       input {
         border-radius: 10px;
         background-color: #e5e7db;
@@ -1020,6 +1037,7 @@ export default {
         font-size: 14px;
         max-width: 176px;
       }
+
       svg,
       img {
         position: absolute;
@@ -1029,6 +1047,7 @@ export default {
       }
     }
   }
+
   .treejer-earth {
     position: relative;
 
@@ -1040,21 +1059,21 @@ export default {
 
 @media (max-width: 768px) {
   .my-forest
-    > div
-    > div
-    > div.col-lg-9
-    > div:nth-child(1)
-    > div.col-lg-7.col-12.justify-content-end.text-right {
+  > div
+  > div
+  > div.col-lg-9
+  > div:nth-child(1)
+  > div.col-lg-7.col-12.justify-content-end.text-right {
     text-align: left !important;
     justify-content: flex-start !important;
   }
   .my-forest
-    > div
-    > div
-    > div.col-lg-3.col-12.justify-content-center
-    > div.trees
-    > div.redeem-trees
-    > input {
+  > div
+  > div
+  > div.col-lg-3.col-12.justify-content-center
+  > div.trees
+  > div.redeem-trees
+  > input {
     margin-bottom: 15px;
   }
 }
@@ -1062,16 +1081,20 @@ export default {
 .GMap__Wrapper {
   width: 100%;
   height: 400px;
+
   .flex {
     position: relative;
     padding-bottom: 50px;
   }
+
   h1 {
     color: #206569;
     margin-bottom: 5px;
+
     & + p {
       margin-top: 0;
       font-size: 16px;
+
       a {
         color: #206569;
       }
@@ -1087,6 +1110,7 @@ export default {
 
   .visibleCities {
     position: absolute;
+
     span {
       font-weight: bold;
     }
@@ -1095,6 +1119,7 @@ export default {
   .GMap p {
     margin-top: 30px;
   }
+
   .button {
     background-color: #206569;
     color: #fff;
@@ -1129,6 +1154,7 @@ export default {
 
 @media (min-width: 1280px) {
 }
+
 @media (max-width: 1280px) {
   .tokens {
     .border-bottom {

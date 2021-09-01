@@ -7,12 +7,13 @@
        pill
        variant="danger"
        @click="checkDropDown()"
-       @mouseenter="checkDropDown()"
      >{{ 4 }}</b-badge>
-      <span v-show="activeNotifications" class="notifications text-left">
-        <span class="inner-badge"  @click="checkDropDown"></span>
-        <span class="param-lg ">hiiiiiii</span>
-      </span>
+    <!--       @mouseenter="checkDropDown()"-->
+
+    <!--      <span v-show="activeNotifications" class="notifications text-left">-->
+<!--        <span class="inner-badge"  @click="checkDropDown"></span>-->
+<!--        <span class="param-lg ">hiiiiiii</span>-->
+<!--      </span>-->
 
   </span>
 
@@ -28,8 +29,11 @@ export default {
     }
   },
   methods: {
+
     checkDropDown() {
-      this.activeNotifications = !this.activeNotifications
+      this.$store.commit('SET_INDEX',2)
+
+      this.$router.push('/updates')
     }
   }
 }
@@ -45,7 +49,7 @@ export default {
   }
   .badge {
     position: absolute;
-    top: -1px;
+    top: -10px;
     left: 35px;
     @media(max-width: 425px){
       left: 18px;
