@@ -227,6 +227,10 @@ export default {
       )}/events?perPage=20&page=1`
     );
     this.activity = updates;
+    console.log(this.activity.events.data.length,"this.activity.events.data.length")
+    // this.$store.commit("SET_UPDATE_LENGTH","")
+    this.$cookies.set("updateLength",this.activity.events.data.length)
+    console.log(this.$cookies.get('updateLength'),"yessssssss")
     console.log(this.activity, "this.totalSeed");
 
     this.updates = updates.events.data;

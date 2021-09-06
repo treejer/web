@@ -152,7 +152,6 @@
 import Socials from "~/components/Socials.vue";
 import CountDown from "~/components/CountDown.vue";
 import transakSDK from "@transak/transak-sdk";
-import moment from "moment"
 
 
 
@@ -426,7 +425,7 @@ export default {
   .place-bid-step-two {
     background: rgba(208, 169, 69, 0.25);
     border-radius: 12px;
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
 
     button {
       border-radius: 0px 0px 12px 12px;
@@ -444,7 +443,7 @@ export default {
   }
 
   .place-bid-step-three {
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
     background: #f0e4c6;
     border-radius: 12px;
 

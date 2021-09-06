@@ -1,3 +1,4 @@
+<!--suppress HtmlUnknownAttribute -->
 <template>
   <section
     :page="$route.name"
@@ -126,7 +127,7 @@
                       /></span>
                     </td>
 
-                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.treeCount }}</td>
                     <td
                       @click="goToUserDashboard(item.id)"
@@ -245,7 +246,7 @@
                       /></span>
                     </td>
 
-                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.plantedCount }}</td>
                     <!-- <td
                       @click="goToUserDashboard(item.id)"
@@ -365,7 +366,7 @@
                       /></span>
                     </td>
 
-                    <td v-coin id="accounting-card">{{ item.id }}</td>
+                    <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.referrerCount }}</td>
                     <!-- <td
                       @click="goToUserDashboard(item.id)"

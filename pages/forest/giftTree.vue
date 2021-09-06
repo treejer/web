@@ -16,6 +16,7 @@
           </div>
           <div class="row">
             <ul class="nav flex-lg-row">
+              <!--suppress HtmlUnknownAttribute -->
               <li
                 class="nav-item pointer-event "
                 v-for="(item, index) in menus"
@@ -98,7 +99,7 @@
                         : treesPerVoucher
                     "
                   >
-                    <p>-</p></span
+                    <span>-</span></span
                   >
                   <span
                     ><label for="trees-per-voucher"

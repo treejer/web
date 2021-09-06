@@ -26,7 +26,7 @@ export const actions = {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to:process.env.treeAuctionAddress,
-        value: 0,
+        value: self.$web3.utils.toWei(params.bidValue.toString()),
         data: data
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();

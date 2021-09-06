@@ -93,9 +93,7 @@
         loading: false
       }
     },
-    head: {
 
-    },
     mounted() {
 
 
@@ -129,6 +127,9 @@
             "pageName": self.$route.name
           },
         }).then(res => {
+          if(process.env.NODE_ENV !== 'production'){
+            console.log(res,"res post is here")
+          }
 
           self.loading = false
           self.$bvToast.toast('Your message was sent successfully.', {

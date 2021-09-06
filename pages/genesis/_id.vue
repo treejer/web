@@ -3,7 +3,8 @@
     :class="$route.name"
     class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile"
   >
-    <div  class="container-fluid">
+    <span v-if="highestBid">{{ highestBid  }}highestBid</span>
+    <div class="container-fluid">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
           <span
@@ -21,21 +22,23 @@
             @keyup.enter="goToFindTree()"
           />
         </div>
-        <div class="col-12 tree-profile-img justify-content-center">
-          <img alt="tree" src="../../assets/images/find/tree.svg"/>
-          <span v-if="tree"
-            id="edit_name"
-            class="tr-gray-three tree-profile-number font-weight-bolder"
-          >{{ $hex2Dec(tree.id) }}</span
-          >
+        <div v-if="genesisTree" class="col-12 tree-profile-img justify-content-center">
+          <img v-if="genesisTree.treeSpecsEntity" :alt="genesisTree.treeSpecsEntity.name"
+               :src="genesisTree.treeSpecsEntity.imageFs" alt="tree" class="img-fluid"
+               height="200" width="200"/>
+          <!--          <span v-if="genesisTree"-->
+          <!--                id="edit_name"-->
+          <!--                class="tr-gray-three tree-profile-number font-weight-bolder"-->
+          <!--          >{{ $hex2Dec(genesisTree.id) }}</span-->
+          <!--          >-->
         </div>
       </div>
-      <div class="row justify-content-center arrows" >
+      <div class="row justify-content-center arrows">
         <div
 
           :class="treeID <= 0 ? 'disabled' :'pointer-event' "
           class="col-3 arrow-left text-right "
-              @click="odd()">
+          @click="odd()">
           <img
             alt="arrow-left"
             class="img-fluid m-auto"
@@ -43,15 +46,17 @@
           />
         </div>
         <div class="col-md-6 tree-profile-name m-md-auto mb-5 mb-md-0">
-          <h4 class="pt-3 text-center title-lg">{{ "TREE OF LIFE" }}</h4>
+          <h4 v-if="$route.params.id === 0 " class="pt-3 text-center title-lg">TREE OF LIFE</h4>
+          <h4 v-if="$route.params.id !== 0 && genesisTree && genesisTree.treeSpecsEntity"
+              class="pt-3 text-center title-lg">{{ genesisTree.treeSpecsEntity.name }}</h4>
           <div v-if="newName" class="new-name-tree-profile">
             <div class="stats">
               <span class="tr-green pointer-event pr-2" @click="setNewName()"
               >&check;</span
               >
               <span
-               class="tr-red pointer-event"
-               @click="newName = false"
+                class="tr-red pointer-event"
+                @click="newName = false"
               >x</span
               >
             </div>
@@ -64,8 +69,9 @@
               @keyup.enter="setNewName()"
             />
           </div>
+
           <AuctionProcess
-            v-if="tree"
+            v-if="genesisTree"
             :expireDateText="expireDateText"
             :expireDates="expireDate"
 
@@ -98,8 +104,20 @@
               <div class="people col-md-6 justify-content-center m-auto">
                 <p class="text-center tr-gray-one param-xl">People</p>
               </div>
-              <div class="col-md-12 pb-md-5 justify-content-center m-auto">
-                <PeopleCard/>
+              <div v-if="genesisTree" class="col-md-12 pb-md-5 justify-content-center m-auto">
+                <span v-if="genesisTree.planter">
+                  <PeopleCard
+                    :planter="genesisTree.planter"
+                  />
+                </span>
+
+              </div>
+              <div class="Bids col-md-6 justify-content-center m-auto">
+                <p class="text-center tr-gray-one param-xl">Bidders</p>
+              </div>
+              <div v-if="currentTreeBid"
+                   class="col-md-12 pb-md-5 justify-content-center m-auto">
+                {{ currentTreeBid.bids }}
               </div>
               <div class="history col-md-6 justify-content-center m-auto">
                 <p class="text-center tr-gray-one param-xl">History</p>
@@ -116,14 +134,14 @@
                 <HistoryCard :minted="true"/>
               </div>
               <div class="col-md-12">
-                <div class="card-tree-profile position-relative" v-if="tree">
+                <div v-if="genesisTree" class="card-tree-profile position-relative">
                   <div
-                    v-if="tree.owner && tree.owner.id === $cookies.get('account')"
+                    v-if="genesisTree.owner && genesisTree.owner.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
                   >
                     <button
                       class="btn-green edit-name"
-                      @click="editName(tree.id)"
+                      @click="editName(genesisTree.id)"
                     >
                       Edit Name
                     </button>
@@ -132,7 +150,7 @@
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                       {{ tree.plantDate }}
+                        {{ genesisTree.plantDate }}
                       </p>
                     </div>
                     <div class="gps part">
@@ -142,25 +160,25 @@
                         >,<span class="pl-2">{{ 'tree-lng' }}</span>
                       </p>
                     </div>
-                    <div v-if="tree.type" class="species part">
+                    <div v-if="genesisTree.type" class="species part">
                       <p class="param mb-0 tr-gray-three">Species</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                        {{ tree.type.name }}
+                        {{ genesisTree.type.name }}
                       </p>
                     </div>
                     <div class="planter part">
                       <p class="param mb-0 tr-gray-three">Planter</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                        {{ tree.planter ? tree.planter.id : '-' }}
+                        {{ genesisTree.planter ? genesisTree.planter.id : '-' }}
                       </p>
                     </div>
                     <!-- <div class="block part">
                       <p class="param mb-0 tr-gray-three">Green Block</p>
                       <p
                         class="param-18 mb-0 tr-gray-two"
-                        v-if="tree.greenblock"
+                        v-if="genesisTree.greenblock"
                       >
-                        {{ tree.greenblock.title }}
+                        {{ genesisTree.greenblock.title }}
                       </p>
                     </div> -->
                     <div class="climate part">
@@ -214,7 +232,7 @@
                   <p class="text-center param tr-gray-two mb-0">
                     <span class="key">NFT Number: </span
                     ><span class="value font-weight-bolder tr-gray-one"
-                  >#0</span
+                  >#{{ $route.params.id }}</span
                   >
                   </p>
                 </div>
@@ -230,8 +248,8 @@
                 <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
                     <span class="key">Collection: </span
-                    ><span class="value font-weight-bolder tr-gray-one">{{
-                      "GENESIS"
+                    ><span class="value font-weight-bolder tr-gray-one text-capitalize">{{
+                      treeStatus
                     }}</span>
                   </p>
                 </div>
@@ -259,6 +277,26 @@
                     }}</span>
                   </p>
                 </div>
+                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key text-capitalize">mintStatus: </span
+                    ><span class="value text-capitalize text font-weight-bolder tr-gray-one">{{ mintStatus }}</span>
+                  </p>
+                </div>
+                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key text-capitalize">treeStatus:</span>
+                    <span class="value text-capitalize text font-weight-bolder tr-gray-one">{{ treeStatus }}</span>
+
+                  </p>
+                </div>
+                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key text-capitalize">provideStatus:</span>
+                    <span class="value text-capitalize font-weight-bolder tr-gray-one">{{ provideStatus }}</span>
+                  </p>
+                </div>
+
               </div>
             </div>
           </div>
@@ -277,40 +315,40 @@ import AuctionProcess from "../../components/genesis/AuctionProcess.vue";
 import moment from "moment"
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import tree from "~/apollo/queries/tree";
-import currentBid from "~/apollo/queries/currentBid"
+import treeAuction from "~/apollo/queries/treeAuction"
 
 
 export default {
   name: "tree-profile",
   layout: "landing",
-  middleware:'auth',
+  middleware: 'auth',
 
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess},
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
-        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      title: `Treejer`,
+      meta: [
+        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
+        }
       ]
     }
   },
-  apollo: {
-    tree: {
-      query: tree,
-      prefetch: false,
-      // prefetch: ({ route }) => ({ id: `0x${route.params.id}` }),
-      variables () {
-        return { id: this.$dec2hex(this.$route.params.id)  }
-      }
-    },
-  },
+  loading: false,
+
   data() {
     return {
+      loading: false,
+
+      provideStatus: null,
+      treeStatus: null,
+      mintStatus: null,
       newName: false,
       newNameTree: null,
-      loading: false,
-      treeID:this.$route.params.id,
+      treeID: this.$route.params.id,
       clusterStyle: [
         {
           url:
@@ -540,16 +578,27 @@ export default {
         selected: require("~/assets/images/map/tag.png"),
         notSelected: require("~/assets/images/map/tag.png"),
       },
-      expireDate:null,
-      expireDateText:null,
-      currentTreeBid:null,
+      expireDate: null,
+      expireDateText: null,
+      currentTreeBid: null,
+      genesisTree: null,
+      highestBid: null
     };
   },
   async created() {
+    await this.getTree()
     this.treeID = parseInt(this.$route.params.id)
-    if(this.treeID < 10){
-       await this.currentBidPlace()
+
+    console.log(this.loading, "this,.loading")
+    if (this.genesisTree) {
+      await this.checkProvideStatus(this.genesisTree.provideStatus)
+      await this.checkMintStatus(this.genesisTree.mintStatus)
+      await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
+    if (this.treeID < 10) {
+      await this.currentBidPlace()
+    }
+
   },
   methods: {
     async goToFindTree() {
@@ -559,11 +608,15 @@ export default {
         let result = await this.$apollo.query({
           query: treesSearchById,
           variables: {
-            id: this.$dec2hex(self.treeID),
+            id: self.$dec2hex(self.treeID),
           },
         });
 
         if (result) {
+          console.log(result.data.tree.treeStatus, "result.data.tree.treeStatus")
+          if (result.data.tree.treeStatus) {
+            self.checkProvideStatus(result.data.tree.treeStatus)
+          }
           if (result.data.trees.length > 0) {
             self.$router.push(`/genesis/${self.treeID}`);
           } else {
@@ -573,7 +626,9 @@ export default {
               headerClass: "hide",
               variant: "danger",
             });
+
           }
+
           this.loading = false;
         }
       } else {
@@ -585,35 +640,51 @@ export default {
       this.loading = true;
       let self = this;
       let result = await this.$apollo.query({
-          query: currentBid,
-          prefetch:true,
-          variables:{
-            tree:`0x${self.$route.params.id}`,
-            isActive:true
-          }
-        });
-      if(result){
-          self.currentTreeBid = result.data.auctions[0]
-          if(self.currentTreeBid){
-            self.expireDate =self.birthDate(self.currentTreeBid.expireDate)
-            console.log( self.expireDate," self.expireDate is here")
-          }
-
-
-
-
+        query: treeAuction,
+        variables: {
+          tree: `0x${self.$route.params.id}`,
+          isActive: true
         }
+      });
+      if (result.data) {
+        console.log(result, "result is here")
+        self.currentTreeBid = await result.data.auctions[0]
+        if (self.currentTreeBid) {
+          self.expireDate = self.birthDate(self.currentTreeBid.expireDate)
+            console.log(self.highestBid, " self.highestBid is here", self.$web3)
+          console.log(self.expireDate, " self.expireDate is here")
+          console.log(self.currentTreeBid,"self.currentTreeBid.highestBid")
+          if (self.currentTreeBid.highestBid) {
+            self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
+          }
+        }
+      }
+    },
+    async getTree() {
+      this.loading = true;
+      let self = this;
+      let result = await self.$apollo.query({
+        query: tree,
+        variables: {
+          id: self.$dec2hex(self.$route.params.id),
+        }
+      });
+      if (result.data) {
+        console.log(result.data.tree, "result is here")
+        self.genesisTree = result.data.tree
+      }
+      this.loading = false
     },
     add() {
-        this.treeID++;
-        this.$router.push(
-          this.localePath({name: "genesis-id", params: {id: this.treeID}})
-        );
+      this.treeID++;
+      this.$router.push(
+        this.localePath({name: "genesis-id", params: {id: this.treeID}})
+      );
 
 
     },
-    toast(msg){
-      this.$bvToast.toast(msg , {
+    toast(msg) {
+      this.$bvToast.toast(msg, {
         toaster: "b-toaster-bottom-left",
         solid: true,
         headerClass: "hide",
@@ -621,13 +692,13 @@ export default {
       })
     },
     odd() {
-      if(this.treeID > 0){
+      if (this.treeID > 0) {
         this.treeID--;
         this.$router.push(
           this.localePath({name: "genesis-id", params: {id: this.treeID}})
         );
       }
-       if(this.treeID <= 0){
+      if (this.treeID <= 0) {
         this.toast('There are no trees')
       }
     },
@@ -650,17 +721,83 @@ export default {
         this.localePath({name: "forest-id", params: {id: id}})
       );
     },
-    checkExpireDate(){
+    checkProvideStatus(data) {
+      switch (data) {
+        case '0':
+          this.provideStatus = "free"
+          break;
+        case '1':
+          this.provideStatus = "auction"
+          break;
+        case '2':
+          this.provideStatus = "incrementalSell"
+          break;
+        case '3':
+          this.provideStatus = "gift"
+          break;
+        case '4':
+          this.provideStatus = "regularSell"
+          break;
+        default:
+          this.provideStatus = "free"
+          break;
+      }
+      console.log(this.provideStatus, "this.provideStatus")
+
 
     },
-     birthDate(date){
-      const now =  moment().format('X')
+    checkMintStatus(data) {
+      switch (data) {
+        case '0':
+          this.mintStatus = "regular"
+          break;
+        case '1':
+          this.mintStatus = "incrementalSell"
+          break;
+        case '2':
+          this.mintStatus = "auction"
+          break;
+        default:
+          this.mintStatus = "regular"
+          break;
+      }
+      console.log(this.mintStatus, "this.mintStatus")
 
-       let moments =  moment.unix(date).utc()
-       if(date < now){
-         this.expireDateText = "This auction is over."
-       }
-       return moment(moments).format('YYYY-MM-DD h:mm:ss')
+
+    },
+    checkTreeStatus(data) {
+      switch (data) {
+        case '0':
+          this.treeStatus = "notExisted"
+          break;
+        case '1':
+          this.treeStatus = "reported"
+          break;
+        case '2':
+          this.treeStatus = "genesis"
+          break;
+        case '3':
+          this.treeStatus = "pendingPlant"
+          break;
+        case '4':
+          this.treeStatus = "planted"
+          break;
+        default:
+          this.treeStatus = "notExisted"
+          break;
+      }
+      console.log(this.treeStatus, "this.treeStatus")
+
+
+    },
+    birthDate(date) {
+      let now = moment().format('X')
+
+      let moments = moment.unix(date).utc()
+      if (date < now) {
+        this.expireDateText = "This auction is over."
+      }
+      return moment(moments).format('YYYY-MM-DD h:mm:ss')
     }
   },
 };
@@ -844,14 +981,12 @@ export default {
       .arrow-left {
         position: absolute;
         left: -10px;
-        bottom: top;
         top: -5%;
       }
 
       .arrow-right {
         position: absolute;
         right: -10px;
-        bottom: top;
         top: -5%;
       }
     }

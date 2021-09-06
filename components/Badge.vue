@@ -31,7 +31,7 @@ export default {
   methods: {
 
     checkDropDown() {
-      this.$store.commit('SET_INDEX',2)
+      this.$store.commit('SET_SIDEBAR_INDEX',2)
 
       this.$router.push('/updates')
     }

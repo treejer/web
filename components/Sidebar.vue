@@ -163,7 +163,6 @@ export default {
   methods: {
     checkSidebar() {
       const history = this.$router.history.current.fullPath
-      debugger
       switch (history) {
         case '/forest' || '/forest/undefined' || '/forest/' + '*':
           this.activeIndex = 0;
@@ -182,7 +181,9 @@ export default {
           this.$store.commit('SET_SIDEBAR_INDEX', 3);
           break;
         default:
-          this.activeIndex = this.$store.state.index;
+          this.activeIndex = 0;
+          this.$store.commit('SET_SIDEBAR_INDEX', 0);
+
       }
     },
     goToDiscuss() {

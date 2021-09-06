@@ -16,7 +16,7 @@
         <!--          </ul>-->
         <!--        </div>-->
 
-        <div class="col-12 step-one" v-if="activeIndex === 0">
+        <div v-if="activeIndex === 0" class="col-12 step-one">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
@@ -29,10 +29,10 @@
                   >
                     <div v-if="!item.placeHolder">
                       <p
-                        @click="activeCounts(item, index)"
-                        :class="{ active: activeCount === index }"
                         :key="index"
-                        :name="item.name"
+                        :class="{ active: activeCount === index }"
+                        :dice="item.name"
+                        @click="activeCounts(item, index)"
                       >
                         {{ item.name }}
                       </p>
@@ -40,12 +40,12 @@
                     <div v-if="item.placeHolder">
                       <label :for="index">
                         <input
-                          :class="{ active: activeIndex === index }"
-                          style="width: initial"
-                          v-model="count"
-                          :placeholder="item.placeHolder"
-                          type="number"
                           :key="index"
+                          v-model="count"
+                          :class="{ active: activeIndex === index }"
+                          :placeholder="item.placeHolder"
+                          style="width: initial"
+                          type="number"
                         />
                       </label>
                     </div>
@@ -158,11 +158,11 @@
 
                   <button
                     v-if="daiBalance <= 0"
-                    @click="buyDai()"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
+                    @click="buyDai()"
                   >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner
                     >
@@ -171,11 +171,11 @@
 
                   <button
                     v-if="daiBalance > 0 && isAllowedSpendDai"
-                    @click="requestTrees()"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
+                    @click="requestTrees()"
                   >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner
                     >
@@ -184,11 +184,11 @@
 
                   <button
                     v-if="daiBalance > 0 && !isAllowedSpendDai"
-                    @click="allowSpendDai()"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
+                    @click="allowSpendDai()"
                   >
-                    <BSpinner class="mr-2" type="grow" small v-if="loading"
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner
                     >
@@ -206,7 +206,7 @@
               </div>
             </div>
           </div>
-          <div class="row form-name" id="sendAsTreeCard" v-if="sendAsTreeCard">
+          <div v-if="sendAsTreeCard" id="sendAsTreeCard" class="row form-name">
             <div class="col-12">
               <div class="card bg-transparent p-4 mt-5">
                 <div class="form-full-name">
@@ -221,8 +221,8 @@
                       >First name
                         <input
                           class="param-sm tr-gray-five"
-                          type="text"
                           placeholder="First name"
+                          type="text"
                         />
                       </label>
                     </div>
@@ -231,8 +231,8 @@
                       >Last name (optional)
                         <input
                           class="param-sm tr-gray-five"
-                          type="text"
                           placeholder="Last name"
+                          type="text"
                         />
                       </label>
                     </div>
@@ -241,8 +241,8 @@
                       >Your email
                         <input
                           class="param-sm tr-gray-five"
-                          type="text"
                           placeholder="Your email"
+                          type="text"
                         />
                       </label>
                     </div>
@@ -258,35 +258,35 @@
                     <div class="col-lg-4">
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                     </div>
                     <div class="col-lg-4">
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                       <input
                         class="param-sm tr-gray-five"
-                        type="text"
                         placeholder="Email"
+                        type="text"
                       />
                     </div>
                     <div class="col-lg-4">
@@ -294,8 +294,9 @@
                         class="cv-team bg-transparent justify-content-center text-center"
                       >
                         <img
-                          src="~/assets/images/myforest/file-excel.png"
+                          alt="forest-img"
                           class="img-fluid pt-4 m-auto"
+                          src="~/assets/images/myforest/file-excel.png"
                         />
                         <p class="param-sm mt-3 p-2 mb-3">
                           Drag & drop your CSV file here or
@@ -340,8 +341,8 @@
             </div>
           </div>
         </div>
-        <div class="col-12 step-two" v-if="activeIndex === 1">
-          <div class="row" v-if="this.$store.state.account === null">
+        <div v-if="activeIndex === 1" class="col-12 step-two">
+          <div v-if="this.$store.state.account === null" class="row">
             <div class="col-12 mt-5 justify-content-center text-center">
               <h1 class="title-sm font-weight-bolder text-center">
                 Select Wallet
@@ -397,7 +398,7 @@
               <hr/>
             </div>
           </div>
-          <div class="row" v-if="this.$store.state.account !== null">
+          <div v-if="this.$store.state.account !== null" class="row">
             <div class="col-12 mt-5 justify-content-center text-center">
               <h1 class="title-sm font-weight-bolder text-center">
                 {{ this.$store.state.account }}
@@ -440,7 +441,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 step-three" v-if="activeIndex === 2">
+        <div v-if="activeIndex === 2" class="col-12 step-three">
           <div class="row">
             <div class="col-12 mt-5 justify-content-center text-center">
               <h1 class="title-sm font-weight-bolder text-center">
@@ -495,8 +496,8 @@
                 </div>
               </div>
               <button
-                @click="activeIndex = 3"
                 class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white"
+                @click="activeIndex = 3"
               >
                 CONFIRM
               </button>
@@ -515,13 +516,13 @@
           </div>
         </div>
         <div
-          class="col-12 final-step justify-content-center text-center"
           v-if="activeIndex === 3"
+          class="col-12 final-step justify-content-center text-center"
         >
           <img
-            src="~/assets/images/myforest/final-step.png"
-            class="img-fluid mt-5"
             alt="final-step"
+            class="img-fluid mt-5"
+            src="~/assets/images/myforest/final-step.png"
           />
           <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
             Congratulations, your forest just got bigger!!
@@ -530,8 +531,8 @@
             Rural communities are notified to plant your trees.
           </p>
           <nuxt-link
-            class="tr-green param pt-5"
             :to="localePath('/forest/' + $cookies.get('account'))"
+            class="tr-green param pt-5"
           >Go back to My Forest
           </nuxt-link
           >
@@ -551,10 +552,14 @@ export default {
   layout: "checkout",
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
-        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      title: `Treejer`,
+      meta: [
+        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
+        }
       ]
     }
   },
@@ -622,7 +627,6 @@ export default {
         {name: "bitcoin", icon: "ethereum", step: 2},
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
-
       activeIndex: 0,
       activeCount: 0,
       activePay: 0,

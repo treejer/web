@@ -1,11 +1,9 @@
 <template>
   <div class="col-md-4 peoples">
-    <div class="border-0" v-for="(item, index) in peoples" :key="index">
-      <img :src="item.src" :alt="item.name" />
-      <p class="param tr-gray-two mt-2">{{ item.type }}</p>
-      <p class="address-wallet tr-gray-three adrees-wallet param">
-        {{ item.adressWallet }}
-      </p>
+    <div class="border-0" v-if="planter">
+      <img v-if="icon" :src="icon" :alt="planter.id" />
+      <p class="param tr-gray-two mt-2">{{planter.__typename}}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{planter.id}}</p>
     </div>
   </div>
 </template>
@@ -13,7 +11,13 @@
 <script>
 
 export default {
-  watch: {},
+  props: {
+    planter: {
+      default: {},
+      type:Object
+    }
+  },
+
   data() {
     return {
       peoples: [
@@ -24,10 +28,14 @@ export default {
           adressWallet: "0x545...d4m7",
         },
       ],
+      icon:`${process.env.gravatar}${this.planter.id.replace(/[^0-9\\.]+/g,'')}?d=robohash`,
     };
   },
 
-  created() {},
+
+  created() {
+
+  },
 };
 </script>
 
@@ -38,6 +46,7 @@ export default {
     height: 64px;
     margin: auto;
   }
+
   .adrees-wallet {
     padding: 8px 13px;
     border-radius: 28px;

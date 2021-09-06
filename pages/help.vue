@@ -35,6 +35,7 @@
         <div class="col-4 d-md-block d-none justify-content-center">
 
 
+          <!--suppress HtmlUnknownTarget -->
           <img src="~/assets/images/help/get-help.svg" id="help_img" alt="get-help"
                class=" img-fluid"/>
 

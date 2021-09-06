@@ -1,4 +1,5 @@
 <template>
+  <!--suppress HtmlUnknownAttribute -->
   <section :page="$route.name" class="position-relative pt-5 col-md-12 home">
     <div class="container-fluid">
       <div class="row article">

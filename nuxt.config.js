@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 export default {
-
+  buildDir: 'nuxt-dist',
   mode: 'universal',
   head: {
     title: 'Treejer',
@@ -68,7 +68,7 @@ export default {
   loading: {
     color: 'rgba(103,182,140,0.62)',
     failedColor: 'rgba(238,45,14,0.69)',
-    height: '6px'
+    height: '8px'
   },
 
   /*
@@ -124,7 +124,7 @@ export default {
       //   }
       // },
       {
-        test: /\.(png|jpe?g|gif|svg|webp)$/,
+        test: /\.(png|jpe?g|gif|svg|webp|txt)$/,
         loader: 'url-loader',
         query: {
           // limit: 1000, // 1kB

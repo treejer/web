@@ -14,5 +14,20 @@ query tree($id: ID!) {
     treeStatus
     plantDate
     birthDate
+    treeSpecsEntity{
+      id
+      name
+      description
+      externalUrl
+      imageFs
+      imageHash
+      symbolFs
+      symbolHash
+      animationUrl
+      diameter
+      latitude
+      longitude
+      attributes
+    }
   }
 }

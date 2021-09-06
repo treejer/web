@@ -195,10 +195,11 @@ export default {
   },
   methods: {
     async onSubmit() {
-      try {
-        const token = await this.$recaptcha.execute('login')
-      } catch (error) {
-      }
+      console.log("must give a api")
+      // try {
+      //   const token = await this.$recaptcha.execute('login')
+      // } catch (error) {
+      // }
     },
   },
 
@@ -296,7 +297,7 @@ export default {
               span.icon {
                 height: 64px;
                 background: #424242;
-                border-radius: 0px 6px 6px 0px;
+                border-radius: 0 6px 6px 0px;
                 width: 48px !important;
                 display: flex;
                 justify-content: center;

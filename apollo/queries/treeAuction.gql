@@ -1,4 +1,4 @@
-query currentBid($tree: String!, $isActive:Boolean!){
+query treeAuction($tree: String!, $isActive:Boolean!){
   auctions(where: {tree: $tree, isActive:$isActive}) {
     id
     tree{
