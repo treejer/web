@@ -681,10 +681,10 @@ export default {
     async getTree() {
       this.loading = true;
       let self = this;
-      await self.$axios.$post(process.env.graphUrl,{
+      await self.$axios.$post(process.env.graphqlUrl,{
         query:`
             {
-              tree(id: "${self.$dec2hex(self.$route.params.id)}) {
+              tree(id: "${self.$dec2hex(self.$route.params.id)}") {
                 id
                 planter{
                   id
