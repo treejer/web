@@ -1,4 +1,4 @@
-query tree($id: ID!) {
+ {
   tree(id: $id) {
     id
     planter{
@@ -30,4 +30,5 @@ query tree($id: ID!) {
       attributes
     }
   }
-}
+ }
+

@@ -90,6 +90,7 @@ export default {
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},
     {src: '~plugins/num.js'},
+    {src: '~plugins/axios.js'},
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}]
@@ -235,7 +236,13 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    common: {
+      'Accept': 'application/json, text/plain, */*',
+      'Access-Control-Allow-Origin':'*/*',
+
+    },
+  },
   /*
    ** Build configuration
    */

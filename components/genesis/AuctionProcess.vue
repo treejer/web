@@ -11,7 +11,7 @@
 
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
-        <p class="mb-0 param tr-gray-two">Current bid</p>
+        <p class="mb-0 param tr-gray-two" v-if="highestBid">Current bid {{highestBid }} ETH</p>
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
@@ -169,6 +169,10 @@ export default {
     expireDateText:{
       type:String,
       default:""
+    },
+    highestBid:{
+      type:String,
+      default:"0.05"
     }
   },
   computed:{
@@ -301,7 +305,6 @@ export default {
       });
       console.log(this.erc20Balance, "this.erc20Balance");
     },
-
     async setIsAllowance(silent = false) {
       if (silent === false) {
         this.loading = true;

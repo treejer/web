@@ -3,7 +3,7 @@
     :class="$route.name"
     class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile"
   >
-    <span v-if="highestBid">{{ highestBid  }}highestBid</span>
+    <span v-if="highestBid">{{ highestBid }}highestBid</span>
     <div class="container-fluid">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
@@ -74,6 +74,7 @@
             v-if="genesisTree"
             :expireDateText="expireDateText"
             :expireDates="expireDate"
+            :highestBid="highestBid"
 
           />
         </div>
@@ -117,7 +118,9 @@
               </div>
               <div v-if="currentTreeBid"
                    class="col-md-12 pb-md-5 justify-content-center m-auto">
-                {{ currentTreeBid.bids }}
+                <AvatarBidders
+                  :dataRes="currentTreeBid"
+                />
               </div>
               <div class="history col-md-6 justify-content-center m-auto">
                 <p class="text-center tr-gray-one param-xl">History</p>
@@ -160,12 +163,12 @@
                         >,<span class="pl-2">{{ 'tree-lng' }}</span>
                       </p>
                     </div>
-                    <div v-if="genesisTree.type" class="species part">
-                      <p class="param mb-0 tr-gray-three">Species</p>
-                      <p class="param-18 mb-0 tr-gray-two">
-                        {{ genesisTree.type.name }}
-                      </p>
-                    </div>
+                    <!--                    <div v-if="genesisTree.type" class="species part">-->
+                    <!--                      <p class="param mb-0 tr-gray-three">Species</p>-->
+                    <!--                      <p class="param-18 mb-0 tr-gray-two">-->
+                    <!--                        {{ genesisTree.type.name }}-->
+                    <!--                      </p>-->
+                    <!--                    </div>-->
                     <div class="planter part">
                       <p class="param mb-0 tr-gray-three">Planter</p>
                       <p class="param-18 mb-0 tr-gray-two">
@@ -309,13 +312,13 @@
 
 <script>
 import SearchBar from "~/components/SearchBar";
-import HistoryCard from "../../components/genesis/HistoryCard.vue";
-import PeopleCard from "../../components/genesis/PeopleCard.vue";
-import AuctionProcess from "../../components/genesis/AuctionProcess.vue";
+import HistoryCard from "~/components/genesis/HistoryCard.vue";
+import PeopleCard from "~/components/genesis/PeopleCard.vue";
+import AuctionProcess from "~/components/genesis/AuctionProcess.vue";
 import moment from "moment"
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import tree from "~/apollo/queries/tree";
-import treeAuction from "~/apollo/queries/treeAuction"
+import AvatarBidders from "~/components/genesis/AvatarBidders";
 
 
 export default {
@@ -323,7 +326,7 @@ export default {
   layout: "landing",
   middleware: 'auth',
 
-  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess},
+  components: {SearchBar, HistoryCard,  PeopleCard, AuctionProcess, AvatarBidders},
   head() {
     return {
       title: `Treejer`,
@@ -337,7 +340,6 @@ export default {
       ]
     }
   },
-  loading: false,
 
   data() {
     return {
@@ -586,19 +588,18 @@ export default {
     };
   },
   async created() {
+
     await this.getTree()
     this.treeID = parseInt(this.$route.params.id)
-
     console.log(this.loading, "this,.loading")
     if (this.genesisTree) {
       await this.checkProvideStatus(this.genesisTree.provideStatus)
       await this.checkMintStatus(this.genesisTree.mintStatus)
       await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
-    if (this.treeID < 10) {
-      await this.currentBidPlace()
-    }
-
+  },
+  async mounted() {
+    await this.getTreeAuction()
   },
   methods: {
     async goToFindTree() {
@@ -636,43 +637,99 @@ export default {
         self.toast("TreeId is empty!")
       }
     },
-    async currentBidPlace() {
-      this.loading = true;
-      let self = this;
-      let result = await this.$apollo.query({
-        query: treeAuction,
-        variables: {
-          tree: `0x${self.$route.params.id}`,
-          isActive: true
-        }
-      });
-      if (result.data) {
-        console.log(result, "result is here")
-        self.currentTreeBid = await result.data.auctions[0]
-        if (self.currentTreeBid) {
+    async getTreeAuction() {
+      this.loading = true
+      let self = this
+      await self.$axios.$post(process.env.graphqlUrl, {
+        query: `{
+            auctions(where:{tree:"0x${self.$route.params.id}", isActive:${true}}){
+                  id
+                  tree{
+                    id
+                  }
+                  initialPrice
+                  priceInterval
+                  startDate
+                  expireDate
+                  winner{
+                    id
+                  }
+                  highestBid
+                  isActive
+                  bids{
+                    id
+                    bid
+                    bidder{
+                      id
+                    }
+                  }
+                }
+                }
+              `,
+      }).then((res) => {
+        self.currentTreeBid = res.data.auctions[0]
+        if (self.currentTreeBid.expireDate) {
           self.expireDate = self.birthDate(self.currentTreeBid.expireDate)
-            console.log(self.highestBid, " self.highestBid is here", self.$web3)
-          console.log(self.expireDate, " self.expireDate is here")
-          console.log(self.currentTreeBid,"self.currentTreeBid.highestBid")
-          if (self.currentTreeBid.highestBid) {
-            self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
-          }
         }
-      }
+        if (self.currentTreeBid.highestBid) {
+          self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
+        }
+
+        console.log(self.highestBid, " self.highestBid is here")
+      })
     },
     async getTree() {
       this.loading = true;
       let self = this;
-      let result = await self.$apollo.query({
-        query: tree,
-        variables: {
-          id: self.$dec2hex(self.$route.params.id),
-        }
-      });
-      if (result.data) {
-        console.log(result.data.tree, "result is here")
-        self.genesisTree = result.data.tree
-      }
+      await self.$axios.$post(process.env.graphUrl,{
+        query:`
+            {
+              tree(id: "${self.$dec2hex(self.$route.params.id)}) {
+                id
+                planter{
+                  id
+                }
+                owner{
+                  id
+                }
+                treeType
+                mintStatus
+                countryCode
+                provideStatus
+                treeStatus
+                plantDate
+                birthDate
+                treeSpecsEntity{
+                  id
+                  name
+                  description
+                  externalUrl
+                  imageFs
+                  imageHash
+                  symbolFs
+                  symbolHash
+                  animationUrl
+                  diameter
+                  latitude
+                  longitude
+                  attributes
+                }
+              }
+             }`,
+      }).then((res)=>{
+        self.genesisTree = res.data.tree
+        console.log(res,self.genesisTree,"get tree is here ")
+      })
+      // if (result.data) {
+      //   console.log(result.data.tree, "result is here")
+      //   self.genesisTree = result.data.tree
+      //
+      //     let parse =JSON.parse(self.genesisTree.treeSpecsEntity.attributes)
+      //     console.log(parse,"|parse")
+      //
+      //
+      //
+      // }
       this.loading = false
     },
     add() {

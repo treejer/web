@@ -141,17 +141,41 @@ export const actions = {
   async getAuction({commit}, param) {
     await this.$axios.$post(process.env.graphqlUrl, {
       query: `{
-          auction(id:0x${param.id}){
-           id
-           initialPrice
-           priceInterval
-           startDate
-           expireDate
-           winner
-           highestBid
-           isActive
-        }
-      }`,
+         {
+  tree(id: $id) {
+    id
+    planter{
+      id
+    }
+    owner{
+      id
+    }
+    treeType
+    mintStatus
+    countryCode
+    provideStatus
+    treeStatus
+    plantDate
+    birthDate
+    treeSpecsEntity{
+      id
+      name
+      description
+      externalUrl
+      imageFs
+      imageHash
+      symbolFs
+      symbolHash
+      animationUrl
+      diameter
+      latitude
+      longitude
+      attributes
+    }
+  }
+ }
+
+`,
     }).then(res => {
       commit('SET_AUCTION', res)
       return res
