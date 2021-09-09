@@ -22,7 +22,7 @@
             @keyup.enter="goToFindTree()"
           />
         </div>
-        <div v-if="genesisTree" class="col-12 tree-profile-img justify-content-center">
+        <div v-if="genesisTree.treeSpecsEntity" class="col-12 tree-profile-img justify-content-center">
           <img v-if="genesisTree.treeSpecsEntity" :alt="genesisTree.treeSpecsEntity.name"
                :src="genesisTree.treeSpecsEntity.imageFs" alt="tree" class="img-fluid"
                height="200" width="200"/>
@@ -92,12 +92,8 @@
                 <p class="text-center tr-gray-one param-xl">Story</p>
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
-                <p class="text-center param tr-gray-two mb-0">
-                  The Tree of Life is the most unique tree planted via Treejer
-                  Protocol. It’s planted near the Gocta Waterfall in Peru by one
-                  of the founders of Treejer Protocol and maintained by local
-                  communities of the region. The tree is a SAMPLE species and
-                  has an amazing view of the Gocta Waterfall in the background.
+                <p v-if="genesisTree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
+                      {{genesisTree.treeSpecsEntity.description}}
                 </p>
               </div>
             </div>
@@ -231,74 +227,15 @@
             <div class="col-md-3 col-12">
               <div class="attributes">
                 <p class="text-center tr-gray-one param-xl">Attributes</p>
-                <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2"  v-for="(item,index) in attributes">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">NFT Number: </span
+                    <span class="key">{{ item.trait_type }} </span
                     ><span class="value font-weight-bolder tr-gray-one"
-                  >#{{ $route.params.id }}</span
+                  >{{ item.value }}</span
                   >
                   </p>
                 </div>
 
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Digital scarcity: </span
-                    ><span class="value font-weight-bolder tr-gray-one">{{
-                      "0.0001%"
-                    }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Collection: </span
-                    ><span class="value font-weight-bolder tr-gray-one text-capitalize">{{
-                      treeStatus
-                    }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Crown: </span
-                    ><span class="value font-weight-bolder tr-gray-one">{{
-                      "Yellow"
-                    }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Trunk: </span
-                    ><span class="value font-weight-bolder tr-gray-one">{{
-                      "Brown"
-                    }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Others: </span
-                    ><span class="value font-weight-bolder tr-gray-one">{{
-                      "Sun"
-                    }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key text-capitalize">mintStatus: </span
-                    ><span class="value text-capitalize text font-weight-bolder tr-gray-one">{{ mintStatus }}</span>
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key text-capitalize">treeStatus:</span>
-                    <span class="value text-capitalize text font-weight-bolder tr-gray-one">{{ treeStatus }}</span>
-
-                  </p>
-                </div>
-                <div class="genesis-box mt-3 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
-                    <span class="key text-capitalize">provideStatus:</span>
-                    <span class="value text-capitalize font-weight-bolder tr-gray-one">{{ provideStatus }}</span>
-                  </p>
-                </div>
 
               </div>
             </div>
@@ -317,7 +254,6 @@ import PeopleCard from "~/components/genesis/PeopleCard.vue";
 import AuctionProcess from "~/components/genesis/AuctionProcess.vue";
 import moment from "moment"
 import treesSearchById from "~/apollo/queries/treesSearchById";
-import tree from "~/apollo/queries/tree";
 import AvatarBidders from "~/components/genesis/AvatarBidders";
 
 
@@ -584,23 +520,24 @@ export default {
       expireDateText: null,
       currentTreeBid: null,
       genesisTree: null,
-      highestBid: null
+      highestBid: null,
+      attributes:null
     };
   },
   async created() {
-
-    await this.getTree()
+    this.loading =true
     this.treeID = parseInt(this.$route.params.id)
+    await this.getTree()
     console.log(this.loading, "this,.loading")
+    await this.getTreeAuction()
     if (this.genesisTree) {
       await this.checkProvideStatus(this.genesisTree.provideStatus)
       await this.checkMintStatus(this.genesisTree.mintStatus)
       await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
+    this.loading =false
   },
-  async mounted() {
-    await this.getTreeAuction()
-  },
+
   methods: {
     async goToFindTree() {
       this.loading = true;
@@ -666,6 +603,7 @@ export default {
                 }
                 }
               `,
+        prefetch:true
       }).then((res) => {
         self.currentTreeBid = res.data.auctions[0]
         if (self.currentTreeBid.expireDate) {
@@ -681,10 +619,8 @@ export default {
     async getTree() {
       this.loading = true;
       let self = this;
-      await self.$axios.$post(process.env.graphUrl,{
-        query:`
-            {
-              tree(id: "${self.$dec2hex(self.$route.params.id)}) {
+      await self.$axios.$post(process.env.graphqlUrl,{
+        query:`{tree(id:"0x${self.$route.params.id}") {
                 id
                 planter{
                   id
@@ -716,9 +652,17 @@ export default {
                 }
               }
              }`,
+        prefetch:true
+
       }).then((res)=>{
         self.genesisTree = res.data.tree
-        console.log(res,self.genesisTree,"get tree is here ")
+
+        if(self.genesisTree.treeSpecsEntity){
+          debugger
+          self.attributes=JSON.parse( self.genesisTree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
+        }
+
+
       })
       // if (result.data) {
       //   console.log(result.data.tree, "result is here")
