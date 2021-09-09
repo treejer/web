@@ -1,6 +1,6 @@
 <template>
-  <div class="row position-relative bidders">
-    <div v-for="(item,index) in dataRes.bids" :key="index" class="col-md-4  ">
+  <div class="row position-relative bidders" v-if="dataRes">
+    <div v-if="dataRes.bids" v-for="(item,index) in dataRes.bids" :key="index" class="col-md-4  ">
       <img
 
         :src="`${icon}${item.bidder.replace(/[^0-9\\.]+/g,'')}?d=robohash`" alt="avatar" class="pointer-event bidders pb-2 m-auto "
@@ -22,7 +22,7 @@ export default {
       type: String,
     },
     dataRes: {
-      type: null,
+      default: null,
     }
   },
   data() {

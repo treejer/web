@@ -2,9 +2,10 @@
   <section
     :class="$route.name"
     class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile"
+    style="min-height: 90vh"
   >
-    <span v-if="highestBid">{{ highestBid }}highestBid</span>
-    <div class="container-fluid">
+    <!--    <span v-if="highestBid">{{ highestBid }}highestBid</span>-->
+    <div v-if="genesisTree" class="container-fluid">
       <div class="row justify-content-center text-center">
         <div class="col-auto search-bar-tree-profile position-relative">
           <span
@@ -22,8 +23,8 @@
             @keyup.enter="goToFindTree()"
           />
         </div>
-        <div v-if="genesisTree.treeSpecsEntity" class="col-12 tree-profile-img justify-content-center">
-          <img v-if="genesisTree.treeSpecsEntity" :alt="genesisTree.treeSpecsEntity.name"
+        <div v-if="genesisTree" class="col-12 tree-profile-img justify-content-center">
+          <img :alt="genesisTree.treeSpecsEntity.name"
                :src="genesisTree.treeSpecsEntity.imageFs" alt="tree" class="img-fluid"
                height="200" width="200"/>
           <!--          <span v-if="genesisTree"-->
@@ -73,7 +74,7 @@
           <AuctionProcess
             v-if="genesisTree"
             :expireDateText="expireDateText"
-            :expireDates="expireDate"
+            :expireDates="expireDate ?expireDate :null"
             :highestBid="highestBid"
 
           />
@@ -93,7 +94,7 @@
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
                 <p v-if="genesisTree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
-                      {{genesisTree.treeSpecsEntity.description}}
+                  {{ genesisTree.treeSpecsEntity.description }}
                 </p>
               </div>
             </div>
@@ -194,7 +195,7 @@
                         lat: 36.8566787,
                         lng: 30.7924575
                       }"
-                      :cluster="{ options: { styles: clusterStyle } }"
+                      :cluster="{ options: { styles: mapStyle.clusterStyle } }"
                       :options="{
                         fullscreenControl: true,
                         streetViewControl: false,
@@ -227,7 +228,7 @@
             <div class="col-md-3 col-12">
               <div class="attributes">
                 <p class="text-center tr-gray-one param-xl">Attributes</p>
-                <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2"  v-for="(item,index) in attributes">
+                <div v-for="(item,index) in attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
                     <span class="key">{{ item.trait_type }} </span
                     ><span class="value font-weight-bolder tr-gray-one"
@@ -248,12 +249,12 @@
 </template>
 
 <script>
+import mapDetails from "~/components/gensisTreeMap"
 import SearchBar from "~/components/SearchBar";
 import HistoryCard from "~/components/genesis/HistoryCard.vue";
 import PeopleCard from "~/components/genesis/PeopleCard.vue";
 import AuctionProcess from "~/components/genesis/AuctionProcess.vue";
 import moment from "moment"
-import treesSearchById from "~/apollo/queries/treesSearchById";
 import AvatarBidders from "~/components/genesis/AvatarBidders";
 
 
@@ -262,7 +263,7 @@ export default {
   layout: "landing",
   middleware: 'auth',
 
-  components: {SearchBar, HistoryCard,  PeopleCard, AuctionProcess, AvatarBidders},
+  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders,mapDetails},
   head() {
     return {
       title: `Treejer`,
@@ -287,245 +288,19 @@ export default {
       newName: false,
       newNameTree: null,
       treeID: this.$route.params.id,
-      clusterStyle: [
-        {
-          url:
-            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
-          width: 56,
-          height: 20,
-          borderRadius: 1,
-          textColor: "#fff",
-        },
-      ],
-      mapStyle: [
-        {
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#ebe3cd",
-            },
-          ],
-        },
-        {
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#523735",
-            },
-          ],
-        },
-        {
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#f5f1e6",
-            },
-          ],
-        },
-        {
-          featureType: "administrative",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#c9b2a6",
-            },
-          ],
-        },
-        {
-          featureType: "administrative.land_parcel",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#dcd2be",
-            },
-          ],
-        },
-        {
-          featureType: "administrative.land_parcel",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#ae9e90",
-            },
-          ],
-        },
-        {
-          featureType: "landscape.natural",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#dfd2ae",
-            },
-          ],
-        },
-        {
-          featureType: "poi",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#dfd2ae",
-            },
-          ],
-        },
-        {
-          featureType: "poi",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#93817c",
-            },
-          ],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#a5b076",
-            },
-          ],
-        },
-        {
-          featureType: "poi.park",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#447530",
-            },
-          ],
-        },
-        {
-          featureType: "road",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#f5f1e6",
-            },
-          ],
-        },
-        {
-          featureType: "road.arterial",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#fdfcf8",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#f8c967",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#e9bc62",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway.controlled_access",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#e98d58",
-            },
-          ],
-        },
-        {
-          featureType: "road.highway.controlled_access",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#db8555",
-            },
-          ],
-        },
-        {
-          featureType: "road.local",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#806b63",
-            },
-          ],
-        },
-        {
-          featureType: "transit.line",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#dfd2ae",
-            },
-          ],
-        },
-        {
-          featureType: "transit.line",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#8f7d77",
-            },
-          ],
-        },
-        {
-          featureType: "transit.line",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#ebe3cd",
-            },
-          ],
-        },
-        {
-          featureType: "transit.station",
-          elementType: "geometry",
-          stylers: [
-            {
-              color: "#dfd2ae",
-            },
-          ],
-        },
-        {
-          featureType: "water",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#b9d3c2",
-            },
-          ],
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#92998d",
-            },
-          ],
-        },
-      ],
-      pins: {
-        selected: require("~/assets/images/map/tag.png"),
-        notSelected: require("~/assets/images/map/tag.png"),
-      },
+      clusterStyle: mapDetails.clusterStyle,
+      mapStyle:mapDetails.mapStyle,
+      pins: mapDetails.pins,
       expireDate: null,
       expireDateText: null,
       currentTreeBid: null,
       genesisTree: null,
       highestBid: null,
-      attributes:null
+      attributes: null
     };
   },
   async created() {
-    this.loading =true
+    this.loading = true
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
     console.log(this.loading, "this,.loading")
@@ -535,7 +310,7 @@ export default {
       await this.checkMintStatus(this.genesisTree.mintStatus)
       await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
-    this.loading =false
+    this.loading = false
   },
 
   methods: {
@@ -543,35 +318,11 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-        let result = await this.$apollo.query({
-          query: treesSearchById,
-          variables: {
-            id: self.$dec2hex(self.treeID),
-          },
-        });
-
-        if (result) {
-          console.log(result.data.tree.treeStatus, "result.data.tree.treeStatus")
-          if (result.data.tree.treeStatus) {
-            self.checkProvideStatus(result.data.tree.treeStatus)
-          }
-          if (result.data.trees.length > 0) {
-            self.$router.push(`/genesis/${self.treeID}`);
-          } else {
-            self.$bvToast.toast("Tree Not found!", {
-              toaster: "b-toaster-bottom-left",
-              solid: true,
-              headerClass: "hide",
-              variant: "danger",
-            });
-
-          }
-
-          this.loading = false;
-        }
+        self.loading = true
+        self.$router.push(`/genesis/${self.treeID}`);
       } else {
-        self.loading = false;
         self.toast("TreeId is empty!")
+        self.loading = false;
       }
     },
     async getTreeAuction() {
@@ -603,14 +354,21 @@ export default {
                 }
                 }
               `,
-        prefetch:true
+        prefetch: true
       }).then((res) => {
-        self.currentTreeBid = res.data.auctions[0]
-        if (self.currentTreeBid.expireDate) {
+        self.currentTreeBid = res.data.auctions ? res.data.auctions[0] : null
+
+        if (!self.currentTreeBid.expireDate) {
+          return self.expireDate = null
+        } else {
           self.expireDate = self.birthDate(self.currentTreeBid.expireDate)
+
         }
-        if (self.currentTreeBid.highestBid) {
+        if (!self.currentTreeBid.highestBid) {
+          return self.highestBid = null
+        } else {
           self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
+
         }
 
         console.log(self.highestBid, " self.highestBid is here")
@@ -619,8 +377,10 @@ export default {
     async getTree() {
       this.loading = true;
       let self = this;
-      await self.$axios.$post(process.env.graphqlUrl,{
-        query:`{tree(id:"0x${self.$route.params.id}") {
+      await self.$axios.$post(process.env.graphqlUrl, {
+        query: `
+            {
+              tree(id: "${self.$dec2hex(self.$route.params.id)}") {
                 id
                 planter{
                   id
@@ -652,14 +412,13 @@ export default {
                 }
               }
              }`,
-        prefetch:true
+        prefetch: true
 
-      }).then((res)=>{
+      }).then((res) => {
         self.genesisTree = res.data.tree
 
-        if(self.genesisTree.treeSpecsEntity){
-          debugger
-          self.attributes=JSON.parse( self.genesisTree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
+        if (self.genesisTree.treeSpecsEntity) {
+          self.attributes = JSON.parse(self.genesisTree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
         }
 
 
@@ -681,8 +440,6 @@ export default {
       this.$router.push(
         this.localePath({name: "genesis-id", params: {id: this.treeID}})
       );
-
-
     },
     toast(msg) {
       this.$bvToast.toast(msg, {

@@ -17,6 +17,7 @@ export const actions = {
     let self = this
     return erc20Contract.methods.balanceOf(account).call()
       .then((balanceInWei) => {
+        console.log(balanceInWei,"balanceInWei is here ")
         return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
       });
   },
@@ -59,7 +60,7 @@ export const actions = {
         })
       })
         .on('error', (error) => {
-          console.log(error, "errorr"); 
+          console.log(error, "errorr");
          const err = error
           const bootStrapToaster = new BToast();
           if (error.code === 32602) {

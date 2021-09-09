@@ -22,12 +22,12 @@
       </div>
       <div v-if="expireDates" class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p v-if="checkExpireDateText" id="timer" class="mb-0  param font-weight-bolder tr-gray-one mt-3">
+        <p v-if="checkExpireDateText"  class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
 
           This auction is over in <br>{{expireDates}}
 
         </p>
-         <p v-if="!checkExpireDateText" id="timer" class="mb-0 param-xl font-weight-bolder tr-gray-one mt-3">
+         <p v-if="!checkExpireDateText" class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
 
           <CountDown
           :date="expireDates"></CountDown>

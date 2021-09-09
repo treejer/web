@@ -75,8 +75,7 @@ export default {
   name: "ForestMap",
   props:{
     owner:{
-      default: {},
-      type:Object
+      default: null,
     },
   },
   computed:{
