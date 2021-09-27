@@ -23,7 +23,7 @@
             @keyup.enter="goToFindTree()"
           />
         </div>
-        <div v-if="genesisTree" class="col-12 tree-profile-img justify-content-center">
+        <div v-if="genesisTree && genesisTree.treeSpecsEntity" class="col-12 tree-profile-img justify-content-center">
           <img :alt="genesisTree.treeSpecsEntity.name"
                :src="genesisTree.treeSpecsEntity.imageFs" alt="tree" class="img-fluid"
                height="200" width="200"/>
@@ -70,13 +70,18 @@
               @keyup.enter="setNewName()"
             />
           </div>
+          <!--          "free"-->
+          <!--          "auction"-->
+          <!--          "incrementalSell"-->
+          <!--          "gift"-->
+          <!--          "regularSell"-->
+          <!--          "free"-->
 
           <AuctionProcess
-            v-if="genesisTree"
+            v-if="provideStatus === 'auction' && expireDate"
             :expireDateText="expireDateText"
-            :expireDates="expireDate ?expireDate :null"
+            :expireDates="expireDate"
             :highestBid="highestBid"
-
           />
         </div>
         <div class="col-3 arrow-right text-left pointer-event" @click="add">
@@ -93,7 +98,7 @@
                 <p class="text-center tr-gray-one param-xl">Story</p>
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
-                <p v-if="genesisTree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
+                <p v-if="genesisTree && genesisTree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
                   {{ genesisTree.treeSpecsEntity.description }}
                 </p>
               </div>
@@ -263,7 +268,7 @@ export default {
   layout: "landing",
   middleware: 'auth',
 
-  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders,mapDetails},
+  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders, mapDetails},
   head() {
     return {
       title: `Treejer`,
@@ -289,7 +294,7 @@ export default {
       newNameTree: null,
       treeID: this.$route.params.id,
       clusterStyle: mapDetails.clusterStyle,
-      mapStyle:mapDetails.mapStyle,
+      mapStyle: mapDetails.mapStyle,
       pins: mapDetails.pins,
       expireDate: null,
       expireDateText: null,
@@ -300,6 +305,9 @@ export default {
     };
   },
   async created() {
+    // if (await this.$route.params.id >= 100) {
+    // await  this.$router.push(`/increamentalSell/${this.$route.params.id}`)
+    // }
     this.loading = true
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
@@ -358,7 +366,7 @@ export default {
       }).then((res) => {
         self.currentTreeBid = res.data.auctions ? res.data.auctions[0] : null
 
-        if (!self.currentTreeBid.expireDate) {
+        if (self.currentTreeBid.expireDate === 'undefind' || self.currentTreeBid.expireDate === null) {
           return self.expireDate = null
         } else {
           self.expireDate = self.birthDate(self.currentTreeBid.expireDate)
@@ -549,12 +557,16 @@ export default {
 
     },
     birthDate(date) {
+
+
       let now = moment().format('X')
 
       let moments = moment.unix(date).utc()
+
       if (date < now) {
         this.expireDateText = "This auction is over."
       }
+      console.log()
       return moment(moments).format('YYYY-MM-DD h:mm:ss')
     }
   },

@@ -27,6 +27,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #67b68c;
 }
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,
@@ -36,6 +37,7 @@
     max-width: 1194px;
   }
 }
+
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
   src: url("../assets/fonts/MontserratAlternates-BlackItalic.otf");
@@ -221,6 +223,7 @@
   src: url("../assets/fonts/Montserrat-SemiBold.otf");
   font-weight: normal;
 }
+
 .tooltip {
   z-index: +999999999;
   color: white;
@@ -257,6 +260,7 @@
       }
     }
   }
+
   .close {
     position: absolute;
     font-weight: lighter;
@@ -275,6 +279,7 @@
     justify-content: center;
     opacity: 1;
   }
+
   .avatar-card {
     background-color: #eeeeee;
     padding: 5px 20px 5px 15px;
@@ -287,15 +292,19 @@
 .disabled {
   cursor: not-allowed;
 }
+
 .disabled:hover {
   cursor: not-allowed;
 }
+
 .tr-table.accounting-card {
 }
+
 .befor-res {
   position: absolute;
   top: 81px;
   z-index: +999999;
+
   button,
   .tooltip {
     z-index: +999999999;
@@ -657,9 +666,11 @@
 .Montserrat-SemiBold {
   font-family: Montserrat-SemiBold;
 }
+
 ul {
   padding-left: 0;
 }
+
 .Montserrat-SemiBoldItalic {
   font-family: Montserrat-SemiBoldItalic;
 }
@@ -689,9 +700,11 @@ h6,
 input {
   font-family: Montserrat-Regular;
 }
-.disabled:hover{
-  curser:unset!important;
+
+.disabled:hover {
+  curser: unset !important;
 }
+
 .list-style-none {
   list-style-type: none;
 }
@@ -709,6 +722,7 @@ html {
   background: #faf8f1 !important;
   font-family: Montserrat-Regular;
   min-height: 100vh;
+
   #__layout > div {
     background: #faf8f1;
     min-height: 100vh;
@@ -730,6 +744,14 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.filter-balckandwhite {
+  filter: grayscale(100%);
+}
+
+.filter-hue {
+  filter: hue-rotate(180deg);
 }
 
 .social {
@@ -759,22 +781,26 @@ html {
   letter-spacing: normal;
   color: #f5f5f5;
 }
+
 .GMap__Wrapper {
   width: 100%;
   height: 400px;
   border-radius: 16px !important;
 }
+
 .map-tree-profile .GMap__Wrapper {
   width: 100%;
   height: 400px;
   border-radius: 0 !important;
 }
+
 .pointer-event:hover,
 .pointer-event:focus,
 .pointer-event:active,
 .pointer-event {
   cursor: pointer;
 }
+
 #example-datepicker__value_ {
   font-size: 14px;
   color: #616161;
@@ -783,9 +809,14 @@ html {
 
   padding: 7.5px 0px;
 }
+
 .param {
   font-size: 14px;
   font-weight: 500;
+}
+
+.param-xs {
+  font-size: 10px;
 }
 
 .param-sm {
@@ -800,6 +831,7 @@ html {
 .font-weight-bolder {
   font-weight: 900;
 }
+
 .font-weight-bold {
   font-weight: 700;
 }
@@ -837,6 +869,7 @@ html {
 
   letter-spacing: normal;
 }
+
 .vue-typer {
   color: #67b68c !important;
   min-width: 184px !important;
@@ -847,6 +880,7 @@ html {
     color: #67b68c !important;
   }
 }
+
 .param-lg-bold {
   font-size: 20px;
   font-stretch: normal;
@@ -879,13 +913,16 @@ html {
   font-stretch: normal;
   font-style: normal;
 }
+
 .title-lg {
   font-style: normal;
   font-size: 42px;
 }
+
 .param-18 {
   font-size: 18px;
 }
+
 .title-sm {
   font-size: 28px;
   font-weight: bold;
@@ -895,16 +932,20 @@ html {
   letter-spacing: normal;
   color: #616161;
 }
+
 .vue-range-slider.slider-component .slider .slider-process {
   background-color: #67b68c !important;
 }
+
 .vue-range-slider.slider-component .slider-tooltip-wrap .slider-tooltip {
   border: none !important;
   background-color: #67b68c !important;
 }
+
 .vue-range-slider.slider-component .slider-tooltip-wrap.slider-tooltip-top {
   top: 50px !important;
 }
+
 body {
   overflow-x: hidden;
 }
@@ -1178,16 +1219,19 @@ option {
     font-size: 16px;
   }
 }
-@media (max-width: 320px){
-  .headers{
+
+@media (max-width: 320px) {
+  .headers {
     .navbar {
       justify-content: space-between;
     }
+
     .navbar-brand {
       margin-right: 0;
     }
   }
 }
+
 #hbspt-form-1593605473343-8634940488,
 .hub-spot {
   position: absolute !important;
@@ -1212,6 +1256,7 @@ option {
     padding: 0px 1rem;
     transition: all 0.15s ease 0s;
   }
+
   .toast-header {
     background-image: url("../assets/images/alert/pending.png");
     background-size: cover;
@@ -1220,11 +1265,13 @@ option {
     margin-left: 5px;
     width: 28px;
     height: 28px;
+
     strong {
       left: 43px !important;
       position: absolute;
       top: 5px;
     }
+
     button {
       color: #fafafa;
       position: absolute;
@@ -1233,29 +1280,32 @@ option {
     }
   }
 }
+
 .b-toaster,
 .toast,
 .b-toaster-slot,
 .vue-portal-target {
-  z-index: +999999!important;
+  z-index: +999999 !important;
   -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
   -webkit-transition: all 0.25s ease, max-height 0.25s ease, -webkit-transform 0.3s ease 0.1s,
-    -webkit-clip-path 0.5s ease 0.1s;
+  -webkit-clip-path 0.5s ease 0.1s;
   transition: all 0.25s ease, max-height 0.25s ease, -webkit-transform 0.3s ease 0.1s, -webkit-clip-path 0.5s ease 0.1s;
   transition: all 0.25s ease, transform 0.3s ease 0.1s, max-height 0.25s ease, clip-path 0.5s ease 0.1s;
   transition: all 0.25s ease, transform 0.3s ease 0.1s, max-height 0.25s ease, clip-path 0.5s ease 0.1s,
-    -webkit-transform 0.3s ease 0.1s, -webkit-clip-path 0.5s ease 0.1s;
+  -webkit-transform 0.3s ease 0.1s, -webkit-clip-path 0.5s ease 0.1s;
   font-size: 14px;
   font-family: Montserrat-Medium;
+
   .toast-body {
-    z-index: +999999!important;
+    z-index: +999999 !important;
 
     margin-top: 25px;
     font-size: 12px;
     line-height: 15px;
     color: #fafafa;
   }
+
   .toast-header {
     strong {
       left: 35px;
@@ -1265,6 +1315,7 @@ option {
     }
   }
 }
+
 .toast {
   z-index: +99999999999;
   border: 0;
@@ -1302,6 +1353,7 @@ option {
     top: 5px;
   }
 }
+
 .b-toast-success {
   .toast-header {
     height: 100%;
@@ -1311,6 +1363,7 @@ option {
     color: #fafafa !important;
     justify-content: center;
     border: 0 !important;
+
     button {
       color: #fafafa;
       position: absolute;
@@ -1345,6 +1398,7 @@ option {
     border: 0;
   }
 }
+
 .search-bar input {
   background: #e5e7db;
   border: 0;
@@ -1384,6 +1438,7 @@ li.square::before {
 
   li {
     margin: 5px 15px 5px 0;
+
     a {
       border: solid 1px #757575;
       border-radius: 50px;
@@ -1391,19 +1446,23 @@ li.square::before {
       padding: 6px 10px;
       transition: all ease 0.2s;
     }
+
     a:hover {
       border: solid 1px #67b68c;
     }
   }
 }
+
 .tr-frame {
   border: 0;
   width: 100%;
   padding: 0;
 }
+
 .close {
   content: "" !important;
 }
+
 #questions-widget,
 #questions-widget-iframe {
   min-height: 100vh !important;
@@ -1419,23 +1478,27 @@ li.square::before {
       color: #424242;
       border: 1px solid #bdbdbd;
     }
+
     .page-item.pagination-prev-nav .page-link,
     .page-item.pagination-next-nav .page-link {
       background: transparent !important;
       color: #424242;
       border: 1px solid #bdbdbd;
     }
+
     .page-item.pagination-page-nav.active {
       background-color: whitesmoke;
       color: white !important;
     }
   }
 }
+
 .search-bar-tree-profile {
   span.icon {
     left: 35px;
     top: 7px;
   }
+
   .formulate-input input {
     background: #e5e7db;
     width: 176px;

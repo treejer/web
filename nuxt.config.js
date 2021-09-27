@@ -68,7 +68,8 @@ export default {
   loading: {
     color: 'rgba(103,182,140,0.62)',
     failedColor: 'rgba(238,45,14,0.69)',
-    height: '8px'
+    height: '8px',
+    boxShadow:'rgba(0, 0, 0, 0.1) 0px 8px 16px'
   },
 
   /*

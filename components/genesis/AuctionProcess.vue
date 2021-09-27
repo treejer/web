@@ -275,10 +275,7 @@ export default {
       });
       console.log(transaction, "transaction is here");
       if (transaction.code === 4001) {
-
           self.loading = false;
-
-
       }
       else if (transaction) {
         this.setIsAllowance();

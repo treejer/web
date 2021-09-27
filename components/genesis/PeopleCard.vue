@@ -1,9 +1,19 @@
 <template>
-  <div class="col-md-4 peoples">
-    <div class="border-0" v-if="planter">
-      <img v-if="icon" :src="icon" :alt="planter.id" />
-      <p class="param tr-gray-two mt-2">{{planter.__typename}}</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{planter.id}}</p>
+  <div class="row  peoples justify-content-around mt-md-4">
+    <div v-if="planter" class="border-0">
+      <img v-if="icon" alt="planter" :src="icon"/>
+      <p class="param tr-gray-two mt-2">{{ planter.__typename ? planter.__typename : 'planter' }}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ planter.id }}</p>
+    </div>
+    <div v-if="Funder" class="border-0">
+      <img v-if="icon" alt="Funder" :src="icon"/>
+      <p class="param tr-gray-two mt-2">{{ planter.__typename ? planter.__typename : 'Funder'  }}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ planter.id }}</p>
+    </div>
+    <div v-if="Owner" class="border-0">
+      <img v-if="icon" :alt="planter.id" :src="icon"/>
+      <p class="param tr-gray-two mt-2">{{ planter.__typename  ? planter.__typename : 'Owner'}}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ planter.id }}</p>
     </div>
   </div>
 </template>
@@ -14,8 +24,17 @@ export default {
   props: {
     planter: {
       default: {},
-      type:Object
-    }
+      type: Object
+    },
+    Funder: {
+      default: {},
+      type: Object
+    },
+    Owner: {
+      default: {},
+      type: Object
+    },
+
   },
 
   data() {
@@ -28,7 +47,7 @@ export default {
           adressWallet: "0x545...d4m7",
         },
       ],
-      icon:`${process.env.gravatar}${this.planter.id.replace(/[^0-9\\.]+/g,'')}?d=robohash`,
+      icon:require("~/assets/images/myforest/avatar.png"),
     };
   },
 

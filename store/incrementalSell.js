@@ -4,20 +4,18 @@ export const state = () => ({})
 
 
 export const actions = {
-  async buyTree() {
+  async buyTree(params = 0) {
     let self = this;
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = this.$IncrementalSell.methods.buyTree(10);
+    const tx = this.$IncrementalSell.methods.buyTree(params.value);
     const data = tx.encodeABI();
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: process.env.incrementalSellAddress,
-/*
-        value: self.$web3.utils.toWei(10),
-*/
+        value: params.value,
         data: data
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
