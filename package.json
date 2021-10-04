@@ -73,7 +73,9 @@
   "devDependencies": {
     "@nuxt/types": "~2.15.0",
     "@nuxtjs/eslint-config": "^1.0.1",
+    "@wordpress/browserslist-config": "^4.1.0",
     "babel-eslint": "^10.1.0",
+    "browserslist": "^4.17.2",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "node-sass": "^4.14.1",

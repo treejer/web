@@ -1,15 +1,15 @@
 <template>
   <div class="inc-collect collect row justify-content-center">
-    <div class="col-md-2 text-left">
+    <div class="col-md-2 col-4 text-left">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #101</p>
       <p class="tr-gray-four param mb-0">Start Price</p>
       <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.033</p>
 
     </div>
-    <div class="col-md-8 banner-inc p-md-0 text-center">
+    <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
       <img alt="banner" class="m-auto" src="../../assets/images/increamentalSell/banner.svg">
     </div>
-    <div class="col-md-2 text-right">
+    <div class="col-md-2 col-4 text-right">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>
       <p class="tr-gray-four param mb-0">End Price</p>
       <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.33</p>
@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-8 col-12 getting-started-inc">
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <p class="param-18 tr-gray-two font-weight-bolder">Getting Started with Genesis Trees</p>
           <p class="mb-1"><span
             class="btn-green text-white param-xs pointer-event text-capitalize">step 1</span><span
@@ -53,22 +53,22 @@
             class="tr-gray-three param font-weight-bold">Tree #101-10k claimable for collectors</span>
           </p>
         </div>
-        <div class="col-6 tree-status-inc">
+        <div class="col-md-6 tree-status-inc">
           <div class="row justify-content-between">
-            <div class="col">
+            <div class="col-4">
               <img alt="trees-state" class="" src="../../assets/images/increamentalSell/trees-state.svg">
               <p class="param-xs tr-gray-two">Claimable</p>
 
             </div>
-            <div class="col"><img alt="trees-state" class=""
-                                  src="../../assets/images/increamentalSell/trees-state.svg"
-                                  style="filter: hue-rotate(180deg)">
+            <div class="col-4"><img alt="trees-state" class=""
+                                    src="../../assets/images/increamentalSell/trees-state.svg"
+                                    style="filter: hue-rotate(180deg)">
               <p class="param-xs tr-gray-two">On Auction</p>
 
             </div>
-            <div class="col"><img alt="trees-state" class=""
-                                  src="../../assets/images/increamentalSell/trees-state.svg"
-                                  style="filter: grayscale(100%)">
+            <div class="col-4"><img alt="trees-state" class=""
+                                    src="../../assets/images/increamentalSell/trees-state.svg"
+                                    style="filter: grayscale(100%)">
               <p class="param-xs tr-gray-two">Claimed</p>
             </div>
           </div>
@@ -84,7 +84,7 @@
       <p class=" param-xs tr-gray-tree">Tree #0</p>
     </div>
     <OtherTreeInc :text="'#1-10'"/>
-    <div class="col-md-12 current-price-inc text-center justify-content-center  text-center mt-3"><p
+    <div class="col-md-12 current-price-inc text-center justify-content-center  mt-3"><p
       class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
     <div class="col-md-9 col-12 justify-content-center text-center">
       <div v-for="(item,index) in incTrees" class="box-inc-trees d-inline-block">
@@ -271,5 +271,30 @@ export default {
       margin-top: 24px;
     }
   }
+}
+
+@media (max-width: 768px) {
+  .inc-collect {
+    margin-top: 50px;
+
+    .banner-inc {
+      margin-top: 35px;
+      padding: 0;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    .current-price-inc p.text-capitalize {
+      margin: auto;
+    }
+
+    .getting-started-inc[data-v-f4f8c9fe] {
+      margin-top: 15px;
+      padding: 15px;
+    }
+  }
+
 }
 </style>
