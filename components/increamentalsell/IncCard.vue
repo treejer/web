@@ -3,11 +3,12 @@
     <div class="card-inc mr-md-3 mr-0">
       <div class="card-header bg-transparent border-0">
         <div class="d-flex justify-content-start">
-          <img :alt="owned" :src="`${icon}${owned.replace(/[^0-9\\.]+/g,'')}?d=robohash`" height="36" width="36">
+          <img
+            :alt="owned"
+            :src="`${icon}${owned.replace(/[^0-9\\.]+/g,'')}?d=robohash`"
+            height="36" width="36">
           <p class="tr-gray-three param">Owned by <br> <span v-coin class="tr-gray-two param">{{ owned }}</span></p>
         </div>
-
-
       </div>
       <div class="card-img">
         <img :src="img" alt="tree" class="inc-tree-img img-fluid">
@@ -74,3 +75,4 @@ export default {
   }
 }
 </style>
+
