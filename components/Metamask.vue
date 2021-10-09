@@ -151,7 +151,7 @@ export default {
       let self = this;
       self.icon = `${process.env.gravatar}${this.$cookies
         .get("account")
-        .replace(/[^0-9\\.]+/g, "")}?d=robohash`;
+       }`;
       // await ethereum.on("chainChanged", () => {
       //   document.location.reload();
       // });

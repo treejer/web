@@ -380,8 +380,7 @@ export default {
   data() {
     return {
       title: this.$route.name,
-      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0')
-        .replace(/[^0-9\\.]+/g, "")}?d=robohash`,
+      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0')}`,
       showMoreTreeData: false,
       test: [{}],
       avatar: require("~/assets/images/myforest/avatar.png"),

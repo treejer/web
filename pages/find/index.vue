@@ -77,10 +77,7 @@
                         class="bg-white"
                         width="64"
                         height="64"
-                        :src="`${icon}${item.id.replace(
-                          /[^0-9\\.]+/g,
-                          ''
-                        )}?d=robohash`"
+                        :src="`${icon}${item.id}`"
                         :alt="item.id"
                       />
                     </div>

@@ -60,10 +60,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="`${icon}${item.id}`"
                           :alt="item.id"
                       /></span>
                     </td>

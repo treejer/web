@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-start">
           <img
             :alt="owned"
-            :src="`${icon}${owned.replace(/[^0-9\\.]+/g,'')}?d=robohash`"
+            :src="`${icon}${owned}`"
             height="36" width="36">
           <p class="tr-gray-three param">Owned by <br> <span v-coin class="tr-gray-two param">{{ owned }}</span></p>
         </div>

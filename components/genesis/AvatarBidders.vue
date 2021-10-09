@@ -3,7 +3,7 @@
     <div v-if="dataRes.bids" v-for="(item,index) in dataRes.bids" :key="index" class="col-md-4  ">
       <img
 
-        :src="`${icon}${item.bidder.replace(/[^0-9\\.]+/g,'')}?d=robohash`" alt="avatar" class="pointer-event bidders pb-2 m-auto "
+        :src="`${icon}${item.bidder}`" alt="avatar" class="pointer-event bidders pb-2 m-auto "
         height="48" width="48"/>
       <p v-coin class="address-wallet  tr-gray-three adrees-wallet param">{{ item.bidder }}</p>
 
