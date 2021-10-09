@@ -2,15 +2,16 @@
   <div class="w-100">
     <div class="card-inc mr-md-3 mr-0">
       <div class="card-header bg-transparent border-0">
-        <div class="d-flex justify-content-start">
+        <div class="d-flex justify-content-between">
           <img
+              class="rounded-circle text-left"
             :alt="owned"
             :src="`${icon}${owned}`"
             height="36" width="36">
-          <p class="tr-gray-three param">Owned by <br> <span v-coin class="tr-gray-two param">{{ owned }}</span></p>
+          <p class="tr-gray-four  param-sm">Owned by <br> <span v-coin class="tr-gray-one param font-weight-bolder">{{ owned }}</span></p>
         </div>
       </div>
-      <div class="card-img">
+      <div class="card-img" :style="`background: rgba(${Math.floor(Math.random() * 189) }, ${Math.floor(Math.random() * 70) }, ${Math.floor(Math.random() * 42) }, 0.1);`">
         <img :src="img" alt="tree" class="inc-tree-img img-fluid">
       </div>
     </div>
@@ -51,14 +52,13 @@ export default {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   margin-top: 36px;
-  padding: 15px;
+  padding: 19px 16px;
 
   .card-header {
     padding: 0;
   }
 
-  .inc-tree-img {
-    background: rgba(189, 74, 120, 0.1);
+  .card-img {
     border-radius: 18px;
   }
 }

@@ -7,7 +7,7 @@
 
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
-      <img alt="banner" class="m-auto" src="../../assets/images/increamentalSell/banner.svg">
+      <img @click="$route.push('/increamentalSell/')" alt="banner" class="m-auto" src="../../assets/images/increamentalSell/banner.svg">
     </div>
     <div class="col-md-2 col-4 text-right">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>

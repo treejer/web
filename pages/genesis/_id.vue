@@ -266,8 +266,6 @@ import AvatarBidders from "~/components/genesis/AvatarBidders";
 export default {
   name: "tree-profile",
   layout: "landing",
-  middleware: 'auth',
-
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders, mapDetails},
   head() {
     return {
