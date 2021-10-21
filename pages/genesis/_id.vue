@@ -234,7 +234,14 @@
               <div class="attributes">
                 <p class="text-center tr-gray-one param-xl">Attributes</p>
                 <div v-for="(item,index) in attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
-                  <p class="text-center param tr-gray-two mb-0">
+                  <p v-if="item.trait_type === 'birthday'" class="text-center param tr-gray-two mb-0">
+                    <span class="key">{{ item.trait_type }} </span
+                    ><span class="value font-weight-bolder tr-gray-one"
+                  >{{ new Date(parseInt(item.value) ) }}</span
+                  >
+                  </p>
+
+                  <p v-else class="text-center param tr-gray-two mb-0">
                     <span class="key">{{ item.trait_type }} </span
                     ><span class="value font-weight-bolder tr-gray-one"
                   >{{ item.value }}</span

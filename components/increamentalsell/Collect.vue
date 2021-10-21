@@ -19,7 +19,7 @@
     <div class="col-md-12 d-md-flex  current-price-inc text-center justify-content-center  mt-3"><p
       class="param tr-gray-four text-capitalize  ">Current Price: {{ ' Ξ0.036' }}</p></div>
     <div class="col-md-12 d-md-flex  claim-me-inc text-center justify-content-center  mt-3">
-      <button class="btn-green  param-18">Claim Me</button>
+      <button class="btn-green  param-18" @click.prevent="$router.push('/increamentalSell/checkout')">Claim Me</button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
       <h1 class="title-lg tr-gray-two font-weight-bolder text-center"> Genesis Collection</h1>
@@ -141,7 +141,7 @@
 import OtherTreeInc from "../../components/OtherTreeInc";
 
 export default {
-  name: "Collect",
+   name: "Collect",
   components: {OtherTreeInc},
   data() {
     return {

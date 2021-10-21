@@ -1,6 +1,7 @@
 <template>
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
     <button
+
       v-show="placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('one')"
@@ -11,7 +12,7 @@
 
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
-        <p class="mb-0 param tr-gray-two" v-if="highestBid">Current bid {{highestBid }} ETH</p>
+        <p v-if="highestBid" class="mb-0 param tr-gray-two">Current bid {{ highestBid }} ETH</p>
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
@@ -22,15 +23,15 @@
       </div>
       <div v-if="expireDates" class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p v-if="checkExpireDateText"  class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
+        <p v-if="checkExpireDateText" class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
 
-          This auction is over in <br>{{expireDates}}
+          This auction is over in <br>{{ expireDates }}
 
         </p>
-         <p v-if="!checkExpireDateText" class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
+        <p v-if="!checkExpireDateText" class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
 
           <CountDown
-          :date="expireDates"></CountDown>
+            :date="expireDates"></CountDown>
 
         </p>
       </div>
@@ -43,7 +44,7 @@
           @click.prevent="buyERC20"
         >
           <BSpinner v-if="loading" class="mr-2" small type="grow"
-            >loading
+          >loading
           </BSpinner>
           {{ loading ? "Loading" : `Buy WETH` }}
         </button>
@@ -51,13 +52,15 @@
           v-if="erc20Balance"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
-          @click.prevent="placeBid('two')"
+          @click.prevent="!checkExpireDateText ? placeBid('two') : toast('Auction is over')"
         >
           <BSpinner v-if="loading" class="mr-2" small type="grow"
-            >loading
+          >loading
           </BSpinner>
-          <span v-if="!checkExpireDateText">     {{ loading && checkExpireDateText ? "Loading" : `PlaceBid` }}</span>
-          <span v-if="checkExpireDateText">     {{loading && !checkExpireDateText ? "Loading"  : "Auction is over." }}</span>
+          <span v-if="!checkExpireDateText">     {{ loading && checkExpireDateText ? "Loading" : "PlaceBid" }}</span>
+          <span v-if="checkExpireDateText">     {{
+              loading && !checkExpireDateText ? "Loading" : "Auction is over"
+            }}</span>
 
 
         </button>
@@ -84,7 +87,7 @@
             @click="allowSpendERC20()"
           >
             <BSpinner v-if="loading" class="mr-2" small type="grow"
-              >loading
+            >loading
             </BSpinner>
             {{ loading ? "Loading" : " Approve" }}
           </button>
@@ -112,7 +115,7 @@
             @click="bidAction()"
           >
             <BSpinner v-if="loading" class="mr-2" small type="grow"
-              >loading
+            >loading
             </BSpinner>
             {{ loading ? "Loading" : " Confirm" }}
           </button>
@@ -140,7 +143,7 @@
         <div class="col-md-6 pl-md-0">
           <span id="social" class="btn-green" @click="shareModal()">Share</span>
           <b-modal id="social-target" centered hide-footer size="md">
-            <Socials />
+            <Socials/>
           </b-modal>
         </div>
       </div>
@@ -154,33 +157,31 @@ import CountDown from "~/components/CountDown.vue";
 import transakSDK from "@transak/transak-sdk";
 
 
-
-
 export default {
   components: {
     CountDown,
     Socials
   },
-  props:{
-    expireDates:{
-      type:String,
-      default:"2022-07-06 08:15:00"
+  props: {
+    expireDates: {
+      type: String,
+      default: "2022-07-06 08:15:00"
     },
-    expireDateText:{
-      type:String,
-      default:""
+    expireDateText: {
+      type: String,
+      default: ""
     },
-    highestBid:{
-      type:String,
-      default:"0.05"
+    highestBid: {
+      type: String,
+      default: "0.05"
     }
   },
-  computed:{
-    checkExpireDateText(){
-      if(this.expireDateText === 'This auction is over.'){
+  computed: {
+    checkExpireDateText() {
+      if (this.expireDateText === 'This auction is over.') {
         return true
       }
-      if (this.expireDateText !== 'This auction is over.'){
+      if (this.expireDateText !== 'This auction is over.') {
         return false
       }
     }
@@ -198,7 +199,7 @@ export default {
       placeBidStepSeven: false,
       timer: 20,
       loading: false,
-      endingTimeBid:this.expireDate,
+      endingTimeBid: this.expireDate,
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
@@ -275,9 +276,8 @@ export default {
       });
       console.log(transaction, "transaction is here");
       if (transaction.code === 4001) {
-          self.loading = false;
-      }
-      else if (transaction) {
+        self.loading = false;
+      } else if (transaction) {
         this.setIsAllowance();
         this.$bvToast.toast(["Transaction successfull"], {
           toaster: "b-toaster-bottom-left",
@@ -345,11 +345,11 @@ export default {
       }
       this.loading = false;
     },
-    toast() {
-      this.$bvToast.toast(["Please fill the input"], {
+    toast(msg = "Please fill the input", title = "Transaction failed", variant = "danger") {
+      this.$bvToast.toast([msg], {
         toaster: "b-toaster-bottom-left",
-        title: "Transaction failed",
-        variant: "danger",
+        title: title,
+        variant: variant,
         noAutoHide: true,
         bodyClass: "fund-error"
       });
@@ -363,7 +363,12 @@ export default {
         if (this.bidValue) {
           this.placeBidStepTwo = false;
           this.placeBidStepThree = true;
-        } else {
+        }
+        else if (this.bidValue <= this.highestBid){
+          this.toast('You have to pay more than the highest bid,');
+        }
+
+        else {
           this.toast();
         }
       }
@@ -409,6 +414,7 @@ export default {
   .disable:hover {
     pointer-events: unset;
   }
+
   .step-seven {
     display: flex;
     line-height: 110px;

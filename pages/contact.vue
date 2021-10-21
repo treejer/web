@@ -54,7 +54,7 @@
             </FormulateForm>
         </div>
         <div class=" col-12 d-none d-md-block col-md-6">
-          <img src="../assets/images/contact/contact.png" alt="conatct" class="img-fluid" height="415">
+          <img src="../assets/images/contact/contact.png" alt="contact" class="img-fluid" height="415">
         </div>
 
       </div>

@@ -278,7 +278,6 @@ import Fab from "@/components/font-awsome/Fab";
 import ownersSorted from "~/apollo/queries/ownersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import treesPagination from "~/apollo/queries/treesPagination";
-
 export default {
   name: "findMyTree",
   // layout:"checkout",
