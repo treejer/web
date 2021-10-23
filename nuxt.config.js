@@ -69,7 +69,7 @@ export default {
     color: 'rgba(103,182,140,0.62)',
     failedColor: 'rgba(238,45,14,0.69)',
     height: 4,
-    boxShadow:'rgba(0, 0, 0, 0.1) 0px 8px 16px'
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 8px 16px'
   },
 
   /*
@@ -94,7 +94,8 @@ export default {
     {src: '~plugins/axios.js'},
   ],
   buildModules: [
-    ['@nuxtjs/dotenv', {filename: '.env'}]
+    ['@nuxtjs/dotenv', {filename: '.env'}],
+    ['@nuxtjs/pwa',]
   ],
   module: {
     rules: [{
@@ -155,7 +156,7 @@ export default {
     ],
     // 'vue-ethereum/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
     'nuxt-i18n', ['@nuxtjs/google-gtag'],
     ['@nuxtjs/sitemap', {}],
@@ -177,9 +178,12 @@ export default {
     }
   },
   pwa: {
-    icon:[{
-      src:'/logo/treejer.png'
-    }]
+    icon: [{
+      src: '/logo/treejer.png'
+    }],
+    workbox: {
+      /* workbox options */
+    }
   },
   i18n: {
     locales: [{
@@ -240,7 +244,7 @@ export default {
   axios: {
     common: {
       'Accept': 'application/json, text/plain, */*',
-      'Access-Control-Allow-Origin':'*/*',
+      'Access-Control-Allow-Origin': '*/*',
 
     },
   },

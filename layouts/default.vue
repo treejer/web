@@ -32,6 +32,23 @@ export default {
     }
 
   },
+  async created() {
+    if(process.client){
+      const workbox = await window.$workbox;
+      console.log(workbox,'workbox is here')
+      if (workbox) {
+        workbox.addEventListener('installed', (event) => {
+          // If we don't do this we'll be displaying the notification after the initial installation, which isn't perferred.
+          if (event.isUpdate) {
+            // whatever logic you want to use to notify the user that they need to refresh the page.
+          }
+        });
+      }
+
+    }
+    // Initialize deferredPrompt for use later to show browser install prompt.
+
+  },
 
   methods: {
     makeToast(variant, msg, title) {

@@ -112,7 +112,8 @@
 
                       </div>
                       <div class="col-md-6 mb-direction">
-                        <p class="param-xl text-center tr-gray-two font-weight-bolder">{{ Number( 0.033 * parseInt(count)).toFixed(4) }}</p>
+                        <p class="param-xl text-center tr-gray-two font-weight-bolder">
+                          {{ Number(0.033 * parseInt(count)).toFixed(4) }}</p>
                         <p class="param text-center tr-gray-four font-weight-bolder mb-0">Total ETH</p>
                       </div>
                     </div>
@@ -128,7 +129,8 @@
                 <div class="col-12 col-md-8 offset-md-2  mt-3">
                   <div class="row">
                     <div v-for="(item,index) in pays" class="get-help-pays col-md-6 mb-3">
-                      <div class="btn-purple pointer-event  " @click.prevent="setPaymentMethod(item.name)">{{
+                      <div :id="item.name" class="btn-purple pointer-event"
+                           @click.prevent="setPaymentMethod(item.name , item.href)">{{
                           item.name
                         }}
                       </div>
@@ -168,6 +170,8 @@
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
 import transakSDK from "@transak/transak-sdk";
+import {Widget} from '@maticnetwork/wallet-widget'
+
 
 export default {
   name: "giftTree",
@@ -214,6 +218,7 @@ export default {
     }, 3000);
   },
   async created() {
+
     // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
     // this.daiUSDPrice = res.data.result.ethusd
 
@@ -222,10 +227,10 @@ export default {
   data() {
     return {
       pays: [
-        {name: 'Bridge'},
-        {name: 'Visa/Master'},
-        {name: 'Learn more'},
-        {name: 'Questions'},
+        {href: '', name: 'Bridge'},
+        {href: 'https://global.transak.com/', name: 'Visa/Master'},
+        {href: 'https://docs.treejer.com/', name: 'Learn more'},
+        {href: 'https://discuss.treejer.com/', name: 'Questions'},
       ],
       giftCodeNumber: null,
       giftCodeFormChecked: true,
@@ -417,15 +422,38 @@ export default {
       })
 
     },
-    setPaymentMethod(item) {
-      this.$bvToast.toast('lorem', {
-        toaster: "b-toaster-bottom-left",
-        title: item,
-        variant: "success",
-      })
+   async setPaymentMethod(item, href) {
+
+      if (item === 'Bridge') {
+        if (process.client) {
+          this.$nuxt.$loading.start()
+
+          const widget =await new Widget({
+            target: '#Bridge',
+            appName: 'Polygon_Bridge_Treejer',
+            autoShowTime: 0,
+            position: 'center',
+            height: 630,
+            width: 540,
+            overlay: false,
+            network: 'Rinkeby',
+            closable: true,
+          });
+
+
+         await widget.create()
+           await widget.show()
+          // debugger
+          // widget.show()
+        }
+
+
+      } else {
+        window.open(href, '_blank')
+      }
     },
-    goToTerm(item,target){
-      window.open(item,target)
+    goToTerm(item, target) {
+      window.open(item, target)
     }
   },
   watch: {
