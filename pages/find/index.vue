@@ -67,7 +67,7 @@
             <div class="row">
               <div
                 class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
-                v-for="(item, index) in owners"
+                v-for="(item, index) in funders"
                 :key="index"
               >
                 <div class="card-box" @click="goToDashboard(item)">
@@ -201,7 +201,7 @@
                 <tr v-for="tree in trees" :key="tree.id">
                   <th scope="row">{{ $hex2Dec(tree.id)  }}</th>
                   <td v-coin>
-                    {{ tree.owner !== null ? tree.owner.id : "-" }}
+                    {{ tree.funder !== null ? tree.funder.id : "-" }}
                   </td>
                   <td>
                     {{ tree.treeStatus }}
@@ -275,7 +275,7 @@
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
-import ownersSorted from "~/apollo/queries/ownersSorted";
+import fundersSorted from "~/apollo/queries/fundersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import treesPagination from "~/apollo/queries/treesPagination";
 export default {
@@ -307,7 +307,6 @@ export default {
       title: this.$route.name,
       icon: process.env.gravatar,
       trees: [],
-      leaderBoards: null,
       treeID: null,
       loading: false,
       perPage: 10,
@@ -318,9 +317,9 @@ export default {
     };
   },
   apollo: {
-    owners: {
+    funders: {
       prefetch: true,
-      query: ownersSorted,
+      query: fundersSorted,
       variables () {
         return { limit: 12, orderBy: 'treeCount', orderDirection: 'desc' }
       }
@@ -328,10 +327,6 @@ export default {
   },
   async mounted() {
     await this.listTrees();
-    const leaderBoards = await this.$axios.$get(
-      `${process.env.apiUrl}/trees/leaderboard?perPage=${this.perPage}`
-    );
-    this.leaderBoards = leaderBoards.leaderboard.data;
   },
   methods: {
     goToLeaderBoard() {

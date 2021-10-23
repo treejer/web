@@ -173,7 +173,7 @@
                     v-if="daiBalance > 0 && isAllowedSpendDai"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
-                    @click="requestTrees()"
+                    @click="fundTree()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
@@ -658,7 +658,7 @@ export default {
           this.loading = false;
         }
 
-        await this.requestTrees();
+        await this.fundTree();
       }
     },
     showWalletError() {
@@ -732,11 +732,11 @@ export default {
       });
     },
 
-    async requestTrees() {
+    async fundTree() {
       this.loading = true;
       let self = this;
 
-      this.transferReceipt = await this.$store.dispatch("regularSell/requestTrees", {
+      this.transferReceipt = await this.$store.dispatch("regularSale/fundTree", {
         count: this.count,
         context: self,
       });
@@ -763,7 +763,7 @@ export default {
       this.loading = false;
     },
     async getPrice() {
-      this.treePrice = await this.$store.dispatch('regularSell/getPrice')
+      this.treePrice = await this.$store.dispatch('regularSale/getPrice')
     },
     async setIsAllowance(count, silent = false) {
       if (silent === false) {

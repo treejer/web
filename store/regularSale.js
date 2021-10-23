@@ -1,33 +1,37 @@
-import {
-  BToast
-} from 'bootstrap-vue'
+import {BToast} from 'bootstrap-vue'
 
-export const state = () => ({})
+export const state = () => ({
+  price: null
+})
 
-export const mutations = {}
 
 export const actions = {
-
-  async getPrice() {
+  async getPrice({commit}) {
     let self = this
-    return this.$treeFactory.methods.price().call()
-      .then((treeWeiPrice) => self.$web3.utils.fromWei(treeWeiPrice));
+    return self.$RegularSale.methods.price().call()
+      .then((treeWeiPrice) => {
+        let price = self.$web3.utils.fromWei(treeWeiPrice);
+        commit('SET_PRICE', price)
+        return price;
+      });
   },
-  async fund(context, params) {
+  async fundTree(context, params) {
     let self = this;
 
     let account = this.$cookies.get('account');
 
     this.$web3.currentProvider.enable();
 
-    const tx = this.$treeFactory.methods.fund(params.count);
+    //ToDo: add recipeint and referrer
+    const tx = this.$RegularSale.methods.fundTree(params.count, process.env.zeroAddress, process.env.zeroAddress);
     const data = tx.encodeABI();
-    // const price = await this.$treeFactory.methods.price().call();
+    // const price = await this.$RegularSale.methods.price().call();
+
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
           from: account,
-          to: this.$treeFactory._address,
+          to: this.$RegularSale._address,
           value: 0,
           data: data
         }).on('transactionHash', (transactionHash) => {
@@ -79,6 +83,11 @@ export const actions = {
     }
 
   }
+
 }
 
-export const getters = {}
+export const mutations = {
+  SET_PRICE(state, price) {
+    state.price = price
+  }
+}

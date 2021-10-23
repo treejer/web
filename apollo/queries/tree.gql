@@ -4,13 +4,12 @@
     planter{
       id
     }
-    owner{
+    funder{
       id
     }
     treeType
-    mintStatus
     countryCode
-    provideStatus
+    saleType
     treeStatus
     plantDate
     birthDate

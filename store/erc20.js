@@ -22,6 +22,8 @@ export const actions = {
       });
   },
   async allowance(context, params) {
+
+    console.log(params, "params erc20")
     const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
     let account = this.$cookies.get('account');
 

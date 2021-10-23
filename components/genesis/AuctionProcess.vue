@@ -203,7 +203,7 @@ export default {
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
-      spenderContract: process.env.treeAuctionAddress,
+      spenderContract: process.env.contractAuctionAddress,
       tokenAddress: process.env.wethTokenAddress,
       erc20Balance: null,
       isAllowedSpendERC20: false,
@@ -328,7 +328,7 @@ export default {
     async bidAction() {
       this.loading = true;
 
-      let tx = await this.$store.dispatch("treeAuction/bid", {
+      let tx = await this.$store.dispatch("auction/bid", {
         auctionId: this.$route.params.id,
         bidValue: this.bidValue
       });

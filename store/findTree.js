@@ -26,9 +26,8 @@ export const actions = {
       capacity
     }
       treeType
-	    mintStatus
 	    countryCode
-	    provideStatus
+	    saleType
 	    treeStatus
 	    plantDate
 	    birthDate

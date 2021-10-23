@@ -1,14 +1,14 @@
 <template>
-  <section
-    :class="$route.name"
-    class="position-relative pt-5 col-12  mb-5 pb-5">
+  <section :class="$route.name" class="position-relative pt-5 col-12 mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
-        <div v-if="activeIndex === 0" class="col-12 step-one">
+        <div class="col-12 step-one">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
-                <h1 class="param-18 font-weight-bolder tr-gray-two">How many trees to plant?</h1>
+                <h1 class="param-18 font-weight-bolder tr-gray-two">
+                  How many trees to plant?
+                </h1>
                 <ul class="d-flex list-style-none mt-4 pl-0">
                   <li
                     v-for="(item, index) in counts"
@@ -18,9 +18,8 @@
                     <div v-if="!item.placeHolder">
                       <p
                         :key="index"
-                        :class="{ active : activeCount === index }"
+                        :class="{ active: activeCount === index }"
                         :name="item.name"
-
                         class="ml-0 font-weight-bolder"
                         @click="activeCounts(item, index)"
                       >
@@ -32,10 +31,9 @@
                         <input
                           :key="index"
                           v-model="count"
-                          :class="{ active: activeIndex === index }"
+                          :class="{ active: activeCount === index }"
                           :placeholder="item.placeHolder"
                           min="1"
-
                           style="width: initial"
                           type="number"
                         />
@@ -44,10 +42,10 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-12 mt-5 pays">
+              <!-- <div class="col-12 mt-5 pays">
                 <h1 class="param-18 tr-gray-two font-weight-bolder">Choose tree collection type</h1>
                 <ul class="d-flex list-style-none mt-4">
-                  <li v-for="(item, index) in collectionType" class="pointer-event position-relative">
+                  <li v-for="(item, index) in collectionType" :key="index" class="pointer-event position-relative">
                     <p
                       id="collectionType-card"
                       :key="index"
@@ -63,19 +61,19 @@
                     </p>
                   </li>
                 </ul>
-              </div>
+              </div> -->
               <div class="col-12 col-md-12 mt-5 pt-2 send-as-gift-code">
                 <div class="row justify-content-between">
-                  <div class="col-md-6  col-6"><p class="param-18 font-weight-bolder  ">Send as gift</p>
+                  <div class="col-md-6 col-6">
+                    <p class="param-18 font-weight-bolder">Send as gift</p>
                   </div>
                   <div class="col-md-6 col-6 form-check">
                     <div class="on-off-toggle">
                       <input
                         id="bopiss"
-                        v-model="giftCodeFormChecked"
+                        v-model="snedAsGiftChecked"
                         class="on-off-toggle__input disabled"
                         type="checkbox"
-
                       />
                       <label
                         class="on-off-toggle__slider pointer-event"
@@ -84,80 +82,198 @@
                     </div>
                   </div>
                 </div>
-                <div v-show="giftCodeFormChecked" class="row justify-content-between">
+                <div
+                  v-show="snedAsGiftChecked"
+                  class="row justify-content-between"
+                >
                   <div class="col-12 col-md-8">
-                    <input v-model="giftCodeNumber"
-                           class="form-control-lg tr-input w-100 ease-out "
-                           placeholder="Enter recipient’s address"/>
+                    <input
+                      v-model="recipient"
+                      class="form-control-lg tr-input w-100 ease-out"
+                      placeholder="Enter recipient’s address"
+                    />
                   </div>
                   <div class="col-12 col-md-4">
-                    <button class="btn-gray param-xs" v-text="'Paste'" @click.p.prevent="pasteGiftCode()"/>
+                    <button
+                      class="btn-gray param-xs"
+                      v-text="'Paste'"
+                      @click.p.prevent="pasteRecipient()"
+                    />
                   </div>
-
                 </div>
               </div>
             </div>
             <div class="col-lg-6 col-md-12 col-12 overflow-hidden">
               <div class="row box-right-checkout">
                 <div class="col-12">
-                  <h1 class="title-sm font-weight-bolder tr-gray-two text-center mt-3 ">You’re Funding</h1>
-
+                  <h1
+                    class="
+                      title-sm
+                      font-weight-bolder
+                      tr-gray-two
+                      text-center
+                      mt-3
+                    "
+                  >
+                    You’re Funding
+                  </h1>
                 </div>
-                <div class="col-12 ">
+                <div class="col-12">
                   <div class="bg-yellow-checkout m-auto">
                     <div class="row">
-                      <div class="col-md-6 border-right ">
-                        <p class="param-xl tr-gray-two font-weight-bolder">{{ count }}</p>
-                        <p class="param tr-gray-four font-weight-bolder mb-0">{{ count <= 1 ? ' Tree' : ' Trees' }}</p>
-
+                      <div class="col-md-6 border-right">
+                        <p class="param-xl tr-gray-two font-weight-bolder">
+                          {{ count }}
+                        </p>
+                        <p class="param tr-gray-four font-weight-bolder mb-0">
+                          {{ count > 1 ? " Trees" : " Tree" }}
+                        </p>
                       </div>
                       <div class="col-md-6 mb-direction">
-                        <p class="param-xl text-center tr-gray-two font-weight-bolder">
-                          {{ Number(0.033 * parseInt(count)).toFixed(4) }}</p>
-                        <p class="param text-center tr-gray-four font-weight-bolder mb-0">Total ETH</p>
+                        <p
+                          class="
+                            param-xl
+                            text-center
+                            tr-gray-two
+                            font-weight-bolder
+                          "
+                        >
+                          {{ Number(totalWeth).toFixed(4) }}
+                        </p>
+                        <p
+                          class="
+                            param
+                            text-center
+                            tr-gray-four
+                            font-weight-bolder
+                            mb-0
+                          "
+                        >
+                          Total WETH
+                        </p>
                       </div>
                     </div>
-
                   </div>
                 </div>
-                <div class="col-12 mt-5 ">
-                  <div class="get-help m-auto ">
-                    <p class="param-18  font-weight-bolder tr-gray-two text-center">Get help</p>
+                <div class="col-12 col-md-8 offset-md-2 mt-3 text-center">
+                  <button
+                    v-if="parseFloat(wethBalance) <= parseFloat(totalWeth)"
+                    :class="{ disable: loading }"
+                    class="
+                      btn-green
+                      font-weight-bolder
+                      text-white
+                      m-auto
+                      next-btn
+                    "
+                    @click="buyWeth()"
+                  >
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
+                      >loading
+                    </BSpinner>
+                    {{ loading ? "Loading" : " Buy WETH" }}
+                  </button>
 
-                  </div>
-                </div>
-                <div class="col-12 col-md-8 offset-md-2  mt-3">
-                  <div class="row">
-                    <div v-for="(item,index) in pays" class="get-help-pays col-md-6 mb-3">
-                      <div :id="item.name" class="btn-purple pointer-event"
-                           @click.prevent="setPaymentMethod(item.name , item.href)">{{
-                          item.name
-                        }}
-                      </div>
+                  <button
+                    v-if="
+                      parseFloat(wethBalance) > parseFloat(totalWeth) &&
+                      isAllowedSpendWeth
+                    "
+                    :class="{ disable: loading }"
+                    class="
+                      btn-green
+                      font-weight-bolder
+                      text-white
+                      m-auto
+                      next-btn
+                    "
+                    @click="fundTree()"
+                  >
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
+                      >loading
+                    </BSpinner>
+                    {{ loading ? "Loading" : " Confirm" }}
+                  </button>
 
-                    </div>
-                  </div>
-
-
-                </div>
-                <div class="col-12 col-md-8 offset-md-2 mt-3 text-center ">
-                  <button class="btn-green font-weight-bolder  text-white m-auto next-btn">Next</button>
+                  <button
+                    v-if="
+                      parseFloat(wethBalance) > parseFloat(totalWeth) &&
+                      !isAllowedSpendWeth
+                    "
+                    :class="{ disable: loading }"
+                    class="
+                      btn-green
+                      font-weight-bolder
+                      text-white
+                      m-auto
+                      next-btn
+                    "
+                    @click="allowSpendWeth()"
+                  >
+                    <BSpinner v-if="loading" class="mr-2" small type="grow"
+                      >loading
+                    </BSpinner>
+                    {{ loading ? "Loading" : " Approve" }}
+                  </button>
 
                   <p class="mt-3 param tr-gray-two mb-0">
-
                     By proceeding I agree to
-                    <span class="param tr-green pointer-event  "
-                          @click.prevent="goToTerm('https://docs.treejer.com/legal/terms-of-service','_blank')">terms</span>
+                    <span
+                      class="param tr-green pointer-event"
+                      @click.prevent="
+                        goToTerm(
+                          'https://docs.treejer.com/legal/terms-of-service',
+                          '_blank'
+                        )
+                      "
+                      >terms</span
+                    >
                     and
-                    <span class="param tr-green pointer-event "
-                          @click.prevent="goToTerm('https://docs.treejer.com/legal/privacy-policy','_blank')">conditions.</span>
-
+                    <span
+                      class="param tr-green pointer-event"
+                      @click.prevent="
+                        goToTerm(
+                          'https://docs.treejer.com/legal/privacy-policy',
+                          '_blank'
+                        )
+                      "
+                      >conditions.</span
+                    >
                   </p>
                 </div>
 
+                <div class="col-12 mt-5">
+                  <div class="get-help m-auto">
+                    <p
+                      class="
+                        param-18
+                        font-weight-bolder
+                        tr-gray-two
+                        text-center
+                      "
+                    >
+                      Get help
+                    </p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-8 offset-md-2 mt-3">
+                  <div class="row">
+                    <div
+                      v-for="(item, index) in pays"
+                      :key="index"
+                      class="get-help-pays col-md-6 mb-3"
+                    >
+                      <div
+                        :id="item.name"
+                        class="btn-purple pointer-event"
+                        @click.prevent="setPaymentMethod(item.name, item.href)"
+                      >
+                        {{ item.name }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -170,8 +286,6 @@
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
 import transakSDK from "@transak/transak-sdk";
-import {Widget} from '@maticnetwork/wallet-widget'
-
 
 export default {
   name: "giftTree",
@@ -180,136 +294,66 @@ export default {
     return {
       title: `Treejer`,
       meta: [
-        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
         {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
-        }
-      ]
-    }
+          hid: "description",
+          name: "description",
+          content: "Enter the Tree ID below and we'll find it for you! :)",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard",
+        },
+      ],
+    };
   },
   components: {
     Wallets,
     Fab,
   },
-  beforeMount() {
+  beforeMount() {},
 
+  async mounted() {
+    await this.calcTotalPrice();
+    await this.setWethBalance();
+    await this.setIsAllowance();
   },
-
-
-  mounted() {
-    this.getPrice();
-    this.setDaiBalance();
-    this.setIsAllowance(this.count);
-
-    let self = this;
-
-    setTimeout(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 1000);
-
-    setInterval(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 3000);
-  },
-  async created() {
-
-    // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
-    // this.daiUSDPrice = res.data.result.ethusd
-
-    this.daiUSDPrice = 1.01;
-  },
+  async created() {},
   data() {
     return {
       pays: [
-        {href: '', name: 'Bridge'},
-        {href: 'https://global.transak.com/', name: 'Visa/Master'},
-        {href: 'https://docs.treejer.com/', name: 'Learn more'},
-        {href: 'https://discuss.treejer.com/', name: 'Questions'},
+        { href: "", name: "Bridge" },
+        { href: "https://global.transak.com/", name: "Visa/Master" },
+        { href: "https://docs.treejer.com/", name: "Learn more" },
+        { href: "https://discuss.treejer.com/", name: "Questions" },
       ],
-      giftCodeNumber: null,
-      giftCodeFormChecked: true,
-      daiBalance: 0,
-      isAllowedSpendDai: false,
-      treePrice: null,
-      daiUSDPrice: null,
-      sendAsTreeCard: false,
+      slectedPays: null,
+
+      recipient: null,
+      snedAsGiftChecked: false,
+      wethBalance: 0,
+      isAllowedSpendWeth: false,
       loading: false,
       count: 1,
-      slectedPays: null,
-      ethPrice: this.$store.state.ethPrice,
-      steps: [
-        {name: "Collect", step: 1},
-        {name: "Connect to wallet", step: 2},
-        {name: "Checkout", step: 3},
-
-        // { name: "final-step", step: 4 }
-      ],
       counts: [
-        {name: 1, step: 1},
-        {name: 5, step: 2},
-        {name: 10, step: 3},
-        {name: 20, step: 3},
-        {name: this.countTree, step: 3, placeHolder: "Enter Number"},
+        { name: 1, step: 1 },
+        { name: 5, step: 2 },
+        { name: 10, step: 3 },
+        { name: 20, step: 3 },
+        { name: this.count, step: 3, placeHolder: "Enter Number" },
       ],
       collectionType: [
-        {name: "Genesis", step: 1},
-        {name: "Regular", step: 2},
+        { name: "Genesis", step: 1 },
+        { name: "Regular", step: 2 },
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
-      activeIndex: 0,
       activeCount: 0,
       activePay: 0,
-      countTree: null,
+      totalWeth: 0,
     };
   },
   methods: {
-    async allowSpendDai(silent = false) {
-      if (silent === false) {
-        this.loading = true;
-      }
-      let self = this;
-
-      const transaction = await this.$store.dispatch("dai/approve", {
-        count: this.count,
-        context: self,
-      });
-
-      if (transaction !== null) {
-        this.setIsAllowance(this.count);
-        this.$bvToast.toast(["Transaction successfull"], {
-          toaster: "b-toaster-bottom-left",
-          title: "You approved to spend dai",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
-        });
-
-        if (silent === false) {
-          this.loading = false;
-        }
-
-        await this.requestTrees();
-      }
-    },
-    showWalletError() {
-      let self = this;
-      self.$bvToast.toast("Switch to Rinkeby Test Network", {
-        title: `Wrong network`,
-        href:
-          "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
-        variant: "danger",
-        solid: true,
-        toaster: "b-toaster-bottom-left",
-      });
-    },
-    activeMenu(item, index) {
-      this.activeIndex = index;
-    },
     activeCounts(item, index) {
       this.count = item.name;
       this.activeCount = index;
@@ -318,20 +362,13 @@ export default {
       this.slectedPays = item.name;
       this.activePay = index;
     },
-    activeWallets(item, index) {
-      this.activeWallet = index;
-    },
-    async setDaiBalance() {
-      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
-    },
-
-    async buyDai() {
+    async buyWeth() {
       let self = this;
       let transak = new transakSDK({
         apiKey: process.env.transakApiKey, // Your API Key
         environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "Dai",
-        // defaultCryptoAmount: this.treePrice * this.count,
+        defaultCryptoCurrency: "Weth",
+        defaultCryptoAmount: this.totalWeth,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
         themeColor: "000000", // App theme color
         fiatCurrency: "USD", // INR/GBP
@@ -362,21 +399,25 @@ export default {
             "account"
           )}`,
         });
-        self.setDaiBalance();
+        self.setWethBalance();
         transak.close();
       });
     },
 
-    async requestTrees() {
+    async fundTree() {
       this.loading = true;
       let self = this;
 
-      this.transferReceipt = await this.$store.dispatch("regularSell/requestTrees", {
-        count: this.count,
-        context: self,
-      });
+      this.transferReceipt = await this.$store.dispatch(
+        "incrementalSale/fundTree",
+        {
+          count: this.count,
+          referrer: this.count,
+          recipient: this.recipient,
+          context: self,
+        }
+      );
       if (this.transferReceipt !== null) {
-        this.activeIndex = 3;
         self.$bvToast.toast(["Your payment was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
@@ -397,71 +438,111 @@ export default {
       }
       this.loading = false;
     },
-    async getPrice() {
-      this.treePrice = await this.$store.dispatch('regularSell/getPrice')
+    async calcTotalPrice(silent = false) {
+      this.loading = true;
+      this.totalWeth = await this.$store.dispatch(
+        "incrementalSale/calculateTotalPrice",
+        {
+          count: this.count,
+          context: self,
+        }
+      );
+      this.loading = false;
     },
-    async setIsAllowance(count, silent = false) {
+    async setIsAllowance(silent = false) {
       if (silent === false) {
         this.loading = true;
       }
 
-      let allowance = await this.$store.dispatch("dai/allowance");
+      let allowance = await this.$store.dispatch("erc20/allowance", {
+        tokenAddress: process.env.wethTokenAddress,
+        spenderContract: this.$IncrementalSale._address,
+      });
 
-      this.isAllowedSpendDai =
-        parseInt(allowance) >= parseInt(count * this.treePrice);
+      this.isAllowedSpendWeth =
+        parseFloat(allowance) >= parseFloat(this.totalWeth);
 
       if (silent === false) {
         this.loading = false;
       }
     },
-    pasteGiftCode() {
-      window.navigator.clipboard.readText().then((res) => {
-        this.giftCodeNumber = res
-      }).catch((err) => {
-        console.lo(err, "err is here")
-      })
-
+    async setWethBalance() {
+      this.wethBalance = await this.$store.dispatch("erc20/balanceOf", {
+        tokenAddress: process.env.wethTokenAddress,
+      });
     },
-   async setPaymentMethod(item, href) {
+    async allowSpendWeth(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
 
-      if (item === 'Bridge') {
+      const transaction = await this.$store.dispatch("erc20/approve", {
+        tokenAddress: process.env.wethTokenAddress,
+        spenderContract: this.$IncrementalSale._address,
+        amount: this.totalWeth,
+      });
+
+      if (transaction !== null) {
+        if (typeof transaction.transactionHash != "undefined") {
+          this.setIsAllowance(this.count);
+          this.$bvToast.toast(["Transaction successfull"], {
+            toaster: "b-toaster-bottom-left",
+            title: "You approved to spend weth",
+            variant: "success",
+            href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+          });
+
+          await this.fundTree();
+        }
+
+        if (silent === false) {
+          this.loading = false;
+        }
+      }
+    },
+    pasteRecipient() {
+      window.navigator.clipboard
+        .readText()
+        .then((res) => {
+          this.recipient = res;
+        })
+        .catch((err) => {
+          console.log(err, "err is here");
+        });
+    },
+    async setPaymentMethod(item, href) {
+      if (item === "Bridge") {
         if (process.client) {
-          this.$nuxt.$loading.start()
-
-          const widget =await new Widget({
-            target: '#Bridge',
-            appName: 'Polygon_Bridge_Treejer',
+          // import {Widget} from '@maticnetwork/wallet-widget'
+          const { Widget } = require("@maticnetwork/wallet-widget");
+          this.$nuxt.$loading.start();
+          const widget = await new Widget({
+            target: "#Bridge",
+            appName: "Polygon_Bridge_Treejer",
             autoShowTime: 0,
-            position: 'center',
+            position: "center",
             height: 630,
             width: 540,
             overlay: false,
-            network: 'Rinkeby',
+            network: "Rinkeby",
             closable: true,
           });
-
-
-         await widget.create()
-           await widget.show()
-          // debugger
-          // widget.show()
+          await widget.create();
+          await widget.show();
         }
-
-
       } else {
-        window.open(href, '_blank')
+        window.open(href, "_blank");
       }
     },
     goToTerm(item, target) {
-      window.open(item, target)
-    }
+      window.open(item, target);
+    },
   },
   watch: {
     async count(newCount, oldCount) {
-      this.setIsAllowance(newCount);
-
-      // Our fancy notification (2).
-      // console.log(`We have ${newCount} fruits now, yay!`)
+      await this.calcTotalPrice();
+      await this.setIsAllowance(true);
+      await this.setWethBalance();
     },
   },
 };
@@ -705,7 +786,6 @@ export default {
     }
   }
 
-
   .form-check {
     h1 {
       font-size: 14px;
@@ -733,7 +813,7 @@ export default {
       &:before {
         content: "";
         display: block;
-        background-color: #9E9E9E;
+        background-color: #9e9e9e;
         box-shadow: 0 0 0 1px #949494;
         bottom: 0px;
         height: 16px;
@@ -756,7 +836,6 @@ export default {
         color: #484848;
         padding-left: 10px;
         transition: all 0.4s;
-
       }
     }
 
@@ -770,7 +849,7 @@ export default {
     }
 
     .on-off-toggle__input:checked + .on-off-toggle__slider {
-      background-color: #67B68C;
+      background-color: #67b68c;
 
       &:before {
         transform: translateX(15px);
@@ -787,25 +866,23 @@ export default {
 
 .send-as-gift-code {
   .tr-input {
-    background: #FAFAFA;
-    border: 1px solid #BDBDBD;
+    background: #fafafa;
+    border: 1px solid #bdbdbd;
     box-sizing: border-box;
     border-radius: 8px;
     font-size: 12px;
     text-align: center;
   }
-
 }
 
 .box-right-checkout {
-
   & > .col-12 {
     margin-top: 32px;
   }
 
   .bg-yellow-checkout {
-    background: #F0E5C8;
-    border: 1px solid #BDBDBD;
+    background: #f0e5c8;
+    border: 1px solid #bdbdbd;
     box-sizing: border-box;
     border-radius: 8px;
     min-height: 96px;
@@ -815,7 +892,6 @@ export default {
     .border-right {
       border-right: solid 1px #424242 !important;
     }
-
   }
 
   .get-help {
@@ -841,27 +917,26 @@ export default {
       border: solid 1px #757575;
       min-width: 70px;
     }
-
   }
 
   .get-help-pays {
-
     .btn-purple {
-      background: linear-gradient(93.32deg, rgba(63, 177, 214, 0.7) -5.29%, #BF8BDF 98.26%);
+      background: linear-gradient(
+        93.32deg,
+        rgba(63, 177, 214, 0.7) -5.29%,
+        #bf8bdf 98.26%
+      );
       border-radius: 8px;
       color: white;
       font-size: 14px;
       padding: 6px 25px;
       text-align: center;
-
     }
   }
 
   .next-btn {
     padding: 7px 26px;
-
   }
-
 }
 
 #collectionType-card {
@@ -880,7 +955,6 @@ export default {
 
       p {
         text-align: left !important;
-
       }
     }
   }

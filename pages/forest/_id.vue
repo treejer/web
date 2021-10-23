@@ -46,7 +46,7 @@
                   src="../../assets/images/myforest/tree.svg"
                 /></span>
                 <span>
-                  <span>{{ owner ? owner.treeCount : 0 }}</span>
+                  <span>{{ funder ? funder.treeCount : 0 }}</span>
                 </span>
               </p>
             </div>
@@ -126,15 +126,15 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              owner && owner.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
+                              funder && funder.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
                             "
                             @click.prevent="goToAddTree"
                           >
-                            {{ owner && owner.treeCount > 0 ? "Done" : "step 2" }}
+                            {{ funder && funder.treeCount > 0 ? "Done" : "step 2" }}
                           </button>
                         </span>
                         <span
-                          :class="owner && owner.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
+                          :class="funder && funder.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
                         >
                           Add trees to your forest
                         </span>
@@ -145,7 +145,7 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            :class=" owner && owner.treeCount > 0? 'btn-outline-green': 'btn-green' "
+                            :class=" funder && funder.treeCount > 0? 'btn-outline-green': 'btn-green' "
                             @click="comunity()"
                           >
                             step 3
@@ -176,12 +176,12 @@
                 </span>
               </div>
               <div
-                v-if="owner && owner.treeCount > 0"
+                v-if="funder && funder.treeCount > 0"
                 class="col-12 p-0 befor-res"
                 style="left: 0"
               >
                 <span
-                  v-for="(item, index) in owner.trees.slice(0, 50)"
+                  v-for="(item, index) in funder.trees.slice(0, 50)"
                   :id="item.id"
                   :key="index"
                   class=""
@@ -202,12 +202,12 @@
                 </span>
               </div>
               <div
-                v-if="owner && owner.treeCount > 50 && showMoreTreeData"
+                v-if="funder && funder.treeCount > 50 && showMoreTreeData"
                 class="col-12 p-0"
                 style="transition: all 0.3s ease"
               >
                 <span
-                  v-for="(item, index) in owner.trees.slice(50)"
+                  v-for="(item, index) in funder.trees.slice(50)"
                   :id="item.id"
                   :key="index"
                   class="pointer-event"
@@ -235,7 +235,7 @@
             </div>
           </div>
           <ForestMap
-            :owner="owner"
+            :funder="funder"
           />
         </div>
 
@@ -341,7 +341,7 @@ import content from "./world.json";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
 import treesSearchById from "~/apollo/queries/treesSearchById";
-import owner from "~/apollo/queries/owner";
+import funder from "~/apollo/queries/funder";
 import ForestMap from "@/components/ForestMap";
 
 export default {
@@ -363,11 +363,11 @@ export default {
     }
   },
   apollo: {
-    owner: {
-      query: owner,
-      prefetch: ({route}) => ({id: route.params.id}),
+    funder: {
+      query: funder,
+      prefetch: ({route}) => ({id: route.params.id.toLowerCase()}),
       variables() {
-        return {id: this.$route.params.id}
+        return {id: this.$route.params.id.toLowerCase()}
       }
     },
   },
@@ -404,7 +404,7 @@ export default {
     console.log(this.$dec2hex,": this.$dec2hex")
     this.createTestObject();
     this.getEthBalance();
-    console.log(this.owner ,"this.owner");
+    console.log(this.funder ,"this.funder");
   },
   methods: {
     async goToFindTree() {

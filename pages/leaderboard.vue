@@ -44,8 +44,8 @@
                     <th scope="col">LINK</th>
                   </tr>
                 </thead>
-                <tbody v-if="owners">
-                  <tr v-for="(item, index) in owners" :key="index">
+                <tbody v-if="funders">
+                  <tr v-for="(item, index) in funders" :key="index">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -137,9 +137,9 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="owners">
+              <div v-if="funders">
                 <button
-                  v-if="owners.length > 10"
+                  v-if="funders.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -256,9 +256,9 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="owners">
+              <div v-if="funders">
                 <button
-                  v-if="owners.length > 10"
+                  v-if="funders.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -376,9 +376,9 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="owners">
+              <div v-if="funders">
                 <button
-                  v-if="owners.length > 10"
+                  v-if="funders.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -411,7 +411,7 @@
 </template>
 <script>
 import Fas from "../components/font-awsome/Fas";
-import ownersSorted from "~/apollo/queries/ownersSorted";
+import fundersSorted from "~/apollo/queries/fundersSorted";
 import plantersSorted from "~/apollo/queries/plantersSorted";
 
 export default {
@@ -438,9 +438,9 @@ export default {
     Fas,
   },
   apollo: {
-    owners: {
+    funders: {
       prefetch: true,
-      query: ownersSorted,
+      query: fundersSorted,
       variables () {
         return { limit: 20, orderBy: 'treeCount', orderDirection: 'desc' }
       }

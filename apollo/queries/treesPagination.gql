@@ -4,12 +4,12 @@ query PaginatedTrees($first: Int!, $skip: Int!, $orderBy: String!, $orderDirecti
     planter {
       id
     }
-    owner {
+    funder {
       id
     }
     plantDate
     birthDate
-    provideStatus
+    saleType
     treeStatus
   }
 }

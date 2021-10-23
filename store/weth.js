@@ -33,7 +33,7 @@ export const actions = {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = wethContract.methods.approve(process.env.contractTreeRegularSell, (params.count * this.$web3.utils.toWei(this.state.regularSell.price)).toString());
+    const tx = wethContract.methods.approve(process.env.contractTreeRegularSell, (Math.pow(2, 256) - 1).toString());
 
     const data = tx.encodeABI();
 

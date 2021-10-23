@@ -25,7 +25,7 @@
         </div>
         <div v-if="genesisTree && genesisTree.treeSpecsEntity" class="col-12 tree-profile-img justify-content-center">
           <img :alt="genesisTree.treeSpecsEntity.name"
-               :src="genesisTree.treeSpecsEntity.imageFs" alt="tree" class="img-fluid"
+               :src="genesisTree.treeSpecsEntity.imageFs" class="img-fluid"
                height="200" width="200"/>
           <!--          <span v-if="genesisTree"-->
           <!--                id="edit_name"-->
@@ -78,9 +78,9 @@
           <!--          "free"-->
 
           <AuctionProcess
-            v-if="provideStatus === 'auction' && expireDate"
-            :expireDateText="expireDateText"
-            :expireDates="expireDate"
+            v-if="saleType === 'auction' && endDate"
+            :endDateText="endDateText"
+            :endDates="endDate"
             :highestBid="highestBid"
           />
         </div>
@@ -141,7 +141,7 @@
               <div class="col-md-12">
                 <div v-if="genesisTree" class="card-tree-profile position-relative">
                   <div
-                    v-if="genesisTree.owner && genesisTree.owner.id === $cookies.get('account')"
+                    v-if="genesisTree.funder && genesisTree.funder.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
                   >
                     <button
@@ -292,17 +292,16 @@ export default {
     return {
       loading: false,
 
-      provideStatus: null,
+      saleType: null,
       treeStatus: null,
-      mintStatus: null,
       newName: false,
       newNameTree: null,
       treeID: this.$route.params.id,
       clusterStyle: mapDetails.clusterStyle,
       mapStyle: mapDetails.mapStyle,
       pins: mapDetails.pins,
-      expireDate: null,
-      expireDateText: null,
+      endDate: null,
+      endDateText: null,
       currentTreeBid: null,
       genesisTree: null,
       highestBid: null,
@@ -319,8 +318,8 @@ export default {
     console.log(this.loading, "this,.loading")
     await this.getTreeAuction()
     if (this.genesisTree) {
-      await this.checkProvideStatus(this.genesisTree.provideStatus)
-      await this.checkMintStatus(this.genesisTree.mintStatus)
+      await this.checkProvideStatus(this.genesisTree.saleType)
+      // await this.checkMintStatus(this.genesisTree.mintStatus)
       await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
     this.loading = false
@@ -351,7 +350,7 @@ export default {
                   initialPrice
                   priceInterval
                   startDate
-                  expireDate
+                  endDate
                   winner{
                     id
                   }
@@ -369,12 +368,15 @@ export default {
               `,
         prefetch: true
       }).then((res) => {
+
+        console.log(res, "res")
+
         self.currentTreeBid = res.data.auctions ? res.data.auctions[0] : null
 
-        if (self.currentTreeBid.expireDate === 'undefind' || self.currentTreeBid.expireDate === null) {
-          return self.expireDate = null
+        if (self.currentTreeBid.endDate === 'undefind' || self.currentTreeBid.endDate === null) {
+          return self.endDate = null
         } else {
-          self.expireDate = self.birthDate(self.currentTreeBid.expireDate)
+          self.endDate = self.birthDate(self.currentTreeBid.endDate)
 
         }
         if (!self.currentTreeBid.highestBid) {
@@ -398,13 +400,11 @@ export default {
                 planter{
                   id
                 }
-                owner{
+                funder{
                   id
                 }
-                treeType
-                mintStatus
                 countryCode
-                provideStatus
+                saleType
                 treeStatus
                 plantDate
                 birthDate
@@ -431,7 +431,8 @@ export default {
         self.genesisTree = res.data.tree
 
         if (self.genesisTree.treeSpecsEntity) {
-          self.attributes = JSON.parse(self.genesisTree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
+          // self.attributes = JSON.parse(self.genesisTree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
+          self.attributes = JSON.parse(self.genesisTree.treeSpecsEntity.attributes)
         }
 
 
@@ -495,47 +496,47 @@ export default {
     checkProvideStatus(data) {
       switch (data) {
         case '0':
-          this.provideStatus = "free"
+          this.saleType = "free"
           break;
         case '1':
-          this.provideStatus = "auction"
+          this.saleType = "auction"
           break;
         case '2':
-          this.provideStatus = "incrementalSell"
+          this.saleType = "incrementalSell"
           break;
         case '3':
-          this.provideStatus = "gift"
+          this.saleType = "gift"
           break;
         case '4':
-          this.provideStatus = "regularSell"
+          this.saleType = "regularSell"
           break;
         default:
-          this.provideStatus = "free"
+          this.saleType = "free"
           break;
       }
-      console.log(this.provideStatus, "this.provideStatus")
+      console.log(this.saleType, "this.saleType")
 
 
     },
-    checkMintStatus(data) {
-      switch (data) {
-        case '0':
-          this.mintStatus = "regular"
-          break;
-        case '1':
-          this.mintStatus = "incrementalSell"
-          break;
-        case '2':
-          this.mintStatus = "auction"
-          break;
-        default:
-          this.mintStatus = "regular"
-          break;
-      }
-      console.log(this.mintStatus, "this.mintStatus")
+    // checkMintStatus(data) {
+    //   switch (data) {
+    //     case '0':
+    //       this.mintStatus = "regular"
+    //       break;
+    //     case '1':
+    //       this.mintStatus = "incrementalSell"
+    //       break;
+    //     case '2':
+    //       this.mintStatus = "auction"
+    //       break;
+    //     default:
+    //       this.mintStatus = "regular"
+    //       break;
+    //   }
+    //   console.log(this.mintStatus, "this.mintStatus")
 
 
-    },
+    // },
     checkTreeStatus(data) {
       switch (data) {
         case '0':
@@ -569,7 +570,7 @@ export default {
       let moments = moment.unix(date).utc()
 
       if (date < now) {
-        this.expireDateText = "This auction is over."
+        this.endDateText = "This auction is over."
       }
       console.log()
       return moment(moments).format('YYYY-MM-DD h:mm:ss')

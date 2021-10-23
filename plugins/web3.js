@@ -1,8 +1,7 @@
 import Web3 from 'web3'
-import TreeFactory from '~/contracts/TreeFactory'
-import RegularSell from '~/contracts/RegularSell'
-import TreeAuction from  '~/contracts/TreeAuction'
-import IncrementalSell from  '~/contracts/IncrementalSell'
+import RegularSale from '~/contracts/RegularSale'
+import Auction from  '~/contracts/Auction'
+import IncrementalSale from  '~/contracts/IncrementalSale'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 
@@ -50,8 +49,8 @@ export default async ({ app }, inject) => {
 
 
     inject('web3', instance)
-    inject('treeFactory', new instance.eth.Contract(TreeFactory.abi, process.env.contractTreeFactoryAddress))
-    inject('RegularSell', new instance.eth.Contract(RegularSell.abi, process.env.contractTreeRegularSell))
-    inject('TreeAuction', new instance.eth.Contract(TreeAuction.abi, process.env.treeAuctionAddress))
-    inject('IncrementalSell', new instance.eth.Contract(IncrementalSell.abi, process.env.incrementalSell))
+    // inject('treeFactory', new instance.eth.Contract(TreeFactory.abi, process.env.contractTreeFactoryAddress))
+    inject('RegularSale', new instance.eth.Contract(RegularSale.abi, process.env.contractTreeRegularSale))
+    inject('Auction', new instance.eth.Contract(Auction.abi, process.env.contractAuctionAddress))
+    inject('IncrementalSale', new instance.eth.Contract(IncrementalSale.abi, process.env.contractIncrementalSale))
 }

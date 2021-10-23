@@ -1,5 +1,5 @@
-query owner($id: ID!) {
-  owner(id: $id) {
+query funder($id: ID!) {
+  funder(id: $id) {
     id
     trees {
       id

@@ -36,10 +36,9 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com/',
     ethPrice: process.env.ETH_PRICE,
-    contractTreeFactoryAddress: process.env.CONTRACT_TREE_FACTORY_ADDRESS,
-    treeAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
-    incrementalSellAddress: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
-    contractTreeRegularSell: process.env.CONTRACT_REGULAR_SELL_ADDRESS,
+    contractAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
+    contractIncrementalSale: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
+    contractTreeRegularSale: process.env.CONTRACT_REGULAR_SELL_ADDRESS,
     daiTokenAddress: process.env.DAI_TOKEN_ADDRESS_RINKEBY,
     wethTokenAddress: process.env.WETH_TOKEN_ADDRESS_RINKEBY,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
@@ -59,6 +58,7 @@ export default {
     transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK,
     etherScanUrl: process.env.ETHERSCAN_URL,
     graphqlUrl: process.env.GRAPHQL_URL,
+    zeroAddress: "0x0000000000000000000000000000000000000000"
 
   },
   router: {
@@ -91,7 +91,7 @@ export default {
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},
     {src: '~plugins/num.js'},
-    {src: '~plugins/axios.js'},
+    {src: '~plugins/axios.js'}
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}],
