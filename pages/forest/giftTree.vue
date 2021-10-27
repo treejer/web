@@ -302,7 +302,7 @@
                     </p>
                   </div>
                   <div class="body ">
-                    <form class="d-flex" action="" @submit="addTreeFinalStep()">
+                    <form class="d-flex"  @submit="addTreeFinalStep()">
                       <div class="final-box-input">
                         <input
                           class="form-control-lg"

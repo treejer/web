@@ -71,7 +71,7 @@
                     <div class="on-off-toggle">
                       <input
                         id="bopiss"
-                        v-model="snedAsGiftChecked"
+                        v-model="sendAsGiftChecked"
                         class="on-off-toggle__input disabled"
                         type="checkbox"
                       />
@@ -83,7 +83,7 @@
                   </div>
                 </div>
                 <div
-                  v-show="snedAsGiftChecked"
+                  v-show="sendAsGiftChecked"
                   class="row justify-content-between"
                 >
                   <div class="col-12 col-md-8">
@@ -331,7 +331,7 @@ export default {
       slectedPays: null,
 
       recipient: null,
-      snedAsGiftChecked: false,
+      sendAsGiftChecked: false,
       wethBalance: 0,
       isAllowedSpendWeth: false,
       loading: false,

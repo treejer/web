@@ -7,7 +7,8 @@
 
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
-      <img @click="$route.push('/increamentalSell/')" alt="banner" class="m-auto" src="../../assets/images/increamentalSell/banner.svg">
+      <img alt="banner" class="m-auto" src="../../assets/images/increamentalSell/banner.svg"
+           @click="$route.push('/increamentalSell/')">
     </div>
     <div class="col-md-2 col-4 text-right">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>
@@ -17,9 +18,9 @@
     <div class="col-md-12 text-center mt-3"><p class="param-xl font-weight-bolder tr-gray-two text-capitalize">tree
       #{{ $route.params.id }}</p></div>
     <div class="col-md-12 d-md-flex  current-price-inc text-center justify-content-center  mt-3"><p
-      class="param tr-gray-four text-capitalize  ">Current Price: {{ ' Ξ0.036' }}</p></div>
+        class="param tr-gray-four text-capitalize  ">Current Price: {{ ' Ξ0.036' }}</p></div>
     <div class="col-md-12 d-md-flex  claim-me-inc text-center justify-content-center  mt-3">
-      <button class="btn-green  param-18" @click.prevent="$router.push('/increamentalSell/checkout')">Claim Me</button>
+      <button class="btn-green  param-18" @click.prevent="$router.push('/genesis/checkout')">Claim Me</button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
       <h1 class="title-lg tr-gray-two font-weight-bolder text-center"> Genesis Collection</h1>
@@ -41,16 +42,16 @@
         <div class="col-md-6">
           <p class="param-18 tr-gray-two font-weight-bolder">Getting Started with Genesis Trees</p>
           <p class="mb-1"><span
-            class="btn-green text-white param-xs pointer-event text-capitalize">step 1</span><span
-            class="tr-gray-three param font-weight-bold">Tree #0-10 listed for auction</span>
+              class="btn-green text-white param-xs pointer-event text-capitalize">step 1</span><span
+              class="tr-gray-three param font-weight-bold">Tree #0-10 listed for auction</span>
           </p>
           <p class="mb-1"><span
-            class="btn-green text-white param-xs pointer-event text-capitalize">step 2</span><span
-            class="tr-gray-three param font-weight-bold">Tree #11-100 reserved for community</span>
+              class="btn-green text-white param-xs pointer-event text-capitalize">step 2</span><span
+              class="tr-gray-three param font-weight-bold">Tree #11-100 reserved for community</span>
           </p>
           <p class="mb-1"><span
-            class="btn-green text-white param-xs pointer-event text-capitalize">step 3</span><span
-            class="tr-gray-three param font-weight-bold">Tree #101-10k claimable for collectors</span>
+              class="btn-green text-white param-xs pointer-event text-capitalize">step 3</span><span
+              class="tr-gray-three param font-weight-bold">Tree #101-10k claimable for collectors</span>
           </p>
         </div>
         <div class="col-md-6 tree-status-inc">
@@ -78,16 +79,17 @@
     </div>
     <OtherTreeInc :text="'Tree of Life'"/>
     <div class="col-md-12 d-md-flex  current-price-inc text-center justify-content-center  mt-3"><p
-      class="param tr-gray-four text-capitalize  ">Reserve Price: {{ 'Ξ100' }}</p></div>
-    <div class="col-md-8 col-12 justify-content-center text-center">
+        class="param tr-gray-four text-capitalize  ">Reserve Price: {{ 'Ξ100' }}</p></div>
+    <div class="col-md-8 col-12 justify-content-center text-center pointer-event" @click="$router.push('/genesis/0')">
       <img alt="" src="../../assets/images/increamentalSell/trees-state.svg">
       <p class=" param-xs tr-gray-tree">Tree #0</p>
     </div>
     <OtherTreeInc :text="'#1-10'"/>
     <div class="col-md-12 current-price-inc text-center justify-content-center  mt-3"><p
-      class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
+        class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
     <div class="col-md-9 col-12 justify-content-center text-center">
-      <div v-for="(item,index) in incTrees" class="box-inc-trees d-inline-block">
+      <div v-for="(item,index) in incTrees" class="box-inc-trees d-inline-block pointer-event"
+           @click="$router.push({path:`/genesis/${1 + index }` , params:{id:1 + index} })">
             <span>
               <img v-if="index === 4 || index === 7 || index === 10" alt="trees-state" class="filter-hue"
                    src="../../assets/images/increamentalSell/trees-state.svg">
@@ -103,7 +105,7 @@
     </div>
     <OtherTreeInc :text="'#11-100 '"/>
     <div class="col-md-9 col-12  current-price-inc text-center justify-content-center  mt-3"><p
-      class="param tr-gray-four text-capitalize m-auto  ">Claim for Free</p>
+        class="param tr-gray-four text-capitalize m-auto  ">Claim for Free</p>
       <p class="param tr-gray-two des-inc">What we’ve built today was not possible without the generousity of other
         builders,
         designers, community advocates and thought leaders in this space. We’d love to plant the very first trees for
@@ -112,7 +114,8 @@
     </div>
     <div class="col-md-9 col-12 justify-content-center text-center">
 
-      <div v-for="(item,index) in incTreesClaim" class="box-inc-trees d-inline-block">
+      <div v-for="(item,index) in incTreesClaim" class="box-inc-trees d-inline-block  pointer-event"
+           @click="$router.push(`/genesis/${11 + index }`)">
             <span>
                <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
                     src="../../assets/images/increamentalSell/trees-state.svg">
@@ -141,7 +144,7 @@
 import OtherTreeInc from "../../components/OtherTreeInc";
 
 export default {
-   name: "Collect",
+  name: "Collect",
   components: {OtherTreeInc},
   data() {
     return {

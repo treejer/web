@@ -1,203 +1,90 @@
 <template>
   <section
     :class="$route.name"
-    class="position-relative pt-5 col-12 mb-5 pb-5 genesis-first-page"
+    class="position-relative pt-5 col-12 step-page mb-5 pb-5 increamental-sell"
+    style="min-height: 90vh"
   >
-    <div class="row">
-      <div class="col-md-7 col-12 left-side">
-        <div class="row">
-          <div class="col-md-5 pr-md-0">
-            <p class="tr-gray-four param-18 font-weight-bolder mb-0">TREE #0</p>
-            <p class="title-md tr-gray-two font-weight-bolder">Tree of Life</p>
-            <img
-              id="tree-of-life"
-              alt="tree-of-life"
-              src="~assets/images/genesis/tree-of-life.svg"
-            />
-            <p class="param-xl pl-md-4">Tree of Life</p>
-            <PlaceBid :placeBidNumber="0" class="mt-2 mb-4 mb-md-0"/>
-          </div>
-          <div class="col-md-7 mt-md-5 pt-md-4 pl-md-0 pr-md-5">
-            <p class="param tr-gray-four">
-              Umoja Uaso is a village in Kenya. The village, founded in 1990, is
-              an all-female matriarch village located near the town of Archers
-              Post in Samburu County, 380 km (240 mi) from the capital, Nairobi.
-              It was founded by Rebecca Lolosoli, a Samburu woman, as a
-              sanctuary for homeless survivors of violence against women, and
-              young girls running from forced marriages. The women of the
-              Samburu people do not agree with violence and the traditional
-              subordinate position of women.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5 col-12 pl-md-2 right-side">
-        <div class="row">
-          <div class="col-12">
-            <p class="param-18 tr-gray-four">Bidders</p>
-            <AvatarBidders
-              :data="auctions"
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-md-flex justify-content-center  tabs">
+            <span
+              v-for="(item, index) in tabs"
+              :class="activeIndex === index ? 'btn-grays' : 'btn-yellow'"
+              class="col-md-2 pointer-event param-18 font-weight-bolder "
+              @click="activeIndex = index"
             >
-
-
-            </AvatarBidders>
-          </div>
-          <div class="col-md-6 mt-5">
-            <p class="tr-gray-four param-18">Planted Trees</p>
-            <p class="tr-green title-md font-weight-bolder">{{ 549 }}</p>
-            <p class="tr-gray-four param-18">Trust Score</p>
-            <p class="tr-green title-md font-weight-bolder">{{ 12 }}</p>
-          </div>
-          <div class="col-md-6 mt-5">
-            <p class="tr-gray-four param-18">Supplied O2</p>
-            <p class="tr-green title-md font-weight-bolder">{{ "452K " }}</p>
-            <p class="tr-gray-four param-18">Earning</p>
-            <p class="tr-green title-md font-weight-bolder">${{ "1, 400" }}</p>
+              {{ item.name }}</span
+            >
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-5 justify-content-center">
-      <div class="col-md-12 text-center">
-        <h1
-          class="title-md tr-gray-two font-weight-bolder mt-md-3 pb-md-3 mb-md-4 mb-3"
-        >
-          TREE #1-10
-        </h1>
+      <div v-show="activeIndex === 0" class="collect justify-content-center">
+        <Collect/>
       </div>
-
-      <BidCard
-        v-for="(item, index) in treeBids"
-        :id="index+1"
-        :key="index+1"
-        :img="item.src"
-      />
-    </div>
-    <div class="row my-5 py-5 justify-content-center">
-      <div class="col-md-8">
-        <h1
-          class="tr-gray-two title-lg font-weight-bolder mt-md-3 pb-md-3 mb-md-4 mb-3"
-        >
-          Trees #101-10000
-        </h1>
-        <p class="param-xl tr-gray-two col-md-9">
-          The value of these trees increases every 100 trees based on a bonding
-          curve formula. There would be unique opportunities for collectors of
-          all GENESIS trees in Treejer protocol.
-        </p>
+      <div v-if="activeIndex === 1" class="gallery ">
+        <Gallery/>
       </div>
-      <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-6 mt-5">
-            <p class="tr-gray-four param-18">Start Price</p>
-            <p class="tr-green title-md font-weight-bolder">{{ " Ξ0.01" }}</p>
-            <p class="tr-gray-four param-18">Current Price</p>
-            <p class="tr-green title-md font-weight-bolder">{{ "Ξ0.026" }}</p>
-          </div>
-          <div class="col-md-6 mt-5">
-            <p class="tr-gray-four param-18">End Price</p>
-            <p class="tr-green title-md font-weight-bolder">{{ "Ξ0.1 " }}</p>
-            <p class="tr-gray-four param-18">Next Price</p>
-            <p class="tr-green title-md font-weight-bolder">${{ "Ξ0.027" }}</p>
-          </div>
-        </div>
-      </div>
-
-      <BidCard
-        v-for="(item, index) in treeBids"
-        :id="index + 100"
-        :key="index + 100"
-        :img="item.src"
-      />
     </div>
   </section>
 </template>
 
 <script>
-import PlaceBid from "../../components/genesis/PlaceBid.vue";
-import BidCard from "../../components/genesis/BidCard.vue";
-import AvatarBidders from "../../components/genesis/AvatarBidders.vue";
+import Collect from "../../components/increamentalsell/Collect";
+import Gallery from "../../components/increamentalsell/Gallery";
 
 export default {
-  layout: "landing",
-
-  head() {
-    return {
-      title: `Treejer`,
-      meta: [
-        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
-        {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
-        }
-      ]
-    }
-  },
+  name: "increamentalSell",
+  components: {Collect, Gallery},
   data() {
     return {
-      loading: false,
-      treeBids: [
-        {src: require("~/assets/images/genesis/Frame-78.svg")},
-        {src: require("~/assets/images/genesis/Frame-79.svg")},
-        {src: require("~/assets/images/genesis/Frame-80.svg")},
-        {src: require("~/assets/images/genesis/Frame-83.svg")},
-        {src: require("~/assets/images/genesis/Frame-84.svg")},
-        {src: require("~/assets/images/genesis/Frame-85.svg")},
-        {src: require("~/assets/images/genesis/Frame-88.svg")},
-        {src: require("~/assets/images/genesis/Frame1.svg")},
-        {src: require("~/assets/images/genesis/Frame2.svg")},
-        {src: require("~/assets/images/genesis/Frame3.svg")},
-      ],
-      planters: null,
-      auctions: null,
-      treeOfLife: null,
-      treeOfAuctions: null,
+      activeIndex: 0,
+      tabs: [{name: "Collect"}, {name: "Gallery"}]
     };
-  },
-  components: {PlaceBid, BidCard, AvatarBidders},
+  }
 };
 </script>
 
-<style lang="scss">
-.genesis-first-page {
-  .digit, .text {
-    font-size: 14px;
+<style lang="scss" scoped>
+.increamental-sell {
+  .tabs {
+    span:nth-child(1) {
+      border-radius: 24px 0 0 24px;
+    }
 
+    span:nth-child(2) {
+      border-radius: 0 24px 24px 0;
+    }
+
+    .btn-grays {
+      background: #616161;
+      color: white;
+      padding: 10px 48px;
+    }
+
+    .btn-yellow {
+      background: #f0e4c6;
+      padding: 10px 48px;
+    }
   }
+}
 
-  .bid-own {
-    > .row {
-      padding: 5px 15px;
-    }
-
-    background: #F0E4C6;
-    border-radius: 6px;
-  }
-
-  .genesis-bid-card {
-
-    .border-right-bid::after {
-      border: none;
-    }
-
-    .border-right-bid, .text-left {
-      padding: 0 !important;
-    }
-
-    .border-right-bid {
-      .param-xl {
-        font-size: 14px;
+@media(max-width: 768px) {
+  .increamental-sell {
+    .tabs {
+      text-align: center;
+      .btn-yellow, .btn-grays {
+        padding: 10px 15px;
       }
+      .inc-collect[data-v-f4f8c9fe] {
+        margin-top: 50px;
+      }
+
+
     }
+
+
   }
 
-  #timer {
-    > div {
-      > div:nth-child(1) {
-        display: none !important;
-      }
-    }
-  }
 }
 </style>
