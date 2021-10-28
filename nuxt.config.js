@@ -91,6 +91,7 @@ export default {
     {src: '~plugins/web3.js', ssr: false},
     {src: '~plugins/accountSlice.js', ssr: false},
     {src: '~plugins/num.js'},
+    {src: '~plugins/avatar.js'},
     {src: '~plugins/axios.js'}
   ],
   buildModules: [
@@ -168,7 +169,12 @@ export default {
       key: process.env.GOOGLE_MAP_API_KEY,
       //you can use libraries: ['places']
     }],
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    ['@nuxtjs/moment', {
+      plugins: [
+        'moment-strftime'
+      ]
+    }]
   ],
   apollo: {
     clientConfigs: {

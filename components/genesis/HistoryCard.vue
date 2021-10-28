@@ -2,27 +2,25 @@
   <div class="history-cards mb-3 ">
     <div class="row w-100 align-items-center">
       <div class="col-md-2 col-3 avatart-card">
-        <img :src="img" alt="avatar" />
+        <!-- <img :src="history.from" alt="avatar" /> -->
+        <img :src="$avatarByWallet(history.from)" alt="avatar" />
       </div>
       <div class="col-md-7 col-6 des-card text-left">
         <p class="mb-0">
-          <span class="param tr-gray-two font-weight-bold" v-if="text">{{
-            text
-          }}</span>
-          <span class="param tr-green">{{ walletAddress }}</span>
+          <span class="param tr-gray-two font-weight-bold" v-if="text">
+            {{ text }}</span>
+          <span v-coin class="param tr-green">{{ history.from }}</span>
         </p>
         <p class="mb-0">
-          <span class="param tr-gray-four font-weight-bold">{{ time }} </span>
+          <span class="param tr-gray-four font-weight-bold">{{ $moment(history.createdAt * 1000).strftime("%b %d, %Y at %I:%M %p") }} </span>
         </p>
       </div>
-      <div class="col-md-3 col-3 price-card" v-if="price">
+      <div class="col-md-3 col-3 price-card" v-if="history.value > 0">
         <p class="mb-0">
-          <span class="param tr-gray-two font-weight-bold">{{ ethPrice }}</span>
+          <span class="param tr-gray-two font-weight-bold">{{ humanValue + ' ' + currency }}</span>
         </p>
-        <p class="mb-0">
-          <span class="param tr-gray-four font-weight-bold"
-            >${{ dollarPrice }}</span
-          >
+        <p class="mb-0"> 
+          <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? humanValue * wethPrice : humanValue * daiPrice }}</span>
         </p>
       </div>
       <div class="col-md-3 col-3 price-card pr-0" v-if="link">
@@ -39,7 +37,8 @@ export default {
   data() {
     return {
       text: null,
-      price: false,
+      currency: 'WETH',
+      humanValue: 0,
       link: false,
     };
   },
@@ -48,96 +47,85 @@ export default {
   },
 
   props: {
-    img: {
-      type: String,
-      default: require("~/assets/images/myforest/avatar.png"),
+    history: {
+      type: Object
     },
-    time: {
-      type: String,
-      default: "May 6, 2021 at 6:10pm",
+    daiPrice: {
+      type: Number,
+      default: 1.1
     },
-    ethPrice: {
-      type: String,
-      default: "10 ETH",
-    },
-    dollarPrice: {
-      type: String,
-      default: "35213",
-    },
-    href: {
-      type: String,
-      default: `/forest/`,
-    },
-    walletAddress: {
-      type: String,
-      default: "0x...k5M2",
-    },
-    update: {
-      type: Boolean,
-      default: false,
-    },
-    listed: {
-      type: Boolean,
-      default: false,
-    },
-    planted: {
-      type: Boolean,
-      default: false,
-    },
-    putToSale: {
-      type: Boolean,
-      default: false,
-    },
-    transferred: {
-      type: Boolean,
-      default: false,
-    },
-    Offer: {
-      type: Boolean,
-      default: false,
-    },
-    Auction: {
-      type: Boolean,
-      default: false,
-    },
-    bidPlaced: {
-      type: Boolean,
-      default: false,
-    },
-    minted: {
-      type: Boolean,
-      default: false,
+    wethPrice: {
+      type: Number,
+      default: 4000
     },
   },
 
   methods: {
-    checkState() {
-      if (this.listed) {
-        this.text = "Tree listed by";
-        this.price = true;
-      } else if (this.update) {
-        this.text = "Status updated by";
-        this.link = true;
-      } else if (this.planted) {
-        this.text = "Tree planted by";
-        this.link = true;
-      } else if (this.putToSale) {
-        this.text = "putToSale";
-      } else if (this.transferred) {
-        this.text = "Tree transferred to";
-      } else if (this.Offer) {
-        this.text = "Offer placed by 0x...Td59";
-        this.price = true;
-      } else if (this.Auction) {
-        this.text = "Auction won by 0x...k5M2";
-        this.price = true;
-      } else if (this.bidPlaced) {
-        this.text = "Bid placed by 0x...k5M2";
-        this.price = true;
-      } else if (this.bidPlaced) {
-        this.text = "Bid placed by 0x...k5M2";
-      } else if (this.minted) {
-        this.text = "Tree minted by 0x...k5M2";
+    setText() {
+      switch (this.history.event) {
+        case 'AuctionCreated':
+          this.text = 'Auction created'
+          this.currency = 'WETH'
+          break;
+        case 'HighestBidIncreased':
+          this.text = 'Bid placed by'
+                    this.currency = 'WETH'
+
+          break;
+        case 'AuctionSettled':
+          this.text = 'Auction settled'
+                    this.currency = 'WETH'
+
+          break;
+        case 'AuctionEnded':
+          this.text = 'Auction ended'
+          break;
+
+        case 'IncrementalListed':
+          this.text = 'Listed for incremental sale'
+          break;
+        case 'IncrementalSaleTreeFunded':
+          this.text = 'Funded in incremental sale'
+          break;
+        case 'RegularMint':
+          this.text = 'Funded in regular sale'
+                    this.currency = 'DAI'
+
+          break;
+
+        case 'TreeListed':
+          this.text = 'Tree listed'
+          break;
+        case 'TreeAssigned':
+          this.text = 'Tree assigned to planter'
+          break;
+        case 'AssignedTreePlanted':
+          this.text = 'Assigned tree planted'
+          break;
+        case 'AssignedTreeVerified':
+          this.text = 'Assigned tree verified'
+          break;
+        case 'AssignedTreeRejected':
+          this.text = 'Assigned tree rejected'
+          break;
+        case 'TreeVerified':
+          this.text = 'Tree verified'
+          break;
+        case 'TreeUpdated':
+          this.text = 'Tree updated'
+          break;
+        case 'TreeUpdatedVerified':
+          this.text = 'Tree update verified'
+          break;
+        case 'TreeUpdateRejected':
+          this.text = 'Tree update rejected'
+          break;
+        case 'TreeSpecsUpdated':
+          this.text = 'Tree specs updated'
+          break;
+        default:
+          this.text = history.name
+          break;  
       }
     },
     goTolink(id) {
@@ -145,7 +133,10 @@ export default {
     },
   },
   mounted() {
-    this.checkState();
+    this.setText();
+    if(this.history.value > 0) {
+      this.humanValue = this.$web3.utils.fromWei(this.history.value)
+    }
   },
 };
 </script>

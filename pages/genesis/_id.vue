@@ -128,7 +128,7 @@
                 <p class="text-center tr-gray-one param-xl">History</p>
               </div>
               <div class="col-md-10 justify-content-center m-auto">
-                <HistoryCard :update="true"/>
+                <!-- <HistoryCard :update="true"/>
                 <HistoryCard :listed="true"/>
                 <HistoryCard :planted="true"/>
                 <HistoryCard :putToSale="true"/>
@@ -136,7 +136,10 @@
                 <HistoryCard :Offer="true"/>
                 <HistoryCard :Auction="true"/>
                 <HistoryCard :bidPlaced="true"/>
-                <HistoryCard :minted="true"/>
+                <HistoryCard :minted="true"/> -->
+                <!-- ToDo: fix daiPrice and wethPrice -->
+                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1.1" :wethPrice="4000" :key="history.id" />
+                
               </div>
               <div class="col-md-12">
                 <div v-if="genesisTree" class="card-tree-profile position-relative">
@@ -233,7 +236,7 @@
             <div class="col-md-3 col-12">
               <div class="attributes">
                 <p class="text-center tr-gray-one param-xl">Attributes</p>
-                <div v-for="(item,index) in attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                <div v-for="(item,index) in attributes" :key="index" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p v-if="item.trait_type === 'birthday'" class="text-center param tr-gray-two mb-0">
                     <span class="key">{{ item.trait_type }}: </span
                     ><span class="value font-weight-bolder tr-gray-one"
@@ -305,7 +308,8 @@ export default {
       currentTreeBid: null,
       genesisTree: null,
       highestBid: null,
-      attributes: null
+      attributes: null,
+      treeHistories: []
     };
   },
   async created() {
@@ -322,6 +326,9 @@ export default {
       // await this.checkMintStatus(this.genesisTree.mintStatus)
       await this.checkTreeStatus(this.genesisTree.treeStatus)
     }
+    this.getTreeHistory()
+
+
     this.loading = false
   },
 
@@ -337,12 +344,41 @@ export default {
         self.loading = false;
       }
     },
+    async getTreeHistory() {
+
+      //use this for pagination
+      // first = 0, skip = 0
+
+      let self = this
+      await self.$axios.$post(process.env.graphqlUrl, {
+        query: `{
+                  treeHistories(where:{ tree: "${self.$dec2hex(self.$route.params.id)}" }, orderBy: createdAt, orderDirection: desc)
+                    {
+                        id
+                        event
+                        from
+                        transactionHash
+                        blockNumber
+                        value
+                        createdAt
+                    }
+                }`,
+        prefetch: false
+      }).then((treeHistoriesRes) => {
+
+        console.log(treeHistoriesRes, "treeHistoriesRes")
+
+        self.treeHistories = treeHistoriesRes.data.treeHistories ? treeHistoriesRes.data.treeHistories : []
+
+      })
+
+    },
     async getTreeAuction() {
       this.loading = true
       let self = this
       await self.$axios.$post(process.env.graphqlUrl, {
         query: `{
-            auctions(where:{tree:"0x${self.$route.params.id}", isActive:${true}}){
+            auctions(where:{tree:"${self.$dec2hex(self.$route.params.id)}", isActive:${true}}){
                   id
                   tree{
                     id
@@ -366,7 +402,7 @@ export default {
                 }
                 }
               `,
-        prefetch: true
+        prefetch: false
       }).then((res) => {
 
         console.log(res, "res")
@@ -425,7 +461,7 @@ export default {
                 }
               }
              }`,
-        prefetch: true
+        prefetch: false
 
       }).then((res) => {
         self.genesisTree = res.data.tree
