@@ -12,7 +12,7 @@
               <h2
                 class="title-sm d-inline-flex Montserrat-Medium"
               >
-                <span v-coin class="pr-4 pl-0">{{$route.params.id != $cookies.get('account') ? $route.params.id : 'MY'}}</span>
+                <span v-coin class="pr-4 pl-0">{{ $route.params.id != $cookies.get('account') ? $route.params.id : 'MY'}}</span>
                 Forest
               </h2>
             </div>
@@ -181,7 +181,7 @@
                 style="left: 0"
               >
                 <span
-                  v-for="(item, index) in funder.trees.slice(0, 50)"
+                  v-for="(item, index) in trees.slice(0, 50)"
                   :id="item.id"
                   :key="index"
                   class=""
@@ -207,7 +207,7 @@
                 style="transition: all 0.3s ease"
               >
                 <span
-                  v-for="(item, index) in funder.trees.slice(50)"
+                  v-for="(item, index) in trees.slice(50)"
                   :id="item.id"
                   :key="index"
                   class="pointer-event"
@@ -234,9 +234,76 @@
               </div>
             </div>
           </div>
-          <ForestMap
-            :funder="funder"
-          />
+
+          <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
+            <div class="col-12">
+              <p class="param-18 tr-gray-three Montserrat-Medium">
+                Forest on the Map
+              </p>
+            </div>
+            <div class="col-12 mt-5">
+              <GMap
+                v-if="funder && funder.treeCount > 0 && funderTreesLoaded"
+                ref="gMap"
+                :center="{
+                            lat: trees[0].treeSpecsEntity ? parseFloat( trees[0].treeSpecsEntity.latitude / Math.pow(10, 6) )   : 24.06448,
+                            lng: trees[0].treeSpecsEntity ? parseFloat( trees[0].treeSpecsEntity.longitude / Math.pow(10, 6) ) : 81.30946,
+                          }"
+                :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
+                :options="{
+                            fullscreenControl: true,
+                            streetViewControl: false,
+                            mapTypeControl: false,
+                            zoomControl: true,
+                            gestureHandling: 'cooperative',
+                            styles: mapConfigData.mapStyle,
+                          }"
+                :zoom="6"
+              >
+                <GMapMarker
+                  v-for="tree in trees"
+                  v-if="funder && funder.treeCount > 0 && funderTreesLoaded && tree.treeSpecsEntity"
+                  :key="tree.id"
+                  :options="{
+                              icon:
+                                tree === currentTree ? mapConfigData.pins.selected : mapConfigData.pins.notSelected,
+                            }"
+                  :position="{ lat: parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) || 24.06448, lng: parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) || 81.30946 }"
+                  @click="currentTree = tree"
+                >
+                  <GMapInfoWindow :options="{ maxWidth: 200 }">
+                    <b>{{ tree.id }}</b>
+                    <br/>
+                    <br/>
+                    <code>
+                      Lat: {{ parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) }},
+                      <br/>
+                      Lng: {{ parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) }}
+                    </code>
+                  </GMapInfoWindow>
+                </GMapMarker>
+              </GMap>
+
+              <div v-if="(funder && funder.treeCount == 0) || funderTreesLoaded === false">
+                <GMap
+                  ref="gMap"
+                  :center="{ lat: 24.06448, lng: 81.30946 }"
+                  :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
+                  :options="{
+                              fullscreenControl: true,
+                              streetViewControl: false,
+                              mapTypeControl: false,
+                              zoomControl: true,
+                              gestureHandling: 'cooperative',
+                              styles: mapConfigData.mapStyle,
+                            }"
+                  :zoom="2"
+                >
+                </GMap>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div class="col-lg-3 col-12 justify-content-center overflow-hidden">
@@ -337,17 +404,18 @@
 
 <script>
 import Fas from "@/components/font-awsome/Fas";
-import content from "./world.json";
+// import content from "./static/data/world.json";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import funder from "~/apollo/queries/funder";
-import ForestMap from "@/components/ForestMap";
+// import ForestMap from "@/components/ForestMap";
+import mapConfig from "~/static/data/mapConfig.json";
 
 export default {
   name: "forest",
   layout: "dashboard",
-  components: {Metamask, Fas, Wallets, ForestMap},
+  components: {Metamask, Fas, Wallets},
 
   head() {
     return {
@@ -372,9 +440,7 @@ export default {
     },
   },
   computed: {
-    messages() {
-      return content;
-    }
+    
   },
 
   data() {
@@ -398,15 +464,57 @@ export default {
       loading: false,
       ethBalance: 0,
       treeID: null,
+      trees: [],
+      funderTreesLoaded: false,
+      mapConfigData: mapConfig,
+      currentTree: {},
+
     };
   },
   mounted() {
-    console.log(this.$dec2hex,": this.$dec2hex")
+
+
+    // console.log(this.$dec2hex,": this.$dec2hex")
     this.createTestObject();
     this.getEthBalance();
     console.log(this.funder ,"this.funder");
+
+    this.getFunderTrees();
   },
   methods: {
+    async getFunderTrees() {
+      if(this.funder && this.funder.treeCount  == 0) {
+        return;
+      }
+
+
+      //use this for pagination
+      // first = 0, skip = 0
+
+      let self = this
+      await self.$axios.$post(process.env.graphqlUrl, {
+        query: `{
+                  trees(first: 50, skip: 0, where:{ funder: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
+                    {
+                        id
+                        treeSpecsEntity {
+                          latitude
+                          longitude
+                        }
+                        createdAt
+                    }
+                }`,
+        prefetch: false
+      }).then((treesRes) => {
+
+        console.log(treesRes, "treesRes")
+        if(treesRes.data.trees && treesRes.data.trees.length > 0) {
+          self.trees = treesRes.data.trees
+          self.funderTreesLoaded = true
+        }
+
+      })
+    },
     async goToFindTree() {
       this.loading = true;
       let self = this;
@@ -465,9 +573,14 @@ export default {
       window.open(item, "_blank");
     },
     async getEthBalance() {
+
+      if(this.$cookies.get("account") == null){
+        return;
+      }
+
       let self = this
       await this.$web3.eth
-        .getBalance(this.$route.params.id)
+        .getBalance(this.$cookies.get("account"))
         .then(async (ethBalance) => {
           const test = await self.$web3.utils.fromWei(ethBalance);
           this.ethBalance = parseFloat(test).toFixed(4);

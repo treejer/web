@@ -138,7 +138,7 @@
                 <HistoryCard :bidPlaced="true"/>
                 <HistoryCard :minted="true"/> -->
                 <!-- ToDo: fix daiPrice and wethPrice -->
-                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1.1" :wethPrice="4000" :key="history.id" />
+                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="4000" :key="history.id" />
                 
               </div>
               <div class="col-md-12">
@@ -158,14 +158,14 @@
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                        {{ genesisTree.plantDate }}
+                        {{ $moment(genesisTree.plantDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
                       </p>
                     </div>
                     <div class="gps part">
                       <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
                       <p class="param-18 mb-0 tr-gray-two">
-                        <span class="pr-2">{{ 'tree-lat' }}</span
-                        >,<span class="pl-2">{{ 'tree-lng' }}</span>
+                        <span class="pr-2">{{ genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : '-' }}</span
+                        >,<span class="pl-2">{{ genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : '-' }}</span>
                       </p>
                     </div>
                     <!--                    <div v-if="genesisTree.type" class="species part">-->
@@ -200,8 +200,8 @@
                     <GMap
                       ref="gMap"
                       :center="{
-                        lat: 36.8566787,
-                        lng: 30.7924575
+                        lat:  genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : 36.8566787,
+                        lng: genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575 
                       }"
                       :cluster="{ options: { styles: mapStyle.clusterStyle } }"
                       :options="{
@@ -224,8 +224,8 @@
                       <GMapMarker
                         :options="{ icon: pins.selected }"
                         :position="{
-                          lat: 36.8566787,
-                          lng: 30.7924575
+                          lat:  genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : 36.8566787,
+                          lng: genesisTree.treeSpecsEntity ? parseFloat( genesisTree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575 
                         }"
                       ></GMapMarker>
                     </GMap>
@@ -240,7 +240,7 @@
                   <p v-if="item.trait_type === 'birthday'" class="text-center param tr-gray-two mb-0">
                     <span class="key">{{ item.trait_type }}: </span
                     ><span class="value font-weight-bolder tr-gray-one"
-                  >{{ new Date(parseInt(item.value) ) }}</span
+                  >{{ $moment(item.value * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span
                   >
                   </p>
 
@@ -409,20 +409,14 @@ export default {
 
         self.currentTreeBid = res.data.auctions ? res.data.auctions[0] : null
 
-        if (self.currentTreeBid.endDate === 'undefind' || self.currentTreeBid.endDate === null) {
-          return self.endDate = null
-        } else {
-          self.endDate = self.birthDate(self.currentTreeBid.endDate)
-
-        }
-        if (!self.currentTreeBid.highestBid) {
-          return self.highestBid = null
-        } else {
-          self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
-
+        if(self.currentTreeBid) {
+            self.endDate = self.birthDate(self.currentTreeBid.endDate)
+            self.highestBid = self.$web3.utils.fromWei(self.currentTreeBid.highestBid)
+            
         }
 
-        console.log(self.highestBid, " self.highestBid is here")
+                console.log(self.highestBid, " self.highestBid is here")
+
       })
     },
     async getTree() {

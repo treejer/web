@@ -296,6 +296,9 @@ export default {
       }
     },
     async setERC20Balance() {
+
+      
+
       console.log(this.tokenAddress, "this.tokenAddress");
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress
@@ -355,6 +358,18 @@ export default {
       });
     },
     async placeBid(id) {
+
+      if(this.$cookies.get("account") == null){
+        this.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+        this.$bvModal.show("five");
+        return;
+      }
+
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
