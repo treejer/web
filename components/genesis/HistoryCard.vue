@@ -17,10 +17,10 @@
       </div>
       <div class="col-md-3 col-3 price-card" v-if="history.value > 0">
         <p class="mb-0">
-          <span class="param tr-gray-two font-weight-bold">{{ parseFloat(humanValue).toFixed(2) + ' ' + currency }}</span>
+          <span class="param tr-gray-two font-weight-bold">{{ (currency == 'WETH' ? parseFloat(humanValue).toFixed(3) : parseFloat(humanValue).toFixed(2)) + ' ' + currency }}</span>
         </p>
         <p class="mb-0"> 
-          <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? parseFloat(humanValue * wethPrice).toFixed(3) : parseFloat(humanValue * daiPrice).toFixed(2)  }}</span>
+          <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? parseFloat(humanValue * wethPrice).toFixed(2) : parseFloat(humanValue * daiPrice).toFixed(2)  }}</span>
         </p>
       </div>
       <div class="col-md-3 col-3 price-card pr-0" v-if="link">
@@ -55,7 +55,7 @@ export default {
       default: 1
     },
     wethPrice: {
-      type: Number,
+      type: String,
       default: 4000
     },
   },

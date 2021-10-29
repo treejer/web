@@ -80,7 +80,7 @@
     <OtherTreeInc :text="'Tree of Life'"/>
     <div class="col-md-12 d-md-flex  current-price-inc text-center justify-content-center  mt-3"><p
         class="param tr-gray-four text-capitalize  ">Reserve Price: {{ 'Ξ100' }}</p></div>
-    <div class="col-md-8 col-12 justify-content-center text-center pointer-event" @click="$router.push('/genesis/0')">
+    <div class="col-md-8 col-12 justify-content-center text-center pointer-event" @click="$router.push('/tree/0')">
       <img alt="" src="../../assets/images/increamentalSell/trees-state.svg">
       <p class=" param-xs tr-gray-tree">Tree #0</p>
     </div>
@@ -89,7 +89,7 @@
         class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
     <div class="col-md-9 col-12 justify-content-center text-center">
       <div v-for="(item,index) in incTrees" class="box-inc-trees d-inline-block pointer-event"
-           @click="$router.push({path:`/genesis/${1 + index }` , params:{id:1 + index} })">
+           @click="$router.push({path:`/tree/${1 + index }` , params:{id:1 + index} })">
             <span>
               <img v-if="index === 4 || index === 7 || index === 10" alt="trees-state" class="filter-hue"
                    src="../../assets/images/increamentalSell/trees-state.svg">
@@ -115,7 +115,7 @@
     <div class="col-md-9 col-12 justify-content-center text-center">
 
       <div v-for="(item,index) in incTreesClaim" class="box-inc-trees d-inline-block  pointer-event"
-           @click="$router.push(`/genesis/${11 + index }`)">
+           @click="$router.push(`/tree/${11 + index }`)">
             <span>
                <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
                     src="../../assets/images/increamentalSell/trees-state.svg">

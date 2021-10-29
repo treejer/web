@@ -12,26 +12,25 @@
 
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
-        <p v-if="highestBid" class="mb-0 param tr-gray-two">Current bid {{ highestBid }} ETH</p>
+        <p class="mb-0 param tr-gray-two">Min bid {{ parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4) }} WETH</p>
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
-          placeholder="0 eth"
+          placeholder="0 WETH"
           type="text"
           @keyup.enter="placeBid('two')"
         />
       </div>
-      <div v-if="expireDates" class="col-md-6 pb-4 text-left">
+      <div class="col-md-6 pb-4 text-left">
         <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p v-if="checkExpireDateText" class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
+        <p v-if="auction.endDate * 1000 < (new Date().getTime()) " class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
 
-          This auction is over in <br>{{ expireDates }}
+          This auction is over in <br>{{ $moment(auction.endDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
 
         </p>
-        <p v-if="!checkExpireDateText" class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
+        <p v-else class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
 
-          <CountDown
-            :date="expireDates"></CountDown>
+          <CountDown :date="$moment(auction.endDate * 1000).strftime('%Y-%m-%d %H:%M:%S') "></CountDown>
 
         </p>
       </div>
@@ -69,11 +68,11 @@
     <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ bidValue }}</span
-        ><span class="tr-gray-two"> ETH</span>
+        ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
         <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
-        <strong>{{ bidValue }}</strong> ETH
+        <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -97,11 +96,11 @@
     <div v-show="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span v-if="bidValue">{{ bidValue }}</span
-        ><span class="tr-gray-two"> ETH</span>
+        ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18 ">
         <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
-        <strong>{{ bidValue }}</strong> ETH
+        <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -163,17 +162,12 @@ export default {
     Socials
   },
   props: {
-    expireDates: {
-      type: String,
-      default: "2022-07-06 08:15:00"
+    auction: {
+      type: Object
     },
-    expireDateText: {
+    ethPrice: {
       type: String,
-      default: ""
-    },
-    highestBid: {
-      type: String,
-      default: "0.05"
+      default: 4000
     }
   },
   computed: {
@@ -209,17 +203,24 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-      ethPrice: null
+      ethPrice: null,
+      minBidValue: 0
     };
   },
   async created() {
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
-    console.log(process.env.ethPrice, "process.env.ethPrice");
-    this.$axios.$get(process.env.ethPrice).then(res => {
-      this.ethPrice = res.result.ethusd;
-    });
+    
+
+    if(parseInt(this.auction.highestBid) > 0) {
+      this.minBidValue = parseInt(this.auction.highestBid) + parseInt(this.auction.priceInterval)
+    } else {
+      this.minBidValue = parseInt(this.auction.initialPrice) + parseInt(this.auction.priceInterval)
+    }
+
+    // this.bidValue = this.$web3.utils.fromWei(this.minBidValue.toString())
+
     // const ethPrices = await this.$store.dispatch('ethPrices')
     // console.log(ethPrices)
   },
@@ -339,7 +340,7 @@ export default {
       if (tx !== null) {
         this.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",
-          title: "Trees added to forest",
+          title: "Your placed successfully",
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${this.$cookies.get("account")}`
         });
@@ -375,17 +376,15 @@ export default {
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
-        if (this.bidValue) {
+        if (parseFloat(this.bidValue) < parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString()))  ) {
+          this.toast('You have to bid more than the min bid value: ' + parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())) , "Value Error");
+          return;
+        }
+        else {
           this.placeBidStepTwo = false;
           this.placeBidStepThree = true;
         }
-        else if (this.bidValue <= this.highestBid){
-          this.toast('You have to pay more than the highest bid,');
-        }
-
-        else {
-          this.toast();
-        }
+        
       }
       if (id === "finish") {
         this.placeBidStepSix = true;

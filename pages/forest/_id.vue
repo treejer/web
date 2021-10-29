@@ -528,7 +528,7 @@ export default {
 
         if (result) {
           if (result.data.trees.length > 0) {
-            self.$router.push(`/genesis/${self.treeID}`);
+            self.$router.push(`/tree/${self.treeID}`);
           } else {
             self.$bvToast.toast("Tree Not found!", {
               toaster: "b-toaster-bottom-left",
