@@ -88,17 +88,18 @@
     <div class="col-md-12 current-price-inc text-center justify-content-center  mt-3"><p
         class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
     <div class="col-md-9 col-12 justify-content-center text-center">
-      <div v-for="(item,index) in auctions" :key="index" class="box-inc-trees d-inline-block pointer-event"
-           @click="$router.push({path:`/tree/${1 + index }` , params:{id:1 + index} })">
+      <div v-for="(item,index) in auctions" :key="index" v-if="$hex2Dec(item.tree.id) != '0'" class="box-inc-trees d-inline-block pointer-event"
+           @click="$router.push(`/tree/${$hex2Dec(item.tree.id) }`)">
             <span>
-              <img v-if="index === 4 || index === 7 || index === 10" alt="trees-state" class="filter-hue"
+              <img v-if="item.isActive && item.endDate * 1000 > (new Date().getTime())" alt="trees-state" class="filter-hue"
                    src="../../assets/images/increamentalSell/trees-state.svg">
-            <img v-else-if="index === 6 " alt="trees-state" class="filter-balckandwhite"
+            <img v-else-if="item.winner != null || !item.isActive || item.endDate * 1000 < (new Date().getTime())" alt="trees-state" class="filter-balckandwhite"
                  src="../../assets/images/increamentalSell/trees-state.svg">
             <img v-else alt="trees-state" src="../../assets/images/increamentalSell/trees-state.svg">
             </span>
 
-        <p class=" param-xs tr-gray-tree">Tree #{{ 1 + index }}</p>
+        <p class=" param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.tree.id) }}</p>
+
       </div>
 
 
@@ -118,11 +119,11 @@
            @click="$router.push(`/tree/${$hex2Dec(item.id) }`)">
             <span>
 
-              <img v-if="item.claimed" alt="tree-status"
+              <img v-if="item.claimed" alt="tree-status" class="filter-balckandwhite"
                     src="../../assets/images/increamentalSell/trees-state.svg">
 
               <img v-else alt="tree-status"
-                 class="filter-balckandwhite" src="../../assets/images/increamentalSell/trees-state.svg">
+                  src="../../assets/images/increamentalSell/trees-state.svg">
 
 
                <!-- <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
@@ -151,31 +152,29 @@
 <script>
 import OtherTreeInc from "../../components/OtherTreeInc";
 import honoraryTrees from "~/apollo/queries/honoraryTrees";
+import auctions from '~/apollo/queries/auctions'
+
 
 export default {
   name: "Collect",
   components: {OtherTreeInc},
   data() {
     return {
-      auctions: [],
     }
   },
   apollo: {
     honoraryTrees: {
       prefetch: true,
       query: honoraryTrees,
+    },
+    auctions: {
+      prefetch: true,
+      query: auctions
     }
   },
   created() {
-    this.pushToTrees()
   },
   methods: {
-    pushToTrees() {
-      let i
-      for (i = 0; i < 10; i++) {
-        this.auctions.push({i})
-      }
-    }
   }
 }
 </script>
@@ -208,7 +207,7 @@ export default {
       }
 
 
-      &::before, {
+      &::before {
         position: absolute;
         content: '';
         border: dashed green 2px;

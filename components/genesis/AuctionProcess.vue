@@ -2,12 +2,23 @@
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
     <button
 
-      v-show="placeBidStep"
+      v-show="auction.endDate * 1000 > (new Date().getTime()) && placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('one')"
     >
       {{ !loading ? "Place a bid" : "Loading..." }}
     </button>
+
+    <button
+
+      v-show="auction.endDate * 1000 < (new Date().getTime()) && auction.isActive && placeBidStep"
+      class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
+      @click.prevent="endAuction()"
+    >
+      {{ !loading ? ( auction.highestBid > 0  ? "Settle Auction" : "End Auction" ) : "Loading..." }}
+    </button>
+
+
     <!--    <h1 v-if="auction" v-text="new Date(auction.expireDate * 1000)"></h1>-->
 
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
@@ -22,7 +33,9 @@
         />
       </div>
       <div class="col-md-6 pb-4 text-left">
-        <p class="mb-0 param tr-gray-two">Ending in</p>
+        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 > (new Date().getTime()) " >Ending in</p>
+        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 < (new Date().getTime()) " >Auction ended</p>
+
         <p v-if="auction.endDate * 1000 < (new Date().getTime()) " class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
 
           This auction is over in <br>{{ $moment(auction.endDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
@@ -111,7 +124,7 @@
             v-if="erc20Balance > 0 && isAllowedSpendERC20"
             :class="{ disable: loading }"
             class="btn-green"
-            @click="bidAction()"
+            @click="bid()"
           >
             <BSpinner v-if="loading" class="mr-2" small type="grow"
             >loading
@@ -203,7 +216,6 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-      ethPrice: null,
       minBidValue: 0
     };
   },
@@ -329,11 +341,11 @@ export default {
         this.placeBidStepFour = true;
       }
     },
-    async bidAction() {
+    async bid() {
       this.loading = true;
 
       let tx = await this.$store.dispatch("auction/bid", {
-        auctionId: this.$route.params.id,
+        auctionId: this.$hex2Dec(this.auction.id),
         bidValue: this.bidValue
       });
       console.log(tx, "txis here");
@@ -346,6 +358,23 @@ export default {
         });
         this.placeBidStepFour = false;
         this.placeBidStepSix = true;
+      }
+      this.loading = false;
+    },
+    async endAuction() {
+      this.loading = true;
+
+      let tx = await this.$store.dispatch("auction/end", {
+        auctionId: this.$hex2Dec(this.auction.id)
+      });
+      if (tx !== null) {
+        this.$bvToast.toast(["Auction ended successfully"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Auction ended successfully",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`
+        });
+        this.auction.isActive = false;
       }
       this.loading = false;
     },
@@ -376,6 +405,22 @@ export default {
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
+
+        if(this.auction.endDate * 1000 < (new Date().getTime())) {
+          this.toast('Auction ended' , "Auction ended");
+          return;
+        }
+
+        if(this.auction.isActive == false) {
+          this.toast('Auction is not active' , "Auction inactive");
+          return;
+        }
+
+        if(this.bidValue == null) {
+          this.toast('Bid value is empty' , "Value Error");
+          return;
+        }
+
         if (parseFloat(this.bidValue) < parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString()))  ) {
           this.toast('You have to bid more than the min bid value: ' + parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())) , "Value Error");
           return;

@@ -92,7 +92,7 @@
         </div>
         <div class="col-12 text-center position-relative mt-md-5 genesis-des">
           <div class="row pt-md-3 justify-content-between">
-            <div class="col-md-3 col-12">
+            <div class="col-md-3 col-12" >
               <div class="story">
                 <p class="text-center tr-gray-one param-xl">Story</p>
               </div>
@@ -107,20 +107,20 @@
                 <p class="text-center tr-gray-one param-xl">People</p>
               </div>
               <div v-if="tree" class="col-md-12 pb-md-5 justify-content-center m-auto">
-                <span v-if="tree.planter">
+                <span>
                   <PeopleCard
-                    :planter="tree.planter"
+                    :tree="tree"
                   />
                 </span>
 
               </div>
-              <div class="Bids col-md-6 justify-content-center m-auto">
+              <div class="Bids col-md-6 justify-content-center m-auto" v-if="auction && auction.bids.length > 0">
                 <p class="text-center tr-gray-one param-xl">Bidders</p>
               </div>
               <div v-if="auction"
                    class="col-md-12 pb-md-5 justify-content-center m-auto">
                 <AvatarBidders
-                  :dataRes="auction"
+                  :bids="auction.bids"
                 />
               </div>
               <div class="history col-md-6 justify-content-center m-auto">
@@ -140,8 +140,8 @@
                 <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice" :key="history.id" />
                 
               </div>
-              <div class="col-md-12">
-                <div v-if="tree" class="card-tree-profile position-relative">
+              <div class="col-md-12" v-if="tree">
+                <div v-if="tree.planter" class="card-tree-profile position-relative">
                   <div
                     v-if="tree.funder && tree.funder.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
@@ -230,7 +230,19 @@
                     </GMap>
                   </div>
                 </div>
+
+                <div v-else class="card-tree-profile position-relative">
+                  <div class="position-absolute edit-name-position-absolute">
+                    <button
+                      class="btn-green edit-name"
+                    >
+                      Not planted Tree
+                    </button>
+                  </div>
+                </div>  
               </div>
+
+              
             </div>
             <div class="col-md-3 col-12">
               <div class="attributes">
@@ -391,7 +403,7 @@ export default {
       let self = this
       await self.$axios.$post(process.env.graphqlUrl, {
         query: `{
-            auctions(where:{tree:"${self.$dec2hex(self.$route.params.id)}", isActive:${true}}){
+            auctions(where:{tree:"${self.$dec2hex(self.$route.params.id)}"}){
                   id
                   tree{
                     id
@@ -424,6 +436,12 @@ export default {
 
         if(res.data.auctions && res.data.auctions.length > 0) {
           self.auction = res.data.auctions.filter(auction => auction.isActive === true)[0];
+
+
+          if(self.auction == null) {
+            self.auction = res.data.auctions.filter(auction => auction.highestBid > 0)[0];
+          }
+
         }
 
 
