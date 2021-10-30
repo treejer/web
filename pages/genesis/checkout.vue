@@ -489,7 +489,7 @@ export default {
             toaster: "b-toaster-bottom-left",
             title: "You approved to spend weth",
             variant: "success",
-            href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+            href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
           });
 
           await this.fundTree();

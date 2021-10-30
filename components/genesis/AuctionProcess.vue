@@ -284,7 +284,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend erc20",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`
+          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`
         });
 
         if (silent === false) {
@@ -342,7 +342,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your placed successfully",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${tx.hash}`
+          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`
         });
         this.placeBidStepFour = false;
         this.placeBidStepSix = true;
