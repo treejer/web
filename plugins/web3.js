@@ -19,20 +19,20 @@ export default async ({ app }, inject) => {
 
 
         await torus.setProvider({
-            host: "ropsten", // default : 'mainnet',
-            chainId: 3,
+            host: process.env.NETWORK_NAME, // default : 'mainnet',
+            chainId: parseInt(process.env.NETWORK_ID),
         });
 
         instance = new Web3(torus.provider);
 
     } else if (walletName === 'fortmatic') {
         const Fortmatic = require("fortmatic");
-        const fm = new Fortmatic(process.env.FORTMATIC, 'ropsten');
+        const fm = new Fortmatic(process.env.FORTMATIC, process.env.NETWORK_NAME);
         instance = new Web3(fm.getProvider());
 
     } else if (walletName === 'portis') {
         const Portis = require("@portis/web3");
-        const portis = new Portis(process.env.PORTIS, "ropsten", {
+        const portis = new Portis(process.env.PORTIS, process.env.NETWORK_NAME, {
             scope: ["email"],
         });
 

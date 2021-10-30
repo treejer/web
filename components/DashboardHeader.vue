@@ -5,7 +5,7 @@
       style="height: 32px; background: #424242"
     >
       <p class="param-sm text-white mb-0">
-        Treejer is now live on testnet. Connect your wallet to Ropsten Test
+        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test
         Network and start your forest! !
         <a
           class="text-white"
@@ -78,7 +78,7 @@
         <div class="text-center justify-content-center m-auto">
           <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
           <p class="param tr-gray-three">
-            Metamask should be on <strong>Ropsten </strong> network.
+            Metamask should be on <strong> {{ networkName }} </strong> network.
           </p>
           <p class="param tr-gray-three">
             Currently it on {{ $store.state.netWorkName }} instead
@@ -120,7 +120,8 @@ export default {
         {name: "Blog", step: 2},
         {name: "For Business", step: 3, href: 'business'},
         {name: "Find My Tree", step: 4, href: 'find'},
-      ]
+      ],
+      networkName: process.env.NETWORK_NAME
     };
   },
   async mounted() {

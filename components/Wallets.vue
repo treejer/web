@@ -212,7 +212,7 @@ export default {
           break;
         case "Fortmatic":
           const Fortmatic = require("fortmatic");
-          const fm = await new Fortmatic(process.env.FORTMATIC, "ropsten");
+          const fm = await new Fortmatic(process.env.FORTMATIC, process.env.NETWORK_NAME);
           const web3 = await new Web3(fm.getProvider());
           web3.currentProvider.enable();
 
@@ -238,7 +238,7 @@ export default {
           if (process.client) {
             const Portis = require("@portis/web3");
             let self = this;
-            const portis = new Portis(process.env.PORTIS, "ropsten", {
+            const portis = new Portis(process.env.PORTIS, process.env.NETWORK_NAME, {
               scope: ["email"],
             });
 
