@@ -9,7 +9,7 @@
         <div class="col-12">
           <div class="d-md-flex justify-content-center  tabs">
             <span
-              v-for="(item, index) in tabs"
+              v-for="(item, index) in tabs" :key="index"
               :class="activeIndex === index ? 'btn-grays' : 'btn-yellow'"
               class="col-md-2 pointer-event param-18 font-weight-bolder "
               @click="activeIndex = index"

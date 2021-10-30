@@ -1,0 +1,10 @@
+{
+  honoraryTrees(first: 100, orderBy: createdAt, orderDirection: asc) {
+    id
+    tree{id}
+    recipient{id}
+    claimed
+    createdAt
+    updatedAt
+  }
+}

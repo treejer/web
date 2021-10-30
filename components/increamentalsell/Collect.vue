@@ -88,7 +88,7 @@
     <div class="col-md-12 current-price-inc text-center justify-content-center  mt-3"><p
         class="param tr-gray-four text-capitalize m-auto  ">Reserve Price: {{ 'Ξ10' }}</p></div>
     <div class="col-md-9 col-12 justify-content-center text-center">
-      <div v-for="(item,index) in incTrees" class="box-inc-trees d-inline-block pointer-event"
+      <div v-for="(item,index) in auctions" :key="index" class="box-inc-trees d-inline-block pointer-event"
            @click="$router.push({path:`/tree/${1 + index }` , params:{id:1 + index} })">
             <span>
               <img v-if="index === 4 || index === 7 || index === 10" alt="trees-state" class="filter-hue"
@@ -114,18 +114,26 @@
     </div>
     <div class="col-md-9 col-12 justify-content-center text-center">
 
-      <div v-for="(item,index) in incTreesClaim" class="box-inc-trees d-inline-block  pointer-event"
-           @click="$router.push(`/tree/${11 + index }`)">
+      <div v-for="(item,index) in honoraryTrees" :key="index" class="box-inc-trees d-inline-block  pointer-event"
+           @click="$router.push(`/tree/${$hex2Dec(item.id) }`)">
             <span>
-               <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
+
+              <img v-if="item.claimed" alt="tree-status"
                     src="../../assets/images/increamentalSell/trees-state.svg">
-            <img v-else-if="index === 19  || index === 80 || index === 81" alt="tree-status"
+
+              <img v-else alt="tree-status"
+                 class="filter-balckandwhite" src="../../assets/images/increamentalSell/trees-state.svg">
+
+
+               <!-- <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
+                    src="../../assets/images/increamentalSell/trees-state.svg">
+              <img v-else-if="index === 19  || index === 80 || index === 81" alt="tree-status"
                  class="filter-balckandwhite"
                  src="../../assets/images/increamentalSell/trees-state.svg">
-            <img v-else alt="tree-status" src="../../assets/images/increamentalSell/trees-state.svg">
+              <img v-else alt="tree-status" src="../../assets/images/increamentalSell/trees-state.svg"> -->
             </span>
 
-        <p class=" param-xs tr-gray-tree">Tree #{{ 11 + index }}</p>
+        <p class=" param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.id) }}</p>
       </div>
     </div>
     <div class="col-md-9 col-12 inc-text text-center ">
@@ -142,14 +150,20 @@
 
 <script>
 import OtherTreeInc from "../../components/OtherTreeInc";
+import honoraryTrees from "~/apollo/queries/honoraryTrees";
 
 export default {
   name: "Collect",
   components: {OtherTreeInc},
   data() {
     return {
-      incTrees: [],
-      incTreesClaim: [],
+      auctions: [],
+    }
+  },
+  apollo: {
+    honoraryTrees: {
+      prefetch: true,
+      query: honoraryTrees,
     }
   },
   created() {
@@ -159,10 +173,7 @@ export default {
     pushToTrees() {
       let i
       for (i = 0; i < 10; i++) {
-        this.incTrees.push({i})
-      }
-      for (i = 10; i < 100; i++) {
-        this.incTreesClaim.push({i})
+        this.auctions.push({i})
       }
     }
   }
