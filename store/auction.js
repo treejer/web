@@ -34,7 +34,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 
@@ -100,7 +100,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 

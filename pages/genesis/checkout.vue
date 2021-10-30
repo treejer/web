@@ -395,7 +395,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -422,7 +422,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });

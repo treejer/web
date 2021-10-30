@@ -258,7 +258,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get("account")}`
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get("account")}`
         });
         self.setERC20Balance();
         transak.close();
@@ -342,7 +342,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your placed successfully",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${this.$cookies.get("account")}`
+          href: `${process.env.etherScanUrl}/tx/${tx.hash}`
         });
         this.placeBidStepFour = false;
         this.placeBidStepSix = true;
