@@ -123,8 +123,16 @@ export default {
         case 'TreeSpecsUpdated':
           this.text = 'Tree specs updated'
           break;
+
+        case 'HonoraryTreeRangeSet':
+          this.text = 'Tree added to honorary trees'
+          break;
+        case 'HonoraryClaimed':
+          this.text = 'Claimed from honorary trees'
+          break;
+
         default:
-          this.text = history.name
+          this.text = this.history.event
           break;  
       }
     },
