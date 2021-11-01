@@ -67,7 +67,7 @@
             <div class="row">
               <div
                 class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
-                v-for="(item, index) in funders"
+                v-for="(item, index) in owners"
                 :key="index"
               >
                 <div class="card-box" @click="goToDashboard(item)">
@@ -275,7 +275,7 @@
 
 <script>
 import Fab from "@/components/font-awsome/Fab";
-import fundersSorted from "~/apollo/queries/fundersSorted";
+import ownersSorted from "~/apollo/queries/ownersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import treesPagination from "~/apollo/queries/treesPagination";
 export default {
@@ -317,9 +317,9 @@ export default {
     };
   },
   apollo: {
-    funders: {
+    owners: {
       prefetch: true,
-      query: fundersSorted,
+      query: ownersSorted,
       variables () {
         return { limit: 12, orderBy: 'treeCount', orderDirection: 'desc' }
       }

@@ -143,7 +143,7 @@
               <div class="col-md-12" v-if="tree">
                 <div v-if="tree.planter" class="card-tree-profile position-relative">
                   <div
-                    v-if="tree.funder && tree.funder.id === $cookies.get('account')"
+                    v-if="tree.owner && tree.owner.id === $cookies.get('account')"
                     class="position-absolute edit-name-position-absolute"
                   >
                     <button
@@ -467,6 +467,9 @@ export default {
                   id
                 }
                 funder{
+                  id
+                }
+                owner{
                   id
                 }
                 countryCode

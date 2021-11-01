@@ -46,7 +46,7 @@
                   src="../../assets/images/myforest/tree.svg"
                 /></span>
                 <span>
-                  <span>{{ funder ? funder.treeCount : 0 }}</span>
+                  <span>{{ owner ? owner.treeCount : 0 }}</span>
                 </span>
               </p>
             </div>
@@ -126,15 +126,15 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              funder && funder.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
+                              owner && owner.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
                             "
                             @click.prevent="goToAddTree"
                           >
-                            {{ funder && funder.treeCount > 0 ? "Done" : "step 2" }}
+                            {{ owner && owner.treeCount > 0 ? "Done" : "step 2" }}
                           </button>
                         </span>
                         <span
-                          :class="funder && funder.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
+                          :class="owner && owner.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
                         >
                           Add trees to your forest
                         </span>
@@ -145,7 +145,7 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            :class=" funder && funder.treeCount > 0? 'btn-outline-green': 'btn-green' "
+                            :class=" owner && owner.treeCount > 0? 'btn-outline-green': 'btn-green' "
                             @click="comunity()"
                           >
                             step 3
@@ -176,7 +176,7 @@
                 </span>
               </div>
               <div
-                v-if="funder && funder.treeCount > 0"
+                v-if="owner && owner.treeCount > 0"
                 class="col-12 p-0 befor-res"
                 style="left: 0"
               >
@@ -202,7 +202,7 @@
                 </span>
               </div>
               <div
-                v-if="funder && funder.treeCount > 50 && showMoreTreeData"
+                v-if="owner && owner.treeCount > 50 && showMoreTreeData"
                 class="col-12 p-0"
                 style="transition: all 0.3s ease"
               >
@@ -243,7 +243,7 @@
             </div>
             <div class="col-12 mt-5">
               <GMap
-                v-if="funder && funder.treeCount > 0 && funderTreesLoaded"
+                v-if="owner && owner.treeCount > 0 && ownerTreesLoaded"
                 ref="gMap"
                 :center="{
                             lat: trees[0].treeSpecsEntity ? parseFloat( trees[0].treeSpecsEntity.latitude / Math.pow(10, 6) )   : 24.06448,
@@ -262,7 +262,7 @@
               >
                 <GMapMarker
                   v-for="tree in trees"
-                  v-if="funder && funder.treeCount > 0 && funderTreesLoaded && tree.treeSpecsEntity"
+                  v-if="owner && owner.treeCount > 0 && ownerTreesLoaded && tree.treeSpecsEntity"
                   :key="tree.id"
                   :options="{
                               icon:
@@ -284,7 +284,7 @@
                 </GMapMarker>
               </GMap>
 
-              <div v-if="(funder && funder.treeCount == 0) || funderTreesLoaded === false">
+              <div v-if="(owner && owner.treeCount == 0) || ownerTreesLoaded === false">
                 <GMap
                   ref="gMap"
                   :center="{ lat: 24.06448, lng: 81.30946 }"
@@ -408,7 +408,7 @@ import Fas from "@/components/font-awsome/Fas";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
 import treesSearchById from "~/apollo/queries/treesSearchById";
-import funder from "~/apollo/queries/funder";
+import owner from "~/apollo/queries/owner";
 // import ForestMap from "@/components/ForestMap";
 import mapConfig from "~/static/data/mapConfig.json";
 
@@ -431,8 +431,8 @@ export default {
     }
   },
   apollo: {
-    funder: {
-      query: funder,
+    owner: {
+      query: owner,
       prefetch: ({route}) => ({id: route.params.id.toLowerCase()}),
       variables() {
         return {id: this.$route.params.id.toLowerCase()}
@@ -465,7 +465,7 @@ export default {
       ethBalance: 0,
       treeID: null,
       trees: [],
-      funderTreesLoaded: false,
+      ownerTreesLoaded: false,
       mapConfigData: mapConfig,
       currentTree: {},
 
@@ -477,13 +477,13 @@ export default {
     // console.log(this.$dec2hex,": this.$dec2hex")
     this.createTestObject();
     this.getEthBalance();
-    console.log(this.funder ,"this.funder");
+    console.log(this.owner ,"this.owner");
 
     this.getFunderTrees();
   },
   methods: {
     async getFunderTrees() {
-      if(this.funder && this.funder.treeCount  == 0) {
+      if(this.owner && this.owner.treeCount  == 0) {
         return;
       }
 
@@ -494,7 +494,7 @@ export default {
       let self = this
       await self.$axios.$post(process.env.graphqlUrl, {
         query: `{
-                  trees(first: 50, skip: 0, where:{ funder: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
+                  trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
                     {
                         id
                         treeSpecsEntity {
@@ -510,7 +510,7 @@ export default {
         console.log(treesRes, "treesRes")
         if(treesRes.data.trees && treesRes.data.trees.length > 0) {
           self.trees = treesRes.data.trees
-          self.funderTreesLoaded = true
+          self.ownerTreesLoaded = true
         }
 
       })

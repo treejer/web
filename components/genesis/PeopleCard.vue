@@ -11,9 +11,9 @@
       <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id : 'Not Funded' }}</p>
     </div>
     <div class="border-0">
-      <img alt="Owner" :src="tree.funder ?  $avatarByWallet(tree.funder.id) : icon" />
+      <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : icon" />
       <p class="param tr-gray-two mt-2">Owner</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id : 'Not Funded' }}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
     </div>
   </div>
 </template>

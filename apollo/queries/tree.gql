@@ -7,6 +7,9 @@
     funder{
       id
     }
+    owner{
+      id
+    }
     treeType
     countryCode
     saleType
