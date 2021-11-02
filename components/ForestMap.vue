@@ -7,11 +7,11 @@
     </div>
     <div class="col-12 mt-5">
       <GMap
-        v-if="owner && owner.treeCount > 0"
+        v-if="trees && trees.length > 0"
         ref="gMap"
         :center="{
-                    lat: owner.trees[0] ? owner.trees[0].latitude  :24.06448,
-                    lng: owner.trees[0] ? owner.trees[0].longitude : 81.30946,
+                    lat: trees[0] ? trees[0].latitude  :24.06448,
+                    lng: trees[0] ? trees[0].longitude : 81.30946,
                   }"
         :cluster="{ options: { styles: clusterStyle } }"
         :options="{
@@ -25,8 +25,8 @@
         :zoom="6"
       >
         <GMapMarker
-          v-if="owner.trees && owner.trees.length > 0"
-          v-for="tree in owner.trees"
+          v-if="trees && trees.length > 0"
+          v-for="tree in trees"
           :key="tree.id"
           :options="{
                       icon:
@@ -48,7 +48,7 @@
         </GMapMarker>
       </GMap>
 
-      <div v-if="ownerTreesLoaded === true">
+      <div v-if="funderTreesLoaded === true">
         <GMap
           ref="gMap"
           :center="{ lat: 24.06448, lng: 81.30946 }"
@@ -74,13 +74,13 @@
 export default {
   name: "ForestMap",
   props:{
-    owner:{
-      default: null,
+    trees:{
+      default: [],
     },
   },
   computed:{
-    ownerTreesLoaded(){
-      if(this.owner === null ||this.owner.length <= 0) {
+    funderTreesLoaded(){
+      if(this.trees.length <= 0) {
         return true
       }else {
         return false

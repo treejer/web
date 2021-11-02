@@ -134,7 +134,7 @@ export const actions = {
     const walletName = this.$cookies.get('walletName')
     if (walletName === 'portis') {
       const Portis = require("@portis/web3");
-      const portis = await Portis(process.env.PORTIS, 'ropsten')
+      const portis = await Portis(process.env.PORTIS, process.env.NETWORK_NAME)
       portis.logout();
     }
     if (walletName === 'metamask') {

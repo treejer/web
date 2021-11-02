@@ -280,8 +280,8 @@
                     <!-- <th scope="col">LINK</th> -->
                   </tr>
                 </thead>
-                <tbody v-if="planters">
-                  <tr v-for="(item, index) in planters" :key="index">
+                <tbody v-if="plantersInvited">
+                  <tr v-for="(item, index) in plantersInvited" :key="index">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -364,7 +364,7 @@
                     </td>
 
                     <td v-coin class="accounting-card">{{ item.id }}</td>
-                    <td>{{ item.referrerCount }}</td>
+                    <td>{{ item.invitedCount }}</td>
                     <!-- <td
                       @click="goToUserDashboard(item.id)"
                       class="pointer-event"
@@ -452,11 +452,11 @@ export default {
         return { limit: 20, orderBy: 'plantedCount', orderDirection: 'desc' }
       }
     },
-    plantersReferrer: {
+    plantersInvited: {
       prefetch: true,
       query: plantersSorted,
       variables () {
-        return { limit: 20, orderBy: 'referrerCount', orderDirection: 'desc' }
+        return { limit: 20, orderBy: 'invitedCount', orderDirection: 'desc' }
       },
       update: data => data.planters
     },

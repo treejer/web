@@ -5,9 +5,11 @@ query auction($id: ID!) {
     initialPrice
     priceInterval
     startDate
-    expireDate
+    endDate
     winner
     highestBid
     isActive
+    createdAt
+    updatedAt
   }
 }

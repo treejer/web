@@ -23,7 +23,7 @@ export default {
 
   methods: {
     placeBid(id) {
-      this.$router.push(`/genesis/${id}`);
+      this.$router.push(`/tree/${id}`);
     },
   },
 };

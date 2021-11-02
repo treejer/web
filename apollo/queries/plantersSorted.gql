@@ -4,7 +4,7 @@ query plantersSorted($limit: Int!, $orderBy: String!, $orderDirection: String) {
     id
     verifiedPlantedCount
     plantedCount
-    referrerCount
+    invitedCount
   }
 
 }

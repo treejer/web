@@ -11,8 +11,14 @@ export const mutations = {}
 export const actions = {
 
   async balanceOf(context, params) {
-    const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
     let account = this.$cookies.get('account');
+
+    if(account == null) {
+      console.log("erc20js - account not exists in cookies");
+      return 0;
+    }
+
+    const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
 
     let self = this
     return erc20Contract.methods.balanceOf(account).call()
@@ -55,7 +61,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'fund-error',
           noAutoHide: true
 

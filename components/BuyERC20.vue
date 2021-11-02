@@ -122,7 +122,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend erc20",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -171,7 +171,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });

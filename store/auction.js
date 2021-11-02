@@ -13,15 +13,11 @@ export const actions = {
   async bid(context,params) {
     let self = this;
 
-    console.log(params,"params,params is here")
-    console.log(params.auctionId.toString(), "params.auctionId.toString()")
-    console.log((self.$web3.utils.toWei(params.bidValue.toString())) ,"psasa")
     let account = this.$cookies.get('account');
 
     const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), process.env.zeroAddress);
 
     const data = tx.encodeABI();
-    console.log(process.env.treeAuctionAddress,"data tx is here")
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
@@ -34,7 +30,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 
@@ -75,24 +71,18 @@ export const actions = {
     }
 
   },
-  async endAuction(params) {
+  async end(context,params) {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
-    const tx = this.$Auction.methods.bid(params.auctionId);
+    const tx = this.$Auction.methods.endAuction(params.auctionId);
     const data = tx.encodeABI();
 
-    console.log({
-      from: account,
-      to: process.env.treeAuctionAddress,
-      // value: self.$web3.utils.toWei(params.bidValue),
-      data: data
-    }, "bidCount")
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
-        to: process.env.treeAuctionAddress,
-        // value: self.$web3.utils.toWei(params.bidValue),
+        to: this.$Auction._address,
+        value: 0,
         data: data
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
@@ -100,7 +90,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/txsPending`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 

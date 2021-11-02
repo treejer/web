@@ -1,9 +1,6 @@
 query funder($id: ID!) {
   funder(id: $id) {
     id
-    trees {
-      id
-    }
     treeCount
   }
 }

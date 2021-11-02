@@ -2,36 +2,48 @@
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
     <button
 
-      v-show="placeBidStep"
+      v-show="auction.endDate * 1000 > (new Date().getTime()) && placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('one')"
     >
       {{ !loading ? "Place a bid" : "Loading..." }}
     </button>
+
+    <button
+
+      v-show="auction.endDate * 1000 < (new Date().getTime()) && auction.isActive && placeBidStep"
+      class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
+      @click.prevent="endAuction()"
+    >
+      {{ !loading ? ( auction.highestBid > 0  ? "Settle Auction" : "End Auction" ) : "Loading..." }}
+    </button>
+
+
     <!--    <h1 v-if="auction" v-text="new Date(auction.expireDate * 1000)"></h1>-->
 
     <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
-        <p v-if="highestBid" class="mb-0 param tr-gray-two">Current bid {{ highestBid }} ETH</p>
+        <p class="mb-0 param tr-gray-two">Min bid {{ parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4) }} WETH</p>
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
-          placeholder="0 eth"
+          placeholder="0 WETH"
           type="text"
           @keyup.enter="placeBid('two')"
         />
       </div>
-      <div v-if="expireDates" class="col-md-6 pb-4 text-left">
-        <p class="mb-0 param tr-gray-two">Ending in</p>
-        <p v-if="checkExpireDateText" class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
+      <div class="col-md-6 pb-4 text-left">
+        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 > (new Date().getTime()) " >Ending in</p>
+        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 < (new Date().getTime()) " >Auction ended</p>
 
-          This auction is over in <br>{{ expireDates }}
+        <p v-if="auction.endDate * 1000 < (new Date().getTime()) " class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
+
+          This auction is over in <br>{{ $moment(auction.endDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
 
         </p>
-        <p v-if="!checkExpireDateText" class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
+        <p v-else class="mb-0 timer param-xl font-weight-bolder tr-gray-one mt-3">
 
-          <CountDown
-            :date="expireDates"></CountDown>
+          <CountDown :date="$moment(auction.endDate * 1000).strftime('%Y-%m-%d %H:%M:%S') "></CountDown>
 
         </p>
       </div>
@@ -69,11 +81,11 @@
     <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ bidValue }}</span
-        ><span class="tr-gray-two"> ETH</span>
+        ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
         <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
-        <strong>{{ bidValue }}</strong> ETH
+        <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -97,11 +109,11 @@
     <div v-show="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span v-if="bidValue">{{ bidValue }}</span
-        ><span class="tr-gray-two"> ETH</span>
+        ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18 ">
         <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
-        <strong>{{ bidValue }}</strong> ETH
+        <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
@@ -112,7 +124,7 @@
             v-if="erc20Balance > 0 && isAllowedSpendERC20"
             :class="{ disable: loading }"
             class="btn-green"
-            @click="bidAction()"
+            @click="bid()"
           >
             <BSpinner v-if="loading" class="mr-2" small type="grow"
             >loading
@@ -163,17 +175,12 @@ export default {
     Socials
   },
   props: {
-    expireDates: {
-      type: String,
-      default: "2022-07-06 08:15:00"
+    auction: {
+      type: Object
     },
-    expireDateText: {
+    ethPrice: {
       type: String,
-      default: ""
-    },
-    highestBid: {
-      type: String,
-      default: "0.05"
+      default: 4000
     }
   },
   computed: {
@@ -209,17 +216,23 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-      ethPrice: null
+      minBidValue: 0
     };
   },
   async created() {
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
-    console.log(process.env.ethPrice, "process.env.ethPrice");
-    this.$axios.$get(process.env.ethPrice).then(res => {
-      this.ethPrice = res.result.ethusd;
-    });
+
+
+    if(parseInt(this.auction.highestBid) > 0) {
+      this.minBidValue = parseInt(this.auction.highestBid) + parseInt(this.auction.priceInterval)
+    } else {
+      this.minBidValue = parseInt(this.auction.initialPrice) + parseInt(this.auction.priceInterval)
+    }
+
+    // this.bidValue = this.$web3.utils.fromWei(this.minBidValue.toString())
+
     // const ethPrices = await this.$store.dispatch('ethPrices')
     // console.log(ethPrices)
   },
@@ -257,7 +270,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get("account")}`
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get("account")}`
         });
         self.setERC20Balance();
         transak.close();
@@ -283,7 +296,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend erc20",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`
+          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`
         });
 
         if (silent === false) {
@@ -296,6 +309,9 @@ export default {
       }
     },
     async setERC20Balance() {
+
+
+
       console.log(this.tokenAddress, "this.tokenAddress");
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress
@@ -325,23 +341,40 @@ export default {
         this.placeBidStepFour = true;
       }
     },
-    async bidAction() {
+    async bid() {
       this.loading = true;
 
       let tx = await this.$store.dispatch("auction/bid", {
-        auctionId: this.$route.params.id,
+        auctionId: this.$hex2Dec(this.auction.id),
         bidValue: this.bidValue
       });
       console.log(tx, "txis here");
       if (tx !== null) {
         this.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",
-          title: "Trees added to forest",
+          title: "Your placed successfully",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${this.$cookies.get("account")}`
+          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`
         });
         this.placeBidStepFour = false;
         this.placeBidStepSix = true;
+      }
+      this.loading = false;
+    },
+    async endAuction() {
+      this.loading = true;
+
+      let tx = await this.$store.dispatch("auction/end", {
+        auctionId: this.$hex2Dec(this.auction.id)
+      });
+      if (tx !== null) {
+        this.$bvToast.toast(["Auction ended successfully"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Auction ended successfully",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`
+        });
+        this.auction.isActive = false;
       }
       this.loading = false;
     },
@@ -355,22 +388,49 @@ export default {
       });
     },
     async placeBid(id) {
+
+      if(this.$cookies.get("account") == null){
+        this.$bvToast.toast("you're not login", {
+          toaster: 'b-toaster-bottom-left',
+          solid: true,
+          headerClass: 'hide',
+          variant: 'danger'
+        })
+        this.$bvModal.show("five");
+        return;
+      }
+
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
       }
       if (id === "two") {
-        if (this.bidValue) {
+
+        if(this.auction.endDate * 1000 < (new Date().getTime())) {
+          this.toast('Auction ended' , "Auction ended");
+          return;
+        }
+
+        if(this.auction.isActive == false) {
+          this.toast('Auction is not active' , "Auction inactive");
+          return;
+        }
+
+
+        if(this.bidValue == null) {
+          this.toast('Bid value is empty' , "Value Error");
+          return;
+        }
+
+        if (parseFloat(this.bidValue) < parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString()))  ) {
+          this.toast('You have to bid more than the min bid value: ' + parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())) , "Value Error");
+          return;
+        }
+        else {
           this.placeBidStepTwo = false;
           this.placeBidStepThree = true;
         }
-        else if (this.bidValue <= this.highestBid){
-          this.toast('You have to pay more than the highest bid');
-        }
 
-        else {
-          this.toast();
-        }
       }
       if (id === "finish") {
         this.placeBidStepSix = true;

@@ -651,7 +651,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend dai",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -723,7 +723,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -746,9 +746,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
+          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
         const history = this.$router.currentRoute.matched;
         let res = null;

@@ -1,11 +1,11 @@
 <template>
-  <div class="row position-relative bidders" v-if="dataRes">
-    <div v-if="dataRes.bids" v-for="(item,index) in dataRes.bids" :key="index" class="col-md-4  ">
+  <div class="row position-relative bidders" v-if="bidders.length > 0">
+    <div v-for="(item,index) in bidders" :key="index" class="col-md-4  ">
       <img
 
-        :src="`${icon}${item.bidder}`" alt="avatar" class="pointer-event bidders pb-2 m-auto "
+        :src="$avatarByWallet(item)" alt="avatar" class="pointer-event bidders pb-2 m-auto "
         height="48" width="48"/>
-      <p v-coin class="address-wallet  tr-gray-three adrees-wallet param">{{ item.bidder }}</p>
+      <p v-coin class="address-wallet  tr-gray-three adrees-wallet param">{{ item }}</p>
 
     </div>
 
@@ -21,19 +21,26 @@ export default {
       default: require("~/assets/images/myforest/avatar.png"),
       type: String,
     },
-    dataRes: {
-      default: null,
+    bids: {
+      type: Array,
+      default: []
     }
   },
   data() {
     return {
-      localData: this.dataRes,
-      icon: `${process.env.gravatar}`
+      bidders: []
     }
   },
 
   async created() {
-    console.log(this.localData, "local data is here")
+    let self = this;
+    //create uniquer list of bidders
+    this.bids.filter(bid => {
+      if(self.bidders.indexOf(bid.bidder) == -1) {
+        self.bidders.push(bid.bidder)
+      }
+    });
+
   }
 
 };
