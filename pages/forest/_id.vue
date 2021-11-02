@@ -12,7 +12,8 @@
               <h2
                 class="title-sm d-inline-flex Montserrat-Medium"
               >
-                <span v-coin class="pr-4 pl-0">{{$route.params.id != $cookies.get('account') ? $route.params.id : 'MY'}}</span>
+                <span v-coin
+                      class="pr-2 title-sm Montserrat-Medium l-0">{{ $route.params.id != $cookies.get('account') ? $route.params.id : 'MY' }}</span>
                 Forest
               </h2>
             </div>
@@ -400,11 +401,16 @@ export default {
       treeID: null,
     };
   },
+  async created() {
+    await this.$store.commit('SET_SIDEBAR_INDEX', 0)
+  },
   mounted() {
-    console.log(this.$dec2hex,": this.$dec2hex")
+
+    console.log(this.$dec2hex, ": this.$dec2hex")
     this.createTestObject();
     this.getEthBalance();
-    console.log(this.funder ,"this.funder");
+    console.log(this.funder, "this.funder");
+
   },
   methods: {
     async goToFindTree() {

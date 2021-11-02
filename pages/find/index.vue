@@ -330,17 +330,7 @@ export default {
   },
   methods: {
     goToLeaderBoard() {
-      if (!this.$cookies.get('account')) {
-        this.$bvToast.toast("you are not logged in. please login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-        this.$bvModal.show("five");
-      } else {
-        this.$router.push(this.localePath("leaderboard"));
-      }
+        this.$router.push(this.localePath("/forest/leaderboard"));
     },
     goToDashboard(item) {
       this.$router.push({

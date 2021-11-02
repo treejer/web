@@ -365,7 +365,7 @@ export default {
           this.placeBidStepThree = true;
         }
         else if (this.bidValue <= this.highestBid){
-          this.toast('You have to pay more than the highest bid,');
+          this.toast('You have to pay more than the highest bid');
         }
 
         else {

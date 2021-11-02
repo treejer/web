@@ -220,6 +220,9 @@ export default {
       this.$bvModal.show("update");
     },
   },
+  async created() {
+    await this.$store.commit('SET_SIDEBAR_INDEX', 3)
+  },
   async mounted() {
     const updates = await this.$axios.$get(
       `${process.env.apiUrl}/wallets/${this.$cookies.get(

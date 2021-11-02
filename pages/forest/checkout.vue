@@ -294,68 +294,127 @@ export default {
     return {
       title: `Treejer`,
       meta: [
+        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
         {
-          hid: "description",
-          name: "description",
-          content: "Enter the Tree ID below and we'll find it for you! :)",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content:
-            "Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard",
-        },
-      ],
-    };
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
+        }
+      ]
+    }
   },
   components: {
     Wallets,
     Fab,
   },
   beforeMount() {
+
   },
 
-  async mounted() {
-    await this.calcTotalPrice();
-    await this.setWethBalance();
-    await this.setIsAllowance();
+
+  mounted() {
+    this.getPrice();
+    this.setDaiBalance();
+    this.setIsAllowance(this.count);
+
+    let self = this;
+
+    setTimeout(() => {
+      this.getPrice();
+      self.setIsAllowance(self.count, true);
+      self.setDaiBalance();
+    }, 1000);
+
+    setInterval(() => {
+      this.getPrice();
+      self.setIsAllowance(self.count, true);
+      self.setDaiBalance();
+    }, 3000);
   },
   async created() {
+    // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
+    // this.daiUSDPrice = res.data.result.ethusd
+
+    this.daiUSDPrice = 1.01;
   },
   data() {
     return {
-      pays: [
-        {href: "", name: "Bridge"},
-        {href: "https://global.transak.com/", name: "Visa/Master"},
-        {href: "https://docs.treejer.com/", name: "Learn more"},
-        {href: "https://discuss.treejer.com/", name: "Questions"},
-      ],
-      slectedPays: null,
-
-      recipient: null,
-      sendAsGiftChecked: false,
-      wethBalance: 0,
-      isAllowedSpendWeth: false,
+      daiBalance: 0,
+      isAllowedSpendDai: false,
+      treePrice: null,
+      daiUSDPrice: null,
+      sendAsTreeCard: false,
       loading: false,
       count: 1,
+      slectedPays: null,
+      ethPrice: this.$store.state.ethPrice,
+      steps: [
+        {name: "Collect", step: 1},
+        {name: "Connect to wallet", step: 2},
+        {name: "Checkout", step: 3},
+
+        // { name: "final-step", step: 4 }
+      ],
       counts: [
         {name: 1, step: 1},
         {name: 5, step: 2},
         {name: 10, step: 3},
         {name: 20, step: 3},
-        {name: this.count, step: 3, placeHolder: "Enter Number"},
+        {name: this.countTree, step: 3, placeHolder: "Enter Number"},
       ],
-      collectionType: [
-        {name: "Genesis", step: 1},
-        {name: "Regular", step: 2},
+      payMethods: [
+        // {name: "visa", icon: "cc-visa", step: 1},
+        {name: "bitcoin", icon: "ethereum", step: 2},
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
+      activeIndex: 0,
       activeCount: 0,
       activePay: 0,
-      totalWeth: 0,
+      countTree: null,
     };
   },
   methods: {
+    async allowSpendDai(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+      let self = this;
+
+      const transaction = await this.$store.dispatch("dai/approve", {
+        count: this.count,
+        context: self,
+      });
+
+      if (transaction !== null) {
+        this.setIsAllowance(this.count);
+        this.$bvToast.toast(["Transaction successfull"], {
+          toaster: "b-toaster-bottom-left",
+          title: "You approved to spend dai",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+        });
+
+        if (silent === false) {
+          this.loading = false;
+        }
+
+        await this.fundTree();
+      }
+    },
+    showWalletError() {
+      let self = this;
+      self.$bvToast.toast("Switch to Rinkeby Test Network", {
+        title: `Wrong network`,
+        href:
+          "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
+        variant: "danger",
+        solid: true,
+        toaster: "b-toaster-bottom-left",
+      });
+    },
+    activeMenu(item, index) {
+      this.activeIndex = index;
+    },
     activeCounts(item, index) {
       this.count = item.name;
       this.activeCount = index;
@@ -364,13 +423,20 @@ export default {
       this.slectedPays = item.name;
       this.activePay = index;
     },
-    async buyWeth() {
+    activeWallets(item, index) {
+      this.activeWallet = index;
+    },
+    async setDaiBalance() {
+      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
+    },
+
+    async buyDai() {
       let self = this;
       let transak = new transakSDK({
         apiKey: process.env.transakApiKey, // Your API Key
         environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "Weth",
-        defaultCryptoAmount: this.totalWeth,
+        defaultCryptoCurrency: "Dai",
+        // defaultCryptoAmount: this.treePrice * this.count,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
         themeColor: "000000", // App theme color
         fiatCurrency: "USD", // INR/GBP
@@ -401,7 +467,7 @@ export default {
             "account"
           )}`,
         });
-        self.setWethBalance();
+        self.setDaiBalance();
         transak.close();
       });
     },
@@ -410,16 +476,12 @@ export default {
       this.loading = true;
       let self = this;
 
-      this.transferReceipt = await this.$store.dispatch(
-        "incrementalSale/fundTree",
-        {
-          count: this.count,
-          referrer: this.count,
-          recipient: this.recipient,
-          context: self,
-        }
-      );
+      this.transferReceipt = await this.$store.dispatch("regularSale/fundTree", {
+        count: this.count,
+        context: self,
+      });
       if (this.transferReceipt !== null) {
+        this.activeIndex = 3;
         self.$bvToast.toast(["Your payment was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
@@ -440,115 +502,36 @@ export default {
       }
       this.loading = false;
     },
-    async calcTotalPrice(silent = false) {
-      this.loading = true;
-      this.totalWeth = await this.$store.dispatch(
-        "incrementalSale/calculateTotalPrice",
-        {
-          count: this.count,
-          context: self,
-        }
-      );
-      this.loading = false;
+    async getPrice() {
+      this.treePrice = await this.$store.dispatch('regularSale/getPrice')
     },
-    async setIsAllowance(silent = false) {
+    async setIsAllowance(count, silent = false) {
       if (silent === false) {
         this.loading = true;
       }
 
-      let allowance = await this.$store.dispatch("erc20/allowance", {
-        tokenAddress: process.env.wethTokenAddress,
-        spenderContract: this.$IncrementalSale._address,
-      });
+      let allowance = await this.$store.dispatch("dai/allowance");
 
-      this.isAllowedSpendWeth =
-        parseFloat(allowance) >= parseFloat(this.totalWeth);
+      this.isAllowedSpendDai =
+        parseInt(allowance) >= parseInt(count * this.treePrice);
 
       if (silent === false) {
         this.loading = false;
       }
     },
-    async setWethBalance() {
-      this.wethBalance = await this.$store.dispatch("erc20/balanceOf", {
-        tokenAddress: process.env.wethTokenAddress,
-      });
-    },
-    async allowSpendWeth(silent = false) {
-      if (silent === false) {
-        this.loading = true;
-      }
-
-      const transaction = await this.$store.dispatch("erc20/approve", {
-        tokenAddress: process.env.wethTokenAddress,
-        spenderContract: this.$IncrementalSale._address,
-        amount: this.totalWeth,
-      });
-
-      if (transaction !== null) {
-        if (typeof transaction.transactionHash != "undefined") {
-          this.setIsAllowance(this.count);
-          this.$bvToast.toast(["Transaction successfull"], {
-            toaster: "b-toaster-bottom-left",
-            title: "You approved to spend weth",
-            variant: "success",
-            href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
-          });
-
-          await this.fundTree();
-        }
-
-        if (silent === false) {
-          this.loading = false;
-        }
-      }
-    },
-    pasteRecipient() {
-      window.navigator.clipboard
-        .readText()
-        .then((res) => {
-          this.recipient = res;
-        })
-        .catch((err) => {
-          console.log(err, "err is here");
-        });
-    },
-    async setPaymentMethod(item, href) {
-      if (item === "Bridge") {
-        if (process.client) {
-          // import {Widget} from '@maticnetwork/wallet-widget'
-          const {Widget} = require("@maticnetwork/wallet-widget");
-          this.$nuxt.$loading.start();
-          const widget = await new Widget({
-            target: "#Bridge",
-            appName: "Polygon_Bridge_Treejer",
-            autoShowTime: 0,
-            position: "center",
-            height: 630,
-            width: 540,
-            overlay: false,
-            network: "mainnet",
-            closable: true,
-          });
-          await widget.create();
-          await widget.show();
-        }
-      } else {
-        window.open(href, "_blank");
-      }
-    },
-    goToTerm(item, target) {
-      window.open(item, target);
-    },
   },
   watch: {
     async count(newCount, oldCount) {
-      await this.calcTotalPrice();
-      await this.setIsAllowance(true);
-      await this.setWethBalance();
+      this.setIsAllowance(newCount);
+
+      // Our fancy notification (2).
+      // console.log(`We have ${newCount} fruits now, yay!`)
     },
   },
 };
 </script>
+
+
 
 <style lang="scss" scoped>
 .add-tree {

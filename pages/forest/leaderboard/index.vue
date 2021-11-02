@@ -410,7 +410,7 @@
   </section>
 </template>
 <script>
-import Fas from "../components/font-awsome/Fas";
+import Fas from "../../../components/font-awsome/Fas";
 import fundersSorted from "~/apollo/queries/fundersSorted";
 import plantersSorted from "~/apollo/queries/plantersSorted";
 
@@ -480,7 +480,8 @@ export default {
       perPage: 10,
     };
   },
-  async mounted() {
+  async created() {
+    await this.$store.commit('SET_SIDEBAR_INDEX', 2)
   },
   methods: {
     activeMenu(item, index) {
