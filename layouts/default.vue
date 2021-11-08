@@ -18,6 +18,8 @@ import Sidebar from "../components/Sidebar";
 
 export default {
   components: {Sidebar, Footer, TreejerHeader},
+  middleware: 'queryParamToCookie',
+
   mounted() {
     this.$store.commit("SET_DASHBOARD", false);
     console.log($nuxt.isOffline, "$nuxt.isOffline")

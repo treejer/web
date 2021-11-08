@@ -61,9 +61,6 @@ export default {
     zeroAddress: "0x0000000000000000000000000000000000000000"
 
   },
-  router: {
-    linkActiveClass: 'active-link'
-  },
 
   loading: {
     color: 'rgba(103,182,140,0.62)',
@@ -78,7 +75,10 @@ export default {
   css: [
     '@/assets/main.scss'
   ],
-  middleware: ['auth', 'stats'],
+  middleware: ['urlParamToCookie'],
+  router: {
+    linkActiveClass: 'active-link'
+  },
 
   /*
    ** Plugins to load before mounting the App
@@ -93,6 +93,7 @@ export default {
     {src: '~plugins/num.js'},
     {src: '~plugins/avatar.js'},
     {src: '~plugins/axios.js'}
+    
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}],

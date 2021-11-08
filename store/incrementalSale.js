@@ -79,9 +79,14 @@ export const actions = {
   async fundTree(context, params) {
     let self = this;
     let account = this.$cookies.get('account');
+    let referrer = this.$cookies.get('referrer');
+    if(!referrer || referrer === account) {
+      referrer = process.env.zeroAddress;
+    }
+
     this.$web3.currentProvider.enable();
 
-    const tx = this.$IncrementalSale.methods.fundTree(params.count, process.env.zeroAddress, process.env.zeroAddress);
+    const tx = this.$IncrementalSale.methods.fundTree(params.count, referrer, process.env.zeroAddress);
     const data = tx.encodeABI();
     try {
       const receipt = await this.$web3.eth.sendTransaction({

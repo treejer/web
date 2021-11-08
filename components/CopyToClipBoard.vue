@@ -24,7 +24,7 @@ export default {
     },
     onError: function (e) {
       this.$bvToast.toast(`Failed to copy! `, {
-        variant: "error",
+        variant: "danger",
         title: "Failed to copy",
         toaster: "b-toaster-bottom-left",
       });

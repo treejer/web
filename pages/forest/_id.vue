@@ -433,14 +433,20 @@ export default {
   apollo: {
     owner: {
       query: owner,
+      skip() {
+        return this.$route.params.id === 'guest' ? true: false
+      },
       prefetch: ({route}) => ({id: route.params.id.toLowerCase()}),
       variables() {
         return {id: this.$route.params.id.toLowerCase()}
-      }
+      },
+      fetchPolicy: "network-only"
     },
   },
-  computed: {
-
+  watch: {
+    async owner() {
+      await this.getFunderTrees();
+    }
   },
 
   data() {
@@ -477,41 +483,46 @@ export default {
  async mounted() {
    await this.createTestObject();
    await this.getEthBalance();
-   await this.getFunderTrees();
+   
   },
   methods: {
     async getFunderTrees() {
-      if(this.owner && this.owner.treeCount  == 0) {
-        return;
+      if(!this.owner || this.$route.params.id === 'guest' || this.owner.treeCount <= 0) {
+          return;
       }
+      
+        //use this for pagination
+        // first = 0, skip = 0
+
+        let self = this
+        await self.$axios.$post(process.env.graphqlUrl, {
+          query: `{
+                    trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
+                      {
+                          id
+                          treeSpecsEntity {
+                            latitude
+                            longitude
+                          }
+                          createdAt
+                      }
+                  }`,
+          prefetch: false
+        }).then((treesRes) => {
+
+          console.log(treesRes, "treesRes")
+          if(treesRes.data.trees && treesRes.data.trees.length > 0) {
+            self.trees = treesRes.data.trees
+            self.ownerTreesLoaded = true
+          }
+
+        })
+      
 
 
-      //use this for pagination
-      // first = 0, skip = 0
 
-      let self = this
-      await self.$axios.$post(process.env.graphqlUrl, {
-        query: `{
-                  trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
-                    {
-                        id
-                        treeSpecsEntity {
-                          latitude
-                          longitude
-                        }
-                        createdAt
-                    }
-                }`,
-        prefetch: false
-      }).then((treesRes) => {
 
-        console.log(treesRes, "treesRes")
-        if(treesRes.data.trees && treesRes.data.trees.length > 0) {
-          self.trees = treesRes.data.trees
-          self.ownerTreesLoaded = true
-        }
-
-      })
+      
     },
     async goToFindTree() {
       this.loading = true;
