@@ -155,7 +155,6 @@ export default {
     [
       '@nuxtjs/recaptcha'
     ],
-    // 'vue-ethereum/nuxt',
     '@nuxtjs/axios',
 
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
