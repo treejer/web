@@ -1,27 +1,32 @@
 <template>
-<span class="position-relative" @click="copyToClipBoard()">
-  <span v-coin class="copy param-sm tr-tr-gray-three pointer-event" >{{ $cookies.get("account") }}</span>
-</span>
+  <span class="position-relative">
+    <span
+      v-coin
+      class="copy param-sm tr-tr-gray-three pointer-event"
+      v-clipboard:copy="$cookies.get('account')"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError"
+      >{{ $cookies.get("account") }}</span
+    >
+  </span>
 </template>
 
 <script>
-import VueClipboard from "vue-clipboard2";
-
 export default {
-  components: {
-    VueClipboard,
-  },
+  components: {},
   methods: {
-    copyToClipBoard() {
-      let self = this;
-      let account = self.$cookies.get("account");
-      this.$copyText(account).then((e) => {
-          console.log(e,"e")
-        self.$bvToast.toast(`Copy to clipboard! `, {
-          variant: "success",
-          title: "token has been on your clipboard",
-          toaster: "b-toaster-bottom-left",
-        });
+    onCopy: function (e) {
+      this.$bvToast.toast(`Copy to clipboard! `, {
+        variant: "success",
+        title: "Address has been on your clipboard",
+        toaster: "b-toaster-bottom-left",
+      });
+    },
+    onError: function (e) {
+      this.$bvToast.toast(`Failed to copy! `, {
+        variant: "error",
+        title: "Failed to copy",
+        toaster: "b-toaster-bottom-left",
       });
     },
   },
@@ -34,11 +39,11 @@ export default {
 
 <style lang="scss" scoped>
 .copy {
-    background-color: #EEEEEE;
-    padding: 5px 20px 5px 15px;
-    border: 2px solid #FFFFFF;
-    border-radius: 25px;
-    border-right: 0;
+  background-color: #eeeeee;
+  padding: 5px 20px 5px 15px;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  border-right: 0;
 }
 </style>
 

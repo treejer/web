@@ -150,7 +150,8 @@ export default {
    */
   modules: [
     'bootstrap-vue/nuxt',
-    'nuxt-clipboard2',
+    ['nuxt-clipboard', { autoSetContainer: true }],
+    // 'nuxt-clipboard',
     'cookie-universal-nuxt',
     [
       '@nuxtjs/recaptcha'
@@ -175,6 +176,9 @@ export default {
       ]
     }]
   ],
+  clipboard: {
+      autoSetContainer: true
+  },
   apollo: {
     clientConfigs: {
       default: {
