@@ -14,8 +14,12 @@ export const actions = {
     let self = this;
 
     let account = this.$cookies.get('account');
+    let referrer = this.$cookies.get('referrer');
+    if(!referrer || referrer === account) {
+      referrer = process.env.zeroAddress;
+    }
 
-    const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), process.env.zeroAddress);
+    const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer);
 
     const data = tx.encodeABI();
     try {

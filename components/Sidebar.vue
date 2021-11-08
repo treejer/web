@@ -5,7 +5,7 @@
           @click="changeIndex(0)"
       >
         <nuxt-link :class="$store.state.index=== 0 ?'nuxt-link-exact-active':''"
-                   :to="$cookies.get('account') ? '/forest/'+$cookies.get('account') :'/forest'"
+                   :to="$cookies.get('account') ? '/forest/'+$cookies.get('account') :'/forest/guest'"
                    class="nav-link"
         >
           <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
