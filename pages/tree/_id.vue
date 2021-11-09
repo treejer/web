@@ -138,7 +138,7 @@
                 <HistoryCard :minted="true"/> -->
                 <!-- ToDo: fix daiPrice and wethPrice -->
                 <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice" :key="history.id" />
-                
+
               </div>
               <div class="col-md-12" v-if="tree">
                 <div v-if="tree.planter" class="card-tree-profile position-relative">
@@ -200,7 +200,7 @@
                       ref="gMap"
                       :center="{
                         lat:  tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : 36.8566787,
-                        lng: tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575 
+                        lng: tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575
                       }"
                       :cluster="{ options: { styles: mapStyle.clusterStyle } }"
                       :options="{
@@ -224,7 +224,7 @@
                         :options="{ icon: pins.selected }"
                         :position="{
                           lat:  tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : 36.8566787,
-                          lng: tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575 
+                          lng: tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : 30.7924575
                         }"
                       ></GMapMarker>
                     </GMap>
@@ -239,10 +239,10 @@
                       Not planted Tree
                     </button>
                   </div>
-                </div>  
+                </div>
               </div>
 
-              
+
             </div>
             <div class="col-md-3 col-12">
               <div class="attributes">
@@ -273,7 +273,7 @@
     </div>
 
 
-    
+
   </section>
 </template>
 
@@ -345,7 +345,7 @@ export default {
     }
     this.getTreeHistory()
 
-    
+
 
 
     this.loading = false
@@ -448,7 +448,7 @@ export default {
         // if(self.auction) {
         //     self.endDate = self.birthDate(self.auction.endDate)
         //     self.highestBid = self.$web3.utils.fromWei(self.auction.highestBid)
-            
+
         // }
 
         //         console.log(self.highestBid, " self.highestBid is here")
@@ -677,9 +677,7 @@ export default {
     }
   }
 
-  * {
-    font-family: Montserrat-Medium;
-  }
+
 
   .tree-profile-img {
     margin-top: 38px;

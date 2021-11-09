@@ -533,7 +533,7 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .add-tree {
   .pay-badge {
     position: absolute;

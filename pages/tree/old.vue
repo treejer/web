@@ -488,9 +488,6 @@ export default {
   min-height: 197vh !important;
   height: auto !important;
 
-  * {
-    font-family: Montserrat-Medium;
-  }
 
   .tree-profile-img {
     margin-top: 38px;

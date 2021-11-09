@@ -1,5 +1,5 @@
 <template>
-  <section :class="$route.name" class="position-relative pt-5 col-12 mb-5 pb-5">
+  <section class="position-relative pt-5 col-12 mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
         <div class="col-12 step-one">
@@ -30,10 +30,10 @@
                       <label :for="index">
                         <input
                           :key="index"
-                          class="param-18"
                           v-model="count"
                           :class="{ active: activeCount === index }"
                           :placeholder="item.placeHolder"
+                          class="param-18"
                           min="1"
                           type="number"
                         />
@@ -268,7 +268,8 @@
                         class="btn-purple pointer-event"
                         @click.prevent="setPaymentMethod(item.name, item.href)"
                       >
-                        {{ item.name }}
+                        <span v-if="item.name === 'Bridge'">{{ !bridgeLoading ? 'Bridge' : 'Loading...' }}</span>
+                        <span v-else>{{ item.name }}</span>
                       </div>
                     </div>
                   </div>
@@ -331,6 +332,7 @@ export default {
         {href: "https://discuss.treejer.com/", name: "Questions"},
       ],
       slectedPays: null,
+      bridgeLoading: false,
 
       recipient: null,
       sendAsGiftChecked: false,
@@ -515,6 +517,8 @@ export default {
     async setPaymentMethod(item, href) {
       if (item === "Bridge") {
         if (process.client) {
+          this.bridgeLoading = true
+
           // import {Widget} from '@maticnetwork/wallet-widget'
           const {Widget} = require("@maticnetwork/wallet-widget");
           this.$nuxt.$loading.start();
@@ -531,6 +535,8 @@ export default {
           });
           await widget.create();
           await widget.show();
+          this.bridgeLoading = false
+
         }
       } else {
         window.open(href, "_blank");
@@ -878,7 +884,7 @@ export default {
 }
 
 .box-right-checkout {
-  &>.col-12 {
+  & > .col-12 {
     margin-top: 32px;
   }
 

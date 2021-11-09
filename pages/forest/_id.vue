@@ -453,8 +453,7 @@ export default {
       steps: [
         {active: true, step: "step 1", text: "Connect your wallet"},
         {active: false, step: "step 2", text: "Add trees to your forest"},
-        {
-          active: false,
+        {active: false,
           step: "step 3",
           text: "Release Seed/O2 to your wallet",
         },
@@ -599,6 +598,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-forest {
+  *{
+    font-family: Montserrat-Medium;
+  }
   .show-more-tree-all {
     font-size: 26px;
     display: flex;

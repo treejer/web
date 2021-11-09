@@ -75,10 +75,10 @@
                 plant more trees for
                 you
                 when your friends join our community and plant trees.</p>
-              <button class="invite-gray text-white font-weight-bold param mt-4" @click.p.prevent="alert('hi')">Copy
+              <button class="invite-gray text-white font-weight-bold param mt-4">Copy
                 Invite Link
               </button>
-              <button class="btn-greens text-white font-weight-bold param mt-4" @click.prevent="alert('hi')">Plant
+              <button class="btn-greens text-white font-weight-bold param mt-4">Plant
                 Rewards
               </button>
             </div>
