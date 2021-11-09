@@ -22,6 +22,7 @@ import Router from "vue-router";
 
 export default {
   components: { Sidebar, Footer, DashboardHeader, Router },
+  middleware: 'queryParamToCookie',
   data() {
     return {
     };

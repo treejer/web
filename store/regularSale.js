@@ -19,11 +19,16 @@ export const actions = {
     let self = this;
 
     let account = this.$cookies.get('account');
+    let referrer = this.$cookies.get('referrer');
+    if(!referrer || referrer === account) {
+      referrer = process.env.zeroAddress;
+    }
+
 
     this.$web3.currentProvider.enable();
 
     //ToDo: add recipeint and referrer
-    const tx = this.$RegularSale.methods.fundTree(params.count, process.env.zeroAddress, process.env.zeroAddress);
+    const tx = this.$RegularSale.methods.fundTree(params.count, referrer, process.env.zeroAddress);
     const data = tx.encodeABI();
     // const price = await this.$RegularSale.methods.price().call();
 
@@ -82,9 +87,69 @@ export const actions = {
       return null;
     }
 
+  },
+  async claimReferralReward(context, params) {
+
+    this.$web3.currentProvider.enable();
+
+    const tx = this.$RegularSale.methods.claimReferralReward();
+    const data = tx.encodeABI();
+
+    try {
+      const receipt = await this.$web3.eth.sendTransaction({
+          from: this.$cookies.get('account'),
+          to: this.$RegularSale._address,
+          value: 0,
+          data: data
+        }).on('transactionHash', (transactionHash) => {
+          let bootStrapToaster = new BToast();
+          bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Processing transaction...',
+            variant: 'warning',
+            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            bodyClass: 'fund-error',
+            noAutoHide: true
+
+          })
+        })
+        .on('error', (error) => {
+          console.log(error, "errorr");
+          const bootStrapToaster = new BToast();
+          if (error.code === 32602) {
+            bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
+              toaster: 'b-toaster-bottom-left',
+              title: 'Transaction failed',
+              variant: 'danger',
+              bodyClass: 'fund-error'
+            })
+          } else {
+            bootStrapToaster.$bvToast.toast([error.message], {
+              toaster: 'b-toaster-bottom-left',
+              title: 'Transaction failed',
+              variant: 'danger',
+              bodyClass: 'fund-error'
+            })
+          }
+
+
+          return null
+
+        })
+
+      return receipt
+
+    } catch (error) {
+      console.log(error, "errorr");
+
+      return null;
+    }
+
   }
+  
 
 }
+
 
 export const mutations = {
   SET_PRICE(state, price) {

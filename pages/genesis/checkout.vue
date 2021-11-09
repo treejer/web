@@ -416,7 +416,6 @@ export default {
         "incrementalSale/fundTree",
         {
           count: this.count,
-          referrer: this.count,
           recipient: this.recipient,
           context: self,
         }

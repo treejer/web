@@ -61,9 +61,6 @@ export default {
     zeroAddress: "0x0000000000000000000000000000000000000000"
 
   },
-  router: {
-    linkActiveClass: 'active-link'
-  },
 
   loading: {
     color: 'rgba(103,182,140,0.62)',
@@ -78,7 +75,10 @@ export default {
   css: [
     '@/assets/main.scss'
   ],
-  middleware: ['auth', 'stats'],
+  middleware: ['urlParamToCookie'],
+  router: {
+    linkActiveClass: 'active-link'
+  },
 
   /*
    ** Plugins to load before mounting the App
@@ -93,6 +93,7 @@ export default {
     {src: '~plugins/num.js'},
     {src: '~plugins/avatar.js'},
     {src: '~plugins/axios.js'}
+    
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}],
@@ -150,12 +151,12 @@ export default {
    */
   modules: [
     'bootstrap-vue/nuxt',
-    'nuxt-clipboard2',
+    ['nuxt-clipboard', { autoSetContainer: true }],
+    // 'nuxt-clipboard',
     'cookie-universal-nuxt',
     [
       '@nuxtjs/recaptcha'
     ],
-    // 'vue-ethereum/nuxt',
     '@nuxtjs/axios',
 
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
@@ -176,6 +177,9 @@ export default {
       ]
     }]
   ],
+  clipboard: {
+      autoSetContainer: true
+  },
   apollo: {
     clientConfigs: {
       default: {

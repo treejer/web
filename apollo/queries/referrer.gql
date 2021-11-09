@@ -1,0 +1,11 @@
+query referrer($id: ID!) {
+  referrer(id: $id) {
+    id
+    claimableTreesDai
+    claimableTreesWeth
+    referrerCount
+    claimedCount
+    createdAt
+    updatedAt
+  }
+}
