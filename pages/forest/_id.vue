@@ -12,75 +12,34 @@
               <h2
                 class="title-sm d-inline-flex Montserrat-Medium"
               >
-                <span v-coin class="pr-4 pl-0 Montserrat-Medium">{{ $route.params.id != $cookies.get('account') ? $route.params.id : 'MY'}}</span>
+                <span v-coin
+                      class="pr-2 pl-0 text-capitalize Montserrat-Medium">{{
+                    $route.params.id != $cookies.get('account') ? $route.params.id : 'MY'
+                  }}</span>
                 Forest
               </h2>
             </div>
-            <div class="col-lg-7 col-md-7 col-7 justify-content-end text-right">
-              <div class="form-group">
-                <label>
-                  <img
-                    alt="search"
-                    class="pointer-event"
-                    src="../../assets/images/search.svg"
-                    @click="goToFindTree"
-                  />
-                  <input
-                    v-model="treeID"
-                    class="form-control-lg"
-                    placeholder="Enter Tree ID"
-                    @keyup.enter="goToFindTree()"
-                  />
-                </label>
-              </div>
-            </div>
+
           </div>
           <div class="row treejer-desc">
-            <div class="col-lg-3 col-md-6 col-12 border-right">
-              <p class="tr-gray-two">FOREST SIZE</p>
+            <div v-for="(item ,index) in treejerDesc" :key="index" class="col-lg-3 col-md-6 col-12 border-right">
+              <p class="tr-gray-two">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
                 ><img
+                  :src="treeIcon"
                   alt="tree"
                   class="img-fluid"
-                  src="../../assets/images/myforest/tree.svg"
                 /></span>
                 <span>
                   <span>{{ owner ? owner.treeCount : 0 }}</span>
                 </span>
               </p>
             </div>
-            <div class="col-lg-3 col-md-6 col-12 border-right">
-              <p>RELEASED Seed</p>
-              <p class="d-flex justify-content-start align-items-center mb-0">
-                <span
-                ><img alt="seed" src="~/assets/images/myforest/SeedLogo.svg"
-                /></span>
-                <span class="param-18 font-weight-bold">
-                  {{ 0 }}
-                </span>
-              </p>
-            </div>
 
-            <div class="col-lg-3 col-md-6 col-12">
-              <p>RELEASED O2</p>
-              <p class="d-flex justify-content-start align-items-center mb-0">
-                <span
-                ><img alt="o2" src="../../assets/images/myforest/O2Logo.svg"
-                /></span>
-
-                <span>{{ 0 }}</span>
-              </p>
-            </div>
-            <!-- <div
-              class="col-lg-3 col-md-6 col-12 align-items-center justify-content-center p-0 mt-3"
-            >
-              <button class="btn-outline-green btn-wallet">
-                Send to Wallet
-              </button>
-            </div> -->
           </div>
-          <div class="row treejer-user-flow">
+<!--          v-if="$cookies.get('account') === $route.params.id"-->
+          <div class="row treejer-user-flow" >
             <div class="col-12">
               <div class="bg-brown">
                 <div class="row">
@@ -153,6 +112,20 @@
                         </span>
                         <span> Join our community! </span>
                       </li>
+                      <li
+                        class="list-style-none param-sm mb-1 Montserrat-Medium"
+                      >
+                        <span class="step-number mr-2">
+                          <button
+                            :class=" owner && owner.treeCount > 0? 'btn-outline-green': 'btn-green' "
+                            @click="$router.push('/forest/referral')"
+                          >
+                            step 4
+                          </button>
+                        </span>
+                        <span> Invite Friends </span>
+                      </li>
+
                     </ul>
                   </div>
                 </div>
@@ -276,9 +249,9 @@
                     <br/>
                     <br/>
                     <code>
-                      Lat: {{ parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) }},
+                      Lat: {{ parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)) }},
                       <br/>
-                      Lng: {{ parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) }}
+                      Lng: {{ parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6)) }}
                     </code>
                   </GMapInfoWindow>
                 </GMapMarker>
@@ -321,60 +294,68 @@
               </div>
               <p
                 v-coin
-                class="param-sm mt-3 tr-gray-three token"
+                class="param-sm mt-3 tr-gray-three token-one"
                 v-text="$route.params.id"
               ></p>
 
-              <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">
-                Wallet Balance
-              </p>
+              <!--              <p class="param-sm mt-4 tr-gray-four font-weight-bold" style="">-->
+              <!--                Wallet Balance-->
+              <!--              </p>-->
               <div class="row tokens">
-                <div class="col-6 p-0">
-                  <p
-                    class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom"
-                  >
-                    <img
-                      class="img-fluid"
-                      src="~/assets/images/myforest/ETHLogo.svg"
-                    />
-                    ETH
-                  </p>
-                  <p
-                    class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold border-bottom"
-                  >
-                    <img
-                      class="img-fluid"
-                      src="~/assets/images/myforest/SeedLogo.svg"
-                      style="margin-right: 7px"
-                    />
-                    Seed
-                  </p>
-                  <p
-                    class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
-                  >
-                    <img
-                      class="img-fluid"
-                      src="~/assets/images/myforest/O2Logo.svg"
-                    />
-                    O2
-                  </p>
-                </div>
-                <div class="col-6 p-0">
-                  <p
-                    class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold border-bottom"
-                  >
-                    {{ ethBalance > 0 ? ethBalance : 0 }}
-                  </p>
-                  <p
-                    class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold border-bottom"
-                  >
-                    {{ 0 }}
-                  </p>
-                  <p
-                    class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold"
-                  >
-                    0
-                  </p>
+                <div class="col-md-12 mt-3">
+                  <div class="d-flex border-bottom mb-2 justify-content-between align-self-center align-items-center">
+                    <p
+                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold "
+                    >
+                      <img
+                        class="img-fluid"
+                        src="~/assets/images/myforest/tree.svg"
+                      />
+
+                      {{ owner && owner.treeCount >= 0 ? ' Tree' : 'Trees' }}
+                    </p>
+                    <p
+                      v-if="owner"
+                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                    >
+                      {{  owner.treeCount }}
+                    </p>
+                  </div>
+                  <div class="d-flex border-bottom mb-2 justify-content-between align-self-center align-items-center">
+                    <p
+                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
+                    >
+                      <img
+                        class="img-fluid"
+                        src="~/assets/images/myforest/weth.svg"
+                      />
+
+                      WETH
+                    </p>
+
+                    <p
+                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                    >
+                      {{ wethBalance || 0 }}
+                    </p></div>
+                  <div class="d-flex border-bottom mb-2  justify-content-between align-self-center align-items-center">
+                    <p
+                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
+                    >
+                      <img
+                        class="img-fluid"
+                        src="~/assets/images/myforest/dai.svg"
+                        style="margin-right: 7px"
+                      />
+                      DAI
+                    </p>
+
+
+                    <p
+                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                    >
+                      {{ daiBalance || 0 }}
+                    </p></div>
                 </div>
               </div>
               <!--            <p class="param-sm-light"> @JaneJoe</p>-->
@@ -382,19 +363,11 @@
             <div class="trees">
               <div class="add-tree">
                 <button class="btn-lg" @click="goToAddTree()">
-                  ADD A TREE
+                  Plant trees
                 </button>
               </div>
-              <div class="gift-tree mb-4">
-                <!--                <nuxt-link class="position-relative" to="/forest/giftTree">-->
-                <button class="btn-lg disabled">GIFT A TREE</button>
-                <!--                </nuxt-link>-->
-              </div>
-              <!--              <div class="redeem-trees">-->
-              <!--                <input class="form-control-lg" type="text" v-model="redeem" placeholder="Enter your voucher code">-->
-              <!--                <p>Redeem Trees</p>-->
-              <!--              </div>-->
             </div>
+            <FindTreeButton/>
           </div>
         </div>
       </div>
@@ -407,15 +380,15 @@ import Fas from "@/components/font-awsome/Fas";
 // import content from "./static/data/world.json";
 import Wallets from "../../components/Wallets";
 import Metamask from "../../components/Metamask";
-import treesSearchById from "~/apollo/queries/treesSearchById";
 import owner from "~/apollo/queries/owner";
 // import ForestMap from "@/components/ForestMap";
 import mapConfig from "~/static/data/mapConfig.json";
+import FindTreeButton from "../../components/forest/FindTreeButton";
 
 export default {
   name: "forest",
   layout: "dashboard",
-  components: {Metamask, Fas, Wallets},
+  components: {Metamask, Fas, Wallets, FindTreeButton},
 
   head() {
     return {
@@ -434,7 +407,7 @@ export default {
     owner: {
       query: owner,
       skip() {
-        return this.$route.params.id === 'guest' ? true: false
+        return this.$route.params.id === 'guest' ? true : false
       },
       prefetch: ({route}) => ({id: route.params.id.toLowerCase()}),
       variables() {
@@ -455,16 +428,9 @@ export default {
       icon: `${process.env.gravatar}${(this.$route.params.id ?? '0')}`,
       showMoreTreeData: false,
       test: [{}],
+      treeIcon: require("~/assets/images/myforest/tree.svg"),
       avatar: require("~/assets/images/myforest/avatar.png"),
-      steps: [
-        {active: true, step: "step 1", text: "Connect your wallet"},
-        {active: false, step: "step 2", text: "Add trees to your forest"},
-        {active: false,
-          step: "step 3",
-          text: "Release Seed/O2 to your wallet",
-        },
-        {active: false, step: "step 4", text: "Join our community!"},
-      ],
+      treejerDesc: [{name: 'Forest Size'}, {name: 'Genesis Trees'}, {name: 'Regular Trees'}],
       activeIndexSteps: null,
       loading: false,
       ethBalance: 0,
@@ -473,29 +439,35 @@ export default {
       ownerTreesLoaded: false,
       mapConfigData: mapConfig,
       currentTree: {},
+      daiBalance: null,
+      wethBalance: null
 
     };
   },
   async created() {
     await this.$store.commit('SET_SIDEBAR_INDEX', 0)
+    console.log(this, 'this, is here')
   },
- async mounted() {
-   await this.createTestObject();
-   await this.getEthBalance();
-   
+  async mounted() {
+    await this.createTestObject();
+    await this.getEthBalance();
+    await this.getDaiBalance();
+    await this.getWethBalance();
+    console.log(this,"this.owner")
+
   },
   methods: {
     async getFunderTrees() {
-      if(!this.owner || this.$route.params.id === 'guest' || this.owner.treeCount <= 0) {
-          return;
+      if (!this.owner || this.$route.params.id === 'guest' || this.owner.treeCount <= 0) {
+        return;
       }
-      
-        //use this for pagination
-        // first = 0, skip = 0
 
-        let self = this
-        await self.$axios.$post(process.env.graphqlUrl, {
-          query: `{
+      //use this for pagination
+      // first = 0, skip = 0
+
+      let self = this
+      await self.$axios.$post(process.env.graphqlUrl, {
+        query: `{
                     trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
                       {
                           id
@@ -506,56 +478,18 @@ export default {
                           createdAt
                       }
                   }`,
-          prefetch: false
-        }).then((treesRes) => {
+        prefetch: false
+      }).then((treesRes) => {
 
-          console.log(treesRes, "treesRes")
-          if(treesRes.data.trees && treesRes.data.trees.length > 0) {
-            self.trees = treesRes.data.trees
-            self.ownerTreesLoaded = true
-          }
-
-        })
-      
-
-
-
-
-      
-    },
-    async goToFindTree() {
-      this.loading = true;
-      let self = this;
-      if (self.treeID) {
-        let result = await this.$apollo.query({
-          query: treesSearchById,
-          variables: {
-            id: this.$dec2hex(self.treeID),
-          },
-        });
-
-        if (result) {
-          if (result.data.trees.length > 0) {
-            self.$router.push(`/tree/${self.treeID}`);
-          } else {
-            self.$bvToast.toast("Tree Not found!", {
-              toaster: "b-toaster-bottom-left",
-              solid: true,
-              headerClass: "hide",
-              variant: "danger",
-            });
-          }
-          this.loading = false;
+        console.log(treesRes, "treesRes")
+        if (treesRes.data.trees && treesRes.data.trees.length > 0) {
+          self.trees = treesRes.data.trees
+          self.ownerTreesLoaded = true
         }
-      } else {
-        self.loading = false;
-        self.$bvToast.toast("TreeId is empty!", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-      }
+
+      })
+
+
     },
     goToAddTree() {
       let self = this;
@@ -568,7 +502,7 @@ export default {
         })
         self.$bvModal.show("five");
       } else {
-        self.$router.push("/forest/addTree");
+        self.$router.push("/forest/checkout");
       }
     },
     comunity() {
@@ -582,7 +516,7 @@ export default {
     },
     async getEthBalance() {
 
-      if(this.$cookies.get("account") == null){
+      if (this.$cookies.get("account") == null) {
         return;
       }
 
@@ -603,15 +537,47 @@ export default {
       for (let i = this.test.length; i < 50; i++) {
         this.test.push({i})
       }
-    }
+    },
+    async getDaiBalance() {
+      const daiBalance = await this.$store.dispatch('dai/balanceOf')
+      this.daiBalance = parseFloat(daiBalance).toFixed(2)
+    },
+    async getWethBalance() {
+      const wethBalance = await this.$store.dispatch('weth/balanceOf')
+      this.wethBalance = parseFloat(wethBalance).toFixed(2)
+      console.log(this.wethBalance, " this.wethBalance  is here")
+    },
+    // async getDaiAllowance() {
+    //   const daiAllowance = await this.$store.dispatch('dai/allowance')
+    //   console.log(daiAllowance, "daiAllowance")
+    // }
   },
 };
 </script>
 <style lang="scss" scoped>
 .my-forest {
-  *{
+  * {
     font-family: Montserrat-Medium;
   }
+
+  .box-right {
+    margin-top: 64px;
+
+    .tokens {
+      display: flex;
+      align-self: center;
+      align-item: center;
+
+      p {
+        margin-bottom: 5px;
+      }
+
+      img {
+        padding-right: 10px;
+      }
+    }
+  }
+
   .show-more-tree-all {
     font-size: 26px;
     display: flex;
@@ -624,11 +590,11 @@ export default {
 
   .logo-tokens {
     display: flex;
-    justify-content: space-between;
     padding: 0 20px;
+
   }
 
-  .token {
+  .token-one {
     width: 75%;
     margin: auto;
     background: #e5e7db;
@@ -637,6 +603,7 @@ export default {
     border-radius: 18px;
     padding: 5px 15px;
   }
+
 
   .bg-brown {
     background: rgba(208, 169, 69, 0.25);
@@ -661,6 +628,10 @@ export default {
 
   .treejer-desc {
     margin-top: 35px;
+
+    .border-right:last-child {
+      border: none !important;
+    }
 
     p,
     span {
@@ -690,6 +661,7 @@ export default {
         color: #67b68c;
         padding: 0 5px;
       }
+
     }
   }
 
@@ -703,10 +675,13 @@ export default {
   }
 
   .add-tree {
+    margin: auto;
+    text-align: center;
+
     button {
       box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
       background-color: #67b68c;
-      width: 100%;
+      width: 176px;
       margin-top: 45px;
       border: 0;
       color: white;
@@ -754,16 +729,13 @@ export default {
 
   .avatar-card {
     height: auto;
-    border-radius: 6px;
-    box-shadow: 0 4px 11px 0 rgba(0, 0, 0, 0.16);
-    background-color: #fafafa;
-    padding: 35px 10px 0;
 
-    img {
-      border: solid 1px gray;
+    .avatar-pic {
+      border: solid 2px white;
       border-radius: 50px !important;
       background-color: white;
     }
+
 
     span {
       width: 18px;
@@ -796,7 +768,7 @@ export default {
         position: absolute;
         z-index: +999;
         top: 12px;
-        right: 150px;
+        left: 35px;
       }
     }
   }

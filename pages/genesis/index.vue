@@ -14,8 +14,8 @@
               class="col-md-2 pointer-event param-18 font-weight-bolder "
               @click="activeIndex = index"
             >
-              {{ item.name }}</span
-            >
+              {{ item.name }}
+            </span>
           </div>
         </div>
       </div>

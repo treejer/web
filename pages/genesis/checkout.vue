@@ -904,7 +904,7 @@ export default {
       height: 75px;
       border: solid 1px #757575;
       width: 1px;
-      right: 10px;
+      right: 0px;
       top: 0%;
       @media (max-width: 768px) {
         display: none;

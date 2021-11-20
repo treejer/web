@@ -1,8 +1,22 @@
 <template>
-  <section :class="$route.name" class="position-relative pt-5 col-12 mb-5 pb-5">
+  <section class="position-relative pt-5 col-12 add-tree mb-5 pb-5">
     <div class="container-fluid">
       <div class="row tree-count">
-        <div class="col-12 step-one">
+        <!--        <div class="col-12">-->
+        <!--          <ul class="step tr-gray-three d-flex   list-style-none">-->
+        <!--            <li-->
+        <!--              v-for="(item, index) in steps"-->
+        <!--              :key="index"-->
+        <!--              :name="item.name"-->
+        <!--              class="param-md font-weight-bold"-->
+        <!--            >-->
+        <!--              <p>{{ item.name }}</p>-->
+        <!--              <p :class="{ active: activeIndex === index }">{{ item.step }}</p>-->
+        <!--            </li>-khk -->
+        <!--          </ul>-->
+        <!--        </div>-->
+
+        <div v-if="activeIndex === 0" class="col-12 step-one">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
@@ -30,10 +44,10 @@
                       <label :for="index">
                         <input
                           :key="index"
-                          class="param-18"
                           v-model="count"
                           :class="{ active: activeCount === index }"
                           :placeholder="item.placeHolder"
+                          class="param-18"
                           min="1"
                           type="number"
                         />
@@ -138,7 +152,13 @@
                             font-weight-bolder
                           "
                         >
-                          {{ Number(totalWeth).toFixed(4) }}
+                          {{ parseFloat((treePrice * count).toFixed(0)) + "DAI" }}
+                          <span class="param-sm-light">
+                      {{
+                              "~$" +
+                              parseFloat((daiUSDPrice * treePrice * count).toFixed(0))
+                            }}
+                    </span>
                         </p>
                         <p
                           class="
@@ -149,7 +169,7 @@
                             mb-0
                           "
                         >
-                          Total WETH
+                          Total DAI
                         </p>
                       </div>
                     </div>
@@ -157,62 +177,41 @@
                 </div>
                 <div class="col-12 col-md-8 offset-md-2 mt-4 text-center">
                   <button
-                    v-if="parseFloat(wethBalance) <= parseFloat(totalWeth)"
+                    v-if="daiBalance <= 0"
                     :class="{ disable: loading }"
-                    class="
-                      btn-green
-                      font-weight-bolder
-                      text-white
-                      m-auto
-                      next-btn
-                    "
-                    @click="buyWeth()"
+                    class="btn-green-md mt-4 mb-3"
+                    @click="buyDai()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
-                    </BSpinner>
-                    {{ loading ? "Loading" : " Buy WETH" }}
+                    </BSpinner
+                    >
+                    {{ loading ? "Loading" : " Buy Dai" }}
                   </button>
 
                   <button
-                    v-if="
-                      parseFloat(wethBalance) > parseFloat(totalWeth) &&
-                      isAllowedSpendWeth
-                    "
+                    v-if="daiBalance > 0 && isAllowedSpendDai"
                     :class="{ disable: loading }"
-                    class="
-                      btn-green
-                      font-weight-bolder
-                      text-white
-                      m-auto
-                      next-btn
-                    "
+                    class="btn-green-md mt-4 mb-3"
                     @click="fundTree()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
-                    </BSpinner>
+                    </BSpinner
+                    >
                     {{ loading ? "Loading" : " Confirm" }}
                   </button>
 
                   <button
-                    v-if="
-                      parseFloat(wethBalance) > parseFloat(totalWeth) &&
-                      !isAllowedSpendWeth
-                    "
+                    v-if="daiBalance > 0 && !isAllowedSpendDai"
                     :class="{ disable: loading }"
-                    class="
-                      btn-green
-                      font-weight-bolder
-                      text-white
-                      m-auto
-                      next-btn
-                    "
-                    @click="allowSpendWeth()"
+                    class="btn-green-md mt-4 mb-3"
+                    @click="allowSpendDai()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
-                    </BSpinner>
+                    </BSpinner
+                    >
                     {{ loading ? "Loading" : " Approve" }}
                   </button>
 
@@ -268,7 +267,8 @@
                         class="btn-purple pointer-event"
                         @click.prevent="setPaymentMethod(item.name, item.href)"
                       >
-                        {{ item.name }}
+                        <span v-if="item.name === 'Bridge'">{{ !bridgeLoading ? 'Bridge' : 'Loading...' }}</span>
+                        <span v-else>{{ item.name }}</span>
                       </div>
                     </div>
                   </div>
@@ -277,7 +277,338 @@
             </div>
           </div>
         </div>
+        <div v-if="sendAsTreeCard" id="sendAsTreeCard" class="row form-name">
+          <div class="col-12">
+            <div class="card bg-transparent p-4 mt-5">
+              <div class="form-full-name">
+                <div class="row">
+                  <div class="col-12">
+                    <p class="param-md-md font-weight-bold tr-gray-three">
+                      Add your name
+                    </p>
+                  </div>
+                  <div class="col-lg-4">
+                    <label class="param tr-gray-two Montserrat-Medium"
+                    >First name
+                      <input
+                        class="param-sm tr-gray-five"
+                        placeholder="First name"
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <label class="param tr-gray-two Montserrat-Medium"
+                    >Last name (optional)
+                      <input
+                        class="param-sm tr-gray-five"
+                        placeholder="Last name"
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                  <div class="col-lg-4">
+                    <label class="param tr-gray-two Montserrat-Medium"
+                    >Your email
+                      <input
+                        class="param-sm tr-gray-five"
+                        placeholder="Your email"
+                        type="text"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="recepient mt-5">
+                <div class="row">
+                  <div class="col-12">
+                    <p class="param-md-md font-weight-bolder tr-gray-three">
+                      Add recepient(s)
+                    </p>
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-lg-4">
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                    <input
+                      class="param-sm tr-gray-five"
+                      placeholder="Email"
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-lg-4">
+                    <div
+                      class="cv-team bg-transparent justify-content-center text-center"
+                    >
+                      <img
+                        alt="forest-img"
+                        class="img-fluid pt-4 m-auto"
+                        src="~/assets/images/myforest/file-excel.png"
+                      />
+                      <p class="param-sm mt-3 p-2 mb-3">
+                        Drag & drop your CSV file here or
+                        <span class="tr-green">
+                            select a CSV file to upload.
+                          </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div
+                      class="d-flex mt-3 align-items-center align-self-center"
+                    >
+                      <button
+                        class="btn-outline-green-md param-sm btn-lg mr-2"
+                      >
+                        Add another row
+                      </button>
+                      <p class="param-sm mt-3">
+                        Or upload email addresses using our
+                        <span class="tr-green pointer-event"
+                        >CSV template</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <button class="btn-green-md param mr-4">Finish</button>
+                      <p class="param tr-green mt-3 pointer-event">
+                        Skip for now
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div v-if="activeIndex === 1" class="col-12 step-two">
+        <div v-if="this.$store.state.account === null" class="row">
+          <div class="col-12 mt-5 justify-content-center text-center">
+            <h1 class="title-sm font-weight-bolder text-center">
+              Select Wallet
+            </h1>
+          </div>
+          <div
+            class="col-12 text-center col-lg-4 d-none d-md-block align-items-center align-self-center h-100"
+          >
+            <p class="param-md tr-gray-three font-weight-bold">Need help?</p>
+            <p
+              class="pointer-event tr-green"
+              @click="localePath('contactUs')"
+            >
+              support@treejer.com
+            </p>
+          </div>
+          <div
+            class="col-12 col-lg-4 mt-3 justify-content-center text-center"
+          >
+            <Wallets/>
+
+            <!--              <ul class="wallets tr-gray-three list-style-none">-->
+            <!--                <li v-for="(item, index) in wallets" class="pointer-event">-->
+            <!--                  <p-->
+            <!--                    @click="activeWallets(item, index)"-->
+            <!--                    :class="{ active: activeWallet === index }"-->
+            <!--                    :key="index"-->
+            <!--                    :name="item.name"-->
+            <!--                  >-->
+            <!--                    {{ item.name }}-->
+            <!--                  </p>-->
+            <!--                </li>-->
+            <!--              </ul>-->
+            <p class="param mt-3 tr-gray-five">New to Ethereum?</p>
+            <p class="param tr-green">Learn more about wallets</p>
+            <button
+              class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white"
+              @click="activeIndex = 2"
+            >
+              CONNECT
+            </button>
+          </div>
+          <div
+            class="col-12 col-lg-4 d-none d-lg-block flex-row align-items-center align-self-center h-100"
+          >
+            <hr/>
+            <p class="param-md font-weight-bold tr-gray-three text-center">
+              Total
+            </p>
+            <p class="title-md text-center tr-gray-three font-weight-bolder">
+              {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
+            </p>
+            <hr/>
+          </div>
+        </div>
+        <div v-if="this.$store.state.account !== null" class="row">
+          <div class="col-12 mt-5 justify-content-center text-center">
+            <h1 class="title-sm font-weight-bolder text-center">
+              {{ this.$store.state.account }}
+            </h1>
+          </div>
+          <div
+            class="col-12 text-center col-lg-4 d-none d-md-block align-items-center align-self-center h-100"
+          >
+            <p class="param-md tr-gray-three font-weight-bold">Need help?</p>
+            <p
+              class="pointer-event tr-green"
+              @click="localePath('contactUs')"
+            >
+              support@treejer.com
+            </p>
+          </div>
+          <div
+            class="col-12 col-lg-4 mt-3 justify-content-center text-center"
+          >
+            <p class="param mt-3 tr-gray-five">New to Ethereum?</p>
+            <p class="param tr-green">Learn more about wallets</p>
+            <button
+              class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white"
+              @click="activeIndex = 2"
+            >
+              CONNECTING
+            </button>
+          </div>
+          <div
+            class="col-12 col-lg-4 d-none d-lg-block flex-row align-items-center align-self-center h-100"
+          >
+            <hr/>
+            <p class="param-md font-weight-bold tr-gray-three text-center">
+              Total
+            </p>
+            <p class="title-md text-center tr-gray-three font-weight-bolder">
+              ${{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}
+            </p>
+            <hr/>
+          </div>
+        </div>
+      </div>
+      <div v-if="activeIndex === 2" class="col-12 step-three">
+        <div class="row">
+          <div class="col-12 mt-5 justify-content-center text-center">
+            <h1 class="title-sm font-weight-bolder text-center">
+              Confirm Payment Information
+            </h1>
+            <p class="tr-gray-three mt-5">
+              You're adding
+              <span class="tr-green">{{
+                  count + (count > 1 ? " trees" : " tree")
+                }}</span>
+              to your forest!
+            </p>
+          </div>
+
+          <div
+            class="col-12 col-lg-4 d-none d-md-flex flex-row align-items-center align-self-center h-100"
+          >
+            <p class="param-md tr-gray-three font-weight-bold">Need help?</p>
+            <p
+              class="pointer-event tr-green"
+              @click="localePath('contactUs')"
+            >
+              support@treejer.com
+            </p>
+          </div>
+          <div
+            class="col-12 col-lg-4 mt-3 justify-content-center text-center"
+          >
+            <div class="tr-table tr-card">
+              <div class="row">
+                <div class="col-lg-5">
+                  <p class="param tr-gray-four">Total</p>
+                  <p class="param tr-gray-four">Payment Fee</p>
+                </div>
+                <div class="col-lg-7">
+                  <p
+                    class="param tr-gray-five font-weight-light position-absolute"
+                  >
+                    <span>DAI</span><span>USD</span>
+                  </p>
+
+                  <p class="param tr-gray-four">
+                      <span id="eth">{{ treePrice * count }} </span
+                      ><span class="usd">{{
+                      parseFloat((daiUSDPrice * treePrice * count).toFixed(2))
+                    }}</span>
+                  </p>
+                  <p class="param tr-gray-four">
+                    <span id="eths"></span><span class="usds"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button
+              class="btn-green param-md btn-lg mt-5 font-weight-bolder text-white"
+              @click="activeIndex = 3"
+            >
+              CONFIRM
+            </button>
+          </div>
+          <div
+            class="col-12 col-lg-4 d-none d-md-block d-flex flex-row align-items-center align-self-center h-100"
+          >
+            <hr/>
+            <p class="title-sm tr-gray-three text-center">Total</p>
+            <p class="title-md text-center tr-gray-three font-weight-bolder">
+              {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
+            </p>
+
+            <hr/>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="activeIndex === 3"
+        class="col-12 final-step justify-content-center text-center"
+      >
+        <img
+          alt="final-step"
+          class="img-fluid mt-5"
+          src="~/assets/images/myforest/final-step.png"
+        />
+        <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
+          Congratulations, your forest just got bigger!!
+        </h1>
+        <p class="mt-3 tr-gray-three">
+          Rural communities are notified to plant your trees.
+        </p>
+        <nuxt-link
+          :to="localePath('/forest/' + $cookies.get('account'))"
+          class="tr-green param pt-5"
+        >Go back to My Forest
+        </nuxt-link
+        >
+      </div>
+    </div>
     </div>
   </section>
 </template>
@@ -286,6 +617,7 @@
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
 import transakSDK from "@transak/transak-sdk";
+import {Widget} from "@maticnetwork/wallet-widget";
 
 export default {
   name: "giftTree",
@@ -307,11 +639,6 @@ export default {
     Wallets,
     Fab,
   },
-  beforeMount() {
-
-  },
-
-
   mounted() {
     this.getPrice();
     this.setDaiBalance();
@@ -339,6 +666,17 @@ export default {
   },
   data() {
     return {
+      pays: [
+        {href: "", name: "Bridge"},
+        {href: "https://global.transak.com/", name: "Visa/Master"},
+        {href: "https://docs.treejer.com/", name: "Learn more"},
+        {href: "https://discuss.treejer.com/", name: "Questions"},
+      ],
+      bridgeLoading: false,
+      slectedPays: null,
+
+      recipient: null,
+      sendAsGiftChecked: false,
       daiBalance: 0,
       isAllowedSpendDai: false,
       treePrice: null,
@@ -346,7 +684,6 @@ export default {
       sendAsTreeCard: false,
       loading: false,
       count: 1,
-      slectedPays: null,
       ethPrice: this.$store.state.ethPrice,
       steps: [
         {name: "Collect", step: 1},
@@ -391,7 +728,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend dai",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.hash}`,
+          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -463,7 +800,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
+          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -486,9 +823,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${self.$cookies.get(
-            "account"
-          )}`,
+          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
         const history = this.$router.currentRoute.matched;
         let res = null;
@@ -519,6 +854,44 @@ export default {
         this.loading = false;
       }
     },
+    pasteRecipient() {
+      window.navigator.clipboard
+        .readText()
+        .then((res) => {
+          this.recipient = res;
+        })
+        .catch((err) => {
+          console.log(err, "err is here");
+        });
+    },
+    async setPaymentMethod(item, href) {
+      if (item === "Bridge") {
+        if (process.client) {
+          const {Widget} = require("@maticnetwork/wallet-widget");
+          this.bridgeLoading = true
+
+          const widget = await new Widget({
+            target: "#Bridge",
+            appName: "Polygon_Bridge_Treejer",
+            autoShowTime: 0,
+            position: "center",
+            height: 630,
+            width: 540,
+            overlay: false,
+            network: "mainnet",
+            closable: true,
+          });
+          await widget.create();
+          await widget.show();
+          this.bridgeLoading = false
+        } else {
+          window.open(href, "_blank");
+        }
+      }
+    },
+    goToTerm(item, target) {
+      window.open(item, target);
+    }
   },
   watch: {
     async count(newCount, oldCount) {
@@ -530,10 +903,7 @@ export default {
   },
 };
 </script>
-
-
-
-<style lang="scss">
+<style lang="scss" scoped>
 .add-tree {
   .pay-badge {
     position: absolute;
@@ -861,7 +1231,7 @@ export default {
 }
 
 .box-right-checkout {
-  &>.col-12 {
+  & > .col-12 {
     margin-top: 32px;
   }
 
@@ -882,7 +1252,7 @@ export default {
       height: 75px;
       border: solid 1px #757575;
       width: 1px;
-      right: 10px;
+      right: 0px;
       top: 0%;
       @media (max-width: 768px) {
         display: none;

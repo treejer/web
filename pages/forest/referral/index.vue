@@ -183,13 +183,13 @@ export default {
       prefetch: ({ cookies }) => ({
         id: cookies.get("account")
           ? cookies.get("account").toLowerCase()
-          : "guest",
+          : "Guest",
       }),
       variables() {
         return {
           id: this.$cookies.get("account")
             ? this.$cookies.get("account").toLowerCase()
-            : "guest",
+            : "Guest",
         };
       },
       // variables() {
