@@ -57,60 +57,60 @@
 
 
     </div>
-    <div class="justify-content-center text-center main-our-team">
-      <h4 class="title-md font-weight-bold tr-gray-two">Meet Our Team</h4>
-    </div>
-    <div class="mt-4 justify-content-center text-center">
-      <p class="col-lg-8 col-md-10 m-auto param-18 font-weight-bold tr-gray-two">
-        We’re a distrubuted community working for a common mission across continents.
-        Join our <span> <a href="https://discuss.treejer.com/" target="_blank " class="tr-green d-inline">community</a> </span> today, we’re the #PlantersWithoutBorders!
-<!--        We’re a distrubuted community working-->
-<!--        for a-->
-<!--        common mission across continents. Join the <span> <a href="https://twitter.com/" target="_blank"-->
-<!--                                                             class="tr-green d-inline">#PantersWithoutBorders!</a> </span>-->
-      </p>
-    </div>
-    <div class="team-card-row">
-      <div class="row justify-content-center">
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/ermia.png" alt="ermia shahrakhiz">
-          </div>
+<!--    <div class="justify-content-center text-center main-our-team">-->
+<!--      <h4 class="title-md font-weight-bold tr-gray-two">Meet Our Team</h4>-->
+<!--    </div>-->
+<!--    <div class="mt-4 justify-content-center text-center">-->
+<!--      <p class="col-lg-8 col-md-10 m-auto param-18 font-weight-bold tr-gray-two">-->
+<!--        We’re a distrubuted community working for a common mission across continents.-->
+<!--        Join our <span> <a href="https://discuss.treejer.com/" target="_blank " class="tr-green d-inline">community</a> </span> today, we’re the #PlantersWithoutBorders!-->
+<!--&lt;!&ndash;        We’re a distrubuted community working&ndash;&gt;-->
+<!--&lt;!&ndash;        for a&ndash;&gt;-->
+<!--&lt;!&ndash;        common mission across continents. Join the <span> <a href="https://twitter.com/" target="_blank"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                             class="tr-green d-inline">#PantersWithoutBorders!</a> </span>&ndash;&gt;-->
+<!--      </p>-->
+<!--    </div>-->
+<!--    <div class="team-card-row">-->
+<!--      <div class="row justify-content-center">-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/ermia.png" alt="ermia shahrakhiz">-->
+<!--          </div>-->
 
-        </div>
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/amir.png" alt="amir habibzadeh">
+<!--        </div>-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/amir.png" alt="amir habibzadeh">-->
 
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/iraj.png" alt="iraj habibzadeh">
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="row">-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/iraj.png" alt="iraj habibzadeh">-->
 
-          </div>
-        </div>
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/ali.png" alt="ali hamidian">
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/ali.png" alt="ali hamidian">-->
 
-          </div>
-        </div>
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/bahare.png" alt="bahare tavakoli">
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/bahare.png" alt="bahare tavakoli">-->
 
-          </div>
-        </div>
-        <div class="col-lg-3 col-12">
-          <div class="team-card">
-            <img class="img-fluid" src="../assets/images/about/mohammad.png" alt="mohammad mohebifar">
-          </div>
-        </div>
-      </div>
-    </div>
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-3 col-12">-->
+<!--          <div class="team-card">-->
+<!--            <img class="img-fluid" src="../assets/images/about/mohammad.png" alt="mohammad mohebifar">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="col-lg-10 ml-auto mr-auto   subscribe-box-row">
       <div class="row">
         <div class="col-md-4 box-img text-center">

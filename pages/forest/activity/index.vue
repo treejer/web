@@ -8,7 +8,7 @@
         <div class="col-md-8 col-12">
           <div class="row">
             <div class="col-12">
-              <h2 class="title-sm">Updates</h2>
+              <h2 class="title-sm">Activity</h2>
               <p class="param-sm">
                 Browse your recent payment events, notifications and verified
                 trees.
