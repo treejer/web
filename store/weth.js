@@ -8,15 +8,18 @@ export const mutations = {}
 
 export const actions = {
 
-  async balanceOf() {
-    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
-    let account = this.$cookies.get('account');
+  async balanceOf(context, params) {
 
-    let self = this
-    return wethContract.methods.balanceOf(account).call()
-      .then((balanceInWei) => {
-        return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
-      });
+    try {
+      const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
+
+      let balanceInWei =  await wethContract.methods.balanceOf(params.account).call()
+      return this.$web3.utils.fromWei(balanceInWei.toString()).toString()
+
+    } catch (err) {
+      console.error(err, "error weth balanceOf")
+      return 0;
+    }
   },
   async allowance() {
     const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);

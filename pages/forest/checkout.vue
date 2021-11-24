@@ -738,17 +738,6 @@ export default {
         await this.fundTree();
       }
     },
-    showWalletError() {
-      let self = this;
-      self.$bvToast.toast("Switch to Rinkeby Test Network", {
-        title: `Wrong network`,
-        href:
-          "https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/",
-        variant: "danger",
-        solid: true,
-        toaster: "b-toaster-bottom-left",
-      });
-    },
     activeMenu(item, index) {
       this.activeIndex = index;
     },
@@ -764,7 +753,13 @@ export default {
       this.activeWallet = index;
     },
     async setDaiBalance() {
-      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
+      if(!this.$cookies.get("account")) {
+        return; 
+      }
+
+      this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
+        'account': this.$cookies.get("account")
+      });
     },
 
     async buyDai() {

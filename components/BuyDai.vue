@@ -119,7 +119,13 @@ export default {
       }
     },
     async setDaiBalance() {
-      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
+      if(!this.$cookies.get("account")) {
+        return;
+      }
+
+      this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
+        'account': this.$cookies.get("account")
+      });
     },
      async buyDai() {
       let self = this;
@@ -190,7 +196,13 @@ export default {
       }
     },
     async setDaiBalance() {
-      this.daiBalance = await this.$store.dispatch("dai/balanceOf");
+      if(!this.$cookies.get("account")) {
+        return;
+      }
+      
+      this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
+        'account': this.$cookies.get("account")
+      });
     },
     async buyDai() {
       let self = this;

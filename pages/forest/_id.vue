@@ -22,7 +22,7 @@
 
           </div>
           <div class="row treejer-desc">
-            <div v-for="(item ,index) in treejerDesc" :key="index" class="col-lg-3 col-md-6 col-12 border-right">
+            <div v-for="(item ,index) in stats" :key="index" class="col-lg-3 col-md-6 col-12 border-right">
               <p class="tr-gray-two">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
@@ -32,7 +32,9 @@
                   class="img-fluid"
                 /></span>
                 <span>
-                  <span>{{ owner ? owner.treeCount : 0 }}</span>
+                  <span v-if="index === 0">{{ owner ? owner.treeCount : 0 }}</span>
+                  <span v-if="index === 1">{{ owner ? owner.genesisTreeCount : 0 }}</span>
+                  <span v-if="index === 2">{{ owner ? owner.regularTreeCount : 0 }}</span>
                 </span>
               </p>
             </div>
@@ -140,7 +142,7 @@
             </div>
             <div class="col-12 position-relative p-0">
               <div class="col-12 mb-3 p-0">
-                <span v-for="(item, index) in test" :key="index">
+                <span v-for="(item, index) in placeHolderTrees" :key="index">
                   <img
                     class="img-fluid p-2"
                     src="~/assets/images/myforest/trees.png"
@@ -287,7 +289,7 @@
               <div class="card-img position-relative">
                 <img
                   :alt="$route.params.id"
-                  :src="icon"
+                  :src="$avatarByWallet($route.params.id)"
                   class="avatar-pic img-fluid"
                 />
 
@@ -312,13 +314,13 @@
                         src="~/assets/images/myforest/tree.svg"
                       />
 
-                      {{ owner && owner.treeCount >= 0 ? ' Tree' : 'Trees' }}
+                      {{ owner && owner.treeCount >= 1 ? ' Trees' : ' Tree' }}
                     </p>
                     <p
-                      v-if="owner"
+                      
                       class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
                     >
-                      {{  owner.treeCount }}
+                      {{ owner ? owner.treeCount : 0 }}
                     </p>
                   </div>
                   <div class="d-flex border-bottom mb-2 justify-content-between align-self-center align-items-center">
@@ -336,7 +338,7 @@
                     <p
                       class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
                     >
-                      {{ wethBalance || 0 }}
+                      {{ wethBalance }}
                     </p></div>
                   <div class="d-flex border-bottom mb-2  justify-content-between align-self-center align-items-center">
                     <p
@@ -354,7 +356,7 @@
                     <p
                       class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
                     >
-                      {{ daiBalance || 0 }}
+                      {{ daiBalance }}
                     </p></div>
                 </div>
               </div>
@@ -392,7 +394,7 @@ export default {
 
   head() {
     return {
-      title: "Treejer",
+      title: "Treejer - Forest " + this.$route.params.id,
       meta: [
         {hid: 'description', name: 'description', content: "My Forest\n profile your forest page"},
         {
@@ -418,46 +420,40 @@ export default {
   },
   watch: {
     async owner() {
-      await this.getFunderTrees();
+      await this.getOwnerTrees();
     }
   },
 
   data() {
     return {
       title: this.$route.name,
-      icon: `${process.env.gravatar}${(this.$route.params.id ?? '0')}`,
       showMoreTreeData: false,
-      test: [{}],
+      placeHolderTrees: [{}],
       treeIcon: require("~/assets/images/myforest/tree.svg"),
       avatar: require("~/assets/images/myforest/avatar.png"),
-      treejerDesc: [{name: 'Forest Size'}, {name: 'Genesis Trees'}, {name: 'Regular Trees'}],
+      stats: [{name: 'Forest Size'}, {name: 'Genesis Trees'}, {name: 'Regular Trees'}],
       activeIndexSteps: null,
       loading: false,
-      ethBalance: 0,
-      treeID: null,
       trees: [],
       ownerTreesLoaded: false,
       mapConfigData: mapConfig,
       currentTree: {},
-      daiBalance: null,
-      wethBalance: null
+      daiBalance: 0,
+      wethBalance: 0
 
     };
   },
   async created() {
     await this.$store.commit('SET_SIDEBAR_INDEX', 0)
-    console.log(this, 'this, is here')
   },
   async mounted() {
     await this.createTestObject();
-    await this.getEthBalance();
     await this.getDaiBalance();
     await this.getWethBalance();
-    console.log(this,"this.owner")
 
   },
   methods: {
-    async getFunderTrees() {
+    async getOwnerTrees() {
       if (!this.owner || this.$route.params.id === 'guest' || this.owner.treeCount <= 0) {
         return;
       }
@@ -514,43 +510,36 @@ export default {
     changeRoute(item) {
       window.open(item, "_blank");
     },
-    async getEthBalance() {
-
-      if (this.$cookies.get("account") == null) {
-        return;
-      }
-
-      let self = this
-      await this.$web3.eth
-        .getBalance(this.$cookies.get("account"))
-        .then(async (ethBalance) => {
-          const test = await self.$web3.utils.fromWei(ethBalance);
-          this.ethBalance = parseFloat(test).toFixed(4);
-        });
-    },
     goToTreeProfile(item) {
       this.$router.push(
         this.localePath({name: "tree-id", params: {id: item}})
       );
     },
     createTestObject() {
-      for (let i = this.test.length; i < 50; i++) {
-        this.test.push({i})
+      for (let i = this.placeHolderTrees.length; i < 50; i++) {
+        this.placeHolderTrees.push({i})
       }
     },
     async getDaiBalance() {
-      const daiBalance = await this.$store.dispatch('dai/balanceOf')
+      if(this.$route.params.id == 'guest') {
+        return;
+      }
+
+      const daiBalance = await this.$store.dispatch('dai/balanceOf', {
+        'account': this.$route.params.id
+      })
       this.daiBalance = parseFloat(daiBalance).toFixed(2)
     },
     async getWethBalance() {
-      const wethBalance = await this.$store.dispatch('weth/balanceOf')
+      if(this.$route.params.id == 'guest') {
+        return;
+      }
+      
+      const wethBalance = await this.$store.dispatch('weth/balanceOf', {
+        'account': this.$route.params.id
+      })
       this.wethBalance = parseFloat(wethBalance).toFixed(2)
-      console.log(this.wethBalance, " this.wethBalance  is here")
-    },
-    // async getDaiAllowance() {
-    //   const daiAllowance = await this.$store.dispatch('dai/allowance')
-    //   console.log(daiAllowance, "daiAllowance")
-    // }
+    }
   },
 };
 </script>

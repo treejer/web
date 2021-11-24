@@ -25,7 +25,7 @@ export const state = () => ({
 
 export const actions = {
   async networkNames({commit}) {
-    if (process.client) {
+    if (process.client && this.$web3.givenProvider) {
       const web3 = this.$web3
       //  netName = web3.version.network
       let netName = 'mainnet';

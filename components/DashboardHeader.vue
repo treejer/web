@@ -132,12 +132,17 @@ export default {
     // })
     await self.accountChange()
     setTimeout(() => {
+
+      if(this.$web3.givenProvider === null) {
+        return;
+      }
+
       this.$web3.eth.net.getId().then(netId => {
 
-        if (netId.toString() === '4') {
+        if (netId.toString() === process.env.NETWORK_ID.toString()) {
           return
         }
-        self.$bvToast.toast('Switch to Rinkeby Test Network', {
+        self.$bvToast.toast('Switch to ' + process.env.NETWORK_NAME + ' Network', {
           title: `Wrong network`,
           href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
           variant: 'danger',

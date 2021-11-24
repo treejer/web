@@ -8,15 +8,15 @@ export const mutations = {}
 
 export const actions = {
 
-  async balanceOf() {
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
-    let account = this.$cookies.get('account');
-
-    let self = this
-    return daiContract.methods.balanceOf(account).call()
-      .then((balanceInWei) => {
-        return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
-      });
+  async balanceOf(context, params) {
+    try {
+      const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+      let balanceInWei =  await daiContract.methods.balanceOf(params.account).call()
+      return this.$web3.utils.fromWei(balanceInWei.toString()).toString()
+    } catch (err) {
+      console.error(err, "error dai balanceOf")
+      return 0;
+    }
   },
   async allowance() {
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
