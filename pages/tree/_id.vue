@@ -505,8 +505,9 @@ export default {
         }
 
         if (self.tree.treeSpecsEntity) {
+          let attr = self.tree.treeSpecsEntity.attributes;
           // self.attributes = JSON.parse(self.tree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
-          self.attributes = JSON.parse(self.tree.treeSpecsEntity.attributes)
+          self.attributes = typeof attr === 'string' && attr.length>0 ? JSON.parse(attr): {}
         }
 
 
