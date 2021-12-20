@@ -9,39 +9,47 @@
         <div class="col-lg-8 col-12">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
-              <h2
-                class="title-sm d-inline-flex Montserrat-Medium"
-              >
-                <span v-coin
-                      class="pr-2 pl-0 text-capitalize Montserrat-Medium">{{
-                    $route.params.id != $cookies.get('account') ? $route.params.id : 'MY'
-                  }}</span>
+              <h2 class="title-sm d-inline-flex Montserrat-Medium">
+                <span
+                  v-coin
+                  class="pr-2 pl-0 text-capitalize Montserrat-Medium"
+                  >{{
+                    $route.params.id != $cookies.get("account")
+                      ? $route.params.id
+                      : "MY"
+                  }}</span
+                >
                 Forest
               </h2>
             </div>
-
           </div>
           <div class="row treejer-desc">
-            <div v-for="(item ,index) in stats" :key="index" class="col-lg-3 col-md-6 col-12 border-right">
+            <div
+              v-for="(item, index) in stats"
+              :key="index"
+              class="col-lg-3 col-md-6 col-12 border-right"
+            >
               <p class="tr-gray-two">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
-                ><img
-                  :src="treeIcon"
-                  alt="tree"
-                  class="img-fluid"
+                  ><img :src="treeIcon" alt="tree" class="img-fluid"
                 /></span>
                 <span>
-                  <span v-if="index === 0">{{ owner ? owner.treeCount : 0 }}</span>
-                  <span v-if="index === 1">{{ owner ? owner.genesisTreeCount : 0 }}</span>
-                  <span v-if="index === 2">{{ owner ? owner.regularTreeCount : 0 }}</span>
+                  <span v-if="index === 0">{{
+                    owner ? owner.treeCount : 0
+                  }}</span>
+                  <span v-if="index === 1">{{
+                    owner ? owner.genesisTreeCount : 0
+                  }}</span>
+                  <span v-if="index === 2">{{
+                    owner ? owner.regularTreeCount : 0
+                  }}</span>
                 </span>
               </p>
             </div>
-
           </div>
-<!--          v-if="$cookies.get('account') === $route.params.id"-->
-          <div class="row treejer-user-flow" >
+          <!--          v-if="$cookies.get('account') === $route.params.id"-->
+          <div class="row treejer-user-flow">
             <div class="col-12">
               <div class="bg-brown">
                 <div class="row">
@@ -87,15 +95,23 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              owner && owner.treeCount > 0 ? 'btn-outline-green' : 'btn-green'
+                              owner && owner.treeCount > 0
+                                ? 'btn-outline-green'
+                                : 'btn-green'
                             "
                             @click.prevent="goToAddTree"
                           >
-                            {{ owner && owner.treeCount > 0 ? "Done" : "step 2" }}
+                            {{
+                              owner && owner.treeCount > 0 ? "Done" : "step 2"
+                            }}
                           </button>
                         </span>
                         <span
-                          :class="owner && owner.treeCount > 0 ? 'tr-gray-four' : 'tr-gray-two'"
+                          :class="
+                            owner && owner.treeCount > 0
+                              ? 'tr-gray-four'
+                              : 'tr-gray-two'
+                          "
                         >
                           Add trees to your forest
                         </span>
@@ -106,7 +122,11 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            :class=" owner && owner.treeCount > 0? 'btn-outline-green': 'btn-green' "
+                            :class="
+                              owner && owner.treeCount > 0
+                                ? 'btn-outline-green'
+                                : 'btn-green'
+                            "
                             @click="comunity()"
                           >
                             step 3
@@ -119,7 +139,11 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            :class=" owner && owner.treeCount > 0? 'btn-outline-green': 'btn-green' "
+                            :class="
+                              owner && owner.treeCount > 0
+                                ? 'btn-outline-green'
+                                : 'btn-green'
+                            "
                             @click="$router.push('/forest/referral')"
                           >
                             step 4
@@ -127,7 +151,6 @@
                         </span>
                         <span> Invite Friends </span>
                       </li>
-
                     </ul>
                   </div>
                 </div>
@@ -202,9 +225,16 @@
                   </b-button>
                 </span>
                 <span
-                  class="btn-green d-block text-center mt-3 pointer-event show-more-tree-all"
+                  class="
+                    btn-green
+                    d-block
+                    text-center
+                    mt-3
+                    pointer-event
+                    show-more-tree-all
+                  "
                   @click="showMoreTreeData = !showMoreTreeData"
-                >{{ showMoreTreeData ? "&#8679;" : "&#8681;" }}</span
+                  >{{ showMoreTreeData ? "&#8679;" : "&#8681;" }}</span
                 >
               </div>
             </div>
@@ -221,64 +251,101 @@
                 v-if="owner && owner.treeCount > 0 && ownerTreesLoaded"
                 ref="gMap"
                 :center="{
-                            lat: trees[0].treeSpecsEntity ? parseFloat( trees[0].treeSpecsEntity.latitude / Math.pow(10, 6) )   : 24.06448,
-                            lng: trees[0].treeSpecsEntity ? parseFloat( trees[0].treeSpecsEntity.longitude / Math.pow(10, 6) ) : 81.30946,
-                          }"
+                  lat: trees[0].treeSpecsEntity
+                    ? parseFloat(
+                        trees[0].treeSpecsEntity.latitude / Math.pow(10, 6)
+                      )
+                    : 24.06448,
+                  lng: trees[0].treeSpecsEntity
+                    ? parseFloat(
+                        trees[0].treeSpecsEntity.longitude / Math.pow(10, 6)
+                      )
+                    : 81.30946,
+                }"
                 :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
                 :options="{
-                            fullscreenControl: true,
-                            streetViewControl: false,
-                            mapTypeControl: false,
-                            zoomControl: true,
-                            gestureHandling: 'cooperative',
-                            styles: mapConfigData.mapStyle,
-                          }"
+                  fullscreenControl: true,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  zoomControl: true,
+                  gestureHandling: 'cooperative',
+                  styles: mapConfigData.mapStyle,
+                }"
                 :zoom="6"
               >
                 <GMapMarker
                   v-for="tree in trees"
-                  v-if="owner && owner.treeCount > 0 && ownerTreesLoaded && tree.treeSpecsEntity"
+                  v-if="
+                    owner &&
+                    owner.treeCount > 0 &&
+                    ownerTreesLoaded &&
+                    tree.treeSpecsEntity
+                  "
                   :key="tree.id"
                   :options="{
-                              icon:
-                                tree === currentTree ? mapConfigData.pins.selected : mapConfigData.pins.notSelected,
-                            }"
-                  :position="{ lat: parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) || 24.06448, lng: parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) || 81.30946 }"
+                    icon:
+                      tree === currentTree
+                        ? mapConfigData.pins.selected
+                        : mapConfigData.pins.notSelected,
+                  }"
+                  :position="{
+                    lat:
+                      parseFloat(
+                        tree.treeSpecsEntity.latitude / Math.pow(10, 6)
+                      ) || 24.06448,
+                    lng:
+                      parseFloat(
+                        tree.treeSpecsEntity.longitude / Math.pow(10, 6)
+                      ) || 81.30946,
+                  }"
                   @click="currentTree = tree"
                 >
                   <GMapInfoWindow :options="{ maxWidth: 200 }">
                     <b>{{ tree.id }}</b>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <code>
-                      Lat: {{ parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)) }},
-                      <br/>
-                      Lng: {{ parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6)) }}
+                      Lat:
+                      {{
+                        parseFloat(
+                          tree.treeSpecsEntity.latitude / Math.pow(10, 6)
+                        )
+                      }},
+                      <br />
+                      Lng:
+                      {{
+                        parseFloat(
+                          tree.treeSpecsEntity.longitude / Math.pow(10, 6)
+                        )
+                      }}
                     </code>
                   </GMapInfoWindow>
                 </GMapMarker>
               </GMap>
 
-              <div v-if="(owner && owner.treeCount == 0) || ownerTreesLoaded === false">
+              <div
+                v-if="
+                  (owner && owner.treeCount == 0) || ownerTreesLoaded === false
+                "
+              >
                 <GMap
                   ref="gMap"
                   :center="{ lat: 24.06448, lng: 81.30946 }"
                   :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
                   :options="{
-                              fullscreenControl: true,
-                              streetViewControl: false,
-                              mapTypeControl: false,
-                              zoomControl: true,
-                              gestureHandling: 'cooperative',
-                              styles: mapConfigData.mapStyle,
-                            }"
+                    fullscreenControl: true,
+                    streetViewControl: false,
+                    mapTypeControl: false,
+                    zoomControl: true,
+                    gestureHandling: 'cooperative',
+                    styles: mapConfigData.mapStyle,
+                  }"
                   :zoom="2"
                 >
                 </GMap>
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="col-lg-3 col-12 justify-content-center overflow-hidden">
@@ -292,7 +359,6 @@
                   :src="$avatarByWallet($route.params.id)"
                   class="avatar-pic img-fluid"
                 />
-
               </div>
               <p
                 v-coin
@@ -305,27 +371,61 @@
               <!--              </p>-->
               <div class="row tokens">
                 <div class="col-md-12 mt-3">
-                  <div class="d-flex border-bottom mb-2 justify-content-between align-self-center align-items-center">
+                  <div
+                    class="
+                      d-flex
+                      border-bottom
+                      mb-2
+                      justify-content-between
+                      align-self-center align-items-center
+                    "
+                  >
                     <p
-                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold "
+                      class="
+                        pb-1
+                        logo-tokens
+                        tr-gray-three
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       <img
                         class="img-fluid"
                         src="~/assets/images/myforest/tree.svg"
                       />
 
-                      {{ owner && owner.treeCount >= 1 ? ' Trees' : ' Tree' }}
+                      {{ owner && owner.treeCount >= 1 ? " Trees" : " Tree" }}
                     </p>
                     <p
-                      
-                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                      class="
+                        pb-2
+                        text-right
+                        pr-4
+                        tr-green
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       {{ owner ? owner.treeCount : 0 }}
                     </p>
                   </div>
-                  <div class="d-flex border-bottom mb-2 justify-content-between align-self-center align-items-center">
+                  <div
+                    class="
+                      d-flex
+                      border-bottom
+                      mb-2
+                      justify-content-between
+                      align-self-center align-items-center
+                    "
+                  >
                     <p
-                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
+                      class="
+                        pb-1
+                        logo-tokens
+                        tr-gray-three
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       <img
                         class="img-fluid"
@@ -336,13 +436,35 @@
                     </p>
 
                     <p
-                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                      class="
+                        pb-2
+                        text-right
+                        pr-4
+                        tr-green
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       {{ wethBalance }}
-                    </p></div>
-                  <div class="d-flex border-bottom mb-2  justify-content-between align-self-center align-items-center">
+                    </p>
+                  </div>
+                  <div
+                    class="
+                      d-flex
+                      border-bottom
+                      mb-2
+                      justify-content-between
+                      align-self-center align-items-center
+                    "
+                  >
                     <p
-                      class="pb-1 logo-tokens tr-gray-three param-sm font-weight-bold"
+                      class="
+                        pb-1
+                        logo-tokens
+                        tr-gray-three
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       <img
                         class="img-fluid"
@@ -352,12 +474,19 @@
                       DAI
                     </p>
 
-
                     <p
-                      class="pb-2 text-right pr-4 tr-green param-sm font-weight-bold "
+                      class="
+                        pb-2
+                        text-right
+                        pr-4
+                        tr-green
+                        param-sm
+                        font-weight-bold
+                      "
                     >
                       {{ daiBalance }}
-                    </p></div>
+                    </p>
+                  </div>
                 </div>
               </div>
               <!--            <p class="param-sm-light"> @JaneJoe</p>-->
@@ -369,7 +498,7 @@
                 </button>
               </div>
             </div>
-            <FindTreeButton/>
+            <FindTreeButton />
           </div>
         </div>
       </div>
@@ -390,38 +519,43 @@ import FindTreeButton from "../../components/forest/FindTreeButton";
 export default {
   name: "forest",
   layout: "dashboard",
-  components: {Metamask, Fas, Wallets, FindTreeButton},
+  components: { Metamask, Fas, Wallets, FindTreeButton },
 
   head() {
     return {
       title: "Treejer - Forest " + this.$route.params.id,
       meta: [
-        {hid: 'description', name: 'description', content: "My Forest\n profile your forest page"},
         {
-          hid: 'keywords',
-          name: 'keywords',
-          content: "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status"
-        }
-      ]
-    }
+          hid: "description",
+          name: "description",
+          content: "My Forest\n profile your forest page",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status",
+        },
+      ],
+    };
   },
   apollo: {
     owner: {
       query: owner,
       skip() {
-        return this.$route.params.id === 'guest' ? true : false
+        return this.$route.params.id === "guest" ? true : false;
       },
-      prefetch: ({route}) => ({id: route.params.id.toLowerCase()}),
+      prefetch: ({ route }) => ({ id: route.params.id.toLowerCase() }),
       variables() {
-        return {id: this.$route.params.id.toLowerCase()}
+        return { id: this.$route.params.id.toLowerCase() };
       },
-      fetchPolicy: "network-only"
+      fetchPolicy: "network-only",
     },
   },
   watch: {
     async owner() {
       await this.getOwnerTrees();
-    }
+    },
   },
 
   data() {
@@ -431,7 +565,11 @@ export default {
       placeHolderTrees: [{}],
       treeIcon: require("~/assets/images/myforest/tree.svg"),
       avatar: require("~/assets/images/myforest/avatar.png"),
-      stats: [{name: 'Forest Size'}, {name: 'Genesis Trees'}, {name: 'Regular Trees'}],
+      stats: [
+        { name: "Forest Size" },
+        { name: "Genesis Trees" },
+        { name: "Regular Trees" },
+      ],
       activeIndexSteps: null,
       loading: false,
       trees: [],
@@ -439,31 +577,46 @@ export default {
       mapConfigData: mapConfig,
       currentTree: {},
       daiBalance: 0,
-      wethBalance: 0
-
+      wethBalance: 0,
     };
   },
   async created() {
-    await this.$store.commit('SET_SIDEBAR_INDEX', 0)
+    if (
+      this.$route.params.id === "guest" &&
+      this.$cookies.get("account") !== null &&
+      this.$cookies.get("account") !== undefined
+    ) {
+      if (process.client) {
+        window.location.href = "/forest/" + this.$cookies.get("account");
+      } else {
+        this.$router.push("/forest/" + this.$cookies.get("account"));
+      }
+    }
+
+    await this.$store.commit("SET_SIDEBAR_INDEX", 0);
   },
   async mounted() {
     await this.createTestObject();
     await this.getDaiBalance();
     await this.getWethBalance();
-
   },
   methods: {
     async getOwnerTrees() {
-      if (!this.owner || this.$route.params.id === 'guest' || this.owner.treeCount <= 0) {
+      if (
+        !this.owner ||
+        this.$route.params.id === "guest" ||
+        this.owner.treeCount <= 0
+      ) {
         return;
       }
 
       //use this for pagination
       // first = 0, skip = 0
 
-      let self = this
-      await self.$axios.$post(process.env.graphqlUrl, {
-        query: `{
+      let self = this;
+      await self.$axios
+        .$post(process.env.graphqlUrl, {
+          query: `{
                     trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
                       {
                           id
@@ -474,28 +627,25 @@ export default {
                           createdAt
                       }
                   }`,
-        prefetch: false
-      }).then((treesRes) => {
-
-        console.log(treesRes, "treesRes")
-        if (treesRes.data.trees && treesRes.data.trees.length > 0) {
-          self.trees = treesRes.data.trees
-          self.ownerTreesLoaded = true
-        }
-
-      })
-
-
+          prefetch: false,
+        })
+        .then((treesRes) => {
+          console.log(treesRes, "treesRes");
+          if (treesRes.data.trees && treesRes.data.trees.length > 0) {
+            self.trees = treesRes.data.trees;
+            self.ownerTreesLoaded = true;
+          }
+        });
     },
     goToAddTree() {
       let self = this;
       if (!self.$cookies.get("account")) {
         self.$bvToast.toast("you're not login", {
-          toaster: 'b-toaster-bottom-left',
+          toaster: "b-toaster-bottom-left",
           solid: true,
-          headerClass: 'hide',
-          variant: 'danger'
-        })
+          headerClass: "hide",
+          variant: "danger",
+        });
         self.$bvModal.show("five");
       } else {
         self.$router.push("/forest/checkout");
@@ -512,34 +662,34 @@ export default {
     },
     goToTreeProfile(item) {
       this.$router.push(
-        this.localePath({name: "tree-id", params: {id: item}})
+        this.localePath({ name: "tree-id", params: { id: item } })
       );
     },
     createTestObject() {
       for (let i = this.placeHolderTrees.length; i < 50; i++) {
-        this.placeHolderTrees.push({i})
+        this.placeHolderTrees.push({ i });
       }
     },
     async getDaiBalance() {
-      if(this.$route.params.id == 'guest') {
+      if (this.$route.params.id == "guest") {
         return;
       }
 
-      const daiBalance = await this.$store.dispatch('dai/balanceOf', {
-        'account': this.$route.params.id
-      })
-      this.daiBalance = parseFloat(daiBalance).toFixed(2)
+      const daiBalance = await this.$store.dispatch("dai/balanceOf", {
+        account: this.$route.params.id,
+      });
+      this.daiBalance = parseFloat(daiBalance).toFixed(2);
     },
     async getWethBalance() {
-      if(this.$route.params.id == 'guest') {
+      if (this.$route.params.id == "guest") {
         return;
       }
-      
-      const wethBalance = await this.$store.dispatch('weth/balanceOf', {
-        'account': this.$route.params.id
-      })
-      this.wethBalance = parseFloat(wethBalance).toFixed(2)
-    }
+
+      const wethBalance = await this.$store.dispatch("weth/balanceOf", {
+        account: this.$route.params.id,
+      });
+      this.wethBalance = parseFloat(wethBalance).toFixed(2);
+    },
   },
 };
 </script>
@@ -580,7 +730,6 @@ export default {
   .logo-tokens {
     display: flex;
     padding: 0 20px;
-
   }
 
   .token-one {
@@ -592,7 +741,6 @@ export default {
     border-radius: 18px;
     padding: 5px 15px;
   }
-
 
   .bg-brown {
     background: rgba(208, 169, 69, 0.25);
@@ -650,7 +798,6 @@ export default {
         color: #67b68c;
         padding: 0 5px;
       }
-
     }
   }
 
@@ -725,7 +872,6 @@ export default {
       background-color: white;
     }
 
-
     span {
       width: 18px;
       height: 18px;
@@ -761,31 +907,28 @@ export default {
       }
     }
   }
-
-
 }
 
 @media (max-width: 768px) {
   .my-forest
-  > div
-  > div
-  > div.col-lg-9
-  > div:nth-child(1)
-  > div.col-lg-7.col-12.justify-content-end.text-right {
+    > div
+    > div
+    > div.col-lg-9
+    > div:nth-child(1)
+    > div.col-lg-7.col-12.justify-content-end.text-right {
     text-align: left !important;
     justify-content: flex-start !important;
   }
   .my-forest
-  > div
-  > div
-  > div.col-lg-3.col-12.justify-content-center
-  > div.trees
-  > div.redeem-trees
-  > input {
+    > div
+    > div
+    > div.col-lg-3.col-12.justify-content-center
+    > div.trees
+    > div.redeem-trees
+    > input {
     margin-bottom: 15px;
   }
 }
-
 
 @media (min-width: 1024px) {
   .my-forest .col-lg-3.col-12.justify-content-center .box-right {
