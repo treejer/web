@@ -39,6 +39,7 @@ export default {
     contractAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
     contractIncrementalSale: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
     contractTreeRegularSale: process.env.CONTRACT_REGULAR_SELL_ADDRESS,
+    contractHonoraryTree: process.env.CONTRACT_COMMUNITY_GIFTS_ADDRESS,
     daiTokenAddress: process.env.DAI_TOKEN_ADDRESS_RINKEBY,
     wethTokenAddress: process.env.WETH_TOKEN_ADDRESS_RINKEBY,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
