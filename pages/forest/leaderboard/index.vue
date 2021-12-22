@@ -60,7 +60,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id}`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -78,10 +78,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -99,10 +96,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -116,10 +110,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -137,7 +128,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="funders">
+              <!-- <div v-if="funders">
                 <button
                   v-if="funders.length > 10"
                   @click="addTen"
@@ -145,7 +136,7 @@
                 >
                   show more
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -176,10 +167,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -197,10 +185,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -218,10 +203,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -235,10 +217,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -256,7 +235,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="funders">
+              <!-- <div v-if="funders">
                 <button
                   v-if="funders.length > 10"
                   @click="addTen"
@@ -264,7 +243,7 @@
                 >
                   show more
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -296,10 +275,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -317,10 +293,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -338,10 +311,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -355,10 +325,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="`${icon}${item.id.replace(
-                            /[^0-9\\.]+/g,
-                            ''
-                          )}?d=robohash`"
+                          :src="$avatarByWallet(item.id)"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -376,7 +343,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="funders">
+              <!-- <div v-if="funders">
                 <button
                   v-if="funders.length > 10"
                   @click="addTen"
@@ -384,7 +351,7 @@
                 >
                   show more
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -442,21 +409,21 @@ export default {
       prefetch: true,
       query: fundersSorted,
       variables () {
-        return { limit: 20, orderBy: 'treeCount', orderDirection: 'desc' }
+        return { first: 20, skip:0, orderBy: 'treeCount', orderDirection: 'desc' }
       }
     },
     planters: {
       prefetch: true,
       query: plantersSorted,
       variables () {
-        return { limit: 20, orderBy: 'plantedCount', orderDirection: 'desc' }
+        return { first: 20, skip:0, orderBy: 'plantedCount', orderDirection: 'desc' }
       }
     },
     plantersInvited: {
       prefetch: true,
       query: plantersSorted,
       variables () {
-        return { limit: 20, orderBy: 'invitedCount', orderDirection: 'desc' }
+        return { first: 20, skip:0, orderBy: 'invitedCount', orderDirection: 'desc' }
       },
       update: data => data.planters
     },
@@ -465,7 +432,6 @@ export default {
 
   data() {
     return {
-      icon: process.env.gravatar,
       activeIndex: 0,
       first: `<img src=${require("~/assets/images/leaderBoards/first.svg")} />`,
       second: `<img src=${require("~/assets/images/leaderBoards/second.svg")} />`,

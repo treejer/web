@@ -1,6 +1,6 @@
 
-query plantersSorted($limit: Int!, $orderBy: String!, $orderDirection: String) {
-  planters(first: $limit, orderBy: $orderBy, orderDirection: $orderDirection) {
+query plantersSorted($first: Int!, $skip: Int!, $orderBy: String!, $orderDirection: String) {
+  planters(first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection) {
     id
     verifiedPlantedCount
     plantedCount

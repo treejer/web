@@ -1,6 +1,6 @@
 
-query fundersSorted($limit: Int!, $orderBy: String!, $orderDirection: String) {
-  funders(first: $limit, orderBy: $orderBy, orderDirection: $orderDirection) {
+query fundersSorted($first: Int!, $skip: Int!, $orderBy: String!, $orderDirection: String) {
+  funders(first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection) {
     id
     treeCount
   }
