@@ -9,7 +9,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 export default async ({ app }, inject) => {
     const walletName = app.$cookies.get('walletName');
 
-    let instance = new Web3(Web3.givenProvider || 'http://localhost:9545');
+    let instance = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
 
     if (walletName === 'torus') {
 

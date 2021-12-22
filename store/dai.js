@@ -22,6 +22,11 @@ export const actions = {
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
 
+    if(account == null) {
+      console.log("erc20js - account not exists in cookies");
+      return 0;
+    }
+
     let self = this
     return daiContract.methods.allowance(account, this.$RegularSale._address).call()
       .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));

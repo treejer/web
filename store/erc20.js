@@ -33,6 +33,11 @@ export const actions = {
     const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
     let account = this.$cookies.get('account');
 
+    if(account == null) {
+      console.log("erc20js - account not exists in cookies");
+      return 0;
+    }
+
     let self = this
     return erc20Contract.methods.allowance(account, params.spenderContract).call()
       .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
