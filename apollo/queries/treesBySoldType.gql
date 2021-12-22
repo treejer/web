@@ -1,0 +1,23 @@
+query TreesBySoldType($first: Int!, $skip: Int!, $soldType: Int!, $orderBy: String!, $orderDirection: String!) { 
+  trees(first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection
+    where: {soldType: $soldType, owner_not: null}
+  ) {
+    id
+    planter {
+      id
+    }
+    funder {
+      id
+    }
+    owner {
+      id
+    }
+    plantDate
+    birthDate
+    saleType
+    treeStatus
+    treeSpecsEntity{
+      imageFs
+    }
+  }
+}

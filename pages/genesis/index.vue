@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div v-show="activeIndex === 0" class="collect justify-content-center">
+      <div v-if="activeIndex === 0" class="collect justify-content-center">
         <Collect/>
       </div>
       <div v-if="activeIndex === 1" class="gallery ">
