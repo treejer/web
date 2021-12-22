@@ -1,17 +1,26 @@
 <template>
   <div class="text-center mt-md-5 mt-3 auction-process-steps col-12">
-    <button
 
-      v-show="auction.endDate * 1000 > (new Date().getTime()) && placeBidStep"
+    <div
+
+      v-if="started && !ended && auction.isActive && placeBidStep"
+      class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
+
+    >
+      This auction will start at <br>{{ $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
+    </div>
+
+
+
+    <button
+      v-if="!started && !ended && auction.isActive && placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('one')"
     >
       {{ !loading ? "Place a bid" : "Loading..." }}
     </button>
-
     <button
-
-      v-show="auction.endDate * 1000 < (new Date().getTime()) && auction.isActive && placeBidStep"
+      v-if="!started && ended && auction.isActive && placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="endAuction()"
     >
@@ -21,7 +30,7 @@
 
     <!--    <h1 v-if="auction" v-text="new Date(auction.expireDate * 1000)"></h1>-->
 
-    <div v-show="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
+    <div v-if="placeBidStepTwo" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two">Min bid {{ parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4) }} WETH</p>
         <input
@@ -33,10 +42,10 @@
         />
       </div>
       <div class="col-md-6 pb-4 text-left">
-        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 > (new Date().getTime()) " >Ending in</p>
-        <p class="mb-0 param tr-gray-two" v-if="auction.endDate * 1000 < (new Date().getTime()) " >Auction ended</p>
+        <p class="mb-0 param tr-gray-two" v-if="!ended" >Ending in</p>
+        <p class="mb-0 param tr-gray-two" v-if="ended" >Auction ended</p>
 
-        <p v-if="auction.endDate * 1000 < (new Date().getTime()) " class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
+        <p v-if="ended" class="mb-0 timer  param font-weight-bolder tr-gray-one mt-3">
 
           This auction is over in <br>{{ $moment(auction.endDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
 
@@ -78,7 +87,7 @@
         </button>
       </div>
     </div>
-    <div v-show="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
+    <div v-if="placeBidStepThree" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span>{{ bidValue }}</span
         ><span class="tr-gray-two"> WETH</span>
@@ -106,7 +115,7 @@
         </div>
       </div>
     </div>
-    <div v-show="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
+    <div v-if="placeBidStepFour" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three title-md">
         <span v-if="bidValue">{{ bidValue }}</span
         ><span class="tr-gray-two"> WETH</span>
@@ -135,7 +144,7 @@
       </div>
     </div>
 
-    <div v-show="placeBidStepFive" class="w-100 place-bid-step-three pt-3 pb-3">
+    <div v-if="placeBidStepFive" class="w-100 place-bid-step-three pt-3 pb-3">
       <p class="tr-gray-three title-md mb-0">
         <span class="tr-gray-two font-weight-bolder">Please Wait...</span>
       </p>
@@ -143,7 +152,7 @@
         This may take {{ timer }} seconds
       </p>
     </div>
-    <div v-show="placeBidStepSix" class="w-100 place-bid-step-three pt-3">
+    <div v-if="placeBidStepSix" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three param-xl step-seven">
         Your bid was placed successfully. Congrats!
       </p>
@@ -216,7 +225,9 @@ export default {
       isAllowedSpendERC20: false,
       treePrice: null,
       erc20USDPrice: 1.01,
-      minBidValue: 0
+      minBidValue: 0,
+      started: false,
+      ended: false
     };
   },
   async created() {
@@ -230,6 +241,14 @@ export default {
     } else {
       this.minBidValue = parseInt(this.auction.initialPrice) + parseInt(this.auction.priceInterval)
     }
+
+
+    this.ended = this.auction.endDate * 1000 < (new Date().getTime());
+    this.started = this.auction.startDate * 1000 > (new Date().getTime());
+
+
+    console.log(this.started , this.ended , this.auction.isActive , this.placeBidStep)
+
 
     // this.bidValue = this.$web3.utils.fromWei(this.minBidValue.toString())
 
