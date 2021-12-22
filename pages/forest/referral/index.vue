@@ -131,7 +131,7 @@
                 v-if="$cookies.get('account')"
                 class="invite-gray text-white font-weight-bold param mt-4"
                 v-clipboard:copy="
-                  `${baseUrl}/?referrer=${$cookies.get('account')}`
+                  `${baseUrl}/genesis?referrer=${$cookies.get('account')}`
                 "
                 v-clipboard:success="onCopy"
                 v-clipboard:error="onError"
