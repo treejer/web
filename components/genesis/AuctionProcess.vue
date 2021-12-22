@@ -36,7 +36,7 @@
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
-          placeholder="0 WETH"
+          placeholder="Enter bid amount"
           type="text"
           @keyup.enter="placeBid('two')"
         />
@@ -574,7 +574,7 @@ export default {
   .auction-bid-input {
     border: none;
     background: transparent;
-    width: 100px;
+    width: 100%;
   }
 }
 </style>
