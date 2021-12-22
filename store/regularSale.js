@@ -20,15 +20,35 @@ export const actions = {
 
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
-    if(!referrer || referrer === account) {
+    if(!referrer || referrer.toLowerCase() === account.toLowerCase()) {
       referrer = process.env.zeroAddress;
+    }
+
+    try {
+      referrer = this.$web3.utils.toChecksumAddress(referrer)
+    } catch(e) { 
+      console.error('invalid referrer address', e.message) 
+      referrer = process.env.zeroAddress;
+    }
+
+
+    let recipient = params.recipient;
+    if(!recipient || recipient === '' || recipient.toLowerCase() === account.toLowerCase()) {
+      recipient = process.env.zeroAddress;
+    }
+
+    try {
+      recipient = this.$web3.utils.toChecksumAddress(recipient)
+    } catch(e) { 
+      console.error('invalid recipient address', e.message) 
+      recipient = process.env.zeroAddress;
     }
 
 
     this.$web3.currentProvider.enable();
 
     //ToDo: add recipeint and referrer
-    const tx = this.$RegularSale.methods.fundTree(params.count, referrer, process.env.zeroAddress);
+    const tx = this.$RegularSale.methods.fundTree(params.count, referrer, recipient);
     const data = tx.encodeABI();
     // const price = await this.$RegularSale.methods.price().call();
 

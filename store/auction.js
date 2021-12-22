@@ -19,6 +19,13 @@ export const actions = {
       referrer = process.env.zeroAddress;
     }
 
+    try {
+      referrer = this.$web3.utils.toChecksumAddress(referrer)
+    } catch(e) { 
+      console.error('invalid referrer address', e.message) 
+      referrer = process.env.zeroAddress;
+    }
+
     const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer);
 
     const data = tx.encodeABI();

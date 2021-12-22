@@ -412,6 +412,23 @@ export default {
       this.loading = true;
       let self = this;
 
+      if(this.sendAsGiftChecked && this.recipient){
+        try {
+          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
+        } catch(e) { 
+          self.$bvToast.toast([e.message], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Invalid recipient address!',
+            variant: 'danger',
+            to: 'genesis/checkout',
+          })
+          console.error('invalid ethereum address', e.message) 
+          this.loading = false;
+          return;
+        }
+      }
+
+
       this.transferReceipt = await this.$store.dispatch(
         "incrementalSale/fundTree",
         {

@@ -617,10 +617,9 @@
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
 import transakSDK from "@transak/transak-sdk";
-import {Widget} from "@maticnetwork/wallet-widget";
 
 export default {
-  name: "giftTree",
+  name: "checkout",
   layout: "checkout",
   head() {
     return {
@@ -808,8 +807,28 @@ export default {
       this.loading = true;
       let self = this;
 
+
+      
+      
+      if(this.sendAsGiftChecked && this.recipient){
+        try {
+          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
+        } catch(e) { 
+          self.$bvToast.toast([e.message], {
+            toaster: 'b-toaster-bottom-left',
+            title: 'Invalid recipient address!',
+            variant: 'danger',
+            to: 'forest/checkout',
+          })
+          console.error('invalid ethereum address', e.message) 
+          this.loading = false;
+          return;
+        }
+      }
+
       this.transferReceipt = await this.$store.dispatch("regularSale/fundTree", {
         count: this.count,
+        recipient: this.recipient,
         context: self,
       });
       if (this.transferReceipt !== null) {
@@ -850,10 +869,12 @@ export default {
       }
     },
     pasteRecipient() {
+      let self = this;
+
       window.navigator.clipboard
         .readText()
         .then((res) => {
-          this.recipient = res;
+          self.recipient = res;
         })
         .catch((err) => {
           console.log(err, "err is here");
@@ -894,7 +915,7 @@ export default {
 
       // Our fancy notification (2).
       // console.log(`We have ${newCount} fruits now, yay!`)
-    },
+    }
   },
 };
 </script>
