@@ -2,12 +2,12 @@
   <span
     :class="activeNotifications ? 'active notification-box ' : 'notification-box'"
   >
-     <b-badge
+     <!-- <b-badge
        class="badge pointer-event"
        pill
        variant="danger"
        @click="checkDropDown()"
-     >{{ 4 }}</b-badge>
+     >{{ 4 }}</b-badge> -->
     <!--       @mouseenter="checkDropDown()"-->
 
     <!--      <span v-show="activeNotifications" class="notifications text-left">-->
