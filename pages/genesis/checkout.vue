@@ -446,15 +446,8 @@ export default {
             "account"
           )}`,
         });
-        const history = this.$router.currentRoute.matched;
-        let res = null;
-        history.map((item, index) => {
-          let name = item.name;
-          res = name.match(/forest-id/g);
-          if (res === "forest-id") {
-            this.$router.push(`/forest/${this.$cookies.get("account")}`);
-          }
-        });
+        this.$router.push(`/genesis/success/${this.transferReceipt.transactionHash}`);
+
       }
       this.loading = false;
     },

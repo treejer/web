@@ -1,0 +1,16 @@
+query TreeHistoriesBytx($first: Int!, $skip: Int!, $transactionHash: String!, $orderBy: String!, $orderDirection: String!) { 
+  treeHistories(first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection
+    where: {transactionHash: $transactionHash}
+  ) {
+    id
+    tree{
+      id
+      owner {
+        id
+      }
+      treeSpecsEntity{
+        imageFs
+      }
+    } 
+  }
+}
