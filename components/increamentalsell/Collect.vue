@@ -1,9 +1,9 @@
 <template>
   <div class="inc-collect collect row justify-content-center">
     <div class="col-md-2 col-4 text-left">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #101</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.startTreeId }}</p>
       <p class="tr-gray-four param mb-0">Start Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.033</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ startTreePrice }}</p>
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
       <img
@@ -14,13 +14,13 @@
       />
     </div>
     <div class="col-md-2 col-4 text-right">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.endTreeId }}</p>
       <p class="tr-gray-four param mb-0">End Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.33</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ lastTreePrice }}</p>
     </div>
     <div class="col-md-12 text-center mt-3">
       <p class="param-xl font-weight-bolder tr-gray-two text-capitalize">
-        tree #{{ $route.params.id }}
+        tree #{{ parseInt($store.state.incrementalSale.lastSold) + 1 }}
       </p>
     </div>
     <div
@@ -34,7 +34,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Current Price: {{ " Ξ0.036" }}
+        Current Price: {{ ` Ξ${currenPrice}` }}
       </p>
     </div>
     <div
@@ -319,6 +319,16 @@ export default {
   data() {
     return {
       loadingHonoraryTree: false,
+      currenPrice: 0,
+      incSaleData: {
+         startTreeId: 0,
+         endTreeId: 0,
+         initialPrice: 0,
+         increments: 0,
+         priceJump: 0
+      },
+      lastTreePrice: 0,
+      startTreePrice: 0
     };
   },
   apollo: {
@@ -331,21 +341,37 @@ export default {
       query: auctions,
     },
   },
-  created() {},
+  created() {
+    this.calcCurrentPrice();
+  },
   methods: {
     async goToCheckout() {
-      let self = this;
-      if (!self.$cookies.get("account")) {
-        self.$bvToast.toast("you're not login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-        self.$bvModal.show("five");
-      } else {
-        self.$router.push("/genesis/checkout");
-      }
+      this.$router.push("/genesis/checkout");
+    },
+    async calcCurrentPrice() {
+      
+      this.currenPrice = await this.$store.dispatch(
+        "incrementalSale/calculateTotalPrice",
+        {
+          count: 1,
+          context: this,
+        }
+      );
+
+      this.incSaleData = this.$store.state.incrementalSale.incSaleData;
+
+      this.startTreePrice = this.$web3.utils.fromWei(this.incSaleData.initialPrice.toString());
+
+      this.lastTreePrice = this.$web3.utils.fromWei(
+        (
+          parseInt(this.incSaleData.initialPrice) + 
+
+          parseInt( ( parseInt(this.incSaleData.endTreeId) - parseInt(this.incSaleData.startTreeId) ) / parseInt(this.incSaleData.increments) )
+               * parseInt(this.incSaleData.priceJump) * parseInt(this.incSaleData.initialPrice) / 10000
+        ).toString()
+
+      );
+
     },
     async claimHonanraryTree() {
       let self = this;

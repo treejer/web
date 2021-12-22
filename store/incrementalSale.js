@@ -1,40 +1,33 @@
-import {BToast} from 'bootstrap-vue'
+import { BToast } from 'bootstrap-vue'
 
-export const state = () => ({})
+export const state = () => ({
+  lastSold: 0,
+  incSaleData: {
+    startTreeId: 0,
+    endTreeId: 0,
+    initialPrice: 0,
+    increments: 0,
+    priceJump: 0
+  }
+})
 
 
 export const actions = {
-  async calculateTotalPrice(context, params) {
-
-    let lastSold = 0;
-    await this.$IncrementalSale.methods.lastSold().call()
-      .then((lastSoldRes) => {
-
-        console.log(lastSoldRes, "lastSoldRes")
-        lastSold = lastSoldRes;
-      });
-
-      console.log(lastSold, "lastSold")
+  async calculateTotalPrice({ context, dispatch }, params) {
 
 
-      let incSaleData = null;
-      await this.$IncrementalSale.methods.incrementalSaleData().call()
-      .then((incSaleDataRes) => {
 
-        console.log(incSaleDataRes, "incSaleDataRes")
-        incSaleData = incSaleDataRes;
-      });
-
-      console.log(incSaleData.startTreeId, "incSaleData.startTreeId")
+    let lastSold = await dispatch("setLastSold");
+    let incSaleData = await dispatch("setIncSaleData");
 
 
-      if(parseInt(lastSold) + parseInt(params.count) > parseInt(incSaleData.endTreeId)) {
-        alert("Not enough tree in incremental sell");
-        return 0;
-      }
-      
+    if (lastSold + parseInt(params.count) > parseInt(incSaleData.endTreeId)) {
+      alert("Not enough tree in incremental sell");
+      return 0;
+    }
 
-    let tempLastSold = parseInt(lastSold) + 1;
+
+    let tempLastSold = lastSold + 1;
 
     console.log(tempLastSold, "tempLastSold")
 
@@ -43,10 +36,10 @@ export const actions = {
 
 
     let tempLastSoldPrice = parseInt(incSaleData.initialPrice) +
-        parseInt((parseInt(y) * parseInt(incSaleData.initialPrice) * parseInt(incSaleData.priceJump))) /
-        10000;
+      parseInt((parseInt(y) * parseInt(incSaleData.initialPrice) * parseInt(incSaleData.priceJump))) /
+      10000;
 
-        console.log(tempLastSoldPrice, "tempLastSoldPrice")
+    console.log(tempLastSoldPrice, "tempLastSoldPrice")
 
 
     let totalPrice = parseInt(params.count) * parseInt(tempLastSoldPrice);
@@ -55,52 +48,64 @@ export const actions = {
 
 
     let extra = parseInt(params.count) -
-        (
-            (parseInt(y) + 1) * parseInt(incSaleData.increments) + parseInt(incSaleData.startTreeId) - parseInt(tempLastSold)
-        );
+      (
+        (parseInt(y) + 1) * parseInt(incSaleData.increments) + parseInt(incSaleData.startTreeId) - parseInt(tempLastSold)
+      );
 
-        console.log(extra, "extra")
+    console.log(extra, "extra")
 
 
     while (extra > 0) {
-        totalPrice +=
-            parseInt((extra) *
-                incSaleData.initialPrice *
-                incSaleData.priceJump) /
-            10000;
-        extra -= parseInt(incSaleData.increments);
+      totalPrice +=
+        parseInt((extra) *
+          incSaleData.initialPrice *
+          incSaleData.priceJump) /
+        10000;
+      extra -= parseInt(incSaleData.increments);
     }
     console.log(totalPrice, "totalPrice")
-    
+
     return this.$web3.utils.fromWei(totalPrice.toString());
-    
+
+  },
+
+  async setLastSold({ commit }) {
+    let lastSold = await this.$IncrementalSale.methods.lastSold().call();
+    commit('SET_LAST_SOLD', lastSold);
+    return parseInt(lastSold);
+  },
+
+  async setIncSaleData({ commit }) {
+    let incSaleData = await this.$IncrementalSale.methods.incrementalSaleData().call();
+    commit('SET_INCSALEDATA_SOLD', incSaleData);
+    return incSaleData;
   },
 
   async fundTree(context, params) {
     let self = this;
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
-    if(!referrer || referrer.toLowerCase() === account.toLowerCase()) {
+    if (!referrer || referrer.toLowerCase() === account.toLowerCase()) {
       referrer = process.env.zeroAddress;
     }
 
     try {
       referrer = this.$web3.utils.toChecksumAddress(referrer)
-    } catch(e) { 
-      console.error('invalid referrer address', e.message) 
+    } catch (e) {
+      console.error('invalid referrer address', e.message)
       referrer = process.env.zeroAddress;
     }
 
 
     let recipient = params.recipient;
-    if(!recipient || recipient === '' || recipient.toLowerCase() === account.toLowerCase()) {
+    if (!recipient || recipient === '' || recipient.toLowerCase() === account.toLowerCase()) {
       recipient = process.env.zeroAddress;
     }
 
     try {
       recipient = this.$web3.utils.toChecksumAddress(recipient)
-    } catch(e) { 
-      console.error('invalid recipient address', e.message) 
+    } catch (e) {
+      console.error('invalid recipient address', e.message)
       recipient = process.env.zeroAddress;
     }
 
@@ -162,4 +167,12 @@ export const actions = {
 
 }
 
-export const mutations = {}
+export const mutations = {
+  SET_LAST_SOLD(state, lastSold) {
+    state.lastSold = lastSold
+  },
+  SET_INCSALEDATA_SOLD(state, incSaleData) {
+    state.incSaleData = incSaleData
+  }
+}
+

@@ -205,7 +205,19 @@ export default {
       });
     },
     async buyDai() {
+
       let self = this;
+      if (!self.$cookies.get("account")) {
+        self.$bvToast.toast("you're not login", {
+          toaster: "b-toaster-bottom-left",
+          solid: true,
+          headerClass: "hide",
+          variant: "danger",
+        });
+        self.$bvModal.show("five");
+        return
+      }
+
       let transak = new transakSDK({
         apiKey: process.env.transakApiKey, // Your API Key
         environment: process.env.transakEnvironment, // STAGING/PRODUCTION
