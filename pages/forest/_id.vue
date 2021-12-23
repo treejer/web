@@ -165,7 +165,7 @@
             </div>
             <div class="col-12 position-relative p-0">
               <div class="col-12 mb-3 p-0">
-                <span v-for="(item, index) in placeHolderTrees" :key="index">
+                <span v-for="item in placeHolderTrees" :key="item.i">
                   <img
                     class="img-fluid p-2"
                     src="~/assets/images/myforest/trees.png"
@@ -179,17 +179,17 @@
                 style="left: 0"
               >
                 <span
-                  v-for="(item, index) in trees.slice(0, 50)"
-                  :id="item.id"
-                  :key="index"
+                  v-for="tree in trees"
+                  :id="tree.id"
+                  :key="tree.id"
                   class=""
                 >
                   <b-button
                     v-b-tooltip.top
-                    :tabindex="index"
-                    :title="$hex2Dec(item.id)"
+                    :tabindex="tree.id"
+                    :title="$hex2Dec(tree.id)"
                     class="p-2 bg-transparent border-0"
-                    @click="goToTreeProfile($hex2Dec(item.id))"
+                    @click="goToTreeProfile($hex2Dec(tree.id))"
                   >
                     <img
                       class="img-fluid"
@@ -198,33 +198,14 @@
                   </b-button>
                   <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
                 </span>
+
+
+
+ 
+
               </div>
-              <div
-                v-if="owner && owner.treeCount > 50 && showMoreTreeData"
-                class="col-12 p-0"
-                style="transition: all 0.3s ease"
-              >
-                <span
-                  v-for="(item, index) in trees.slice(50)"
-                  :id="item.id"
-                  :key="index"
-                  class="pointer-event"
-                  style="transition: all 0.3s ease"
-                >
-                  <b-button
-                    v-b-tooltip.top
-                    :tabindex="index"
-                    :title="$hex2Dec(item.id)"
-                    class="p-2 bg-transparent border-0"
-                    @click="goToTreeProfile($hex2Dec(item.id))"
-                  >
-                    <img
-                      class="img-fluid pointer-event"
-                      src="~/assets/images/myforest/trees.png"
-                    />
-                  </b-button>
-                </span>
-                <span
+              <span
+              v-if="owner && owner.treeCount > skip + perPage"
                   class="
                     btn-green
                     d-block
@@ -233,34 +214,23 @@
                     pointer-event
                     show-more-tree-all
                   "
-                  @click="showMoreTreeData = !showMoreTreeData"
-                  >{{ showMoreTreeData ? "&#8679;" : "&#8681;" }}</span
-                >
-              </div>
+                  @click="loadMore()"> &#8681;</span>
+                <!-- &#8679; -->
             </div>
           </div>
 
-          <div class="row treejer-earth d-md-block d-none pb-5 pt-5">
+          <div class="row treejer-earth d-md-block d-none pb-5 pt-5" v-if="ownerTreesLoaded">
             <div class="col-12">
               <p class="param-18 tr-gray-three Montserrat-Medium">
                 Forest on the Map
               </p>
             </div>
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-5" v-if="owner && owner.treeCount > 0 && treesWithLocation.length > 0">
               <GMap
-                v-if="owner && owner.treeCount > 0 && ownerTreesLoaded"
                 ref="gMap"
                 :center="{
-                  lat: trees[0].treeSpecsEntity
-                    ? parseFloat(
-                        trees[0].treeSpecsEntity.latitude / Math.pow(10, 6)
-                      )
-                    : 24.06448,
-                  lng: trees[0].treeSpecsEntity
-                    ? parseFloat(
-                        trees[0].treeSpecsEntity.longitude / Math.pow(10, 6)
-                      )
-                    : 81.30946,
+                  lat: parseFloat(treesWithLocation[0].treeSpecsEntity.latitude / Math.pow(10, 6) ),
+                  lng: parseFloat(treesWithLocation[0].treeSpecsEntity.longitude / Math.pow(10, 6))
                 }"
                 :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
                 :options="{
@@ -274,14 +244,8 @@
                 :zoom="6"
               >
                 <GMapMarker
-                  v-for="tree in trees"
-                  v-if="
-                    owner &&
-                    owner.treeCount > 0 &&
-                    ownerTreesLoaded &&
-                    tree.treeSpecsEntity
-                  "
-                  :key="tree.id"
+                  v-for="tree in treesWithLocation"
+                  :key="$hex2Dec(tree.id)"
                   :options="{
                     icon:
                       tree === currentTree
@@ -289,45 +253,30 @@
                         : mapConfigData.pins.notSelected,
                   }"
                   :position="{
-                    lat:
-                      parseFloat(
-                        tree.treeSpecsEntity.latitude / Math.pow(10, 6)
-                      ) || 24.06448,
-                    lng:
-                      parseFloat(
-                        tree.treeSpecsEntity.longitude / Math.pow(10, 6)
-                      ) || 81.30946,
+                    lat: parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)),
+                    lng: parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6))
                   }"
                   @click="currentTree = tree"
                 >
                   <GMapInfoWindow :options="{ maxWidth: 200 }">
-                    <b>{{ tree.id }}</b>
-                    <br />
-                    <br />
-                    <code>
-                      Lat:
-                      {{
-                        parseFloat(
-                          tree.treeSpecsEntity.latitude / Math.pow(10, 6)
-                        )
-                      }},
+                    <span @click="goToTreeProfile($hex2Dec(tree.id))" >
+                      <b>{{ $hex2Dec(tree.id) }} </b>
                       <br />
-                      Lng:
-                      {{
-                        parseFloat(
-                          tree.treeSpecsEntity.longitude / Math.pow(10, 6)
-                        )
-                      }}
-                    </code>
+                      <br />
+                      <code>
+                        Lat:  {{ parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)) }},
+                        <br />
+                        Lng: {{ parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6)) }}
+                      </code>
+                    </span>
+                    
                   </GMapInfoWindow>
                 </GMapMarker>
               </GMap>
 
-              <div
-                v-if="
-                  (owner && owner.treeCount == 0) || ownerTreesLoaded === false
-                "
-              >
+              
+            </div>
+            <div class="col-12 mt-5" v-else>
                 <GMap
                   ref="gMap"
                   :center="{ lat: 24.06448, lng: 81.30946 }"
@@ -344,7 +293,6 @@
                 >
                 </GMap>
               </div>
-            </div>
           </div>
         </div>
 
@@ -561,8 +509,7 @@ export default {
   data() {
     return {
       title: this.$route.name,
-      showMoreTreeData: false,
-      placeHolderTrees: [{}],
+      placeHolderTrees: [],
       treeIcon: require("~/assets/images/myforest/tree.svg"),
       avatar: require("~/assets/images/myforest/avatar.png"),
       stats: [
@@ -573,11 +520,14 @@ export default {
       activeIndexSteps: null,
       loading: false,
       trees: [],
+      treesWithLocation: [],
       ownerTreesLoaded: false,
       mapConfigData: mapConfig,
       currentTree: {},
       daiBalance: 0,
       wethBalance: 0,
+      skip:0,
+      perPage: 50
     };
   },
   async created() {
@@ -596,12 +546,19 @@ export default {
     await this.$store.commit("SET_SIDEBAR_INDEX", 0);
   },
   async mounted() {
-    await this.createTestObject();
+    await this.createPlaceHolder();
     await this.getDaiBalance();
     await this.getWethBalance();
   },
   methods: {
-    async getOwnerTrees() {
+    async loadMore(){
+      this.skip = this.skip + this.perPage;
+      await this.createPlaceHolder();
+
+      await this.getOwnerTrees(this.perPage, this.skip);
+
+    },
+    async getOwnerTrees(first = 50, skip = 0) {
       if (
         !this.owner ||
         this.$route.params.id === "guest" ||
@@ -610,14 +567,13 @@ export default {
         return;
       }
 
-      //use this for pagination
-      // first = 0, skip = 0
+
 
       let self = this;
       await self.$axios
         .$post(process.env.graphqlUrl, {
           query: `{
-                    trees(first: 50, skip: 0, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: createdAt, orderDirection: desc)
+                    trees(first: ${first}, skip: ${skip}, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: "createdAt", orderDirection: "asc")
                       {
                           id
                           treeSpecsEntity {
@@ -630,12 +586,29 @@ export default {
           prefetch: false,
         })
         .then((treesRes) => {
-          console.log(treesRes, "treesRes");
+           
+
           if (treesRes.data.trees && treesRes.data.trees.length > 0) {
-            self.trees = treesRes.data.trees;
+            let trees = treesRes.data.trees;
+            self.trees.push(...trees);
+
+            let treesWithLocation = trees.filter((tree) => {
+
+              if (!tree.treeSpecsEntity || !tree.treeSpecsEntity.latitude || !tree.treeSpecsEntity.longitude) {
+                return false;
+              } 
+
+              return tree.treeSpecsEntity.latitude !== null &&
+                tree.treeSpecsEntity.longitude !== null;
+            });
+
+            self.treesWithLocation.push(...treesWithLocation);
+
             self.ownerTreesLoaded = true;
           }
         });
+
+
     },
     goToAddTree() {
       this.$router.push("/forest/checkout");
@@ -654,9 +627,16 @@ export default {
         this.localePath({ name: "tree-id", params: { id: item } })
       );
     },
-    createTestObject() {
-      for (let i = this.placeHolderTrees.length; i < 50; i++) {
-        this.placeHolderTrees.push({ i });
+    createPlaceHolder() {
+      let currentPlaceHolderCount = this.placeHolderTrees.length;
+
+      let maxCount = currentPlaceHolderCount + this.perPage;
+      if(this.owner && this.owner.treeCount < maxCount){
+        maxCount = this.owner.treeCount;
+      }
+      
+      for (let i = currentPlaceHolderCount; i < maxCount; i++) {
+        this.placeHolderTrees.push({ i: i });
       }
     },
     async getDaiBalance() {
