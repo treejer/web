@@ -32,7 +32,6 @@
               v-for="(item, index) in items"
               :name="item.name"
               :key="index"
-              :to="localePath(item.href)"
               @click="activeMenu(item, index)"
             >
               {{ item.name }}
@@ -126,10 +125,12 @@ export default {
       }
     },
     activeMenu(item, index) {
+
       if (item.name === "Blog") {
         window.open("https://blog.treejer.com/", "_blank");
       } else {
         this.activeIndex = index;
+        this.$router.push(item.href);
       }
     },
   },
