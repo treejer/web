@@ -730,11 +730,13 @@ export default {
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
-        if (silent === false) {
-          this.loading = false;
-        }
+       
 
         await this.fundTree();
+      }
+
+      if (silent === false) {
+        this.loading = false;
       }
     },
     activeMenu(item, index) {
@@ -846,15 +848,15 @@ export default {
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
-        const history = this.$router.currentRoute.matched;
-        let res = null;
-        history.map((item, index) => {
-          let name = item.name;
-          res = name.match(/forest-id/g);
-          if (res === "forest-id") {
-            this.$router.push(`/forest/${this.$cookies.get("account")}`);
-          }
-        });
+        // const history = this.$router.currentRoute.matched;
+        // let res = null;
+        // history.map((item, index) => {
+        //   let name = item.name;
+        //   res = name.match(/forest-id/g);
+        //   if (res === "forest-id") {
+        //     this.$router.push(`/forest/${this.$cookies.get("account")}`);
+        //   }
+        // });
       }
       this.loading = false;
     },
