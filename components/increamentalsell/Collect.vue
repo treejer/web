@@ -306,7 +306,6 @@
 <script>
 import OtherTreeInc from "../../components/OtherTreeInc";
 import honoraryTrees from "~/apollo/queries/honoraryTrees";
-import auctions from "~/apollo/queries/auctions";
 import treesWithAuctionQuery from "~/apollo/queries/treesWithAuction";
 
 export default {
@@ -335,10 +334,6 @@ export default {
     honoraryTrees: {
       prefetch: true,
       query: honoraryTrees,
-    },
-    auctions: {
-      prefetch: true,
-      query: auctions,
     },
     treesWithAuction: {
       prefetch: true,
