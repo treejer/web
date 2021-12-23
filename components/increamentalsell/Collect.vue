@@ -389,9 +389,7 @@ export default {
         await self.$axios
           .$post(process.env.graphqlUrl, {
             query: `{
-                    honoraryTreeRecipient(id: "${self.$cookies
-                      .get("account")
-                      .toLowerCase()}")
+                    honoraryTreeRecipient(id: "${self.$cookies.get("account").toLowerCase()}")
                       {
                           id
                           expiryDate
@@ -417,7 +415,7 @@ export default {
               });
             } else {
               let now = parseInt(Date.now() / 1000);
-              if (honoraryTreeRecipientData.status !== "1") {
+              if (honoraryTreeRecipientData.status === "1") {
                 self.$bvToast.toast("Already claimed!", {
                   title: "Error",
                   toaster: "b-toaster-bottom-left",
@@ -446,7 +444,6 @@ export default {
                   context: this,
                 });
                 if (receipt !== null) {
-                  this.activeIndex = 3;
                   self.$bvToast.toast(["Honorary Tree claim was successful"], {
                     toaster: "b-toaster-bottom-left",
                     title: "Tree added to your forest",
