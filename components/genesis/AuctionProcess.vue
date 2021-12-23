@@ -59,7 +59,7 @@
 
       <div class="col-12 p-0">
         <button
-          v-if="!erc20Balance"
+          v-if="erc20Balance <= 0"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
           @click.prevent="buyERC20"
@@ -70,18 +70,15 @@
           {{ loading ? "Loading" : `Buy WETH` }}
         </button>
         <button
-          v-if="erc20Balance"
+          v-if="erc20Balance > 0"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
-          @click.prevent="!checkExpireDateText ? placeBid('two') : toast('Auction is over')"
+          @click.prevent="placeBid('two')"
         >
           <BSpinner v-if="loading" class="mr-2" small type="grow"
           >loading
           </BSpinner>
-          <span v-if="!checkExpireDateText">     {{ loading && checkExpireDateText ? "Loading" : "PlaceBid" }}</span>
-          <span v-if="checkExpireDateText">     {{
-              loading && !checkExpireDateText ? "Loading" : "Auction is over"
-            }}</span>
+          {{ loading ? "Loading" : "Place Bid" }}
 
 
         </button>
@@ -102,7 +99,7 @@
         </div>
         <div class="col-md-6 pl-md-0">
           <button
-            v-if="erc20Balance > 0 && !isAllowedSpendERC20"
+            v-if="erc20Balance > 0"
             :class="{ disable: loading }"
             class="btn-green"
             @click="allowSpendERC20()"
@@ -112,6 +109,10 @@
             </BSpinner>
             {{ loading ? "Loading" : " Approve" }}
           </button>
+
+          
+
+
         </div>
       </div>
     </div>
@@ -192,16 +193,7 @@ export default {
       default: 4000
     }
   },
-  computed: {
-    checkExpireDateText() {
-      if (this.expireDateText === 'This auction is over.') {
-        return true
-      }
-      if (this.expireDateText !== 'This auction is over.') {
-        return false
-      }
-    }
-  },
+  computed: {},
 
   data() {
     return {
@@ -425,18 +417,18 @@ export default {
       }
       if (id === "two") {
 
-        if(this.auction.endDate * 1000 < (new Date().getTime())) {
+        if(this.ended) {
           this.toast('Auction ended' , "Auction ended");
           return;
         }
 
-        if(this.auction.isActive == false) {
+        if(this.auction.isActive === false) {
           this.toast('Auction is not active' , "Auction inactive");
           return;
         }
 
 
-        if(this.bidValue == null) {
+        if(this.bidValue === null) {
           this.toast('Bid value is empty' , "Value Error");
           return;
         }
@@ -446,8 +438,19 @@ export default {
           return;
         }
         else {
-          this.placeBidStepTwo = false;
-          this.placeBidStepThree = true;
+          await this.setERC20Balance(true);
+          await this.setIsAllowance(true);
+
+          if(this.isAllowedSpendERC20) {
+            this.placeBidStepTwo = false;
+            this.placeBidStepThree = false;
+            this.placeBidStepFour = true;
+
+          } else {
+            this.placeBidStepTwo = false;
+            this.placeBidStepThree = true;
+          }
+          
         }
 
       }
