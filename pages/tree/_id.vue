@@ -231,7 +231,7 @@
                   </div>
                 </div>
 
-                <div v-else class="card-tree-profile position-relative">
+                <!-- <div v-else class="card-tree-profile position-relative">
                   <div class="position-absolute edit-name-position-absolute">
                     <button
                       class="btn-green edit-name"
@@ -239,7 +239,7 @@
                       Not planted Tree
                     </button>
                   </div>
-                </div>
+                </div> -->
               </div>
 
 
