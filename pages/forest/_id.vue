@@ -95,20 +95,20 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              owner && owner.treeCount > 0
+                              loginAccountData && loginAccountData.treeCount > 0
                                 ? 'btn-outline-green'
                                 : 'btn-green'
                             "
                             @click.prevent="goToAddTree"
                           >
                             {{
-                              owner && owner.treeCount > 0 ? "Done" : "step 2"
+                              loginAccountData && loginAccountData.treeCount > 0 ? "Done" : "step 2"
                             }}
                           </button>
                         </span>
                         <span
                           :class="
-                            owner && owner.treeCount > 0
+                            loginAccountData && loginAccountData.treeCount > 0
                               ? 'tr-gray-four'
                               : 'tr-gray-two'
                           "
@@ -123,7 +123,7 @@
                         <span class="step-number mr-2">
                           <button
                             :class="
-                              owner && owner.treeCount > 0
+                              loginAccountData && loginAccountData.treeCount > 0
                                 ? 'btn-outline-green'
                                 : 'btn-green'
                             "
@@ -139,11 +139,7 @@
                       >
                         <span class="step-number mr-2">
                           <button
-                            :class="
-                              owner && owner.treeCount > 0
-                                ? 'btn-outline-green'
-                                : 'btn-green'
-                            "
+                            :class="'btn-green'"
                             @click="$router.push('/forest/referral')"
                           >
                             step 4
@@ -499,6 +495,18 @@ export default {
       },
       fetchPolicy: "network-only",
     },
+    loginAccountData: {
+      query: owner,
+      prefetch: false,
+      skip() {
+        return this.$cookies.get('account') ? false : true;
+      },
+      variables() {
+        return { id: this.$cookies.get('account') ? this.$cookies.get('account').toLowerCase() : '' };
+      },
+      fetchPolicy: "network-only",
+      update: data => data.owner
+    }
   },
   watch: {
     async owner() {
