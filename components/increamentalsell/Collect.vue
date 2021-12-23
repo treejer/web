@@ -245,24 +245,10 @@
       >
         <span>
           <img
-            v-if="item.claimed"
-            alt="tree-status"
-            class="filter-balckandwhite"
+            :alt="`tree-${$hex2Dec(item.id)}`"
+            :class="item.claimed ? 'filter-balckandwhite' : null  "
             src="../../assets/images/increamentalSell/trees-state.svg"
           />
-
-          <img
-            v-else
-            alt="tree-status"
-            src="../../assets/images/increamentalSell/trees-state.svg"
-          />
-
-          <!-- <img v-if="index === 17 || index === 25 || index === 16" alt="tree-status" class="filter-hue"
-                    src="../../assets/images/increamentalSell/trees-state.svg">
-              <img v-else-if="index === 19  || index === 80 || index === 81" alt="tree-status"
-                 class="filter-balckandwhite"
-                 src="../../assets/images/increamentalSell/trees-state.svg">
-              <img v-else alt="tree-status" src="../../assets/images/increamentalSell/trees-state.svg"> -->
         </span>
 
         <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.id) }}</p>
