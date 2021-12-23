@@ -346,8 +346,6 @@ export default {
     this.getTreeHistory()
 
 
-
-
     this.loading = false
   },
 
@@ -360,14 +358,23 @@ export default {
     },
     async goToFindTree() {
       this.loading = true;
-      let self = this;
-      if (self.treeID) {
-        self.loading = true
-        self.$router.push(`/tree/${self.treeID}`);
-      } else {
-        self.toast("TreeId is empty!")
-        self.loading = false;
+
+      if (!this.treeID) {
+        this.toast("TreeId is empty!")
+        this.loading = false;
+        return;
       }
+
+      let tree = await this.getTreeQuery(this.$dec2hex(this.treeID));
+
+      if(tree === null) {
+        this.toast("Tree not found!")
+        this.loading = false;
+        return;
+      }
+
+      this.loading = true
+      this.$router.push(`/tree/${this.treeID}`);
     },
     async getTreeHistory() {
 
@@ -455,13 +462,11 @@ export default {
 
       })
     },
-    async getTree() {
-      this.loading = true;
-      let self = this;
-      await self.$axios.$post(process.env.graphqlUrl, {
+    async getTreeQuery(id) {
+      return await this.$axios.$post(process.env.graphqlUrl, {
         query: `
             {
-              tree(id: "${self.$dec2hex(self.$route.params.id)}") {
+              tree(id: "${id}") {
                 id
                 planter{
                   id
@@ -497,24 +502,39 @@ export default {
         prefetch: false
 
       }).then((res) => {
-        self.tree = res.data.tree
 
         if(res.data.tree === null) {
-          self.toast("Tree not found!")
-          return;
+          return null;
         }
-
-        if (self.tree.treeSpecsEntity) {
-          let attr = self.tree.treeSpecsEntity.attributes;
-          // self.attributes = JSON.parse(self.tree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
-          self.attributes = typeof attr === 'string' && attr.length>0 ? JSON.parse(attr): {}
-        }
-
+        
+        return res.data.tree;
 
       })
+    },
+    async getTree() {
+      this.loading = true;
+      let self = this;
+
+
+      let tree = await this.getTreeQuery(this.$dec2hex(this.$route.params.id));
+
+      if(tree === null) {
+        self.toast("Tree not found!")
+        this.loading = false;
+        return;
+      }
+
+      this.tree = tree;
+
+      if (tree.treeSpecsEntity) {
+        let attr = tree.treeSpecsEntity.attributes;
+        // self.attributes = JSON.parse(tree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
+        this.attributes = typeof attr === 'string' && attr.length>0 ? JSON.parse(attr): {}
+      }
+
       // if (result.data) {
       //   console.log(result.data.tree, "result is here")
-      //   self.tree = result.data.tree
+      //   this.tree = result.data.tree
       //
       //     let parse =JSON.parse(self.tree.treeSpecsEntity.attributes)
       //     console.log(parse,"|parse")
