@@ -1,17 +1,17 @@
 <template>
   <div class="row  peoples justify-content-around mt-md-4">
     <div class="border-0">
-      <img alt="Planter" :src="tree.planter ?  $avatarByWallet(tree.planter.id) : icon"/>
+      <img alt="Planter" :src="tree.planter ?  $avatarByWallet(tree.planter.id) : defaultAvatar"/>
       <p class="param tr-gray-two mt-2">Planter</p>
       <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.planter ? tree.planter.id : 'Not Planted' }}</p>
     </div>
-    <div class="border-0">
-      <img alt="Funder" :src="tree.funder ?  $avatarByWallet(tree.funder.id) : icon"/>
+    <div class="border-0" >
+      <img alt="Funder" :src="tree.funder ?  $avatarByWallet(tree.funder.id) : (tree.owner ? '/logo/treejer.png': defaultAvatar)"/>
       <p class="param tr-gray-two mt-2">Funder</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id : 'Not Funded' }}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id :  (tree.owner ? 'Treejer': 'Not Funded')  }}</p>
     </div>
     <div class="border-0">
-      <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : icon" />
+      <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
       <p class="param tr-gray-two mt-2">Owner</p>
       <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
     </div>
@@ -31,15 +31,7 @@ export default {
 
   data() {
     return {
-      peoples: [
-        {
-          src: require("~/assets/images/myforest/avatar.png"),
-          type: "Funder",
-          name: "Funder",
-          adressWallet: "0x545...d4m7",
-        },
-      ],
-      icon:require("~/assets/images/myforest/avatar.png"),
+      defaultAvatar:require("~/assets/images/myforest/avatar.png"),
     };
   },
 
@@ -56,6 +48,7 @@ export default {
     width: 64px;
     height: 64px;
     margin: auto;
+    border-radius: 10%;
   }
 
   .adrees-wallet {
