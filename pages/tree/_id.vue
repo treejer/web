@@ -137,7 +137,7 @@
                 <HistoryCard :bidPlaced="true"/>
                 <HistoryCard :minted="true"/> -->
                 <!-- ToDo: fix daiPrice and wethPrice -->
-                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice" :key="history.id" />
+                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice.toString()" :key="history.id" />
 
               </div>
               <div class="col-md-12" v-if="tree">
@@ -261,7 +261,52 @@
                   >{{ item.value }}</span
                   >
                   </p>
+
+                  
                 </div>
+
+                <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p v-if="tree.attribute" class="text-center param tr-gray-two mb-0">
+                    <span class="key">attribute: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ `${tree.attribute.attribute1} - ${tree.attribute.attribute2} - ${tree.attribute.attribute3} - ${tree.attribute.attribute4} -
+                      ${tree.attribute.attribute5} - ${tree.attribute.attribute6} - ${tree.attribute.attribute7} - ${tree.attribute.attribute8}` }}
+                    </span>
+                  </p>
+
+                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
+                    <span class="key">shape: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ tree.symbol.shape }}
+                    </span>
+                  </p>
+                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
+                    <span class="key">trunkColor: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ tree.symbol.trunkColor }}
+                    </span>
+                  </p>
+                   <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
+                    <span class="key">crownColor: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ tree.symbol.crownColor }}
+                    </span>
+                  </p>
+                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
+                    <span class="key">effect: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ tree.symbol.effect }}
+                    </span>
+                  </p>
+
+                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
+                    <span class="key">coefficient: </span>
+                    <span class="value font-weight-bolder tr-gray-one">
+                      {{ tree.symbol.coefficient }}
+                    </span>
+                  </p>
+                </div>
+             
 
 
               </div>
@@ -365,7 +410,9 @@ export default {
         return;
       }
 
-      let tree = await this.getTreeQuery(this.$dec2hex(this.treeID));
+      let res = await this.getTreeQuery(this.$dec2hex(this.treeID));
+      let tree = res.data.tree;
+
 
       if(tree === null) {
         this.toast("Tree not found!")
@@ -412,9 +459,6 @@ export default {
         query: `{
             auctions(where:{tree:"${self.$dec2hex(self.$route.params.id)}"}){
                   id
-                  tree{
-                    id
-                  }
                   initialPrice
                   priceInterval
                   startDate
@@ -482,6 +526,18 @@ export default {
                 treeStatus
                 plantDate
                 birthDate
+                attribute{
+                  attribute1
+                  attribute2
+                  attribute3
+                  attribute4
+                  attribute5
+                  attribute6
+                  attribute7
+                  attribute8
+                  generationType
+                }
+                
                 treeSpecsEntity{
                   id
                   name
@@ -498,16 +554,18 @@ export default {
                   attributes
                 }
               }
-             }`,
+              symbol(id: "${id}") {
+                  shape
+                  trunkColor
+                  crownColor
+                  effect
+                  coefficient
+                  generationType
+                }
+
+             }
+             `,
         prefetch: false
-
-      }).then((res) => {
-
-        if(res.data.tree === null) {
-          return null;
-        }
-        
-        return res.data.tree;
 
       })
     },
@@ -516,7 +574,8 @@ export default {
       let self = this;
 
 
-      let tree = await this.getTreeQuery(this.$dec2hex(this.$route.params.id));
+      let res = await this.getTreeQuery(this.$dec2hex(this.$route.params.id));
+      let tree = res.data.tree;
 
       if(tree === null) {
         self.toast("Tree not found!")
@@ -525,6 +584,7 @@ export default {
       }
 
       this.tree = tree;
+      this.tree.symbol = res.data.symbol;
 
       if (tree.treeSpecsEntity) {
         let attr = tree.treeSpecsEntity.attributes;
