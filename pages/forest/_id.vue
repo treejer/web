@@ -210,7 +210,7 @@
                     pointer-event
                     show-more-tree-all
                   "
-                  @click="loadMore()"> &#8681;</span>
+                  @click="loadMore()">&#8681;</span>
                 <!-- &#8679; -->
             </div>
           </div>
@@ -509,8 +509,14 @@ export default {
     }
   },
   watch: {
-    async owner() {
-      await this.getOwnerTrees();
+    async owner(newOwner, oldOwner) {
+      if(oldOwner !== undefined) {
+        if(newOwner.id === oldOwner.id) {
+          return;
+        }
+      }
+      
+      await this.getOwnerTrees(50, 0);
     },
   },
 
@@ -554,14 +560,12 @@ export default {
     await this.$store.commit("SET_SIDEBAR_INDEX", 0);
   },
   async mounted() {
-    await this.createPlaceHolder();
     await this.getDaiBalance();
     await this.getWethBalance();
   },
   methods: {
     async loadMore(){
       this.skip = this.skip + this.perPage;
-      await this.createPlaceHolder();
 
       await this.getOwnerTrees(this.perPage, this.skip);
 
@@ -575,6 +579,7 @@ export default {
         return;
       }
 
+      await this.createPlaceHolder();
 
 
       let self = this;
@@ -597,6 +602,7 @@ export default {
            
 
           if (treesRes.data.trees && treesRes.data.trees.length > 0) {
+
             let trees = treesRes.data.trees;
             self.trees.push(...trees);
 
@@ -611,6 +617,8 @@ export default {
             });
 
             self.treesWithLocation.push(...treesWithLocation);
+
+            console.log("self.treesWithLocation", self.treesWithLocation);
 
             self.ownerTreesLoaded = true;
           }
@@ -639,7 +647,9 @@ export default {
       let currentPlaceHolderCount = this.placeHolderTrees.length;
 
       let maxCount = currentPlaceHolderCount + this.perPage;
-      if(this.owner && this.owner.treeCount < maxCount){
+
+
+      if(this.owner && this.owner.treeCount > this.perPage && this.owner.treeCount < maxCount){
         maxCount = this.owner.treeCount;
       }
       
