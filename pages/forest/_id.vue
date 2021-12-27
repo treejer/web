@@ -9,14 +9,14 @@
         <div class="col-lg-8 col-12">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
-              <h2 class="title-sm d-inline-flex Montserrat-Medium">
+              <h2 class="title-sm d-inline-flex Montserrat-Medium  tr-gray-three title-letter-space">
                 <span
                   v-coin
                   class="pr-2 pl-0 text-capitalize Montserrat-Medium"
                   >{{
                     $route.params.id != $cookies.get("account")
                       ? $route.params.id
-                      : "MY"
+                      : "My"
                   }}</span
                 >
                 Forest
@@ -29,7 +29,7 @@
               :key="index"
               class="col-lg-3 col-md-6 col-12 border-right"
             >
-              <p class="tr-gray-two">{{ item.name }}</p>
+              <p class="tr-gray-two ">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
                   ><img :src="treeIcon" alt="tree" class="img-fluid"
@@ -684,10 +684,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-forest {
-  * {
     font-family: Montserrat-Medium;
-  }
-
   .box-right {
     margin-top: 64px;
 
@@ -742,6 +739,8 @@ export default {
       width: 48px;
       height: 16px;
       border: 1px solid #757575;
+
+
       box-sizing: border-box;
       border-radius: 10px;
     }

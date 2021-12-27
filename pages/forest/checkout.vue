@@ -609,7 +609,6 @@
         >
       </div>
     </div>
-    </div>
   </section>
 </template>
 
@@ -730,7 +729,6 @@ export default {
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
-       
 
         await this.fundTree();
       }
@@ -754,8 +752,8 @@ export default {
       this.activeWallet = index;
     },
     async setDaiBalance() {
-      if(!this.$cookies.get("account")) {
-        return; 
+      if (!this.$cookies.get("account")) {
+        return;
       }
 
       this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
@@ -819,17 +817,17 @@ export default {
     async fundTree() {
       this.loading = true;
       let self = this;
-      if(this.sendAsGiftChecked && this.recipient){
+      if (this.sendAsGiftChecked && this.recipient) {
         try {
           this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
-        } catch(e) { 
+        } catch (e) {
           self.$bvToast.toast([e.message], {
             toaster: 'b-toaster-bottom-left',
             title: 'Invalid recipient address!',
             variant: 'danger',
             to: 'forest/checkout',
           })
-          console.error('invalid ethereum address', e.message) 
+          console.error('invalid ethereum address', e.message)
           this.loading = false;
           return;
         }

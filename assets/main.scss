@@ -223,7 +223,9 @@
   src: url("../assets/fonts/Montserrat-SemiBold.otf");
   font-weight: normal;
 }
-
+.title-letter-space{
+  letter-spacing: 2px;
+}
 .tooltip {
   z-index: +999999999;
   color: white;

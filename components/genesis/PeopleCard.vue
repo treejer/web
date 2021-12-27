@@ -56,6 +56,8 @@ export default {
     width: 64px;
     height: 64px;
     margin: auto;
+    border-radius: 35px;
+    border: solid 2px white;
   }
 
   .adrees-wallet {

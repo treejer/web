@@ -65,7 +65,7 @@
             <input
               v-model="newNameTree"
               class="form-control border-0 new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
-              placeholder="New name..."
+              placeholder="New name.. ."
               type="text"
               @keyup.enter="setNewName()"
             />
@@ -94,7 +94,7 @@
           <div class="row pt-md-3 justify-content-between">
             <div class="col-md-3 col-12" >
               <div class="story">
-                <p class="text-center tr-gray-one param-xl">Story</p>
+                <p class="text-center tr-gray-two param-xl font-weight-bolder">Story</p>
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
                 <p v-if="tree && tree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
@@ -104,7 +104,7 @@
             </div>
             <div class="col-md-6 col-12">
               <div class="people col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl">People</p>
+                <p class="text-center tr-gray-two param-xl font-weight-bolder">People</p>
               </div>
               <div v-if="tree" class="col-md-12 pb-md-5 justify-content-center m-auto">
                 <span>
@@ -115,30 +115,13 @@
 
               </div>
               <div class="Bids col-md-6 justify-content-center m-auto" v-if="auction && auction.bids.length > 0">
-                <p class="text-center tr-gray-one param-xl">Bidders</p>
+                <p class="text-center tr-gray-two param-xl">Bidders</p>
               </div>
               <div v-if="auction"
-                   class="col-md-12 pb-md-5 justify-content-center m-auto">
+                   class="col-md-12  justify-content-center m-auto">
                 <AvatarBidders
                   :bids="auction.bids"
                 />
-              </div>
-              <div class="history col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl">History</p>
-              </div>
-              <div class="col-md-10 justify-content-center m-auto">
-                <!-- <HistoryCard :update="true"/>
-                <HistoryCard :listed="true"/>
-                <HistoryCard :planted="true"/>
-                <HistoryCard :putToSale="true"/>
-                <HistoryCard :transferred="true"/>
-                <HistoryCard :Offer="true"/>
-                <HistoryCard :Auction="true"/>
-                <HistoryCard :bidPlaced="true"/>
-                <HistoryCard :minted="true"/> -->
-                <!-- ToDo: fix daiPrice and wethPrice -->
-                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice" :key="history.id" />
-
               </div>
               <div class="col-md-12" v-if="tree">
                 <div v-if="tree.planter" class="card-tree-profile position-relative">
@@ -241,12 +224,30 @@
                   </div>
                 </div> -->
               </div>
+              <div class="history col-md-6 justify-content-center m-auto">
+                <p class="text-center tr-gray-two param-xl font-weight-bolder">History</p>
+              </div>
+
+              <div class="col-md-10 justify-content-center m-auto">
+                <!-- <HistoryCard :update="true"/>
+                <HistoryCard :listed="true"/>
+                <HistoryCard :planted="true"/>
+                <HistoryCard :putToSale="true"/>
+                <HistoryCard :transferred="true"/>
+                <HistoryCard :Offer="true"/>
+                <HistoryCard :Auction="true"/>
+                <HistoryCard :bidPlaced="true"/>
+                <HistoryCard :minted="true"/> -->
+                <!-- ToDo: fix daiPrice and wethPrice -->
+                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice" :key="history.id" />
+
+              </div>
 
 
             </div>
             <div class="col-md-3 col-12">
               <div class="attributes">
-                <p class="text-center tr-gray-one param-xl">Attributes</p>
+                <p class="text-center tr-gray-two param-xl font-weight-bolder">Attributes</p>
                 <div v-for="(item,index) in attributes" :key="index" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p v-if="item.trait_type === 'birthday'" class="text-center param tr-gray-two mb-0">
                     <span class="key">{{ item.trait_type }}: </span
@@ -506,7 +507,7 @@ export default {
         if(res.data.tree === null) {
           return null;
         }
-        
+
         return res.data.tree;
 
       })
@@ -759,7 +760,7 @@ export default {
     background: #ffffff;
     box-shadow: 2px 6px 44px rgba(0, 0, 0, 0.09);
     border-radius: 12px;
-    margin-top: 51px;
+    margin-top: 65px;
     margin-bottom: 50px;
 
     .edit-name-position-absolute {

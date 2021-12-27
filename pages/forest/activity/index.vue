@@ -198,9 +198,11 @@ export default {
       modalsrc: null,
       activity: null,
       totalSeed: [],
-      updatesTabs: [{ name: "Tree" }, { name: "Seed" }],
-      activeIndex: 0,
-    };
+      updatesTabs: [{ name: "Tree" }],
+      activeIndex: 0
+    }
+    // , { name: "Seed" }]
+
   },
   computed: {
     activityTypes() {
@@ -264,11 +266,12 @@ export default {
     list-style: none;
     justify-content: center;
     margin-bottom: 35px;
+    width: 50%;
 
     li {
       height: 100%;
       padding: 7.6px 0;
-      width: 50%;
+      width: 100%;
       text-align: center;
     }
 

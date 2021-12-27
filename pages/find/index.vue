@@ -15,10 +15,10 @@
               @click="findTree()"
             >
               <svg
-                width="17"
+                fill="none"
                 height="17"
                 viewBox="0 0 17 17"
-                fill="none"
+                width="17"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -28,12 +28,12 @@
               </svg>
             </span>
             <FormulateInput
-              class="search param-sm"
-              placeholder="Search"
-              @keyup.enter="findTree()"
-              type="text"
               v-model="treeID"
+              class="search param-sm"
               name="treeID"
+              placeholder="Search"
+              type="text"
+              @keyup.enter="findTree()"
             />
           </div>
         </div>
@@ -43,10 +43,10 @@
           <div class="find-my-tree-btn mt-4">
             <button
               :class="{ disable: !treeID }"
-              @click="findTree()"
               class="btn-green param-md mb-4"
+              @click="findTree()"
             >
-              <b-spinner v-if="loading" small class="mr-1"></b-spinner>
+              <b-spinner v-if="loading" class="mr-1" small></b-spinner>
               {{ loading ? " Loading..." : "Find My Tree" }}
             </button>
 
@@ -66,26 +66,26 @@
           <div class="container">
             <div class="row">
               <div
-                class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
                 v-for="(item, index) in owners"
                 :key="index"
+                class="col-6 col-lg-2 col-md-4 mb-2 pointer-event"
               >
                 <div class="card-box" @click="goToDashboard(item)">
                   <div class="tr-card box-shadow border">
                     <div class="card-img justify-content-center text-center">
                       <img
-                        class="bg-white"
-                        width="64"
-                        height="64"
-                        :src="`${icon}${item.id}`"
                         :alt="item.id"
+                        :src="`${icon}${item.id}`"
+                        class="bg-white"
+                        height="64"
+                        width="64"
                       />
                     </div>
                     <div class="card-title">
                       <p
-                        v-html="item.id"
-                        class="tr-gray-two param-sm mb-1"
                         v-coin
+                        class="tr-gray-two param-sm mb-1"
+                        v-html="item.id"
                       ></p>
                       <p class="tr-green mb-1">{{ item.treeCount }} trees</p>
                     </div>
@@ -138,10 +138,10 @@
                       @click="findTree"
                     >
                       <svg
-                        width="16"
+                        fill="none"
                         height="17"
                         viewBox="0 0 16 17"
-                        fill="none"
+                        width="16"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -151,18 +151,18 @@
                       </svg>
                     </span>
                     <input
-                      class="search param-sm"
-                      type="text"
-                      placeholder="Search Tree ID"
                       v-model="treeID"
+                      class="search param-sm"
+                      placeholder="Search Tree ID"
+                      type="text"
                     />
                   </div>
                   <div class="ref-box pointer-event">
                     <svg
-                      width="36"
+                      fill="none"
                       height="36"
                       viewBox="0 0 36 36"
-                      fill="none"
+                      width="36"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -184,32 +184,32 @@
             </div>
             <table class="table border-0 dir-ltr">
               <thead>
-                <tr>
-                  <th scope="col">Tree ID</th>
-                  <th scope="col" class="pointer-event">
-                    <i class="pointer-event fas fa-sort-up"></i>Owner
-                  </th>
-                  <th scope="col" class="pointer-event">
-                    <i class="pointer-event fas fa-sort-up"></i>Status
-                  </th>
-                  <th scope="col" class="pointer-event d-none d-md-block">
-                    <i class="pointer-event fas fa-sort-up"></i>Location
-                  </th>
-                </tr>
+              <tr>
+                <th scope="col">Tree ID</th>
+                <th class="pointer-event" scope="col">
+                  <i class="pointer-event fas fa-sort-up"></i>Owner
+                </th>
+                <th class="pointer-event" scope="col">
+                  <i class="pointer-event fas fa-sort-up"></i>Status
+                </th>
+                <th class="pointer-event d-none d-md-block" scope="col">
+                  <i class="pointer-event fas fa-sort-up"></i>Location
+                </th>
+              </tr>
               </thead>
               <tbody>
-                <tr v-for="tree in trees" :key="tree.id">
-                  <th scope="row">{{ $hex2Dec(tree.id)  }}</th>
-                  <td v-coin>
-                    {{ tree.funder !== null ? tree.funder.id : "-" }}
-                  </td>
-                  <td>
-                    {{ tree.treeStatus }}
-                  </td>
-                  <td class="d-none d-md-block">
-                    <!-- {{ tree.latitude + "," + tree.longitude }} -->
-                  </td>
-                </tr>
+              <tr v-for="tree in trees" :key="tree.id">
+                <th scope="row">{{ $hex2Dec(tree.id) }}</th>
+                <td v-coin>
+                  {{ tree.funder !== null ? tree.funder.id : "-" }}
+                </td>
+                <td>
+                  {{ tree.treeStatus }}
+                </td>
+                <td class="d-none d-md-block">
+                  <!-- {{ tree.latitude + "," + tree.longitude }} -->
+                </td>
+              </tr>
               </tbody>
             </table>
             <div
@@ -224,8 +224,8 @@
               <ul class="pagination">
                 <li class="page-item pagination-prev-nav">
                   <a
-                    class="page-link"
                     aria-label="Previous"
+                    class="page-link"
                     @click="updatePagination(false)"
                   >
                     <slot name="prev-nav">
@@ -237,8 +237,8 @@
 
                 <li class="page-item pagination-next-nav">
                   <a
-                    class="page-link"
                     aria-label="Next"
+                    class="page-link"
                     @click="updatePagination(true)"
                   >
                     <slot name="next-nav">
@@ -278,6 +278,7 @@ import Fab from "@/components/font-awsome/Fab";
 import ownersSorted from "~/apollo/queries/ownersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
 import treesPagination from "~/apollo/queries/treesPagination";
+
 export default {
   name: "findMyTree",
   // layout:"checkout",
@@ -320,8 +321,8 @@ export default {
     owners: {
       prefetch: true,
       query: ownersSorted,
-      variables () {
-        return { limit: 12, orderBy: 'treeCount', orderDirection: 'desc' }
+      variables() {
+        return {limit: 12, orderBy: 'treeCount', orderDirection: 'desc'}
       }
     },
   },
@@ -330,12 +331,12 @@ export default {
   },
   methods: {
     goToLeaderBoard() {
-        this.$router.push(this.localePath("/forest/leaderboard"));
+      this.$router.push(this.localePath("/forest/leaderboard"));
     },
     goToDashboard(item) {
       this.$router.push({
         path: "/forest/" + item.id,
-        params: { id: item.id },
+        params: {id: item.id},
       });
     },
     async findTree() {
@@ -421,7 +422,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .find-my-tree {
   .search-bar {
     span {

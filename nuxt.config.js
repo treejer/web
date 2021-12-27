@@ -85,8 +85,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    {src: '~plugins/swiper.js', mode: 'client', ssr: false},
-    {src: '~plugins/typer.js', mode: 'client', ssr: false},
+    {src: '~plugins/swiper.js', ssr: false},
+    {src: '~plugins/typer.js', ssr: false},
     {src: '~plugins/maps.js', ssr: false},
     {src: '~plugins/vueFormulate.js', ssr: false},
     {src: '~plugins/web3.js', ssr: false},
@@ -94,7 +94,7 @@ export default {
     {src: '~plugins/num.js'},
     {src: '~plugins/avatar.js'},
     {src: '~plugins/axios.js'}
-    
+
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}],
