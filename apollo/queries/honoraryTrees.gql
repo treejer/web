@@ -1,5 +1,5 @@
 {
-  honoraryTrees(first: 100, orderBy: createdAt, orderDirection: asc) {
+  honoraryTrees(first: 120, orderBy: createdAt, orderDirection: asc) {
     id
     tree{id}
     recipient{id}

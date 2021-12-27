@@ -457,11 +457,17 @@ export default {
       this.$store.commit("SET_SIDEBAR_INDEX", 0);
       // this.$router.push(`/forest/${id}`);
       // this.$cookies.set('account',null)
-      let routeData = this.$router.resolve({
-        path: `/forest/${id}`,
-        params: { id: id },
-      });
-      window.open(routeData.href, "_self");
+      // let routeData = this.$router.resolve({
+      //   path: `/forest/${id}`,
+      //   params: { id: id },
+      // });
+      // let routeData = this.$router.resolve({
+      //   path: `/forest/${id}`,
+      //   params: { id: id },
+      // });
+      this.$router.push(`/forest/${id}`);
+
+      // window.open(routeData.href, "_self");
     },
   },
 };

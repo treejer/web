@@ -1,0 +1,28 @@
+query TreesWithAuction($idsIn: [String!], $first: Int!, $skip: Int!, $orderBy: String!, $orderDirection: String!) { 
+  trees(where:{ id_in: $idsIn },first: $first, skip: $skip, orderBy: $orderBy, orderDirection: $orderDirection) {
+    id
+    owner {
+      id
+    }
+    funder {
+      id
+    }
+    saleType
+    soldType
+    treeStatus
+    auctions(orderBy: "createdAt", orderDirection: "desc") {
+      id
+      initialPrice
+      priceInterval
+      startDate
+      endDate
+      winner(type: "Funder"){
+        id
+      }
+      highestBid
+      isActive
+      createdAt
+      updatedAt
+    }
+  }
+}

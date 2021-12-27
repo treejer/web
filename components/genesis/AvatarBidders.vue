@@ -3,7 +3,7 @@
     <div v-for="(item,index) in bidders" :key="index" class="col-md-4  ">
       <img
 
-        :src="$avatarByWallet(item)" alt="avatar" class="pointer-event bidders pb-2 m-auto "
+        :src="$avatarByWallet(item)" alt="avatar" class="pointer-event bidders pb-1 m-auto "
         height="48" width="48"/>
       <p v-coin class="address-wallet  tr-gray-three adrees-wallet param">{{ item }}</p>
 
@@ -52,10 +52,15 @@ export default {
 
   .address-wallet {
     padding: 8px 13px;
-    border-radius: 28px;
+    border-radius: 10%;
     background: #eeeeee;
     border: 2px solid #FFFFFF;
 
+  }
+
+  img {
+
+    border-radius: 10%;
   }
 
   &:hover {
