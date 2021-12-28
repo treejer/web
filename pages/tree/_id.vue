@@ -283,7 +283,7 @@
                   >
                   </p>
 
-                  
+
                 </div>
 
                 <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
@@ -327,7 +327,7 @@
                     </span>
                   </p>
                 </div>
-             
+
 
 
               </div>
@@ -558,7 +558,7 @@ export default {
                   attribute8
                   generationType
                 }
-                
+
                 treeSpecsEntity{
                   id
                   name
@@ -584,17 +584,15 @@ export default {
                   generationType
                 }
 
-<<<<<<< HEAD
         if(res.data.tree === null) {
           return null;
         }
 
         return res.data.tree;
-=======
+
              }
              `,
         prefetch: false
->>>>>>> 8c2d0ecf0888411a12ef80c536f24b5a25a962ad
 
       })
     },
