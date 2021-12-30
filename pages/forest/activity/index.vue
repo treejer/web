@@ -15,154 +15,122 @@
               </p>
             </div>
             <div class="col-12 mb-5 mt-2">
-              <ul class="updates-tab">
-                <li
-                  class="pointer-event tr-gray-three "
-                  v-for="(item, index) in updatesTabs"
-                  :class="{ active: activeIndex === index }"
-                  :name="item.name"
-                  :key="index"
-                  @click="activeMenu(index)"
-                >
-                  {{ item.name }}
-                </li>
-              </ul>
               <ul>
-                <li v-show="activeIndex === 1" class="list-style-none time-line  fade-out ">
-                  <p
-                    class="param-md tr-gray-three font-weight-lighter one-minted"
-                    v-for="(seed, index) in totalSeed"
-                    :key="index"
-                  >
-                    You successfully sent
-                    <span class="tr-green font-weight-bold Montserrat-Medium">{{
-                      seed.totalSeed
-                    }}</span>
-                    Seed from your forest to your wallet.
-                    <a
-                      class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold"
-                      @click="openModal(item)"
-                      >See details</a
-                    >
-                    <span
-                      class="d-flex justify-content-start tr-gray-four param-sm font-weight-lighter time-box"
-                    >
-                      <span class="date"
-                        >{{ seed.created_at.slice(0, 10) }}
-                      </span>
-                      <span class="time"
-                        >{{ seed.created_at.slice(10, 20) }} UTC</span
-                      >
-                    </span>
-                  </p>
-                </li>
                 <li
-                  class="list-style-none time-line "
-                  v-show="activeIndex === 0"
-                  v-for="(item, index) in updates"
-                  :key="index"
+                  v-for="history in addressHistories"
+                  :key="history.id"
+                  class="list-style-none time-line fade-out"
                 >
                   <p
-                    class="param-md tr-gray-three font-weight-lighter tree-funded"
+                    class="
+                      param-md
+                      tr-gray-three
+                      font-weight-lighter
+                      one-minted
+                    "
                   >
-                    You successfully added 1 Tree with id
+                    <span v-if="history.event === 'HighestBidIncreased'">
+                      You successfully increased bid
+                      <span class="tr-green font-weight-bold Montserrat-Medium"
+                        >Ξ{{ $web3.utils.fromWei(history.value) }}</span
+                      >
+                      on auction
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $hex2Dec(history.typeId) }}</span
+                      >
+                    </span>
+
+                    <span v-if="history.event === 'AuctionSettled'">
+                      You successfully settled auction
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $hex2Dec(history.typeId) }}</span
+                      >
+                    </span>
+
+                    <span v-if="history.event === 'AuctionEnded'">
+                      You successfully ended auction
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $hex2Dec(history.typeId) }}</span
+                      >
+                    </span>
+
+                    <span v-if="history.event === 'WonAuction'">
+                      You are the winner of auction
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $hex2Dec(history.typeId) }}</span
+                      >
+                      with
+                      <span class="tr-green font-weight-bold Montserrat-Medium"
+                        >Ξ{{ $web3.utils.fromWei(history.value) }}</span
+                      >
+                    </span>
+
+                    <span v-if="history.event === 'HonoraryClaimed'">
+                      You successfully claimed your honorarium
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $hex2Dec(history.typeId) }}</span
+                      >
+                    </span>
+
+                    <span v-if="history.event === 'IncrementalTreeFunded'">
+                      You successfully funded
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ history.count }}</span
+                      >
+                      genesis tree{{ history.count > 1 ? "s" : "" }}
+                      <!-- with total value <span class="tr-green font-weight-bold Montserrat-Medium">Ξ{{ $web3.utils.fromWei(history.value) }}</span> -->
+                    </span>
+
+                    <span v-if="history.event === 'RegularTreeFunded'">
+                      You successfully funded
+                      <span
+                        class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ history.count }}</span
+                      >
+                      tree{{ history.count > 1 ? "s" : "" }} with total value
+                      <span class="tr-green font-weight-bold Montserrat-Medium"
+                        >{{ $web3.utils.fromWei(history.value) }}DAI</span
+                      >
+                    </span>
+
                     <a
-                      class="tr-green pointer-event Montserrat-Medium font-weight-bold"
-                      >#{{ item.id }}</a
+                      :href="`${etherScanUrl}/tx/${history.transactionHash}`"
+                      target="_blank"
+                      class="tr-green pointer-event pointer-event small"
                     >
-                    to your forest.
-                    <a
-                      class="tr-green pointer-event pointer-event Montserrat-Medium font-weight-bold"
-                      @click="openModal(item)"
-                      >See details</a
-                    >
+                      <Fas i="external-link-alt" />
+                    </a>
+
                     <span
-                      class="d-flex justify-content-start tr-gray-four param-sm time-box"
+                      class="
+                        d-flex
+                        justify-content-start
+                        tr-gray-four
+                        param-sm
+                        font-weight-lighter
+                        time-box
+                      "
                     >
                       <span class="date"
-                        >{{ item.created_at.slice(0, 10) }}
+                        >{{
+                          $moment(history.createdAt * 1000).strftime(
+                            "%b %d, %Y"
+                          )
+                        }}
                       </span>
-                      <span class="time"
-                        >{{ item.created_at.slice(10, 20) }} UTC</span
-                      >
+                      <span class="time">{{
+                        $moment(history.createdAt * 1000).strftime("%I:%M %p")
+                      }}</span>
                     </span>
                   </p>
                 </li>
               </ul>
-              <b-modal id="update" hide-footer v-if="modalsrc">
-                <div class="card border-0 p-2 param-md tr-gray-three">
-                  <ul class="list-style-none">
-                    <li>
-                      address:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.address }}</span
-                      >
-                    </li>
-                    <li>
-                      blockHash:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.blockHash }}</span
-                      >
-                    </li>
-                    <li>
-                      blockNumber:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.blockNumber }}</span
-                      >
-                    </li>
-                    <li>
-                      event:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.event }}</span
-                      >
-                    </li>
-                    <li>
-                      id:
-                      <span class="tr-green param-sm"> {{ modalsrc.id }}</span>
-                    </li>
-                    <li>
-                      logIndex:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.logIndex }}</span
-                      >
-                    </li>
-                    <li>
-                      raw:
-                      <span class="tr-green param-sm"> {{ modalsrc.raw }}</span>
-                    </li>
-                    <li>
-                      removed:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.removed }}</span
-                      >
-                    </li>
-                    <li>
-                      returnValues:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.returnValues }}</span
-                      >
-                    </li>
-                    <li>
-                      signature:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.signature }}</span
-                      >
-                    </li>
-                    <li>
-                      transactionHash:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.transactionHash }}</span
-                      >
-                    </li>
-                    <li>
-                      transactionIndex:
-                      <span class="tr-green param-sm">
-                        {{ modalsrc.transactionIndex }}</span
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </b-modal>
             </div>
           </div>
         </div>
@@ -180,78 +148,74 @@
   </section>
 </template>
 <script>
+import addressHistoriesByAddressQuery from "~/apollo/queries/addressHistoriesByAddress";
+import Fas from "@/components/font-awsome/Fas";
+
 export default {
   name: "updates",
   layout: "dashboard",
+  components: { Fas },
+
   head() {
     return {
-      title:`Treejer`,
-      meta:[
-        { hid: 'description', name: 'description', content:"contact our business and team"},
-    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
-  ]
-  }
+      title: `Treejer - Activity`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "contact our business and team",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: "business team_business treejer treejer_contact_us teams ",
+        },
+      ],
+    };
+  },
+  apollo: {
+    addressHistories: {
+      query: addressHistoriesByAddressQuery,
+      skip() {
+        return this.$cookies.get("account") ? false : true;
+      },
+      prefetch: ({ cookies }) => ({
+        id: cookies.get("account")
+          ? cookies.get("account").toLowerCase()
+          : "Guest",
+      }),
+      variables() {
+        return {
+          address: this.$cookies.get("account")
+            ? this.$cookies.get("account").toLowerCase()
+            : "Guest",
+          first: 100,
+          skip: 0,
+          orderBy: "createdAt",
+          orderDirection: "desc",
+        };
+      },
+    },
   },
   data() {
     return {
-      updates: null,
-      modalsrc: null,
-      activity: null,
-      totalSeed: [],
-      updatesTabs: [{ name: "Tree" }],
-      activeIndex: 0
-    }
-    // , { name: "Seed" }]
-
+      etherScanUrl: process.env.etherScanUrl,
+    };
   },
-  computed: {
-    activityTypes() {
-      // if(this.modalsrc.event === 'TreeFunded'){
-      return "Tree Funding";
-      // }
-    },
-  },
-  methods: {
-    sendItem(item, index) {},
-    activeMenu(index) {
-      this.activeIndex = index;
-    },
-    openModal(item) {
-      this.modalsrc = JSON.parse(item.raw_data);
-
-      this.$bvModal.show("update");
-    },
-  },
+  computed: {},
+  methods: {},
   async created() {
-    await this.$store.commit('SET_SIDEBAR_INDEX', 3)
-  },
-  async mounted() {
-    const updates = await this.$axios.$get(
-      `${process.env.apiUrl}/wallets/${this.$cookies.get(
-        "account"
-      )}/events?perPage=20&page=1`
-    );
-    this.activity = updates;
-    console.log(this.activity.events.data.length,"this.activity.events.data.length")
-    // this.$store.commit("SET_UPDATE_LENGTH","")
-    this.$cookies.set("updateLength",this.activity.events.data.length)
-    console.log(this.$cookies.get('updateLength'),"yessssssss")
-    console.log(this.activity, "this.totalSeed");
-
-    this.updates = updates.events.data;
-    updates.events.data.map((item, index) => {
-      if (item.type === "SeedMinted") {
-        const pars = JSON.parse(item.data);
-        this.totalSeed.push({
-          totalSeed: this.$web3.utils.fromWei(pars.totalSeed),
-          created_at: item.created_at,
-          updated_at: item.updated_at,
-        });
-        console.log(this.totalSeed, "this.totalSeed");
-      }
-    });
-
-    this.sendItem();
+    await this.$store.commit("SET_SIDEBAR_INDEX", 3);
+    if (!this.$cookies.get("account")) {
+      this.$bvToast.toast("you're not login", {
+        toaster: "b-toaster-bottom-left",
+        solid: true,
+        headerClass: "hide",
+        variant: "danger",
+      });
+      this.$bvModal.show("five");
+      return;
+    }
   },
 };
 </script>
