@@ -3,19 +3,19 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12">
-          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " to="/forest">Plant a Tree
+          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " to="/forest/guest">Plant a Tree
           </nuxt-link>
           <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="'/forest/'+$cookies.get('account')">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
-            <li class="square text-left">
+            <!-- <li class="square text-left">
               <nuxt-link v-if="$cookies.get('account') === null" class="text-left nav-item  param tr-gray-two "
                          to="/forest">Explore Forests
               </nuxt-link>
               <nuxt-link v-else class="text-left nav-item  param tr-gray-two " :to="'/forest/'+$cookies.get('account')">
                 Explore Forests
               </nuxt-link>
-            </li>
+            </li> -->
             <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
               <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{ item.name }}
               </nuxt-link>
@@ -79,14 +79,17 @@ export default {
       listOne: [
         {name: 'Genesis', href: '/genesis'},
         {name: 'Find My Tree', href: '/find'},
-        {name: 'Redeem Trees', href: '#'},
-        {name: 'Start a Green Block', href: '#'},
+        {name: 'Referral Program', href: 'https://docs.treejer.com/impact-referral-program', tab: '_blank'},
+        // {name: 'Project Charter', href: 'https://docs.treejer.com/project-charter', tab: '_blank'},
+        // {name: 'Contribution Guideline', href: 'https://docs.treejer.com/contribution-guideline', tab: '_blank'},
+        // {name: 'Redeem Trees', href: '#'},
+        // {name: 'Start a Green Block', href: '#'},
       ],
         listTwo: [
           {name: 'Home', href: '/'},
           {name: 'Blog', href: 'https://blog.treejer.com/', tab: '_blank'},
           {name: 'About', href: '/about'},
-          {name: 'For Business', href: '/business'},
+          {name: 'Partnerships', href: '/partnerships'},
           {name: 'Contact', href: '/contact'},
         ],
       listThree: [

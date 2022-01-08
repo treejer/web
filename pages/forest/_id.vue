@@ -438,7 +438,7 @@
             <div class="trees">
               <div class="add-tree">
                 <button class="btn-lg" @click="goToAddTree()">
-                  Plant trees
+                  Plant Trees
                 </button>
               </div>
             </div>
