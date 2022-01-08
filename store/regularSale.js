@@ -7,13 +7,17 @@ export const state = () => ({
 
 export const actions = {
   async getPrice({commit}) {
-    let self = this
-    return self.$RegularSale.methods.price().call()
-      .then((treeWeiPrice) => {
-        let price = self.$web3.utils.fromWei(treeWeiPrice);
-        commit('SET_PRICE', price)
-        return price;
-      });
+    try {
+      let self = this
+      return self.$RegularSale.methods.price().call()
+        .then((treeWeiPrice) => {
+          let price = self.$web3.utils.fromWei(treeWeiPrice);
+          commit('SET_PRICE', price)
+          return price;
+        });
+    } catch(e) {
+      console.log(e + "error in getPrice")
+    }
   },
   async fundTree(context, params) {
     let self = this;
