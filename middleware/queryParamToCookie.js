@@ -8,5 +8,7 @@ export default function ({ app, route }) {
         return;
     }
 
-    app.$cookies.set('referrer', route.query.referrer);
+    app.$cookies.set('referrer', route.query.referrer, {
+        maxAge: 60 * 60 * 24 * 365
+    });
 }
