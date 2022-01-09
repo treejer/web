@@ -98,7 +98,8 @@ export default {
   ],
   buildModules: [
     ['@nuxtjs/dotenv', {filename: '.env'}],
-    ['@nuxtjs/pwa',]
+    ['@nuxtjs/pwa'],
+    '@nuxtjs/google-analytics'
   ],
   module: {
     rules: [{
@@ -258,6 +259,14 @@ export default {
       'Access-Control-Allow-Origin': '*/*',
 
     },
+  },
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID, // Use as fallback if no runtime config is provided
+  },
+  publicRuntimeConfig: {
+    googleAnalytics: {
+      id: process.env.GOOGLE_ANALYTICS_ID
+    }
   },
   /*
    ** Build configuration
