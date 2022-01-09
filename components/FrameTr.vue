@@ -12,7 +12,7 @@
         />
         <button
           @click.prevent="submit()"
-          class="btn-lg  btn-green param-md mb-4"style="padding: 10px 25px;margin-top: -14px">
+          class="btn-lg  btn-green param-md mb-4" style="padding: 10px 25px;margin-top: -14px">
           <b-spinner v-if="loading" small class="mr-1"></b-spinner>
           {{loading ? ' Loading...' : 'Subscribe'}}
         </button>
