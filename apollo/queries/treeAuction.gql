@@ -1,0 +1,25 @@
+query treeAuction($tree: String!, $isActive:Boolean!){
+  auctions(where: {tree: $tree, isActive:$isActive}) {
+    id
+    tree{
+      id
+    }
+    initialPrice
+    priceInterval
+    startDate
+    expireDate
+    winner{
+      id
+    }
+    highestBid
+    isActive
+    bids{
+      id
+      bid
+      bidder{
+        id
+      }
+    }
+  }
+
+}

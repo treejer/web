@@ -1,97 +1,13 @@
 <template>
-  <!--  <div class="x-page" style="background-color: #313131">-->
-
-  <!--      <h1  class="  text-center ">Page not found.</h1>-->
-  <!--      <nuxt-link :to="localePath('index')">home</nuxt-link>-->
-
-  <!--  </div>-->
   <div class="x-page">
     <div class="stars">
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
+      <div v-for="(item,index) in stars" class="star"></div>
+
     </div>
     <div class="box_astronaut">
       <img class="object_astronaut" src="../assets/images/errors.svg" width="140px">
     </div>
-    <img src="../assets/images/errors.svg" class="astronaut1"/>
+    <img class="astronaut1" src="../assets/images/errors.svg"/>
     <div class="center">
       <div class="circle circle--inner">
 
@@ -118,10 +34,10 @@
             </div>
             <div class="astronaut-body"></div>
           </div>
-          <svg class="astronaut-wire" viewBox="-9 -9 259 823" width="259" height="823">
+          <svg class="astronaut-wire" height="823" viewBox="-9 -9 259 823" width="259">
             <path
               d="M241 0c-24 54-30 113-78 148S63 159 27 215c-35 55 32 102 73 141s103 94 98 166c-6 97-169 66-192 157-10 43-8 84 9 126"
-              fill="none" stroke-width="6" stroke="#FFF"></path>
+              fill="none" stroke="#FFF" stroke-width="6"></path>
           </svg>
           <div class="circle planet">
             <div class="craters">
@@ -135,7 +51,7 @@
           </div>
           <div class="astronaut-hands">
             <div class="astronaut-hand hand--left">
-              <svg width="35" height="75">
+              <svg height="75" width="35">
                 <path
                   d="M30.23 17.209c-7.925 5.118-11.657 12.786-11.226 22.975-7.113.934-12.948 4.345-18.44 5.117C-1.951 26.539 3.92 9.346 18.635 1.369 30.66-4.39 39.53 9.398 30.23 17.209z"
                   fill="#D2D2D2"></path>
@@ -155,7 +71,7 @@
               </svg>
             </div>
             <div class="astronaut-hand hand--right">
-              <svg width="35" height="75">
+              <svg height="75" width="35">
                 <path
                   d="M30.23 17.209c-7.925 5.118-11.657 12.786-11.226 22.975-7.113.934-12.948 4.345-18.44 5.117C-1.951 26.539 3.92 9.346 18.635 1.369 30.66-4.39 39.53 9.398 30.23 17.209z"
                   fill="#D2D2D2"></path>
@@ -177,40 +93,51 @@
           </div>
         </div>
         <div class="button1  pointer-event" @click="$router.push('/')">
-            GO TO HOME
+          GO TO HOME
         </div>
-        <div class="button1  text-center pointer-event"  style="bottom: -25px;width: inherit;"  @click="goToDashboard()">
+        <div class="button1  text-center pointer-event" style="bottom: -25px;width: inherit;" @click="goToDashboard()">
           GO TO DASHBOARD
         </div>
       </div>
     </div>
   </div>
-
-
 </template>
 
 <script>
 export default {
   name: 'error.vue',
-  asyncData (context) {
-    // called every time before loading the component
-    // as the name said, it can be async
-    // Also, the returned object will be merged with your data object
-    return { name: context }
+  mounted() {
+    console.log(this.$route.name === null)
   },
-  mounted () {
-    console.log(this.$route.name === null )
+  data() {
+    return {
+      stars: []
+
+    }
   },
-  methods:{
+  methods: {
     goToDashboard() {
-      const id= this.$cookies.get('account')
-      this.$store.commit('SET_INDEX',0)
-      if(id){
-        this.$router.push({ path: `/forest/${id}` });
-      }else{
+      const id = this.$cookies.get('account')
+      this.$store.commit('SET_SIDEBAR_INDEX', 0)
+      if (id) {
+        this.$router.push({path: `/forest/${id}`});
+      } else {
         this.$router.push('/forest')
       }
     },
+    setStars() {
+      if (this.stars.length <= 0) {
+        for (let i = 0; i <= 80; i++) {
+          this.stars.push({
+            i
+          })
+        }
+      }
+
+    }
+  },
+  created() {
+    this.setStars()
   }
 }
 </script>
@@ -221,7 +148,7 @@ export default {
 .x-page {
   height: 100vh;
   position: relative;
-  background-color:#faf8f2;
+  background-color: #faf8f2;
   margin: 0;
   background-attachment: fixed;
   overflow: hidden;
@@ -247,7 +174,7 @@ export default {
       transform: translateY(0px);
     }
     65% {
-      transform: translateY(15px);
+      transform: translateY(35px);
     }
     to {
       transform: translateY(0px);
@@ -3187,7 +3114,8 @@ export default {
     width: inherit;
     text-align: center;
     z-index: +9999;
-    a{
+
+    a {
       position: relative;
       width: 100%;
       height: 100%;
@@ -3286,7 +3214,4 @@ export default {
 
 
 }
-
-
-
 </style>

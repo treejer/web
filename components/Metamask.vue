@@ -1,52 +1,58 @@
 <template>
-  <b-navbar-nav class="metamask" ref="page">
+  <b-navbar-nav ref="page" class="metamask">
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
         {{ "Connect Wallet" }}
       </b-button>
-      <img
-        alt="tree"
-        name="tree"
-        src="/tree.svg"
-        @click="goToDashboard('/forest')"
-        class="img-fluid tree pointer-event"
-      />
+      <span class="position-relative">
+        <img
+          alt="tree"
+          class="img-fluid tree pointer-event"
+          name="tree"
+          src="/tree.svg"
+          @click="goToDashboard('/forest')"
+        />
+        <Badge />
+      </span>
+
     </b-nav-form>
 
     <b-nav-form
-      class="pointer-event"
       v-if="$cookies.get('account')"
+      class="pointer-event"
     >
       <div
-        @click.prevent="logout()"
         class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
+        @click.prevent="logout()"
       >
         <span v-coin class="param-sm tr-gray-three">{{
-          $cookies.get("account")
-        }}</span>
+            $cookies.get("account")
+          }}</span>
         <span class="img"
-          ><img
-            style="border: solid 2px white"
-            :src="icon"
-            alt="accounting"
-            class="img-fluid bg-white d-none d-md-block rounded-circle"
-            width="42"
-            height="42"
+        ><img
+          :src="icon"
+          alt="accounting"
+          class="img-fluid bg-white d-none d-md-block rounded-circle"
+          height="42"
+          style="border: solid 2px white"
+          width="42"
         /></span>
       </div>
-
+      <span class="position-relative">
       <img
         alt="tree"
+        class="img-fluid tree pointer-event"
         name="tree"
         src="/tree.svg"
         @click="goToDashboard(`/forest/${$cookies.get('account')}`)"
-        class="img-fluid tree pointer-event"
       />
+        <Badge /></span>
+
     </b-nav-form>
     <b-modal
+      id="seven"
       hide-footer
       @close="$bvModal.hide('seven')"
-      id="seven"
       @hide="$bvModal.hide('seven')"
     >
       <ul v-if="$cookies.get('walletName')" class="list-style-none seven">
@@ -73,12 +79,12 @@
             <span class="icon">
               <img
                 v-if="$cookies.get('walletName')"
+                :alt="$cookies.get('walletName')"
                 :src="
                   require(`~/assets/images/wallets/${$cookies.get(
                     'walletName'
                   )}.svg`)
                 "
-                :alt="$cookies.get('walletName')"
                 class="img-fluid bg-white"
               />
             </span>
@@ -88,14 +94,14 @@
           class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative"
         >
           <span style="letter-spacing: -3px"
-            >-------------------------------------</span
+          >-------------------------------------</span
           ><span style="padding: 0 10px">Your Address</span
-          ><span style="letter-spacing: -3px"
-            >-------------------------------------</span
-          >
+        ><span style="letter-spacing: -3px"
+        >-------------------------------------</span
+        >
         </li>
         <li class="d-flex mt-4 align-items-center justify-content-center">
-          <CopyToClipBoard />
+          <CopyToClipBoard/>
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button
@@ -113,9 +119,10 @@
 <script>
 import Wallets from "./Wallets";
 import CopyToClipBoard from "./CopyToClipBoard.vue";
+import Badge from '@/components/Badge'
 
 export default {
-  components: { Wallets, CopyToClipBoard },
+  components: {Wallets, CopyToClipBoard,Badge},
   props: ["wallets"],
 
   data() {
@@ -144,16 +151,16 @@ export default {
       let self = this;
       self.icon = `${process.env.gravatar}${this.$cookies
         .get("account")
-        .replace(/[^0-9\\.]+/g, "")}?d=robohash`;
+       }`;
       // await ethereum.on("chainChanged", () => {
       //   document.location.reload();
       // });
     },
     changeWallet() {
       let self = this
-      this.$store.dispatch("logout").then(()=>{
-        // window.location.reload()
-        self.$router.push(`/`);
+      this.$store.dispatch("logout").then(() => {
+        window.location.reload()
+        // self.$router.push(`/`);
       });
       this.$bvModal.hide("seven");
       this.$bvModal.show("five");
@@ -162,14 +169,10 @@ export default {
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
-      this.$store.commit("SET_INDEX", 0);
-      if (this.$cookies.get("account")) {
-        this.$router.push(`/forest/${this.$cookies.get("account")}`);
-      } else {
-        this.$bvModal.show("five");
-      }
+      this.$router.push(`/forest/guest`);
     },
-    copyClipboard(e) {},
+    copyClipboard(e) {
+    },
     showModal() {
       this.$emit("showModal");
     },
@@ -184,7 +187,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .metamask {
 }
 </style>

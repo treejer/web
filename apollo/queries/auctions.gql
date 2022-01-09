@@ -1,0 +1,15 @@
+{
+  auctions(first: 10, orderBy: createdAt, orderDirection: asc) {
+    id
+    tree{id}
+    initialPrice
+    priceInterval
+    startDate
+    endDate
+    winner
+    highestBid
+    isActive
+    createdAt
+    updatedAt
+  }
+}

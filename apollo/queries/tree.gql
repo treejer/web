@@ -1,0 +1,36 @@
+ {
+  tree(id: $id) {
+    id
+    planter{
+      id
+    }
+    funder{
+      id
+    }
+    owner{
+      id
+    }
+    treeType
+    countryCode
+    saleType
+    treeStatus
+    plantDate
+    birthDate
+    treeSpecsEntity{
+      id
+      name
+      description
+      externalUrl
+      imageFs
+      imageHash
+      symbolFs
+      symbolHash
+      animationUrl
+      diameter
+      latitude
+      longitude
+      attributes
+    }
+  }
+ }
+

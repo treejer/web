@@ -11,6 +11,15 @@ export default {
   name: "volunteer",
   layout:'landing',
   loading:false,
+  head() {
+    return {
+      title:"Treejer",
+      meta:[
+        { hid: 'description', name: 'description', content:"contact our business and team"},
+    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams'}
+  ]
+  }
+  },
   data() {
     return {
 

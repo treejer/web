@@ -1,7 +1,8 @@
 <template>
   <div :class="currentRouteName" style="min-height: 100vh">
 
-   <DashboardHeader />
+    <TreejerHeader/>
+
     <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
         <Sidebar />
@@ -15,13 +16,14 @@
 
 <style lang="scss"></style>
 <script>
-import DashboardHeader from "../components/DashboardHeader";
+import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
 
 export default {
-  components: { Sidebar, Footer, DashboardHeader, Router },
+  components: { Sidebar, Footer, TreejerHeader, Router },
+  middleware: 'queryParamToCookie',
   data() {
     return {
     };
@@ -34,7 +36,15 @@ export default {
 
   mounted() {
     this.$store.commit('SET_DASHBOARD' , true)
-
+    if($nuxt.isOffline){
+      this.$bvToast.toast(['Please check your connection'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Connection is broked',
+        variant: 'danger',
+        noAutoHide: true,
+        bodyClass: 'fund-error'
+      })
+    }
   },
   // mounted() {
   //   this.$store.dispatch('hasDashboard', {})

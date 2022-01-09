@@ -16,6 +16,7 @@
           </div>
           <div class="row">
             <ul class="nav flex-lg-row">
+              <!--suppress HtmlUnknownAttribute -->
               <li
                 class="nav-item pointer-event "
                 v-for="(item, index) in menus"
@@ -98,7 +99,7 @@
                         : treesPerVoucher
                     "
                   >
-                    <p>-</p></span
+                    <span>-</span></span
                   >
                   <span
                     ><label for="trees-per-voucher"
@@ -301,7 +302,7 @@
                     </p>
                   </div>
                   <div class="body ">
-                    <form class="d-flex" action="" @submit="addTreeFinalStep()">
+                    <form class="d-flex"  @submit="addTreeFinalStep()">
                       <div class="final-box-input">
                         <input
                           class="form-control-lg"
@@ -392,6 +393,15 @@ import Fas from "../../components/font-awsome/Fas";
 export default {
   name: "addTree",
   layout: "dashboard",
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"Enter the Tree ID below and we'll find it for you! :)"},
+        { hid: 'keywords', name: 'keywords', content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard' }
+      ]
+    }
+  },
 
   components: { Fas },
   data() {

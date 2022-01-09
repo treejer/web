@@ -27,11 +27,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #67b68c;
 }
-@media (min-width: 1200px){
-.container, .container-lg, .container-md, .container-sm, .container-xl {
-  max-width: 1194px;
+
+@media (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1194px;
+  }
 }
-}
+
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
   src: url("../assets/fonts/MontserratAlternates-BlackItalic.otf");
@@ -217,10 +223,12 @@
   src: url("../assets/fonts/Montserrat-SemiBold.otf");
   font-weight: normal;
 }
+.title-letter-space{
+  letter-spacing: 2px;
+}
 .tooltip {
   z-index: +999999999;
   color: white;
-
 }
 
 #fortmatic {
@@ -234,14 +242,22 @@
   //z-index: +9992147483647;
 }
 
-#five, #six, #seven {
+.ease-out {
+  transition: all ease-out .5s;
+}
+
+#five,
+#six,
+#seven,
+#social-target {
   //font-family: Montserrat-Regular !important;
   border: none;
   overflow: auto;
 
-  .modal-body, .modal-content {
+  .modal-body,
+  .modal-content {
     margin-top: 30px;
-    background: #FAF8F1 !important;
+    background: #faf8f1 !important;
 
     ul {
       li p {
@@ -250,13 +266,14 @@
       }
     }
   }
-  .close{
+
+  .close {
     position: absolute;
     font-weight: lighter;
     width: 64px;
     color: #757575;
     height: 64px;
-    background: #E5E7DB;
+    background: #e5e7db;
     border-radius: 50%;
     top: -12px;
     right: 45%;
@@ -268,32 +285,35 @@
     justify-content: center;
     opacity: 1;
   }
-  .avatar-card{
-    background-color: #EEEEEE;
+
+  .avatar-card {
+    background-color: #eeeeee;
     padding: 5px 20px 5px 15px;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #ffffff;
     border-radius: 25px;
     border-right: 0;
   }
 }
 
-.disabled{
+.disabled {
   cursor: not-allowed;
 }
-.disabled:hover{
+
+.disabled:hover {
   cursor: not-allowed;
-
 }
-.tr-table #accounting-card {
 
+.tr-table.accounting-card {
 }
-.befor-res{
+
+.befor-res {
   position: absolute;
   top: 81px;
   z-index: +999999;
-  button,.tooltip{
-    z-index: +999999999;
 
+  button,
+  .tooltip {
+    z-index: +999999999;
   }
 }
 
@@ -315,11 +335,11 @@
   font-weight: normal;
 }
 
-                                    @font-face {
-                                      font-family: MontserratAlternates-Black;
-                                      src: url("../assets/fonts/MontserratAlternatesBlack.otf");
-                                      font-weight: normal;
-                                    }
+@font-face {
+  font-family: MontserratAlternates-Black;
+  src: url("../assets/fonts/MontserratAlternatesBlack.otf");
+  font-weight: normal;
+}
 
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
@@ -527,218 +547,150 @@
 
 .MontserratAlternates-Black {
   font-family: MontserratAlternates-Black;
-
-
 }
 
 .MontserratAlternates-BlackItalic {
   font-family: MontserratAlternates-BlackItalic;
-
-
 }
 
 .MontserratAlternates-Bold {
   font-family: MontserratAlternates-Bold;
-
-
 }
 
 .MontserratAlternates-BoldItalic {
   font-family: MontserratAlternates-BoldItalic;
-
-
 }
 
 .MontserratAlternates-ExtraBold {
   font-family: MontserratAlternates-ExtraBold;
-
-
 }
 
 .MontserratAlternates-ExtraBoldItalic {
   font-family: MontserratAlternates-ExtraBoldItalic;
-
-
 }
 
 .MontserratAlternates-ExtraLight {
   font-family: MontserratAlternates-ExtraLight;
-
-
 }
 
 .MontserratAlternates-ExtraLightItalic {
   font-family: MontserratAlternates-ExtraLightItalic;
-
-
 }
 
 .MontserratAlternates-Italic {
   font-family: MontserratAlternates-Italic;
-
-
 }
 
 .MontserratAlternates-LightItalic {
   font-family: MontserratAlternates-LightItalic;
-
-
 }
 
 .MontserratAlternates-Medium {
   font-family: MontserratAlternates-Medium;
-
-
 }
 
 .MontserratAlternates-MediumItalic {
   font-family: MontserratAlternates-MediumItalic;
-
-
 }
 
 .MontserratAlternates-Regular {
   font-family: MontserratAlternates-Regular;
-
-
 }
 
 .MontserratAlternates-SemiBold {
   font-family: MontserratAlternates-SemiBold;
-
-
 }
 
 .MontserratAlternates-SemiBoldItalic {
   font-family: MontserratAlternates-SemiBoldItalic;
-
-
 }
 
 .MontserratAlternates-Thin {
   font-family: MontserratAlternates-Thin;
-
-
 }
 
 .MontserratAlternates-ThinItalic {
   font-family: MontserratAlternates-ThinItalic;
-
-
 }
 
 .Montserrat-Black {
   font-family: Montserrat-Black;
-
-
 }
 
 .Montserrat-BlackItalic {
   font-family: Montserrat-BlackItalic;
-
-
 }
 
 .Montserrat-Bold {
   font-family: Montserrat-Bold;
-
-
 }
 
 .Montserrat-BoldItalic {
   font-family: Montserrat-BoldItalic;
-
-
 }
 
 .Montserrat-ExtraBold {
   font-family: Montserrat-ExtraBold;
-
-
 }
 
 .Montserrat-ExtraBoldItalic {
   font-family: Montserrat-ExtraBoldItalic;
-
-
 }
 
 .Montserrat-ExtraLight {
   font-family: Montserrat-ExtraLight;
-
-
 }
 
 .Montserrat-ExtraLightItalic {
   font-family: Montserrat-ExtraLightItalic;
-
-
 }
 
 .Montserrat-Italic {
   font-family: Montserrat-Italic;
-
-
 }
 
 .Montserrat-Light {
   font-family: Montserrat-Light;
-
-
 }
 
 .Montserrat-LightItalic {
   font-family: Montserrat-LightItalic;
-
-
 }
 
 .Montserrat-Medium {
   font-family: Montserrat-Medium;
-
-
 }
 
 .Montserrat-MediumItalic {
   font-family: Montserrat-MediumItalic;
-
-
 }
 
 .Montserrat-Regular {
   font-family: Montserrat-Regular;
-
-
 }
 
 .Montserrat-SemiBold {
   font-family: Montserrat-SemiBold;
-
-
 }
-ul{
-  padding-left:0 ;
+
+ul {
+  padding-left: 0;
 }
+
 .Montserrat-SemiBoldItalic {
   font-family: Montserrat-SemiBoldItalic;
-
-
 }
 
 .Montserrat-Thin {
   font-family: Montserrat-Thin;
-
-
 }
 
 .Montserrat-ThinItalic {
   font-family: Montserrat-ThinItalic;
-
-
 }
 
 .pointer-event:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 p,
@@ -755,230 +707,261 @@ input {
   font-family: Montserrat-Regular;
 }
 
+.disabled:hover {
+  curser: unset !important;
+}
+
 .list-style-none {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 html {
-    font-size: 16px;
-    word-spacing: 1px;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    background: #faf8f1!important;
-    font-family:Montserrat-Regular;
+  overflow: auto;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background: #faf8f1 !important;
+  font-family: Montserrat-Regular;
+  min-height: 100vh;
+
+  #__layout > div {
+    background: #faf8f1;
     min-height: 100vh;
-    #__layout>div {
-        background: #faf8f1;
-        min-height: 100vh;
-    }
+  }
 }
 
 .page-enter-active,
 .page-leave-active {
-    transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 
 .page-enter,
 .page-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 
 *,
 *:before,
 *:after {
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.filter-balckandwhite {
+  filter: grayscale(100%);
+}
+
+.filter-hue {
+  filter: hue-rotate(180deg);
 }
 
 .social {
-    .nav-item svg {
-        font-size: 18px!important;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-
-        letter-spacing: normal;
-        text-align: center;
-        color: #424242!important;
-    }
-}
-
-.connect-button {
-    width: 128px;
-    height: 32px;
-    border-radius: 20px;
-    background-color: #424242;
-    font-family: Montserrat-Black;
-    font-size: 12px;
-    font-weight: 500;
+  .nav-item svg {
+    font-size: 18px !important;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
 
     letter-spacing: normal;
-    color: #f5f5f5;
+    text-align: center;
+    color: #424242 !important;
+  }
 }
-.GMap__Wrapper{
+
+.connect-button {
+  width: 128px;
+  height: 32px;
+  border-radius: 20px;
+  background-color: #424242;
+  font-family: Montserrat-Black;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+
+  letter-spacing: normal;
+  color: #f5f5f5;
+}
+#referral-progress{
+
+  background: #F2E1B6;
+  border-radius: 8px;
+}
+.GMap__Wrapper {
   width: 100%;
   height: 400px;
-  border-radius: 16px!important;
+  border-radius: 16px !important;
 }
-.map-tree-profile .GMap__Wrapper{
+
+.map-tree-profile .GMap__Wrapper {
   width: 100%;
   height: 400px;
-  border-radius: 0!important;
+  border-radius: 0 !important;
 }
+
 .pointer-event:hover,
 .pointer-event:focus,
 .pointer-event:active,
 .pointer-event {
-    cursor: pointer;
+  cursor: pointer;
 }
-#example-datepicker__value_{
+
+#example-datepicker__value_ {
   font-size: 14px;
   color: #616161;
-  font-family:Montserrat-Medium ;
+  font-family: Montserrat-Medium;
   height: 36px;
 
   padding: 7.5px 0px;
 }
+
 .param {
-    font-size: 14px;
-    font-weight: 500;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.param-xs {
+  font-size: 10px;
 }
 
 .param-sm {
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
 
 .font-weight-bolder {
-    font-weight: 900;
+  font-weight: 900;
 }
-.font-weight-bold{
-  font-weight: 700;
 
+.font-weight-bold {
+  font-weight: 700;
 }
 
 .param-sm-light {
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
 
 .param-md {
-    font-size: 16px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
 }
 
 .param-md-light {
-    font-size: 16px;
-    font-weight: 300;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: 1.5px;
+  letter-spacing: 1.5px;
 }
 
 .param-lg {
-    font-size: 20px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
-.vue-typer{
-    color: #67B68C!important;
-    min-width: 184px!important;
-    display: inline-block;
+
+.vue-typer {
+  color: #67b68c !important;
+  min-width: 184px !important;
+  display: inline-block;
   text-align: center;
 
-  span{
-    color: #67B68C!important;
-
+  span {
+    color: #67b68c !important;
   }
 }
-.param-lg-bold {
-    font-size: 20px;
-    font-stretch: normal;
-    font-style: normal;
 
-    letter-spacing: normal;
-    font-weight: bold;
+.param-lg-bold {
+  font-size: 20px;
+  font-stretch: normal;
+  font-style: normal;
+
+  letter-spacing: normal;
+  font-weight: bold;
 }
 
 .param-md-bold {
-    font-size: 16px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
 
 .param-xl {
-    font-size: 22px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
 
-    letter-spacing: normal;
+  letter-spacing: normal;
 }
 
 .title-md {
-    font-size: 36px;
-    font-stretch: normal;
-    font-style: normal;
-
+  font-size: 36px;
+  font-stretch: normal;
+  font-style: normal;
 }
-.param-18{
+
+.title-lg {
+  font-style: normal;
+  font-size: 42px;
+}
+
+.param-18 {
   font-size: 18px;
 }
+
 .title-sm {
-    font-size: 28px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-
-    letter-spacing: normal;
-    color: #616161;
+  font-size: 28px;
+  font-weight: bold;
 }
+
 .vue-range-slider.slider-component .slider .slider-process {
+  background-color: #67b68c !important;
+}
 
-  background-color: #67b68c!important;
-}
 .vue-range-slider.slider-component .slider-tooltip-wrap .slider-tooltip {
-  border: none!important;
-  background-color: #67b68c!important;
+  border: none !important;
+  background-color: #67b68c !important;
 }
+
 .vue-range-slider.slider-component .slider-tooltip-wrap.slider-tooltip-top {
-  top: 50px!important;
+  top: 50px !important;
 }
-body{
+
+body {
   overflow-x: hidden;
 }
 
 option {
-    background-color: #faf8f1!important;
+  background-color: #faf8f1 !important;
 }
 
 @media (min-width: 1281px) {
-    //CSS
+  //CSS
 }
-
 
 /*
   ##Device = Laptops, Desktops
@@ -986,9 +969,8 @@ option {
 */
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-    //CSS
+  //CSS
 }
-
 
 /*
   ##Device = Tablets, Ipads (portrait)
@@ -1010,11 +992,9 @@ option {
 
   .param-md {
     font-size: 12px;
-
   }
   .param-18 {
-    font-size: 16px;
-
+    font-size: 14px;
   }
 
   .param-md-light {
@@ -1029,12 +1009,9 @@ option {
   .param-lg {
     font-size: 14px;
   }
-  .vue-typer{
-
-
-    span{
+  .vue-typer {
+    span {
       font-size: 15px;
-
     }
   }
   .param-lg-bold {
@@ -1055,7 +1032,11 @@ option {
   }
 
   .title-md {
-    font-size: 15px;
+    font-size: 20px;
+  }
+  .title-lg {
+    font-style: normal;
+    font-size: 22px;
   }
 
   .title-sm {
@@ -1063,26 +1044,23 @@ option {
   }
 }
 
-
 /*
   ##Device = Tablets, Ipads (landscape)
   ##Screen = B/w 768px to 1024px
 */
 
-  //CSS
+//CSS
 
 @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
-  body{
-    overflow-x: hidden!important;
+  body {
+    overflow-x: hidden !important;
   }
 
-
-  .headers.container .navbar-nav{
-    .form-inline{
+  .headers.container .navbar-nav {
+    .form-inline {
       justify-content: flex-end;
     }
   }
-
 
   .param {
     font-size: 12px;
@@ -1098,7 +1076,6 @@ option {
 
   .param-md {
     font-size: 12px;
-
   }
 
   .param-md-light {
@@ -1113,17 +1090,15 @@ option {
   .param-lg {
     font-size: 14px;
   }
-  .vue-typer{
-    color: #67B68C!important;
-    min-width: 88px!important;
+  .vue-typer {
+    color: #67b68c !important;
+    min-width: 88px !important;
     display: inline-block;
     text-align: center;
 
-
-    span{
-      color: #67B68C!important;
+    span {
+      color: #67b68c !important;
       font-size: 13px;
-
     }
   }
   .param-lg-bold {
@@ -1142,18 +1117,20 @@ option {
   .param-xl {
     font-size: 16px;
   }
-.dir-rtl{
-  direction: rtl;
-}
+  .dir-rtl {
+    direction: rtl;
+  }
   .title-md {
     font-size: 16px;
+  }
+  .title-lg {
+    font-style: normal;
+    font-size: 18px;
   }
 
   .title-sm {
     font-size: 16px;
   }
-
-
 }
 
 /*
@@ -1162,23 +1139,19 @@ option {
 */
 
 @media (min-width: 100px) and (max-width: 768px) {
-  body{
-    overflow-x: hidden!important;
+  body {
+    overflow-x: hidden !important;
   }
   .vue-image-crop-upload .vicp-wrap {
-
     width: 78% !important;
-    height: 80vh!important;
-
+    height: 80vh !important;
   }
 
-
-  .headers.container .navbar-nav{
-    .form-inline{
+  .headers.container .navbar-nav {
+    .form-inline {
       justify-content: flex-end;
     }
-    }
-
+  }
 
   .param {
     font-size: 12px;
@@ -1194,11 +1167,9 @@ option {
 
   .param-md {
     font-size: 12px;
-
   }
   .param-18 {
     font-size: 14px;
-
   }
 
   .param-md-light {
@@ -1213,17 +1184,15 @@ option {
   .param-lg {
     font-size: 14px;
   }
-  .vue-typer{
-    color: #67B68C!important;
-    min-width: 88px!important;
+  .vue-typer {
+    color: #67b68c !important;
+    min-width: 88px !important;
     display: inline-block;
     text-align: center;
 
-
-    span{
-      color: #67B68C!important;
+    span {
+      color: #67b68c !important;
       font-size: 13px;
-
     }
   }
   .param-lg-bold {
@@ -1246,14 +1215,30 @@ option {
   .title-md {
     font-size: 16px;
   }
+  .title-lg {
+    font-style: normal;
+    font-size: 18px;
+  }
 
   .title-sm {
     font-size: 16px;
   }
-
 }
-#hbspt-form-1593605473343-8634940488, .hub-spot {
 
+@media (max-width: 320px) {
+  .headers {
+    .navbar {
+      justify-content: space-between;
+    }
+
+    .navbar-brand {
+      margin-right: 0;
+    }
+  }
+}
+
+#hbspt-form-1593605473343-8634940488,
+.hub-spot {
   position: absolute !important;
   transform: translate(52%, 20%) !important;
 }
@@ -1261,11 +1246,10 @@ option {
 #five___BV_modal_header_ {
   padding: 5px 30px;
   border-bottom: none;
-
 }
 
-.b-toast-warning{
-  .pending{
+.b-toast-warning {
+  .pending {
     user-select: none;
     display: flex;
     -webkit-box-align: center;
@@ -1277,57 +1261,68 @@ option {
     padding: 0px 1rem;
     transition: all 0.15s ease 0s;
   }
-  .toast-header{
+
+  .toast-header {
     background-image: url("../assets/images/alert/pending.png");
     background-size: cover;
-    background-color: transparent!important;
-    border: none!important;
+    background-color: transparent !important;
+    border: none !important;
     margin-left: 5px;
     width: 28px;
     height: 28px;
-    strong{
-      left: 43px!important;
+
+    strong {
+      left: 43px !important;
       position: absolute;
       top: 5px;
     }
-    button{
-      color: #FAFAFA;
+
+    button {
+      color: #fafafa;
       position: absolute;
       right: 20px;
       top: 5px;
     }
   }
 }
-.b-toaster,.toast,.b-toaster-slot,.vue-portal-target,{
-  z-index: +999999!important;
-  -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .05);
-  -webkit-transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  transition: all .25s ease, max-height .25s ease, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
-  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s;
-  transition: all .25s ease, transform .3s ease .1s, max-height .25s ease, clip-path .5s ease .1s, -webkit-transform .3s ease .1s, -webkit-clip-path .5s ease .1s;
+
+.b-toaster,
+.toast,
+.b-toaster-slot,
+.vue-portal-target {
+  z-index: +999999 !important;
+  -webkit-box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+  -webkit-transition: all 0.25s ease, max-height 0.25s ease, -webkit-transform 0.3s ease 0.1s,
+  -webkit-clip-path 0.5s ease 0.1s;
+  transition: all 0.25s ease, max-height 0.25s ease, -webkit-transform 0.3s ease 0.1s, -webkit-clip-path 0.5s ease 0.1s;
+  transition: all 0.25s ease, transform 0.3s ease 0.1s, max-height 0.25s ease, clip-path 0.5s ease 0.1s;
+  transition: all 0.25s ease, transform 0.3s ease 0.1s, max-height 0.25s ease, clip-path 0.5s ease 0.1s,
+  -webkit-transform 0.3s ease 0.1s, -webkit-clip-path 0.5s ease 0.1s;
   font-size: 14px;
   font-family: Montserrat-Medium;
-  .toast-body{
-    z-index: +999999!important;
+
+  .toast-body {
+    z-index: +999999 !important;
 
     margin-top: 25px;
     font-size: 12px;
     line-height: 15px;
-    color: #FAFAFA;
+    color: #fafafa;
   }
-  .toast-header{
-    strong{
+
+  .toast-header {
+    strong {
       left: 35px;
       position: absolute;
       top: 12px;
-      color: #FAFAFA;
-
+      color: #fafafa;
     }
   }
 }
+
 .toast {
-  z-index: +999999999999999999999999999999999!important;
+  z-index: +99999999999;
   border: 0;
   border-radius: 6px;
   -webkit-box-sizing: border-box;
@@ -1336,50 +1331,50 @@ option {
   list-style: none;
   max-width: 340px;
   width: 100%;
-  background-color: #212121!important;
+  background-color: #212121 !important;
   display: flex;
   flex-direction: row;
   align-self: center;
   height: 64px;
   align-items: center;
-  color: #FAFAFA!important;
-
+  color: #fafafa !important;
 }
 
 .b-toast-danger .toast-header {
-  z-index: +999999999999999999999999999999999!important;
+  z-index: +99999999999;
 
   height: 100%;
-  background: #D04F45!important;
+  background: #d04f45 !important;
   border-radius: 6px 0px 0px 6px;
   width: 24px;
-  color: #FAFAFA!important;
+  color: #fafafa !important;
   justify-content: center;
-  border: 0!important;
+  border: 0 !important;
 
-  button{
-    color: #FAFAFA;
+  button {
+    color: #fafafa;
     position: absolute;
     right: 20px;
     top: 5px;
   }
 }
+
 .b-toast-success {
   .toast-header {
     height: 100%;
-    background: #67B68C!important; ;
+    background: #67b68c !important;
     border-radius: 6px 0px 0px 6px;
     width: 24px;
-    color: #FAFAFA!important;
+    color: #fafafa !important;
     justify-content: center;
-    border: 0!important;
-    button{
-      color: #FAFAFA;
+    border: 0 !important;
+
+    button {
+      color: #fafafa;
       position: absolute;
       right: 20px;
       top: 5px;
     }
-
   }
 }
 
@@ -1388,7 +1383,8 @@ option {
 }
 
 #ledgerPopup___BV_modal_body_ {
-  input, textarea {
+  input,
+  textarea {
     display: block;
     border: none;
     padding: 5px 15px;
@@ -1401,23 +1397,21 @@ option {
     margin: 10px auto;
   }
 
-
-  input[type='button'] {
-
+  input[type="button"] {
     background-color: #67b68c;
     color: white;
     border: 0;
   }
 }
+
 .search-bar input {
-  background: #E5E7DB;
+  background: #e5e7db;
   border: 0;
   padding: 15px 45px;
-
 }
 
 .nuxt-link-exact-active {
-  color: #67B68C !important;
+  color: #67b68c !important;
   font-weight: bolder;
 }
 
@@ -1427,13 +1421,13 @@ option {
 
 .about .formulate-input input {
   height: 43px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border-radius: 6px;
 }
 
 li.square::before {
   content: ""; /* Add content: \2022 is the CSS Code/unicode for a bullet */
-  background-color: #67B68C; /* Change the color */
+  background-color: #67b68c; /* Change the color */
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 7px;
   height: 7px;
@@ -1449,65 +1443,69 @@ li.square::before {
 
   li {
     margin: 5px 15px 5px 0;
+
     a {
       border: solid 1px #757575;
       border-radius: 50px;
       justify-content: center;
-      padding:6px 10px;
-      transition: all ease .2s;
+      padding: 6px 10px;
+      transition: all ease 0.2s;
     }
+
     a:hover {
       border: solid 1px #67b68c;
-
     }
   }
 }
-.tr-frame{
+
+.tr-frame {
   border: 0;
   width: 100%;
   padding: 0;
 }
-.close{
-  content: '' !important;
 
+.close {
+  content: "" !important;
 }
-#questions-widget,#questions-widget-iframe{
-  min-height: 100vh!important;
-  height: auto!important;
+
+#questions-widget,
+#questions-widget-iframe {
+  min-height: 100vh !important;
+  height: auto !important;
   position: relative;
   overflow-y: paged-y;
 }
 
-
-.tr-pagination{
-  .pagination{
-    .pagination-page-nav .page-link{
-      background: transparent!important;
+.tr-pagination {
+  .pagination {
+    .pagination-page-nav .page-link {
+      background: transparent !important;
       color: #424242;
-      border: 1px solid #BDBDBD;
-
+      border: 1px solid #bdbdbd;
     }
-    .page-item.pagination-prev-nav .page-link,.page-item.pagination-next-nav .page-link{
-      background: transparent!important;
+
+    .page-item.pagination-prev-nav .page-link,
+    .page-item.pagination-next-nav .page-link {
+      background: transparent !important;
       color: #424242;
-      border: 1px solid #BDBDBD;
-
+      border: 1px solid #bdbdbd;
     }
-    .page-item.pagination-page-nav.active{
+
+    .page-item.pagination-page-nav.active {
       background-color: whitesmoke;
-      color: white!important;
-
+      color: white !important;
     }
   }
 }
+
 .search-bar-tree-profile {
-  span.icon{
+  span.icon {
     left: 35px;
     top: 7px;
-
   }
-  .formulate-input input  {
-    background: #E5E7DB;
+
+  .formulate-input input {
+    background: #e5e7db;
     width: 176px;
     border-radius: 12px;
     height: 36px;
@@ -1516,6 +1514,5 @@ li.square::before {
     line-height: 24px;
     color: #757575;
     font-family: Montserrat-Medium;
-
   }
 }

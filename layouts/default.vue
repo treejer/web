@@ -1,12 +1,12 @@
 <template>
   <div style="min-height: 100vh">
-    <TreejerHeader />
-    <div class="container" :class="$route.name" style="min-height: 85vh">
+    <TreejerHeader/>
+    <div :class="$route.name" class="container" style="min-height: 85vh">
       <div class="row">
-        <nuxt />
+        <nuxt/>
       </div>
     </div>
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
@@ -15,31 +15,41 @@
 import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
+
 export default {
-  components: { Sidebar, Footer, TreejerHeader },
+  components: {Sidebar, Footer, TreejerHeader},
+  middleware: 'queryParamToCookie',
+
   mounted() {
     this.$store.commit("SET_DASHBOARD", false);
-    // const url =
-    //   "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=7WT93YQWFRQAET8AY3GQM6NCIYG6G1YAHE";
-    // this.$axios
-    //   .get(url)
-    //   .then((res) => {})
-    //   .catch((err) => {
-    //     this.$bvToast.toast(
-    //       [
-    //         <strong>Offline mode</strong>,
-    //         <p class="mb-0 param-sm">
-    //           {" "}
-    //           You can still use Treejer in semi-functional mode
-    //         </p>,
-    //       ],
-    //       {
-    //         variant: "danger",
-    //         toaster: "b-toaster-bottom-left",
-    //         noAutoHide: true,
-    //       }
-    //     );
-    //   });
+    console.log($nuxt.isOffline, "$nuxt.isOffline")
+    if ($nuxt.isOffline) {
+      this.$bvToast.toast(['Please check your connection'], {
+        toaster: 'b-toaster-bottom-left',
+        title: 'Connection is broked',
+        variant: 'danger',
+        noAutoHide: true,
+        bodyClass: 'fund-error'
+      })
+    }
+
+  },
+  async created() {
+    if(process.client){
+      const workbox = await window.$workbox;
+      console.log(workbox,'workbox is here')
+      if (workbox) {
+        workbox.addEventListener('installed', (event) => {
+          // If we don't do this we'll be displaying the notification after the initial installation, which isn't perferred.
+          if (event.isUpdate) {
+            // whatever logic you want to use to notify the user that they need to refresh the page.
+          }
+        });
+      }
+
+    }
+    // Initialize deferredPrompt for use later to show browser install prompt.
+
   },
 
   methods: {

@@ -5,38 +5,38 @@
       style="height: 32px; background: #424242"
     >
       <p class="param-sm text-white mb-0">
-        Treejer is now live on testnet. Connect your wallet to Ropsten Test
+        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test
         Network and start your forest! !
         <a
           class="text-white"
-          target="_blank"
           href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ "
+          target="_blank"
         >
           <img
+            alt="read more"
             class="d-inline-flex align-self-start"
-            src="../assets/images/all/hand-right.png"
-            width="15px"
             height="15px"
-            alt="read more" />
+            src="../assets/images/all/hand-right.png"
+            width="15px"/>
           Read More
           <img
+            alt="read more"
+            height="15px"
             src="../assets/images/all/hand-left.png"
             width="15px"
-            height="15px"
-            alt="read more"
-        /></a>
+          /></a>
       </p>
     </div>
     <div class="headers container" style="min-height: 5vh">
       <keep-alive>
         <b-navbar toggleable="lg">
           <b-navbar-brand
-            class="pointer-event position-relative"
             :to="localePath('index')"
+            class="pointer-event position-relative"
           >
             <img
-              class="img-fluid pointer-event"
               alt="logo"
+              class="img-fluid pointer-event"
               name="treejer"
               src="/logo/treejer.png"
             />
@@ -44,41 +44,41 @@
           <b-navbar-nav>
             <client-only>
               <div class="d-lg-none d-block">
-                <Metamask @showModal="showModal" />
+                <Metamask @showModal="showModal"/>
               </div>
             </client-only>
           </b-navbar-nav>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
           <b-collapse
-            class="text-right justify-content-between"
             id="nav-collapse"
+            class="text-right justify-content-between"
             is-nav
           >
-            <b-navbar-nav class="header-menu"> </b-navbar-nav>
+            <b-navbar-nav class="header-menu"></b-navbar-nav>
             <client-only>
               <div class="d-lg-block d-none">
-                <Metamask @showModal="showModal" />
+                <Metamask @showModal="showModal"/>
               </div>
             </client-only>
           </b-collapse>
         </b-navbar>
       </keep-alive>
-      <b-modal centered hide-footer id="five" title=" ">
-        <Wallets />
+      <b-modal id="five" centered hide-footer title=" ">
+        <Wallets/>
       </b-modal>
       <b-modal
         id="netName"
-        hide-footer
         class="justify-content-center text-center"
-        size="md"
-        ok-only
+        hide-footer
         no-stacking
+        ok-only
+        size="md"
       >
         <div class="text-center justify-content-center m-auto">
           <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
           <p class="param tr-gray-three">
-            Metamask should be on <strong>Ropsten </strong> network.
+            Metamask should be on <strong> {{ networkName }} </strong> network.
           </p>
           <p class="param tr-gray-three">
             Currently it on {{ $store.state.netWorkName }} instead
@@ -120,38 +120,38 @@ export default {
         {name: "Blog", step: 2},
         {name: "For Business", step: 3, href: 'business'},
         {name: "Find My Tree", step: 4, href: 'find'},
-      ]
+      ],
+      networkName: process.env.NETWORK_NAME
     };
   },
   async mounted() {
     let self = this
     // await web3.eth.getAccounts().then(res => {
-      self.account = this.$cookies.get('account')
+    self.account = this.$cookies.get('account')
     await this.$store.dispatch('networkNames')
     // })
     await self.accountChange()
-    setTimeout(()=>{
+    setTimeout(() => {
+
+      if(this.$web3.givenProvider === null) {
+        return;
+      }
+
       this.$web3.eth.net.getId().then(netId => {
 
-        if(netId.toString() === '3') {
+        if (netId.toString() === process.env.NETWORK_ID.toString()) {
           return
         }
-        self.$bvToast.toast('Switch to Ropsten Test Network', {
+        self.$bvToast.toast('Switch to ' + process.env.NETWORK_NAME + ' Network', {
           title: `Wrong network`,
           href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
           variant: 'danger',
           solid: true,
           toaster: 'b-toaster-bottom-left',
           noAutoHide: true,
-        }) 
+        })
       })
-        
-
-    },1000)
-
-
-
-
+    }, 1000)
   },
   computed: {},
   methods: {
@@ -159,19 +159,20 @@ export default {
       this.$bvModal.show('five')
     },
     async accountChange() {
-      if(this.$cookies.get('walletName') === 'metamask'){
-        let self =this
-        if(process.client){
+      if (this.$cookies.get('walletName') === 'metamask') {
+        let self = this
+        if (process.client) {
           await window.ethereum.on('accountsChanged', function (accounts) {
             if (self.account !== accounts[0]) {
               self.$store.commit('SET_USER', accounts[0])
               self.$cookies.set('account', accounts[0])
-              let routeData =self.$router.resolve({path:`/forest/${accounts[0]}`,params:{id:accounts[0]}});
+              let routeData = self.$router.resolve({path: `/forest/${accounts[0]}`, params: {id: accounts[0]}});
               window.open(routeData.href, '_Self');
 
             }
           });
-      }}
+        }
+      }
     },
     activeWallets(item, index) {
       this.activeWallet = index;

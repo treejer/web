@@ -35,6 +35,7 @@
         <div class="col-4 d-md-block d-none justify-content-center">
 
 
+          <!--suppress HtmlUnknownTarget -->
           <img src="~/assets/images/help/get-help.svg" id="help_img" alt="get-help"
                class=" img-fluid"/>
 
@@ -55,6 +56,15 @@ if (process.client) {
 export default {
   name: "help",
   layout: "dashboard",
+  head() {
+    return {
+      title:`Treejer`,
+      meta:[
+        { hid: 'description', name: 'description', content:"contact our business and team"},
+    { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
+  ]
+  }
+  },
   data(){
     return{
       tribe:this.Tribe,

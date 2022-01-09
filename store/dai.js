@@ -8,50 +8,39 @@ export const mutations = {}
 
 export const actions = {
 
-  async balanceOf() {
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
-    let account = this.$cookies.get('account');
-
-    let self = this
-    return daiContract.methods.balanceOf(account).call()
-      .then((balanceInWei) => {
-        return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
-      });
+  async balanceOf(context, params) {
+    try {
+      const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+      let balanceInWei =  await daiContract.methods.balanceOf(params.account).call()
+      return this.$web3.utils.fromWei(balanceInWei.toString()).toString()
+    } catch (err) {
+      console.error(err, "error dai balanceOf")
+      return 0;
+    }
   },
-
-
-
   async allowance() {
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
 
+    if(account == null) {
+      console.log("erc20js - account not exists in cookies");
+      return 0;
+    }
+
     let self = this
-    return daiContract.methods.allowance(account, process.env.contractTreeFactoryAddress).call()
+    return daiContract.methods.allowance(account, this.$RegularSale._address).call()
       .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
   },
   async approve(context, params) {
     let self = this;
-
+    console.log(context,"context is here")
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    // const price = await this.$treeFactory.methods.price().call()
-    //   .then((price) =>
-    //   price.toString()
-    // )
-    // console.log(price, "price");
-    const tx = daiContract.methods.approve(process.env.contractTreeFactoryAddress, (params.count * 7000000000000000000).toString());
+    const tx = daiContract.methods.approve(this.$RegularSale._address, (params.count * this.$web3.utils.toWei(this.state.regularSale.price)).toString());
 
-    console.log(tx, "tx");
     const data = tx.encodeABI();
-    // ;
-
-
-    console.log(data, "data");
-    // debugger
-
-    console.log(daiContract._address, "daiContract._address");
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
@@ -65,7 +54,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: 'Processing transaction...',
           variant: 'warning',
-          href: `https://ropsten.etherscan.io/tx/${transactionHash}`,
+          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
           bodyClass: 'fund-error',
           noAutoHide: true
 

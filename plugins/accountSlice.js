@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 
  const coin = {
-  bind(el, binding) {
+  bind(el) {
     if(el.innerText.length > 12){
       let sliceAccount = ''
       const account = el.innerText.split('')

@@ -32,7 +32,6 @@
               v-for="(item, index) in items"
               :name="item.name"
               :key="index"
-              :to="localePath(item.href)"
               @click="activeMenu(item, index)"
             >
               {{ item.name }}
@@ -77,10 +76,11 @@ export default {
       user: false,
       activeIndex: 0,
       items: [
-        { name: "Find My Tree", step: 4, href: "find" },
-        { name: "For Business", step: 3, href: "business" },
+        { name: "Genesis", step: 4, href: "/genesis" },
+        // { name: "Find My Tree", step: 4, href: "/find" },
+        { name: "Partnerships", step: 3, href: "/partnerships" },
         { name: "Blog", step: 2 },
-        { name: "About", step: 1, href: "about" },
+        { name: "About", step: 1, href: "/about" },
       ],
     };
   },
@@ -125,10 +125,12 @@ export default {
       }
     },
     activeMenu(item, index) {
+
       if (item.name === "Blog") {
         window.open("https://blog.treejer.com/", "_blank");
       } else {
         this.activeIndex = index;
+        this.$router.push(item.href);
       }
     },
   },

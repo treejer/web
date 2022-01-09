@@ -1,12 +1,15 @@
 import Web3 from 'web3'
-import TreeFactory from '~/contracts/TreeFactory'
-import SeedFactory from '~/contracts/SeedFactory'
+import RegularSale from '~/contracts/RegularSale'
+import Auction from  '~/contracts/Auction'
+import IncrementalSale from  '~/contracts/IncrementalSale'
+import IHonoraryTree from  '~/contracts/IHonoraryTree'
 import WalletConnectProvider from "@walletconnect/web3-provider";
+
 
 export default async ({ app }, inject) => {
     const walletName = app.$cookies.get('walletName');
 
-    let instance = new Web3(Web3.givenProvider || 'http://localhost:9545');
+    let instance = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
 
     if (walletName === 'torus') {
 
@@ -17,20 +20,20 @@ export default async ({ app }, inject) => {
 
 
         await torus.setProvider({
-            host: "ropsten", // default : 'mainnet',
-            chainId: 3,
+            host: process.env.NETWORK_NAME, // default : 'mainnet',
+            chainId: parseInt(process.env.NETWORK_ID),
         });
 
         instance = new Web3(torus.provider);
 
     } else if (walletName === 'fortmatic') {
         const Fortmatic = require("fortmatic");
-        const fm = new Fortmatic(process.env.FORTMATIC, 'ropsten');
+        const fm = new Fortmatic(process.env.FORTMATIC, process.env.NETWORK_NAME);
         instance = new Web3(fm.getProvider());
 
     } else if (walletName === 'portis') {
         const Portis = require("@portis/web3");
-        const portis = new Portis(process.env.PORTIS, "ropsten", {
+        const portis = new Portis(process.env.PORTIS, process.env.NETWORK_NAME, {
             scope: ["email"],
         });
 
@@ -42,11 +45,14 @@ export default async ({ app }, inject) => {
         await provider.enable();
 
         instance = new Web3(provider);
-    } 
+    }
 
 
 
     inject('web3', instance)
-    inject('treeFactory', new instance.eth.Contract(TreeFactory.abi, process.env.contractTreeFactoryAddress))
-    inject('seedFactory', new instance.eth.Contract(SeedFactory.abi, process.env.contractSeedFactoryAddress))
+    // inject('treeFactory', new instance.eth.Contract(TreeFactory.abi, process.env.contractTreeFactoryAddress))
+    inject('RegularSale', new instance.eth.Contract(RegularSale.abi, process.env.contractTreeRegularSale))
+    inject('Auction', new instance.eth.Contract(Auction.abi, process.env.contractAuctionAddress))
+    inject('IncrementalSale', new instance.eth.Contract(IncrementalSale.abi, process.env.contractIncrementalSale))
+    inject('IHonoraryTree', new instance.eth.Contract(IHonoraryTree.abi, process.env.contractHonoraryTree))
 }

@@ -1,0 +1,15 @@
+query auction($id: ID!) {
+  auction(id: $id) {
+    id
+    tree
+    initialPrice
+    priceInterval
+    startDate
+    endDate
+    winner
+    highestBid
+    isActive
+    createdAt
+    updatedAt
+  }
+}
