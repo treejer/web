@@ -229,9 +229,14 @@ export default {
 
 
     if(parseInt(this.auction.highestBid) > 0) {
-      this.minBidValue = parseInt(this.auction.highestBid) + parseInt(this.auction.priceInterval)
+      this.minBidValue = parseInt(this.auction.highestBid) + (parseInt(this.auction.highestBid) * parseInt(this.auction.priceInterval) / 10000);
     } else {
-      this.minBidValue = parseInt(this.auction.initialPrice) + parseInt(this.auction.priceInterval)
+      this.minBidValue = parseInt(this.auction.initialPrice) + (parseInt(this.auction.initialPrice) * parseInt(this.auction.priceInterval) / 10000);
+    }
+
+    let minAuctionBidValue = this.$web3.utils.toWei('0.1', 'ether');
+    if(parseInt(this.minBidValue) < parseInt(minAuctionBidValue)) {
+      this.minBidValue = minAuctionBidValue;
     }
 
 
