@@ -76,7 +76,7 @@ export default {
       user: false,
       activeIndex: 0,
       items: [
-        { name: "Genesis", step: 4, href: "/genesis" },
+        { name: "Genesis", step: 4, href: "/#" },
         // { name: "Find My Tree", step: 4, href: "/find" },
         { name: "Partnerships", step: 3, href: "/partnerships" },
         { name: "Blog", step: 2 },
