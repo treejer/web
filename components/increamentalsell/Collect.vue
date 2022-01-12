@@ -165,7 +165,7 @@
         Reserve Price: Ξ{{ tree0ReservePrice }}
       </p>
     </div>
-    <div v-if="tree0Auction"
+    <div v-if="tree0Auction && tree0Auction.auctions"
       class="col-md-8 col-12 justify-content-center text-center pointer-event"
       @click="$router.push('/tree/0')"
     >
@@ -346,6 +346,9 @@ export default {
   },
   watch: {
     treesWithAuction() {
+      if(this.treesWithAuction.length === 0) {
+        return;
+      }
       this.treesAuction = this.treesWithAuction.slice(1);
       this.treesAuctionReservePrice = this.$web3.utils.fromWei(this.treesAuction[0].auctions[0].initialPrice.toString())
 

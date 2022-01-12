@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="row tree-status mt-5 pt-5 justify-content-center text-center">
+      <!-- <div class="row tree-status mt-5 pt-5 justify-content-center text-center">
         <div class="col-12">
           <div class="title">
             <h1 class="title-sm tr-gray-two">Tree Status Explorer</h1>
@@ -207,7 +207,7 @@
                   {{ tree.treeStatus }}
                 </td>
                 <td class="d-none d-md-block">
-                  <!-- {{ tree.latitude + "," + tree.longitude }} -->
+                   {{ tree.latitude + "," + tree.longitude }} 
                 </td>
               </tr>
               </tbody>
@@ -251,7 +251,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- <div
@@ -277,7 +277,7 @@
 import Fab from "@/components/font-awsome/Fab";
 import ownersSorted from "~/apollo/queries/ownersSorted";
 import treesSearchById from "~/apollo/queries/treesSearchById";
-import treesPagination from "~/apollo/queries/treesPagination";
+// import treesPagination from "~/apollo/queries/treesPagination";
 
 export default {
   name: "findMyTree",
@@ -327,7 +327,7 @@ export default {
     },
   },
   async mounted() {
-    await this.listTrees();
+    // await this.listTrees();
   },
   methods: {
     goToLeaderBoard() {
@@ -345,26 +345,40 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-        let result = await this.$apollo.query({
+        
+        try {
+          let result = await this.$apollo.query({
           query: treesSearchById,
-          variables: {
-            id: this.$dec2hex(self.treeID),
-          },
-        });
+            variables: {
+              id: this.$dec2hex(self.treeID),
+            },
+          });
 
-        if (result) {
-          if (result.data.trees.length > 0) {
-            self.$router.push(`/tree/${self.treeID}`);
-          } else {
-            self.$bvToast.toast("Tree Not found!", {
-              toaster: "b-toaster-bottom-left",
-              solid: true,
-              headerClass: "hide",
-              variant: "danger",
-            });
+          if (result) {
+            if (result.data.trees.length > 0) {
+              self.$router.push(`/tree/${self.treeID}`);
+            } else {
+              self.$bvToast.toast("Tree Not found!", {
+                toaster: "b-toaster-bottom-left",
+                solid: true,
+                headerClass: "hide",
+                variant: "danger",
+              });
+            }
+            this.loading = false;
           }
+        } catch (error) {
+          self.$bvToast.toast("Server Error!", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          });
+
           this.loading = false;
         }
+
+        
       } else {
         self.loading = false;
         self.$bvToast.toast("TreeId is empty!", {
@@ -375,49 +389,49 @@ export default {
         });
       }
     },
-    async updatePagination(nextPage = true) {
-      if (nextPage) {
-        this.activeIndex = this.activeIndex + this.perPage;
-      } else {
-        if (this.activeIndex === 0) {
-          this.$bvToast.toast("There is no previous page!", {
-            toaster: "b-toaster-bottom-left",
-            solid: true,
-            headerClass: "hide",
-            variant: "danger",
-          });
-          return;
-        }
-        this.activeIndex = this.activeIndex - this.perPage;
-      }
-      this.listTrees();
-    },
-    async listTrees() {
-      this.loading = true;
-      let result = await this.$apollo.query({
-        query: treesPagination,
-        variables: {
-          first: this.perPage,
-          skip: this.activeIndex,
-          orderBy: "id",
-          orderDirection: "desc",
-        },
-      });
+    // async updatePagination(nextPage = true) {
+    //   if (nextPage) {
+    //     this.activeIndex = this.activeIndex + this.perPage;
+    //   } else {
+    //     if (this.activeIndex === 0) {
+    //       this.$bvToast.toast("There is no previous page!", {
+    //         toaster: "b-toaster-bottom-left",
+    //         solid: true,
+    //         headerClass: "hide",
+    //         variant: "danger",
+    //       });
+    //       return;
+    //     }
+    //     this.activeIndex = this.activeIndex - this.perPage;
+    //   }
+    //   this.listTrees();
+    // },
+    // async listTrees() {
+    //   this.loading = true;
+    //   let result = await this.$apollo.query({
+    //     query: treesPagination,
+    //     variables: {
+    //       first: this.perPage,
+    //       skip: this.activeIndex,
+    //       orderBy: "id",
+    //       orderDirection: "desc",
+    //     },
+    //   });
 
-      if (result) {
-        if (result.data.trees.length > 0) {
-          this.trees = result.data.trees;
-        } else {
-          self.$bvToast.toast("Tree is no more trees!", {
-            toaster: "b-toaster-bottom-left",
-            solid: true,
-            headerClass: "hide",
-            variant: "danger",
-          });
-        }
-        this.loading = false;
-      }
-    },
+    //   if (result) {
+    //     if (result.data.trees.length > 0) {
+    //       this.trees = result.data.trees;
+    //     } else {
+    //       self.$bvToast.toast("Tree is no more trees!", {
+    //         toaster: "b-toaster-bottom-left",
+    //         solid: true,
+    //         headerClass: "hide",
+    //         variant: "danger",
+    //       });
+    //     }
+    //     this.loading = false;
+    //   }
+    // },
   },
 };
 </script>

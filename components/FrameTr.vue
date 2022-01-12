@@ -12,13 +12,10 @@
         />
         <button
           @click.prevent="submit()"
-          class="btn-lg  btn-green param-md mb-4"style="padding: 10px 25px;margin-top: -14px">
+          class="btn-lg  btn-green param-md mb-4" style="padding: 10px 25px;margin-top: -14px">
           <b-spinner v-if="loading" small class="mr-1"></b-spinner>
-          {{loading ? ' Loading...' : 'submit'}}
+          {{loading ? ' Loading...' : 'Subscribe'}}
         </button>
-
-
-      <recaptcha class="g-recaptcha" data-sitekey="6Lfa9H0UAAAAAMAGt_pKuycKsKYFnIouFWeqInvd"></recaptcha>
 
     </form>
   </div>
@@ -43,52 +40,10 @@
       }
     },
     async mounted() {
-      // await this.$recaptcha.init()
     },
     methods: {
-      submits(){
-        this.loading = true
-        let self = this
-        const body = JSON.stringify({
-          first_name: self.values.first - name,
-          last_name: self.values.last - name,
-          email: self.values.email,
-          user_id: 10211987,
-          form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
-          recaptcha: self.$recaptcha.getResponse(),
-        })
-        this.$axios({
-          method: 'post',
-          url: baseUrl + 'applications/' + appName + '/dataexport/plantypes' + plan,
-          headers: {},
-          data: {
-           body
-          }
-        });
-      },
-
       submit() {
-        this.loading = true
-        let self = this
-        const body = JSON.stringify({
-          first_name: self.values.first - name,
-          last_name: self.values.last - name,
-          email: self.values.email,
-          user_id: 10211987,
-          form_id: "7888deb9-ccb4-11ea-a818-d22e287687ec",
-          recaptcha: self.$recaptcha.getResponse(),
-        })
-        this.$axios.post('https://api.sg-form.com/signup', {
-
-          body
-        })
-          .then(function (response) {
-            self.loading = false
-          })
-          .catch(function (error) {
-            self.loading = false
-          });
-
+        window.open(process.env.SUBSCRIBE_LINK,'_blank');
       }
     }
   }

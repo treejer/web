@@ -27,26 +27,39 @@ export default {
       this.loading = true;
       let self = this;
       if (self.treeID) {
-        let result = await this.$apollo.query({
-          query: treesSearchById,
-          variables: {
-            id: this.$dec2hex(self.treeID),
-          },
-        });
+        
+        try {
+          let result = await this.$apollo.query({
+            query: treesSearchById,
+            variables: {
+              id: this.$dec2hex(self.treeID),
+            },
+          });
 
-        if (result) {
-          if (result.data.trees.length > 0) {
-            self.$router.push(`/tree/${self.treeID}`);
-          } else {
-            self.$bvToast.toast("Tree Not found!", {
-              toaster: "b-toaster-bottom-left",
-              solid: true,
-              headerClass: "hide",
-              variant: "danger",
-            });
+          if (result) {
+            if (result.data.trees.length > 0) {
+              self.$router.push(`/tree/${self.treeID}`);
+            } else {
+              self.$bvToast.toast("Tree Not found!", {
+                toaster: "b-toaster-bottom-left",
+                solid: true,
+                headerClass: "hide",
+                variant: "danger",
+              });
+            }
+            this.loading = false;
           }
+        } catch (error) {
           this.loading = false;
+          this.$bvToast.toast("Server Error!", {
+            toaster: "b-toaster-bottom-left",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          });
         }
+
+
       } else {
         self.loading = false;
         self.$bvToast.toast("TreeId is empty!", {

@@ -15,11 +15,11 @@ export const state = () => ({
 export const actions = {
   async calculateTotalPrice({ context, dispatch }, params) {
 
-
-
     let lastSold = await dispatch("setLastSold");
     let incSaleData = await dispatch("setIncSaleData");
-
+    if(lastSold === 0 || typeof incSaleData === 'undefined') {
+      return;
+    }
 
     if (lastSold + parseInt(params.count) > parseInt(incSaleData.endTreeId)) {
       alert("Not enough tree in incremental sell");
@@ -70,15 +70,23 @@ export const actions = {
   },
 
   async setLastSold({ commit }) {
-    let lastSold = await this.$IncrementalSale.methods.lastSold().call();
-    commit('SET_LAST_SOLD', lastSold);
-    return parseInt(lastSold);
+    try {
+      let lastSold = await this.$IncrementalSale.methods.lastSold().call();
+      commit('SET_LAST_SOLD', lastSold);
+      return parseInt(lastSold);
+    } catch(e) {
+      console.log(e + "error in setLastSold")
+    }
   },
 
   async setIncSaleData({ commit }) {
-    let incSaleData = await this.$IncrementalSale.methods.incrementalSaleData().call();
-    commit('SET_INCSALEDATA_SOLD', incSaleData);
-    return incSaleData;
+    try {
+      let incSaleData = await this.$IncrementalSale.methods.incrementalSaleData().call();
+      commit('SET_INCSALEDATA_SOLD', incSaleData);
+      return incSaleData;
+    } catch(e) {
+      console.log(e + "error in setIncSaleData")
+    }
   },
 
   async fundTree(context, params) {

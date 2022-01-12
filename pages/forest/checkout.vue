@@ -107,13 +107,14 @@
                       placeholder="Enter recipient’s address"
                     />
                   </div>
-                  <div class="col-12 col-md-4">
-<!--                    <button-->
-<!--                      class="btn-gray param-xs"-->
-<!--                      v-text="'Paste'"-->
-<!--                      @click.p.prevent="pasteRecipient()"-->
-<!--                    />-->
-                  </div>
+
+                  <!-- <div class="col-12 col-md-4">
+                    <button
+                      class="btn-gray param-xs"
+                      v-text="'Paste'"
+                      @click.p.prevent="pasteRecipient()"
+                    />
+                  </div> -->
                 </div>
               </div>
             </div>

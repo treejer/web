@@ -439,6 +439,7 @@
               <div class="add-tree">
                 <button class="btn-lg text-capitalize" @click="goToAddTree()">
                   plant trees
+
                 </button>
               </div>
             </div>
