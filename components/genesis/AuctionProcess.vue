@@ -253,6 +253,12 @@ export default {
   },
   methods: {
     async buyERC20() {
+
+      window.open('https://global.transak.com/?defaultCryptoCurrency=WETH&fiatCurrency=USD&defaultNetwork=polygon', '_blank');
+      return;
+
+
+
       let self = this;
       let transak = new transakSDK({
         apiKey: process.env.transakApiKey, // Your API Key
@@ -418,7 +424,9 @@ export default {
       if (id === "one") {
         this.placeBidStep = false;
         this.placeBidStepTwo = true;
+        return;
       }
+
       if (id === "two") {
 
         if(this.ended) {
@@ -441,29 +449,36 @@ export default {
           this.toast('You have to bid more than the min bid value: ' + parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())) , "Value Error");
           return;
         }
-        else {
-          await this.setERC20Balance(true);
-          await this.setIsAllowance(true);
 
-          if(this.isAllowedSpendERC20) {
-            this.placeBidStepTwo = false;
-            this.placeBidStepThree = false;
-            this.placeBidStepFour = true;
+        await this.setERC20Balance(true);
 
-          } else {
-            this.placeBidStepTwo = false;
-            this.placeBidStepThree = true;
-          }
-          
+        if ( parseFloat(this.bidValue) > parseFloat(this.erc20Balance) ) {
+          this.toast('Insufficient Balance, Your weth balance: ' +  parseFloat(this.erc20Balance).toFixed(4), "Value Error");
+          return;
         }
+        
+        await this.setIsAllowance(true);
+
+        if(this.isAllowedSpendERC20) {
+          this.placeBidStepTwo = false;
+          this.placeBidStepThree = false;
+          this.placeBidStepFour = true;
+
+        } else {
+          this.placeBidStepTwo = false;
+          this.placeBidStepThree = true;
+        }
+        return;
 
       }
+
       if (id === "finish") {
         this.placeBidStepSix = true;
         this.placeBidStepFive = false;
         this.placeBidStepFour = false;
         this.placeBidStepThree = false;
         this.getTime();
+        return;
       }
     },
     backToStep() {
