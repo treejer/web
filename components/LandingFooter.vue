@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       listOne: [
-        {name: 'Genesis', href: '/#'},
+        {name: 'Genesis', href: '/genesis'},
         {name: 'Find My Tree', href: '/find'},
         {name: 'Referral Program', href: 'https://docs.treejer.com/impact-referral-program', tab: '_blank'},
         // {name: 'Project Charter', href: 'https://docs.treejer.com/project-charter', tab: '_blank'},
