@@ -3,7 +3,7 @@
     <div class="col-md-2 col-4 text-left">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.startTreeId }}</p>
       <p class="tr-gray-four param mb-0">Start Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ startTreePrice }}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ parseFloat(startTreePrice).toFixed(2) }}</p>
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
       <img
@@ -16,7 +16,7 @@
     <div class="col-md-2 col-4 text-right">
       <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.endTreeId }}</p>
       <p class="tr-gray-four param mb-0">End Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ lastTreePrice }}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ parseFloat(lastTreePrice).toFixed(2) }}</p>
     </div>
     <div class="col-md-12 text-center mt-3">
       <p class="param-xl font-weight-bolder tr-gray-two text-capitalize">
@@ -34,7 +34,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Current Price: {{ ` Ξ${currenPrice}` }}
+        Ξ{{ parseFloat(currenPrice).toFixed(2) }}
       </p>
     </div>
     <div
@@ -48,7 +48,7 @@
       "
     >
       <button class="btn-green param-18" @click="goToCheckout()">
-        Claim Me
+        Mint
       </button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
@@ -162,7 +162,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Reserve Price: Ξ{{ tree0ReservePrice }}
+        Reserve Price: Ξ{{ parseFloat(tree0ReservePrice).toFixed(2) }}
       </p>
     </div>
     <div v-if="tree0Auction && tree0Auction.auctions"
@@ -186,7 +186,8 @@
       "
     >
       <p class="param tr-gray-four text-capitalize m-auto">
-        Reserve Price: Ξ{{ treesAuctionReservePrice }}
+        Reserve Price: Ξ{{ parseFloat(treesAuctionReservePrice).toFixed(2) }}
+
       </p>
     </div>
     <div class="col-md-9 col-12 justify-content-center text-center">
@@ -349,11 +350,13 @@ export default {
       if(this.treesWithAuction.length === 0) {
         return;
       }
-      this.treesAuction = this.treesWithAuction.slice(1);
+
+      // this.treesAuction = this.treesWithAuction.slice(1)
+      this.treesAuction = this.treesWithAuction
       this.treesAuctionReservePrice = this.$web3.utils.fromWei(this.treesAuction[0].auctions[0].initialPrice.toString())
 
-      this.tree0Auction = this.treesWithAuction[0];
-      this.tree0ReservePrice = this.$web3.utils.fromWei(this.tree0Auction.auctions[0].initialPrice.toString())
+      // this.tree0Auction = this.treesWithAuction[0];
+      // this.tree0ReservePrice = this.$web3.utils.fromWei(this.tree0Auction.auctions[0].initialPrice.toString())
     }
   },
   methods: {
