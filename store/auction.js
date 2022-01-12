@@ -85,7 +85,7 @@ export const actions = {
   async end(context,params) {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
-    const tx = this.$Auction.methods.endAuction(params.auctionId);
+    const tx = this.$Auction.methods.endAuction(params.auctionId, 0);
     const data = tx.encodeABI();
 
 

@@ -119,7 +119,7 @@ export const actions = {
 
     this.$web3.currentProvider.enable();
 
-    const tx = this.$IncrementalSale.methods.fundTree(params.count, referrer, recipient);
+    const tx = this.$IncrementalSale.methods.fundTree(params.count, referrer, recipient, 0);
     const data = tx.encodeABI();
     try {
       const receipt = await this.$web3.eth.sendTransaction({
