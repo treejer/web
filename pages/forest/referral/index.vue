@@ -3,7 +3,7 @@
     :class="$route.name"
     class="referral col-12 col-lg-10 col-md-auto p-0"
   >
-    <div class="container-fluid">
+    <div class="container-fluid mb-5 mb-md-2">
       <div class="row">
         <div class="col-12 col-md-8 left-side-referral">
           <div class="title-referral">
