@@ -187,7 +187,7 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : " Buy Dai" }}
+                    {{ loading ? "Loading" : "Buy Dai" }}
                   </button>
 
                   <button
@@ -616,7 +616,7 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import transakSDK from "@transak/transak-sdk";
+// import transakSDK from "@transak/transak-sdk";
 
 export default {
   name: "checkout",
@@ -663,8 +663,8 @@ export default {
   data() {
     return {
       pays: [
-        {href: "", name: "Bridge"},
-        {href: "https://global.transak.com/", name: "Visa/Master"},
+        {href: "https://app.hop.exchange/#/send?token=DAI&sourceNetwork=ethereum&destNetwork=polygon", name: "Bridge"},
+        {href: "https://global.transak.com/?defaultCryptoCurrency=DAI&fiatCurrency=USD&defaultNetwork=polygon", name: "Visa/Master"},
         {href: "https://docs.treejer.com/", name: "Learn more"},
         {href: "https://discuss.treejer.com/", name: "Questions"},
       ],
@@ -759,6 +759,10 @@ export default {
     },
 
     async buyDai() {
+
+      window.open(this.pays[1].href, '_blank');
+      return;
+
       let self = this;
       if (!self.$cookies.get("account")) {
         self.$bvToast.toast("you're not login", {
@@ -770,6 +774,7 @@ export default {
         self.$bvModal.show("five");
         return
       }
+
 
       let transak = new transakSDK({
         apiKey: process.env.transakApiKey, // Your API Key
@@ -885,29 +890,29 @@ export default {
         });
     },
     async setPaymentMethod(item, href) {
-      if (item === "Bridge") {
-        if (process.client) {
-          const {Widget} = require("@maticnetwork/wallet-widget");
-          this.bridgeLoading = true
+      // if (item === "Bridge") {
+        // if (process.client) {
+        //   const {Widget} = require("@maticnetwork/wallet-widget");
+        //   this.bridgeLoading = true
 
-          const widget = await new Widget({
-            target: "#Bridge",
-            appName: "Polygon_Bridge_Treejer",
-            autoShowTime: 0,
-            position: "center",
-            height: 630,
-            width: 540,
-            overlay: false,
-            network: "mainnet",
-            closable: true,
-          });
-          await widget.create();
-          await widget.show();
-          this.bridgeLoading = false
-        } else {
+        //   const widget = await new Widget({
+        //     target: "#Bridge",
+        //     appName: "Polygon_Bridge_Treejer",
+        //     autoShowTime: 0,
+        //     position: "center",
+        //     height: 630,
+        //     width: 540,
+        //     overlay: false,
+        //     network: "mainnet",
+        //     closable: true,
+        //   });
+        //   await widget.create();
+        //   await widget.show();
+        //   this.bridgeLoading = false
+        // } else {
           window.open(href, "_blank");
-        }
-      }
+        // }
+      // }
     },
     goToTerm(item, target) {
       window.open(item, target);

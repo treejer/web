@@ -287,7 +287,7 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import transakSDK from "@transak/transak-sdk";
+// import transakSDK from "@transak/transak-sdk";
 
 export default {
   name: "giftTree",
@@ -327,8 +327,8 @@ export default {
   data() {
     return {
       pays: [
-        {href: "", name: "Bridge"},
-        {href: "https://global.transak.com/", name: "Visa/Master"},
+        {href: "https://app.hop.exchange/#/send?token=ETH&sourceNetwork=ethereum&destNetwork=polygon", name: "Bridge"},
+        {href: "https://global.transak.com/?defaultCryptoCurrency=WETH&fiatCurrency=USD&defaultNetwork=polygon", name: "Visa/Master"},
         {href: "https://docs.treejer.com/", name: "Learn more"},
         {href: "https://discuss.treejer.com/", name: "Questions"},
       ],
@@ -368,6 +368,10 @@ export default {
       this.activePay = index;
     },
     async buyWeth() {
+
+       window.open(this.pays[1].href, '_blank');
+      return;
+
 
       let self = this;
       if (!self.$cookies.get("account")) {
@@ -538,6 +542,9 @@ export default {
         });
     },
     async setPaymentMethod(item, href) {
+
+      window.open(href, "_blank");
+      return;
       if (item === "Bridge") {
         if (process.client) {
           this.bridgeLoading = true
