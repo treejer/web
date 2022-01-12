@@ -4,34 +4,15 @@
     class="position-relative pt-5 col-12 step-page mb-5 pb-5 genesis-profile"
     style="min-height: 90vh"
   >
-    <!--    <span v-if="highestBid">{{ highestBid }}highestBid</span>-->
+    
     <div v-if="tree" class="container-fluid">
       <div class="row justify-content-center text-center">
-        <div class="col-auto search-bar-tree-profile position-relative">
-          <span
-            class="icon position-absolute position-relative"
-            @click="goToFindTree()"
-          >
-            <img src="~/assets/images/tree-profile/search.svg"/>
-          </span>
-          <FormulateInput
-            v-model="treeID"
-            class="search param-sm"
-            name="treeID"
-            placeholder="Enter Tree ID"
-            type="text"
-            @keyup.enter="goToFindTree()"
-          />
-        </div>
-        <div v-if="tree && tree.treeSpecsEntity" class="col-12 tree-profile-img justify-content-center">
-          <img :alt="tree.treeSpecsEntity.name"
-               :src="tree.treeSpecsEntity.imageFs" class="img-fluid"
+
+        <div v-if="oTreeData" class="col-12 tree-profile-img justify-content-center">
+          <img :alt="oTreeData.name"
+               :src="oTreeData.image" class="img-fluid"
                height="200" width="200"/>
-          <!--          <span v-if="tree"-->
-          <!--                id="edit_name"-->
-          <!--                class="tr-gray-three tree-profile-number font-weight-bolder"-->
-          <!--          >{{ $hex2Dec(tree.id) }}</span-->
-          <!--          >-->
+
         </div>
       </div>
       <div class="row justify-content-center arrows">
@@ -47,40 +28,11 @@
           />
         </div>
         <div class="col-md-6 tree-profile-name m-md-auto mb-5 mb-md-0">
-          <h4 v-if="$route.params.id === 0 " class="pt-3 text-center title-lg">TREE OF LIFE</h4>
-          <h4 v-if="$route.params.id !== 0 && tree && tree.treeSpecsEntity"
-              class="pt-3 text-center title-lg">{{ tree.treeSpecsEntity.name }}</h4>
-          <div v-if="newName" class="new-name-tree-profile">
-            <div class="stats">
-              <span class="tr-green pointer-event pr-2" @click="setNewName()"
-              >&check;</span
-              >
-              <span
-                class="tr-red pointer-event"
-                @click="newName = false"
-              >x</span
-              >
-            </div>
-
-            <input
-              v-model="newNameTree"
-              class="form-control border-0 new-name-tree-profile tr-gray-three tree-profile-number font-weight-bolder"
-              placeholder="New name..."
-              type="text"
-              @keyup.enter="setNewName()"
-            />
-          </div>
-          <!--          "free"-->
-          <!--          "auction"-->
-          <!--          "incrementalSell"-->
-          <!--          "gift"-->
-          <!--          "regularSell"-->
-          <!--          "free"-->
+          <h4  class="pt-3 text-center title-lg">{{ oTreeData ? oTreeData.name: treeID }} {{ ethPriceStore }} </h4>
 
           <AuctionProcess
             v-if="auction"
             :auction="auction"
-            :ethPrice="ethPrice"
           />
         </div>
         <div class="col-3 arrow-right text-left pointer-event" @click="add">
@@ -94,17 +46,22 @@
           <div class="row pt-md-3 justify-content-between">
             <div class="col-md-3 col-12" >
               <div class="story">
-                <p class="text-center tr-gray-one param-xl">Story</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">Story</p>
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
-                <p v-if="tree && tree.treeSpecsEntity" class="text-center param tr-gray-two mb-0">
-                  {{ tree.treeSpecsEntity.description }}
+                <p class="text-center param tr-gray-two mb-0">
+                  Every tree has a unique story on this planet. Come back in a few weeks to read the story behind this tree.
                 </p>
+                <img
+                    alt="tree-stroy"
+                    width="100%"
+                    src="../../assets/images/tree-profile/typewriter.png"
+                  />
               </div>
             </div>
             <div class="col-md-6 col-12">
               <div class="people col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl">People</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">People</p>
               </div>
               <div v-if="tree" class="col-md-12 pb-md-5 justify-content-center m-auto">
                 <span>
@@ -115,7 +72,7 @@
 
               </div>
               <div class="Bids col-md-6 justify-content-center m-auto" v-if="auction && auction.bids.length > 0">
-                <p class="text-center tr-gray-one param-xl">Bidders</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">Bidders</p>
               </div>
               <div v-if="auction"
                    class="col-md-12 pb-md-5 justify-content-center m-auto">
@@ -124,35 +81,15 @@
                 />
               </div>
               <div class="history col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl">History</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">History</p>
               </div>
               <div class="col-md-10 justify-content-center m-auto">
-                <!-- <HistoryCard :update="true"/>
-                <HistoryCard :listed="true"/>
-                <HistoryCard :planted="true"/>
-                <HistoryCard :putToSale="true"/>
-                <HistoryCard :transferred="true"/>
-                <HistoryCard :Offer="true"/>
-                <HistoryCard :Auction="true"/>
-                <HistoryCard :bidPlaced="true"/>
-                <HistoryCard :minted="true"/> -->
-                <!-- ToDo: fix daiPrice and wethPrice -->
-                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :wethPrice="ethPrice.toString()" :key="history.id" />
+                <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :key="history.id" />
 
               </div>
               <div class="col-md-12" v-if="tree">
                 <div v-if="tree.planter" class="card-tree-profile position-relative">
-                  <div
-                    v-if="tree.owner && tree.owner.id === $cookies.get('account')"
-                    class="position-absolute edit-name-position-absolute"
-                  >
-                    <button
-                      class="btn-green edit-name"
-                      @click="editName(tree.id)"
-                    >
-                      Edit Name
-                    </button>
-                  </div>
+                 
                   <div class="detail-card">
                     <div class="location part">
                       <p class="param mb-0 tr-gray-three">Planted Date</p>
@@ -167,27 +104,14 @@
                         >,<span class="pl-2">{{ tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : '-' }}</span>
                       </p>
                     </div>
-                    <!--                    <div v-if="tree.type" class="species part">-->
-                    <!--                      <p class="param mb-0 tr-gray-three">Species</p>-->
-                    <!--                      <p class="param-18 mb-0 tr-gray-two">-->
-                    <!--                        {{ tree.type.name }}-->
-                    <!--                      </p>-->
-                    <!--                    </div>-->
+
                     <div class="planter part">
                       <p class="param mb-0 tr-gray-three">Planter</p>
                       <p class="param-18 mb-0 tr-gray-two">
                         {{ tree.planter ? tree.planter.id : '-' }}
                       </p>
                     </div>
-                    <!-- <div class="block part">
-                      <p class="param mb-0 tr-gray-three">Green Block</p>
-                      <p
-                        class="param-18 mb-0 tr-gray-two"
-                        v-if="tree.greenblock"
-                      >
-                        {{ tree.greenblock.title }}
-                      </p>
-                    </div> -->
+
                     <div class="climate part">
                       <p class="param mb-0 tr-gray-three">
                         Climate Credits (Seed)
@@ -231,83 +155,70 @@
                   </div>
                 </div>
 
-                <!-- <div v-else class="card-tree-profile position-relative">
-                  <div class="position-absolute edit-name-position-absolute">
-                    <button
-                      class="btn-green edit-name"
-                    >
-                      Not planted Tree
-                    </button>
-                  </div>
-                </div> -->
+                
               </div>
 
 
             </div>
             <div class="col-md-3 col-12">
               <div class="attributes">
-                <p class="text-center tr-gray-one param-xl">Attributes</p>
-                <div v-for="(item,index) in attributes" :key="index" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
-                  <p v-if="item.trait_type === 'birthday'" class="text-center param tr-gray-two mb-0">
-                    <span class="key">{{ item.trait_type }}: </span
-                    ><span class="value font-weight-bolder tr-gray-one"
-                  >{{ $moment(item.value * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span
-                  >
-                  </p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">Attributes</p>
 
-                  <p v-else class="text-center param tr-gray-two mb-0">
-                    <span class="key">{{ item.trait_type }}: </span
-                    ><span class="value font-weight-bolder tr-gray-one"
-                  >{{ item.value }}</span
-                  >
-                  </p>
+                <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Tree number:</span>
+                    <span class="value font-weight-bolder tr-gray-one">#{{ treeID }}</span>
+                  </p> 
+                </div>
 
-                  
+                <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Distribution:</span>
+                    <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Distribution') || 'N/A' }}</span>
+                  </p> 
+                </div>
+                
+                <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Tree Shape:</span>
+                    <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Tree Shape') || 'N/A' }}</span>
+                  </p> 
+                </div>
+
+                <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Crown Color:</span>
+                    <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Crown Color') || 'N/A' }}</span>
+                  </p> 
+                </div>
+
+                <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Trunk Color:</span>
+                    <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Trunk Color') || 'N/A' }}</span>
+                  </p> 
+                </div>
+
+
+                <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
+                  <p class="text-center param tr-gray-two mb-0">
+                    <span class="key">Secret Multiplier:</span>
+                    <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Secret Multiplier') || 'N/A' }}</span>
+                  </p> 
                 </div>
 
                 <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
-                  <p v-if="tree.attribute" class="text-center param tr-gray-two mb-0">
-                    <span class="key">attribute: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ `${tree.attribute.attribute1} - ${tree.attribute.attribute2} - ${tree.attribute.attribute3} - ${tree.attribute.attribute4} -
-                      ${tree.attribute.attribute5} - ${tree.attribute.attribute6} - ${tree.attribute.attribute7} - ${tree.attribute.attribute8}` }}
+                  <p  class="text-center param tr-gray-two mb-0">
+                    <span class="key">Numbers: </span>
+                    <span class="value font-weight-bolder tr-gray-one" v-if="tree.attribute" >
+                      {{ `[${tree.attribute.attribute1},${tree.attribute.attribute2},${tree.attribute.attribute3},${tree.attribute.attribute4},${tree.attribute.attribute5},${tree.attribute.attribute6},${tree.attribute.attribute7},${tree.attribute.attribute8}]` }}
                     </span>
-                  </p>
 
-                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
-                    <span class="key">shape: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ tree.symbol.shape }}
-                    </span>
-                  </p>
-                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
-                    <span class="key">trunkColor: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ tree.symbol.trunkColor }}
-                    </span>
-                  </p>
-                   <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
-                    <span class="key">crownColor: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ tree.symbol.crownColor }}
-                    </span>
-                  </p>
-                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
-                    <span class="key">effect: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ tree.symbol.effect }}
-                    </span>
-                  </p>
-
-                  <p v-if="tree.symbol" class="text-center param tr-gray-two mb-0">
-                    <span class="key">coefficient: </span>
-                    <span class="value font-weight-bolder tr-gray-one">
-                      {{ tree.symbol.coefficient }}
+                    <span class="value font-weight-bolder tr-gray-one" v-else >
+                      N/A
                     </span>
                   </p>
                 </div>
-             
-
 
               </div>
             </div>
@@ -369,38 +280,31 @@ export default {
       highestBid: null,
       attributes: null,
       treeHistories: [],
-      ethPrice: 4000
+      oTreeData: null
     };
   },
   async created() {
-    // if (await this.$route.params.id >= 100) {
-    // await  this.$router.push(`/increamentalSell/${this.$route.params.id}`)
-    // }
-    await this.getEthPrice()
+
 
     this.loading = true
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
-    console.log(this.loading, "this,.loading")
-    await this.getTreeAuction()
-    if (this.tree) {
-      await this.checkProvideStatus(this.tree.saleType)
-      // await this.checkMintStatus(this.tree.mintStatus)
-      await this.checkTreeStatus(this.tree.treeStatus)
-    }
+    this.getOffchainTreeData();
     this.getTreeHistory()
+    
+    // await this.getEthPrice()
+    await this.getTreeAuction()
 
+    this.$store.dispatch('setEthPrice')
 
     this.loading = false
   },
-
+  computed: {
+    ethPriceStore() {
+        return this.$store.state.ethPrice 
+    }
+  },
   methods: {
-    async getEthPrice() {
-      console.log(process.env.ethPrice, "process.env.ethPrice");
-      this.$axios.$get(process.env.ethPrice).then(res => {
-        this.ethPrice = res.result.ethusd;
-      });
-    },
     async goToFindTree() {
       this.loading = true;
 
@@ -423,6 +327,21 @@ export default {
       this.loading = true
       this.$router.push(`/tree/${this.treeID}`);
     },
+    async getOffchainTreeData() {
+      let self = this
+      await self.$axios.$get(`${process.env.apiUrl}/trees/${this.treeID}`)
+      .then((oTreeData) => {
+        self.oTreeData = oTreeData;
+      })
+    },
+    searchAttribute(what) {
+      let attr = this.oTreeData.attributes.find(element => element.trait_type === what)
+      if(attr) {
+        return attr.value
+      } else {
+        return null
+      }
+    },
     async getTreeHistory() {
 
       //use this for pagination
@@ -444,11 +363,7 @@ export default {
                 }`,
         prefetch: false
       }).then((treeHistoriesRes) => {
-
-        console.log(treeHistoriesRes, "treeHistoriesRes")
-
         self.treeHistories = treeHistoriesRes.data.treeHistories ? treeHistoriesRes.data.treeHistories : []
-
       })
 
     },
@@ -481,28 +396,13 @@ export default {
         prefetch: false
       }).then((res) => {
 
-        console.log(res, "auctions")
-        // self.auction = res.data.auctions ? res.data.auctions[0] : null
-
-
         if(res.data.auctions && res.data.auctions.length > 0) {
           self.auction = res.data.auctions.filter(auction => auction.isActive === true)[0];
-
 
           if(self.auction == null) {
             self.auction = res.data.auctions.filter(auction => auction.highestBid > 0)[0];
           }
-
         }
-
-
-        // if(self.auction) {
-        //     self.endDate = self.birthDate(self.auction.endDate)
-        //     self.highestBid = self.$web3.utils.fromWei(self.auction.highestBid)
-
-        // }
-
-        //         console.log(self.highestBid, " self.highestBid is here")
 
       })
     },
@@ -588,20 +488,9 @@ export default {
 
       if (tree.treeSpecsEntity) {
         let attr = tree.treeSpecsEntity.attributes;
-        // self.attributes = JSON.parse(tree.treeSpecsEntity.attributes.replace(/,([^,]*)$/, '$1'))
         this.attributes = typeof attr === 'string' && attr.length>0 ? JSON.parse(attr): {}
       }
 
-      // if (result.data) {
-      //   console.log(result.data.tree, "result is here")
-      //   this.tree = result.data.tree
-      //
-      //     let parse =JSON.parse(self.tree.treeSpecsEntity.attributes)
-      //     console.log(parse,"|parse")
-      //
-      //
-      //
-      // }
       this.loading = false
     },
     add() {
@@ -647,75 +536,6 @@ export default {
       this.$router.push(
         this.localePath({name: "forest-id", params: {id: id}})
       );
-    },
-    checkProvideStatus(data) {
-      switch (data) {
-        case '0':
-          this.saleType = "free"
-          break;
-        case '1':
-          this.saleType = "auction"
-          break;
-        case '2':
-          this.saleType = "incrementalSell"
-          break;
-        case '3':
-          this.saleType = "gift"
-          break;
-        case '4':
-          this.saleType = "regularSell"
-          break;
-        default:
-          this.saleType = "free"
-          break;
-      }
-      console.log(this.saleType, "this.saleType")
-
-
-    },
-    // checkMintStatus(data) {
-    //   switch (data) {
-    //     case '0':
-    //       this.mintStatus = "regular"
-    //       break;
-    //     case '1':
-    //       this.mintStatus = "incrementalSell"
-    //       break;
-    //     case '2':
-    //       this.mintStatus = "auction"
-    //       break;
-    //     default:
-    //       this.mintStatus = "regular"
-    //       break;
-    //   }
-    //   console.log(this.mintStatus, "this.mintStatus")
-
-
-    // },
-    checkTreeStatus(data) {
-      switch (data) {
-        case '0':
-          this.treeStatus = "notExisted"
-          break;
-        case '1':
-          this.treeStatus = "reported"
-          break;
-        case '2':
-          this.treeStatus = "genesis"
-          break;
-        case '3':
-          this.treeStatus = "pendingPlant"
-          break;
-        case '4':
-          this.treeStatus = "planted"
-          break;
-        default:
-          this.treeStatus = "notExisted"
-          break;
-      }
-      console.log(this.treeStatus, "this.treeStatus")
-
-
     }
   },
 };
