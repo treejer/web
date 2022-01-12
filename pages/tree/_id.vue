@@ -28,7 +28,7 @@
           />
         </div>
         <div class="col-md-6 tree-profile-name m-md-auto mb-5 mb-md-0">
-          <h4  class="pt-3 text-center title-lg">{{ oTreeData ? oTreeData.name: treeID }} {{ ethPriceStore }} </h4>
+          <h4  class="pt-3 text-center title-lg">{{ oTreeData ? oTreeData.name: treeID }}</h4>
 
           <AuctionProcess
             v-if="auction"
@@ -295,14 +295,9 @@ export default {
     // await this.getEthPrice()
     await this.getTreeAuction()
 
-    this.$store.dispatch('setEthPrice')
-
     this.loading = false
   },
   computed: {
-    ethPriceStore() {
-        return this.$store.state.ethPrice 
-    }
   },
   methods: {
     async goToFindTree() {
