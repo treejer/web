@@ -24,7 +24,7 @@
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="endAuction()"
     >
-      {{ !loading ? ( auction.highestBid > 0  ? "Settle Auction" : "End Auction" ) : "Loading..." }}
+      {{ !loading ? ( auction.bids.length > 0  ? "Settle Auction" : "End Auction" ) : "Loading..." }}
     </button>
 
 
