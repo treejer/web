@@ -20,7 +20,7 @@
           <span class="param tr-gray-two font-weight-bold">{{ (currency == 'WETH' ? parseFloat(humanValue).toFixed(3) : parseFloat(humanValue).toFixed(2)) + ' ' + currency }}</span>
         </p>
         <p class="mb-0"> 
-          <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? parseFloat(humanValue * wethPrice).toFixed(2) : parseFloat(humanValue * daiPrice).toFixed(2)  }}</span>
+          <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? parseFloat(humanValue * ethPrice).toFixed(2) : parseFloat(humanValue * daiPrice).toFixed(2)  }}</span>
         </p>
       </div>
       <div class="col-md-3 col-3 price-card pr-0" v-if="link">
@@ -53,11 +53,7 @@ export default {
     daiPrice: {
       type: Number,
       default: 1
-    },
-    wethPrice: {
-      type: String,
-      default: 4000
-    },
+    }
   },
 
   methods: {
@@ -141,11 +137,18 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch('setEthPrice')
+
     this.setText();
     if(this.history.value > 0) {
       this.humanValue = this.$web3.utils.fromWei(this.history.value)
     }
   },
+  computed: {
+    ethPrice() {
+        return this.$store.state.ethPrice 
+    }
+  }
 };
 </script>
 

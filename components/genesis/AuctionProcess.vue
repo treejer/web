@@ -187,13 +187,13 @@ export default {
   props: {
     auction: {
       type: Object
-    },
-    ethPrice: {
-      type: String,
-      default: 4000
     }
   },
-  computed: {},
+  computed: {
+    ethPrice() {
+      return this.$store.state.ethPrice 
+    }
+  },
 
   data() {
     return {
@@ -223,6 +223,9 @@ export default {
     };
   },
   async created() {
+    this.$store.dispatch('setEthPrice')
+
+
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
@@ -247,10 +250,6 @@ export default {
     console.log(this.started , this.ended , this.auction.isActive , this.placeBidStep)
 
 
-    // this.bidValue = this.$web3.utils.fromWei(this.minBidValue.toString())
-
-    // const ethPrices = await this.$store.dispatch('ethPrices')
-    // console.log(ethPrices)
   },
   methods: {
     async buyERC20() {

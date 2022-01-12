@@ -658,9 +658,6 @@ export default {
     }, 3000);
   },
   async created() {
-    // const res = await this.$axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=' + process.env.etherscanApiKEY)
-    // this.daiUSDPrice = res.data.result.ethusd
-
     this.daiUSDPrice = 1.01;
   },
   data() {
@@ -683,7 +680,6 @@ export default {
       sendAsTreeCard: false,
       loading: false,
       count: 1,
-      ethPrice: this.$store.state.ethPrice,
       steps: [
         {name: "Collect", step: 1},
         {name: "Connect to wallet", step: 2},

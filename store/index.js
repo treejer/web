@@ -13,7 +13,7 @@ export const state = () => ({
   trezorPopup: null,
   ledger: null,
   form: null,
-  ethPrice: null,
+  ethPrice: 0,
   netWorkName: null,
   leaderBoards: null,
   hasMetaMask: false,
@@ -156,10 +156,13 @@ export const actions = {
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', status)
   },
-  async ethPrices({ commit }, {err}) {
+  async setEthPrice({ commit }) {
+    if(state.ethPrice > 0) {
+      return;
+    }
+
     const ethPrice = await this.$axios.$get(process.env.ethPrice)
-    commit('SET_ETH_PRICE', ethPrice.result)
-    return ethPrice.result
+    commit('SET_ETH_PRICE', ethPrice.result.ethusd)
   },
   async getLeaderBoards({ commit }) {
     const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)
