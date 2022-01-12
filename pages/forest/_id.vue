@@ -4,7 +4,7 @@
     :class="$route.fullPath"
     class="position-relative pt-5 col-lg-10 col-12 my-forest"
   >
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 mb-5 mb-md-2" >
       <div class="row article justify-content-between">
         <div class="col-lg-8 col-12">
           <div class="row">
@@ -12,7 +12,7 @@
               <h2 class="title-sm d-inline-flex Montserrat-Medium  tr-gray-three title-letter-space">
                 <span
                   v-coin
-                  class="pr-2 pl-0 text-capitalize Montserrat-Medium"
+                  class="pr-2 pl-0 text-capitalize Montserrat-Medium "
                   >{{
                     $route.params.id != $cookies.get("account")
                       ? $route.params.id
@@ -197,7 +197,7 @@
 
 
 
- 
+
 
               </div>
               <span
@@ -265,12 +265,12 @@
                         Lng: {{ parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6)) }}
                       </code>
                     </span>
-                    
+
                   </GMapInfoWindow>
                 </GMapMarker>
               </GMap>
 
-              
+
             </div>
             <div class="col-12 mt-5" v-else>
                 <GMap
@@ -306,7 +306,7 @@
               </div>
               <p
                 v-coin
-                class="param-sm mt-3 tr-gray-three token-one"
+                class="param-sm mt-3 tr-gray-three token-one font-weight-bolder"
                 v-text="$route.params.id"
               ></p>
 
@@ -437,8 +437,9 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <button class="btn-lg" @click="goToAddTree()">
-                  Plant Trees
+                <button class="btn-lg text-capitalize" @click="goToAddTree()">
+                  plant trees
+
                 </button>
               </div>
             </div>
@@ -515,7 +516,7 @@ export default {
           return;
         }
       }
-      
+
       await this.getOwnerTrees(50, 0);
     },
   },
@@ -599,7 +600,7 @@ export default {
           prefetch: false,
         })
         .then((treesRes) => {
-           
+
 
           if (treesRes.data.trees && treesRes.data.trees.length > 0) {
 
@@ -610,7 +611,7 @@ export default {
 
               if (!tree.treeSpecsEntity || !tree.treeSpecsEntity.latitude || !tree.treeSpecsEntity.longitude) {
                 return false;
-              } 
+              }
 
               return tree.treeSpecsEntity.latitude !== null &&
                 tree.treeSpecsEntity.longitude !== null;
@@ -652,7 +653,7 @@ export default {
       if(this.owner && this.owner.treeCount > this.perPage && this.owner.treeCount < maxCount){
         maxCount = this.owner.treeCount;
       }
-      
+
       for (let i = currentPlaceHolderCount; i < maxCount; i++) {
         this.placeHolderTrees.push({ i: i });
       }
@@ -684,7 +685,6 @@ export default {
 .my-forest {
     font-family: Montserrat-Medium;
   .box-right {
-    margin-top: 64px;
 
     .tokens {
       display: flex;

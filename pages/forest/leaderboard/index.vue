@@ -360,7 +360,7 @@
 
         <div class="col-lg-4 d-none d-md-block justify-content-center">
           <h1
-            class="title-md text-center font-weight-bolder mb-4"
+            class="title-sm text-center font-weight-bolder mb-4"
             style="color: #616161"
           >
             Discover Earth Ambassadors
@@ -482,7 +482,7 @@ export default {
 
     li {
       height: 100%;
-      padding: 7.6px 0;
+        padding: 7.6px 0;
       width: 33.3333%;
       text-align: center;
     }
@@ -505,7 +505,7 @@ export default {
     }
   }
   table {
-    border: 0 !important;
+    border: none;
     border-collapse: separate;
     border-spacing: 0 1em;
     font-family: Montserrat-Regular;
@@ -529,9 +529,10 @@ export default {
       border-radius: 6px;
       box-shadow: 4px 4px 22px 0 rgba(0, 0, 0, 0.16);
       background-color: #ffffff;
-      border: 0;
+      border: none  ;
       margin: 15px 5px;
     }
+
   }
 }
 @media (max-width: 768px) {
@@ -540,8 +541,28 @@ export default {
       font-size: 12px;
     }
   }
-  table {
-    display: grid;
+  .leader-boards {
+    table {
+      display: grid;
+      width: 100%;
+
+      tbody{
+        margin: auto;
+      }
+      tr {
+        width: 100%;
+        height: 36px;
+        border-radius: 6px;
+        box-shadow: 4px 4px 6px 0 rgba(0, 0, 0, 0.16);
+        background-color: #ffffff;
+        border: none;
+        margin: 15px 5px;
+        td{
+          border: none;
+          border-radius: 6px;
+        }
+      }
+    }
   }
 }
 </style>

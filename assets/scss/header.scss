@@ -1,10 +1,4 @@
-
-
-
-
-
 .headers {
-
   .navbar-nav.header-menu {
     margin-left: 58px;
   }
@@ -58,6 +52,11 @@
         align-items: center;
         vertical-align: middle;
 
+      }
+      @media (max-width: 768px) {
+        a:after {
+          border-right: none;
+        }
       }
 
       li:last-child > a {
@@ -126,7 +125,13 @@
   }
 }
 @media (max-width: 768px) {
+  .dashboard-header{
+    .navbar-toggler {
+      display: none;
+    }
+  }
   .headers{
+
     .accounting-card{
       .img{
         margin-left: 45px;
@@ -135,7 +140,7 @@
         }
       }
       .param-sm{
-        right: 45%;
+        right: 35%;
 
       }
     }
@@ -144,7 +149,7 @@
       height: 36px;
       -o-object-fit: contain;
       object-fit: contain;
-      margin: 0 0px 0px 3px;
+      margin:0 15px;
     }
   }
 

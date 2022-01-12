@@ -107,6 +107,7 @@
                       placeholder="Enter recipient’s address"
                     />
                   </div>
+
                   <!-- <div class="col-12 col-md-4">
                     <button
                       class="btn-gray param-xs"
@@ -135,7 +136,7 @@
                 <div class="col-12">
                   <div class="bg-yellow-checkout m-auto">
                     <div class="row">
-                      <div class="col-md-6 p-md-0 checkout-border">
+                      <div class="col-6 p-md-0 text-left text-md-center checkout-border">
                         <p class="param-xl tr-gray-two font-weight-bolder">
                           {{ count }}
                         </p>
@@ -143,7 +144,7 @@
                           {{ count > 1 ? " Trees" : " Tree" }}
                         </p>
                       </div>
-                      <div class="col-md-6 p-md-0 mb-direction">
+                      <div class="col-6 p-md-0 mb-direction">
                         <p
                           class="
                             param-xl
@@ -152,7 +153,7 @@
                             font-weight-bolder
                           "
                         >
-                          {{ parseFloat((treePrice * count).toFixed(0)) + "DAI" }}
+                          {{ parseFloat((treePrice * count).toFixed(0))  }}
                           <span class="param-sm-light">
                       {{
                               "~$" +
@@ -264,7 +265,7 @@
                     >
                       <div
                         :id="item.name"
-                        class="btn-purple pointer-event"
+                        class="btn-purple pointer-event font-weight-bolder"
                         @click.prevent="setPaymentMethod(item.name, item.href)"
                       >
                         <span v-if="item.name === 'Bridge'">{{ !bridgeLoading ? 'Bridge' : 'Loading...' }}</span>
@@ -1346,6 +1347,17 @@ export default {
         text-align: left !important;
       }
     }
+  }
+  @media (max-width: 768px) {
+    .bg-yellow-checkout {
+      .mb-direction {
+          margin-top: 0;
+        p {
+          text-align: left !important;
+        }
+      }
+    }
+    //
   }
   .step {
     flex-direction: row;

@@ -93,13 +93,14 @@
                       placeholder="Enter recipient’s address"
                     />
                   </div>
-                  <!-- <div class="col-12 col-md-4">
-                    <button
-                      class="btn-gray param-xs"
-                      v-text="'Paste'"
-                      @click.p.prevent="pasteRecipient()"
-                    />
-                  </div> -->
+                  <div class="col-12 col-md-4">
+<!--                    <button-->
+<!--                      class="btn-gray param-xs"-->
+<!--                      v-text="'Paste'"-->
+<!--                      @click.p.prevent="pasteRecipient()"-->
+<!--                    />-->
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -265,7 +266,7 @@
                     >
                       <div
                         :id="item.name"
-                        class="btn-purple pointer-event"
+                        class="btn-purple pointer-event font-weight-bolder"
                         @click.prevent="setPaymentMethod(item.name, item.href)"
                       >
                         <span v-if="item.name === 'Bridge'">{{ !bridgeLoading ? 'Bridge' : 'Loading...' }}</span>
@@ -428,14 +429,14 @@ export default {
       if(this.sendAsGiftChecked && this.recipient){
         try {
           this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
-        } catch(e) { 
+        } catch(e) {
           self.$bvToast.toast([e.message], {
             toaster: 'b-toaster-bottom-left',
             title: 'Invalid recipient address!',
             variant: 'danger',
             to: 'genesis/checkout',
           })
-          console.error('invalid ethereum address', e.message) 
+          console.error('invalid ethereum address', e.message)
           this.loading = false;
           return;
         }

@@ -1,12 +1,12 @@
 <template>
-  <div class="head">
+  <div class="head-treejer-dashborad ">
     <div
       class="networkname text-center d-flex align-items-center justify-content-center"
-      style="height: 32px; background: #424242"
     >
       <p class="param-sm text-white mb-0">
-        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test
-        Network and start your forest! !
+<!--        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test-->
+<!--        Network and start your forest! !-->
+        Announcing the launch of Treejer Protocol with Genesis Trees
         <a
           class="text-white"
           href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ "
@@ -27,7 +27,7 @@
           /></a>
       </p>
     </div>
-    <div class="headers container" style="min-height: 5vh">
+    <div class="headers container dashboard-header" style="min-height: 5vh">
       <keep-alive>
         <b-navbar toggleable="lg">
           <b-navbar-brand
@@ -52,10 +52,10 @@
 
           <b-collapse
             id="nav-collapse"
-            class="text-right justify-content-between"
+            class="text-right justify-content-between d-none "
             is-nav
           >
-            <b-navbar-nav class="header-menu"></b-navbar-nav>
+            <b-navbar-nav class="header-menu "></b-navbar-nav>
             <client-only>
               <div class="d-lg-block d-none">
                 <Metamask @showModal="showModal"/>
@@ -208,6 +208,14 @@ export default {
 </script>
 
 <style lang="scss">
+.head-treejer-dashborad{
+  .networkname{
+    background: linear-gradient(90deg, #649173 0%, #CEC99C 100%);
+    height: 34px;
+    z-index: +999;
+  }
+
+}
 @media (max-width: 1023px) {
   .headers {
     padding: 0 10px;
