@@ -136,8 +136,8 @@ export default {
       this.$router.push(id);
     },
   },
-  mounted() {
-    this.$store.dispatch('setEthPrice')
+  async mounted() {
+    await this.$store.dispatch('setEthPrice')
 
     this.setText();
     if(this.history.value > 0) {

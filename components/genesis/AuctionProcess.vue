@@ -223,32 +223,18 @@ export default {
     };
   },
   async created() {
-    this.$store.dispatch('setEthPrice')
-
+    await this.$store.dispatch('setEthPrice')
 
     if (!this.erc20Balance) {
       await this.setERC20Balance();
     }
-
-
-    if(parseInt(this.auction.highestBid) > 0) {
-      this.minBidValue = parseInt(this.auction.highestBid) + (parseInt(this.auction.highestBid) * parseInt(this.auction.priceInterval) / 10000);
-    } else {
-      this.minBidValue = parseInt(this.auction.initialPrice) + (parseInt(this.auction.initialPrice) * parseInt(this.auction.priceInterval) / 10000);
-    }
-
-    let minAuctionBidValue = this.$web3.utils.toWei('0.1', 'ether');
-    if(parseInt(this.minBidValue) < parseInt(minAuctionBidValue)) {
-      this.minBidValue = minAuctionBidValue;
-    }
-
+   
+    const priceJump = parseInt(parseInt(this.auction.priceInterval) * parseInt(this.auction.highestBid) ) / 10000;
+    
+    this.minBidValue = parseInt(this.auction.highestBid) + parseInt(priceJump > this.$web3.utils.toWei('0.1') ? priceJump : this.$web3.utils.toWei('0.1')) ;
 
     this.ended = this.auction.endDate * 1000 < (new Date().getTime());
     this.started = this.auction.startDate * 1000 > (new Date().getTime());
-
-
-    console.log(this.started , this.ended , this.auction.isActive , this.placeBidStep)
-
 
   },
   methods: {
@@ -308,7 +294,6 @@ export default {
         spenderContract: this.spenderContract,
         tokenAddress: this.tokenAddress
       });
-      console.log(transaction, "transaction is here");
       if (transaction.code === 4001) {
         self.loading = false;
       } else if (transaction) {
@@ -331,13 +316,9 @@ export default {
     },
     async setERC20Balance() {
 
-
-
-      console.log(this.tokenAddress, "this.tokenAddress");
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress
       });
-      console.log(this.erc20Balance, "this.erc20Balance");
     },
     async setIsAllowance(silent = false) {
       if (silent === false) {
@@ -348,12 +329,8 @@ export default {
         tokenAddress: this.tokenAddress,
         spenderContract: this.spenderContract
       });
-      console.log(allowance, this.bidValue);
-      console.log("allowance, this.amount");
 
       this.isAllowedSpendERC20 = allowance >= this.bidValue;
-
-      console.log(this.isAllowedSpendERC20);
 
       if (silent === false) {
         this.loading = false;
@@ -369,7 +346,6 @@ export default {
         auctionId: this.$hex2Dec(this.auction.id),
         bidValue: this.bidValue
       });
-      console.log(tx, "txis here");
       if (tx !== null) {
         this.$bvToast.toast(["Your bid was successful"], {
           toaster: "b-toaster-bottom-left",

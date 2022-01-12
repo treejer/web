@@ -292,7 +292,7 @@ export default {
     this.getOffchainTreeData();
     this.getTreeHistory()
     
-    // await this.getEthPrice()
+    await this.$store.dispatch('setEthPrice')
     await this.getTreeAuction()
 
     this.loading = false

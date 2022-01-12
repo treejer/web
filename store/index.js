@@ -156,8 +156,8 @@ export const actions = {
   hasDashboard({commit}, {status}) {
     commit('SET_DASHBOARD', status)
   },
-  async setEthPrice({ commit }) {
-    if(state.ethPrice > 0) {
+  async setEthPrice({ commit, state }) {
+    if(parseFloat(state.ethPrice) > 0) {
       return;
     }
 
