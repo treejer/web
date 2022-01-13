@@ -160,7 +160,7 @@
               </p>
             </div>
             <div class="col-12 position-relative p-0">
-              <div class="col-12 mb-3 p-0">
+              <!-- <div class="col-12 mb-3 p-0">
                 <span v-for="item in placeHolderTrees" :key="item.i">
                   <img
                     class="img-fluid p-2"
@@ -168,11 +168,16 @@
                     style="mix-blend-mode: luminosity"
                   />
                 </span>
-              </div>
-              <div
+              </div> -->
+              <!-- <div
                 v-if="owner && owner.treeCount > 0"
                 class="col-12 p-0 befor-res"
                 style="left: 0"
+              > -->
+
+              <div
+                v-if="owner && owner.treeCount > 0"
+                class="col-12 mb-3 p-0"
               >
                 <span
                   v-for="tree in trees"
@@ -188,11 +193,20 @@
                     @click="goToTreeProfile($hex2Dec(tree.id))"
                   >
                     <img
-                      class="img-fluid"
+                      v-if="tree.treeSpecsEntity && tree.treeSpecsEntity.imageFs"
+                       width="64px"
+                      :src="tree.treeSpecsEntity.imageFs"
+                      :alt="tree.id"
+                    />
+
+                    <img v-else
+                      width="64px"
                       src="~/assets/images/myforest/trees.png"
+                      :alt="tree.id"
                     />
                   </b-button>
-                  <!--                <b-tooltip :target="item.id">{{ item.id }}</b-tooltip>-->
+                  
+                                 <!-- <b-tooltip :target="tree.id">{{ tree.id }}</b-tooltip> -->
                 </span>
 
 
@@ -517,7 +531,7 @@ export default {
         }
       }
 
-      await this.getOwnerTrees(50, 0);
+      await this.getOwnerTrees(40, 0);
     },
   },
 
@@ -542,7 +556,7 @@ export default {
       daiBalance: 0,
       wethBalance: 0,
       skip:0,
-      perPage: 50
+      perPage: 40
     };
   },
   async created() {
@@ -571,7 +585,7 @@ export default {
       await this.getOwnerTrees(this.perPage, this.skip);
 
     },
-    async getOwnerTrees(first = 50, skip = 0) {
+    async getOwnerTrees(first = 40, skip = 0) {
       if (
         !this.owner ||
         this.$route.params.id === "guest" ||
@@ -593,6 +607,7 @@ export default {
                           treeSpecsEntity {
                             latitude
                             longitude
+                            imageFs
                           }
                           createdAt
                       }
