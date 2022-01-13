@@ -106,6 +106,8 @@
 <script>
 export default {
   name: 'error.vue',
+  middleware: 'queryParamToCookie',
+
   mounted() {
     console.log(this.$route.name === null)
   },
