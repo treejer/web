@@ -1,5 +1,10 @@
 <template>
   <b-navbar-nav ref="page" class="metamask">
+
+    <b-nav-form>
+      <span @click="switchNetworkMumbai()" v-if="connectedNetwrokID != runningNetworkID">Wrong Network</span>
+    </b-nav-form>
+
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
         {{ "Connect Wallet" }}
@@ -17,14 +22,18 @@
 
     </b-nav-form>
 
+
+
     <b-nav-form
       v-if="$cookies.get('account')"
       class="pointer-event"
     >
+
       <div
         class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
         @click.prevent="logout()"
       >
+
         <span v-coin class="param-sm tr-gray-three">{{
             $cookies.get("account")
           }}</span>
@@ -38,7 +47,10 @@
           width="42"
         /></span>
       </div>
+
+
       <span class="position-relative">
+        
       <img
         alt="tree"
         class="img-fluid tree pointer-event"
@@ -47,6 +59,8 @@
         @click="goToDashboard(`/forest/${$cookies.get('account')}`)"
       />
         <Badge /></span>
+
+        
 
     </b-nav-form>
     <b-modal
@@ -132,6 +146,8 @@ export default {
       hasAccount: false,
       hasAccountSrc: `${this.$cookies.get("account")}`,
       loading: false,
+      runningNetworkID: process.env.NETWORK_ID,
+      connectedNetwrokID: 0
     };
   },
   computed: {
@@ -139,14 +155,85 @@ export default {
       return this.$store.state.account;
     },
   },
-  mounted() {
+  async mounted() {
     if (this.$cookies.get("account")) {
       this.changeEthereum();
     } else {
       return null;
     }
+
+    let self = this;
+    setInterval(async () => {
+      if (process.client && self.$web3.givenProvider) {
+        self.connectedNetwrokID = await self.$web3.eth.net.getId();
+      }
+      console.log(self.connectedNetwrokID, self.runningNetworkID, "setInterval");
+    }, 3000);
   },
+  
   methods: {
+    async switchNetworkMumbai() {
+      try {
+        await this.$web3.currentProvider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: this.$dec2hex(80001) }],
+        });
+      } catch (error) {
+        if (error.code === 4902) {
+          try {
+            await this.$web3.currentProvider.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainId: this.$dec2hex(80001),
+                  chainName: "Mumbai",
+                  rpcUrls: ["https://rpc-mumbai.matic.today"],
+                  nativeCurrency: {
+                    name: "Matic",
+                    symbol: "Matic",
+                    decimals: 18,
+                  },
+                  blockExplorerUrls: ["https://explorer-mumbai.maticvigil.com"],
+                },
+              ],
+            });
+          } catch (error) {
+            alert(error.message);
+          }
+        }
+      }
+    },
+    async switchNetworkMatic() {
+      try {
+        await this.$web3.currentProvider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: this.$dec2hex(137) }],
+        });
+      } catch (error) {
+        if (error.code === 4902) {
+          try {
+            await this.$web3.currentProvider.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainId: this.$dec2hex(137),
+                  chainName: "Polygon-Matic",
+                  rpcUrls: ["https://rpc.matic.today"],
+                  nativeCurrency: {
+                    name: "Matic",
+                    symbol: "Matic",
+                    decimals: 18,
+                  },
+                  blockExplorerUrls: ["https://polygonscan.com"],
+                },
+              ],
+            });
+          } catch (error) {
+            alert(error.message);
+          }
+        }
+      }
+    },
     async changeEthereum() {
       let self = this;
       self.icon = `${process.env.gravatar}${this.$cookies
