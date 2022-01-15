@@ -1,69 +1,73 @@
 <template>
   <b-navbar-nav ref="page" class="metamask">
-
-    <b-nav-form>
-      <span @click="switchNetworkMumbai()" v-if="connectedNetwrokID != runningNetworkID">Wrong Network</span>
-    </b-nav-form>
-
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
         {{ "Connect Wallet" }}
       </b-button>
 
-
       <NuxtLink to="/forest/guest" class="position-relative">
         <img
-            alt="tree"
-            class="img-fluid tree pointer-event"
-            name="tree"
-            src="/tree.svg"
-          />
-          <Badge />
+          alt="tree"
+          class="img-fluid tree pointer-event"
+          name="tree"
+          src="/tree.svg"
+        />
+        <Badge />
       </NuxtLink>
-
-
-      
     </b-nav-form>
 
-
-
-    <b-nav-form
-      v-if="$cookies.get('account')"
-      class="pointer-event"
-    >
+    <b-nav-form v-if="$cookies.get('account')" class="pointer-event">
+      <div
+        v-if="connectedNetwrokID != runningNetworkID"
+        class="
+          pointer-event
+          accounting-card
+          d-flex
+          align-items-center align-self-center
+          pointer-event
+        "
+        @click.prevent="switchNetworkMatic()"
+      >
+        <b-button class="connect-button m-auto"> Switch to Matic </b-button>
+      </div>
 
       <div
-        class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
+        v-else
+        class="
+          pointer-event
+          accounting-card
+          d-flex
+          align-items-center align-self-center
+          pointer-event
+        "
         @click.prevent="logout()"
       >
-
         <span v-coin class="param-sm tr-gray-three">{{
-            $cookies.get("account")
-          }}</span>
+          $cookies.get("account")
+        }}</span>
         <span class="img"
-        ><img
-          :src="icon"
-          alt="accounting"
-          class="img-fluid bg-white d-none d-md-block rounded-circle"
-          height="42"
-          style="border: solid 2px white"
-          width="42"
+          ><img
+            :src="icon"
+            alt="accounting"
+            class="img-fluid bg-white d-none d-md-block rounded-circle"
+            height="42"
+            style="border: solid 2px white"
+            width="42"
         /></span>
       </div>
 
-
-        <NuxtLink :to="`/forest/${$cookies.get('account')}`" class="position-relative">
+      <NuxtLink
+        :to="`/forest/${$cookies.get('account')}`"
+        class="position-relative"
+      >
         <img
-            alt="tree"
-            class="img-fluid tree pointer-event"
-            name="tree"
-            src="/tree.svg"
-          />
-          <Badge />
+          alt="tree"
+          class="img-fluid tree pointer-event"
+          name="tree"
+          src="/tree.svg"
+        />
+        <Badge />
       </NuxtLink>
-
-        
-
     </b-nav-form>
     <b-modal
       id="seven"
@@ -73,13 +77,27 @@
     >
       <ul v-if="$cookies.get('walletName')" class="list-style-none seven">
         <li
-          class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"
+          class="
+            param-18
+            tr-gray-two
+            font-weight-bold
+            text-center
+            mt-3
+            mb-4
+            text-center
+          "
         >
           Connected with
         </li>
         <li class="pointer-event mb-2">
           <p
-            class="tr-gray-three param font-weight-bold d-flex justify-content-between"
+            class="
+              tr-gray-three
+              param
+              font-weight-bold
+              d-flex
+              justify-content-between
+            "
             style="
               border: 1px solid #bdbdbd;
               background: #e5e7db;
@@ -107,17 +125,25 @@
           </p>
         </li>
         <li
-          class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative"
+          class="
+            param
+            font-weight-bold
+            tr-gray-two
+            text-center
+            mt-3
+            whatis
+            position-relative
+          "
         >
           <span style="letter-spacing: -3px"
-          >-------------------------------------</span
+            >-------------------------------------</span
           ><span style="padding: 0 10px">Your Address</span
-        ><span style="letter-spacing: -3px"
-        >-------------------------------------</span
-        >
+          ><span style="letter-spacing: -3px"
+            >-------------------------------------</span
+          >
         </li>
         <li class="d-flex mt-4 align-items-center justify-content-center">
-          <CopyToClipBoard/>
+          <CopyToClipBoard />
         </li>
         <li class="d-flex mt-4 justify-content-center text-center">
           <button
@@ -135,10 +161,10 @@
 <script>
 import Wallets from "./Wallets";
 import CopyToClipBoard from "./CopyToClipBoard.vue";
-import Badge from '@/components/Badge'
+import Badge from "@/components/Badge";
 
 export default {
-  components: {Wallets, CopyToClipBoard,Badge},
+  components: { Wallets, CopyToClipBoard, Badge },
   props: ["wallets"],
 
   data() {
@@ -148,8 +174,8 @@ export default {
       hasAccount: false,
       hasAccountSrc: `${this.$cookies.get("account")}`,
       loading: false,
-      runningNetworkID: process.env.NETWORK_ID,
-      connectedNetwrokID: 0
+      runningNetworkID: parseInt(process.env.NETWORK_ID),
+      connectedNetwrokID: parseInt(process.env.NETWORK_ID)
     };
   },
   computed: {
@@ -165,46 +191,35 @@ export default {
     }
 
     let self = this;
-    setInterval(async () => {
+    setTimeout(async () => {
       if (process.client && self.$web3.givenProvider) {
         self.connectedNetwrokID = await self.$web3.eth.net.getId();
       }
-      console.log(self.connectedNetwrokID, self.runningNetworkID, "setInterval");
-    }, 3000);
+    }, 500);
+
+    if (process.client && window.ethereum) {
+      // // use MetaMask's provider
+      // App.web3 = new Web3(window.ethereum);
+      window.ethereum.enable(); // get permission to access accounts
+
+      // // detect Metamask account change
+      // window.ethereum.on('accountsChanged', function (accounts) {
+      //   console.log('accountsChanges',accounts);
+
+      // });
+
+      // detect Network account change
+      window.ethereum.on('networkChanged', function(networkId){
+        console.log('networkChanged',networkId);
+        self.connectedNetwrokID = networkId;
+      });
+    } 
+
+
   },
-  
+
   methods: {
-    async switchNetworkMumbai() {
-      try {
-        await this.$web3.currentProvider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: this.$dec2hex(80001) }],
-        });
-      } catch (error) {
-        if (error.code === 4902) {
-          try {
-            await this.$web3.currentProvider.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainId: this.$dec2hex(80001),
-                  chainName: "Mumbai",
-                  rpcUrls: ["https://rpc-mumbai.matic.today"],
-                  nativeCurrency: {
-                    name: "Matic",
-                    symbol: "Matic",
-                    decimals: 18,
-                  },
-                  blockExplorerUrls: ["https://explorer-mumbai.maticvigil.com"],
-                },
-              ],
-            });
-          } catch (error) {
-            alert(error.message);
-          }
-        }
-      }
-    },
+
     async switchNetworkMatic() {
       try {
         await this.$web3.currentProvider.request({
@@ -218,9 +233,9 @@ export default {
               method: "wallet_addEthereumChain",
               params: [
                 {
-                  chainId: this.$dec2hex(137),
-                  chainName: "Polygon-Matic",
-                  rpcUrls: ["https://rpc.matic.today"],
+                  chainId: this.$dec2hex(137).toString(),
+                  chainName: "Polygon Mainnet",
+                  rpcUrls: ["https://polygon-rpc.com", "https://rpc.matic.today"],
                   nativeCurrency: {
                     name: "Matic",
                     symbol: "Matic",
@@ -238,17 +253,15 @@ export default {
     },
     async changeEthereum() {
       let self = this;
-      self.icon = `${process.env.gravatar}${this.$cookies
-        .get("account")
-       }`;
+      self.icon = `${process.env.gravatar}${this.$cookies.get("account")}`;
       // await ethereum.on("chainChanged", () => {
       //   document.location.reload();
       // });
     },
     changeWallet() {
-      let self = this
+      let self = this;
       this.$store.dispatch("logout").then(() => {
-        window.location.reload()
+        window.location.reload();
         // self.$router.push(`/`);
       });
       this.$bvModal.hide("seven");
@@ -260,8 +273,7 @@ export default {
     goToDashboard(item) {
       this.$router.push(`/forest/guest`);
     },
-    copyClipboard(e) {
-    },
+    copyClipboard(e) {},
     showModal() {
       this.$emit("showModal");
     },
@@ -271,7 +283,7 @@ export default {
       } else {
         this.activeIndex = index;
       }
-    }
+    },
   },
 };
 </script>
