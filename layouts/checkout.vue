@@ -17,6 +17,8 @@
 
   export default {
     components: { Footer, DashboardHeader},
+      middleware: 'queryParamToCookie',
+
     data() {
       return {
       };

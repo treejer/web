@@ -26,6 +26,9 @@ export const actions = {
       referrer = process.env.zeroAddress;
     }
 
+
+    console.log(referrer)
+
     const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer);
 
     const data = tx.encodeABI();

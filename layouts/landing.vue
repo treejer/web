@@ -19,6 +19,8 @@
 
   export default {
     components: {Sidebar, LandingFooter, TreejerHeader},
+    middleware: 'queryParamToCookie',
+
     name:'landing',
     data() {
       return {
