@@ -36,6 +36,23 @@ import Gallery from "../../components/increamentalsell/Gallery";
 export default {
   name: "increamentalSell",
   components: {Collect, Gallery},
+  head() {
+    return {
+      title: "Treejer - Genesis collection",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "Treejer Genesis collection ",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:"treejer,genesis,nft,genesisNFT",
+        },
+      ],
+    };
+  },
   data() {
     return {
       activeIndex: 0,

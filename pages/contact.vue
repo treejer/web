@@ -74,9 +74,9 @@
     },
     head() {
       return {
-        title:`Treejer`,
+        title:`Treejer Contact Us`,
         meta:[
-          { hid: 'description', name: 'description', content:"contact our business and team"},
+          { hid: 'description', name: 'description', content:"contact our team"},
       { hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams ' }
     ]
     }

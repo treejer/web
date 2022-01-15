@@ -293,7 +293,7 @@
       components: {Arrow},
       head() {
         return {
-          title:`Treejer`,
+          title:`Treejer partnerships`,
           meta:[
             { hid: 'description', name: 'description', content:"About our business and team"},
             { hid: 'keywords', name: 'keywords', content: 'business teambusiness ' }

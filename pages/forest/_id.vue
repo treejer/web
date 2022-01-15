@@ -160,7 +160,8 @@
               </p>
             </div>
             <div class="col-12 position-relative p-0">
-              <!-- <div class="col-12 mb-3 p-0">
+              
+              <div class="col-12 mb-3 p-0" v-if="trees.length == 0">
                 <span v-for="item in placeHolderTrees" :key="item.i">
                   <img
                     class="img-fluid p-2"
@@ -168,7 +169,7 @@
                     style="mix-blend-mode: luminosity"
                   />
                 </span>
-              </div> -->
+              </div>
               <!-- <div
                 v-if="owner && owner.treeCount > 0"
                 class="col-12 p-0 befor-res"
@@ -451,7 +452,7 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <button class="btn-lg text-capitalize" @click="goToAddTree()">
+                <button class="btn-lg text-capitalize" @click="goToAddTree()" >
                   plant trees
 
                 </button>
@@ -577,6 +578,8 @@ export default {
   async mounted() {
     await this.getDaiBalance();
     await this.getWethBalance();
+    await this.getOwnerTrees(0, 0);
+
   },
   methods: {
     async loadMore(){
@@ -589,8 +592,10 @@ export default {
       if (
         !this.owner ||
         this.$route.params.id === "guest" ||
-        this.owner.treeCount <= 0
+        this.owner.treeCount <= 0 || first === 0
       ) {
+        await this.createPlaceHolder();
+
         return;
       }
 
@@ -643,7 +648,21 @@ export default {
 
     },
     goToAddTree() {
-      this.$router.push("/forest/checkout");
+      
+      // this.$router.push("/forest/checkout");
+
+
+      this.$bvToast.toast(["Plant on Jan 20th, Check auctions now!"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Not started",
+          variant: "danger",
+          href: `/genesis#auctions`,
+          noAutoHide: true,
+        });
+        
+
+
+
     },
     comunity() {
       window.open("https://discuss.treejer.com", "_blank");

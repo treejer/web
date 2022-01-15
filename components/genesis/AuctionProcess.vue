@@ -7,7 +7,7 @@
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
 
     >
-      This auction will start at <br>{{ $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
+      This auction starts on <br>{{ $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
     </div>
 
 
@@ -165,16 +165,17 @@
         <div class="col-md-6 pl-md-0">
           <span id="social" class="btn-green" @click="shareModal()">Share</span>
           <b-modal id="social-target" centered hide-footer size="md">
-            <Socials/>
+            <ShareAuction/>
           </b-modal>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import Socials from "~/components/Socials.vue";
+import ShareAuction from "~/components/ShareAuction.vue";
 import CountDown from "~/components/CountDown.vue";
 import transakSDK from "@transak/transak-sdk";
 
@@ -182,7 +183,7 @@ import transakSDK from "@transak/transak-sdk";
 export default {
   components: {
     CountDown,
-    Socials
+    ShareAuction
   },
   props: {
     auction: {
@@ -478,6 +479,7 @@ export default {
       window.location.reload();
     },
     shareModal() {
+
       this.$bvModal.show("social-target");
     },
 

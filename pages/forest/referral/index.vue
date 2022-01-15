@@ -130,13 +130,10 @@
               <button
                 v-if="$cookies.get('account')"
                 class="invite-gray text-white font-weight-bold param mt-4"
-                v-clipboard:copy="
-                  `${baseUrl}/genesis?referrer=${$cookies.get('account')}`
-                "
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
+                @click="shareModal()"
+                
               >
-                Copy Invite Link
+                Get link to invite
               </button>
               <button
                 v-else
@@ -161,6 +158,9 @@
               </button>
             </div>
           </div>
+          <b-modal id="social-target" centered hide-footer size="md">
+            <ShareReferral/>
+          </b-modal>
         </div>
       </div>
     </div>
@@ -169,9 +169,14 @@
 
 <script>
 import referrer from "~/apollo/queries/referrer";
+import ShareReferral from "~/components/ShareReferral.vue";
+
 
 export default {
   name: "referral",
+  components: {
+    ShareReferral
+  },
   layout: "dashboard",
   apollo: {
     referrer: {
@@ -210,6 +215,9 @@ export default {
     this.$store.commit("SET_SIDEBAR_INDEX", 1);
   },
   methods: {
+    shareModal() {
+      this.$bvModal.show("social-target");
+    },
     login() {
       this.$bvModal.show("five");
     },

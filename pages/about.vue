@@ -138,10 +138,10 @@ export default {
   layout: 'landing',
   head() {
     return {
-      title:`Treejer`,
+      title:`Treejer - About`,
       meta:[
         { hid: 'description', name: 'description', content:"About us page:"},
-        { hid: 'keywords', name: 'keywords', content: 'ourteam culture treejerteam contactus ' }
+        { hid: 'keywords', name: 'keywords', content: 'ourteam culture treejer team contactus ' }
       ]
     }
   },
