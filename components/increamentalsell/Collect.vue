@@ -164,6 +164,24 @@
         Reserve Price: Ξ{{ parseFloat(tree0ReservePrice).toFixed(2) }}
       </p>
     </div>
+
+    <div
+      v-else
+      class="
+        col-md-12
+        d-md-flex
+        current-price-inc
+        text-center
+        justify-content-center
+        mt-3
+      "
+    >
+      <p class="param tr-gray-four text-capitalize">
+        Reveals after Genesis
+      </p>
+    </div>
+
+
     <a id="auctions"></a>
     <div
       v-if="tree0Auction && tree0Auction.auctions"
@@ -182,6 +200,20 @@
       />
       <p class="param-xs tr-gray-tree">Tree #0</p>
     </div>
+
+    <div
+      v-else
+      class="col-md-8 col-12 justify-content-center text-center pointer-event"
+    >
+      <img
+        alt="tree0"
+        class="filter-balckandwhite"
+        src="../../assets/images/increamentalSell/trees-state.svg"
+      />
+      <p class="param-xs tr-gray-tree">Tree #0</p>
+    </div>
+
+
     <OtherTreeInc :text="'#1-10'" />
     <div
       v-if="treesAuction.length > 0"
