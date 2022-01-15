@@ -40,7 +40,7 @@ export default {
       tabs: [
         { name: "Recent" },
         { name: "Auctions" },
-        { name: "Honarary" },
+        { name: "Honorary" },
       ],
       trees: [],
     };

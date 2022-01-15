@@ -1,9 +1,9 @@
 <template>
   <div class="inc-collect collect row justify-content-center">
     <div class="col-md-2 col-4 text-left">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.startTreeId }}</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #101</p>
       <p class="tr-gray-four param mb-0">Start Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ parseFloat(startTreePrice).toFixed(2) }}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.03</p>
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
       <img
@@ -14,13 +14,13 @@
       />
     </div>
     <div class="col-md-2 col-4 text-right">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #{{ incSaleData.endTreeId }}</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>
       <p class="tr-gray-four param mb-0">End Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ{{ parseFloat(lastTreePrice).toFixed(2) }}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.3</p>
     </div>
     <div class="col-md-12 text-center mt-3">
       <p class="param-xl font-weight-bolder tr-gray-two text-capitalize">
-        tree #{{ parseInt($store.state.incrementalSale.lastSold) + 1 }}
+        tree #{{ currenPrice ? parseInt($store.state.incrementalSale.lastSold) + 1 : 101 }}
       </p>
     </div>
     <div
@@ -34,7 +34,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Ξ{{ parseFloat(currenPrice).toFixed(2) }}
+        Ξ{{ currenPrice ? parseFloat(currenPrice).toFixed(2) : 0.03 }}
       </p>
     </div>
     <div
@@ -47,9 +47,12 @@
         mt-3
       "
     >
-      <button class="btn-green param-18" @click="goToCheckout()">
-        Mint
+      <button class="btn-green param-18" @click="goToCheckout()" >
+        {{ currenPrice > 0 ? "Mint" :  "Mint on Jan 20th" }}
       </button>
+
+
+      
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
       <h1 class="title-lg tr-gray-two font-weight-bolder text-center">
@@ -165,6 +168,7 @@
         Reserve Price: Ξ{{ parseFloat(tree0ReservePrice).toFixed(2) }}
       </p>
     </div>
+    <a id="auctions"></a>
     <div v-if="tree0Auction && tree0Auction.auctions"
       class="col-md-8 col-12 justify-content-center text-center pointer-event"
       @click="$router.push('/tree/0')"
@@ -218,6 +222,7 @@
       </div>
     </div>
     <OtherTreeInc :text="'#11-100 '" />
+    <a id="honorary"></a>
     <div
       class="
         col-md-9 col-12
@@ -237,6 +242,7 @@
         be sent to Treejer’s treasury after 30 days.
       </p>
     </div>
+    
     <div class="col-md-9 col-12 justify-content-center text-center">
       <div
         v-for="(item, index) in honoraryTrees"
@@ -361,7 +367,20 @@ export default {
   },
   methods: {
     async goToCheckout() {
-      this.$router.push("/genesis/checkout");
+      if(this.currenPrice > 0) {
+        this.$router.push("/genesis/checkout");
+      } else {
+        this.$bvToast.toast(["Mint on Jan 20th, Check auctions now!"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Not started",
+          variant: "danger",
+          href: `/genesis#auctions`,
+          noAutoHide: true,
+        });
+
+        document.querySelector('#auctions').scrollIntoView({behavior: 'smooth'});
+      }
+
     },
     async calcCurrentPrice() {
       
