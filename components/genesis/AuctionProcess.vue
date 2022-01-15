@@ -7,7 +7,7 @@
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
 
     >
-      This auction will start at <br>{{ $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
+      This auction starts on <br>{{ $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
     </div>
 
 

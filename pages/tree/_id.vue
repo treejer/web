@@ -249,16 +249,20 @@ export default {
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders, mapDetails},
   head() {
     return {
-      title: `Treejer`,
+      title: "Treejer - Tree " + this.$route.params.id,
       meta: [
-        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
         {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
-        }
-      ]
-    }
+          hid: "description",
+          name: "description",
+          content: "Tree profile page for Treejer trees",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: "treejer,tree,NFTTree,treeNFT",
+        },
+      ],
+    };
   },
 
   data() {
