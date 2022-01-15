@@ -20,7 +20,11 @@
     </div>
     <div class="col-md-12 text-center mt-3">
       <p class="param-xl font-weight-bolder tr-gray-two text-capitalize">
-        tree #{{ currenPrice ? parseInt($store.state.incrementalSale.lastSold) + 1 : 101 }}
+        tree #{{
+          currenPrice
+            ? parseInt($store.state.incrementalSale.lastSold) + 1
+            : 101
+        }}
       </p>
     </div>
     <div
@@ -47,29 +51,20 @@
         mt-3
       "
     >
-      <button class="btn-green param-18" @click="goToCheckout()" >
-        {{ currenPrice > 0 ? "Mint" :  "Mint on Jan 20th" }}
+      <button class="btn-green param-18" @click="goToCheckout()">
+        {{ currenPrice > 0 ? "Mint" : "Mint on Jan 20th" }}
       </button>
-
-
-      
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
       <h1 class="title-lg tr-gray-two font-weight-bolder text-center">
         Genesis Collection
       </h1>
-      <p class="param font-weight-bolder tr-gray-two mt-4 text-center">
-        “In the beginning we said, let there be a Tree of Life: and there was
-        Life. And we saw the tree, it was good; and we created another 10,000.
-        And we saw the trees, and they were good; and we decided to keep the
-        them all unique, forever.”
-      </p>
       <p class="param font-weight-bold tr-gray-two text-center pt-2">
         Genesis collection refers to the first 10,000 trees being planted via
-        Treejer Protocol. The collection helps the project thrive after a recent
-        token-free investment by UNICEF Innovation Fund. Genesis trees will be
-        planted in 10 countries in Latin America, Africa and Middle East. Learn
-        more about these trees on our documentation website.
+        Treejer Protocol. The collection helps the project thrive after our
+        recent token-free investment by UNICEF Innovation Fund. Genesis trees
+        will be planted in 10 countries in Latin America, Africa and Middle
+        East. Learn more about the Genesis Collection <a href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/" target="_blank">here</a>.
       </p>
     </div>
     <div class="col-md-8 col-12 getting-started-inc">
@@ -128,6 +123,7 @@
                 alt="trees-state"
                 class=""
                 src="../../assets/images/increamentalSell/trees-state.svg"
+                style="filter: grayscale(100%)"
               />
               <p class="param-xs tr-gray-two">Claimable</p>
             </div>
@@ -145,7 +141,6 @@
                 alt="trees-state"
                 class=""
                 src="../../assets/images/increamentalSell/trees-state.svg"
-                style="filter: grayscale(100%)"
               />
               <p class="param-xs tr-gray-two">Claimed</p>
             </div>
@@ -154,7 +149,8 @@
       </div>
     </div>
     <OtherTreeInc :text="'Tree of Life'" />
-    <div v-if="tree0Auction"
+    <div
+      v-if="tree0Auction"
       class="
         col-md-12
         d-md-flex
@@ -169,18 +165,26 @@
       </p>
     </div>
     <a id="auctions"></a>
-    <div v-if="tree0Auction && tree0Auction.auctions"
+    <div
+      v-if="tree0Auction && tree0Auction.auctions"
       class="col-md-8 col-12 justify-content-center text-center pointer-event"
       @click="$router.push('/tree/0')"
     >
-      <img alt="tree0"
-      :class="(tree0Auction.auctions[0].isActive && tree0Auction.auctions[0].endDate * 1000 > new Date().getTime()) ? 'filter-hue' :  'filter-balckandwhite' "
-      src="../../assets/images/increamentalSell/trees-state.svg" />
+      <img
+        alt="tree0"
+        :class="
+          tree0Auction.auctions[0].isActive &&
+          tree0Auction.auctions[0].endDate * 1000 > new Date().getTime()
+            ? 'filter-hue'
+            : 'filter-balckandwhite'
+        "
+        src="../../assets/images/increamentalSell/trees-state.svg"
+      />
       <p class="param-xs tr-gray-tree">Tree #0</p>
     </div>
     <OtherTreeInc :text="'#1-10'" />
     <div
-    v-if="treesAuction.length > 0"
+      v-if="treesAuction.length > 0"
       class="
         col-md-12
         current-price-inc
@@ -191,7 +195,6 @@
     >
       <p class="param tr-gray-four text-capitalize m-auto">
         Reserve Price: Ξ{{ parseFloat(treesAuctionReservePrice).toFixed(2) }}
-
       </p>
     </div>
     <div class="col-md-9 col-12 justify-content-center text-center">
@@ -201,7 +204,6 @@
         class="box-inc-trees d-inline-block pointer-event"
         @click="$router.push(`/tree/${$hex2Dec(tree.id)}`)"
       >
-      
         <span v-if="tree.auctions.length === 0">
           <img
             :alt="`tree-${$hex2Dec(tree.id)}`"
@@ -213,7 +215,13 @@
         <span v-else>
           <img
             :alt="`tree-${$hex2Dec(tree.id)}`"
-            :class="(tree.auctions[0].isActive && tree.auctions[0].endDate * 1000 > new Date().getTime()) ? 'filter-hue' :  'filter-balckandwhite' "
+            :class="
+              tree.auctions[0].isActive &&
+              tree.auctions[0].endDate * 1000 > new Date().getTime() &&
+              tree.auctions[0].startDate * 1000 <= new Date().getTime()
+                ? 'filter-hue'
+                : 'filter-balckandwhite'
+            "
             src="../../assets/images/increamentalSell/trees-state.svg"
           />
         </span>
@@ -241,7 +249,7 @@
         Thank you for being a part of this community!
       </p>
     </div>
-    
+
     <div class="col-md-9 col-12 justify-content-center text-center">
       <div
         v-for="(item, index) in honoraryTrees"
@@ -252,7 +260,7 @@
         <span>
           <img
             :alt="`tree-${$hex2Dec(item.id)}`"
-            :class="item.claimed ? 'filter-balckandwhite' : null  "
+            :class="item.claimed ? null : 'filter-balckandwhite'"
             src="../../assets/images/increamentalSell/trees-state.svg"
           />
         </span>
@@ -308,11 +316,11 @@ export default {
       loadingHonoraryTree: false,
       currenPrice: 0,
       incSaleData: {
-         startTreeId: 0,
-         endTreeId: 0,
-         initialPrice: 0,
-         increments: 0,
-         priceJump: 0
+        startTreeId: 0,
+        endTreeId: 0,
+        initialPrice: 0,
+        increments: 0,
+        priceJump: 0,
       },
       lastTreePrice: 0,
       startTreePrice: 0,
@@ -331,42 +339,51 @@ export default {
       prefetch: true,
       query: treesWithAuctionQuery,
       variables() {
-        return { 
+        return {
           idsIn: [
             this.$dec2hex(0),
-            this.$dec2hex(1), this.$dec2hex(2), this.$dec2hex(3), this.$dec2hex(4), this.$dec2hex(5),
-            this.$dec2hex(6), this.$dec2hex(7), this.$dec2hex(8), this.$dec2hex(9), this.$dec2hex(10)
+            this.$dec2hex(1),
+            this.$dec2hex(2),
+            this.$dec2hex(3),
+            this.$dec2hex(4),
+            this.$dec2hex(5),
+            this.$dec2hex(6),
+            this.$dec2hex(7),
+            this.$dec2hex(8),
+            this.$dec2hex(9),
+            this.$dec2hex(10),
           ],
           first: 11,
           skip: 0,
           orderBy: "id",
-          orderDirection: "asc"
-         };
+          orderDirection: "asc",
+        };
       },
-      update: data => data.trees
-
-    }
+      update: (data) => data.trees,
+    },
   },
   created() {
     this.calcCurrentPrice();
   },
   watch: {
     treesWithAuction() {
-      if(this.treesWithAuction.length === 0) {
+      if (this.treesWithAuction.length === 0) {
         return;
       }
 
       // this.treesAuction = this.treesWithAuction.slice(1)
-      this.treesAuction = this.treesWithAuction
-      this.treesAuctionReservePrice = this.$web3.utils.fromWei(this.treesAuction[0].auctions[0].initialPrice.toString())
+      this.treesAuction = this.treesWithAuction;
+      this.treesAuctionReservePrice = this.$web3.utils.fromWei(
+        this.treesAuction[0].auctions[0].initialPrice.toString()
+      );
 
       // this.tree0Auction = this.treesWithAuction[0];
       // this.tree0ReservePrice = this.$web3.utils.fromWei(this.tree0Auction.auctions[0].initialPrice.toString())
-    }
+    },
   },
   methods: {
     async goToCheckout() {
-      if(this.currenPrice > 0) {
+      if (this.currenPrice > 0) {
         this.$router.push("/genesis/checkout");
       } else {
         this.$bvToast.toast(["Mint on Jan 20th, Check auctions now!"], {
@@ -377,12 +394,12 @@ export default {
           noAutoHide: true,
         });
 
-        document.querySelector('#auctions').scrollIntoView({behavior: 'smooth'});
+        document
+          .querySelector("#auctions")
+          .scrollIntoView({ behavior: "smooth" });
       }
-
     },
     async calcCurrentPrice() {
-      
       this.currenPrice = await this.$store.dispatch(
         "incrementalSale/calculateTotalPrice",
         {
@@ -393,18 +410,23 @@ export default {
 
       this.incSaleData = this.$store.state.incrementalSale.incSaleData;
 
-      this.startTreePrice = this.$web3.utils.fromWei(this.incSaleData.initialPrice.toString());
+      this.startTreePrice = this.$web3.utils.fromWei(
+        this.incSaleData.initialPrice.toString()
+      );
 
       this.lastTreePrice = this.$web3.utils.fromWei(
         (
-          parseInt(this.incSaleData.initialPrice) + 
-
-          parseInt( ( parseInt(this.incSaleData.endTreeId) - parseInt(this.incSaleData.startTreeId) ) / parseInt(this.incSaleData.increments) )
-               * parseInt(this.incSaleData.priceJump) * parseInt(this.incSaleData.initialPrice) / 10000
+          parseInt(this.incSaleData.initialPrice) +
+          (parseInt(
+            (parseInt(this.incSaleData.endTreeId) -
+              parseInt(this.incSaleData.startTreeId)) /
+              parseInt(this.incSaleData.increments)
+          ) *
+            parseInt(this.incSaleData.priceJump) *
+            parseInt(this.incSaleData.initialPrice)) /
+            10000
         ).toString()
-
       );
-
     },
     async claimHonanraryTree() {
       let self = this;
@@ -422,7 +444,9 @@ export default {
         await self.$axios
           .$post(process.env.graphqlUrl, {
             query: `{
-                    honoraryTreeRecipient(id: "${self.$cookies.get("account").toLowerCase()}")
+                    honoraryTreeRecipient(id: "${self.$cookies
+                      .get("account")
+                      .toLowerCase()}")
                       {
                           id
                           expiryDate
