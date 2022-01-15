@@ -9,17 +9,20 @@
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
         {{ "Connect Wallet" }}
       </b-button>
-      <span class="position-relative">
-        <img
-          alt="tree"
-          class="img-fluid tree pointer-event"
-          name="tree"
-          src="/tree.svg"
-          @click="goToDashboard('/forest')"
-        />
-        <Badge />
-      </span>
 
+
+      <NuxtLink to="/forest/guest" class="position-relative">
+        <img
+            alt="tree"
+            class="img-fluid tree pointer-event"
+            name="tree"
+            src="/tree.svg"
+          />
+          <Badge />
+      </NuxtLink>
+
+
+      
     </b-nav-form>
 
 
@@ -49,16 +52,15 @@
       </div>
 
 
-      <span class="position-relative">
-        
-      <img
-        alt="tree"
-        class="img-fluid tree pointer-event"
-        name="tree"
-        src="/tree.svg"
-        @click="goToDashboard(`/forest/${$cookies.get('account')}`)"
-      />
-        <Badge /></span>
+        <NuxtLink :to="`/forest/${$cookies.get('account')}`" class="position-relative">
+        <img
+            alt="tree"
+            class="img-fluid tree pointer-event"
+            name="tree"
+            src="/tree.svg"
+          />
+          <Badge />
+      </NuxtLink>
 
         
 
