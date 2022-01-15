@@ -200,7 +200,7 @@ export default {
     if (process.client && window.ethereum) {
       // // use MetaMask's provider
       // App.web3 = new Web3(window.ethereum);
-      window.ethereum.enable(); // get permission to access accounts
+      // window.ethereum.enable(); // get permission to access accounts
 
       // // detect Metamask account change
       // window.ethereum.on('accountsChanged', function (accounts) {
