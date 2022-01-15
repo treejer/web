@@ -238,8 +238,7 @@
         builders, designers, community advocates and thought leaders in this
         space. We’d love to plant the very first trees for them. If you’re one
         of the people on this list, you can claim one of these unique trees.
-        Thank you for being a part of this community! All unclaimed trees will
-        be sent to Treejer’s treasury after 30 days.
+        Thank you for being a part of this community!
       </p>
     </div>
     
