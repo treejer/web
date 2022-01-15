@@ -4860,7 +4860,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-01-14T15:38:30.412Z",
+  "updatedAt": "2022-01-15T01:48:05.987Z",
   "devdoc": {
     "events": {
       "ClaimFailed(address)": {
