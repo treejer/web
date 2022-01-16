@@ -74,7 +74,7 @@
       </div>
 
       <div class="col-12 p-0">
-        <button
+        <!-- <button
           v-if="erc20Balance <= 0"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
@@ -84,9 +84,8 @@
             >loading
           </BSpinner>
           {{ loading ? "Loading" : `Buy WETH` }}
-        </button>
+        </button> -->
         <button
-          v-if="erc20Balance > 0"
           :class="{ disable: loading }"
           class="btn-green-md mt-4 mb-3 w-100 h-100"
           @click.prevent="placeBid('approveOrConfirm')"
