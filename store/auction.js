@@ -15,14 +15,21 @@ export const actions = {
 
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
-    if(!referrer || referrer === account) {
-      referrer = process.env.zeroAddress;
-    }
 
-    try {
-      referrer = this.$web3.utils.toChecksumAddress(referrer)
-    } catch(e) { 
-      console.error('invalid referrer address', e.message) 
+    if(!referrer) {
+
+      if(referrer.toLowerCase() === account.toLowerCase()) {
+        referrer = process.env.zeroAddress;
+      }
+  
+      try {
+        referrer = this.$web3.utils.toChecksumAddress(referrer)
+      } catch(e) { 
+        console.error('invalid referrer address', e.message) 
+        referrer = process.env.zeroAddress;
+      }
+
+    } else {
       referrer = process.env.zeroAddress;
     }
 
