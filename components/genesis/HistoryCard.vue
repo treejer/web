@@ -137,7 +137,7 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch('setEthPrice')
+    // await this.$store.dispatch('setEthPrice')
 
     this.setText();
     if(this.history.value > 0) {
