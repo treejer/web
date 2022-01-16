@@ -23,11 +23,13 @@
           <span class="param tr-gray-four font-weight-bold">${{ currency == 'WETH' ? parseFloat(humanValue * ethPrice).toFixed(2) : parseFloat(humanValue * daiPrice).toFixed(2)  }}</span>
         </p>
       </div>
-      <div class="col-md-3 col-3 price-card pr-0" v-if="link">
-        <button class="btn-see tr-white param-18 font-weight-bolder" @click="goToLink(href)">
+      <div class="col-md-3 col-3 price-card btn-see-div pr-0">      
+        <a :href="`${explorerUrl}/tx/${history.transactionHash}`" target="_blank"  class="btn btn-see tr-white param-18 font-weight-bolder">
           See
-        </button>
+        </a>
       </div>
+
+      
     </div>
   </div>
 </template>
@@ -36,10 +38,11 @@
 export default {
   data() {
     return {
+      explorerUrl: process.env.etherScanUrl,
       text: null,
       currency: 'WETH',
       humanValue: 0,
-      link: false,
+      link: true,
     };
   },
   computed:{
@@ -167,6 +170,11 @@ export default {
     border: none;
     height: 80px;
     width: 100%;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+
+
   }
   img {
     width: 40px;
@@ -174,7 +182,30 @@ export default {
     border: solid 1px lightgray;
     border-radius: 16px;
   }
+
+  .des-card {
+    position: relative;
+  }
+  
+  .btn-see-div {
+    display: none;
+    
+    position: absolute;
+    z-index: 1;
+    right: 15px;
+
+    vertical-align: middle;
+
+    
+  }
+    
+  :hover .btn-see-div {
+    display: block;
+  }
+
 }
+
+
 @media (min-width: 100px) and (max-width: 425px) {
   .history-cards {
   }

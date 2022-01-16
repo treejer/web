@@ -162,7 +162,7 @@ export const actions = {
       return;
     }
 
-    await this.$axios.$get(process.env.ethPrice)
+    await this.$axios.$get(process.env.apiUrl+ '/prices')
     .then((res) => {
       commit('SET_ETH_PRICE', res.result.ethusd)
     }).catch((err) => {

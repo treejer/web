@@ -38,7 +38,7 @@ export default {
     return {
       activeIndex: 0,
       tabs: [
-        { name: "Recent" },
+        { name: "Recently Minted" },
         { name: "Auctions" },
         { name: "Honorary" },
       ],

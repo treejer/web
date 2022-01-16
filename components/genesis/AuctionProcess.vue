@@ -243,7 +243,7 @@ export default {
       this.resetAllStepAndGo("enterBidValueStep");
     } 
 
-    await this.$store.dispatch("setEthPrice");
+    // await this.$store.dispatch("setEthPrice");
     await this.setERC20Balance();
 
   },
