@@ -14,6 +14,9 @@ export const actions = {
           let price = self.$web3.utils.fromWei(treeWeiPrice);
           commit('SET_PRICE', price)
           return price;
+        }).catch( (err) => {
+          console.log(err.message, "getPrice error")
+          return 0
         });
     } catch(e) {
       console.log(e + "error in getPrice")

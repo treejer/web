@@ -77,7 +77,14 @@ export const actions = {
 
   async setLastSold({ commit }) {
     try {
-      let lastSold = await this.$IncrementalSale.methods.lastSold().call();
+      let lastSold = await this.$IncrementalSale.methods.lastSold().call()
+      .then((localLastSold) => {
+        return localLastSold;
+      }).catch( (err) => {
+        console.log(err.message, "setLastSold error")
+        return 0
+      });
+
       commit('SET_LAST_SOLD', lastSold);
       return parseInt(lastSold);
     } catch(e) {
@@ -88,7 +95,14 @@ export const actions = {
 
   async setIncSaleData({ commit }) {
     try {
-      let incSaleData = await this.$IncrementalSale.methods.incrementalSaleData().call();
+      let incSaleData = await this.$IncrementalSale.methods.incrementalSaleData().call()
+      .then((localIncSaleData) => {
+        return localIncSaleData;
+      }).catch( (err) => {
+        console.log(err.message, "setIncSaleData error")
+        return null;
+      });
+
       commit('SET_INCSALEDATA_SOLD', incSaleData);
       return incSaleData;
     } catch(e) {

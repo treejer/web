@@ -11,8 +11,17 @@ export const actions = {
   async balanceOf(context, params) {
     try {
       const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
-      let balanceInWei =  await daiContract.methods.balanceOf(params.account).call()
-      return this.$web3.utils.fromWei(balanceInWei.toString()).toString()
+
+      let self = this
+      return daiContract.methods.balanceOf(params.account).call()
+        .then((balanceInWei) => {
+          return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
+        }).catch( (err) => {
+          console.log(err.message, "balanceOf error")
+          return 0
+        });
+
+
     } catch (err) {
       console.error(err, "error dai balanceOf")
       return 0;
@@ -31,7 +40,11 @@ export const actions = {
 
       let self = this
       return daiContract.methods.allowance(account, this.$RegularSale._address).call()
-        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()))
+        .catch( (err) => {
+          console.log(err.message, "allowance error")
+          return 0
+        });
 
     } catch(error) {
       console.log(error.message, "allowance error dai")

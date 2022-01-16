@@ -26,7 +26,11 @@ export const actions = {
         .then((balanceInWei) => {
           console.log(balanceInWei,"balanceInWei is here ")
           return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
+        }).catch( (err) => {
+          console.log(err.message, "balanceOf error")
+          return 0
         });
+
     } catch(error) {
       console.log(error.message, "balanceOf error")
       return 0;
@@ -45,7 +49,11 @@ export const actions = {
       
       let self = this
       return erc20Contract.methods.allowance(account, params.spenderContract).call()
-        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()))
+        .catch( (err) => {
+          console.log(err.message, "allowance error")
+          return 0
+        });
 
 
     } catch(error) {
