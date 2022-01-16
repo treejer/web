@@ -34,7 +34,7 @@
 
     <div v-if="enterBidValueStep" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
-        <p class="mb-0 param tr-gray-two">
+        <p class="mb-0 param tr-gray-two cursor-pointer" @click="bidValue = parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4)">
           Min bid
           {{
             parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4)
@@ -444,10 +444,14 @@ export default {
           return;
         }
 
-        if (this.bidValue === null) {
+        if (!this.bidValue || this.bidValue <= 0) {
           this.toast("Bid value is empty", "Value Error");
           return;
         }
+
+        console.log(parseFloat(this.bidValue),
+          parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())));
+
 
         if (
           parseFloat(this.bidValue) <
@@ -633,9 +637,9 @@ export default {
   }
 
   .auction-bid-input {
-    border: none;
+    // border: none;
     background: transparent;
-    width: 100%;
+    width: 80%;
   }
 }
 </style>

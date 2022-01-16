@@ -1,9 +1,9 @@
 <template>
   <div class="countdown d-flex ">
-    <div class="d-flex" >
+    <!-- <div class="d-flex" >
       <span class="digit">{{ days | two_digits }}</span>
       <span class="text">d</span>
-    </div>
+    </div> -->
     <div class="d-flex">
       <span class="digit">{{ hours | two_digits }}</span>
       <span class="text">h</span>
