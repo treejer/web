@@ -532,7 +532,10 @@ export default {
         }
       }
 
-      await this.getOwnerTrees(40, 0);
+      if(newOwner) {
+        await this.getOwnerTrees(40, 0);
+      }
+
     },
   },
 
