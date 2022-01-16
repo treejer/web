@@ -71,15 +71,7 @@
                 </span>
 
               </div>
-              <div class="Bids col-md-6 justify-content-center m-auto" v-if="auction && auction.bids.length > 0">
-                <p class="text-center tr-gray-one param-xl font-weight-bold">Bidders</p>
-              </div>
-              <div v-if="auction"
-                   class="col-md-12 pb-md-5 justify-content-center m-auto">
-                <AvatarBidders
-                  :bids="auction.bids"
-                />
-              </div>
+            
               <div class="history col-md-6 justify-content-center m-auto">
                 <p class="text-center tr-gray-one param-xl font-weight-bold">History</p>
               </div>
@@ -239,14 +231,12 @@ import SearchBar from "~/components/SearchBar";
 import HistoryCard from "~/components/genesis/HistoryCard.vue";
 import PeopleCard from "~/components/genesis/PeopleCard.vue";
 import AuctionProcess from "~/components/genesis/AuctionProcess.vue";
-// import moment from "moment"
-import AvatarBidders from "~/components/genesis/AvatarBidders";
 
 
 export default {
   name: "tree-profile",
   layout: "landing",
-  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, AvatarBidders, mapDetails},
+  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, mapDetails},
   head() {
     return {
       title: "Treejer - Tree " + this.$route.params.id,
