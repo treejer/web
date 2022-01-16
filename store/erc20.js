@@ -18,28 +18,40 @@ export const actions = {
       return 0;
     }
 
-    const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
+    try {
+      const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
 
-    let self = this
-    return erc20Contract.methods.balanceOf(account).call()
-      .then((balanceInWei) => {
-        console.log(balanceInWei,"balanceInWei is here ")
-        return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
-      });
+      let self = this
+      return erc20Contract.methods.balanceOf(account).call()
+        .then((balanceInWei) => {
+          console.log(balanceInWei,"balanceInWei is here ")
+          return self.$web3.utils.fromWei(balanceInWei.toString()).toString()
+        });
+    } catch(error) {
+      console.log(error.message, "balanceOf error")
+      return 0;
+    }
   },
   async allowance(context, params) {
 
-    let account = this.$cookies.get('account');
+    try {
+      let account = this.$cookies.get('account');
 
-    if(account == null) {
-      console.log("erc20js - account not exists in cookies");
+      if(account == null) {
+        console.log("erc20js - account not exists in cookies");
+        return 0;
+      }
+      const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
+      
+      let self = this
+      return erc20Contract.methods.allowance(account, params.spenderContract).call()
+        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+
+
+    } catch(error) {
+      console.log(error.message, "allowance error")
       return 0;
     }
-    const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, params.tokenAddress);
-    
-    let self = this
-    return erc20Contract.methods.allowance(account, params.spenderContract).call()
-      .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
   },
   async approve(context, params) {
     let self = this;

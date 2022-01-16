@@ -15,57 +15,63 @@ export const state = () => ({
 export const actions = {
   async calculateTotalPrice({ context, dispatch }, params) {
 
-    let lastSold = await dispatch("setLastSold");
-    let incSaleData = await dispatch("setIncSaleData");
-    if(lastSold === 0 || typeof incSaleData === 'undefined') {
-      return;
-    }
+    try {
+      let lastSold = await dispatch("setLastSold");
+      let incSaleData = await dispatch("setIncSaleData");
+      if(lastSold === 0 || typeof incSaleData === 'undefined') {
+        return;
+      }
+  
+      if (lastSold + parseInt(params.count) > parseInt(incSaleData.endTreeId)) {
+        alert("Not enough tree in incremental sell");
+        return 0;
+      }
+  
+  
+      let tempLastSold = lastSold + 1;
+  
+      console.log(tempLastSold, "tempLastSold")
+  
+      let y = parseInt((parseInt(tempLastSold) - parseInt(incSaleData.startTreeId)) / parseInt(incSaleData.increments));
+      console.log(y, "y")
+  
+  
+      let tempLastSoldPrice = parseInt(incSaleData.initialPrice) +
+        parseInt((parseInt(y) * parseInt(incSaleData.initialPrice) * parseInt(incSaleData.priceJump))) /
+        10000;
+  
+      console.log(tempLastSoldPrice, "tempLastSoldPrice")
+  
+  
+      let totalPrice = parseInt(params.count) * parseInt(tempLastSoldPrice);
+  
+      console.log(totalPrice, "totalPrice")
+  
+  
+      let extra = parseInt(params.count) -
+        (
+          (parseInt(y) + 1) * parseInt(incSaleData.increments) + parseInt(incSaleData.startTreeId) - parseInt(tempLastSold)
+        );
+  
+      console.log(extra, "extra")
+  
+  
+      while (extra > 0) {
+        totalPrice +=
+          parseInt((extra) *
+            incSaleData.initialPrice *
+            incSaleData.priceJump) /
+          10000;
+        extra -= parseInt(incSaleData.increments);
+      }
+      console.log(totalPrice, "totalPrice")
+  
+      return this.$web3.utils.fromWei(totalPrice.toString());
 
-    if (lastSold + parseInt(params.count) > parseInt(incSaleData.endTreeId)) {
-      alert("Not enough tree in incremental sell");
+    } catch (err) {
+      console.error(err, "error calculateTotalPrice")
       return 0;
     }
-
-
-    let tempLastSold = lastSold + 1;
-
-    console.log(tempLastSold, "tempLastSold")
-
-    let y = parseInt((parseInt(tempLastSold) - parseInt(incSaleData.startTreeId)) / parseInt(incSaleData.increments));
-    console.log(y, "y")
-
-
-    let tempLastSoldPrice = parseInt(incSaleData.initialPrice) +
-      parseInt((parseInt(y) * parseInt(incSaleData.initialPrice) * parseInt(incSaleData.priceJump))) /
-      10000;
-
-    console.log(tempLastSoldPrice, "tempLastSoldPrice")
-
-
-    let totalPrice = parseInt(params.count) * parseInt(tempLastSoldPrice);
-
-    console.log(totalPrice, "totalPrice")
-
-
-    let extra = parseInt(params.count) -
-      (
-        (parseInt(y) + 1) * parseInt(incSaleData.increments) + parseInt(incSaleData.startTreeId) - parseInt(tempLastSold)
-      );
-
-    console.log(extra, "extra")
-
-
-    while (extra > 0) {
-      totalPrice +=
-        parseInt((extra) *
-          incSaleData.initialPrice *
-          incSaleData.priceJump) /
-        10000;
-      extra -= parseInt(incSaleData.increments);
-    }
-    console.log(totalPrice, "totalPrice")
-
-    return this.$web3.utils.fromWei(totalPrice.toString());
 
   },
 
@@ -76,6 +82,7 @@ export const actions = {
       return parseInt(lastSold);
     } catch(e) {
       console.log(e + "error in setLastSold")
+      commit('SET_LAST_SOLD', 0);
     }
   },
 
@@ -86,6 +93,7 @@ export const actions = {
       return incSaleData;
     } catch(e) {
       console.log(e + "error in setIncSaleData")
+      commit('SET_INCSALEDATA_SOLD', 0);
     }
   },
 

@@ -22,12 +22,22 @@ export const actions = {
     }
   },
   async allowance() {
-    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
-    let account = this.$cookies.get('account');
 
-    let self = this
-    return wethContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
-      .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+    try {
+      const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
+      let account = this.$cookies.get('account');
+
+      let self = this
+      return wethContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
+        .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()));
+
+    } catch(error) {
+      console.log(error.message, "allowance error weth")
+      return 0;
+    }
+
+
+
   },
   async approve(context, params) {
     let self = this;
