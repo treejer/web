@@ -245,6 +245,7 @@
         </span>
 
         <span v-else>
+
           <img
             :alt="`tree-${$hex2Dec(tree.id)}`"
             :class="
@@ -252,7 +253,7 @@
               tree.auctions[0].endDate * 1000 > new Date().getTime() &&
               tree.auctions[0].startDate * 1000 <= new Date().getTime()
                 ? 'filter-hue'
-                : 'filter-balckandwhite'
+                : (!tree.owner ? 'filter-balckandwhite' : '')
             "
             src="../../assets/images/increamentalSell/trees-state.svg"
           />
@@ -446,8 +447,7 @@ export default {
         this.incSaleData.initialPrice.toString()
       );
 
-      this.lastTreePrice = this.$web3.utils.fromWei(
-        (
+      let lastPrice = (
           parseInt(this.incSaleData.initialPrice) +
           (parseInt(
             (parseInt(this.incSaleData.endTreeId) -
@@ -457,8 +457,11 @@ export default {
             parseInt(this.incSaleData.priceJump) *
             parseInt(this.incSaleData.initialPrice)) /
             10000
-        ).toString()
-      );
+        );
+
+      if(lastPrice > 0) {
+        this.lastTreePrice = this.$web3.utils.fromWei(lastPrice.toString());
+      }
     },
     async claimHonanraryTree() {
       let self = this;
