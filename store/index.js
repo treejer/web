@@ -157,12 +157,17 @@ export const actions = {
     commit('SET_DASHBOARD', status)
   },
   async setEthPrice({ commit, state }) {
-    if(parseFloat(state.ethPrice) > 0) {
+
+    if(parseFloat(state.ethPrice) > 0 || parseInt(state.ethPrice) > 0) {
       return;
     }
 
-    const ethPrice = await this.$axios.$get(process.env.ethPrice)
-    commit('SET_ETH_PRICE', ethPrice.result.ethusd)
+    await this.$axios.$get(process.env.ethPrice)
+    .then((res) => {
+      commit('SET_ETH_PRICE', res.result.ethusd)
+    }).catch((err) => {
+      console.log(err.message, 'err setEthPrice')
+    })
   },
   async getLeaderBoards({ commit }) {
     const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)

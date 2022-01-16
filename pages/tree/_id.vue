@@ -284,10 +284,12 @@ export default {
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
     this.getOffchainTreeData();
-    this.getTreeHistory()
     
     await this.$store.dispatch('setEthPrice')
     await this.getTreeAuction()
+
+    this.getTreeHistory()
+
 
     this.loading = false
   },

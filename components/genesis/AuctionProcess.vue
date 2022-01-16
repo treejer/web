@@ -220,11 +220,7 @@ export default {
     };
   },
   async created() {
-    await this.$store.dispatch("setEthPrice");
-
-    if (!this.erc20Balance) {
-      await this.setERC20Balance();
-    }
+    
 
     const priceJump =
       parseInt(
@@ -246,6 +242,10 @@ export default {
     if(!this.started && !this.ended && this.auction.isActive) {
       this.resetAllStepAndGo("enterBidValueStep");
     } 
+
+    await this.$store.dispatch("setEthPrice");
+    await this.setERC20Balance();
+
   },
   methods: {
     async buyERC20() {
@@ -296,6 +296,10 @@ export default {
       });
     },
     async allowSpendERC20(silent = false) {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       if (silent === false) {
         this.loading = true;
       }
@@ -350,6 +354,10 @@ export default {
       }
     },
     async bid() {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       this.loading = true;
 
       let tx = await this.$store.dispatch("auction/bid", {
@@ -370,6 +378,10 @@ export default {
       this.loading = false;
     },
     async endAuction() {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       this.loading = true;
 
       let tx = await this.$store.dispatch("auction/end", {
@@ -412,6 +424,10 @@ export default {
         return;
       }
 
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       if (goToStep === "enterBidValueStep") {
         this.resetAllStepAndGo("enterBidValueStep");
         return;
@@ -445,7 +461,7 @@ export default {
           return;
         }
 
-        await this.setERC20Balance(true);
+        await this.setERC20Balance();
 
         if (parseFloat(this.bidValue) > parseFloat(this.erc20Balance)) {
           this.toast(
@@ -505,6 +521,29 @@ export default {
       } else {
         this.successStep = false;
       }
+    },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net.getId()
+      .then((networkId) => {
+        return networkId;
+      })
+      .catch((err) => {
+        console.log(err.message, "error checkNetwork");
+        return 0;
+      });
+
+      if(connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+        toaster: "b-toaster-bottom-left",
+        title: 'Wrong network',
+        variant: 'danger',
+        noAutoHide: true,
+      });
+      return false;
+
     }
   },
 };

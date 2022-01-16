@@ -59,7 +59,9 @@ export default {
     transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK,
     etherScanUrl: process.env.ETHERSCAN_URL,
     graphqlUrl: process.env.GRAPHQL_URL,
-    zeroAddress: "0x0000000000000000000000000000000000000000"
+    zeroAddress: "0x0000000000000000000000000000000000000000",
+    networkName: process.env.NETWORK_NAME,
+    networkId: process.env.NETWORK_ID
 
   },
 
