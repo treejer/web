@@ -242,6 +242,11 @@ export default {
 
     this.ended = this.auction.endDate * 1000 < new Date().getTime();
     this.started = this.auction.startDate * 1000 > new Date().getTime();
+
+
+    if(!this.started && !this.ended && this.auction.isActive) {
+      this.resetAllStepAndGo("enterBidValueStep");
+    } 
   },
   methods: {
     async buyERC20() {
