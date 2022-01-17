@@ -347,7 +347,7 @@ export default {
         spenderContract: this.spenderContract,
       });
 
-      this.isAllowedSpendERC20 = allowance >= this.bidValue;
+      this.isAllowedSpendERC20 = parseFloat(allowance) >= parseFloat(this.bidValue);
 
       if (silent === false) {
         this.loading = false;
