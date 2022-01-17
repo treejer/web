@@ -16,7 +16,7 @@ export const actions = {
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
 
-    if(!referrer) {
+    if(referrer) {
 
       if(referrer.toLowerCase() === account.toLowerCase()) {
         referrer = process.env.zeroAddress;
