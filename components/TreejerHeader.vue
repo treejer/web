@@ -28,14 +28,18 @@
         >
           <!-- Right aligned nav items -->
           <b-navbar-nav class="header-menu">
-            <b-nav-item
-              v-for="(item, index) in items"
-              :name="item.name"
-              :key="index"
-              @click="activeMenu(item, index)"
-            >
-              {{ item.name }}
-            </b-nav-item>
+            <NuxtLink to="/genesis" class="nav-item">
+              <span class="nav-link">Genesis</span>
+            </NuxtLink>
+            <NuxtLink to="/partnerships" class="nav-item">
+              <span class="nav-link">Partnerships</span>
+            </NuxtLink>
+            <a href="https://blog.treejer.com" target="_blank" class="nav-item">
+              <span name="Blog" class="nav-link"> Blog </span>
+            </a>
+            <NuxtLink to="/about" class="nav-item">
+              <span class="nav-link">About</span>
+            </NuxtLink>
           </b-navbar-nav>
           <client-only>
             <div class="d-lg-block d-none">
@@ -74,14 +78,6 @@ export default {
       formError: null,
       account: null,
       user: false,
-      activeIndex: 0,
-      items: [
-        { name: "Genesis", step: 4, href: "/genesis" },
-        // { name: "Find My Tree", step: 4, href: "/find" },
-        { name: "Partnerships", step: 3, href: "/partnerships" },
-        { name: "Blog", step: 2 },
-        { name: "About", step: 1, href: "/about" },
-      ],
     };
   },
   computed: {},
@@ -124,25 +120,27 @@ export default {
         }
       }
     },
-    activeMenu(item, index) {
-
-      if (item.name === "Blog") {
-        window.open("https://blog.treejer.com/", "_blank");
-      } else {
-        this.activeIndex = index;
-        this.$router.push(item.href);
-      }
-    },
   },
   async mounted() {
     let self = this;
-    self.account = this.$cookies.get('account')
-      await this.accountChange();
+    self.account = this.$cookies.get("account");
+    await this.accountChange();
   },
 };
 </script>
 
 <style lang="scss">
+.headers {
+  a {
+    transition: all ease-in 0.2s;
+    text-align: left;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #67b68c;
+  }
+}
 @media (max-width: 1023px) {
   .headers {
     padding: 0 10px;

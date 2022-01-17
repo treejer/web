@@ -1,29 +1,53 @@
 <template>
   <div class="w-100">
-    <div class="card-inc mr-md-3 mr-0" @click="goToTreeProfile($hex2Dec(tree.id))">
-      <div class="card-header bg-transparent border-0" >
-        <div class="d-flex justify-content-between">
-          <img
-            class="rounded-circle text-left"
-            :alt="tree.owner.id"
-            :src="$avatarByWallet(tree.owner.id)"
-            height="36" width="36">
-          <p class="tr-gray-four  param-sm">Owned by <br> <span v-coin class="tr-gray-one param font-weight-bolder">{{ tree.owner.id }}</span></p>
+    <div class="card-inc mr-md-3 mr-0">
+      <NuxtLink :to="`/forest/${tree.owner.id}`">
+        <div class="card-header bg-transparent border-0">
+          <div class="d-flex justify-content-between">
+            <img
+              class="rounded-circle text-left"
+              :alt="tree.owner.id"
+              :src="$avatarByWallet(tree.owner.id)"
+              height="36"
+              width="36"
+            />
+            <p class="tr-gray-four param-sm">
+              Owned by <br />
+              <span v-coin class="tr-gray-one param font-weight-bolder">{{
+                tree.owner.id
+              }}</span>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="card-img" :style="`background: rgba(${Math.floor(Math.random() * 189) }, ${Math.floor(Math.random() * 70) }, ${Math.floor(Math.random() * 42) }, 0.1);`">
-        <img :src="tree.treeSpecsEntity ? 
-          (tree.treeSpecsEntity.imageFs != '' ?tree.treeSpecsEntity.imageFs:defaultImage )
-        : defaultImage"
-        :alt="`tree-${$hex2Dec(tree.id)}-image`" class="inc-tree-img img-fluid">
-      </div>
+      </NuxtLink>
+
+      <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
+        <div
+          class="card-img"
+          :style="`background: rgba(${Math.floor(
+            Math.random() * 189
+          )}, ${Math.floor(Math.random() * 70)}, ${Math.floor(
+            Math.random() * 42
+          )}, 0.1);`"
+        >
+          <img
+            :src="
+              tree.treeSpecsEntity
+                ? tree.treeSpecsEntity.imageFs != ''
+                  ? tree.treeSpecsEntity.imageFs
+                  : defaultImage
+                : defaultImage
+            "
+            :alt="`tree-${$hex2Dec(tree.id)}-image`"
+            class="inc-tree-img img-fluid"
+          />
+        </div>
+      </NuxtLink>
     </div>
   </div>
-
 </template>
 
 <script>
-
 export default {
   name: "IncCard",
   props: {
@@ -36,24 +60,18 @@ export default {
         },
         treeSpecsEntity: {
           imageFs: "",
-        }
-      }
-    }
+        },
+      },
+    },
   },
   data() {
     return {
-      defaultImage: require('~/assets/images/increamentalSell/tree.svg')
-    }
+      defaultImage: require("~/assets/images/increamentalSell/tree.svg"),
+    };
   },
-  methods: {
-    goToTreeProfile(id) {
-      this.$router.push(
-        this.localePath({ name: "tree-id", params: { id: id } })
-      );
-    }
-  },
+  methods: {},
   created() {},
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +79,7 @@ export default {
   cursor: pointer;
   text-align: center;
   justify-content: center;
-  background: #FAFAFA;
+  background: #fafafa;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   margin-top: 36px;
@@ -74,6 +92,16 @@ export default {
   .card-img {
     border-radius: 18px;
   }
+
+  a {
+    transition: all ease-in 0.2s;
+    text-align: left;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #67b68c;
+  }
 }
 
 @media (max-width: 768px) {
@@ -84,7 +112,6 @@ export default {
     .card-header {
       padding: 0;
     }
-
   }
 }
 </style>

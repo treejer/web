@@ -10,11 +10,23 @@
       <p class="param tr-gray-two mt-2">Funder</p>
       <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id :  (tree.owner ? 'Treejer': 'Not Funded')  }}</p>
     </div>
-    <div class="border-0">
-      <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
-      <p class="param tr-gray-two mt-2">Owner</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
-    </div>
+
+    <NuxtLink v-if="tree.owner"
+      :to="`/forest/${tree.owner.id}`"
+      class="border-0"
+    >
+        <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
+        <p class="param tr-gray-two mt-2">Owner</p>
+        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
+    </NuxtLink>
+
+    <div v-else class="border-0">
+        <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
+        <p class="param tr-gray-two mt-2">Owner</p>
+        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
+      </div>
+
+
   </div>
 </template>
 
@@ -59,5 +71,13 @@ export default {
     border: 2px solid #FFFFFF;
 
   }
+  a {
+      transition: all ease-in 0.2s;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: #67b68c;
+    }
 }
 </style>

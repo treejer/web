@@ -64,7 +64,12 @@
         Treejer Protocol. The collection helps the project thrive after our
         recent token-free investment by UNICEF Innovation Fund. Genesis trees
         will be planted in 10 countries in Latin America, Africa and Middle
-        East. Learn more about the Genesis Collection <a href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/" target="_blank">here</a>.
+        East. Learn more about the Genesis Collection
+        <a
+          href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/"
+          target="_blank"
+          >here</a
+        >.
       </p>
     </div>
     <div class="col-md-8 col-12 getting-started-inc">
@@ -176,11 +181,8 @@
         mt-3
       "
     >
-      <p class="param tr-gray-four text-capitalize">
-        Reveals after Genesis
-      </p>
+      <p class="param tr-gray-four text-capitalize">Reveals after Genesis</p>
     </div>
-
 
     <a id="auctions"></a>
     <div
@@ -213,7 +215,6 @@
       <p class="param-xs tr-gray-tree">Tree #0</p>
     </div>
 
-
     <OtherTreeInc :text="'#1-10'" />
     <div
       v-if="treesAuction.length > 0"
@@ -234,32 +235,34 @@
         v-for="(tree, index) in treesAuction"
         :key="index"
         class="box-inc-trees d-inline-block pointer-event"
-        @click="$router.push(`/tree/${$hex2Dec(tree.id)}`)"
       >
-        <span v-if="tree.auctions.length === 0">
-          <img
-            :alt="`tree-${$hex2Dec(tree.id)}`"
-            class="filter-balckandwhite"
-            src="../../assets/images/increamentalSell/trees-state.svg"
-          />
-        </span>
+        <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
+          <span v-if="tree.auctions.length === 0">
+            <img
+              :alt="`tree-${$hex2Dec(tree.id)}`"
+              class="filter-balckandwhite"
+              src="../../assets/images/increamentalSell/trees-state.svg"
+            />
+          </span>
 
-        <span v-else>
+          <span v-else>
+            <img
+              :alt="`tree-${$hex2Dec(tree.id)}`"
+              :class="
+                tree.auctions[0].isActive &&
+                tree.auctions[0].endDate * 1000 > new Date().getTime() &&
+                tree.auctions[0].startDate * 1000 <= new Date().getTime()
+                  ? 'filter-hue'
+                  : !tree.owner
+                  ? 'filter-balckandwhite'
+                  : ''
+              "
+              src="../../assets/images/increamentalSell/trees-state.svg"
+            />
+          </span>
 
-          <img
-            :alt="`tree-${$hex2Dec(tree.id)}`"
-            :class="
-              tree.auctions[0].isActive &&
-              tree.auctions[0].endDate * 1000 > new Date().getTime() &&
-              tree.auctions[0].startDate * 1000 <= new Date().getTime()
-                ? 'filter-hue'
-                : (!tree.owner ? 'filter-balckandwhite' : '')
-            "
-            src="../../assets/images/increamentalSell/trees-state.svg"
-          />
-        </span>
-
-        <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(tree.id) }}</p>
+          <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(tree.id) }}</p>
+        </NuxtLink>
       </div>
     </div>
     <OtherTreeInc :text="'#11-100 '" />
@@ -288,17 +291,18 @@
         v-for="(item, index) in honoraryTrees"
         :key="index"
         class="box-inc-trees d-inline-block pointer-event"
-        @click="$router.push(`/tree/${$hex2Dec(item.id)}`)"
       >
-        <span>
-          <img
-            :alt="`tree-${$hex2Dec(item.id)}`"
-            :class="item.claimed ? null : 'filter-balckandwhite'"
-            src="../../assets/images/increamentalSell/trees-state.svg"
-          />
-        </span>
+        <NuxtLink :to="`/tree/${$hex2Dec(item.id)}`">
+          <span>
+            <img
+              :alt="`tree-${$hex2Dec(item.id)}`"
+              :class="item.claimed ? null : 'filter-balckandwhite'"
+              src="../../assets/images/increamentalSell/trees-state.svg"
+            />
+          </span>
 
-        <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.id) }}</p>
+          <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.id) }}</p>
+        </NuxtLink>
       </div>
       <div
         class="
@@ -447,19 +451,18 @@ export default {
         this.incSaleData.initialPrice.toString()
       );
 
-      let lastPrice = (
-          parseInt(this.incSaleData.initialPrice) +
-          (parseInt(
-            (parseInt(this.incSaleData.endTreeId) -
-              parseInt(this.incSaleData.startTreeId)) /
-              parseInt(this.incSaleData.increments)
-          ) *
-            parseInt(this.incSaleData.priceJump) *
-            parseInt(this.incSaleData.initialPrice)) /
-            10000
-        );
+      let lastPrice =
+        parseInt(this.incSaleData.initialPrice) +
+        (parseInt(
+          (parseInt(this.incSaleData.endTreeId) -
+            parseInt(this.incSaleData.startTreeId)) /
+            parseInt(this.incSaleData.increments)
+        ) *
+          parseInt(this.incSaleData.priceJump) *
+          parseInt(this.incSaleData.initialPrice)) /
+          10000;
 
-      if(lastPrice > 0) {
+      if (lastPrice > 0) {
         this.lastTreePrice = this.$web3.utils.fromWei(lastPrice.toString());
       }
     },
@@ -555,6 +558,16 @@ export default {
 
 <style lang="scss" scoped>
 .inc-collect {
+  a {
+    color: #000;
+    transition: all ease-in 0.2s;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #67b68c;
+  }
+
   margin-top: 100px;
 
   .collect {

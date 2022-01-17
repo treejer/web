@@ -45,7 +45,9 @@
                   </tr>
                 </thead>
                 <tbody v-if="funders">
+                  
                   <tr v-for="(item, index) in funders" :key="index">
+
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -121,8 +123,12 @@
                       @click="goToUserDashboard(item.id)"
                       class="pointer-event"
                     >
+                                          <NuxtLink :to="`/forest/${item.id}`">
+
                       <a href="#" class="pointer-event tr-green"></a>
                       <Fas class="tr-green pointer-event" i="eye" />
+                                          </NuxtLink>
+
                     </td>
                     <!-- -->
                   </tr>
@@ -474,6 +480,15 @@ export default {
 </script>
 <style lang="scss">
 .leader-boards {
+  a {
+      color: #000;
+      transition: all ease-in 0.2s;
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: #67b68c;
+    }
   ul {
     display: flex;
     border-radius: 20px;

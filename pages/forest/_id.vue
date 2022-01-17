@@ -186,27 +186,28 @@
                   :key="tree.id"
                   class=""
                 >
-                  <b-button
-                    v-b-tooltip.top
-                    :tabindex="tree.id"
-                    :title="$hex2Dec(tree.id)"
-                    class="p-2 bg-transparent border-0"
-                    @click="goToTreeProfile($hex2Dec(tree.id))"
-                  >
-                    <img
-                      v-if="tree.treeSpecsEntity && tree.treeSpecsEntity.imageFs"
-                       width="64px"
-                      :src="tree.treeSpecsEntity.imageFs"
-                      :alt="tree.id"
-                    />
+                  <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
 
-                    <img v-else
-                      width="64px"
-                      src="~/assets/images/myforest/trees.png"
-                      :alt="tree.id"
-                    />
-                  </b-button>
-                  
+                    <b-button
+                      v-b-tooltip.top
+                      :tabindex="tree.id"
+                      :title="$hex2Dec(tree.id)"
+                      class="p-2 bg-transparent border-0"
+                    >
+                      <img
+                        v-if="tree.treeSpecsEntity && tree.treeSpecsEntity.imageFs"
+                        width="64px"
+                        :src="tree.treeSpecsEntity.imageFs"
+                        :alt="tree.id"
+                      />
+
+                      <img v-else
+                        width="64px"
+                        src="~/assets/images/myforest/trees.png"
+                        :alt="tree.id"
+                      />
+                    </b-button>
+                  </NuxtLink>
                                  <!-- <b-tooltip :target="tree.id">{{ tree.id }}</b-tooltip> -->
                 </span>
 
