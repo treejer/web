@@ -82,7 +82,7 @@ export const actions = {
         to: erc20Contract._address,
         value: 0,
         data: data,
-        type:   "0x02"
+        type: 0
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
