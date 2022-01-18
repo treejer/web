@@ -463,10 +463,15 @@ export default {
 
         await this.setERC20Balance();
 
+        console.log(parseFloat(this.bidValue) > parseFloat(this.erc20Balance))
+        console.log(this.bidValue)
+        console.log(this.erc20Balance)
+
+
         if (parseFloat(this.bidValue) > parseFloat(this.erc20Balance)) {
           this.toast(
             "Insufficient Balance, Your weth balance: " +
-              parseFloat(this.erc20Balance).toFixed(4),
+              this.erc20Balance,
             "Value Error"
           );
           return;
