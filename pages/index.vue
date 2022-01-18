@@ -36,19 +36,24 @@
               </client-only>
             </div>
             <div class="col-12 form-group mt-3">
-              <button
-                class="position-relative pointer-event leader btn-lg btn-green pointer-event param"
-                @click="goToDashboard"
-              >
-                Plant One Tree
-              </button>
 
               <nuxt-link
-                :to="localePath('find')"
+                :to="`/genesis`"
+                class="position-relative pointer-event leader"
+              >
+                <button
+                  class="position-relative pointer-event leader btn-lg btn-green pointer-event param"
+                >
+                  Collect Genesis Trees
+                </button>
+              </nuxt-link>
+              <nuxt-link
+                :to="`/forest/${this.$cookies.get('account') || 'guest'}`"
+
                 class="position-relative pointer-event leader"
               >
                 <button class="btn-lg btn-outline-green pointer-event param">
-                  Find My Tree
+                  Plant a Forest
                 </button>
               </nuxt-link>
             </div>
