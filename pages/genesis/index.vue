@@ -38,25 +38,32 @@ export default {
   components: {Collect, Gallery},
   head() {
     return {
-      title: "Treejer - Genesis collection",
+      title: this.meta.title,
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "Treejer Genesis collection ",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content:"treejer,genesis,nft,genesisNFT",
-        },
-      ],
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer genesis collection,treejer protocol,Collect Genesis Trees, nft tree'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/genesis'},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/regular-genesis.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
     };
   },
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | Collect Genesis Trees',
+        description: "Genesis Trees are the first 10k trees to be planted via Treejer Protocol. They're represented by unique NFT collectibles.",
+      },
+
       activeIndex: 0,
-      tabs: [{name: "Collect"}, {name: "Gallery"}]
+      tabs: [{name: "Collect"}, {name: "Gallery"}],
+
+      
     };
   }
 };

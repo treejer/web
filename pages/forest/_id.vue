@@ -484,20 +484,20 @@ export default {
 
   head() {
     return {
-      title: "Treejer - Forest " + this.$route.params.id,
+      title: this.meta.title,
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "My Forest\n profile your forest page",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content:
-            "FOREST SIZE RELEASED Seed RELEASED O2 Wallet Balance Forest on the Map Forest Status",
-        },
-      ],
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,treejer forest,NFTTree,treeNFT,forest page, forest profile'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/forest/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
     };
   },
   apollo: {
@@ -542,6 +542,12 @@ export default {
 
   data() {
     return {
+  
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | Forest '+ this.$route.params.id,
+        description: 'See '+this.$route.params.id+' Forest on Treejer',
+      },
       title: this.$route.name,
       placeHolderTrees: [],
       treeIcon: require("~/assets/images/myforest/tree.svg"),
