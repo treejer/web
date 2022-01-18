@@ -11,6 +11,9 @@ export const mutations = {}
 export const actions = {
 
   async balanceOf(context, params) {
+
+    console.log(params,"params is here")
+
     let account = this.$cookies.get('account');
 
     if(account == null) {
@@ -78,7 +81,8 @@ export const actions = {
         from: account,
         to: erc20Contract._address,
         value: 0,
-        data: data
+        data: data,
+        type:   "0x02"
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {

@@ -44,7 +44,8 @@ export const actions = {
         from: account,
         to: this.$Auction._address,
         value: 0,
-        data: data
+        data: data,
+        type:   "0x02"
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
@@ -104,7 +105,8 @@ export const actions = {
         from: account,
         to: this.$Auction._address,
         value: 0,
-        data: data
+        data: data,
+        type:   "0x02"
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {

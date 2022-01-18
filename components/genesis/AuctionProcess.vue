@@ -103,7 +103,7 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ Number(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
@@ -131,7 +131,7 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ Number(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
@@ -221,11 +221,11 @@ export default {
   },
   async created() {
 
-    const priceJump = Number(this.auction.priceInterval) * Number(this.auction.highestBid) / 10000;
+    const priceJump = parseInt(this.auction.priceInterval) * parseInt(this.auction.highestBid) / 10000;
 
     this.minBidValue =
-      Number(this.auction.highestBid) +
-      Number(
+      parseInt(this.auction.highestBid) +
+      parseInt(
         priceJump > this.$web3.utils.toWei("0.1")
           ? priceJump
           : this.$web3.utils.toWei("0.1")
