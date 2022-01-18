@@ -65,7 +65,26 @@ export default {
 
       
     };
-  }
+  },
+  mounted() {
+    this.setReferrerCookie();
+  },
+  methods: {
+    setReferrerCookie() {
+      if (Object.keys(this.$route.query).length === 0) {
+        return;
+      }
+
+      if (typeof this.$route.query.referrer === 'undefined') {
+          return;
+      }
+
+      this.$cookies.set('referrer', this.$route.query.referrer, {
+          maxAge: 60 * 60 * 24 * 365,
+          path: '/'
+      });
+    }
+  },
 };
 </script>
 
