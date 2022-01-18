@@ -176,20 +176,29 @@ export default {
   layout: "landing",
   head() {
     return {
-      title: `Treejer - About`,
+      title: this.meta.title,
       meta: [
-        { hid: "description", name: "description", content: "About us page:" },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content: "ourteam culture treejer team contactus ",
-        },
-      ],
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,about treejer,plant tree, nft tree'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/about'},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
     };
   },
   components: { Arrow, AboutCard, FrameTr, Fas },
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | About',
+        description: 'See More Info About Treejer And Team',
+      },
       that: "000",
       caretRight: `<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M2 8.8197H17.4754" stroke="#FAFAFA" stroke-width="2.7157" stroke-linecap="round" stroke-linejoin="round"/>

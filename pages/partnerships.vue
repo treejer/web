@@ -292,12 +292,20 @@
       layout:'landing',
       components: {Arrow},
       head() {
-        return {
-          title:`Treejer partnerships`,
-          meta:[
-            { hid: 'description', name: 'description', content:"About our business and team"},
-            { hid: 'keywords', name: 'keywords', content: 'business teambusiness ' }
+        return {        
+          title: this.meta.title,
+          meta: [
+            {hid: 'description', name: 'description', content: this.meta.description},
+            {hid: 'keywords', name: 'keywords', content: 'Partnerships,Partnerships treejer,treejer Partnerships,plant tree, nft tree'},
+
+            {hid: 'og:title', property: 'og:title', content: this.meta.title},
+            {hid: 'og:description', property: 'og:description', content: this.meta.description},
+            {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/partnerships'},
+            {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+            {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
           ]
+          
         }
       },
       methods: {
@@ -307,6 +315,11 @@
       },
       data() {
         return {
+          baseUrl: process.env.baseUrl,
+          meta: {
+            title: 'Treejer | Partnerships',
+            description: 'We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.',
+          },
           activeIndex: 0,
           banner:require('~/assets/images/for-business/banner.png'),
           peoples: [
