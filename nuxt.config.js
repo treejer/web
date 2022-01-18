@@ -22,7 +22,7 @@ export default {
       {hid: 'og:title', property: 'og:title', content: 'Treejer | Planters Without Borders'},
       {hid: 'og:description', name: 'og:description', content: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.'},
       {hid: 'og:url', property: 'og:url', content: 'https://treejer.com' },
-      {hid: 'og:image', property: 'og:image', content: 'https://treejer.com/_nuxt/assets/images/home/jake-hills-unsplash.jpg'},
+      {hid: 'og:image', property: 'og:image', content: 'https://treejer.com/jake-hills-unsplash.jpg'},
 
       {hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image'},
       {hid: 'twitter:title', property: 'twitter:title', content: 'Treejer | Planters Without Borders'},

@@ -75,7 +75,7 @@ export default {
         title: 'Treejer | Planters Without Borders',
         description: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.',
         keywords: 'treejer,treejer protocol,plant tree, nft tree',
-        featureImage:  '/_nuxt/assets/images/home/jake-hills-unsplash.jpg',
+        featureImage:  '/jake-hills-unsplash.jpg',
       }
     };
   },
