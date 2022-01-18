@@ -231,9 +231,6 @@ export default {
           : this.$web3.utils.toWei("0.1")
       );
 
-
-    console.log(this.minBidValue,"minBidValue");  
-
     this.ended = this.auction.endDate * 1000 < new Date().getTime();
     this.started = this.auction.startDate * 1000 > new Date().getTime();
 
