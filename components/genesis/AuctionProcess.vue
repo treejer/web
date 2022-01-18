@@ -103,7 +103,7 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ Number(ethPrice * bidValue) }}</strong> Reserve Price:
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
@@ -131,7 +131,7 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ Number(ethPrice * bidValue) }}</strong> Reserve Price:
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
@@ -220,20 +220,19 @@ export default {
     };
   },
   async created() {
-    
 
-    const priceJump =
-      parseInt(
-        parseInt(this.auction.priceInterval) * parseInt(this.auction.highestBid)
-      ) / 10000;
+    const priceJump = Number(this.auction.priceInterval) * Number(this.auction.highestBid) / 10000;
 
     this.minBidValue =
-      parseInt(this.auction.highestBid) +
-      parseInt(
+      Number(this.auction.highestBid) +
+      Number(
         priceJump > this.$web3.utils.toWei("0.1")
           ? priceJump
           : this.$web3.utils.toWei("0.1")
       );
+
+
+    console.log(this.minBidValue,"minBidValue");  
 
     this.ended = this.auction.endDate * 1000 < new Date().getTime();
     this.started = this.auction.startDate * 1000 > new Date().getTime();
