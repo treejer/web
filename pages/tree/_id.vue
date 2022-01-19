@@ -240,17 +240,17 @@ export default {
   head() {
 
     return {
-      title: this.meta.title,
+      title: this.meta.title + this.oTreeData.name,
       meta: [
         {hid: 'description', name: 'description', content: this.meta.description},
         {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,tree page, tree profile'},
 
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.oTreeData.name},
         {hid: 'og:description', property: 'og:description', content: this.meta.description},
         {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content: (this.oTreeData ? this.oTreeData.image : this.baseUrl + '/featureImage/jake-hills.jpg' )},
+        {hid: 'og:image', property: 'og:image', content: this.oTreeData.image},
 
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.oTreeData.name},
       ]
 
 
@@ -261,8 +261,8 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       meta: {
-        title: 'Treejer | Tree #'+ this.$route.params.id,
-        description: 'See More Info About Tree #'+this.$route.params.id+' on Treejer',
+        title: 'Treejer | ',
+        description: "Open the link to see more information. You can plant a forest and support rural communities worldwide with Treejer."
       },
 
       loading: false,
