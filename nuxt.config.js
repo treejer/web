@@ -175,7 +175,8 @@ export default {
 
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
     'nuxt-i18n', ['@nuxtjs/google-gtag'],
-    ['@nuxtjs/sitemap', {}],
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
     // ['@netsells/nuxt-hotjar', {
     //   id: '1662889',
     //       sv: '6',
@@ -191,6 +192,78 @@ export default {
       ]
     }]
   ],
+  sitemap: {
+    hostname: 'https://treejer.com',
+    gzip: true,
+    sitemaps: [
+      {
+        path: '/sitemap-static.xml',
+        exclude: [
+          '/spend',
+          '/spend/*',
+          '/stats',
+        ],
+        routes: [
+          {
+            url: '/',
+            changefreq: 'monthly',
+            priority: 1,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/genesis',
+            changefreq: 'monthly',
+            priority: 0.9,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/partnerships',
+            changefreq: 'monthly',
+            priority: 0.8,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/forest/referral',
+            changefreq: 'monthly',
+            priority: 0.8,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/about',
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/contact',
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          }
+        ]
+      },
+      {
+        path: '/sitemap-trees.xml',
+        exclude: ['/**'], //exlcude all static routes
+        routes: () => {
+          let treeRoutes = []
+          for(let i=1; i <= 10; i++) {
+            treeRoutes.push(`/tree/${i}`);
+          }
+          return treeRoutes;
+        },
+        // routes: async () => {
+        //   const { data } = await axios.get('/trees')
+        //   return data.map((user) => `/tree/${user.username}`)
+        // }
+      }
+    ]
+  },
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Sitemap: 'https://treejer.com/sitemapindex.xml'
+  },
   clipboard: {
       autoSetContainer: true
   },
