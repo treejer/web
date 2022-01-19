@@ -513,12 +513,13 @@ export default {
         amount: this.totalWeth,
       });
 
-      if (transaction !== null) {
+      if(!transaction.hasError) {
+        
         if (typeof transaction.transactionHash != "undefined") {
           this.setIsAllowance(this.count);
           this.$bvToast.toast(["Transaction successfull"], {
             toaster: "b-toaster-bottom-left",
-            title: "You approved to spend weth",
+            title: "You approved to spend WETH token",
             variant: "success",
             href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
           });
@@ -529,6 +530,9 @@ export default {
         if (silent === false) {
           this.loading = false;
         }
+
+      } else {
+        this.loading = false;
       }
     },
     pasteRecipient() {

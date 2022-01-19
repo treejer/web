@@ -111,7 +111,7 @@ export const actions = {
         })
       })
         .on('error', (error) => {
-          console.log(error, "errorr");
+          console.log(error, "errorr on");
          const err = error
           const bootStrapToaster = new BToast();
           if (error.code === 32602) {
@@ -137,18 +137,25 @@ export const actions = {
 
 
 
-          return err
-
+          return {
+            hasError: true,
+            error: err
+          };
+          
         })
 
       return receipt
 
     } catch (error) {
-      console.log(error, "errorr");
-      params.loading =false
+      console.log(error, "errorr catch");
 
 
-      return error;
+
+
+      return {
+        hasError: true,
+        error: error
+      };
     }
 
   }

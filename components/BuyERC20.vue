@@ -116,7 +116,7 @@ export default {
         tokenAddress: this.tokenAddress
       });
 
-      if (transaction !== null) {
+      if(!transaction.hasError) {
         this.setIsAllowance();
         this.$bvToast.toast(["Transaction successfull"], {
           toaster: "b-toaster-bottom-left",
@@ -128,6 +128,8 @@ export default {
         if (silent === false) {
           this.loading = false;
         }
+      } else {
+        this.loading = false;
       }
       
     },
