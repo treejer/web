@@ -4,15 +4,23 @@
     :class="$route.fullPath"
     class="position-relative pt-5 col-lg-10 col-12 my-forest"
   >
-    <div class="container-fluid p-0 mb-5 mb-md-2" >
+    <div class="container-fluid p-0 mb-5 mb-md-2">
       <div class="row article justify-content-between">
         <div class="col-lg-8 col-12">
           <div class="row">
             <div class="col-lg-5 col-md-5 col-5">
-              <h2 class="title-sm d-inline-flex Montserrat-Medium  tr-gray-three title-letter-space">
+              <h2
+                class="
+                  title-sm
+                  d-inline-flex
+                  Montserrat-Medium
+                  tr-gray-three
+                  title-letter-space
+                "
+              >
                 <span
                   v-coin
-                  class="pr-2 pl-0 text-capitalize Montserrat-Medium "
+                  class="pr-2 pl-0 text-capitalize Montserrat-Medium"
                   >{{
                     $route.params.id != $cookies.get("account")
                       ? $route.params.id
@@ -29,7 +37,7 @@
               :key="index"
               class="col-lg-3 col-md-6 col-12 border-right"
             >
-              <p class="tr-gray-two ">{{ item.name }}</p>
+              <p class="tr-gray-two">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
                 <span
                   ><img :src="treeIcon" alt="tree" class="img-fluid"
@@ -102,7 +110,9 @@
                             @click.prevent="goToAddTree"
                           >
                             {{
-                              loginAccountData && loginAccountData.treeCount > 0 ? "Done" : "step 2"
+                              loginAccountData && loginAccountData.treeCount > 0
+                                ? "Done"
+                                : "step 2"
                             }}
                           </button>
                         </span>
@@ -160,7 +170,6 @@
               </p>
             </div>
             <div class="col-12 position-relative p-0">
-              
               <div class="col-12 mb-3 p-0" v-if="trees.length == 0">
                 <span v-for="item in placeHolderTrees" :key="item.i">
                   <img
@@ -176,73 +185,89 @@
                 style="left: 0"
               > -->
 
-              <div
-                v-if="owner && owner.treeCount > 0"
-                class="col-12 mb-3 p-0"
-              >
-                <span
+              <div v-if="owner && owner.treeCount > 0" class="col-12 mb-3 p-0">
+                <div
                   v-for="tree in trees"
                   :id="tree.id"
                   :key="tree.id"
-                  class=""
+                  class="d-inline-block pointer-event"
                 >
                   <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
-
-                    <b-button
+                    <span
                       v-b-tooltip.top
                       :tabindex="tree.id"
                       :title="$hex2Dec(tree.id)"
-                      class="p-2 bg-transparent border-0"
+                      class="border-0 text-center"
                     >
                       <img
-                        v-if="tree.treeSpecsEntity && tree.treeSpecsEntity.imageFs"
+                        v-if="
+                          tree.treeSpecsEntity && tree.treeSpecsEntity.imageFs
+                        "
                         width="64px"
                         :src="tree.treeSpecsEntity.imageFs"
                         :alt="tree.id"
                       />
 
-                      <img v-else
-                        width="64px"
+                      <img
+                        v-else
+                        width="48px"
                         src="~/assets/images/myforest/trees.png"
                         :alt="tree.id"
+                        class="m-2"
                       />
-                    </b-button>
+
+                      <p class="param-xs tr-gray-tree">
+                        #{{ $hex2Dec(tree.id) }}
+                      </p>
+                    </span>
+                    
                   </NuxtLink>
-                                 <!-- <b-tooltip :target="tree.id">{{ tree.id }}</b-tooltip> -->
-                </span>
-
-
-
-
-
+                  <!-- <b-tooltip :target="tree.id">{{ tree.id }}</b-tooltip> -->
+                </div>
               </div>
               <span
-              v-if="owner && owner.treeCount > skip + perPage"
-                  class="
-                    btn-green
-                    d-block
-                    text-center
-                    mt-3
-                    pointer-event
-                    show-more-tree-all
-                  "
-                  @click="loadMore()">&#8681;</span>
-                <!-- &#8679; -->
+                v-if="owner && owner.treeCount > skip + perPage"
+                class="
+                  btn-green
+                  d-block
+                  text-center
+                  mt-3
+                  pointer-event
+                  show-more-tree-all
+                "
+                @click="loadMore()"
+                >&#8681;</span
+              >
+              <!-- &#8679; -->
             </div>
           </div>
 
-          <div class="row treejer-earth d-md-block d-none pb-5 pt-5" v-if="ownerTreesLoaded">
+          <div
+            class="row treejer-earth d-md-block d-none pb-5 pt-5"
+            v-if="ownerTreesLoaded"
+          >
             <div class="col-12">
               <p class="param-18 tr-gray-three Montserrat-Medium">
                 Forest on the Map
               </p>
             </div>
-            <div class="col-12 mt-5" v-if="owner && owner.treeCount > 0 && treesWithLocation.length > 0">
+            <div
+              class="col-12 mt-5"
+              v-if="
+                owner && owner.treeCount > 0 && treesWithLocation.length > 0
+              "
+            >
               <GMap
                 ref="gMap"
                 :center="{
-                  lat: parseFloat(treesWithLocation[0].treeSpecsEntity.latitude / Math.pow(10, 6) ),
-                  lng: parseFloat(treesWithLocation[0].treeSpecsEntity.longitude / Math.pow(10, 6))
+                  lat: parseFloat(
+                    treesWithLocation[0].treeSpecsEntity.latitude /
+                      Math.pow(10, 6)
+                  ),
+                  lng: parseFloat(
+                    treesWithLocation[0].treeSpecsEntity.longitude /
+                      Math.pow(10, 6)
+                  ),
                 }"
                 :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
                 :options="{
@@ -265,46 +290,57 @@
                         : mapConfigData.pins.notSelected,
                   }"
                   :position="{
-                    lat: parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)),
-                    lng: parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6))
+                    lat: parseFloat(
+                      tree.treeSpecsEntity.latitude / Math.pow(10, 6)
+                    ),
+                    lng: parseFloat(
+                      tree.treeSpecsEntity.longitude / Math.pow(10, 6)
+                    ),
                   }"
                   @click="currentTree = tree"
                 >
                   <GMapInfoWindow :options="{ maxWidth: 200 }">
-                    <span @click="goToTreeProfile($hex2Dec(tree.id))" >
+                    <span @click="goToTreeProfile($hex2Dec(tree.id))">
                       <b>{{ $hex2Dec(tree.id) }} </b>
                       <br />
                       <br />
                       <code>
-                        Lat:  {{ parseFloat(tree.treeSpecsEntity.latitude / Math.pow(10, 6)) }},
+                        Lat:
+                        {{
+                          parseFloat(
+                            tree.treeSpecsEntity.latitude / Math.pow(10, 6)
+                          )
+                        }},
                         <br />
-                        Lng: {{ parseFloat(tree.treeSpecsEntity.longitude / Math.pow(10, 6)) }}
+                        Lng:
+                        {{
+                          parseFloat(
+                            tree.treeSpecsEntity.longitude / Math.pow(10, 6)
+                          )
+                        }}
                       </code>
                     </span>
-
                   </GMapInfoWindow>
                 </GMapMarker>
               </GMap>
-
-
             </div>
             <div class="col-12 mt-5" v-else>
-                <GMap
-                  ref="gMap"
-                  :center="{ lat: 24.06448, lng: 81.30946 }"
-                  :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
-                  :options="{
-                    fullscreenControl: true,
-                    streetViewControl: false,
-                    mapTypeControl: false,
-                    zoomControl: true,
-                    gestureHandling: 'cooperative',
-                    styles: mapConfigData.mapStyle,
-                  }"
-                  :zoom="2"
-                >
-                </GMap>
-              </div>
+              <GMap
+                ref="gMap"
+                :center="{ lat: 24.06448, lng: 81.30946 }"
+                :cluster="{ options: { styles: mapConfigData.clusterStyle } }"
+                :options="{
+                  fullscreenControl: true,
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  zoomControl: true,
+                  gestureHandling: 'cooperative',
+                  styles: mapConfigData.mapStyle,
+                }"
+                :zoom="2"
+              >
+              </GMap>
+            </div>
           </div>
         </div>
 
@@ -453,9 +489,8 @@
             </div>
             <div class="trees">
               <div class="add-tree">
-                <button class="btn-lg text-capitalize" @click="goToAddTree()" >
+                <button class="btn-lg text-capitalize" @click="goToAddTree()">
                   plant trees
-
                 </button>
               </div>
             </div>
@@ -486,18 +521,41 @@ export default {
     return {
       title: this.meta.title,
       meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,treejer forest,NFTTree,treeNFT,forest page, forest profile'},
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "treejer,treejer forest,NFTTree,treeNFT,forest page, forest profile",
+        },
 
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/forest/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+        { hid: "og:title", property: "og:title", content: this.meta.title },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.meta.description,
+        },
+        {
+          hid: "og:url",
+          property: "og:url",
+          content: this.baseUrl + "/forest/" + this.$route.params.id,
+        },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: this.baseUrl + "/featureImage/jake-hills.jpg",
+        },
 
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
-      ]
-
-
+        {
+          hid: "twitter:title",
+          property: "twitter:title",
+          content: this.meta.title,
+        },
+      ],
     };
   },
   apollo: {
@@ -516,37 +574,39 @@ export default {
       query: owner,
       prefetch: false,
       skip() {
-        return this.$cookies.get('account') ? false : true;
+        return this.$cookies.get("account") ? false : true;
       },
       variables() {
-        return { id: this.$cookies.get('account') ? this.$cookies.get('account').toLowerCase() : '' };
+        return {
+          id: this.$cookies.get("account")
+            ? this.$cookies.get("account").toLowerCase()
+            : "",
+        };
       },
       fetchPolicy: "network-only",
-      update: data => data.owner
-    }
+      update: (data) => data.owner,
+    },
   },
   watch: {
     async owner(newOwner, oldOwner) {
-      if(oldOwner !== undefined) {
-        if(newOwner.id === oldOwner.id) {
+      if (oldOwner !== undefined) {
+        if (newOwner.id === oldOwner.id) {
           return;
         }
       }
 
-      if(newOwner) {
-        await this.getOwnerTrees(40, 0);
+      if (newOwner) {
+        await this.getOwnerTrees(50, 0);
       }
-
     },
   },
 
   data() {
     return {
-  
       baseUrl: process.env.baseUrl,
       meta: {
-        title: 'Treejer | Forest '+ this.$route.params.id,
-        description: 'See '+this.$route.params.id+' Forest on Treejer',
+        title: "Treejer | Forest " + this.$route.params.id,
+        description: "See " + this.$route.params.id + " Forest on Treejer",
       },
       title: this.$route.name,
       placeHolderTrees: [],
@@ -566,8 +626,8 @@ export default {
       currentTree: {},
       daiBalance: 0,
       wethBalance: 0,
-      skip:0,
-      perPage: 40
+      skip: 0,
+      perPage: 50,
     };
   },
   async created() {
@@ -589,20 +649,19 @@ export default {
     await this.getDaiBalance();
     await this.getWethBalance();
     await this.getOwnerTrees(0, 0);
-
   },
   methods: {
-    async loadMore(){
+    async loadMore() {
       this.skip = this.skip + this.perPage;
 
       await this.getOwnerTrees(this.perPage, this.skip);
-
     },
-    async getOwnerTrees(first = 40, skip = 0) {
+    async getOwnerTrees(first = 50, skip = 0) {
       if (
         !this.owner ||
         this.$route.params.id === "guest" ||
-        this.owner.treeCount <= 0 || first === 0
+        this.owner.treeCount <= 0 ||
+        first === 0
       ) {
         await this.createPlaceHolder();
 
@@ -610,7 +669,6 @@ export default {
       }
 
       await this.createPlaceHolder();
-
 
       let self = this;
       await self.$axios
@@ -630,21 +688,23 @@ export default {
           prefetch: false,
         })
         .then((treesRes) => {
-
-
           if (treesRes.data.trees && treesRes.data.trees.length > 0) {
-
             let trees = treesRes.data.trees;
             self.trees.push(...trees);
 
             let treesWithLocation = trees.filter((tree) => {
-
-              if (!tree.treeSpecsEntity || !tree.treeSpecsEntity.latitude || !tree.treeSpecsEntity.longitude) {
+              if (
+                !tree.treeSpecsEntity ||
+                !tree.treeSpecsEntity.latitude ||
+                !tree.treeSpecsEntity.longitude
+              ) {
                 return false;
               }
 
-              return tree.treeSpecsEntity.latitude !== null &&
-                tree.treeSpecsEntity.longitude !== null;
+              return (
+                tree.treeSpecsEntity.latitude !== null &&
+                tree.treeSpecsEntity.longitude !== null
+              );
             });
 
             self.treesWithLocation.push(...treesWithLocation);
@@ -654,25 +714,17 @@ export default {
             self.ownerTreesLoaded = true;
           }
         });
-
-
     },
     goToAddTree() {
-      
       // this.$router.push("/forest/checkout");
 
-
       this.$bvToast.toast(["Plant on Jan 20th, Check auctions now!"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Not started",
-          variant: "danger",
-          href: `/genesis#auctions`,
-          noAutoHide: true,
-        });
-        
-
-
-
+        toaster: "b-toaster-bottom-left",
+        title: "Not started",
+        variant: "danger",
+        href: `/genesis#auctions`,
+        noAutoHide: true,
+      });
     },
     comunity() {
       window.open("https://discuss.treejer.com", "_blank");
@@ -693,8 +745,11 @@ export default {
 
       let maxCount = currentPlaceHolderCount + this.perPage;
 
-
-      if(this.owner && this.owner.treeCount > this.perPage && this.owner.treeCount < maxCount){
+      if (
+        this.owner &&
+        this.owner.treeCount > this.perPage &&
+        this.owner.treeCount < maxCount
+      ) {
         maxCount = this.owner.treeCount;
       }
 
@@ -727,9 +782,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-forest {
-    font-family: Montserrat-Medium;
-  .box-right {
+  font-family: Montserrat-Medium;
+  a {
+    transition: all ease-in 0.2s;
+    color: #616161;
+  }
 
+  a:hover {
+    text-decoration: none;
+    color: #67b68c;
+  }
+  .box-right {
     .tokens {
       display: flex;
       align-self: center;
@@ -781,7 +844,6 @@ export default {
       width: 48px;
       height: 16px;
       border: 1px solid #757575;
-
 
       box-sizing: border-box;
       border-radius: 10px;
