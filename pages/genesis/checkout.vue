@@ -513,8 +513,8 @@ export default {
         amount: this.totalWeth,
       });
 
-      if(!transaction.hasError) {
-        
+      if(transaction) {
+  
         if (typeof transaction.transactionHash != "undefined") {
           this.setIsAllowance(this.count);
           this.$bvToast.toast(["Transaction successfull"], {

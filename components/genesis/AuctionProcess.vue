@@ -308,7 +308,7 @@ export default {
       });
       
 
-      if(!transaction.hasError) {
+      if(transaction) {
 
         this.resetAllStepAndGo("confirmStep");
 

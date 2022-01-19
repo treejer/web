@@ -134,28 +134,14 @@ export const actions = {
             })
           }
 
-
-
-
-          return {
-            hasError: true,
-            error: err
-          };
-          
+          return null;
         })
 
       return receipt
 
     } catch (error) {
       console.log(error, "errorr catch");
-
-
-
-
-      return {
-        hasError: true,
-        error: error
-      };
+      return null;
     }
 
   }
