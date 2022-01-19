@@ -76,13 +76,28 @@ export const actions = {
 
     const data = tx.encodeABI();
 
+    // let feeData = await erc20Contract.getFeeData();
+    // console.log("Fee Data:", feeData);
+  
+    // const tx = {
+    //   type: 2,
+    //   nonce: nonce,
+    //   to: "0x8D97689C9818892B700e27F316cc3E41e17fBeb9", // Address to send to
+    //   maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"], // Recommended maxPriorityFeePerGas
+    //   maxFeePerGas: feeData["maxFeePerGas"], // Recommended maxFeePerGas
+    //   value: ethers.utils.parseEther("0.01"), // .01 ETH
+    //   gasLimit: "21000", // basic transaction costs exactly 21000
+    //   chainId: 42, // Ethereum network id
+    // };
+
+
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: erc20Contract._address,
         value: 0,
-        data: data,
-        type: 0
+        data: data
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
