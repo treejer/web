@@ -68,8 +68,24 @@ export default {
   },
   mounted() {
     this.setReferrerCookie();
+
+    this.setActiveIndexByUrl();
+
   },
   methods: {
+    setActiveIndexByUrl() {
+      if (Object.keys(this.$route.query).length === 0) {
+        return;
+      }
+
+      if (typeof this.$route.query.activeIndex === 'undefined') {
+          return;
+      }
+
+      if(this.$route.query.activeIndex === 'gallery') {
+        this.activeIndex = 1;
+      }
+    },
     setReferrerCookie() {
       if (Object.keys(this.$route.query).length === 0) {
         return;
