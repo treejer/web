@@ -330,7 +330,7 @@
       <h1 class="title-lg tr-gray-two">Not interested in GENESIS Trees?</h1>
       <p class="param tr-gray-two">
         You can always fund regular trees in Treejer protocol. The regular trees
-        initially have a universal price of $4 (DAI). Similar to Genesis Trees,
+        initially have a universal price of 10 DAI ~ ($10). Similar to Genesis Trees,
         regular ones are dynamic NFTs too. However, Genesis collection owns the
         more unique attributes (digitally). Millions of trees are going to be
         planted and maintaned using Treejer protocol and the community will
