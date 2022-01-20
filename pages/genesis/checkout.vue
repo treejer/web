@@ -172,7 +172,7 @@
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner>
-                    {{ loading ? "Loading" : " Buy WETH" }}
+                    {{ loading ? "Loading" : " Buy WETH on Matic" }}
                   </button>
 
                   <button
@@ -355,7 +355,7 @@ export default {
       ],
       activeCount: 0,
       activePay: 0,
-      totalWeth: 0,
+      totalWeth: 0.03,
     };
   },
   methods: {
@@ -369,7 +369,7 @@ export default {
     },
     async buyWeth() {
 
-       window.open(this.pays[1].href, '_blank');
+      window.open('https://app.sushi.com/swap?outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', '_blank');
       return;
 
 
@@ -425,8 +425,34 @@ export default {
         transak.close();
       });
     },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net.getId()
+      .then((networkId) => {
+        return networkId;
+      })
+      .catch((err) => {
+        console.log(err.message, "error checkNetwork");
+        return 0;
+      });
 
+      if(connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+        toaster: "b-toaster-bottom-left",
+        title: 'Wrong network',
+        variant: 'danger',
+        noAutoHide: true,
+      });
+      return false;
+
+    },
     async fundTree() {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       this.loading = true;
       let self = this;
 
@@ -478,6 +504,7 @@ export default {
           context: self,
         }
       );
+
       this.loading = false;
     },
     async setIsAllowance(silent = false) {
@@ -503,6 +530,10 @@ export default {
       });
     },
     async allowSpendWeth(silent = false) {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       if (silent === false) {
         this.loading = true;
       }
