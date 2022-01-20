@@ -35,10 +35,11 @@
             </div>
             
           <div class="row" v-if="treeHistories.length > 0">
-            <TreeCardLoading
+            <TreeCard
               v-for="history in treeHistories"
               :key="history.id"
               :tree="history.tree"
+              :defaultImageLoader="true"
               class="col-md-4 col-lg-2 col-6 p-1 pm-2"
             />
           </div>
@@ -50,13 +51,13 @@
 
 
 <script>
-import TreeCardLoading from "../../../components/increamentalsell/TreeCardLoading";
+import TreeCard from "../../../components/increamentalsell/TreeCard";
 import treeHistoriesBytxQuery from "~/apollo/queries/treeHistoriesBytx";
 
 
 export default {
   name: "genesisSuccess",
-  components: { TreeCardLoading },
+  components: { TreeCard },
   apollo: {
     treeHistories: {
       query: treeHistoriesBytxQuery,

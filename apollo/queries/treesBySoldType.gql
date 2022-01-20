@@ -3,21 +3,14 @@ query TreesBySoldType($first: Int!, $skip: Int!, $soldType: Int!, $orderBy: Stri
     where: {soldType: $soldType, owner_not: null}
   ) {
     id
-    planter {
-      id
-    }
-    funder {
-      id
-    }
     owner {
       id
     }
-    plantDate
-    birthDate
-    saleType
-    treeStatus
     treeSpecsEntity{
       imageFs
+    }
+    symbol {
+      crownColor
     }
   }
 }
