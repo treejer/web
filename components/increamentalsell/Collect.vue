@@ -52,7 +52,7 @@
       "
     >
       <button class="btn-green param-18" @click="goToCheckout()">
-        {{ currenPrice > 0 ? "Mint" : "Mint on Jan 20th" }}
+        {{ "Mint" }}
       </button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
@@ -420,21 +420,8 @@ export default {
   },
   methods: {
     async goToCheckout() {
-      if (this.currenPrice > 0) {
-        this.$router.push("/genesis/checkout");
-      } else {
-        this.$bvToast.toast(["Mint on Jan 20th, Check auctions now!"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Not started",
-          variant: "danger",
-          href: `/genesis#auctions`,
-          noAutoHide: true,
-        });
-
-        document
-          .querySelector("#auctions")
-          .scrollIntoView({ behavior: "smooth" });
-      }
+      this.$router.push("/genesis/checkout");
+      return;
     },
     async calcCurrentPrice() {
       this.currenPrice = await this.$store.dispatch(
