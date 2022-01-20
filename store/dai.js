@@ -1,5 +1,6 @@
 import { BToast } from 'bootstrap-vue'
 import Dai from '~/contracts/IERC20'
+const BN = require('bn.js');
 
 
 export const state = () => ({})
@@ -59,7 +60,13 @@ export const actions = {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = daiContract.methods.approve(this.$RegularSale._address, (params.count * this.$web3.utils.toWei(this.state.regularSale.price)).toString());
+
+    var countBN = new BN(params.count);
+    var priceBN = new BN(this.$web3.utils.toWei(this.state.regularSale.price));
+
+    var countBNpriceBN = countBN.mul(priceBN);
+
+    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN);
 
     const data = tx.encodeABI();
 
