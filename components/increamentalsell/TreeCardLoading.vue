@@ -20,7 +20,7 @@
           </div>
         </div>
       </NuxtLink>
-
+    
       <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
         <div
           class="card-img"
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      defaultImage: require("~/assets/images/tree/treeShapeRegular_treejer.png"),
+      defaultImage: require("~/assets/images/tree/loadingTree_treejer.gif"),
     };
   },
   methods: {},

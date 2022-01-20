@@ -35,7 +35,7 @@
             </div>
             
           <div class="row" v-if="treeHistories.length > 0">
-            <TreeCard
+            <TreeCardLoading
               v-for="history in treeHistories"
               :key="history.id"
               :tree="history.tree"
@@ -50,13 +50,13 @@
 
 
 <script>
-import TreeCard from "../../../components/increamentalsell/TreeCard";
+import TreeCardLoading from "../../../components/increamentalsell/TreeCardLoading";
 import treeHistoriesBytxQuery from "~/apollo/queries/treeHistoriesBytx";
 
 
 export default {
   name: "genesisSuccess",
-  components: { TreeCard },
+  components: { TreeCardLoading },
   apollo: {
     treeHistories: {
       query: treeHistoriesBytxQuery,
