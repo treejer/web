@@ -716,15 +716,15 @@ export default {
         });
     },
     goToAddTree() {
-      // this.$router.push("/forest/checkout");
+      this.$router.push("/forest/checkout");
 
-      this.$bvToast.toast(["Plant on Jan 20th, Check auctions now!"], {
-        toaster: "b-toaster-bottom-left",
-        title: "Not started",
-        variant: "danger",
-        href: `/genesis#auctions`,
-        noAutoHide: true,
-      });
+      // this.$bvToast.toast(["Plant on Jan 20th, Check auctions now!"], {
+      //   toaster: "b-toaster-bottom-left",
+      //   title: "Not started",
+      //   variant: "danger",
+      //   href: `/genesis#auctions`,
+      //   noAutoHide: true,
+      // });
     },
     comunity() {
       window.open("https://discuss.treejer.com", "_blank");

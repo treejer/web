@@ -707,6 +707,10 @@ export default {
   },
   methods: {
     async allowSpendDai(silent = false) {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       if (silent === false) {
         this.loading = true;
       }
@@ -815,8 +819,36 @@ export default {
         transak.close();
       });
     },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net.getId()
+      .then((networkId) => {
+        return networkId;
+      })
+      .catch((err) => {
+        console.log(err.message, "error checkNetwork");
+        return 0;
+      });
 
+      if(connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+        toaster: "b-toaster-bottom-left",
+        title: 'Wrong network',
+        variant: 'danger',
+        noAutoHide: true,
+      });
+      return false;
+
+    },
     async fundTree() {
+
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
+
       this.loading = true;
       let self = this;
       if (this.sendAsGiftChecked && this.recipient) {
