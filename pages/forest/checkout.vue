@@ -187,7 +187,7 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : "Buy Dai" }}
+                    {{ loading ? "Loading" : "Buy DAI on Matic" }}
                   </button>
 
                   <button
@@ -764,7 +764,7 @@ export default {
 
     async buyDai() {
 
-      window.open(this.pays[1].href, '_blank');
+      window.open('https://app.sushi.com/swap?outputCurrency=0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', '_blank');
       return;
 
       let self = this;
