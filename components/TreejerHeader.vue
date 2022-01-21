@@ -14,6 +14,7 @@
           />
         </b-navbar-brand>
         <b-navbar-nav>
+        
           <client-only>
             <div class="d-lg-none d-block">
               <Metamask @showModal="showModal" />

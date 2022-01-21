@@ -192,13 +192,15 @@ export default {
     }
   },
   pwa: {
-    icon: [{
-      src: '/logo/treejer.png'
-    }],
-    workbox: {
-      /* workbox options */
+    manifest: {
+      short_name: "Treejer",
+
+      name: 'Treejer',
+      lang: 'fa',
+      useWebmanifestExtension: false
     }
   },
+  
   i18n: {
     locales: [{
       name: 'English',
