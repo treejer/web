@@ -453,6 +453,16 @@ export default {
         return;
       }
 
+      if (parseFloat(this.totalWeth) > parseFloat(this.wethBalance)) {
+        this.$bvToast.toast(['Insufficient Balance, Your WETH balance: ' + this.daiBalance], {
+          toaster: "b-toaster-bottom-left",
+          title: 'Not enough WETH',
+          variant: 'danger',
+          noAutoHide: true,
+        });
+        return;
+      }
+
       this.loading = true;
       let self = this;
 
