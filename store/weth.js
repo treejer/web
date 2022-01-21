@@ -68,7 +68,7 @@ export const actions = {
         to: wethContract._address,
         value: 0,
         data: data,
-        type: "0x02", 
+        type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null
       }).on('transactionHash', (transactionHash) => {

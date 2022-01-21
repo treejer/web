@@ -74,7 +74,7 @@ export const actions = {
           to: this.$RegularSale._address,
           value: 0,
           data: data,
-          type: "0x02", 
+          type: "0x2", 
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,
         }).on('transactionHash', (transactionHash) => {
@@ -143,7 +143,7 @@ export const actions = {
           to: this.$RegularSale._address,
           value: 0,
           data: data,
-          type: "0x02", 
+          type: "0x2", 
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,
         }).on('transactionHash', (transactionHash) => {
