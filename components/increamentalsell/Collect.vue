@@ -38,7 +38,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Ξ{{ currenPrice ? parseFloat(currenPrice).toFixed(2) : 0.03 }}
+        Ξ{{ currenPrice ? parseFloat(currenPrice).toFixed(4) : 0.03 }}
       </p>
     </div>
     <div
