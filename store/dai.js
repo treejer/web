@@ -1,5 +1,6 @@
 import { BToast } from 'bootstrap-vue'
 import Dai from '~/contracts/IERC20'
+const BN = require('bn.js');
 
 
 export const state = () => ({})
@@ -59,7 +60,13 @@ export const actions = {
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = daiContract.methods.approve(this.$RegularSale._address, (params.count * this.$web3.utils.toWei(this.state.regularSale.price)).toString());
+
+    var countBN = new BN(params.count);
+    var priceBN = new BN(this.$web3.utils.toWei(this.state.regularSale.price));
+
+    var countBNpriceBN = countBN.mul(priceBN);
+
+    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN);
 
     const data = tx.encodeABI();
 
@@ -68,7 +75,10 @@ export const actions = {
         from: account,
         to: daiContract._address,
         value: 0,
-        data: data
+        data: data,
+        type: "0x2", 
+        maxPriorityFeePerGas: null,
+        maxFeePerGas: null,
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
@@ -84,7 +94,9 @@ export const actions = {
         .on('error', (error) => {
           console.log(error, "errorr");
           const bootStrapToaster = new BToast();
+          
           if (error.code === 32602) {
+            
             bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
               toaster: 'b-toaster-bottom-left',
               title: 'Transaction failed',
@@ -93,7 +105,11 @@ export const actions = {
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
-          } else {
+          }
+          else if(error.code === -32602) {
+            //do nothing
+          }
+          else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
               title: 'Transaction failed',

@@ -67,7 +67,10 @@ export const actions = {
         from: account,
         to: wethContract._address,
         value: 0,
-        data: data
+        data: data,
+        type: "0x2", 
+        maxPriorityFeePerGas: null,
+        maxFeePerGas: null
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
@@ -92,7 +95,11 @@ export const actions = {
               noAutoHide: true,
               bodyClass: 'fund-error'
             })
-          } else {
+          }
+          else if(error.code === -32602) {
+            //do nothing
+          }
+          else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
               title: 'Transaction failed',

@@ -238,25 +238,33 @@ export default {
   layout: "landing",
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, mapDetails},
   head() {
+
     return {
-      title: "Treejer - Tree " + this.$route.params.id,
+      title: this.meta.title + this.oTreeData.name,
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "Tree profile page for Treejer trees",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content: "treejer,tree,NFTTree,treeNFT",
-        },
-      ],
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,tree page, tree profile'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.oTreeData.name},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.oTreeData.image},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.oTreeData.name},
+      ]
+
+
     };
   },
 
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | ',
+        description: "Open the link to see more information. You can plant a forest and support rural communities worldwide with Treejer."
+      },
+
       loading: false,
 
       saleType: null,
@@ -283,7 +291,7 @@ export default {
     this.loading = true
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
-    this.getOffchainTreeData();
+    // await this.getOffchainTreeData();
     
     await this.$store.dispatch('setEthPrice')
     await this.getTreeAuction()
@@ -293,6 +301,21 @@ export default {
 
     this.loading = false
   },
+
+  asyncData({$axios, route}){
+    return $axios.$get(`${process.env.apiUrl}/trees/${route.params.id}`)
+      .then((resp) => {
+        // console.log(resp)
+
+        if(!resp.statusCode) {
+          return {oTreeData: resp}
+        } else {
+          return {oTreeData: null}
+        }
+      })
+  },
+
+
   computed: {
   },
   methods: {
@@ -445,15 +468,6 @@ export default {
                   attributes
                 }
               }
-              symbol(id: "${id}") {
-                  shape
-                  trunkColor
-                  crownColor
-                  effect
-                  coefficient
-                  generationType
-                }
-
              }
              `,
         prefetch: false
@@ -475,7 +489,6 @@ export default {
       }
 
       this.tree = tree;
-      this.tree.symbol = res.data.symbol;
 
       if (tree.treeSpecsEntity) {
         let attr = tree.treeSpecsEntity.attributes;

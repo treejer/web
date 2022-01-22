@@ -38,7 +38,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Ξ{{ currenPrice ? parseFloat(currenPrice).toFixed(2) : 0.03 }}
+        Ξ{{ currenPrice ? parseFloat(currenPrice).toFixed(4) : 0.03 }}
       </p>
     </div>
     <div
@@ -52,7 +52,7 @@
       "
     >
       <button class="btn-green param-18" @click="goToCheckout()">
-        {{ currenPrice > 0 ? "Mint" : "Mint on Jan 20th" }}
+        {{ "Mint" }}
       </button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
@@ -330,7 +330,7 @@
       <h1 class="title-lg tr-gray-two">Not interested in GENESIS Trees?</h1>
       <p class="param tr-gray-two">
         You can always fund regular trees in Treejer protocol. The regular trees
-        initially have a universal price of $4 (DAI). Similar to Genesis Trees,
+        initially have a universal price of 10 DAI ~ ($10). Similar to Genesis Trees,
         regular ones are dynamic NFTs too. However, Genesis collection owns the
         more unique attributes (digitally). Millions of trees are going to be
         planted and maintaned using Treejer protocol and the community will
@@ -420,21 +420,8 @@ export default {
   },
   methods: {
     async goToCheckout() {
-      if (this.currenPrice > 0) {
-        this.$router.push("/genesis/checkout");
-      } else {
-        this.$bvToast.toast(["Mint on Jan 20th, Check auctions now!"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Not started",
-          variant: "danger",
-          href: `/genesis#auctions`,
-          noAutoHide: true,
-        });
-
-        document
-          .querySelector("#auctions")
-          .scrollIntoView({ behavior: "smooth" });
-      }
+      this.$router.push("/genesis/checkout");
+      return;
     },
     async calcCurrentPrice() {
       this.currenPrice = await this.$store.dispatch(

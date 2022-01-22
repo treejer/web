@@ -70,31 +70,31 @@ export default {
   data() {
     return {
       treeCount: null,
+
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | Planters Without Borders',
+        description: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.',
+      }
     };
   },
   head() {
     return {
-      title: `Treejer`,
+      title: this.meta.title,
       meta: [
-        {hid: 'description', name: 'description', content: "contact our business and team"},
-        {hid: 'keywords', name: 'keywords', content: 'business team_business treejer treejer_contact_us teams '}
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,treejer protocol,plant tree, nft tree'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
       ]
     }
   },
   methods: {
-    goToDashboard() {
-
-
-      this.$store.commit("SET_SIDEBAR_INDEX", 0);
-      if (this.$cookies.get("account")) {
-              this.$router.push(`/forest/${this.$cookies.get("account")}`);
-
-      } else {
-              this.$router.push(`/forest/guest`);
-
-        // this.$bvModal.show("five");
-      }
-    },
   },
 };
 </script>

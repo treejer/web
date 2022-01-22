@@ -287,24 +287,27 @@ export default {
   },
   head() {
     return {
-      title: `Treejer`,
+      title: this.meta.title,
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "Enter the Tree ID below and we'll find it for you! :)",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content:
-            "Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard",
-        },
-      ],
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'find,find tree,treejer find,plant tree, nft tree'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/find'},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
     };
   },
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: 'Treejer | Find',
+        description: 'Find your tree, explore forests, and find your tree status!',
+      },
       title: this.$route.name,
       icon: process.env.gravatar,
       trees: [],

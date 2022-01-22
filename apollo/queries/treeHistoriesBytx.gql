@@ -11,6 +11,9 @@ query TreeHistoriesBytx($first: Int!, $skip: Int!, $transactionHash: String!, $o
       treeSpecsEntity{
         imageFs
       }
+      symbol {
+        crownColor
+      }
     } 
   }
 }

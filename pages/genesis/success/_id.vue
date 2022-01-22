@@ -39,6 +39,7 @@
               v-for="history in treeHistories"
               :key="history.id"
               :tree="history.tree"
+              :defaultImageLoader="true"
               class="col-md-4 col-lg-2 col-6 p-1 pm-2"
             />
           </div>

@@ -24,12 +24,20 @@
       <NuxtLink :to="`/tree/${$hex2Dec(tree.id)}`">
         <div
           class="card-img"
-          :style="`background: rgba(${Math.floor(
-            Math.random() * 189
-          )}, ${Math.floor(Math.random() * 70)}, ${Math.floor(
-            Math.random() * 42
-          )}, 0.1);`"
+          :style="`background: #${bgColor};`"
         >
+          <!-- <img
+            :src="
+              tree.treeSpecsEntity
+                ? tree.treeSpecsEntity.imageFs != ''
+                  ? tree.treeSpecsEntity.imageFs
+                  : defaultImage
+                : defaultImage
+            "
+            :alt="`tree-${$hex2Dec(tree.id)}-image`"
+            class="inc-tree-img img-fluid"
+          /> -->
+
           <img
             :src="
               tree.treeSpecsEntity
@@ -48,6 +56,8 @@
 </template>
 
 <script>
+import crownColor from "~/static/data/crownColor.json";
+
 export default {
   name: "IncCard",
   props: {
@@ -61,16 +71,41 @@ export default {
         treeSpecsEntity: {
           imageFs: "",
         },
+        symbol: {
+          crownColor: "",
+        },
       },
     },
+    defaultImageLoader: false,
   },
   data() {
     return {
-      defaultImage: require("~/assets/images/increamentalSell/tree.svg"),
+      defaultImage: require("~/assets/images/tree/treeShapeRegular_treejer.png"),
+      defaultImageLoading: require("~/assets/images/tree/loadingTree_treejer.gif"),
+      bgColor: 'f4eddb',
     };
   },
-  methods: {},
-  created() {},
+  methods: {
+    setBgColor() {
+      if(!this.tree.symbol) {
+        return;
+      }
+
+      if(this.tree.symbol.crownColor === 'undefined' || this.tree.symbol.crownColor === '') {
+        return;
+      }
+
+      if(!crownColor[this.tree.symbol.crownColor - 1]) {
+        return;
+      }
+
+      this.bgColor = crownColor[this.tree.symbol.crownColor - 1].background_color;
+    }
+  },
+  created() {
+    this.setBgColor();
+    this.defaultImage = this.defaultImageLoader ? this.defaultImageLoading : this.defaultImage;
+  }
 };
 </script>
 

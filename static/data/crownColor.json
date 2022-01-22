@@ -1,0 +1,327 @@
+[
+  {
+    "color": "special",
+    "name": "Special",
+    "background_color": "EDF0E6"
+  },
+  {
+    "color": "9F9C9C",
+    "name": "Spanish Gray",
+    "background_color": "DFDFDF"
+  },
+  {
+    "color": "F9AA9F",
+    "name": "Melon",
+    "background_color": "E8DFDF"
+  },
+  {
+    "color": "89CDAD",
+    "name": "Turquoise Green",
+    "background_color": "DDE2DF"
+  },
+  {
+    "color": "AD9E55",
+    "name": "Olive Green",
+    "background_color": "DFDFD7"
+  },
+  {
+    "color": "C8DA3D",
+    "name": "Pear",
+    "background_color": "E2E5D5"
+  },
+  {
+    "color": "FEF7B5",
+    "name": "Medium Champagne",
+    "background_color": "E8E8E0"
+  },
+  {
+    "color": "43C4E7",
+    "name": "Vivid Sky Blue",
+    "background_color": "D6E2E6"
+  },
+  {
+    "color": "B0E737",
+    "name": "Inchworm",
+    "background_color": "E0E6D5"
+  },
+  {
+    "color": "FFFF23",
+    "name": "Lemon Glacier",
+    "background_color": "E8E8D2"
+  },
+  {
+    "color": "E79DA0",
+    "name": "Pastel Pink",
+    "background_color": "E6DFDF"
+  },
+  {
+    "color": "A2D5EE",
+    "name": "Uranian Blue",
+    "background_color": "DFE4E7"
+  },
+  {
+    "color": "9DBF54",
+    "name": "Middle Grenn Yellow",
+    "background_color": "DFE1D7"
+  },
+  {
+    "color": "FAD533",
+    "name": "Gold Web Golden",
+    "background_color": "E8E4D4"
+  },
+  {
+    "color": "78C4C8",
+    "name": "Middle Blue",
+    "background_color": "DBE2E2"
+  },
+  {
+    "color": "E0A963",
+    "name": "Earth Yellow",
+    "background_color": "E5DFD9"
+  },
+  {
+    "color": "6FC2A6",
+    "name": "Ocean Green",
+    "background_color": "DAE1DF"
+  },
+  {
+    "color": "C3BE36",
+    "name": "Acid Green",
+    "background_color": "E2E1D4"
+  },
+  {
+    "color": "CF79BA",
+    "name": "Sky Magenta",
+    "background_color": "E4DBE1"
+  },
+  {
+    "color": "90CE9B",
+    "name": "Eton Blue",
+    "background_color": "DDE4DF"
+  },
+  {
+    "color": "85BF54",
+    "name": "Bud Green",
+    "background_color": "DCE1D7"
+  },
+  {
+    "color": "EF6179",
+    "name": "Brink Pink",
+    "background_color": "E7D9DB"
+  },
+  {
+    "color": "30CE9E",
+    "name": "Caribbean Green",
+    "background_color": "D4E4DF"
+  },
+  {
+    "color": "766ADF",
+    "name": "Medium State Blue",
+    "background_color": "DBDAE5"
+  },
+  {
+    "color": "DA656B",
+    "name": "Fuzzy Wuzzy",
+    "background_color": "E5D9DA"
+  },
+  {
+    "color": "E36A6A",
+    "name": "Candy Pink",
+    "background_color": "E6DADA"
+  },
+  {
+    "color": "E74F7C",
+    "name": "Blush",
+    "background_color": "E6D7DB"
+  },
+  {
+    "color": "C15844",
+    "name": "Cedar Chest",
+    "background_color": "E1D8D6"
+  },
+  {
+    "color": "662A2A",
+    "name": "wine",
+    "background_color": "D9D3D3"
+  },
+  {
+    "color": "267F8F",
+    "name": "Metallic Seaweed",
+    "background_color": "D3DCDD"
+  },
+  {
+    "color": "746911",
+    "name": "Spanish Bistre",
+    "background_color": "DBD9D1"
+  },
+  {
+    "color": "2C5316",
+    "name": "Lincoln Green",
+    "background_color": "D3D7D1"
+  },
+  {
+    "color": "1B44B3",
+    "name": "Denim Blue",
+    "background_color": "D2D6E0"
+  },
+  {
+    "color": "7B1800",
+    "name": "Barn Red",
+    "background_color": "DBD1CF"
+  },
+  {
+    "color": "4DA6BC",
+    "name": "Pacific Blue",
+    "background_color": "D7DFE1"
+  },
+  {
+    "color": "C58328",
+    "name": "Bronze",
+    "background_color": "E2DCD3"
+  },
+  {
+    "color": "00A69A",
+    "name": "Persian Green",
+    "background_color": "CFDFDE"
+  },
+  {
+    "color": "1D94DB",
+    "name": "Tufts Blue",
+    "background_color": "D2DEE5"
+  },
+  {
+    "color": "5D3A82",
+    "name": "Cyber Grape",
+    "background_color": "D8D5DC"
+  },
+  {
+    "color": "4B8D21",
+    "name": "Maximum Green",
+    "background_color": "D7DDD2"
+  },
+  {
+    "color": "2CB91F",
+    "name": "Yellow Green Color Wheel",
+    "background_color": "D3E1D2"
+  },
+  {
+    "color": "31479B",
+    "name": "Dark Cornflower Blue",
+    "background_color": "D4D6DF"
+  },
+  {
+    "color": "D87E49",
+    "name": "Raw Sienna",
+    "background_color": "E5DCD6"
+  },
+  {
+    "color": "D4005D",
+    "name": "Rubin Red",
+    "background_color": "E4CFD8"
+  },
+  {
+    "color": "0C4049",
+    "name": "Midnight Green Eagle Green",
+    "background_color": "D0D5D6"
+  },
+  {
+    "color": "E74F32",
+    "name": "Cinnabar",
+    "background_color": "E6D7D4"
+  },
+  {
+    "color": "535339",
+    "name": "Rifle Green",
+    "background_color": "D7D7D5"
+  },
+  {
+    "color": "8D5877",
+    "name": "Sugar Plum",
+    "background_color": "DDD8DB"
+  },
+  {
+    "color": "344929",
+    "name": "Kombu Green",
+    "background_color": "D4D6D3"
+  },
+  {
+    "color": "129B71",
+    "name": "Green Cyan",
+    "background_color": "D1DFDA"
+  },
+  {
+    "color": "909B0B",
+    "name": "Citron",
+    "background_color": "DDDFD0"
+  },
+  {
+    "color": "8B1B57",
+    "name": "Pansy Purple",
+    "background_color": "DDD2D8"
+  },
+  {
+    "color": "B23636",
+    "name": "Sweet Brown",
+    "background_color": "E0D4D4"
+  },
+  {
+    "color": "385F86",
+    "name": "Bdazzled Blue",
+    "background_color": "D5D9DC"
+  },
+  {
+    "color": "C45100",
+    "name": "Burnt Orange",
+    "background_color": "E2D7CF"
+  },
+  {
+    "color": "4A8B34",
+    "name": "May Green",
+    "background_color": "D6DDD4"
+  },
+  {
+    "color": "456810",
+    "name": "Dark Olive Green",
+    "background_color": "D6D9D1"
+  },
+  {
+    "color": "5832B4",
+    "name": "Ocean Blue",
+    "background_color": "D8D4E0"
+  },
+  {
+    "color": "7F2454",
+    "name": "Pansy Purple",
+    "background_color": "DCD3D7"
+  },
+  {
+    "color": "3F4A9A",
+    "name": "Violet Blue",
+    "background_color": "D5D6DE"
+  },
+  {
+    "color": "CC2B7B",
+    "name": "Magenta Dye",
+    "background_color": "E2D3DB"
+  },
+  {
+    "color": "2CAA60",
+    "name": "GO Green",
+    "background_color": "D3DFD9"
+  },
+  {
+    "color": "C77412",
+    "name": "Ochre",
+    "background_color": "E2DBD1"
+  },
+  {
+    "color": "007ABD",
+    "name": "Star Command Blue",
+    "background_color": "CFDBE1"
+  },
+  {
+    "color": "277524",
+    "name": "Ao English",
+    "background_color": "D3DBD3"
+  }
+]

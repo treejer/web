@@ -9,7 +9,7 @@
         Announcing the launch of Treejer Protocol with Genesis Trees
         <a
           class="text-white"
-          href="https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/ "
+          href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/"
           target="_blank"
         >
           <img
@@ -144,7 +144,7 @@ export default {
         }
         self.$bvToast.toast('Switch to ' + process.env.NETWORK_NAME + ' Network', {
           title: `Wrong network`,
-          href: 'https://blog.treejer.com/tree-funding-and-climate-credit-earning-modules-on-testnet/',
+          href: 'https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/',
           variant: 'danger',
           solid: true,
           toaster: 'b-toaster-bottom-left',

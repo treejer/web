@@ -153,11 +153,11 @@
                             font-weight-bolder
                           "
                         >
-                          {{ parseFloat((treePrice * count).toFixed(0))  }}
+                          {{ parseFloat((totalDAIFloat).toFixed(0))  }}
                           <span class="param-sm-light">
                       {{
                               "~$" +
-                              parseFloat((daiUSDPrice * treePrice * count).toFixed(0))
+                              parseFloat((daiUSDPrice * totalDAIFloat).toFixed(0))
                             }}
                     </span>
                         </p>
@@ -187,7 +187,7 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : "Buy Dai" }}
+                    {{ loading ? "Loading" : "Buy DAI on Matic" }}
                   </button>
 
                   <button
@@ -465,7 +465,7 @@
               Total
             </p>
             <p class="title-md text-center tr-gray-three font-weight-bolder">
-              {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
+              {{ parseFloat((daiUSDPrice * totalDAIFloat).toFixed(0)) }}$
             </p>
             <hr/>
           </div>
@@ -507,7 +507,7 @@
               Total
             </p>
             <p class="title-md text-center tr-gray-three font-weight-bolder">
-              ${{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}
+              ${{ parseFloat((daiUSDPrice * totalDAIFloat).toFixed(0)) }}
             </p>
             <hr/>
           </div>
@@ -556,9 +556,9 @@
                   </p>
 
                   <p class="param tr-gray-four">
-                      <span id="eth">{{ treePrice * count }} </span
+                      <span id="eth">{{ totalDAIFloat }} </span
                       ><span class="usd">{{
-                      parseFloat((daiUSDPrice * treePrice * count).toFixed(2))
+                      parseFloat((daiUSDPrice * totalDAIFloat).toFixed(2))
                     }}</span>
                   </p>
                   <p class="param tr-gray-four">
@@ -580,7 +580,7 @@
             <hr/>
             <p class="title-sm tr-gray-three text-center">Total</p>
             <p class="title-md text-center tr-gray-three font-weight-bolder">
-              {{ parseFloat((daiUSDPrice * treePrice * count).toFixed(0)) }}$
+              {{ parseFloat((daiUSDPrice * totalDAIFloat).toFixed(0)) }}$
             </p>
 
             <hr/>
@@ -617,6 +617,8 @@
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
 // import transakSDK from "@transak/transak-sdk";
+const BN = require('bn.js');
+
 
 export default {
   name: "checkout",
@@ -638,24 +640,11 @@ export default {
     Wallets,
     Fab,
   },
-  mounted() {
-    this.getPrice();
-    this.setDaiBalance();
-    this.setIsAllowance(this.count);
-
-    let self = this;
-
-    setTimeout(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 1000);
-
-    setInterval(() => {
-      this.getPrice();
-      self.setIsAllowance(self.count, true);
-      self.setDaiBalance();
-    }, 3000);
+  async mounted() {
+    await this.getPrice();
+    await this.setTotalDAI();
+    await this.setDaiBalance();
+    await this.setIsAllowance(this.count);
   },
   async created() {
     this.daiUSDPrice = 1.01;
@@ -703,10 +692,16 @@ export default {
       activeCount: 0,
       activePay: 0,
       countTree: null,
+      totalDAI: 0,
+      totalDAIFloat: 0.00
     };
   },
   methods: {
     async allowSpendDai(silent = false) {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
       if (silent === false) {
         this.loading = true;
       }
@@ -726,7 +721,7 @@ export default {
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
 
-
+        await this.setIsAllowance();
         await this.fundTree();
       }
 
@@ -760,7 +755,7 @@ export default {
 
     async buyDai() {
 
-      window.open(this.pays[1].href, '_blank');
+      window.open('https://app.sushi.com/swap?outputCurrency=0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', '_blank');
       return;
 
       let self = this;
@@ -815,8 +810,48 @@ export default {
         transak.close();
       });
     },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net.getId()
+      .then((networkId) => {
+        return networkId;
+      })
+      .catch((err) => {
+        console.log(err.message, "error checkNetwork");
+        return 0;
+      });
 
+      if(connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+        toaster: "b-toaster-bottom-left",
+        title: 'Wrong network',
+        variant: 'danger',
+        noAutoHide: true,
+      });
+      return false;
+
+    },
     async fundTree() {
+
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+      
+      let daiBalanceBn =  new BN(this.$web3.utils.toWei((this.daiBalance.toString())));
+
+      if(!daiBalanceBn.gte(this.totalDAI)) {
+        this.$bvToast.toast(['Insufficient Balance, Your DAI balance: ' + this.daiBalance], {
+          toaster: "b-toaster-bottom-left",
+          title: 'Not enough DAI',
+          variant: 'danger',
+          noAutoHide: true,
+        });
+        return;
+      }
+
+
       this.loading = true;
       let self = this;
       if (this.sendAsGiftChecked && this.recipient) {
@@ -870,12 +905,22 @@ export default {
 
       let allowance = await this.$store.dispatch("dai/allowance");
 
-      this.isAllowedSpendDai =
-        parseInt(allowance) >= parseInt(count * this.treePrice);
+      var allowanceBN = new BN(allowance);
+      var totalDAIFloatBN = new BN(this.totalDAIFloat.toString());
+
+      this.isAllowedSpendDai = allowanceBN.gte(totalDAIFloatBN);
 
       if (silent === false) {
         this.loading = false;
       }
+    },
+    async setTotalDAI() {
+     
+      let countBN = new BN(this.count);
+      let priceBN = new BN(this.$web3.utils.toWei(this.$store.state.regularSale.price));
+
+      this.totalDAI = countBN.mul(priceBN);
+      this.totalDAIFloat = parseFloat(this.$web3.utils.fromWei(this.totalDAI.toString()));
     },
     pasteRecipient() {
       let self = this;
@@ -920,12 +965,15 @@ export default {
   },
   watch: {
     async count(newCount, oldCount) {
-      this.setIsAllowance(newCount);
+      await this.setTotalDAI();
 
+      await this.setIsAllowance(newCount);
+
+      
       // Our fancy notification (2).
       // console.log(`We have ${newCount} fruits now, yay!`)
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>

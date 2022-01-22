@@ -4,22 +4,32 @@ export default {
   buildDir: 'nuxt-dist',
   mode: 'universal',
   head: {
-    title: 'Treejer',
+    title: 'Treejer | Planters Without Borders',
     meta: [
       {charset: 'utf-8'},
-      {name: 'content', content: 'Treejer description'},
-      {name: 'robots', content: 'width=device-width, initial-scale=1'},
       {name: 'google-site-verification', content: 'tASRdlQWe-O2j5boAlfazXb4-CEyAUfCwx_30gA383U'},
-      {name: 'msapplication-TileColor', content: '#ffffff'},
-      {name: 'theme-color', content: '#67B68C'},
-      {hid: 'description', name: 'description', content: 'Treejer'},
-      {property: 'og:type', content: 'website'},
-      {property: 'og:title', content: 'Home - Treejer'},
-      // { property: 'og:url', content: process.env.websiteUrl },
-      {property: 'og:site_name', content: 'Treejer'},
-      {property: 'twitter:card', content: 'summary_large_image'},
-      {property: 'twitter:title', content: 'Home - Treejer'},
-      {property: 'og:locale:alternate', content: 'en'}
+
+      {hid: 'content', name: 'content', content: 'Treejer website content'},
+      {hid: 'robots', name: 'robots', content: 'width=device-width, initial-scale=1'},
+      {hid: 'msapplication-TileColor', name: 'msapplication-TileColor', content: '#ffffff'},
+      {hid: 'theme-color', name: 'theme-color', content: '#67B68C'},
+      {hid: 'description', name: 'description', content: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.'},
+      
+      {hid: 'og:type', property: 'og:type', content: 'website'},
+      {hid: 'og:site_name', property: 'og:site_name', content: 'Treejer'},
+
+
+      {hid: 'og:title', property: 'og:title', content: 'Treejer | Planters Without Borders'},
+      {hid: 'og:description', name: 'og:description', content: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.'},
+      {hid: 'og:url', property: 'og:url', content: 'https://treejer.com' },
+      {hid: 'og:image', property: 'og:image', content: 'https://treejer.com/featureImage/jake-hills.jpg'},
+
+      {hid: 'twitter:card', property: 'twitter:card', content: 'summary_large_image'},
+      {hid: 'twitter:title', property: 'twitter:title', content: 'Treejer | Planters Without Borders'},
+
+      {hid: 'og:locale:alternate', property: 'og:locale:alternate', content: 'en'}
+
+      
     ],
     script: [{
       src: 'https://code.responsivevoice.org/responsivevoice.js?key=U26BzgW7',
@@ -34,7 +44,7 @@ export default {
     ]
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://treejer.com/',
+    baseUrl: process.env.BASE_URL || 'https://treejer.com',
     ethPrice: process.env.ETH_PRICE,
     contractAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
     contractIncrementalSale: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
@@ -165,7 +175,8 @@ export default {
 
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
     'nuxt-i18n', ['@nuxtjs/google-gtag'],
-    ['@nuxtjs/sitemap', {}],
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots',
     // ['@netsells/nuxt-hotjar', {
     //   id: '1662889',
     //       sv: '6',
@@ -181,6 +192,78 @@ export default {
       ]
     }]
   ],
+  sitemap: {
+    hostname: 'https://treejer.com',
+    gzip: true,
+    sitemaps: [
+      {
+        path: '/sitemap-static.xml',
+        exclude: [
+          '/spend',
+          '/spend/*',
+          '/stats',
+        ],
+        routes: [
+          {
+            url: '/',
+            changefreq: 'monthly',
+            priority: 1,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/genesis',
+            changefreq: 'monthly',
+            priority: 0.9,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/partnerships',
+            changefreq: 'monthly',
+            priority: 0.8,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/forest/referral',
+            changefreq: 'monthly',
+            priority: 0.8,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/about',
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          },
+          {
+            url: '/contact',
+            changefreq: 'monthly',
+            priority: 0.7,
+            lastmod: '2022-01-19T13:30:00.000Z'
+          }
+        ]
+      },
+      {
+        path: '/sitemap-trees.xml',
+        exclude: ['/**'], //exlcude all static routes
+        routes: () => {
+          let treeRoutes = []
+          for(let i=1; i <= 10; i++) {
+            treeRoutes.push(`/tree/${i}`);
+          }
+          return treeRoutes;
+        },
+        // routes: async () => {
+        //   const { data } = await axios.get('/trees')
+        //   return data.map((user) => `/tree/${user.username}`)
+        // }
+      }
+    ]
+  },
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Sitemap: 'https://treejer.com/sitemapindex.xml'
+  },
   clipboard: {
       autoSetContainer: true
   },
@@ -208,24 +291,24 @@ export default {
       iso: 'en-US',
       file: 'en.js'
     },
-      {
-        name: 'Farsi',
-        code: 'fa',
-        iso: 'fa-FA',
-        file: 'fa.js'
-      },
-      {
-        name: 'Turkish',
-        code: 'tr',
-        iso: 'tr-TR',
-        file: 'tr.js'
-      },
-      {
-        name: 'Arabic',
-        code: 'ar',
-        iso: 'ar-AR',
-        file: 'ar.js'
-      }
+      // {
+      //   name: 'Farsi',
+      //   code: 'fa',
+      //   iso: 'fa-FA',
+      //   file: 'fa.js'
+      // },
+      // {
+      //   name: 'Turkish',
+      //   code: 'tr',
+      //   iso: 'tr-TR',
+      //   file: 'tr.js'
+      // },
+      // {
+      //   name: 'Arabic',
+      //   code: 'ar',
+      //   iso: 'ar-AR',
+      //   file: 'ar.js'
+      // }
     ],
     defaultLocale: 'en',
     loadLanguagesAsync: true,

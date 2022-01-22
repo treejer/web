@@ -306,17 +306,17 @@ export default {
         spenderContract: this.spenderContract,
         tokenAddress: this.tokenAddress,
       });
-      if (transaction.code === 4001) {
-        self.loading = false;
-      } else if (transaction) {
-        this.resetAllStepAndGo("confirmStep");
+      
 
+      if(transaction) {
+
+        this.resetAllStepAndGo("confirmStep");
 
         await this.setIsAllowance(true);
 
         this.$bvToast.toast(["Transaction successfull"], {
           toaster: "b-toaster-bottom-left",
-          title: "You approved to spend erc20",
+          title: "You approved to spend WETH token",
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
@@ -325,8 +325,10 @@ export default {
           this.loading = false;
         }
 
-
+      } else {
+        this.loading = false;
       }
+
     },
     async setERC20Balance() {
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
