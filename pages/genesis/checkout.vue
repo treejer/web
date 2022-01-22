@@ -527,6 +527,11 @@ export default {
         spenderContract: this.$IncrementalSale._address,
       });
 
+
+      console.log(allowance, "allowance");
+      console.log(this.totalWeth, "allowance");
+      console.log(parseFloat(allowance) >= parseFloat(this.totalWeth), "parseFloat(allowance) >= parseFloat(this.totalWeth)");
+
       this.isAllowedSpendWeth =
         parseFloat(allowance) >= parseFloat(this.totalWeth);
 
