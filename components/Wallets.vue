@@ -153,7 +153,7 @@ export default {
           src: require("~/assets/images/wallets/fortmatic.svg"),
         },
         {
-          name: "Wallet Connect",
+          name: "WalletConnect",
           step: 4,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },
@@ -199,7 +199,7 @@ export default {
           }
 
           break;
-        case "Wallet Connect":
+        case "WalletConnect":
           this.$bvModal.show("six");
           this.$store
             .dispatch("walletConnect")
@@ -271,7 +271,15 @@ export default {
             const Torus = require("@toruslabs/torus-embed");
 
             let self = this;
+            console.log("in torus");
+
+
             const torus = new Torus();
+
+
+            console.log(torus, "torus");
+
+
             await torus.init();
             await torus.login(); // await torus.ethereum.enable()
             

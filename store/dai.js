@@ -66,19 +66,22 @@ export const actions = {
 
     var countBNpriceBN = countBN.mul(priceBN);
 
-    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN);
+    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN.toString());
 
     const data = tx.encodeABI();
+
+    console.log(this.$web3.currentProvider, "this.$web3.currentProvider")
+
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: daiContract._address,
         value: 0,
-        data: data,
-        type: "0x2", 
-        maxPriorityFeePerGas: null,
-        maxFeePerGas: null,
+        data: data
+        // type: "0x2", 
+        // maxPriorityFeePerGas: null,
+        // maxFeePerGas: null,
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {

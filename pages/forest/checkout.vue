@@ -177,7 +177,7 @@
                   </div>
                 </div>
                 <div class="col-12 col-md-8 offset-md-2 mt-4 text-center">
-                  <button
+                  <!-- <button
                     v-if="daiBalance <= 0"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
@@ -188,9 +188,9 @@
                     </BSpinner
                     >
                     {{ loading ? "Loading" : "Buy DAI on Matic" }}
-                  </button>
+                  </button> -->
 
-                  <button
+                  <!-- <button
                     v-if="daiBalance > 0 && isAllowedSpendDai"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
@@ -201,10 +201,11 @@
                     </BSpinner
                     >
                     {{ loading ? "Loading" : " Confirm" }}
-                  </button>
+                                        v-if="daiBalance > 0 && !isAllowedSpendDai"
+
+                  </button> -->
 
                   <button
-                    v-if="daiBalance > 0 && !isAllowedSpendDai"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
                     @click="allowSpendDai()"

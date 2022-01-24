@@ -1,4 +1,6 @@
 import WalletConnect from "walletconnect";
+// import WalletConnectProvider from "@maticnetwork/walletconnect-provider"
+
 
 
 export const state = () => ({
@@ -68,14 +70,23 @@ export const actions = {
     window.location.reload()
   },
   async walletConnect({commit}) {
+
     let self = this
     commit('SET_WALLET', 'walletconnect')
     self.$cookies.set('walletName', 'walletconnect')
-    const wc = new WalletConnect();
+
+    const wc = new WalletConnect({
+        infuraId: process.env.INFURA_ID,
+        rpc: {
+          137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
+        }
+    });
     const connector = await wc.connect();
-    const walletAccount = connector._accounts[0]
-    commit('SET_USER', walletAccount)
-    self.$cookies.set('account', walletAccount)
+    const account = connector._accounts[0]
+
+
+    commit('SET_USER', account.toLowerCase())
+    self.$cookies.set('account', account.toLowerCase())
     window.location.reload()
   },
   async portis({commit}, data) {
@@ -148,6 +159,22 @@ export const actions = {
       await torus.init();
       await torus.logout();
     }
+    if (walletName === 'walletconnect') {
+      // const wc = new WalletConnect({
+      //     infuraId: process.env.INFURA_ID,
+      //     rpc: {
+      //       137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
+      //     }
+      // });
+      this.$web3.currentProvider.enable();
+
+
+      // await wc.enable();
+
+      await this.$web3.currentProvider.disconnect();
+    }
+
+
     self.$cookies.set('walletName', null)
     self.$cookies.set('account', null);
     commit('SET_USER', null)

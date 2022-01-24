@@ -54,13 +54,6 @@ export default {
     wethTokenAddress: process.env.WETH_TOKEN_ADDRESS_RINKEBY,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
     apiUrl: process.env.API_URL || 'https://api.treejer.com',
-    walletConnectProjectID: process.env.WALLETCONNECT_PROJECT_ID,
-    walletConnectProjectSecret: process.env.WALLETCONNECT_PROJECT_SECRET,
-    walletConnectEndPointsMainNet: process.env.WALLETCONNECT_ENDPOINTS_MAINNET,
-    walletConnectEndPointsRopsten: process.env.WALLETCONNECT_ENDPOINTS_ROPSTEN,
-    walletConnectEndPointsKovan: process.env.WALLETCONNECT_ENDPOINTS_KOVAN,
-    walletConnectEndPointsRinkeBy: process.env.WALLETCONNECT_ENDPOINTS_RINKEBY,
-    walletConnectEndPointsGorli: process.env.WALLETCONNECT_ENDPOINTS_GORLI,
     fortmatic: process.env.FORTMATIC,
     gravatar: process.env.GRAVATAR,
     transakApiKey: process.env.TRANSAK_API_KEY, // Your API Key
