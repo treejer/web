@@ -143,6 +143,11 @@ export default {
           src: require("~/assets/images/wallets/metamask.svg"),
         },
         {
+          name: "WalletConnect",
+          step: 4,
+          src: require("~/assets/images/wallets/walletconnect.svg"),
+        },
+        {
           name: "Torus",
           step: 2,
           src: require("~/assets/images/wallets/torus.svg"),
@@ -151,11 +156,6 @@ export default {
           name: "Fortmatic",
           step: 3,
           src: require("~/assets/images/wallets/fortmatic.svg"),
-        },
-        {
-          name: "WalletConnect",
-          step: 4,
-          src: require("~/assets/images/wallets/walletconnect.svg"),
         },
         {
           name: "Portis",
