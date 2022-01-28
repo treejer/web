@@ -37,7 +37,6 @@ Plant your forest here:
 
 <script>
 import Fab from "@/components/font-awsome/Fab.vue";
-import { urlencoded } from 'body-parser';
 
 export default {
   name: "Socials",

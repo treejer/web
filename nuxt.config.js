@@ -161,13 +161,10 @@ export default {
     ['nuxt-clipboard', { autoSetContainer: true }],
     // 'nuxt-clipboard',
     'cookie-universal-nuxt',
-    [
-      '@nuxtjs/recaptcha'
-    ],
     '@nuxtjs/axios',
 
     '@nuxtjs/style-resources', ['nuxt-fontawesome'],
-    'nuxt-i18n', ['@nuxtjs/google-gtag'],
+    'nuxt-i18n',
     '@nuxtjs/sitemap',
     '@nuxtjs/robots',
     // ['@netsells/nuxt-hotjar', {
