@@ -62,12 +62,16 @@ export const actions = {
 
     const data = tx.encodeABI();
 
+    let gas = await wethContract.methods.approve(process.env.contractTreeRegularSell, (Math.pow(2, 256) - 1).toString())
+    .estimateGas({from: account});
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: wethContract._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null

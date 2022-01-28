@@ -90,6 +90,9 @@ export const actions = {
     //   chainId: 42, // Ethereum network id
     // };
 
+    let gas = await erc20Contract.methods.approve(params.spenderContract, this.$web3.utils.toWei(params.amount.toString()))
+    .estimateGas({from: account});
+
 
 
     try {
@@ -98,6 +101,7 @@ export const actions = {
         to: erc20Contract._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null

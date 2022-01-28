@@ -935,29 +935,8 @@ export default {
         });
     },
     async setPaymentMethod(item, href) {
-      // if (item === "Bridge") {
-        // if (process.client) {
-        //   const {Widget} = require("@maticnetwork/wallet-widget");
-        //   this.bridgeLoading = true
+      window.open(href, "_blank");
 
-        //   const widget = await new Widget({
-        //     target: "#Bridge",
-        //     appName: "Polygon_Bridge_Treejer",
-        //     autoShowTime: 0,
-        //     position: "center",
-        //     height: 630,
-        //     width: 540,
-        //     overlay: false,
-        //     network: "mainnet",
-        //     closable: true,
-        //   });
-        //   await widget.create();
-        //   await widget.show();
-        //   this.bridgeLoading = false
-        // } else {
-          window.open(href, "_blank");
-        // }
-      // }
     },
     goToTerm(item, target) {
       window.open(item, target);

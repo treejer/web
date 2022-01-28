@@ -40,7 +40,10 @@ export default async ({ app }, inject) => {
         instance = new Web3(portis.provider);
     } else if (walletName === 'walletconnect') {
         const provider = new WalletConnectProvider({
-            infuraId: process.env.WALLETCONNECT_PROJECT_ID,
+            infuraId: process.env.INFURA_ID,
+            rpc: {
+                137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
+            }
         });
         await provider.enable();
 

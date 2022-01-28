@@ -55,7 +55,7 @@ export const actions = {
   },
   async approve(context, params) {
     let self = this;
-    console.log(context,"context is here")
+
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
@@ -66,9 +66,12 @@ export const actions = {
 
     var countBNpriceBN = countBN.mul(priceBN);
 
-    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN);
+    const tx = daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN.toString());
 
     const data = tx.encodeABI();
+
+    let gas = await daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN.toString())
+    .estimateGas({from: account});
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
@@ -76,6 +79,7 @@ export const actions = {
         to: daiContract._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null,

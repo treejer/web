@@ -34,7 +34,6 @@ export default {
     }
   },
   async created() {
-    console.log(this, "this ");
     await this.checkWorkbox();
     // if (process.client) {
     //   const workbox = await window.$workbox;

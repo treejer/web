@@ -13,11 +13,16 @@ export const actions = {
 
     const tx = this.$IHonoraryTree.methods.claim();
     const data = tx.encodeABI();
+
+    let gas = await this.$IHonoraryTree.methods.claim()
+    .estimateGas({from: account});
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: this.$IHonoraryTree._address,
         value: 0,
+        gas: gas,
         data: data,
         type: "0x2", 
         maxPriorityFeePerGas: null,
