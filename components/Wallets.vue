@@ -144,24 +144,24 @@ export default {
         },
         {
           name: "WalletConnect",
-          step: 4,
+          step: 2,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },
-        {
-          name: "Torus",
-          step: 2,
-          src: require("~/assets/images/wallets/torus.svg"),
-        },
-        {
-          name: "Fortmatic",
-          step: 3,
-          src: require("~/assets/images/wallets/fortmatic.svg"),
-        },
-        {
-          name: "Portis",
-          step: 5,
-          src: require("~/assets/images/wallets/portis.svg"),
-        },
+        // {
+        //   name: "Torus",
+        //   step: 3,
+        //   src: require("~/assets/images/wallets/torus.svg"),
+        // },
+        // {
+        //   name: "Fortmatic",
+        //   step: 4,
+        //   src: require("~/assets/images/wallets/fortmatic.svg"),
+        // },
+        // {
+        //   name: "Portis",
+        //   step: 5,
+        //   src: require("~/assets/images/wallets/portis.svg"),
+        // },
       ],
       activeWallet: 0,
       screenX: null,
