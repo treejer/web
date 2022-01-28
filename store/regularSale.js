@@ -67,6 +67,8 @@ export const actions = {
     const data = tx.encodeABI();
     // const price = await this.$RegularSale.methods.price().call();
 
+    let gas = await this.$RegularSale.methods.fundTree(params.count, referrer, recipient)
+    .estimateGas({from: account});
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
@@ -74,6 +76,7 @@ export const actions = {
           to: this.$RegularSale._address,
           value: 0,
           data: data,
+          gas: gas,
           type: "0x2", 
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,
@@ -137,12 +140,16 @@ export const actions = {
     const tx = this.$RegularSale.methods.claimReferralReward();
     const data = tx.encodeABI();
 
+    let gas = await this.$RegularSale.methods.claimReferralReward()
+    .estimateGas({from: account});
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
           from: this.$cookies.get('account'),
           to: this.$RegularSale._address,
           value: 0,
           data: data,
+          gas: gas,
           type: "0x2", 
           maxPriorityFeePerGas: null,
           maxFeePerGas: null,

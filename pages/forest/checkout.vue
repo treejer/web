@@ -177,7 +177,7 @@
                   </div>
                 </div>
                 <div class="col-12 col-md-8 offset-md-2 mt-4 text-center">
-                  <!-- <button
+                  <button
                     v-if="daiBalance <= 0"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
@@ -188,9 +188,9 @@
                     </BSpinner
                     >
                     {{ loading ? "Loading" : "Buy DAI on Matic" }}
-                  </button> -->
+                  </button>
 
-                  <!-- <button
+                  <button
                     v-if="daiBalance > 0 && isAllowedSpendDai"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
@@ -201,11 +201,10 @@
                     </BSpinner
                     >
                     {{ loading ? "Loading" : " Confirm" }}
-                                        v-if="daiBalance > 0 && !isAllowedSpendDai"
-
-                  </button> -->
+                  </button>
 
                   <button
+                    v-if="daiBalance > 0 && !isAllowedSpendDai"
                     :class="{ disable: loading }"
                     class="btn-green-md mt-4 mb-3"
                     @click="allowSpendDai()"
@@ -936,29 +935,8 @@ export default {
         });
     },
     async setPaymentMethod(item, href) {
-      // if (item === "Bridge") {
-        // if (process.client) {
-        //   const {Widget} = require("@maticnetwork/wallet-widget");
-        //   this.bridgeLoading = true
+      window.open(href, "_blank");
 
-        //   const widget = await new Widget({
-        //     target: "#Bridge",
-        //     appName: "Polygon_Bridge_Treejer",
-        //     autoShowTime: 0,
-        //     position: "center",
-        //     height: 630,
-        //     width: 540,
-        //     overlay: false,
-        //     network: "mainnet",
-        //     closable: true,
-        //   });
-        //   await widget.create();
-        //   await widget.show();
-        //   this.bridgeLoading = false
-        // } else {
-          window.open(href, "_blank");
-        // }
-      // }
     },
     goToTerm(item, target) {
       window.open(item, target);

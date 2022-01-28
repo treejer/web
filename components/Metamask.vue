@@ -16,7 +16,7 @@
       </NuxtLink>
     </b-nav-form>
 
-    <b-nav-form v-if="$cookies.get('account')" class="pointer-event">
+    <b-nav-form class="pointer-event" v-if="$cookies.get('account')">
       <div
         v-if="connectedNetwrokID != runningNetworkID"
         class="
@@ -28,11 +28,10 @@
         "
         @click.prevent="switchNetworkMatic()"
       >
-        <b-button class="connect-button m-auto"> Switch to Matic </b-button>
+        <b-button class="connect-button switch-wallet"> Switch to Matic </b-button>
       </div>
 
       <div
-        v-else
         class="
           pointer-event
           accounting-card
@@ -221,7 +220,12 @@ export default {
   methods: {
 
     async switchNetworkMatic() {
+      // this.$web3.currentProvider.enable();
+      await this.$web3.currentProvider.enable();
+
       try {
+
+
         await this.$web3.currentProvider.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: this.$dec2hex(137) }],
@@ -246,7 +250,7 @@ export default {
               ],
             });
           } catch (error) {
-            alert(error.message);
+            console.log(error.message, "error");
           }
         }
       }
@@ -290,5 +294,30 @@ export default {
 
 <style lang="scss" scoped>
 .metamask {
+  .switch-wallet {
+    margin-right: 100px;
+
+    
+  }
+
+
+  @media screen and (max-width: 767px) {
+    .switch-wallet {
+      margin-right: 0;
+      width: 80px;
+      position: absolute;
+      left: 80px;
+      z-index: +10;
+      padding: 0;
+
+    }
+
+    .tree {
+      margin: 0;
+    }
+  }
+
+
+  
 }
 </style>

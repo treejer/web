@@ -39,12 +39,17 @@ export const actions = {
     const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer);
 
     const data = tx.encodeABI();
+
+    let gas = await this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer)
+    .estimateGas({from: account});
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: this.$Auction._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null
@@ -101,6 +106,10 @@ export const actions = {
     const tx = this.$Auction.methods.endAuction(params.auctionId, 0);
     const data = tx.encodeABI();
 
+    let gas = await this.$Auction.methods.endAuction(params.auctionId, 0)
+    .estimateGas({from: account});
+
+    
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
@@ -108,6 +117,7 @@ export const actions = {
         to: this.$Auction._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null

@@ -1,7 +1,4 @@
 import WalletConnect from "walletconnect";
-// import WalletConnectProvider from "@maticnetwork/walletconnect-provider"
-
-
 
 export const state = () => ({
   token: null,

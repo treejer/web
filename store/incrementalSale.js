@@ -150,12 +150,17 @@ export const actions = {
 
     const tx = this.$IncrementalSale.methods.fundTree(params.count, referrer, recipient, 0);
     const data = tx.encodeABI();
+
+    let gas = await this.$IncrementalSale.methods.fundTree(params.count, referrer, recipient, 0)
+    .estimateGas({from: account});
+
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: this.$IncrementalSale._address,
         value: 0,
         data: data,
+        gas: gas,
         type: "0x2", 
         maxPriorityFeePerGas: null,
         maxFeePerGas: null,

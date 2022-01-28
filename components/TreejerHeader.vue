@@ -13,10 +13,10 @@
             src="/logo/treejer.png"
           />
         </b-navbar-brand>
-        <b-navbar-nav>
+        <b-navbar-nav class="mobile-navbar">
         
           <client-only>
-            <div class="d-lg-none d-block">
+            <div class="d-lg-none d-block w-md-100">
               <Metamask @showModal="showModal" />
             </div>
           </client-only>
@@ -43,7 +43,7 @@
             </NuxtLink>
           </b-navbar-nav>
           <client-only>
-            <div class="d-lg-block d-none">
+            <div class="d-lg-block d-none w-md-100">
               <Metamask @showModal="showModal" />
             </div>
           </client-only>
@@ -166,6 +166,22 @@ export default {
     .navbar {
       padding: 0;
     }
+
+
   }
 }
+
+@media screen and (max-width: 768px) {
+  .headers {
+    .mobile-navbar {
+      width: 64%;
+    }
+
+    .navbar-brand {
+      margin-right: 0;
+    }
+  }
+  
+}
+  
 </style>

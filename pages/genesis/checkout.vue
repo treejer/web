@@ -592,35 +592,7 @@ export default {
         });
     },
     async setPaymentMethod(item, href) {
-
       window.open(href, "_blank");
-      return;
-      if (item === "Bridge") {
-        if (process.client) {
-          this.bridgeLoading = true
-
-          // import {Widget} from '@maticnetwork/wallet-widget'
-          const {Widget} = require("@maticnetwork/wallet-widget");
-          this.$nuxt.$loading.start();
-          const widget = await new Widget({
-            target: "#Bridge",
-            appName: "Polygon_Bridge_Treejer",
-            autoShowTime: 0,
-            position: "center",
-            height: 630,
-            width: 540,
-            overlay: false,
-            network: "mainnet",
-            closable: true,
-          });
-          await widget.create();
-          await widget.show();
-          this.bridgeLoading = false
-
-        }
-      } else {
-        window.open(href, "_blank");
-      }
     },
     goToTerm(item, target) {
       window.open(item, target);

@@ -55,7 +55,7 @@ export const actions = {
   },
   async approve(context, params) {
     let self = this;
-    console.log(context,"context is here")
+
     const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
@@ -70,18 +70,19 @@ export const actions = {
 
     const data = tx.encodeABI();
 
-    console.log(this.$web3.currentProvider, "this.$web3.currentProvider")
-
+    let gas = await daiContract.methods.approve(this.$RegularSale._address, countBNpriceBN.toString())
+    .estimateGas({from: account});
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
         from: account,
         to: daiContract._address,
         value: 0,
-        data: data
-        // type: "0x2", 
-        // maxPriorityFeePerGas: null,
-        // maxFeePerGas: null,
+        data: data,
+        gas: gas,
+        type: "0x2", 
+        maxPriorityFeePerGas: null,
+        maxFeePerGas: null,
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
