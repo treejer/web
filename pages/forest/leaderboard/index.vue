@@ -44,9 +44,9 @@
                     <th scope="col">LINK</th>
                   </tr>
                 </thead>
-                <tbody v-if="funders">
+                <tbody v-if="owners">
                   
-                  <tr v-for="(item, index) in funders" :key="index">
+                  <tr v-for="(item, index) in owners" :key="index">
 
                     <td
                       v-if="index === 0"
@@ -134,9 +134,9 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- <div v-if="funders">
+              <!-- <div v-if="owners">
                 <button
-                  v-if="funders.length > 10"
+                  v-if="owners.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -241,9 +241,9 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- <div v-if="funders">
+              <!-- <div v-if="owners">
                 <button
-                  v-if="funders.length > 10"
+                  v-if="owners.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -349,9 +349,9 @@
                   </tr>
                 </tbody>
               </table>
-              <!-- <div v-if="funders">
+              <!-- <div v-if="owners">
                 <button
-                  v-if="funders.length > 10"
+                  v-if="owners.length > 10"
                   @click="addTen"
                   class="btn-green"
                 >
@@ -384,7 +384,7 @@
 </template>
 <script>
 import Fas from "../../../components/font-awsome/Fas";
-import fundersSorted from "~/apollo/queries/fundersSorted";
+import ownersSorted from "~/apollo/queries/ownersSorted";
 import plantersSorted from "~/apollo/queries/plantersSorted";
 
 export default {
@@ -411,11 +411,11 @@ export default {
     Fas,
   },
   apollo: {
-    funders: {
+    owners: {
       prefetch: true,
-      query: fundersSorted,
+      query: ownersSorted,
       variables () {
-        return { first: 20, skip:0, orderBy: 'treeCount', orderDirection: 'desc' }
+        return {limit: 50, orderBy: 'treeCount', orderDirection: 'desc'}
       }
     },
     planters: {

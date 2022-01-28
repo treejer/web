@@ -12,7 +12,7 @@
             Congratulations, your forest just got bigger!!
           </h1>
           <p class="mt-3 tr-gray-three">
-            Your trees NFT Cover will be generated after 120 block confirmation, and you can check them below here or on your forest page.
+            Your NFT trees will be revealed in 2-5 minutes. You can check it out in your forest dashboard.
           </p>
           <nuxt-link
             :to="localePath('/forest/' + $cookies.get('account'))"
@@ -23,14 +23,14 @@
 
 
           <button class="btn-green param-18" @click="goToCheckout()">
-            Claim more trees
+            Collect More Trees
           </button>
         </div>
 
         <div class="col-12">
             <div class="row">
                 <div class="param pt-1">
-                    Results will refetch every 30 seconds
+                    Symbols will be refreshed every 30 seconds.
                 </div>
             </div>
             

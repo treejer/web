@@ -18,7 +18,10 @@ export const actions = {
         from: account,
         to: this.$IHonoraryTree._address,
         value: 0,
-        data: data
+        data: data,
+        type: "0x2", 
+        maxPriorityFeePerGas: null,
+        maxFeePerGas: null
       }).on('transactionHash', (transactionHash) => {
         let bootStrapToaster = new BToast();
         bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
