@@ -267,10 +267,8 @@ export default {
   pwa: {
     manifest: {
       short_name: "Treejer",
-
       name: 'Treejer',
-      lang: 'fa',
-      useWebmanifestExtension: false
+      lang: 'en'
     }
   },
   
