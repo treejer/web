@@ -135,6 +135,8 @@ export const actions = {
   },
   async claimReferralReward(context, params) {
 
+    let account = this.$cookies.get('account');
+
     this.$web3.currentProvider.enable();
 
     const tx = this.$RegularSale.methods.claimReferralReward();
@@ -145,7 +147,7 @@ export const actions = {
 
     try {
       const receipt = await this.$web3.eth.sendTransaction({
-          from: this.$cookies.get('account'),
+          from: account,
           to: this.$RegularSale._address,
           value: 0,
           data: data,
