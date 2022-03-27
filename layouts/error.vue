@@ -1,5 +1,5 @@
 <template>
-  <div class="x-page">
+  <div :class="$route.name" class="x-page" >
     <div class="stars">
       <div v-for="(item,index) in stars" class="star"></div>
 

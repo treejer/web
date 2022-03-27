@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-layout" style="min-height: 100vh">
+  <div :class="$route.name" class="landing-layout" style="min-height: 100vh">
 
     <TreejerHeader />
     <div class="container" :class="$route.name">
@@ -27,12 +27,6 @@
 
       };
     },
-    computed: {
-      currentRouteName() {
-        return this.$route.path;
-      }
-    },
-
     mounted() {
       this.$store.commit('SET_DASHBOARD' , false)
     },
