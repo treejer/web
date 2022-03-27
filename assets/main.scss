@@ -28,15 +28,7 @@
   background: #67b68c;
 }
 
-@media (min-width: 1200px) {
-  .container,
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container-xl {
-    max-width: 1194px;
-  }
-}
+
 
 @font-face {
   font-family: MontserratAlternates-BlackItalic;
@@ -703,6 +695,7 @@ h3,
 h4,
 h5,
 h6,
+textarea,
 input {
   font-family: Montserrat-Regular;
 }
@@ -809,6 +802,9 @@ html {
 .pointer-event:active,
 .pointer-event {
   cursor: pointer;
+}
+.over-flow-x-scroll{
+  overflow-x: scroll;
 }
 
 #example-datepicker__value_ {

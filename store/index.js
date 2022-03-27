@@ -128,7 +128,7 @@ export const actions = {
       self.commit('SET_MODAL_FIVE', false)
     });
   },
-  async activeIndex({commit}, {activeIndex}) {
+  async activeIndex({commit}, activeIndex) {
     await commit('SET_SIDEBAR_INDEX', activeIndex)
   },
   async refreshChain() {
