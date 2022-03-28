@@ -281,7 +281,6 @@
 </template>
 
 <script>
-
 export default {
   name: "Sidebar",
   data() {
@@ -294,24 +293,28 @@ export default {
       treeboxIcon: require("~/assets/images/treebox/treebox.svg"),
     };
   },
- 
+
   methods: {
     goToDiscuss() {
       window.open("https://discuss.treejer.com/", "_blank");
     },
     async changeIndex(id) {
       await this.$store.commit("SET_SIDEBAR_INDEX", id);
-      
+
       await this.$cookies.set("setSideBarIndex", id);
       this.activeIndex = id;
     },
   },
 
-   created() {
-    this.activeIndex =  this.$cookies.get("setSideBarIndex");
-    this.$store.commit("SET_SIDEBAR_INDEX", this.activeIndex )
-  }
-}
+  created() {
+    if (this.$cookies.get("setSideBarIndex")) {
+      this.activeIndex = this.$cookies.get("setSideBarIndex");
+      this.$store.commit("SET_SIDEBAR_INDEX", this.activeIndex);
+    }else{
+      this.activeIndex = 0;
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
