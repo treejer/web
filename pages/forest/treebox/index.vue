@@ -11,8 +11,8 @@
               Learn more</a
             >
           </p>
-          <p class="param-18 tr-gray-two tr-margin-top">Distribution method</p>
-          <ul class="method over-flow-x-scroll">
+          <p class="param-18  tr-gray-two tr-margin-top">Distribution method</p>
+          <ul class="method pt-4  over-flow-x-scroll">
             <li
               class="pointer-event position-relative"
               :class="activeIndex === index ? 'active' : 'not-active'"
@@ -79,7 +79,7 @@
             {{ Number(countOfRecepient) * Number(countOfRecepientTreebox) }}
           </h1>
           <p class="param-md tr-gray-four">Total Trees to Send</p>
-          <button class="btn-green" @click.prevent="">
+          <button class="btn-green" @click.prevent="$router.push('/forest/treebox/claimTree')">
             Create TreeBox
           </button>
           <button class="btn-gray" @click.prevent="">Preview</button>

@@ -226,18 +226,12 @@
       </li>
       <li class="nav-item treebox" @click="changeIndex(4)">
         <nuxt-link
-          :class="
-            $store.state.index === 4 
-              ? 'nuxt-link-exact-active'
-              : ''
-          "
+          :class="$store.state.index === 4 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
           to="/forest/treebox"
         >
           <img
-            :src="$store.state.index === 4
-                ? treeboxIconActive
-                :treeboxIcon "
+            :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
             alt=""
           />
           <p>Treebox</p>
@@ -287,29 +281,38 @@
 </template>
 
 <script>
-import Fas from "@/components/font-awsome/Fas.vue";
-
 export default {
   name: "Sidebar",
-  components: { Fas },
   data() {
     return {
       forest: ``,
       activeForest: ``,
       user: false,
       activeIndex: null,
-      treeboxIconActive:require("~/assets/images/treebox/treebox-active.svg"),
-      treeboxIcon:require("~/assets/images/treebox/treebox.svg"),
+      treeboxIconActive: require("~/assets/images/treebox/treebox-active.svg"),
+      treeboxIcon: require("~/assets/images/treebox/treebox.svg"),
     };
   },
+
   methods: {
     goToDiscuss() {
       window.open("https://discuss.treejer.com/", "_blank");
     },
     async changeIndex(id) {
-      await this.$store.commit("SET_SIDEBAR_INDEX",id);
+      await this.$store.commit("SET_SIDEBAR_INDEX", id);
+
+      await this.$cookies.set("setSideBarIndex", id);
       this.activeIndex = id;
     },
+  },
+
+  created() {
+    if (this.$cookies.get("setSideBarIndex")) {
+      this.activeIndex = this.$cookies.get("setSideBarIndex");
+      this.$store.commit("SET_SIDEBAR_INDEX", this.activeIndex);
+    }else{
+      this.activeIndex = 0;
+    }
   },
 };
 </script>
