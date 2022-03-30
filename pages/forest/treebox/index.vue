@@ -26,7 +26,7 @@
               {{ item.name }}
             </li>
           </ul>
-          <p class="param-18 tr-gray-two tr-margin-top">Number of recipients</p>
+          <p class="param-18 tr-gray-two tr-margin-top">Number of recipients (max. 150)</p>
           <ul class="recipient over-flow-x-scroll">
             <li
               class="pointer-event"
@@ -161,7 +161,7 @@
             {{ loadingApprove ? "Loading" : " Approve" }}
           </button>
 
-          <button class="btn-gray" @click.prevent="">Preview</button>
+          <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
         </div>
       </div>
     </div>
@@ -200,7 +200,7 @@ export default {
       activeIndexRecepientTreebox: 0,
       countOfRecepient: 50,
       countOfRecepientTreebox: 1,
-      message: "Test TreeBox",
+      message: "",
       wallets: [],
       assignTreeOption: "desc",
       ownerTrees: [],
@@ -259,6 +259,11 @@ export default {
     async createTreebox() {
       this.loadingCreate = true;
 
+      if(!this.checkLogin()) {
+        this.loadingCreate = false;
+        return;
+      }
+
       if ((await this.checkNetwork()) === false) {
         this.loadingCreate = false;
         return;
@@ -270,17 +275,38 @@ export default {
         return;
       }
 
+
+      if(this.countOfRecepient <=0 || this.countOfRecepientTreebox <= 0) {
+        this.$bvToast.toast(["Try again!"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Validation Error",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
+        this.loadingCreate = false;
+        return;
+      }
+
+
+      if(this.ownerTrees.length < Number(this.owner.regularTreeCount)) {
+        await this.getOwnerTrees();
+      }
+
+
+      let totalTreesCount = Number(this.countOfRecepient * this.countOfRecepientTreebox);
       if (
         this.owner.regularTreeCount <
-          this.countOfRecepient * this.countOfRecepientTreebox ||
+          totalTreesCount ||
         this.ownerTrees.length <
-          this.countOfRecepient * this.countOfRecepientTreebox
+          totalTreesCount
       ) {
         this.$bvToast.toast(
           `Owned Regular Trees count is: ${
             this.owner.regularTreeCount
           } and less than selected trees count: ${
-            this.countOfRecepient * this.countOfRecepientTreebox
+            totalTreesCount
           } `,
           {
             toaster: "b-toaster-bottom-left",
@@ -291,14 +317,6 @@ export default {
           }
         );
         this.loadingCreate = false;
-        return;
-      }
-
-      if (
-        !confirm(
-          "Remember to download the CSV file after successful transaction. We don't save the CSV file in our server."
-        )
-      ) {
         return;
       }
 
@@ -316,10 +334,41 @@ export default {
           this.loadingCreate = false;
           return;
         }
+      } else {
+
+         if (
+          !confirm(
+            "Treebox message is empty, Are sure you want to create treebox without message?"
+          )
+          ) {
+            this.loadingCreate = false;
+            return;
+          }
+
+      }
+
+      if (
+        !confirm(
+          "Remember to download the CSV file after successful transaction. We don't save the CSV file in our server."
+        )
+      ) {
+        this.loadingCreate = false;
+        return;
       }
 
       await this.generateWallets();
-      if (this.wallets.length !== Number(this.countOfRecepient)) {
+      if (Number(this.wallets.length) !== Number(this.countOfRecepient)) {
+
+        this.$bvToast.toast(["Refresh page and Try again!"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Wallets are not enough",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
+
+
         this.loadingCreate = false;
         return;
       }
@@ -327,7 +376,17 @@ export default {
       await this.assignTrees();
       let inputs = [];
       for (let i = 0; i < this.wallets.length; i++) {
-        if (this.wallets[i].treeIds.length !== this.countOfRecepientTreebox) {
+        if (this.wallets[i].treeIds.length !== Number(this.countOfRecepientTreebox)) {
+          
+          this.$bvToast.toast(["Refresh page and Try again!"],
+            {
+              toaster: "b-toaster-bottom-left",
+              title: "Wallets trees are not enough",
+              variant: "danger",
+              noAutoHide: true,
+            }
+          );
+          
           this.loadingCreate = false;
           return;
         }
@@ -389,6 +448,11 @@ export default {
     async setApprovalForAll() {
       this.loadingApprove = true;
 
+      if(!this.checkLogin()) {
+        this.loadingApprove = false;
+        return;
+      }
+
       if ((await this.checkNetwork()) === false) {
         this.loadingApprove = false;
         return;
@@ -418,6 +482,21 @@ export default {
       }
       this.loadingApprove = false;
     },
+    checkLogin() {
+      if (this.$cookies.get("account")) {
+        return true;
+      }
+
+      this.$bvToast.toast("you're not login", {
+          toaster: "b-toaster-bottom-left",
+          solid: true,
+          headerClass: "hide",
+          variant: "danger",
+        });
+      this.$bvModal.show("five");
+      return false;
+    },
+
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net
         .getId()
@@ -449,17 +528,20 @@ export default {
       return false;
     },
     async generateWallets() {
+
+      let totalTreesCount = Number(this.countOfRecepient * this.countOfRecepientTreebox);
+
       if (
         this.owner.regularTreeCount <
-          this.countOfRecepient * this.countOfRecepientTreebox ||
+          totalTreesCount ||
         this.ownerTrees.length <
-          this.countOfRecepient * this.countOfRecepientTreebox
+          totalTreesCount
       ) {
         this.$bvToast.toast(
           `Owned Regular Trees count is: ${
             this.owner.regularTreeCount
           } and less than selected trees count: ${
-            this.countOfRecepient * this.countOfRecepientTreebox
+            totalTreesCount
           } `,
           {
             toaster: "b-toaster-bottom-left",
@@ -472,17 +554,21 @@ export default {
         return;
       }
 
-      let wallets = [];
-      wallets = this.$web3.eth.accounts.wallet.create(
-        Number(this.countOfRecepient),
-        []
-      );
+      if(this.wallets.length === 0) {
+        this.wallets = [];
+        let wallets = [];
+        wallets = this.$web3.eth.accounts.wallet.create(
+          Number(this.countOfRecepient),
+          []
+        );
 
-      for (let i = 0; i < Number(this.countOfRecepient); i++) {
-        this.wallets.push(wallets[i]);
+        for (let i = 0; i < Number(this.countOfRecepient); i++) {
+          this.wallets.push(wallets[i]);
+        }
+
+        console.log(this.wallets, "wallets");
       }
-
-      console.log(this.wallets, "wallets");
+      
     },
     async assignTrees() {
       for (let i = 0; i < Number(this.countOfRecepient); i++) {
@@ -510,13 +596,16 @@ export default {
       let skip = 0;
 
       let self = this;
+
+      let account = this.$cookies.get("account") ? this.$cookies.get("account").toLowerCase() : 'guest';
+
       //soldType: 4,
       await self.$axios
         .$post(process.env.graphqlUrl, {
           query: `{
                     trees(first: ${first}, skip: ${skip}, where:
                     {
-                      owner: "${this.$cookies.get("account").toLowerCase()}"
+                      owner: "${account}"
                     },
                     orderBy: "createdAt",
                     orderDirection: "${this.assignTreeOption}")
@@ -530,7 +619,8 @@ export default {
         .then((treesRes) => {
           if (treesRes.data.trees && treesRes.data.trees.length > 0) {
             let trees = treesRes.data.trees;
-            self.ownerTrees.push(...trees);
+            // self.ownerTrees.push(...trees);
+            self.ownerTrees = trees;
           }
 
           console.log(self.ownerTrees, "ownerTrees");
@@ -560,7 +650,7 @@ export default {
       const anchor = document.createElement("a");
       anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
       anchor.target = "_blank";
-      anchor.download = "treejer-tree-boxes-" + hash + ".csv";
+      anchor.download = "treejer-tree-boxes-" + this.countOfRecepient + "-" + this.countOfRecepientTreebox + "-"+ hash.substring(0,10) + ".csv";
       anchor.click();
     },
   },

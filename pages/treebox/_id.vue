@@ -3,11 +3,12 @@
     class="position-relative pt-5 col-12 claim-treebox mb-5 pb-5"
   >
     <div class="container-fluid">
-      <div class="row justify-content-center">
-        <div class="col-12 text-center">
+      <div class="row justify-content-center" v-if="box">
+        <div class="col-12 text-center" v-if="box.sender && box.sender !== zeroAddress">
           <img src="~assets/images/treebox/tree.png" alt="tree" />
           <h4 class="title-sm tr-gry-two">A tree is planted for you!</h4>
           <p
+            v-if="box.message && box.message.length > 2"
             class="
               param-md
               tr-gary-three
@@ -16,142 +17,296 @@
               font-weight-bolder
             "
           >
-            Dear friend, I wish you a happy New Year. Here’s a small gift from
-            me. I planted this tree to thank you for following me on Twitter.
-            Take care and do good. (Treejer)
+            {{ box.message }}
           </p>
-          <button class="btn-green d-block font-weight-bolder" @click="claim" v-if="$cookies.get('account')">
-            Claim
+
+          <div>
+            <span>Reciever Address</span>
+            <input type="text" v-model="recipient" placeholder="Reciver Ethereum Address">
+            <button class="btn-green d-block font-weight-bolder" @click="$bvModal.show('five')" v-if="!recipient" >
+              Connect Wallet
+            </button>
+          </div>
+         
+
+          <button class="btn-green d-block font-weight-bolder" @click="claim" v-if="recipient && !claimed" >
+            
+
+            <BSpinner v-if="loading" class="mr-2" small type="grow"
+              >loading
+            </BSpinner>
+            {{ loading ? "Loading" : " Claim" }}
+
+
           </button>
 
-          <button class="btn-green d-block font-weight-bolder" @click="$bvModal.show('five')" v-else>
-            Login to Claim
-          </button>
+          <NuxtLink :to="`/forest/${recipient}`" v-if="recipient && claimed">
+            <button class="btn-green d-block font-weight-bolder"  >
+              My Forest
+            </button>
+          </NuxtLink>
+          
 
 
-          <button class="btn-gray d-block font-weight-bolder">
-            See Tree Info
-          </button>
+          <div v-if="box.treeIds && box.treeIds.length > 0" class="col-12 mb-3 p-0">
+            <div
+              v-for="treeId in box.treeIds"
+              :id="treeId"
+              :key="treeId"
+              class="d-inline-block pointer-event"
+            >
+              <NuxtLink :to="`/tree/${treeId}`">
+                <span
+                  v-b-tooltip.top
+                  :tabindex="treeId"
+                  :title="treeId"
+                  class="border-0 text-center"
+                >
+                  
+                  <img
+                    width="48px"
+                    src="~/assets/images/myforest/trees.png"
+                    :alt="treeId"
+                    class="m-2"
+                  />
+
+                  <span class="param-xs tr-gray-tree">
+                    #{{ treeId }}
+                  </span>
+                </span>
+                
+              </NuxtLink>
+            </div>
+          </div>
+
+
         </div>
+
+        <div class="col-12 text-center" v-else>
+          <img src="~assets/images/treebox/tree.png" alt="tree" />
+          <h4 class="title-sm tr-gry-two">TreeBox is already Claimed!</h4>
+          
+          <NuxtLink :to="`/forest/checkout`">
+            <button class="btn-green d-block font-weight-bolder" >
+              Plant Trees
+            </button>
+          </NuxtLink>
+              
+        </div>
+
+
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import ERC20 from '~/contracts/IERC20'
 
 export default {
   layout: "default",
   name: "TreeboxClaim",
   data() {
     return {
-      account: null
+      account: null,
+      recipient: null,
+      box: null,
+      zeroAddress: process.env.zeroAddress,
+      loading: false,
+      claimed: false
     };
   },
-  created() {
+  async created() {
+
+    this.recipient = this.$cookies.get('account')
 
     if (process.client) {
 
       console.log(this.$route.params, "this.$route.params")
       console.log(this.$route, "this.$route")
-      this.account = this.$web3.eth.accounts.privateKeyToAccount(this.$route.query.privateKey);
+      this.account = await this.$web3.eth.accounts.privateKeyToAccount(this.$route.query.privateKey);
 
       console.log(this.account, "this.account")
+
+      await this.getBox();
+
+      console.log(this.box, "this.box")
+      console.log(this.box.ipfsHash, "this.box.ipfsHash")
+
+      await this.getBoxTreeIds();
+
+      console.log(this.box, "this.box getBoxTreeIds")
+
+      await this.getIPFSData();
+
+      console.log(this.box, "this.box getIPFSData")
+
+      this.$forceUpdate();
+
     }
 
   },
   methods: {
+
+    async getBox() {
+      this.box = await this.$store.dispatch("treebox/getBox", {
+        recipient: this.account.address
+      });
+    },
+
+    async getBoxTreeIds() {
+      this.box.treeIds = await this.$store.dispatch("treebox/getBoxTreeIds", {
+        recipient: this.account.address
+      });
+    },
+
+    async getIPFSData() {
+
+      if(this.box.ipfsHash.length <=0 || this.box.ipfsHash == null) {
+        return;
+      }
+
+      let self = this
+
+      await this.$axios.$get(`${process.env.ipfsGetUrl}${this.box.ipfsHash}`)
+        .then(function (response) {
+          console.log(response, "response")
+          self.box.message = response.message
+        })
+        .catch(function (error) {
+          console.log(error, "error")
+        });
+
+      
+    },
+
     async claim() {
+      this.loading = true;
 
-            console.log(this.account, "this.account")
+      if ((await this.checkNetwork()) === false) {
+        this.loading = false;
+        return;
+      }
 
+      if(this.recipient == null || this.recipient.length <= 0) {
+        this.$bvToast.toast(["recipient address is required"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Recipient required",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
 
-
-      let self = this;
-      const erc20Contract = await new this.$web3.eth.Contract(ERC20.abi, '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063');
-      let account = this.account.address;
-
-      console.log(account, "account")
-
-      // this.$web3.currentProvider.enable();
-
-      const tx = erc20Contract.methods.approve('0x9eb27C5d314836A0c654f1D18f5dd6773604EC33', this.$web3.utils.toWei("1"));
-
-      const data = tx.encodeABI();
-
-      let gas = await erc20Contract.methods.approve('0x9eb27C5d314836A0c654f1D18f5dd6773604EC33', this.$web3.utils.toWei("1"))
-    .estimateGas({from: account});
-
-      this.$web3.eth.accounts.signTransaction({
-          from: account,
-          to: erc20Contract._address,
-          value: 0,
-          data: data,
-          gas: gas,
-          type: "0x2", 
-          maxPriorityFeePerGas: null,
-          maxFeePerGas: null
-      }, this.account.privateKey)
-      .then(console.log);
+        this.loading = false;
+        return;
+      }
 
 
-    // try {
-    //   const receipt = await this.$web3.eth.signTransaction({
-    //     from: account,
-    //     to: erc20Contract._address,
-    //     value: 0,
-    //     data: data,
-    //     gas: gas,
-    //     type: "0x2", 
-    //     maxPriorityFeePerGas: null,
-    //     maxFeePerGas: null
-    //   }).on('transactionHash', (transactionHash) => {
-    //     self.$bvToast.toast(['Check progress on Etherscan'], {
-    //       toaster: 'b-toaster-bottom-left',
-    //       title: 'Processing transaction...',
-    //       variant: 'warning',
-    //       href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
-    //       bodyClass: 'fund-error',
-    //       noAutoHide: true
+      try {
+        this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
+      } catch(e) { 
+        console.error('invalid recipient address', e.message) 
 
-    //     })
-    //   })
-    //     .on('error', (error) => {
-    //       console.log(error, "errorr on");
-    //      const err = error
-    //       if (error.code === 32602) {
-    //         self.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
-    //           toaster: 'b-toaster-bottom-left',
-    //           title: 'Transaction failed',
-    //           variant: 'danger',
-    //           to: '/forest/addTree',
-    //           noAutoHide: true,
-    //           bodyClass: 'fund-error'
-    //         })
-    //       } else {
-    //         self.$bvToast.toast([error.message], {
-    //           toaster: 'b-toaster-bottom-left',
-    //           title: 'Transaction failed',
-    //           variant: 'danger',
-    //           to: '/forest/addTree',
-    //           noAutoHide: true,
-    //           bodyClass: 'fund-error'
-    //         })
-    //       }
+        this.$bvToast.toast(["Please enter valid recipient address"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Invalid recipient address",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
 
-    //       return null;
-    //     })
-
-    //   return receipt
-
-    // } catch (error) {
-    //   console.log(error, "errorr catch");
-    //   return null;
-    // }
+        this.loading = false;
+        return;
+      }
 
 
-    }
+      if(this.recipient.toLowerCase() == this.account.address.toLowerCase()) {
+        this.$bvToast.toast(["Recipient can't equal treebox recipient address: " + this.recipient],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Recipient invalid",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
+
+        this.loading = false;
+        return;
+      }
+
+
+      if (
+        !confirm(
+          "Do you want to claim TreeBox for " + this.recipient + "?"
+        )
+      ) {
+        this.loading = false;
+        return;
+      }
+
+
+      console.log(this.account, "this.account")
+
+      const res = await this.$store.dispatch(
+        "treebox/claim",
+        {
+          account: this.account,
+          recipient: this.recipient,
+        }
+      );
+      if (res !== null) {
+
+          console.log(res, "res res res")
+
+
+        this.$bvToast.toast(["Your forest got bigger. Page will redirect to your forest after 20 seconds."], {
+          toaster: "b-toaster-bottom-left",
+          title: "Claim successful",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
+          noAutoHide: true
+        });
+        this.claimed = true;
+        this.loading = false;
+        await new Promise(r => setTimeout(r, 20000));
+        
+        this.$router.push(`/forest/${this.recipient}`);
+      }
+      this.loading = false;
+
+
+    },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net
+        .getId()
+        .then((networkId) => {
+          return networkId;
+        })
+        .catch((err) => {
+          console.log(err.message, "error checkNetwork");
+          return 0;
+        });
+
+      if (connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(
+        [
+          "Please connect to " +
+            process.env.networkName.toUpperCase() +
+            " Network!",
+        ],
+        {
+          toaster: "b-toaster-bottom-left",
+          title: "Wrong network",
+          variant: "danger",
+          noAutoHide: true,
+        }
+      );
+      return false;
+    },
   }
 };
 </script>
