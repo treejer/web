@@ -72,11 +72,12 @@ export const actions = {
     commit('SET_WALLET', 'walletconnect')
     self.$cookies.set('walletName', 'walletconnect')
 
+    let rpc = [];
+    rpc[parseInt(process.env.NETWORK_ID)] = process.env.WEB3_PROVIDER;
+        
     const wc = new WalletConnect({
         infuraId: process.env.INFURA_ID,
-        rpc: {
-          137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
-        }
+        rpc: rpc
     });
     const connector = await wc.connect();
     const account = connector._accounts[0]

@@ -11,16 +11,18 @@
               Learn more</a
             >
           </p>
-          <p class="param-18  tr-gray-two tr-margin-top">Distribution method</p>
-          <ul class="method pt-4  over-flow-x-scroll">
+          <p class="param-18 tr-gray-two tr-margin-top">Distribution method</p>
+          <ul class="method pt-4 over-flow-x-scroll">
             <li
               class="pointer-event position-relative"
               :class="activeIndex === index ? 'active' : 'not-active'"
               v-for="(item, index) in activeMethods"
               :key="index"
-              @click.prevent="setActiveIndex(index)"
+              @click.prevent="index === 0 ? setActiveIndex(index) : null"
             >
-              <span v-if="index !== 0" class="soon btn-gree tr-white ">SOON</span>
+              <span v-if="index !== 0" class="soon btn-gree tr-white"
+                >SOON</span
+              >
               {{ item.name }}
             </li>
           </ul>
@@ -28,7 +30,7 @@
           <ul class="recipient over-flow-x-scroll">
             <li
               class="pointer-event"
-              :class="activeIndexRecepient === index ? 'active' : 'not-active'"
+              :class="item.name == countOfRecepient ? 'active' : 'not-active'"
               v-for="(item, index) in numberRecepient"
               :key="index"
               @click.prevent="setActiveIndexRecepient(index, item.name)"
@@ -39,7 +41,10 @@
               type="number"
               class="recipient-input tr-gray-four font-weight-bold text-center"
               v-model="countOfRecepient"
+              @focus="activeIndexRecepient = -1"
+              :class="activeIndexRecepient === -1 ? 'active' : 'not-active'"
               placeholder="Enter"
+              min="1"
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
@@ -49,7 +54,7 @@
             <li
               class="pointer-event"
               :class="
-                activeIndexRecepientTreebox === index ? 'active' : 'not-active'
+                item.name == countOfRecepientTreebox ? 'active' : 'not-active'
               "
               v-for="(item, index) in numberRecepientTreebox"
               :key="index"
@@ -59,9 +64,14 @@
             </li>
             <input
               type="number"
+              :class="
+                activeIndexRecepientTreebox === -1 ? 'active' : 'not-active'
+              "
               class="recipient-input tr-gray-four font-weight-bold text-center"
               v-model="countOfRecepientTreebox"
+              @focus="activeIndexRecepientTreebox = -1"
               placeholder="Enter"
+              min="1"
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
@@ -72,6 +82,59 @@
             v-model="message"
             placeholder="Write your message here..."
           />
+
+          <div class="col-12" v-if="showAdvance">
+            <p class="param-18 tr-gray-two tr-margin-top">
+              <button class="btn-green" @click.prevent="generateWallets()">
+                Generate Wallets
+              </button>
+            </p>
+
+            <p class="param-18 tr-gray-two tr-margin-top">
+              <label for="assignTreeOption"> Assign Tree Type </label>
+
+              <select
+                id="assignTreeOption"
+                v-model="assignTreeOption"
+                @change="assignTreeOptionChanged"
+              >
+                <option
+                  v-for="option in assignTreeOptions"
+                  :key="option.label"
+                  :value="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+            </p>
+
+            <p
+              class="param-18 tr-gray-two tr-margin-top"
+              v-if="wallets.length > 0"
+            >
+              <button class="btn-green" @click.prevent="downloadCSVData()">
+                Downlaod Links
+              </button>
+            </p>
+
+            <ul class="over-flow-x-scroll">
+              <li
+                class="pointer-event"
+                v-for="(wallet, wIndex) in wallets"
+                :key="`wallet-${wIndex}`"
+              >
+                {{ wallet.address }}
+                <input
+                  type="number"
+                  class="tr-gray-four font-weight-bold text-center"
+                  v-for="(treeId, index) in wallets[wIndex].treeIds"
+                  v-model="wallets[wIndex].treeIds[index]"
+                  :key="`wallet-${wIndex}-treeId-${treeId}`"
+                  placeholder="Tree ID"
+                />
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="col-lg-4 col-12 box-right-treebox text-center">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
@@ -79,9 +142,25 @@
             {{ Number(countOfRecepient) * Number(countOfRecepientTreebox) }}
           </h1>
           <p class="param-md tr-gray-four">Total Trees to Send</p>
-          <button class="btn-green" @click.prevent="$router.push('/forest/treebox/claimTree')">
-            Create TreeBox
+
+          <button
+            v-if="approved"
+            class="btn-green"
+            @click.prevent="createTreebox"
+          >
+            <BSpinner v-if="loadingCreate" class="mr-2" small type="grow"
+              >loading
+            </BSpinner>
+            {{ loadingCreate ? "Loading" : " Create TreeBox" }}
           </button>
+
+          <button v-else class="btn-green" @click.prevent="setApprovalForAll">
+            <BSpinner v-if="loadingApprove" class="mr-2" small type="grow"
+              >loading
+            </BSpinner>
+            {{ loadingApprove ? "Loading" : " Approve" }}
+          </button>
+
           <button class="btn-gray" @click.prevent="">Preview</button>
         </div>
       </div>
@@ -90,7 +169,10 @@
 </template>
 
 <script>
+import owner from "~/apollo/queries/owner";
+
 export default {
+  name: "TreeBoxCreate",
   layout: "dashboard",
   data() {
     return {
@@ -103,18 +185,56 @@ export default {
       ],
       numberRecepientTreebox: [
         { name: "1" },
-        { name: "10" },
-        { name: "20" },
-        { name: "50" },
+        { name: "2" },
+        { name: "3" },
+        { name: "4" },
+      ],
+      assignTreeOptions: [
+        { label: "From Latest Tree", value: "desc" },
+        { label: "From First Tree", value: "asc" },
+        // { label: "Random", value: "random" }
       ],
 
       activeIndex: 0,
-      activeIndexRecepient: 0,
+      activeIndexRecepient: 3,
       activeIndexRecepientTreebox: 0,
-      countOfRecepient: 1,
+      countOfRecepient: 50,
       countOfRecepientTreebox: 1,
-      message: null,
+      message: "Test TreeBox",
+      wallets: [],
+      assignTreeOption: "desc",
+      ownerTrees: [],
+
+      showAdvance: false,
+      approved: false,
+
+      loadingApprove: false,
+      loadingCreate: false,
+
+      messageIPFSHash: "",
+      treeboxCreated: false,
     };
+  },
+  apollo: {
+    owner: {
+      query: owner,
+      prefetch: false,
+      skip() {
+        return this.$cookies.get("account") ? false : true;
+      },
+      variables() {
+        return {
+          id: this.$cookies.get("account")
+            ? this.$cookies.get("account").toLowerCase()
+            : "",
+        };
+      },
+      fetchPolicy: "network-only",
+    },
+  },
+  async created() {
+    await this.getOwnerTrees();
+    await this.isApprovedForAll();
   },
   methods: {
     setActiveIndex(index) {
@@ -128,6 +248,321 @@ export default {
       this.activeIndexRecepientTreebox = index;
       this.countOfRecepientTreebox = count;
     },
+
+    async isApprovedForAll() {
+      this.approved = await this.$store.dispatch("tree/isApprovedForAll", {
+        owner: this.$cookies.get("account"),
+        operator: this.$TreeBox._address,
+      });
+    },
+
+    async createTreebox() {
+      this.loadingCreate = true;
+
+      if ((await this.checkNetwork()) === false) {
+        this.loadingCreate = false;
+        return;
+      }
+
+      await this.isApprovedForAll();
+      if (this.approved === false) {
+        this.loadingCreate = false;
+        return;
+      }
+
+      if (
+        this.owner.regularTreeCount <
+          this.countOfRecepient * this.countOfRecepientTreebox ||
+        this.ownerTrees.length <
+          this.countOfRecepient * this.countOfRecepientTreebox
+      ) {
+        this.$bvToast.toast(
+          `Owned Regular Trees count is: ${
+            this.owner.regularTreeCount
+          } and less than selected trees count: ${
+            this.countOfRecepient * this.countOfRecepientTreebox
+          } `,
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Owned Trees are not enough",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          }
+        );
+        this.loadingCreate = false;
+        return;
+      }
+
+      if (
+        !confirm(
+          "Remember to download the CSV file after successful transaction. We don't save the CSV file in our server."
+        )
+      ) {
+        return;
+      }
+
+      if (this.message !== null && this.message.length > 0) {
+        await this.uploadContentToIPFS(
+          JSON.stringify({
+            message: this.message,
+          })
+        );
+
+        if (
+          this.messageIPFSHash.length === 0 ||
+          this.messageIPFSHash === null
+        ) {
+          this.loadingCreate = false;
+          return;
+        }
+      }
+
+      await this.generateWallets();
+      if (this.wallets.length !== Number(this.countOfRecepient)) {
+        this.loadingCreate = false;
+        return;
+      }
+
+      await this.assignTrees();
+      let inputs = [];
+      for (let i = 0; i < this.wallets.length; i++) {
+        if (this.wallets[i].treeIds.length !== this.countOfRecepientTreebox) {
+          this.loadingCreate = false;
+          return;
+        }
+
+        inputs.push({
+          recipient: this.wallets[i].address,
+          treeIds: this.wallets[i].treeIds,
+          ipfsHash: this.messageIPFSHash,
+        });
+      }
+
+      console.log(inputs, "inputs");
+
+      let res = await this.$store.dispatch("treebox/create", {
+        inputs: inputs,
+      });
+      if (res !== null) {
+        this.$bvToast.toast(
+          ["All treeboxes successfully are created and ready to claim!"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Treeboxes successfully created",
+            variant: "success",
+            href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
+          }
+        );
+
+        this.treeboxCreated = true;
+
+        await this.downloadCSVData(res.transactionHash);
+      }
+      this.loadingCreate = false;
+    },
+    async uploadContentToIPFS(content) {
+      let self = this;
+
+      const formData = new FormData();
+
+      console.log(content, "content");
+
+      formData.append("file", content);
+
+      await this.$axios
+        .$post(process.env.ipfsPostUrl, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          self.messageIPFSHash = response.Hash;
+
+          console.log(response, "response");
+        })
+        .catch((error) => {
+          console.log(error, "error");
+        });
+    },
+
+    async setApprovalForAll() {
+      this.loadingApprove = true;
+
+      if ((await this.checkNetwork()) === false) {
+        this.loadingApprove = false;
+        return;
+      }
+
+      await this.isApprovedForAll();
+      if (this.approved) {
+        this.loadingApprove = false;
+        return;
+      }
+
+      this.transferReceipt = await this.$store.dispatch(
+        "tree/setApprovalForAll",
+        {
+          operator: this.$TreeBox._address,
+          approved: true,
+        }
+      );
+      if (this.transferReceipt !== null) {
+        this.$bvToast.toast(["Approved all token to treebox contract!"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Approval transaction successful",
+          variant: "success",
+          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
+        });
+        this.approved = true;
+      }
+      this.loadingApprove = false;
+    },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net
+        .getId()
+        .then((networkId) => {
+          return networkId;
+        })
+        .catch((err) => {
+          console.log(err.message, "error checkNetwork");
+          return 0;
+        });
+
+      if (connectedNetwrokID == process.env.networkId) {
+        return true;
+      }
+
+      this.$bvToast.toast(
+        [
+          "Please connect to " +
+            process.env.networkName.toUpperCase() +
+            " Network!",
+        ],
+        {
+          toaster: "b-toaster-bottom-left",
+          title: "Wrong network",
+          variant: "danger",
+          noAutoHide: true,
+        }
+      );
+      return false;
+    },
+    async generateWallets() {
+      if (
+        this.owner.regularTreeCount <
+          this.countOfRecepient * this.countOfRecepientTreebox ||
+        this.ownerTrees.length <
+          this.countOfRecepient * this.countOfRecepientTreebox
+      ) {
+        this.$bvToast.toast(
+          `Owned Regular Trees count is: ${
+            this.owner.regularTreeCount
+          } and less than selected trees count: ${
+            this.countOfRecepient * this.countOfRecepientTreebox
+          } `,
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Owned Trees are not enough",
+            solid: true,
+            headerClass: "hide",
+            variant: "danger",
+          }
+        );
+        return;
+      }
+
+      let wallets = [];
+      wallets = this.$web3.eth.accounts.wallet.create(
+        Number(this.countOfRecepient),
+        []
+      );
+
+      for (let i = 0; i < Number(this.countOfRecepient); i++) {
+        this.wallets.push(wallets[i]);
+      }
+
+      console.log(this.wallets, "wallets");
+    },
+    async assignTrees() {
+      for (let i = 0; i < Number(this.countOfRecepient); i++) {
+        this.wallets[i].treeIds = [];
+        for (let j = 0; j < Number(this.countOfRecepientTreebox); j++) {
+          this.wallets[i].treeIds.push(
+            this.$hex2Dec(
+              this.ownerTrees[i * Number(this.countOfRecepientTreebox) + j].id
+            )
+          );
+        }
+      }
+
+      console.log(this.wallets, "wallets");
+    },
+    async assignTreeOptionChanged() {
+      this.ownerTrees = [];
+      console.log(this.assignTreeOption, "this.assignTreeOption");
+      await this.getOwnerTrees();
+      await this.assignTrees();
+      this.$forceUpdate();
+    },
+    async getOwnerTrees() {
+      let first = Number(this.countOfRecepient * this.countOfRecepientTreebox);
+      let skip = 0;
+
+      let self = this;
+      //soldType: 4,
+      await self.$axios
+        .$post(process.env.graphqlUrl, {
+          query: `{
+                    trees(first: ${first}, skip: ${skip}, where:
+                    {
+                      owner: "${this.$cookies.get("account").toLowerCase()}"
+                    },
+                    orderBy: "createdAt",
+                    orderDirection: "${this.assignTreeOption}")
+                      {
+                          id
+                          createdAt
+                      }
+                  }`,
+          prefetch: false,
+        })
+        .then((treesRes) => {
+          if (treesRes.data.trees && treesRes.data.trees.length > 0) {
+            let trees = treesRes.data.trees;
+            self.ownerTrees.push(...trees);
+          }
+
+          console.log(self.ownerTrees, "ownerTrees");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      //filter only reqularTrees
+      self.ownerTrees = self.ownerTrees.filter(
+        (tree) => self.$hex2Dec(tree.id) > 10000
+      );
+      console.log(self.ownerTrees, "ownerTrees Filter regular");
+    },
+    async downloadCSVData(hash = "") {
+      let csv = "Link\n";
+      this.wallets.forEach((row) => {
+        console.log(row, "row");
+
+        csv += `${process.env.baseUrl}/treebox/${row.address}?privateKey=${
+          row.privateKey
+        }&treeIds=${row.treeIds.join("-")}`;
+        // csv += row.join(',');
+        csv += "\n";
+      });
+
+      const anchor = document.createElement("a");
+      anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+      anchor.target = "_blank";
+      anchor.download = "treejer-tree-boxes-" + hash + ".csv";
+      anchor.click();
+    },
   },
 };
 </script>
@@ -138,17 +573,17 @@ export default {
       display: flex;
       .soon {
         position: absolute;
-        top:-5px;
+        top: -5px;
         right: 10px;
         font-size: 10px;
         background: #67b68c;
         border-radius: 4px;
-        color: #FAF8F1;
+        color: #faf8f1;
       }
       li {
         margin-right: 32px;
       }
-      li.active {
+      .active {
         min-width: 128px;
         height: 64px;
         align-items: center;
@@ -159,7 +594,7 @@ export default {
         border-radius: 8px;
         list-style: none;
       }
-      li.not-active {
+      .not-active {
         min-width: 128px;
         height: 64px;
         align-items: center;
@@ -177,7 +612,7 @@ export default {
       li {
         margin-right: 32px;
       }
-      li.active {
+      .active {
         min-width: 48px;
         height: 48px;
         align-items: center;
@@ -188,7 +623,7 @@ export default {
         border-radius: 8px;
         list-style: none;
       }
-      li.not-active {
+      .not-active {
         min-width: 48px;
         height: 48px;
         align-items: center;
