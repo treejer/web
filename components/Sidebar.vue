@@ -95,6 +95,21 @@
           <p>My Forest</p>
         </nuxt-link>
       </li>
+
+      <li class="nav-item treebox" @click="changeIndex(4)">
+        <nuxt-link
+          :class="$store.state.index === 4 ? 'nuxt-link-exact-active' : ''"
+          class="nav-link"
+          to="/forest/treebox"
+        >
+          <img
+            :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
+            alt=""
+          />
+          <p>Treebox</p>
+        </nuxt-link>
+      </li>
+      
       <li class="nav-item referral" @click="changeIndex(1)">
         <nuxt-link
           :class="$store.state.index === 1 ? 'nuxt-link-exact-active' : ''"
@@ -224,19 +239,7 @@
           <p>Activity</p>
         </nuxt-link>
       </li>
-      <li class="nav-item treebox" @click="changeIndex(4)">
-        <nuxt-link
-          :class="$store.state.index === 4 ? 'nuxt-link-exact-active' : ''"
-          class="nav-link"
-          to="/forest/treebox"
-        >
-          <img
-            :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
-            alt=""
-          />
-          <p>Treebox</p>
-        </nuxt-link>
-      </li>
+      
       <li class="nav-item help">
         <a
           class="nav-link pointer-event"
