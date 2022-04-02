@@ -174,8 +174,35 @@ import owner from "~/apollo/queries/owner";
 export default {
   name: "TreeBoxCreate",
   layout: "dashboard",
+  head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,treebox, create treebox'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
+    };
+  },
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+
+      meta: {
+        title: 'Treejer | Create TreeBox',
+        description: "Create TreeBox and gift them"
+      },
+
+
       activeMethods: [{ name: "Link" }, { name: "Email" }, { name: "API" }],
       numberRecepient: [
         { name: "1" },
@@ -281,6 +308,20 @@ export default {
           {
             toaster: "b-toaster-bottom-left",
             title: "Validation Error",
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
+        this.loadingCreate = false;
+        return;
+      }
+
+
+      if(this.owner === null) {
+          this.$bvToast.toast(["You don't have any tree!"],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Owned trees are empty",
             variant: "danger",
             noAutoHide: true,
           }
@@ -398,8 +439,6 @@ export default {
         });
       }
 
-      console.log(inputs, "inputs");
-
       let res = await this.$store.dispatch("treebox/create", {
         inputs: inputs,
       });
@@ -425,8 +464,6 @@ export default {
 
       const formData = new FormData();
 
-      console.log(content, "content");
-
       formData.append("file", content);
 
       await this.$axios
@@ -438,7 +475,6 @@ export default {
         .then((response) => {
           self.messageIPFSHash = response.Hash;
 
-          console.log(response, "response");
         })
         .catch((error) => {
           console.log(error, "error");
@@ -566,7 +602,6 @@ export default {
           this.wallets.push(wallets[i]);
         }
 
-        console.log(this.wallets, "wallets");
       }
       
     },
@@ -582,11 +617,9 @@ export default {
         }
       }
 
-      console.log(this.wallets, "wallets");
     },
     async assignTreeOptionChanged() {
       this.ownerTrees = [];
-      console.log(this.assignTreeOption, "this.assignTreeOption");
       await this.getOwnerTrees();
       await this.assignTrees();
       this.$forceUpdate();
@@ -623,7 +656,6 @@ export default {
             self.ownerTrees = trees;
           }
 
-          console.log(self.ownerTrees, "ownerTrees");
         })
         .catch((err) => {
           console.log(err);
@@ -638,7 +670,6 @@ export default {
     async downloadCSVData(hash = "") {
       let csv = "Link\n";
       this.wallets.forEach((row) => {
-        console.log(row, "row");
 
         csv += `${process.env.baseUrl}/treebox/${row.address}?privateKey=${
           row.privateKey

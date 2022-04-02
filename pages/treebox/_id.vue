@@ -1,15 +1,18 @@
 <template>
-  <section
-    class="position-relative pt-5 col-12 claim-treebox mb-5 pb-5"
-  >
+  <section class="position-relative pt-5 col-12 claim-treebox mb-5 pb-5">
     <div class="container-fluid">
-      <div class="row justify-content-center" v-if="box">
-        <div class="col-12 text-center" v-if="box.sender && box.sender !== zeroAddress">
+      <div class="row justify-content-center" v-if="box && boxLoaded">
+        <div
+          class="col-12 text-center"
+          v-if="box.sender && box.sender !== zeroAddress"
+        >
           <img src="~assets/images/treebox/tree.png" alt="tree" />
-          <h4 class="title-sm tr-gry-two">A tree is planted for you!</h4>
+          <h4 class="title-sm tr-gry-two" v-if="box.treeIds && box.treeIds.length > 0">{{ box.treeIds.length }} trees are planted for you!</h4>
+          <h4 class="title-sm tr-gry-two" v-else>A tree is planted for you!</h4>
           <p
             v-if="box.message && box.message.length > 2"
             class="
+              box-message
               param-md
               tr-gary-three
               col-md-6
@@ -20,35 +23,10 @@
             {{ box.message }}
           </p>
 
-          <div>
-            <span>Reciever Address</span>
-            <input type="text" v-model="recipient" placeholder="Reciver Ethereum Address">
-            <button class="btn-green d-block font-weight-bolder" @click="$bvModal.show('five')" v-if="!recipient" >
-              Connect Wallet
-            </button>
-          </div>
-         
-
-          <button class="btn-green d-block font-weight-bolder" @click="claim" v-if="recipient && !claimed" >
-            
-
-            <BSpinner v-if="loading" class="mr-2" small type="grow"
-              >loading
-            </BSpinner>
-            {{ loading ? "Loading" : " Claim" }}
-
-
-          </button>
-
-          <NuxtLink :to="`/forest/${recipient}`" v-if="recipient && claimed">
-            <button class="btn-green d-block font-weight-bolder"  >
-              My Forest
-            </button>
-          </NuxtLink>
-          
-
-
-          <div v-if="box.treeIds && box.treeIds.length > 0" class="col-12 mb-3 p-0">
+          <div
+            v-if="box.treeIds && box.treeIds.length > 0"
+            class="col-12 mb-3 p-0"
+          >
             <div
               v-for="treeId in box.treeIds"
               :id="treeId"
@@ -62,7 +40,6 @@
                   :title="treeId"
                   class="border-0 text-center"
                 >
-                  
                   <img
                     width="48px"
                     src="~/assets/images/myforest/trees.png"
@@ -70,113 +47,223 @@
                     class="m-2"
                   />
 
-                  <span class="param-xs tr-gray-tree">
+                  <p class="param-xs tr-gray-two font-weight-bolder">
                     #{{ treeId }}
-                  </span>
+                  </p>
                 </span>
-                
               </NuxtLink>
             </div>
           </div>
 
+          <div class="mt-1">
+            <p class="tr-gray-two">Recipient’s address (optional):</p>
+            <input
+              type="text"
+              class="border col-md-6 col-12"
+              style="background-color: #f5f5f5"
+              v-model="recipient"
+              placeholder="Enter recipient’s address or login to claim your trees"
+            />
+            <button
+              class="btn-green d-block font-weight-bolder"
+              @click="$bvModal.show('five')"
+              v-if="!recipient"
+            >
+              Log in to claim
+            </button>
+          </div>
 
+          <button
+            class="btn-green d-block font-weight-bolder"
+            @click="claim"
+            v-if="recipient && !claimed"
+          >
+            <BSpinner v-if="loading" class="mr-2" small type="grow"
+              >loading
+            </BSpinner>
+            {{ loading ? "Loading" : " Claim" }}
+          </button>
+
+          <NuxtLink :to="`/forest/${recipient}`" v-if="recipient && claimed">
+            <button class="btn-green d-block font-weight-bolder">
+              My Forest
+            </button>
+          </NuxtLink>
+
+          
         </div>
 
         <div class="col-12 text-center" v-else>
-          <img src="~assets/images/treebox/tree.png" alt="tree" />
-          <h4 class="title-sm tr-gry-two">TreeBox is already Claimed!</h4>
-          
+          <img src="~assets/images/treebox/tree.png" style="filter: grayscale(100%)" alt="tree" />
+          <h4 class="title-sm tr-gry-two">This TreeBox is empty now. Someone else has already claimed the trees.</h4>
+
           <NuxtLink :to="`/forest/checkout`">
-            <button class="btn-green d-block font-weight-bolder" >
+            <button class="btn-green d-block font-weight-bolder">
               Plant Trees
             </button>
           </NuxtLink>
-              
+        </div>
+      </div>
+
+      <div class="row justify-content-center" v-else>
+        <div
+        v-if="boxLoaded"
+          class="col-12 text-center"
+        >
+          <img src="~assets/images/treebox/tree.png" alt="tree" />
+          <h4 class="title-sm tr-gry-two">Box Not Found</h4>
+          <p
+            class="
+              box-message
+              param-md
+              tr-gary-three
+              col-md-6
+              offset-md-3
+              font-weight-bolder
+            "
+          >
+            The box you are looking for is not found.
+          </p>
+
+          <NuxtLink :to="`/forest/checkout`">
+            <button class="btn-green d-block font-weight-bolder">
+              Plant Trees
+            </button>
+          </NuxtLink>
+
+
+        </div>
+
+
+        <div
+          v-else
+          class="col-12 text-center"
+        >
+          <img src="~assets/images/treebox/tree.png" alt="tree" />
+          <h4 class="title-sm tr-gry-two">Loading TreeBox</h4>
+          <p
+            class="
+              box-message
+              param-md
+              tr-gary-three
+              col-md-6
+              offset-md-3
+              font-weight-bolder
+            "
+          >
+            Loading TreeBox...
+          </p>
+
+          <BSpinner class="mr-2" small type="grow"
+              >loading
+          </BSpinner>
+
+
         </div>
 
 
       </div>
+
     </div>
   </section>
 </template>
 
 <script>
-
 export default {
   layout: "default",
   name: "TreeboxClaim",
+  head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,treebox, claim treebox'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
+    };
+  },
+
   data() {
     return {
+      baseUrl: process.env.baseUrl,
+
+      meta: {
+        title: 'Treejer | Claim TreeBox',
+        description: "Claim your TreeBox"
+      },
+
       account: null,
       recipient: null,
       box: null,
       zeroAddress: process.env.zeroAddress,
       loading: false,
-      claimed: false
+      claimed: false,
+      boxLoaded: false,
     };
   },
   async created() {
-
-    this.recipient = this.$cookies.get('account')
+    
+    this.recipient = this.$cookies.get("account");
 
     if (process.client) {
-
-      console.log(this.$route.params, "this.$route.params")
-      console.log(this.$route, "this.$route")
-      this.account = await this.$web3.eth.accounts.privateKeyToAccount(this.$route.query.privateKey);
-
-      console.log(this.account, "this.account")
+      this.account = await this.$web3.eth.accounts.privateKeyToAccount(
+        this.$route.query.privateKey
+      );
 
       await this.getBox();
 
-      console.log(this.box, "this.box")
-      console.log(this.box.ipfsHash, "this.box.ipfsHash")
-
-      await this.getBoxTreeIds();
-
-      console.log(this.box, "this.box getBoxTreeIds")
-
-      await this.getIPFSData();
-
-      console.log(this.box, "this.box getIPFSData")
+      if(this.box)  {
+        this.boxLoaded = true;
+        await this.getBoxTreeIds();
+        await this.getIPFSData();
+      }
 
       this.$forceUpdate();
-
     }
-
   },
   methods: {
-
     async getBox() {
       this.box = await this.$store.dispatch("treebox/getBox", {
-        recipient: this.account.address
+        recipient: this.account.address,
       });
     },
 
     async getBoxTreeIds() {
-      this.box.treeIds = await this.$store.dispatch("treebox/getBoxTreeIds", {
-        recipient: this.account.address
-      });
+      
+      if(this.$route.query.treeIds && this.$route.query.treeIds.length > 0) {
+        this.box.treeIds = this.$route.query.treeIds.split("-");
+
+      } else {
+        this.box.treeIds = await this.$store.dispatch("treebox/getBoxTreeIds", {
+          recipient: this.account.address,
+        });
+      }
     },
 
     async getIPFSData() {
-
-      if(this.box.ipfsHash.length <=0 || this.box.ipfsHash == null) {
+      if (this.box.ipfsHash.length <= 0 || this.box.ipfsHash == null) {
         return;
       }
 
-      let self = this
+      let self = this;
 
-      await this.$axios.$get(`${process.env.ipfsGetUrl}${this.box.ipfsHash}`)
+      await this.$axios
+        .$get(`${process.env.ipfsGetUrl}${this.box.ipfsHash}`)
         .then(function (response) {
-          console.log(response, "response")
-          self.box.message = response.message
+          self.box.message = response.message;
         })
         .catch(function (error) {
-          console.log(error, "error")
+          console.log(error, "error");
         });
-
-      
     },
 
     async claim() {
@@ -187,42 +274,40 @@ export default {
         return;
       }
 
-      if(this.recipient == null || this.recipient.length <= 0) {
-        this.$bvToast.toast(["recipient address is required"],
-          {
-            toaster: "b-toaster-bottom-left",
-            title: "Recipient required",
-            variant: "danger",
-            noAutoHide: true,
-          }
-        );
+      if (this.recipient == null || this.recipient.length <= 0) {
+        this.$bvToast.toast(["recipient address is required"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Recipient required",
+          variant: "danger",
+          noAutoHide: true,
+        });
 
         this.loading = false;
         return;
       }
-
 
       try {
-        this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
-      } catch(e) { 
-        console.error('invalid recipient address', e.message) 
+        this.recipient = this.$web3.utils.toChecksumAddress(this.recipient);
+      } catch (e) {
+        console.error("invalid recipient address", e.message);
 
-        this.$bvToast.toast(["Please enter valid recipient address"],
-          {
-            toaster: "b-toaster-bottom-left",
-            title: "Invalid recipient address",
-            variant: "danger",
-            noAutoHide: true,
-          }
-        );
+        this.$bvToast.toast(["Please enter valid recipient address"], {
+          toaster: "b-toaster-bottom-left",
+          title: "Invalid recipient address",
+          variant: "danger",
+          noAutoHide: true,
+        });
 
         this.loading = false;
         return;
       }
 
-
-      if(this.recipient.toLowerCase() == this.account.address.toLowerCase()) {
-        this.$bvToast.toast(["Recipient can't equal treebox recipient address: " + this.recipient],
+      if (this.recipient.toLowerCase() == this.account.address.toLowerCase()) {
+        this.$bvToast.toast(
+          [
+            "Recipient can't equal treebox recipient address: " +
+              this.recipient,
+          ],
           {
             toaster: "b-toaster-bottom-left",
             title: "Recipient invalid",
@@ -235,47 +320,38 @@ export default {
         return;
       }
 
-
       if (
-        !confirm(
-          "Do you want to claim TreeBox for " + this.recipient + "?"
-        )
+        !confirm("Do you want to claim TreeBox for " + this.recipient + "?")
       ) {
         this.loading = false;
         return;
       }
 
-
-      console.log(this.account, "this.account")
-
-      const res = await this.$store.dispatch(
-        "treebox/claim",
-        {
-          account: this.account,
-          recipient: this.recipient,
-        }
-      );
+      const res = await this.$store.dispatch("treebox/claim", {
+        account: this.account,
+        recipient: this.recipient,
+      });
       if (res !== null) {
 
-          console.log(res, "res res res")
-
-
-        this.$bvToast.toast(["Your forest got bigger. Page will redirect to your forest after 20 seconds."], {
-          toaster: "b-toaster-bottom-left",
-          title: "Claim successful",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
-          noAutoHide: true
-        });
+        this.$bvToast.toast(
+          [
+            "Your forest got bigger. Page will redirect to your forest after 20 seconds.",
+          ],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: "Claim successful",
+            variant: "success",
+            href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
+            noAutoHide: true,
+          }
+        );
         this.claimed = true;
         this.loading = false;
-        await new Promise(r => setTimeout(r, 20000));
-        
+        await new Promise((r) => setTimeout(r, 20000));
+
         this.$router.push(`/forest/${this.recipient}`);
       }
       this.loading = false;
-
-
     },
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net
@@ -307,7 +383,7 @@ export default {
       );
       return false;
     },
-  }
+  },
 };
 </script>
 <style lang="scss" scoped >
@@ -318,7 +394,7 @@ export default {
   h4 {
     margin-top: 32px;
   }
-  p {
+  .box-message {
     background: rgba(208, 169, 69, 0.25);
     border-radius: 12px;
     margin-top: 32px;
@@ -338,6 +414,14 @@ export default {
     color: white;
 
     filter: drop-shadow(0px 4px 11px rgba(0, 0, 0, 0.161));
+  }
+
+  input {
+    background: #e5e7db;
+    border: 0;
+    padding: 5px 15px;
+    border-radius: 6px;
+
   }
 }
 </style>

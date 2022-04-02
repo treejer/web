@@ -10,8 +10,21 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default async ({ app }, inject) => {
     const walletName = app.$cookies.get('walletName');
+    const account = app.$cookies.get('account');
 
-    let instance = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+    let instance = null;
+    if(Web3.givenProvider) {
+        instance = new Web3(Web3.givenProvider);
+        await instance.eth.net.getId().then(netId => {
+            if (account || netId.toString() === process.env.NETWORK_ID.toString()) {
+                return;
+            } 
+            
+            instance = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+        })
+    } else {
+        instance = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+    }
 
     if (walletName === 'torus') {
 
