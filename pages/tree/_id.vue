@@ -240,17 +240,17 @@ export default {
   head() {
 
     return {
-      title: this.meta.title + this.oTreeData.name,
+      title: this.meta.title + this.OtreeName,
       meta: [
         {hid: 'description', name: 'description', content: this.meta.description},
         {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,tree page, tree profile'},
 
-        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.oTreeData.name},
+        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.OtreeName},
         {hid: 'og:description', property: 'og:description', content: this.meta.description},
         {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content: this.oTreeData.image},
+        {hid: 'og:image', property: 'og:image', content:  (this.oTreeData ? this.oTreeData.image : '' ) },
 
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.oTreeData.name},
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.OtreeName},
       ]
 
 
@@ -282,13 +282,16 @@ export default {
       highestBid: null,
       attributes: null,
       treeHistories: [],
-      oTreeData: null
+      oTreeData: null,
+      OtreeName: null
     };
   },
   async created() {
 
 
     this.loading = true
+    this.OtreeName = this.$route.params.id;
+
     this.treeID = parseInt(this.$route.params.id)
     await this.getTree()
     // await this.getOffchainTreeData();
@@ -298,6 +301,7 @@ export default {
 
     this.getTreeHistory()
 
+    this.OtreeName = this.oTreeData && this.oTreeData.name  ? this.oTreeData.name : this.$route.params.id
 
     this.loading = false
   },
