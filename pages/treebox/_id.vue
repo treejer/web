@@ -7,7 +7,7 @@
           v-if="box.sender && box.sender !== zeroAddress"
         >
           <img src="~assets/images/treebox/tree.png" alt="tree" />
-          <h4 class="title-sm tr-gry-two" v-if="box.treeIds && box.treeIds.length > 0">{{ box.treeIds.length }} trees are planted for you!</h4>
+          <h4 class="title-sm tr-gry-two" v-if="box.treeIds && box.treeIds.length > 1">{{ box.treeIds.length }} trees are planted for you!</h4>
           <h4 class="title-sm tr-gry-two" v-else>A tree is planted for you!</h4>
           <p
             v-if="box.message && box.message.length > 2"
