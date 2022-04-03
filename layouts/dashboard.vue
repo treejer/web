@@ -1,5 +1,5 @@
 <template>
-  <div :class="currentRouteName" style="min-height: 100vh">
+  <div :class="$route.name" style="min-height: 100vh">
 
     <TreejerHeader/>
 
@@ -28,11 +28,7 @@ export default {
     return {
     };
   },
-  computed: {
-     currentRouteName() {
-        return this.$route.path;
-    }
-  },
+ 
 
   mounted() {
     this.$store.commit('SET_DASHBOARD' , true)
@@ -46,11 +42,6 @@ export default {
       })
     }
   },
-  // mounted() {
-  //   this.$store.dispatch('hasDashboard', {})
-  //
-  //
-  // },
 
   methods: {
 

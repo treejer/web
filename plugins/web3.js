@@ -3,13 +3,28 @@ import RegularSale from '~/contracts/RegularSale'
 import Auction from  '~/contracts/Auction'
 import IncrementalSale from  '~/contracts/IncrementalSale'
 import IHonoraryTree from  '~/contracts/IHonoraryTree'
+import TreeAbi from  '~/static/abis/Tree'
+import TreeBoxAbi from  '~/static/abis/TreeBox'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 
 export default async ({ app }, inject) => {
     const walletName = app.$cookies.get('walletName');
+    const account = app.$cookies.get('account');
 
-    let instance = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+    let instance = null;
+    if(Web3.givenProvider) {
+        instance = new Web3(Web3.givenProvider);
+        await instance.eth.net.getId().then(netId => {
+            if (account || netId.toString() === process.env.NETWORK_ID.toString()) {
+                return;
+            } 
+            
+            instance = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+        })
+    } else {
+        instance = new Web3(new Web3.providers.HttpProvider(process.env.WEB3_PROVIDER));
+    }
 
     if (walletName === 'torus') {
 
@@ -39,11 +54,12 @@ export default async ({ app }, inject) => {
 
         instance = new Web3(portis.provider);
     } else if (walletName === 'walletconnect') {
+        let rpc = [];
+        rpc[parseInt(process.env.NETWORK_ID)] = process.env.WEB3_PROVIDER;
+
         const provider = new WalletConnectProvider({
             infuraId: process.env.INFURA_ID,
-            rpc: {
-                137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
-            }
+            rpc: rpc
         });
         await provider.enable();
 
@@ -58,4 +74,6 @@ export default async ({ app }, inject) => {
     inject('Auction', new instance.eth.Contract(Auction.abi, process.env.contractAuctionAddress))
     inject('IncrementalSale', new instance.eth.Contract(IncrementalSale.abi, process.env.contractIncrementalSale))
     inject('IHonoraryTree', new instance.eth.Contract(IHonoraryTree.abi, process.env.contractHonoraryTree))
+    inject('Tree', new instance.eth.Contract(TreeAbi, process.env.treeAddress))
+    inject('TreeBox', new instance.eth.Contract(TreeBoxAbi, process.env.treeboxContractAddress))
 }

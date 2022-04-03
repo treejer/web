@@ -26,9 +26,9 @@
           align-items-center align-self-center
           pointer-event
         "
-        @click.prevent="switchNetworkMatic()"
+        @click.prevent="switchNetwork()"
       >
-        <b-button class="connect-button switch-wallet"> Switch to Matic </b-button>
+        <b-button class="connect-button switch-wallet"> Switch to {{ runningNetwrokName }} </b-button>
       </div>
 
       <div
@@ -174,7 +174,9 @@ export default {
       hasAccountSrc: `${this.$cookies.get("account")}`,
       loading: false,
       runningNetworkID: parseInt(process.env.NETWORK_ID),
-      connectedNetwrokID: parseInt(process.env.NETWORK_ID)
+      runningNetwrokName: process.env.NETWORK_NAME,
+
+      connectedNetwrokID: parseInt(process.env.NETWORK_ID),
     };
   },
   computed: {
@@ -197,20 +199,11 @@ export default {
     }, 500);
 
     if (process.client && window.ethereum) {
-      // // use MetaMask's provider
-      // App.web3 = new Web3(window.ethereum);
-      // window.ethereum.enable(); // get permission to access accounts
-
-      // // detect Metamask account change
-      // window.ethereum.on('accountsChanged', function (accounts) {
-      //   console.log('accountsChanges',accounts);
-
-      // });
-
-      // detect Network account change
+     
       window.ethereum.on('networkChanged', function(networkId){
         console.log('networkChanged',networkId);
         self.connectedNetwrokID = networkId;
+        window.location.reload();
       });
     } 
 
@@ -219,7 +212,7 @@ export default {
 
   methods: {
 
-    async switchNetworkMatic() {
+    async switchNetwork() {
       // this.$web3.currentProvider.enable();
       await this.$web3.currentProvider.enable();
 
@@ -228,27 +221,36 @@ export default {
 
         await this.$web3.currentProvider.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: this.$dec2hex(137) }],
+          params: [{ chainId: this.$dec2hex(process.env.NETWORK_ID) }],
         });
+
+        window.location.reload();
+
       } catch (error) {
         if (error.code === 4902) {
           try {
-            await this.$web3.currentProvider.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainId: this.$dec2hex(137).toString(),
-                  chainName: "Polygon Mainnet",
-                  rpcUrls: ["https://polygon-rpc.com", "https://rpc.matic.today"],
-                  nativeCurrency: {
-                    name: "Matic",
-                    symbol: "Matic",
-                    decimals: 18,
+
+            if(process.env.NETWORK_ID.toString() ==='137') {
+
+              await this.$web3.currentProvider.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: "0x137",
+                    chainName: "Polygon Mainnet",
+                    rpcUrls: ["https://polygon-rpc.com", "https://rpc.matic.today"],
+                    nativeCurrency: {
+                      name: "Matic",
+                      symbol: "Matic",
+                      decimals: 18,
+                    },
+                    blockExplorerUrls: ["https://polygonscan.com"],
                   },
-                  blockExplorerUrls: ["https://polygonscan.com"],
-                },
-              ],
-            });
+                ],
+              });
+
+            }
+            
           } catch (error) {
             console.log(error.message, "error");
           }
@@ -296,8 +298,7 @@ export default {
 .metamask {
   .switch-wallet {
     margin-right: 100px;
-
-    
+    width: 142px;
   }
 
 

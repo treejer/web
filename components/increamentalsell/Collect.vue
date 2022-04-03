@@ -408,12 +408,14 @@ export default {
         return;
       }
 
-      // this.treesAuction = this.treesWithAuction.slice(1)
       this.treesAuction = this.treesWithAuction;
-      this.treesAuctionReservePrice = this.$web3.utils.fromWei(
-        this.treesAuction[0].auctions[0].initialPrice.toString()
-      );
 
+      if(this.treesAuction[0].auctions.length > 0) {
+        this.treesAuctionReservePrice = this.$web3.utils.fromWei(
+          this.treesAuction[0].auctions[0].initialPrice.toString()
+        );
+      }
+     
       // this.tree0Auction = this.treesWithAuction[0];
       // this.tree0ReservePrice = this.$web3.utils.fromWei(this.tree0Auction.auctions[0].initialPrice.toString())
     },
