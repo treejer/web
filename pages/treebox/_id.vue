@@ -215,20 +215,29 @@ export default {
     this.recipient = this.$cookies.get("account");
 
     if (process.client) {
-      this.account = await this.$web3.eth.accounts.privateKeyToAccount(
-        this.$route.query.privateKey
-      );
+      
 
-      await this.getBox();
+      try {
+        this.account = await this.$web3.eth.accounts.privateKeyToAccount(
+          this.$route.query.privateKey
+        );
 
-      if(this.box)  {
+        await this.getBox();
+
+        if(this.box)  {
+          this.boxLoaded = true;
+          await this.getBoxTreeIds();
+          await this.getIPFSData();
+        } else {
+          this.boxLoaded = true;
+        }
+      } catch(e) {
+        console.log(e, "error created");
         this.boxLoaded = true;
-        await this.getBoxTreeIds();
-        await this.getIPFSData();
       }
-
-      this.$forceUpdate();
     }
+
+    this.$forceUpdate();
   },
   methods: {
     async getBox() {
@@ -243,9 +252,12 @@ export default {
         this.box.treeIds = this.$route.query.treeIds.split("-");
 
       } else {
-        this.box.treeIds = await this.$store.dispatch("treebox/getBoxTreeIds", {
-          recipient: this.account.address,
-        });
+        
+        if(this.box) {
+          this.box.treeIds = await this.$store.dispatch("treebox/getBoxTreeIds", {
+            recipient: this.account.address,
+          });
+        }
       }
     },
 
