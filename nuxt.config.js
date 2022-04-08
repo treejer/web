@@ -109,7 +109,11 @@ export default {
   buildModules: [
     ['@nuxtjs/dotenv', { filename: '.env' }],
     ['@nuxtjs/pwa'],
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    ['@netsells/nuxt-hotjar', { 
+      id: process.env.HOTJAR_ID, 
+      sv: process.env.HOTJAR_SV,
+  }],
   ],
   module: {
     rules: [{
