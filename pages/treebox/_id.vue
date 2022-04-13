@@ -56,13 +56,13 @@
           </div>
 
           <div class="mt-1">
-            <p class="tr-gray-two">Recipient’s address (optional):</p>
+            <p class="tr-gray-two">Recipient’s Ethereum address (optional):</p>
             <input
               type="text"
               class="border col-md-6 col-12"
               style="background-color: #f5f5f5"
               v-model="recipient"
-              placeholder="Enter recipient’s address or login to claim your trees"
+              placeholder="Enter recipient’s Ethereum address or login to claim your trees"
             />
             <button
               class="btn-green d-block font-weight-bolder"
