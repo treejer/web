@@ -32,7 +32,6 @@
             </div>
           </div>
 
-
           <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 0">
             <div class="col-12">
               <table class="table tr-table" style="overflow-x: scroll">
@@ -45,9 +44,7 @@
                   </tr>
                 </thead>
                 <tbody v-if="owners">
-                  
-                  <tr v-for="(item, index) in owners" :key="index">
-
+                  <tr v-for="(item, index) in owners" :key="`${activeIndex}-${index}`">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -62,7 +59,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -80,7 +77,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -98,7 +95,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -112,7 +109,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -123,12 +120,10 @@
                       @click="goToUserDashboard(item.id)"
                       class="pointer-event"
                     >
-                                          <NuxtLink :to="`/forest/${item.id}`">
-
-                      <a href="#" class="pointer-event tr-green"></a>
-                      <Fas class="tr-green pointer-event" i="eye" />
-                                          </NuxtLink>
-
+                      <NuxtLink :to="`/forest/${item.id}`">
+                        <a href="#" class="pointer-event tr-green"></a>
+                        <Fas class="tr-green pointer-event" i="eye" />
+                      </NuxtLink>
                     </td>
                     <!-- -->
                   </tr>
@@ -158,7 +153,7 @@
                   </tr>
                 </thead>
                 <tbody v-if="planters">
-                  <tr v-for="(item, index) in planters" :key="index">
+                  <tr v-for="(item, index) in planters" :key="`planters${activeIndex}-${index}`">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -173,7 +168,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -191,7 +186,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -209,7 +204,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -223,7 +218,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -253,7 +248,6 @@
             </div>
           </div>
 
-
           <div class="row tr-table mt-5 mb-4" v-if="activeIndex === 2">
             <div class="col-12">
               <table class="table tr-table" style="overflow-x: scroll">
@@ -266,7 +260,7 @@
                   </tr>
                 </thead>
                 <tbody v-if="plantersInvited">
-                  <tr v-for="(item, index) in plantersInvited" :key="index">
+                  <tr v-for="(item, index) in plantersInvited" :key="`plantersInvited${activeIndex}-${index}`">
                     <td
                       v-if="index === 0"
                       scope="row"
@@ -281,7 +275,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -299,7 +293,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -317,7 +311,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -331,7 +325,7 @@
                         ><img
                           style="width: 25px"
                           class="rounded-circle"
-                          :src="$avatarByWallet(item.id)"
+                          :src="$avatarByWallet(item.id.toLowerCase())"
                           :alt="item.id"
                       /></span>
                     </td>
@@ -360,8 +354,6 @@
               </div> -->
             </div>
           </div>
-
-
         </div>
 
         <div class="col-lg-4 d-none d-md-block justify-content-center">
@@ -414,24 +406,34 @@ export default {
     owners: {
       prefetch: true,
       query: ownersSorted,
-      variables () {
-        return {limit: 50, orderBy: 'treeCount', orderDirection: 'desc'}
-      }
+      variables() {
+        return { limit: 50, orderBy: "treeCount", orderDirection: "desc" };
+      },
     },
     planters: {
       prefetch: true,
       query: plantersSorted,
-      variables () {
-        return { first: 20, skip:0, orderBy: 'plantedCount', orderDirection: 'desc' }
-      }
+      variables() {
+        return {
+          first: 20,
+          skip: 0,
+          orderBy: "plantedCount",
+          orderDirection: "desc",
+        };
+      },
     },
     plantersInvited: {
       prefetch: true,
       query: plantersSorted,
-      variables () {
-        return { first: 20, skip:0, orderBy: 'invitedCount', orderDirection: 'desc' }
+      variables() {
+        return {
+          first: 20,
+          skip: 0,
+          orderBy: "invitedCount",
+          orderDirection: "desc",
+        };
       },
-      update: data => data.planters
+      update: (data) => data.planters,
     },
   },
   computed: {},
@@ -446,14 +448,13 @@ export default {
       stepsLeaderBoard: [
         { name: "Top Forests", icon: "tree" },
         { name: "Top Planters", icon: "trophy" },
-        { name: "Top Referrers", icon: "bell"},
-
+        { name: "Top Referrers", icon: "bell" },
       ],
       perPage: 10,
     };
   },
   async created() {
-    await this.$store.commit('SET_SIDEBAR_INDEX', 2)
+    await this.$store.commit("SET_SIDEBAR_INDEX", 2);
   },
   methods: {
     activeMenu(item, index) {
@@ -481,14 +482,14 @@ export default {
 <style lang="scss">
 .leader-boards {
   a {
-      color: #000;
-      transition: all ease-in 0.2s;
-    }
+    color: #000;
+    transition: all ease-in 0.2s;
+  }
 
-    a:hover {
-      text-decoration: none;
-      color: #67b68c;
-    }
+  a:hover {
+    text-decoration: none;
+    color: #67b68c;
+  }
   ul {
     display: flex;
     border-radius: 20px;
@@ -497,7 +498,7 @@ export default {
 
     li {
       height: 100%;
-        padding: 7.6px 0;
+      padding: 7.6px 0;
       width: 33.3333%;
       text-align: center;
     }
@@ -544,10 +545,9 @@ export default {
       border-radius: 6px;
       box-shadow: 4px 4px 22px 0 rgba(0, 0, 0, 0.16);
       background-color: #ffffff;
-      border: none  ;
+      border: none;
       margin: 15px 5px;
     }
-
   }
 }
 @media (max-width: 768px) {
@@ -561,7 +561,7 @@ export default {
       display: grid;
       width: 100%;
 
-      tbody{
+      tbody {
         margin: auto;
       }
       tr {
@@ -572,7 +572,7 @@ export default {
         background-color: #ffffff;
         border: none;
         margin: 15px 5px;
-        td{
+        td {
           border: none;
           border-radius: 6px;
         }
