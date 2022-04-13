@@ -258,6 +258,7 @@
               "
             >
               <GMap
+                :key="googleMapKey"
                 ref="gMap"
                 :center="{
                   lat: parseFloat(
@@ -628,6 +629,7 @@ export default {
       wethBalance: 0,
       skip: 0,
       perPage: 50,
+      googleMapKey: 0
     };
   },
   async created() {
@@ -712,6 +714,10 @@ export default {
             console.log("self.treesWithLocation", self.treesWithLocation);
 
             self.ownerTreesLoaded = true;
+
+            self.googleMapKey++;
+
+            console.log("self.googleMapKey", self.googleMapKey);
           }
         });
     },
