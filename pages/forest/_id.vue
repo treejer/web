@@ -641,7 +641,7 @@ export default {
       if (process.client) {
         window.location.href = "/forest/" + this.$cookies.get("account");
       } else {
-        this.$router.push("/forest/" + this.$cookies.get("account"));
+        this.$router.push(this.localePath("/forest/" + this.$cookies.get("account")));
       }
     }
 
@@ -722,7 +722,7 @@ export default {
         });
     },
     goToAddTree() {
-      this.$router.push("/forest/checkout");
+      this.$router.push(this.localePath("/forest/checkout"));
 
       // this.$bvToast.toast(["Plant on Jan 20th, Check auctions now!"], {
       //   toaster: "b-toaster-bottom-left",

@@ -33,7 +33,7 @@ export default {
     checkDropDown() {
       this.$store.commit('SET_SIDEBAR_INDEX',2)
 
-      this.$router.push('/updates')
+       this.$router.push('/updates')
     }
   }
 }

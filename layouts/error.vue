@@ -1,7 +1,7 @@
 <template>
   <div :class="$route.name" class="x-page" >
     <div class="stars">
-      <div v-for="(item,index) in stars" class="star"></div>
+      <div v-for="(item,index) in stars" :key="index" class="star"></div>
 
     </div>
     <div class="box_astronaut">
@@ -92,12 +92,12 @@
             </div>
           </div>
         </div>
-        <div class="button1  pointer-event" @click="$router.push('/')">
+        <nuxt-link class="button1  pointer-event" :to="localePath('/')">
           GO TO HOME
-        </div>
-        <div class="button1  text-center pointer-event" style="bottom: -25px;width: inherit;" @click="goToDashboard()">
+        </nuxt-link>
+        <button class="button1  text-center pointer-event" style="bottom: -25px;width: inherit;" @click="goToDashboard()">
           GO TO DASHBOARD
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -122,9 +122,9 @@ export default {
       const id = this.$cookies.get('account')
       this.$store.commit('SET_SIDEBAR_INDEX', 0)
       if (id) {
-        this.$router.push({path: `/forest/${id}`});
+        this.$router.push(this.localePath({path: `/forest/${id}`}));
       } else {
-        this.$router.push('/forest')
+        this.$router.push(this.localePath('/forest/guest'))
       }
     },
     setStars() {

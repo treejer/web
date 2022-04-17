@@ -5,7 +5,7 @@
         {{ "Connect Wallet" }}
       </b-button>
 
-      <NuxtLink to="/forest/guest" class="position-relative">
+      <NuxtLink :to="localePath('/forest/guest')" class="position-relative">
         <img
           alt="tree"
           class="img-fluid tree pointer-event"
@@ -277,7 +277,7 @@ export default {
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
-      this.$router.push(`/forest/guest`);
+      this.$router.push(this.localePath(`/forest/guest`));
     },
     copyClipboard(e) {},
     showModal() {

@@ -361,7 +361,7 @@ export default {
         this.loading = false;
         await new Promise((r) => setTimeout(r, 20000));
 
-        this.$router.push(`/forest/${this.recipient}`);
+        this.$router.push(this.localePath(`/forest/${this.recipient}`));
       }
       this.loading = false;
     },

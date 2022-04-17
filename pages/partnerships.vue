@@ -11,9 +11,8 @@
           </div>
           <div class="row mt-5 text-center justify-content-center">
             <div class="col-12">
-              <h1 class="tr-gray-two title-md font-weight-bold">It’s called the magic of trees!</h1>
-              <p class="param-18 tr-gray-two" style="margin-bottom: 75px">Empower your business by committing to make the Earth a better place for
-                all!</p>
+              <h1 class="tr-gray-two title-md font-weight-bold">{{$t('partnerships.title')}}</h1>
+              <p class="param-18 tr-gray-two" style="margin-bottom: 75px">{{$t('partnerships.empower')}}</p>
 <!--              <button class="btn-green lets-go mt-4">-->
 <!--                Let’s Go-->
 <!--              </button>-->
@@ -47,9 +46,8 @@
         <div class="container">
           <div class="row justify-content-center ">
             <div class="col-md-8 col-12">
-              <h1 class="tr-gray-two title-md font-weight-bold text-center">How Treejer Can Help You</h1>
-              <p class="param-18 tr-gray-two mt-4 text-center ">We cover a wide range of green services to businesses to
-                help them become more sustainable and socially responsible.</p>
+              <h1 class="tr-gray-two title-md font-weight-bold text-center">{{$t('partnerships.how')}}</h1>
+              <p class="param-18 tr-gray-two mt-4 text-center ">{{$t('partnerships.wecover')}}</p>
 
 
             </div>
@@ -84,10 +82,8 @@
 
                   </div>
                   <div class="col-md-8 text text-left">
-                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">Plant trees to engage customers</p>
-                    <p class="param tr-gray-two mb-0 ">Impact marketing with trees increases brand affinity with the
-                      growing number of consumers who prefer brands that contribute to the well-being of the planet, to
-                      brands that do not.</p>
+                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">{{$t('partnerships.planttrees')}}</p>
+                    <p class="param tr-gray-two mb-0 ">{{$t('partnerships.impact')}}</p>
                   </div>
                   <div class="col-md-2 arrow" @click="$router.push('/forest/'+$cookies.get('account'))">
                     <div style="background-color: #D2EDB1;"
@@ -140,11 +136,8 @@
 
                   </div>
                   <div class="col-md-8 text text-left">
-                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">Adopt a forest for Corporate Social
-                      Responsiblity (CSR)</p>
-                    <p class="param tr-gray-two mb-0 ">Employee ​and customer engagement is possible when sponsoring one
-                      of our projects : everyone loves trees. You will be able to regularly share communication material
-                      about your project.</p>
+                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">{{$t('partnerships.adopt')}}</p>
+                    <p class="param tr-gray-two mb-0 ">{{$t('partnerships.employee')}}</p>
                   </div>
                   <div class="col-md-2 arrow" @click="$router.push('/forest/'+ $cookies.get('account'))" >
                     <div style="background: #ADF1D2;"
@@ -169,9 +162,8 @@
 
                   </div>
                   <div class="col-md-8 text text-left">
-                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">Offset your carbon footprint</p>
-                    <p class="param tr-gray-two mb-0 ">When carbon sequestration is needed, the best technology is a
-                      tree. They are an amazing carbon sink.</p>
+                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">{{$t('partnerships.offset')}}</p>
+                    <p class="param tr-gray-two mb-0 ">{{$t('partnerships.whencarbon')}}</p>
                   </div>
                   <div class="col-md-2 arrow" @click="$router.push('/forest/'+$cookies.get('account'))">
                     <div style="background: #FAC9B8;"
@@ -197,11 +189,8 @@
 
                   </div>
                   <div class="col-md-8 text text-left">
-                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">List your product coupon to engage our
-                      ecosystem</p>
-                    <p class="param tr-gray-two mb-0 ">Offer products and services to our growing community of
-                      eco-conscious users worldwide. Listing vouchers and disount coupons generates sales and stronger
-                      brand recognition for your business at no cost.</p>
+                    <p class="param-18 mb-1 tr-gray-two font-weight-bold">{{$t('partnerships.listyour')}}</p>
+                    <p class="param tr-gray-two mb-0 ">{{$t('partnerships.offer')}}</p>
                   </div>
                   <div class="col-md-2 arrow" @click="$router.push('/forest/'+$cookies.get('account'))">
                     <div style="background: #EFE9AE;
@@ -227,7 +216,7 @@
         <div class="container">
           <div class="row mt-5 pt-5 justify-content-center text-center">
             <div class="col-12 col-md-8">
-              <h1 class="tr-gray-two title-md font-weight-bold">What People Say</h1>
+              <h1 class="tr-gray-two title-md font-weight-bold">{{$t('partnerships.whatpeople')}}</h1>
 
             </div>
           </div>
@@ -296,7 +285,7 @@
           title: this.meta.title,
           meta: [
             {hid: 'description', name: 'description', content: this.meta.description},
-            {hid: 'keywords', name: 'keywords', content: 'Partnerships,Partnerships treejer,treejer Partnerships,plant tree, nft tree'},
+            {hid: 'keywords', name: 'keywords', content:this.meta.keywords},
 
             {hid: 'og:title', property: 'og:title', content: this.meta.title},
             {hid: 'og:description', property: 'og:description', content: this.meta.description},
@@ -317,8 +306,9 @@
         return {
           baseUrl: process.env.baseUrl,
           meta: {
-            title: 'Treejer | Partnerships',
-            description: 'We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.',
+            title: this.$t('partnerships.title'),
+            description: this.$t('partnerships.description'),
+            keywords: this.$t('partnerships.keywords'),
           },
           activeIndex: 0,
           banner:require('~/assets/images/for-business/banner.png'),
@@ -342,7 +332,7 @@
             {
               src: require('~/assets/images/for-business/MaskGroup.png'),
               name: `Shivam Dhawan,`,
-              text: 'From year to year, environmental changes are incremental and often barely register in our lives, but from evolutionary or geological perspectives, what is happening is exponential explosive change. Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years with pioneers like Treejer leading the charge.',
+              text: this.$t('partnerships.shivam'),
               logo: require('~/assets/images/for-business/get-boarded.svg'),
               brand: `GetBoarded`,
               work: `Founder and CEO`

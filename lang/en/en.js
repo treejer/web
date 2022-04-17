@@ -2,7 +2,7 @@ export default {
     title: 'Treejer',
     homepage: {
         title: 'Planters Without Borders',
-        maintextprefix: 'بیشتر',
+        maintextprefix: 'A more',
         maintexts: {
             affordable: ' affordable',
             sustainable: ' sustainable',

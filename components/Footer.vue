@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-8 col-12 menu">
           <b-nav>
-            <NuxtLink to="/" class="nav-item">
+            <NuxtLink :to="localePath('/')" class="nav-item">
               <span class="nav-link">Home</span>
             </NuxtLink>
 
@@ -12,13 +12,13 @@
               >Blog</b-nav-item
             >
 
-            <NuxtLink to="/Partnerships" class="nav-item">
+            <NuxtLink :to="localePath('/Partnerships')" class="nav-item">
               <span class="nav-link">partnerships</span>
             </NuxtLink>
-            <NuxtLink to="/About" class="nav-item">
+            <NuxtLink :to="localePath('/About')" class="nav-item">
               <span class="nav-link">about</span>
             </NuxtLink>
-            <NuxtLink to="/contact" class="nav-item">
+            <NuxtLink :to="localePath('/contact')" class="nav-item">
               <span class="nav-link">Contact</span>
             </NuxtLink>
           </b-nav>

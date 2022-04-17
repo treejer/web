@@ -3,21 +3,21 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12">
-          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " to="/forest/guest">Plant a Tree
+          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " :to="localePath('/forest/guest')">Plant a Tree
           </nuxt-link>
-          <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="'/forest/'+$cookies.get('account')">Plant a Tree
+          <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="localePath('/forest/'+$cookies.get('account'))">Plant a Tree
           </nuxt-link>
           <ul class="p-0 nav">
             <li class="square text-left">
-              <nuxt-link v-if="$cookies.get('account') === null" class="text-left nav-item  param tr-gray-two "
-                         to="/forest">Explore Forests
+              <nuxt-link v-if="!$cookies.get('account')" class="text-left nav-item  param tr-gray-two "
+                         :to="localePath('/forest/guest')">Explore Forests
               </nuxt-link>
-              <nuxt-link v-else class="text-left nav-item  param tr-gray-two " :to="'/forest/'+$cookies.get('account')">
+              <nuxt-link  v-if="$cookies.get('account')" class="text-left nav-item  param tr-gray-two " :to="localePath('/forest/'+$cookies.get('account'))">
                 Explore Forests
               </nuxt-link>
             </li>
             <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
-              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{ item.name }}
+              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="localePath(item.href)">{{ item.name }}
               </nuxt-link>
               <a v-else class="text-left nav-item  param tr-gray-two " target="_blank"
                  :href="item.href">{{ item.name }}</a>
@@ -27,7 +27,7 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
             <li class="square text-left mt-md-2" v-for="(item ,index) in listTwo" :key="index">
-              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
+              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="localePath(item.href)">{{item.name}}
               </nuxt-link>
               <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
 
@@ -37,7 +37,7 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="p-0">
             <li class="square text-left mt-md-2 " v-for="(item ,index) in listThree" :key="index">
-              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="item.href">{{item.name}}
+              <nuxt-link v-if="!item.tab" class="text-left nav-item  param tr-gray-two " :to="localePath(item.href)">{{item.name}}
               </nuxt-link>
               <a v-else class="text-left nav-item  param tr-gray-two " target="_blank" :href="item.href">{{item.name}}</a>
 
@@ -46,7 +46,7 @@
         </div>
         <div class="col-lg-3 col-md-6 col-12 p-0">
           <div class="logo">
-            <nuxt-link to="/" class="position-relative ">
+            <nuxt-link :to="localePath('/')" class="position-relative ">
               <img src="../assets/images/landing-footer/logo.png" class="img-fluid pointer-event" alt="treejer">
             </nuxt-link>
             <p class="param tr-gray-two mt-3 ">Treejer is a blockchain-based reforestation platform providing

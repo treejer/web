@@ -72,7 +72,7 @@
         >.
       </p>
     </div>
-    <div class="col-md-8 col-12 getting-started-inc">
+    <div class="col-md-8 col-12 p-md-0 getting-started-inc">
       <div class="row">
         <div class="col-md-6">
           <p class="param-18 tr-gray-two font-weight-bolder">
@@ -185,10 +185,10 @@
     </div>
 
     <a id="auctions"></a>
-    <div
+    <nuxt-link
       v-if="tree0Auction && tree0Auction.auctions"
       class="col-md-8 col-12 justify-content-center text-center pointer-event"
-      @click="$router.push('/tree/0')"
+      :to="localePath('/tree/0')"
     >
       <img
         alt="tree0"
@@ -201,7 +201,7 @@
         src="../../assets/images/increamentalSell/trees-state.svg"
       />
       <p class="param-xs tr-gray-tree">Tree #0</p>
-    </div>
+    </nuxt-link>
 
     <div
       v-else
@@ -422,8 +422,7 @@ export default {
   },
   methods: {
     async goToCheckout() {
-      this.$router.push("/genesis/checkout");
-      return;
+      this.$router.push(this.localePath("/genesis/checkout"));
     },
     async calcCurrentPrice() {
       this.currenPrice = await this.$store.dispatch(

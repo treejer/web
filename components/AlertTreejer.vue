@@ -19,7 +19,7 @@
     <div v-if="toast.hasAction" class="action">
       <a v-if="toast.actions === 'Check'" target="_blank" class=" tr-green param-md font-weight-bolder"
          :href="`https://etherscan.io/address/${$cookies.get('account')}`">{{ actions }}</a>
-      <a v-if="toast.actions === 'tryAgain'" @click="$router.push('/forest/addTree')"
+      <a v-if="toast.actions === 'tryAgain'" @click="$router.push(localePath('/forest/addTree'))"
          class="pointer-event tr-green param-md font-weight-bolder"> Try again</a>
     </div>
     <div class="close">

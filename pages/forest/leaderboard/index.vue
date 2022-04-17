@@ -472,7 +472,7 @@ export default {
       //   path: `/forest/${id}`,
       //   params: { id: id },
       // });
-      this.$router.push(`/forest/${id}`);
+      this.$router.push(this.loaclePath(`/forest/${id}`));
 
       // window.open(routeData.href, "_self");
     },

@@ -279,7 +279,7 @@ export default {
           let name = item.name;
           res = name.match(/forest-id/g);
           if (res === "forest-id") {
-            this.$router.push(`/forest/${this.$cookies.get("account")}`);
+            this.$router.push(this.localePath(`/forest/${this.$cookies.get("account")}`));
           }
         });
       }

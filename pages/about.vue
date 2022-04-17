@@ -9,11 +9,10 @@
     </div>
     <div class="justify-content-center text-center position-relative">
       <h4 class="title-md font-weight-bold tr-gray-two title-banner">
-        Empowering Local People to Save the Planet
+        {{ $t("aboutus.title") }}
       </h4>
       <p class="param-18 tr-gray-two font-weight-lighter des-banner">
-        A unique borderless approach in Climate Action powered by blockchain
-        technology
+        {{ $t("aboutus.unique") }}
       </p>
 
       <Arrow top="160%" />
@@ -41,10 +40,7 @@
             m-auto
           "
         >
-          Treejer functions as a link between those who fund trees and those who
-          plant them even in the most remote places on our planet. It records
-          credit ownership and enables secure payment between different parties
-          using smart-contracts.
+          {{ $t("aboutus.linkbetween") }}
         </p>
       </div>
     </div>
@@ -59,19 +55,13 @@
             m-auto
           "
         >
-          Each single tree that is collected or funded through Treejer has
-          unique social and environmental impact. Rural planters in high-impact
-          locations plant and maintain our trees. Most of them are located in
-          less developed countries in Latin America, Africa and Middle East. We
-          believe in the open-source and want to make it easy for anyone to
-          build, research or design on top of Treejer protocol. You're invited
-          to build with us!
+          {{ $t("aboutus.each") }}
         </p>
       </div>
     </div>
     <div class="about-faq col-lg-6 col-md-10 m-auto">
       <h4 class="title-md font-weight-bold tr-gray-two title-banner">
-        Frequently Asked Questions
+        {{ $t("aboutus.frequently") }}
       </h4>
       <div class="card-groups">
         <a
@@ -178,17 +168,36 @@ export default {
     return {
       title: this.meta.title,
       meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,about treejer,plant tree, nft tree'},
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content: this.meta.keywords,
+        },
 
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/about'},
-        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+        { hid: "og:title", property: "og:title", content: this.meta.title },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.meta.description,
+        },
+        { hid: "og:url", property: "og:url", content: this.baseUrl + "/about" },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: this.baseUrl + "/featureImage/jake-hills.jpg",
+        },
 
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
-      ]
-
+        {
+          hid: "twitter:title",
+          property: "twitter:title",
+          content: this.meta.title,
+        },
+      ],
     };
   },
   components: { Arrow, AboutCard, FrameTr, Fas },
@@ -196,8 +205,9 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       meta: {
-        title: 'Treejer | About',
-        description: 'See More Info About Treejer And Team',
+        title: this.$t('about.title'),
+        description:this.$t('about.description'),
+        keywords:this.$t('about.keywords'),
       },
       that: "000",
       caretRight: `<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,54 +219,41 @@ export default {
       token: "",
       faq: [
         {
-          question: "What do I need to start creating a forest with Treejer?",
-          answer:
-            "https://discuss.treejer.com/question/what-do-i-need-to-start-funding-a-forest-with-treejer-5f125c522a32a845340b2856",
+          question:this.$t("aboutus.questionOne"),
+          answer:this.$t("aboutus.answerOne")
+            
         },
         {
-          question: "Where can I find more information about Treejer?",
-          answer: "https://docs.treejer.com/",
+          question: this.$t("aboutus.questionTwo"),
+          answer: this.$t("aboutus.answerTwo"),
         },
         {
-          question: "What’s an Ethereum wallet and which one should I use?",
-          answer:
-            "https://discuss.treejer.com/question/what-is-an-ethereum-wallet-and-which-one-should-i-use-5f1253c015feeb1c24b607fb ",
+          question: this.$t("aboutus.questionthree"),
+          answer: this.$t("aboutus.answerthree"),
         },
         {
-          question:
-            "How can I plant trees and get rewarded by Treejer funders?",
-          answer:
-            "https://discuss.treejer.com/question/can-i-plant-trees-in-my-area-and-get-funded-via-treejer-5f23df4e2a211345bb7e620b",
+          question: this.$t("aboutus.questionfour"),
+          answer: this.$t("aboutus.answerfour"),
         },
       ],
       teamMembers: [
-        { src: "../assets/images/about/ermia.png", alt: "ermia shahrakhiz" },
-        { src: "../assets/images/about/amir.png", alt: "amir habibzadeh" },
-        { src: "../assets/images/about/iraj.png", alt: "iraj habibzadeh" },
-        { src: "../assets/images/about/ali.png", alt: "ali hamidian" },
-        { src: "../assets/images/about/bahare.png", alt: "bahare tavakoli" },
+        { src: "../assets/images/about/ermia.png", alt: this.$t("aboutus.ermiashahrakhiz")},
+        { src: "../assets/images/about/amir.png", alt: this.$t('aboutus.amirhabibzade')},
+        { src: "../assets/images/about/iraj.png", alt: this.$t('aboutus.irajhabibzadeh')},
+        { src: "../assets/images/about/ali.png", alt: this.$t('aboutus.alihamidian')},
+        { src: "../assets/images/about/bahare.png", alt: this.$t('aboutus.baharetavakoli')},
         {
           src: "../assets/images/about/mohammad.png",
-          alt: "mohammad mohibeifar",
+          alt: this.$t('aboutus.mohammadmohibeifar'),
         },
       ],
     };
   },
 
-  async mounted() {
-    await this.$recaptcha.init();
-
-    this.$root.$on("bv::collapse::state", (collapseId, isJustShown) => {
-      this.that = isJustShown;
-    });
-  },
+ 
   methods: {
     async onSubmit() {
-      console.log("must give a api");
-      // try {
-      //   const token = await this.$recaptcha.execute('login')
-      // } catch (error) {
-      // }
+      
     },
   },
 };

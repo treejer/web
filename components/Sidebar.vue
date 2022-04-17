@@ -4,10 +4,10 @@
       <li class="nav-item forest" @click="changeIndex(0)">
         <nuxt-link
           :class="$store.state.index === 0 ? 'nuxt-link-exact-active' : ''"
-          :to="
-            $cookies.get('account')
+          :to="localePath($cookies.get('account')
               ? '/forest/' + $cookies.get('account')
-              : '/forest/guest'
+              : '/forest/guest')
+            
           "
           class="nav-link"
         >
@@ -100,7 +100,7 @@
         <nuxt-link
           :class="$store.state.index === 4 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
-          to="/forest/treebox"
+          :to="localePath('/forest/treebox')"
         >
           <img
             :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
@@ -114,7 +114,7 @@
         <nuxt-link
           :class="$store.state.index === 1 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
-          to="/forest/referral"
+          :to="localePath('/forest/referral')"
         >
           <svg
             fill="none"
@@ -156,7 +156,7 @@
         <nuxt-link
           :class="$store.state.index === 2 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
-          to="/forest/leaderboard"
+          :to="localePath('/forest/leaderboard')"
         >
           <svg
             fill="none"
@@ -195,7 +195,7 @@
         <nuxt-link
           :class="$store.state.index === 3 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
-          to="/forest/activity"
+          :to="localePath('/forest/activity')"
         >
           <svg
             fill="none"

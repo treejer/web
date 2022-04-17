@@ -343,7 +343,7 @@ export default {
       }
 
       this.loading = true
-      this.$router.push(`/tree/${this.treeID}`);
+      this.$router.push(this.localePath(`/tree/${this.treeID}`));
     },
     async getOffchainTreeData() {
       let self = this
