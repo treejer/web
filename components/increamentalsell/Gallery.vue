@@ -38,9 +38,9 @@ export default {
     return {
       activeIndex: 0,
       tabs: [
-        { name: "Recently Minted" },
-        { name: "Auctions" },
-        { name: "Honorary" },
+        { name:this.$t('genesis.recentlyminted')},
+        { name:this.$t('genesis.auctions')},
+        { name:this.$t('genesis.honorary')},
       ],
       trees: [],
     };

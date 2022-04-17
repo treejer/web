@@ -5,8 +5,8 @@
           type="email"
           class="mb-2"
           name="email"
-          label="Email"
-          placeholder="exmaple@example.com"
+          :label="$t('aboutus.email')"
+          :placeholder="$t('aboutus.exmaple')"
           validation="email"
           error-behavior="blur"
         />
@@ -14,7 +14,7 @@
           @click.prevent="submit()"
           class="btn-lg  btn-green param-md mb-4" style="padding: 10px 25px;margin-top: -14px">
           <b-spinner v-if="loading" small class="mr-1"></b-spinner>
-          {{loading ? ' Loading...' : 'Subscribe'}}
+          {{loading ? $t('aboutus.loading') : $t('aboutus.subscribe')}}
         </button>
 
     </form>

@@ -3,17 +3,17 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-6 col-12">
-          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " :to="localePath('/forest/guest')">Plant a Tree
+          <nuxt-link v-if="!$cookies.get('account')" class="btn-green position-relative d-block param text-white " :to="localePath('/forest/guest')"> {{ $t("landingfooter.plant") }}
           </nuxt-link>
-          <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="localePath('/forest/'+$cookies.get('account'))">Plant a Tree
+          <nuxt-link v-else class="btn-green position-relative d-block param text-white " :to="localePath('/forest/'+$cookies.get('account'))"> {{ $t("landingfooter.plant") }}
           </nuxt-link>
           <ul class="p-0 nav">
             <li class="square text-left">
               <nuxt-link v-if="!$cookies.get('account')" class="text-left nav-item  param tr-gray-two "
-                         :to="localePath('/forest/guest')">Explore Forests
+                         :to="localePath('/forest/guest')"> {{ $t("landingfooter.exploreforests") }}
               </nuxt-link>
               <nuxt-link  v-if="$cookies.get('account')" class="text-left nav-item  param tr-gray-two " :to="localePath('/forest/'+$cookies.get('account'))">
-                Explore Forests
+               {{ $t("landingfooter.exploreforests") }}
               </nuxt-link>
             </li>
             <li class="square text-left" v-for="(item ,index) in listOne" :key="index">
@@ -49,9 +49,7 @@
             <nuxt-link :to="localePath('/')" class="position-relative ">
               <img src="../assets/images/landing-footer/logo.png" class="img-fluid pointer-event" alt="treejer">
             </nuxt-link>
-            <p class="param tr-gray-two mt-3 ">Treejer is a blockchain-based reforestation platform providing
-              incentives for
-              businesses and individuals to stop Climate Change with the help of local communities.
+            <p class="param tr-gray-two mt-3 "> {{ $t("landingfooter.blockchain") }}
             </p>
           </div>
           <!--          <Socials/>-->
@@ -77,27 +75,27 @@ export default {
   data() {
     return {
       listOne: [
-        {name: 'Genesis', href: '/genesis'},
-        {name: 'Find My Tree', href: '/find'},
-        {name: 'Referral Program', href: 'https://docs.treejer.com/impact-referral-program', tab: '_blank'},
+        {name: this.$t('landingfooter.genesis'), href: '/genesis'},
+        {name: this.$t('landingfooter.find'), href: '/find'},
+        {name: this.$t('landingfooter.referral'), href: 'https://docs.treejer.com/impact-referral-program', tab: '_blank'},
         // {name: 'Project Charter', href: 'https://docs.treejer.com/project-charter', tab: '_blank'},
         // {name: 'Contribution Guideline', href: 'https://docs.treejer.com/contribution-guideline', tab: '_blank'},
         // {name: 'Redeem Trees', href: '#'},
         // {name: 'Start a Green Block', href: '#'},
       ],
         listTwo: [
-          {name: 'Home', href: '/'},
-          {name: 'Blog', href: 'https://blog.treejer.com/', tab: '_blank'},
-          {name: 'About', href: '/about'},
-          {name: 'Partnerships', href: '/partnerships'},
-          {name: 'Contact', href: '/contact'},
+          {name: this.$t('landingfooter.home'), href: '/'},
+          {name: this.$t('landingfooter.blog'), href: 'https://blog.treejer.com/', tab: '_blank'},
+          {name: this.$t('landingfooter.about'), href: '/about'},
+          {name: this.$t('landingfooter.partnerships'), href: '/partnerships'},
+          {name: this.$t('landingfooter.contact'), href: '/contact'},
         ],
       listThree: [
-        {name: 'Knowledge Base', href:  'https://docs.treejer.com', tab: '_blank'},
-        {name: 'Community', href:'https://discuss.treejer.com', tab: '_blank'},
-        {name: 'Volunteers', href: '/volunteer'},
-        {name: 'Rural Ambassadors', href: '/rural'},
-        {name: 'Treejer Backers', href: '/backers'},
+        {name: this.$t('landingfooter.knowledge'), href:  'https://docs.treejer.com', tab: '_blank'},
+        {name: this.$t('landingfooter.community'),href:'https://discuss.treejer.com', tab: '_blank'},
+        {name: this.$t('landingfooter.volunteers'),href: '/volunteer'},
+        {name: this.$t('landingfooter.ambassadors'), href: '/rural'},
+        {name: this.$t('landingfooter.backers'), href: '/backers'},
       ],
       socials: [
         {src: require('~/assets/images/landing-footer/telegram.svg'), name: 'telegram',href:'https://discuss.treejer.com/'},

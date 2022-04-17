@@ -164,6 +164,69 @@ import Fas from "../components/font-awsome/Fas";
 export default {
   name: "about",
   layout: "landing",
+  data() {
+    return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: this.$t("aboutus.meta.title"),
+        description: this.$t("aboutus.meta.description"),
+        keywords: this.$t("aboutus.meta.keywords"),
+      },
+      that: "000",
+      caretRight: `<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 8.8197H17.4754" stroke="#FAFAFA" stroke-width="2.7157" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.1803 2L18 8.81967L11.1803 15.6393" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`,
+      email: "",
+      token: "",
+      faq: [
+        {
+          question: this.$t("aboutus.questionOne"),
+          answer: this.$t("aboutus.answerOne"),
+        },
+        {
+          question: this.$t("aboutus.questionTwo"),
+          answer: this.$t("aboutus.answerTwo"),
+        },
+        {
+          question: this.$t("aboutus.questionthree"),
+          answer: this.$t("aboutus.answerthree"),
+        },
+        {
+          question: this.$t("aboutus.questionfour"),
+          answer: this.$t("aboutus.answerfour"),
+        },
+      ],
+      teamMembers: [
+        {
+          src: "../assets/images/about/ermia.png",
+          alt: this.$t("aboutus.ermiashahrakhiz"),
+        },
+        {
+          src: "../assets/images/about/amir.png",
+          alt: this.$t("aboutus.amirhabibzade"),
+        },
+        {
+          src: "../assets/images/about/iraj.png",
+          alt: this.$t("aboutus.irajhabibzadeh"),
+        },
+        {
+          src: "../assets/images/about/ali.png",
+          alt: this.$t("aboutus.alihamidian"),
+        },
+        {
+          src: "../assets/images/about/bahare.png",
+          alt: this.$t("aboutus.baharetavakoli"),
+        },
+        {
+          src: "../assets/images/about/mohammad.png",
+          alt: this.$t("aboutus.mohammadmohibeifar"),
+        },
+      ],
+    };
+  },
+
   head() {
     return {
       title: this.meta.title,
@@ -201,60 +264,9 @@ export default {
     };
   },
   components: { Arrow, AboutCard, FrameTr, Fas },
-  data() {
-    return {
-      baseUrl: process.env.baseUrl,
-      meta: {
-        title: this.$t('about.title'),
-        description:this.$t('about.description'),
-        keywords:this.$t('about.keywords'),
-      },
-      that: "000",
-      caretRight: `<svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 8.8197H17.4754" stroke="#FAFAFA" stroke-width="2.7157" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M11.1803 2L18 8.81967L11.1803 15.6393" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-`,
-      email: "",
-      token: "",
-      faq: [
-        {
-          question:this.$t("aboutus.questionOne"),
-          answer:this.$t("aboutus.answerOne")
-            
-        },
-        {
-          question: this.$t("aboutus.questionTwo"),
-          answer: this.$t("aboutus.answerTwo"),
-        },
-        {
-          question: this.$t("aboutus.questionthree"),
-          answer: this.$t("aboutus.answerthree"),
-        },
-        {
-          question: this.$t("aboutus.questionfour"),
-          answer: this.$t("aboutus.answerfour"),
-        },
-      ],
-      teamMembers: [
-        { src: "../assets/images/about/ermia.png", alt: this.$t("aboutus.ermiashahrakhiz")},
-        { src: "../assets/images/about/amir.png", alt: this.$t('aboutus.amirhabibzade')},
-        { src: "../assets/images/about/iraj.png", alt: this.$t('aboutus.irajhabibzadeh')},
-        { src: "../assets/images/about/ali.png", alt: this.$t('aboutus.alihamidian')},
-        { src: "../assets/images/about/bahare.png", alt: this.$t('aboutus.baharetavakoli')},
-        {
-          src: "../assets/images/about/mohammad.png",
-          alt: this.$t('aboutus.mohammadmohibeifar'),
-        },
-      ],
-    };
-  },
 
- 
   methods: {
-    async onSubmit() {
-      
-    },
+    async onSubmit() {},
   },
 };
 </script>

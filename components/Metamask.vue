@@ -2,7 +2,7 @@
   <b-navbar-nav ref="page" class="metamask">
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
-        {{ "Connect Wallet" }}
+        {{$t('header.connectwallet')}} 
       </b-button>
 
       <NuxtLink :to="localePath('/forest/guest')" class="position-relative">
@@ -28,7 +28,7 @@
         "
         @click.prevent="switchNetwork()"
       >
-        <b-button class="connect-button switch-wallet"> Switch to {{ runningNetwrokName }} </b-button>
+        <b-button class="connect-button switch-wallet"> {{$t('header.switchto')}} {{ runningNetwrokName }} </b-button>
       </div>
 
       <div
@@ -86,7 +86,7 @@
             text-center
           "
         >
-          Connected with
+           {{$t('header.connectedwith')}} 
         </li>
         <li class="pointer-event mb-2">
           <p
@@ -136,7 +136,7 @@
         >
           <span style="letter-spacing: -3px"
             >-------------------------------------</span
-          ><span style="padding: 0 10px">Your Address</span
+          ><span style="padding: 0 10px"> {{$t('header.yourAddress')}} </span
           ><span style="letter-spacing: -3px"
             >-------------------------------------</span
           >
@@ -149,7 +149,7 @@
             class="btn-green param pr-4 pl-4 pt-2 pb-2"
             @click="changeWallet()"
           >
-            Change Wallet
+          {{$t('header.connectwallet')}}
           </button>
         </li>
       </ul>

@@ -1,9 +1,9 @@
 <template>
   <div class="inc-collect collect row justify-content-center">
     <div class="col-md-2 col-4 text-left">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #101</p>
-      <p class="tr-gray-four param mb-0">Start Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.03</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">{{$t('genesis.tree101')}}</p>
+      <p class="tr-gray-four param mb-0">{{$t('genesis.startprice')}}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">{{$t('genesis.e003')}}</p>
     </div>
     <div class="col-md-8 col-4 banner-inc p-md-0 text-center">
       <img
@@ -14,14 +14,14 @@
       />
     </div>
     <div class="col-md-2 col-4 text-right">
-      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">Tree #10,000</p>
-      <p class="tr-gray-four param mb-0">End Price</p>
-      <p class="title-sm tr-green font-weight-bolder mb-0">Ξ0.3</p>
+      <p class="param-xl tr-gray-two mb-0 font-weight-bolder">{{$t('genesis.tree10000')}}</p>
+      <p class="tr-gray-four param mb-0">{{$t('genesis.endprice')}}</p>
+      <p class="title-sm tr-green font-weight-bolder mb-0">{{$t('genesis.e003')}}</p>
     </div>
     <div class="col-md-12 text-center mt-3">
       <p class="param-xl font-weight-bolder tr-gray-two text-capitalize">
-        tree #{{
-          currenPrice
+        {{$t('genesis.tree')}} #{{
+          $t('genesis.currentprice')
             ? parseInt($store.state.incrementalSale.lastSold) + 1
             : 101
         }}
@@ -52,31 +52,27 @@
       "
     >
       <button class="btn-green param-18" @click="goToCheckout()">
-        {{ "Mint" }}
+        {{ $t('genesis.mint') }}
       </button>
     </div>
     <div class="col-md-8 col-12 genesis-collection-inc">
       <h1 class="title-lg tr-gray-two font-weight-bolder text-center">
-        Genesis Collection
+        {{$t('genesis.genesiscollection')}}
       </h1>
       <p class="param font-weight-bold tr-gray-two text-center pt-2">
-        Genesis collection refers to the first 10,000 trees being planted via
-        Treejer Protocol. The collection helps the project thrive after our
-        recent token-free investment by UNICEF Innovation Fund. Genesis trees
-        will be planted in 10 countries in Latin America, Africa and Middle
-        East. Learn more about the Genesis Collection
+       {{$t('genesis.refers')}}
         <a
           href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/"
           target="_blank"
-          >here</a
+          > {{$t('genesis.here')}}</a
         >.
       </p>
     </div>
-    <div class="col-md-8 col-12 p-md-0 getting-started-inc">
+    <div class="col-md-8 col-12  getting-started-inc">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 p-md-0">
           <p class="param-18 tr-gray-two font-weight-bolder">
-            Getting Started with Genesis Trees
+           {{$t('genesis.getting')}}
           </p>
           <p class="mb-1">
             <span
@@ -87,9 +83,9 @@
                 pointer-event
                 text-capitalize
               "
-              >step 1</span
+              > {{$t('genesis.step')}}</span
             ><span class="tr-gray-three param font-weight-bold"
-              >Tree #0-10 listed for auction</span
+              >{{$t('genesis.auction')}}</span
             >
           </p>
           <p class="mb-1">
@@ -101,9 +97,9 @@
                 pointer-event
                 text-capitalize
               "
-              >step 2</span
+              >{{$t('genesis.step2')}}</span
             ><span class="tr-gray-three param font-weight-bold"
-              >Tree #11-100 reserved for community</span
+              >{{$t('genesis.reserved')}}</span
             >
           </p>
           <p class="mb-1">
@@ -115,13 +111,13 @@
                 pointer-event
                 text-capitalize
               "
-              >step 3</span
+              >{{$t('genesis.step3')}}</span
             ><span class="tr-gray-three param font-weight-bold"
-              >Tree #101-10k claimable for collectors</span
+              >{{$t('genesis.collectors')}}</span
             >
           </p>
         </div>
-        <div class="col-md-6 tree-status-inc">
+        <div class="col-md-6 p-md-0 tree-status-inc">
           <div class="row justify-content-between">
             <div class="col-4">
               <img
@@ -130,7 +126,7 @@
                 src="../../assets/images/increamentalSell/trees-state.svg"
                 style="filter: grayscale(100%)"
               />
-              <p class="param-xs tr-gray-two">Claimable</p>
+              <p class="param-xs tr-gray-two">{{$t('genesis.claimable')}}</p>
             </div>
             <div class="col-4">
               <img
@@ -139,7 +135,7 @@
                 src="../../assets/images/increamentalSell/trees-state.svg"
                 style="filter: hue-rotate(180deg)"
               />
-              <p class="param-xs tr-gray-two">On Auction</p>
+              <p class="param-xs tr-gray-two">{{$t('genesis.onauction')}}</p>
             </div>
             <div class="col-4">
               <img
@@ -147,7 +143,7 @@
                 class=""
                 src="../../assets/images/increamentalSell/trees-state.svg"
               />
-              <p class="param-xs tr-gray-two">Claimed</p>
+              <p class="param-xs tr-gray-two">{{$t('genesis.claimed')}}</p>
             </div>
           </div>
         </div>
@@ -166,7 +162,7 @@
       "
     >
       <p class="param tr-gray-four text-capitalize">
-        Reserve Price: Ξ{{ parseFloat(tree0ReservePrice).toFixed(2) }}
+        {{$t('genesis.reserve')}}{{ parseFloat(tree0ReservePrice).toFixed(2) }}
       </p>
     </div>
 
@@ -181,7 +177,7 @@
         mt-3
       "
     >
-      <p class="param tr-gray-four text-capitalize">Reveals after Genesis</p>
+      <p class="param tr-gray-four text-capitalize">{{$t('genesis.reveals')}}</p>
     </div>
 
     <a id="auctions"></a>
@@ -200,7 +196,7 @@
         "
         src="../../assets/images/increamentalSell/trees-state.svg"
       />
-      <p class="param-xs tr-gray-tree">Tree #0</p>
+      <p class="param-xs tr-gray-tree">{{$t('genesis.Tree0')}}</p>
     </nuxt-link>
 
     <div
@@ -212,7 +208,7 @@
         class="filter-balckandwhite"
         src="../../assets/images/increamentalSell/trees-state.svg"
       />
-      <p class="param-xs tr-gray-tree">Tree #0</p>
+      <p class="param-xs tr-gray-tree">{{$t('genesis.Tree0')}}</p>
     </div>
 
     <OtherTreeInc :text="'#1-10'" />
@@ -261,7 +257,7 @@
             />
           </span>
 
-          <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(tree.id) }}</p>
+          <p class="param-xs tr-gray-tree">{{$t('genesis.Tree')}}{{ $hex2Dec(tree.id) }}</p>
         </NuxtLink>
       </div>
     </div>
@@ -276,13 +272,9 @@
         mt-3
       "
     >
-      <p class="param tr-gray-four text-capitalize m-auto">Claim for Free</p>
+      <p class="param tr-gray-four text-capitalize m-auto">{{$t('genesis.claim')}}</p>
       <p class="param tr-gray-two des-inc">
-        What we’ve built today was not possible without the generousity of other
-        builders, designers, community advocates and thought leaders in this
-        space. We’d love to plant the very first trees for them. If you’re one
-        of the people on this list, you can claim one of these unique trees.
-        Thank you for being a part of this community!
+        {{$t('genesis.today')}}
       </p>
     </div>
 
@@ -301,7 +293,7 @@
             />
           </span>
 
-          <p class="param-xs tr-gray-tree">Tree #{{ $hex2Dec(item.id) }}</p>
+          <p class="param-xs tr-gray-tree"> {{$t('genesis.Tree')}} #{{ $hex2Dec(item.id) }}</p>
         </NuxtLink>
       </div>
       <div
@@ -327,14 +319,9 @@
       </div>
     </div>
     <div class="col-md-9 col-12 inc-text text-center">
-      <h1 class="title-lg tr-gray-two">Not interested in GENESIS Trees?</h1>
+      <h1 class="title-lg tr-gray-two">{{$t('genesis.interested')}} </h1>
       <p class="param tr-gray-two">
-        You can always fund regular trees in Treejer protocol. The regular trees
-        initially have a universal price of 10 DAI ~ ($10). Similar to Genesis Trees,
-        regular ones are dynamic NFTs too. However, Genesis collection owns the
-        more unique attributes (digitally). Millions of trees are going to be
-        planted and maintaned using Treejer protocol and the community will
-        never forget who funded the first trees.
+      {{$t('genesis.always')}}
       </p>
     </div>
   </div>

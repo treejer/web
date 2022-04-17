@@ -1,83 +1,181 @@
 export default {
-    title: 'Treejer',
-    homepage: {
-        title: 'Planters Without Borders',
-        maintextprefix: 'A more',
-        maintexts: {
-            affordable: ' affordable',
-            sustainable: ' sustainable',
-            transparent: ' transparent',
-            impactful: ' impactful',
-            inclusive: ' inclusive',
-            rewarding: ' rewarding',
-            gamified: ' gamified',
-            measurable: ' measurable',
-        },
-        maintextmid: 'Climate Action through',
-        maintextsuffix: 'financial inclusion of rural communities.',
-        collectgenesistrees:'Collect Genesis Trees',
-        plantForest:' Plant a Forest',
-        meta:{
-            title: 'Treejer | Planters Without Borders',
-            description:'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.',
-            keywords:'treejer,treejer protocol,plant tree, nft tree'
-        }
+  title: "Treejer",
+  homepage: {
+    title: "Planters Without Borders",
+    maintextprefix: "A more",
+    maintexts: {
+      affordable: " affordable",
+      sustainable: " sustainable",
+      transparent: " transparent",
+      impactful: " impactful",
+      inclusive: " inclusive",
+      rewarding: " rewarding",
+      gamified: " gamified",
+      measurable: " measurable",
     },
-    header:{
-        genesis:'Genesis',
-        partnerships:'Partnerships',
-        blog:'Blog',
-        about:'About',
-
+    maintextmid: "Climate Action through",
+    maintextsuffix: "financial inclusion of rural communities.",
+    collectgenesistrees: "Collect Genesis Trees",
+    plantForest: " Plant a Forest",
+    meta: {
+      title: "Treejer | Planters Without Borders",
+      description:
+        "Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.",
+      keywords: "treejer,treejer protocol,plant tree, nft tree",
     },
-    genesis:{
-        
+  },
+  header: {
+    genesis: "Genesis",
+    partnerships: "Partnerships",
+    blog: "Blog",
+    about: "About",
+    home: "Home",
+    contact: "Contact",
+    switchto: "Switch to",
+    connectwallet: "Connect Wallet",
+    connectedwith: "Connected with",
+    yourAddress: "Your Address",
+    selectwallet: " Select Wallet",
+    whatisawallet: "What is a wallet?",
+    learnmore: "Learn more",
+    gethelp: "Get help",
+    connecting: "By connecting your wallet you agree to our",
+    terms: "Terms of Service",
+    privacy: "Privacy",
+    and: "and",
+    cookie: "Cookie Policy",
+    connectingwallet: "connectingWallet",
+    metamask: "Metamask",
+    Walletconnect: "WalletConnect",
+    connectingto: "Connecting to",
+  },
+  landingfooter: {
+    plant: "Plant a Tree",
+    exploreforests: "Explore Forests",
+    home: "Home",
+    blog: "Blog",
+    about: "About",
+    partnerships: "Partnerships",
+    contact: "Contact",
+    knowledge: "Knowledge Base",
+    community: "Community",
+    volunteers: "Volunteers",
+    ambassadors: "Rural Ambassadors",
+    backers: "Treejer Backers",
+    blockchain: "Treejer is a blockchain-based reforestation platform providing incentives for businesses and individuals to stop Climate Change with the help of local communities.",
+    genesis: "Genesis",
+    find: "Find My Tree",
+    referral: "Referral Program",
+  },
+  genesis: {
+    collect: "Collect",
+    gallery: "Gallery",
+    mint: "Mint",
+    tree101: "Tree #101",
+    startprice: "Start Price",
+    e003: "Ξ0.03",
+    tree10000: "Tree #10,000",
+    endprice: "End Price",
+    tree: "tree",
+    currentprice: " currenPrice",
+    genesiscollection: "Genesis Collection",
+    refers:
+      "  Genesis collection refers to the first 10,000 trees being planted via Treejer Protocol. The collection helps the project thrive after our recent token-free investment by UNICEF Innovation Fund. Genesis trees will be planted in 10 countries in Latin America, Africa and Middle East. Learn more about the Genesis Collection",
+    here: "here",
+    getting: "Getting Started with Genesis Trees",
+    step: "step 1",
+    auction: "Tree #0-10 listed for auction",
+    step2: "step 2",
+    reserved: "Tree #11-100 reserved for community",
+    step3: "step 3",
+    collectors: "Tree #101-10k claimable for collectors",
+    claimable: "Claimable",
+    onauction: "On Auction",
+    claimed: "Claimed",
+    reserve: " Reserve Price: Ξ",
+    reveals: " Reveals after Genesis",
+    Tree0: " Tree #0",
+    Tree: " Tree #",
+    claim: " Claim for Free",
+    today:
+      "  What we’ve built today was not possible without the generousity of other builders, designers, community advocates and thought leaders in this space. We’d love to plant the very first trees for them. If you’re one of the people on this list, you can claim one of these unique trees. Thank you for being a part of this community!",
+    interested: "Not interested in GENESIS Trees?",
+    always:
+      "  You can always fund regular trees in Treejer protocol. The regular trees initially have a universal price of 10 DAI ~ ($10). Similar to Genesis Trees, regular ones are dynamic NFTs too. However, Genesis collection owns the more unique attributes (digitally). Millions of trees are going to be planted and maintaned using Treejer protocol and the community will never forget who funded the first trees.",
+    recentlyminted: "Recently Minted",
+    auctions: "Auctions",
+    honorary: "Honorary",
+    meta: {
+      title: "Treejer | Collect Genesis Trees",
+      description:
+        "Genesis Trees are the first 10k trees to be planted via Treejer Protocol. They're represented by unique NFT collectibles.",
+      keywords:
+        "treejer genesis collection,treejer protocol,Collect Genesis Trees, nft tree",
     },
-    partnerships:{
-        title:'It’s called the magic of trees!',
-        empower:'Empower your business by committing to make the Earth a better place for all!',
-        how:'How Treejer Can Help You',
-        wecover:'We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.',
-        planttrees:'Plant trees to engage customers',
-        impact:'Impact marketing with trees increases brand affinity with the growing number of consumers who prefer brands that contribute to the well-being of the planet, to brands that do not.',
-        adopt:'Adopt a forest for Corporate Social Responsiblity (CSR)',
-        employee:'Employee ​and customer engagement is possible when sponsoring one of our projects : everyone loves trees. You will be able to regularly share communication material about your project.',
-        offset:'Offset your carbon footprint',
-        whencarbon:'When carbon sequestration is needed, the best technology is a tree. They are an amazing carbon sink.',
-        listyour:'List your product coupon to engage our ecosystem',
-        offer:'Offer products and services to our growing community of eco-conscious users worldwide. Listing vouchers and disount coupons generates sales and stronger brand recognition for your business at no cost.',
-        whatpeople:'What People Say',
-        shivam:'From year to year, environmental changes are incremental and often barely register in our lives, but from evolutionary or geological perspectives, what is happening is exponential explosive change. Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years with pioneers like Treejer leading the charge.',
-        meta:{
-            title:'Treejer | Planters Without Borders',
-            description:'We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.',
-            keywords:'Partnerships,Partnerships treejer,treejer Partnerships,plant tree, nft tree'
-        }
+  },
+  partnerships: {
+    title: "It’s called the magic of trees!",
+    empower:
+      "Empower your business by committing to make the Earth a better place for all!",
+    how: "How Treejer Can Help You",
+    wecover:
+      "We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.",
+    planttrees: "Plant trees to engage customers",
+    impact:
+      "Impact marketing with trees increases brand affinity with the growing number of consumers who prefer brands that contribute to the well-being of the planet, to brands that do not.",
+    adopt: "Adopt a forest for Corporate Social Responsiblity (CSR)",
+    employee:
+      "Employee ​and customer engagement is possible when sponsoring one of our projects : everyone loves trees. You will be able to regularly share communication material about your project.",
+    offset: "Offset your carbon footprint",
+    whencarbon:
+      "When carbon sequestration is needed, the best technology is a tree. They are an amazing carbon sink.",
+    listyour: "List your product coupon to engage our ecosystem",
+    offer:
+      "Offer products and services to our growing community of eco-conscious users worldwide. Listing vouchers and disount coupons generates sales and stronger brand recognition for your business at no cost.",
+    whatpeople: "What People Say",
+    shivam:
+      'From year to year, environmental changes are incremental and often barely register in our lives, but from evolutionary or geological perspectives, what is happening is exponential explosive change. Being into the science of future careers, we hope that "Ecosystem Maintenance" will develop to be an independent industry in a few years with pioneers like Treejer leading the charge.',
+    meta: {
+      title: "Treejer | Planters Without Borders",
+      description:
+        "We cover a wide range of green services to businesses to help them become more sustainable and socially responsible.",
+      keywords:
+        "Partnerships,Partnerships treejer,treejer Partnerships,plant tree, nft tree",
     },
-    aboutus: {
-        title:'Empowering Local People to Save the Planet',
-        unique:'A unique borderless approach in Climate Action powered by blockchainy',
-        linkbetween: 'Treejer functions as a link between those who fund trees and those who plant them even in the most remote places on our planet. It records credit ownership and enables secure payment between different parties using smart-contracts.',
-        each:"Each single tree that is collected or funded through Treejer has unique social and environmental impact. Rural planters in high-impact locations plant and maintain our trees. Most of them are located in less developed countries in Latin America, Africa and Middle East. We believe in the open-source and want to make it easy for anyone to build, research or design on top of Treejer protocol. You're invited to build with us!",
-        frequently:'Frequently Asked Questions',
-        questionOne:'What do I need to start creating a forest with Treejer?',
-        answerOne:'https://discuss.treejer.com/question/what-do-i-need-to-start-funding-a-forest-with-treejer-5f125c522a32a845340b2856',
-        questionTwo:'Where can I find more information about Treejer?',
-        answerTwo:'https://docs.treejer.com/',
-        questionthree:'What’s an Ethereum wallet and which one should I use?',
-        answerthree:'https://discuss.treejer.com/question/what-is-an-ethereum-wallet-and-which-one-should-i-use-5f1253c015feeb1c24b607fb',
-        questionfour:'How can I plant trees and get rewarded by Treejer funders?',
-        answerfour:'https://discuss.treejer.com/question/can-i-plant-trees-in-my-area-and-get-funded-via-treejer-5f23df4e2a211345bb7e620b',
-        ermiashahrakhiz:"ermia shahrakhiz",
-        amirhabibzade:"amir habibzadeh" ,
-        irajhabibzadeh:"iraj habibzadeh" ,
-        alihamidian:"ali hamidian" ,
-        baharetavakoli:"bahare tavakoli",
-        mohammadmohibeifar:"mohammad mohibeifar",
-        meta:{
-            title:'Treejer | About',
-            description:'"See More Info About Treejer And Team',
-            keywords:'treejer,about treejer,plant tree, nft tree',
-        }
-    }
-}
+  },
+  aboutus: {
+    title: "Empowering Local People to Save the Planet",
+    unique:
+      "A unique borderless approach in Climate Action powered by blockchainy",
+    linkbetween:
+      "Treejer functions as a link between those who fund trees and those who plant them even in the most remote places on our planet. It records credit ownership and enables secure payment between different parties using smart-contracts.",
+    each: "Each single tree that is collected or funded through Treejer has unique social and environmental impact. Rural planters in high-impact locations plant and maintain our trees. Most of them are located in less developed countries in Latin America, Africa and Middle East. We believe in the open-source and want to make it easy for anyone to build, research or design on top of Treejer protocol. You're invited to build with us!",
+    frequently: "Frequently Asked Questions",
+    questionOne: "What do I need to start creating a forest with Treejer?",
+    answerOne:
+      "https://discuss.treejer.com/question/what-do-i-need-to-start-funding-a-forest-with-treejer-5f125c522a32a845340b2856",
+    questionTwo: "Where can I find more information about Treejer?",
+    answerTwo: "https://docs.treejer.com/",
+    questionthree: "What’s an Ethereum wallet and which one should I use?",
+    answerthree:
+      "https://discuss.treejer.com/question/what-is-an-ethereum-wallet-and-which-one-should-i-use-5f1253c015feeb1c24b607fb",
+    questionfour: "How can I plant trees and get rewarded by Treejer funders?",
+    answerfour:
+      "https://discuss.treejer.com/question/can-i-plant-trees-in-my-area-and-get-funded-via-treejer-5f23df4e2a211345bb7e620b",
+    ermiashahrakhiz: "ermia shahrakhiz",
+    amirhabibzade: "amir habibzadeh",
+    irajhabibzadeh: "iraj habibzadeh",
+    alihamidian: "ali hamidian",
+    baharetavakoli: "bahare tavakoli",
+    mohammadmohibeifar: "mohammad mohibeifar",
+    exmaple: "exmaple@example.com",
+    loading: "Loading...",
+    subscribe: "Subscribe",
+    email: "email",
+    meta: {
+      title: "Treejer | About",
+      description: '"See More Info About Treejer And Team',
+      keywords: "treejer,about treejer,plant tree, nft tree",
+    },
+  },
+};

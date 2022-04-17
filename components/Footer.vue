@@ -5,21 +5,21 @@
         <div class="col-lg-8 col-12 menu">
           <b-nav>
             <NuxtLink :to="localePath('/')" class="nav-item">
-              <span class="nav-link">Home</span>
+              <span class="nav-link">{{$t('header.home')}}</span>
             </NuxtLink>
 
             <b-nav-item target="_blank" href="https://blog.treejer.com/"
-              >Blog</b-nav-item
+              >{{$t('header.blog')}}</b-nav-item
             >
 
             <NuxtLink :to="localePath('/Partnerships')" class="nav-item">
-              <span class="nav-link">partnerships</span>
+              <span class="nav-link">{{$t('header.partnerships')}}</span>
             </NuxtLink>
             <NuxtLink :to="localePath('/About')" class="nav-item">
-              <span class="nav-link">about</span>
+              <span class="nav-link">{{$t('header.about')}}</span>
             </NuxtLink>
             <NuxtLink :to="localePath('/contact')" class="nav-item">
-              <span class="nav-link">Contact</span>
+              <span class="nav-link">{{$t('header.contact')}}</span>
             </NuxtLink>
           </b-nav>
         </div>
