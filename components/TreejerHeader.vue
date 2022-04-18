@@ -2,7 +2,7 @@
   <div class="headers container" style="min-height: 10vh">
     <keep-alive>
       <b-navbar toggleable="lg">
-        <b-navbar-brand class="pointer-event position-relative">
+        <b-navbar-brand class="pointer-event position-relative d-flex d-lg-block">
           <nuxt-link :to="localePath('/')">
             <img
               class="img-fluid pointer-event"
@@ -10,6 +10,7 @@
               name="treejer"
               src="/logo/treejer.png"
           /></nuxt-link>
+             <Flags class="d-block d-lg-none ml-3" />
         </b-navbar-brand>
         <b-navbar-nav class="mobile-navbar">
           <client-only>
@@ -38,11 +39,12 @@
             <NuxtLink :to="localePath('/about')" class="nav-item">
               <span class="nav-link">{{$t("header.about") }}</span>
             </NuxtLink>
-            <Flags />
+            <Flags class="d-none d-lg-block " />
           </b-navbar-nav>
           <client-only>
             <div class="d-lg-block d-none w-md-100">
               <Metamask @showModal="showModal" />
+            
             </div>
           </client-only>
         </b-collapse>
@@ -172,7 +174,7 @@ export default {
 @media screen and (max-width: 768px) {
   .headers {
     .mobile-navbar {
-      width: 64%;
+      width: 50%;
     }
 
     .navbar-brand {

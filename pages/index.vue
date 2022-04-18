@@ -98,7 +98,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content:  this.meta.keywords,
+          content:  this.meta.content,
         },
 
         { hid: "og:title", property: "og:title", content: this.meta.title },
