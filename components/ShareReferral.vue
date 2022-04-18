@@ -1,38 +1,43 @@
 <template>
   <div class="col-12">
-      <p class="param-xl tr-gray-one font-weight-bolder mt-5">
-        Spread the word
-      </p>
-      <p class="mt-3 param tr-gray-one font-weight-bold">
-       Let’s plant some trees together. Each NFT represents a real tree planted by rural communities worldwide. 🛖🌳🛖
-       <br>
-#PlantersWithoutBorders
-<br>
-Plant your forest here:
-<br>
-<a :href="`https://treejer.com/genesis?referrer=${$cookies.get('account')}`" target="_blank"> {{ `https://treejer.com/genesis?referrer=${$cookies.get('account')}` }} </a>
-
-        
-      </p>
-
-      <button
-        class="btn-greens text-white font-weight-bold param mt-4"
-        @click="tweet()"
+    <p class="param-xl tr-gray-one font-weight-bolder mt-5">
+      {{ $t("invite.spreadtheword") }}
+    </p>
+    <p class="mt-3 param tr-gray-one font-weight-bold">
+      {{ $t("invite.together") }}
+      <br />
+     {{ $t("invite.plantersWithoutBorders") }}
+      <br />
+       {{ $t("invite.plantyourforesthere") }}
+     
+      <br />
+      <a
+        :href="`https://treejer.com/genesis?referrer=${$cookies.get(
+          'account'
+        )}`"
+        target="_blank"
       >
-        Tweet
-      </button>
+        {{ `https://treejer.com/genesis?referrer=${$cookies.get("account")}` }}
+      </a>
+    </p>
 
-      <button
-        class="invite-gray text-white font-weight-bold param mt-4"
-        v-clipboard:copy="
-                  `${text}`
-                "
-        v-clipboard:success="onCopy"
-        v-clipboard:error="onError"
-      >
-        Copy
-      </button>
-    </div>
+    <button
+      class="btn-greens text-white font-weight-bold param mt-4"
+      @click="tweet()"
+    >
+    {{ $t("invite.tweet") }}
+      
+    </button>
+
+    <button
+      class="invite-gray text-white font-weight-bold param mt-4"
+      v-clipboard:copy="`${text}`"
+      v-clipboard:success="onCopy"
+      v-clipboard:error="onError"
+    >
+      {{ $t("invite.copy") }}
+    </button>
+  </div>
 </template>
 
 <script>
@@ -44,7 +49,7 @@ export default {
     return {
       text: "",
       baseUrl: process.env.baseUrl,
-      invitelink: process.env.baseUrl
+      invitelink: process.env.baseUrl,
     };
   },
   components: {
@@ -53,35 +58,32 @@ export default {
   mounted() {
     this.treeId = this.$route.params.id;
 
+    this.invitelink = `${this.baseUrl}/genesis?referrer=${this.$cookies.get(
+      "account"
+    )}`;
 
-    this.invitelink = `${this.baseUrl}/genesis?referrer=${this.$cookies.get('account')}`
-
-
-    this.text = `
-Let’s plant some trees together. Each NFT represents a real tree planted by rural communities worldwide. 🛖🌳🛖
-#PlantersWithoutBorders
-Plant your forest here:
-${this.invitelink}
+    this.text = `${this.$t('invite.together')}${this.invitelink}
     `;
-
-
   },
   methods: {
     tweet() {
       let encodedText = encodeURIComponent(this.text);
-      window.open(`https://twitter.com/intent/tweet?text=${encodedText}&related=TreejerTalks`, '_blank');
+      window.open(
+        `https://twitter.com/intent/tweet?text=${encodedText}&related=TreejerTalks`,
+        "_blank"
+      );
     },
     onCopy: function (e) {
-      this.$bvToast.toast(`Text and invite link has been on your clipboard `, {
+      this.$bvToast.toast(`${this.$t('invite.textandinvite')} `, {
         variant: "success",
-        title: "Copy to clipboard!",
+        title: this.$t('invite.copytoclipboard'),
         toaster: "b-toaster-bottom-left",
       });
     },
     onError: function (e) {
-      this.$bvToast.toast(`Failed to copy! `, {
+      this.$bvToast.toast(`${this.$t('invite.failedtocopy')}`, {
         variant: "danger",
-        title: "Failed to copy",
+        title: this.$t('invite.failedtocopy'),
         toaster: "b-toaster-bottom-left",
       });
     },

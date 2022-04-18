@@ -8,20 +8,20 @@
         <div class="col-12 col-md-8 left-side-referral">
           <div class="title-referral">
             <h1 class="title-md tr-gray-two font-weight-bolder">
-              Impact Referral Program
+              {{$t('invite.title')}}
             </h1>
           </div>
           <div class="referral-main">
             <div class="row">
               <div class="col-12">
                 <p class="param-18 tr-gray-two font-weight-bolder">
-                  Referral Status
+                  {{$t('invite.referral')}}
                 </p>
               </div>
               <div class="col-12 mt-3">
                 <div class="d-flex justify-content-between">
-                  <p class="param font-weight-bolder tr-ray-two">1 Tree</p>
-                  <p class="param font-weight-bolder tr-ray-two">100 Trees</p>
+                  <p class="param font-weight-bolder tr-ray-two">  {{$t('invite.onetree')}}</p>
+                  <p class="param font-weight-bolder tr-ray-two">  {{$t('invite.hundredtrees')}}</p>
                 </div>
               </div>
               <div class="col-12">
@@ -42,7 +42,7 @@
             <div class="row mt-5">
               <div class="col-md-4 ref-left-des">
                 <h1 class="param tr-gray-two font-weight-bolder">
-                  Genesis Trees
+                {{$t('invite.genesistrees')}}
                 </h1>
                 <h1 class="param-xl mt-3 tr-gray-two font-weight-bolder">
                   {{ referrer ? referrer.claimableTreesWeth : 0 }}
@@ -50,7 +50,7 @@
               </div>
               <div class="col-md-4 ref-center-des">
                 <h1 class="param tr-gray-two font-weight-bolder">
-                  Regular Trees
+                  {{$t('invite.regulartrees')}}
                 </h1>
                 <h1 class="param-xl mt-3 tr-gray-two font-weight-bolder">
                   {{ referrer ? referrer.claimableTreesDai : 0 }}
@@ -58,7 +58,7 @@
               </div>
               <div class="col-md-4 ref-right-des">
                 <h1 class="param tr-gray-two font-weight-bolder">
-                  Total Tree Rewards
+                  {{$t('invite.totaltreerewards')}}
                 </h1>
                 <h1 class="param-xl mt-3 tr-gray-two font-weight-bolder">
                   {{ referrer ? totalReward : 0 }}
@@ -68,8 +68,7 @@
             <div class="row mt-5 pt-3">
               <div class="col-12">
                 <p class="param tr-gray-two">
-                  One tree is planted for you every time you meet one of the
-                  following goals:
+                   {{$t('invite.onetreeisplanted')}}
                 </p>
                 <ul class="des-goals">
                   <li
@@ -80,7 +79,7 @@
                       Montserrat-Medium
                     "
                   >
-                    <strong>Referring one genesis trees</strong>
+                    <strong>  {{$t('invite.referring')}}</strong>
                   </li>
                   <li
                     class="
@@ -90,7 +89,7 @@
                       Montserrat-Medium
                     "
                   >
-                    <strong> Referring twenty regular trees</strong>
+                    <strong> {{$t('invite.referringtwenty')}}</strong>
 
                     {{
                       referrer && referrer.referrerCount > 0
@@ -100,9 +99,7 @@
                   </li>
                 </ul>
                 <p class="param mt-5 tr-gray-two pt-3">
-                  Please make sure to plant your reward trees and add them to
-                  your personal forest in Treejer. You’ll receive one NFT tree
-                  for each tree you plant.
+                 {{$t('invite.pleasemakesure')}}
                 </p>
               </div>
             </div>
@@ -119,12 +116,10 @@
             </div>
             <div class="col-12 ml-md-5 pl-md-3">
               <p class="param-xl tr-gray-one font-weight-bolder mt-5">
-                Invite a friend
+               {{$t('invite.inviteafriend')}}
               </p>
               <p class="mt-3 param tr-gray-one font-weight-bold">
-                Spread the word and plant more trees at no cost. We plant more
-                trees for you when your friends join our community and plant
-                trees.
+               {{$t('invite.spread')}}
               </p>
 
               <button
@@ -133,14 +128,14 @@
                 @click="shareModal()"
                 
               >
-                Get link to invite
+               {{$t('invite.getlink')}}
               </button>
               <button
                 v-else
                 class="invite-gray text-white font-weight-bold param mt-4"
                 @click="login"
               >
-                Login to get invite link
+                {{$t('invite.login')}}
               </button>
 
               <button
@@ -154,7 +149,7 @@
                   type="grow"
                   >plantRewardsLoading
                 </BSpinner>
-                Plant Rewards
+                {{$t('invite.plantrewards')}}
               </button>
             </div>
           </div>
@@ -209,6 +204,30 @@ export default {
       totalReward: 0,
       baseUrl: process.env.baseUrl,
       plantRewardsLoading: false,
+       meta: {
+        title: this.$t('invite.title'),
+        description: this.$t('invite.description'),
+        keywords: this.$t('invite.keywords')
+      },
+    };
+  },
+   head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: this.meta.keywords},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
     };
   },
   async mounted() {

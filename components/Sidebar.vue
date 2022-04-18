@@ -92,7 +92,7 @@
             </g>
           </svg>
 
-          <p>My Forest</p>
+          <p>{{$t('sidebar.myforest')}}</p>
         </nuxt-link>
       </li>
 
@@ -106,7 +106,7 @@
             :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
             alt=""
           />
-          <p>Treebox</p>
+          <p>{{$t('sidebar.treebox')}}</p>
         </nuxt-link>
       </li>
       
@@ -149,7 +149,7 @@
             />
           </svg>
 
-          <p>Invite</p>
+          <p>{{$t('sidebar.invite')}}</p>
         </nuxt-link>
       </li>
       <li class="nav-item Leaderboard" @click="changeIndex(2)">
@@ -188,7 +188,7 @@
             </g>
           </svg>
 
-          <p>Leaderboard</p>
+          <p>{{$t('sidebar.leaderboard')}}</p>
         </nuxt-link>
       </li>
       <li class="nav-item updates" @click="changeIndex(3)">
@@ -236,7 +236,7 @@
             </g>
           </svg>
 
-          <p>Activity</p>
+          <p>{{$t('sidebar.activity')}}</p>
         </nuxt-link>
       </li>
       
@@ -276,7 +276,7 @@
             />
           </svg>
 
-          <p>Get Help</p>
+          <p>{{$t('sidebar.gethelp')}}</p>
         </a>
       </li>
     </ul>

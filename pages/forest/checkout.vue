@@ -21,7 +21,7 @@
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="param-18 font-weight-bolder tr-gray-two">
-                  How many trees to plant?
+                 {{$t('forest.howmany')}}
                 </h1>
                 <ul class="d-flex list-style-none mt-4 pl-0">
                   <li
@@ -79,7 +79,7 @@
               <div class="col-12 col-md-12 mt-5 pt-2 send-as-gift-code">
                 <div class="row justify-content-between">
                   <div class="col-md-6 col-6">
-                    <p class="param-18 font-weight-bolder">Send as gift</p>
+                    <p class="param-18 font-weight-bolder">{{$t('forest.sendasgift')}}</p>
                   </div>
                   <div class="col-md-6 col-6 form-check">
                     <div class="on-off-toggle">
@@ -104,7 +104,7 @@
                     <input
                       v-model="recipient"
                       class="form-control-lg tr-input w-100 ease-out"
-                      placeholder="Enter recipient’s address"
+                      :placeholder="$t('forest.recipients')"
                     />
                   </div>
 
@@ -130,7 +130,7 @@
                       mt-1
                     "
                   >
-                    You’re Funding
+                    {{$t('forest.yourefunding')}}
                   </h1>
                 </div>
                 <div class="col-12">
@@ -141,7 +141,7 @@
                           {{ count }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder mb-0">
-                          {{ count > 1 ? " Trees" : " Tree" }}
+                          {{ count > 1 ?$t('genesis.trees') : $t('genesis.tree') }}
                         </p>
                       </div>
                       <div class="col-6 p-md-0 mb-direction">
@@ -170,7 +170,7 @@
                             mb-0
                           "
                         >
-                          Total DAI
+                          {{$t('forest.total')}} DAI
                         </p>
                       </div>
                     </div>
@@ -187,7 +187,7 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : "Buy DAI on Matic" }}
+                    {{ loading ? $t('aboutus.loading') : $t('forest.buydaionmatic') }}
                   </button>
 
                   <button
@@ -200,7 +200,7 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : " Confirm" }}
+                    {{ loading ? $t('aboutus.loading')  : $t('forest.confirm')}}
                   </button>
 
                   <button
@@ -213,11 +213,11 @@
                     >loading
                     </BSpinner
                     >
-                    {{ loading ? "Loading" : " Approve" }}
+                    {{ loading ? $t('aboutus.loading')  :  $t('forest.approve') }}
                   </button>
 
                   <p class="mt-3 param tr-gray-two mb-0">
-                    By proceeding I agree to
+                    {{$t('forest.byproceeding')}}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -226,9 +226,9 @@
                           '_blank'
                         )
                       "
-                    >terms</span
+                    >{{$t('forest.terms')}}</span
                     >
-                    and
+                    {{$t('header.and')}}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -237,7 +237,7 @@
                           '_blank'
                         )
                       "
-                    >conditions.</span
+                    >{{$t('forest.conditions')}}</span
                     >
                   </p>
                 </div>
@@ -252,7 +252,7 @@
                         text-center
                       "
                     >
-                      Get help
+                     {{$t('forest.gethelp')}}
                     </p>
                   </div>
                 </div>
@@ -278,7 +278,29 @@
             </div>
           </div>
         </div>
-        <div v-if="sendAsTreeCard" id="sendAsTreeCard" class="row form-name">
+         <div
+        v-if="activeIndex === 3"
+        class="col-12 final-step justify-content-center text-center"
+      >
+        <img
+          alt="final-step"
+          class="img-fluid mt-5"
+          src="~/assets/images/myforest/final-step.png"
+        />
+        <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
+           {{$t('forest.congratulations')}}
+        </h1>
+        <p class="mt-3 tr-gray-three">
+          {{$t('forest.rural')}}
+        </p>
+        <nuxt-link
+          :to="localePath('/forest/' + $cookies.get('account'))"
+          class="tr-green param pt-5"
+        > {{$t('forest.gobacktomyforest')}}
+        </nuxt-link
+        >
+      </div>
+        <!-- <div v-if="sendAsTreeCard" id="sendAsTreeCard" class="row form-name">
           <div class="col-12">
             <div class="card bg-transparent p-4 mt-5">
               <div class="form-full-name">
@@ -411,9 +433,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div v-if="activeIndex === 1" class="col-12 step-two">
+        </div> -->
+      <!-- </div> -->
+      <!-- <div v-if="activeIndex === 1" class="col-12 step-two">
         <div v-if="this.$store.state.account === null" class="row">
           <div class="col-12 mt-5 justify-content-center text-center">
             <h1 class="title-sm font-weight-bolder text-center">
@@ -435,19 +457,6 @@
             class="col-12 col-lg-4 mt-3 justify-content-center text-center"
           >
             <Wallets/>
-
-            <!--              <ul class="wallets tr-gray-three list-style-none">-->
-            <!--                <li v-for="(item, index) in wallets" class="pointer-event">-->
-            <!--                  <p-->
-            <!--                    @click="activeWallets(item, index)"-->
-            <!--                    :class="{ active: activeWallet === index }"-->
-            <!--                    :key="index"-->
-            <!--                    :name="item.name"-->
-            <!--                  >-->
-            <!--                    {{ item.name }}-->
-            <!--                  </p>-->
-            <!--                </li>-->
-            <!--              </ul>-->
             <p class="param mt-3 tr-gray-five">New to Ethereum?</p>
             <p class="param tr-green">Learn more about wallets</p>
             <button
@@ -586,29 +595,9 @@
             <hr/>
           </div>
         </div>
-      </div>
-      <div
-        v-if="activeIndex === 3"
-        class="col-12 final-step justify-content-center text-center"
-      >
-        <img
-          alt="final-step"
-          class="img-fluid mt-5"
-          src="~/assets/images/myforest/final-step.png"
-        />
-        <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
-          Congratulations, your forest just got bigger!!
-        </h1>
-        <p class="mt-3 tr-gray-three">
-          Rural communities are notified to plant your trees.
-        </p>
-        <nuxt-link
-          :to="localePath('/forest/' + $cookies.get('account'))"
-          class="tr-green param pt-5"
-        >Go back to My Forest
-        </nuxt-link
-        >
-      </div>
+      </div> -->
+     
+    </div>
     </div>
   </section>
 </template>
@@ -654,8 +643,8 @@ export default {
       pays: [
         {href: "https://app.hop.exchange/#/send?token=DAI&sourceNetwork=ethereum&destNetwork=polygon", name: "Bridge"},
         {href: "https://global.transak.com/?defaultCryptoCurrency=DAI&fiatCurrency=USD&defaultNetwork=polygon", name: "Visa/Master"},
-        {href: "https://docs.treejer.com/", name: "Learn more"},
-        {href: "https://discuss.treejer.com/", name: "Questions"},
+        {href: "https://docs.treejer.com/", name: this.$t('header.learnmore')},
+        {href: "https://discuss.treejer.com/", name: this.$t('header.questions')},
       ],
       bridgeLoading: false,
       slectedPays: null,
@@ -758,57 +747,57 @@ export default {
       window.open('https://app.sushi.com/swap?outputCurrency=0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', '_blank');
       return;
 
-      let self = this;
-      if (!self.$cookies.get("account")) {
-        self.$bvToast.toast("you're not login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-        self.$bvModal.show("five");
-        return
-      }
+      // let self = this;
+      // if (!self.$cookies.get("account")) {
+      //   self.$bvToast.toast("you're not login", {
+      //     toaster: "b-toaster-bottom-left",
+      //     solid: true,
+      //     headerClass: "hide",
+      //     variant: "danger",
+      //   });
+      //   self.$bvModal.show("five");
+      //   return
+      // }
 
 
-      let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "Dai",
-        // defaultCryptoAmount: this.treePrice * this.count,
-        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-        themeColor: "000000", // App theme color
-        fiatCurrency: "USD", // INR/GBP
-        email: "", // Your customer's email address
-        redirectURL: "",
-        hostURL: window.location.origin,
-        widgetHeight: "550px",
-        widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
-      });
+      // let transak = new transakSDK({
+      //   apiKey: process.env.transakApiKey, // Your API Key
+      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+      //   defaultCryptoCurrency: "Dai",
+      //   // defaultCryptoAmount: this.treePrice * this.count,
+      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+      //   themeColor: "000000", // App theme color
+      //   fiatCurrency: "USD", // INR/GBP
+      //   email: "", // Your customer's email address
+      //   redirectURL: "",
+      //   hostURL: window.location.origin,
+      //   widgetHeight: "550px",
+      //   widgetWidth: "450px",
+      //   networks: process.env.transakNetworks,
+      //   defaultNetwork: process.env.transakDefaultNetwork,
+      // });
 
-      transak.init();
+      // transak.init();
 
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
-      });
+      // // To get all the events
+      // transak.on(transak.ALL_EVENTS, (data) => {
+      //   console.log(data);
+      // });
 
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        self.setDaiBalance();
-        transak.close();
-      });
+      // // This will trigger when the user marks payment is made.
+      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      //   console.log(orderData);
+      //   self.$bvToast.toast(["Your payment was successful"], {
+      //     toaster: "b-toaster-bottom-left",
+      //     title: "Your wallet charged",
+      //     variant: "success",
+      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+      //       "account"
+      //     )}`,
+      //   });
+      //   self.setDaiBalance();
+      //   transak.close();
+      // });
     },
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net.getId()

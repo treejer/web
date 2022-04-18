@@ -9,10 +9,9 @@
         <div class="col-lg-8 col-12">
           <div class="row">
             <div class="col-12">
-              <h2 class="title-sm">Leaderboard</h2>
+              <h2 class="title-sm">{{$t('leaderboard.title')}}</h2>
               <p class="param-sm">
-                Browse your recent payment events, notifications and verified
-                trees.
+                {{$t('leaderboard.description')}}
               </p>
             </div>
             <div class="col-12 mt-2">
@@ -37,10 +36,10 @@
               <table class="table tr-table" style="overflow-x: scroll">
                 <thead>
                   <tr>
-                    <th scope="col">RANK</th>
-                    <th scope="col">OWNER</th>
-                    <th scope="col">TREES</th>
-                    <th scope="col">LINK</th>
+                    <th scope="col"> {{$t('leaderboard.rank')}}</th>
+                    <th scope="col"> {{$t('leaderboard.owner')}}</th>
+                    <th scope="col"> {{$t('leaderboard.trees')}}</th>
+                    <th scope="col"> {{$t('leaderboard.link')}}</th>
                   </tr>
                 </thead>
                 <tbody v-if="owners">
@@ -146,9 +145,9 @@
               <table class="table tr-table" style="overflow-x: scroll">
                 <thead>
                   <tr>
-                    <th scope="col">RANK</th>
-                    <th scope="col">PLANTER</th>
-                    <th scope="col">TREES</th>
+                    <th scope="col"> {{$t('leaderboard.rank')}}</th>
+                    <th scope="col"> {{$t('leaderboard.planter')}}</th>
+                    <th scope="col"> {{$t('leaderboard.trees')}}</th>
                     <!-- <th scope="col">LINK</th> -->
                   </tr>
                 </thead>
@@ -253,9 +252,9 @@
               <table class="table tr-table" style="overflow-x: scroll">
                 <thead>
                   <tr>
-                    <th scope="col">RANK</th>
-                    <th scope="col">PLANTER</th>
-                    <th scope="col">REFERRED</th>
+                    <th scope="col"> {{$t('leaderboard.rank')}}</th>
+                    <th scope="col"> {{$t('leaderboard.planter')}}</th>
+                    <th scope="col">{{$t('leaderboard.referred')}}</th>
                     <!-- <th scope="col">LINK</th> -->
                   </tr>
                 </thead>
@@ -361,7 +360,7 @@
             class="title-sm text-center font-weight-bolder mb-4"
             style="color: #616161"
           >
-            Discover Earth Ambassadors
+           {{$t('leaderboard.discover')}}
           </h1>
 
           <img
@@ -382,21 +381,43 @@ import plantersSorted from "~/apollo/queries/plantersSorted";
 export default {
   name: "leaderBoards",
   layout: "dashboard",
-  head() {
+    data() {
     return {
-      title: `Treejer`,
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "contact our business and team",
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content: "business team_business treejer treejer_contact_us teams ",
-        },
+      activeIndex: 0,
+      first: `<img src=${require("~/assets/images/leaderBoards/first.svg")} />`,
+      second: `<img src=${require("~/assets/images/leaderBoards/second.svg")} />`,
+      third: `<img src=${require("~/assets/images/leaderBoards/third.svg")} />`,
+      id: null,
+      stepsLeaderBoard: [
+        { name: this.$t('leaderboard.topforests'), icon: "tree" },
+        { name: this.$t('leaderboard.topplanters'), icon: "trophy" },
+        { name: this.$t('leaderboard.topreferrers'), icon: "bell" },
       ],
+      perPage: 10,
+      meta:{
+        title: this.$t('leaderboard.meta.title'),
+        description:  this.$t('leaderboard.meta.description'),
+        keywords:  this.$t('leaderboard.meta.keywords'),
+      }
+    };
+  },
+   head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: this.meta.keywords},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
     };
   },
   components: {
@@ -438,21 +459,7 @@ export default {
   },
   computed: {},
 
-  data() {
-    return {
-      activeIndex: 0,
-      first: `<img src=${require("~/assets/images/leaderBoards/first.svg")} />`,
-      second: `<img src=${require("~/assets/images/leaderBoards/second.svg")} />`,
-      third: `<img src=${require("~/assets/images/leaderBoards/third.svg")} />`,
-      id: null,
-      stepsLeaderBoard: [
-        { name: "Top Forests", icon: "tree" },
-        { name: "Top Planters", icon: "trophy" },
-        { name: "Top Referrers", icon: "bell" },
-      ],
-      perPage: 10,
-    };
-  },
+
   async created() {
     await this.$store.commit("SET_SIDEBAR_INDEX", 2);
   },

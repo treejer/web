@@ -24,10 +24,10 @@
                   >{{
                     $route.params.id != $cookies.get("account")
                       ? $route.params.id
-                      : "My"
+                      : $t("forest.my")
                   }}</span
                 >
-                Forest
+                {{ $t("forest.forest") }}
               </h2>
             </div>
           </div>
@@ -63,11 +63,10 @@
                 <div class="row">
                   <div class="col-md-6">
                     <p class="tr-gray-one param-18 mb-1 font-weight-bold">
-                      Getting Started
+                      {{ $t("forest.gettingstarted") }}
                     </p>
                     <p class="param tr-gray-three">
-                      Let’s help you get started setting up your forest. Here
-                      are some key things to do.
+                      {{ $t("forest.help") }}
                     </p>
                   </div>
                   <div class="col-md-6">
@@ -84,7 +83,11 @@
                             "
                             @click="showModal"
                           >
-                            {{ $cookies.get("account") ? "Done" : "step 1" }}
+                            {{
+                              $cookies.get("account")
+                                ? $t("forest.done")
+                                : $t("forest.step1")
+                            }}
                           </button>
                         </span>
                         <span
@@ -94,7 +97,7 @@
                               : 'tr-gray-three'
                           "
                         >
-                          Connect your wallet
+                          {{ $t("forest.connectyourwallet") }}
                         </span>
                       </li>
                       <li
@@ -111,8 +114,8 @@
                           >
                             {{
                               loginAccountData && loginAccountData.treeCount > 0
-                                ? "Done"
-                                : "step 2"
+                                ? $t("forest.done")
+                                : $t("forest.step2")
                             }}
                           </button>
                         </span>
@@ -123,7 +126,7 @@
                               : 'tr-gray-two'
                           "
                         >
-                          Add trees to your forest
+                          {{ $t("forest.add") }}
                         </span>
                       </li>
 
@@ -139,10 +142,10 @@
                             "
                             @click="comunity()"
                           >
-                            step 3
+                            {{ $t("forest.step3") }}
                           </button>
                         </span>
-                        <span> Join our community! </span>
+                        <span> {{ $t("forest.join") }} </span>
                       </li>
                       <li
                         class="list-style-none param-sm mb-1 Montserrat-Medium"
@@ -152,10 +155,10 @@
                             :class="'btn-green'"
                             @click="$router.push('/forest/referral')"
                           >
-                            step 4
+                            {{ $t("forest.step4") }}
                           </button>
                         </span>
-                        <span> Invite Friends </span>
+                        <span> {{ $t("forest.invite") }}</span>
                       </li>
                     </ul>
                   </div>
@@ -166,7 +169,7 @@
           <div class="row forest-status position-relative">
             <div class="col-12 mt-5">
               <p class="param-18 tr-gray-three Montserrat-Medium p-0">
-                Forest Status
+                {{ $t("forest.status") }}
               </p>
             </div>
             <div class="col-12 position-relative p-0">
@@ -220,7 +223,6 @@
                         #{{ $hex2Dec(tree.id) }}
                       </p>
                     </span>
-                    
                   </NuxtLink>
                   <!-- <b-tooltip :target="tree.id">{{ tree.id }}</b-tooltip> -->
                 </div>
@@ -248,7 +250,7 @@
           >
             <div class="col-12">
               <p class="param-18 tr-gray-three Montserrat-Medium">
-                Forest on the Map
+                {{ $t("forest.map") }}
               </p>
             </div>
             <div
@@ -491,7 +493,7 @@
             <div class="trees">
               <div class="add-tree">
                 <button class="btn-lg text-capitalize" @click="goToAddTree()">
-                  plant trees
+                  {{$t('forest.plant')}}
                 </button>
               </div>
             </div>
@@ -518,7 +520,38 @@ export default {
   layout: "dashboard",
   components: { Metamask, Fas, Wallets, FindTreeButton },
 
-  head() {
+  data() {
+    return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title: this.$t('forest.meta.title') + this.$route.params.id,
+        description: this.$t('forest.meta.description') + this.$route.params.id + this.$t('forest.meta.description2'),
+        keywords: this.$t('forest.meta.keywords'),
+      },
+      title: this.$route.name,
+      placeHolderTrees: [],
+      treeIcon: require("~/assets/images/myforest/tree.svg"),
+      avatar: require("~/assets/images/myforest/avatar.png"),
+      stats: [
+        { name: this.$t('forest.forestsize')},
+        { name: this.$t('forest.genesis')},
+        { name: this.$t('forest.regular')},
+      ],
+      activeIndexSteps: null,
+      loading: false,
+      trees: [],
+      treesWithLocation: [],
+      ownerTreesLoaded: false,
+      mapConfigData: mapConfig,
+      currentTree: {},
+      daiBalance: 0,
+      wethBalance: 0,
+      skip: 0,
+      perPage: 50,
+      googleMapKey: 0,
+    };
+  },
+   head() {
     return {
       title: this.meta.title,
       meta: [
@@ -531,7 +564,7 @@ export default {
           hid: "keywords",
           name: "keywords",
           content:
-            "treejer,treejer forest,NFTTree,treeNFT,forest page, forest profile",
+          this.meta.keywords,
         },
 
         { hid: "og:title", property: "og:title", content: this.meta.title },
@@ -602,36 +635,7 @@ export default {
     },
   },
 
-  data() {
-    return {
-      baseUrl: process.env.baseUrl,
-      meta: {
-        title: "Treejer | Forest " + this.$route.params.id,
-        description: "See " + this.$route.params.id + " Forest on Treejer",
-      },
-      title: this.$route.name,
-      placeHolderTrees: [],
-      treeIcon: require("~/assets/images/myforest/tree.svg"),
-      avatar: require("~/assets/images/myforest/avatar.png"),
-      stats: [
-        { name: "Forest Size" },
-        { name: "Genesis Trees" },
-        { name: "Regular Trees" },
-      ],
-      activeIndexSteps: null,
-      loading: false,
-      trees: [],
-      treesWithLocation: [],
-      ownerTreesLoaded: false,
-      mapConfigData: mapConfig,
-      currentTree: {},
-      daiBalance: 0,
-      wethBalance: 0,
-      skip: 0,
-      perPage: 50,
-      googleMapKey: 0
-    };
-  },
+ 
   async created() {
     if (
       this.$route.params.id === "guest" &&
@@ -641,7 +645,9 @@ export default {
       if (process.client) {
         window.location.href = "/forest/" + this.$cookies.get("account");
       } else {
-        this.$router.push(this.localePath("/forest/" + this.$cookies.get("account")));
+        this.$router.push(
+          this.localePath("/forest/" + this.$cookies.get("account"))
+        );
       }
     }
 

@@ -3,15 +3,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-8 col-12 box-left-treebox">
-          <h1 class="title tr-gray-two font-weight-bold">TreeBox</h1>
+          <h1 class="title tr-gray-two font-weight-bold">{{$t('treebox.treebox')}}</h1>
           <p class="param tr-gray-three">
-            Plant trees and send them as gift with a personal message. TreeBox
-            recipients don’t need to have a web 3.0 wallet to recieve NFT trees.
+            {{$t('treebox.description')}}
             <a class="d-inline tr-green font-weight-bolder" href="#">
-              Learn more</a
+             {{$t('header.learnmore')}}</a
             >
           </p>
-          <p class="param-18 tr-gray-two tr-margin-top">Distribution method</p>
+          <p class="param-18 tr-gray-two tr-margin-top">{{$t('treebox.distribution')}}</p>
           <ul class="method pt-4 over-flow-x-scroll">
             <li
               class="pointer-event position-relative"
@@ -21,12 +20,12 @@
               @click.prevent="index === 0 ? setActiveIndex(index) : null"
             >
               <span v-if="index !== 0" class="soon btn-gree tr-white"
-                >SOON</span
+                >{{$t('treebox.soon')}}</span
               >
               {{ item.name }}
             </li>
           </ul>
-          <p class="param-18 tr-gray-two tr-margin-top">Number of recipients (max. 150)</p>
+          <p class="param-18 tr-gray-two tr-margin-top">{{$t('treebox.recipients')}}</p>
           <ul class="recipient over-flow-x-scroll">
             <li
               class="pointer-event"
@@ -48,7 +47,7 @@
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
-            Number of trees in each TreeBox (max. 100)
+            {{$t('treebox.numbertrees')}}
           </p>
           <ul class="recipient over-flow-x-scroll">
             <li
@@ -75,18 +74,18 @@
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
-            Message (max. 200 characters)
+            {{$t('treebox.message')}}
           </p>
           <textarea
             class="message param-sm tr-gray-four font-weight-bold"
             v-model="message"
-            placeholder="Write your message here..."
+            :placeholder="$t('treebox.write')"
           />
 
           <div class="col-12" v-if="showAdvance">
             <p class="param-18 tr-gray-two tr-margin-top">
               <button class="btn-green" @click.prevent="generateWallets()">
-                Generate Wallets
+                {{$t('treebox.generate')}}
               </button>
             </p>
 
@@ -141,7 +140,7 @@
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ Number(countOfRecepient) * Number(countOfRecepientTreebox) }}
           </h1>
-          <p class="param-md tr-gray-four">Total Trees to Send</p>
+          <p class="param-md tr-gray-four">{{$t('treebox.totaltrees')}}</p>
 
           <button
             v-if="approved"
@@ -151,14 +150,14 @@
             <BSpinner v-if="loadingCreate" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loadingCreate ? "Loading" : " Create TreeBox" }}
+            {{ loadingCreate ? $t('aboutus.loading') : $t('treebox.createtreebox') }}
           </button>
 
           <button v-else class="btn-green" @click.prevent="setApprovalForAll">
             <BSpinner v-if="loadingApprove" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loadingApprove ? "Loading" : " Approve" }}
+            {{ loadingApprove ?  $t('aboutus.loading') :  $t('aboutus.loading') }}
           </button>
 
           <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
@@ -174,36 +173,19 @@ import owner from "~/apollo/queries/owner";
 export default {
   name: "TreeBoxCreate",
   layout: "dashboard",
-  head() {
-
-    return {
-      title: this.meta.title,
-      meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,treebox, create treebox'},
-
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
-
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
-      ]
-
-
-    };
-  },
+  
   data() {
     return {
       baseUrl: process.env.baseUrl,
 
       meta: {
-        title: 'Treejer | Create TreeBox',
-        description: "Create TreeBox and gift them"
+        title: this.$t('treebox.title'),
+        description: this.$t('treebox.description'),
+        keywords: this.$t('treebox.keywords')
       },
 
 
-      activeMethods: [{ name: "Link" }, { name: "Email" }, { name: "API" }],
+      activeMethods: [{ name: this.$t('treebox.link') }, { name: this.$t('treebox.email') }, { name:this.$t('treebox.api') }],
       numberRecepient: [
         { name: "1" },
         { name: "10" },
@@ -240,6 +222,25 @@ export default {
 
       messageIPFSHash: "",
       treeboxCreated: false,
+    };
+  },
+  head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: this.meta.keywords},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
     };
   },
   apollo: {

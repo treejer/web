@@ -8,10 +8,9 @@
         <div class="col-md-8 col-12">
           <div class="row">
             <div class="col-12">
-              <h2 class="title-sm">Activity</h2>
+              <h2 class="title-sm">{{ $t("activity.title") }}</h2>
               <p class="param-sm">
-                Browse your recent payment events, notifications and verified
-                trees.
+                {{ $t("activity.description") }}
               </p>
             </div>
             <div class="col-12 mb-5 mt-2">
@@ -30,11 +29,11 @@
                     "
                   >
                     <span v-if="history.event === 'HighestBidIncreased'">
-                      You successfully increased bid
+                      {{ $t("activity.yousuccessfullyincreasedbid") }}
                       <span class="tr-green font-weight-bold Montserrat-Medium"
                         >Ξ{{ $web3.utils.fromWei(history.value) }}</span
                       >
-                      on auction
+                       {{ $t("activity.onauction") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $hex2Dec(history.typeId) }}</span
@@ -42,7 +41,7 @@
                     </span>
 
                     <span v-if="history.event === 'AuctionSettled'">
-                      You successfully settled auction
+                      {{ $t("activity.yousuccessfullysettled") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $hex2Dec(history.typeId) }}</span
@@ -50,7 +49,7 @@
                     </span>
 
                     <span v-if="history.event === 'AuctionEnded'">
-                      You successfully ended auction
+                     {{ $t("activity.yousuccessfullyendedauction") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $hex2Dec(history.typeId) }}</span
@@ -58,19 +57,19 @@
                     </span>
 
                     <span v-if="history.event === 'WonAuction'">
-                      You are the winner of auction
+                      {{ $t("activity.youarethewinnerofauction") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $hex2Dec(history.typeId) }}</span
                       >
-                      with
+                      {{ $t("activity.with") }}
                       <span class="tr-green font-weight-bold Montserrat-Medium"
                         >Ξ{{ $web3.utils.fromWei(history.value) }}</span
                       >
                     </span>
 
                     <span v-if="history.event === 'HonoraryClaimed'">
-                      You successfully claimed your honorarium
+                     {{ $t("activity.yousuccessfullyclaimed") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $hex2Dec(history.typeId) }}</span
@@ -78,22 +77,22 @@
                     </span>
 
                     <span v-if="history.event === 'IncrementalTreeFunded'">
-                      You successfully funded
+                       {{ $t("activity.yousuccessfullyfunded") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ history.count }}</span
                       >
-                      genesis tree{{ history.count > 1 ? "s" : "" }}
+                       {{ $t("activity.genesistree") }}{{ history.count > 1 ? "s" : "" }}
                       <!-- with total value <span class="tr-green font-weight-bold Montserrat-Medium">Ξ{{ $web3.utils.fromWei(history.value) }}</span> -->
                     </span>
 
                     <span v-if="history.event === 'RegularTreeFunded'">
-                      You successfully funded
+                     {{ $t("activity.yousuccessfullyfunded") }}
                       <span
                         class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ history.count }}</span
                       >
-                      tree{{ history.count > 1 ? "s" : "" }} with total value
+                       {{ $t("activity.tree") }}{{ history.count > 1 ? "s" : "" }}{{ $t("activity.withtotalvalue") }}
                       <span class="tr-green font-weight-bold Montserrat-Medium"
                         >{{ $web3.utils.fromWei(history.value) }}DAI</span
                       >
@@ -155,20 +154,48 @@ export default {
   name: "updates",
   layout: "dashboard",
   components: { Fas },
-
+  data() {
+    return {
+      etherScanUrl: process.env.etherScanUrl,
+      meta: {
+        title: this.$t("activity.meta.title"),
+        description: this.$t("activity.meta.description"),
+        keywords: this.$t("activity.meta.keywords"),
+      },
+    };
+  },
   head() {
     return {
-      title: `Treejer - Activity`,
+      title: this.meta.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "contact our business and team",
+          content: this.meta.description,
+        },
+        { hid: "keywords", name: "keywords", content: this.meta.keywords },
+
+        { hid: "og:title", property: "og:title", content: this.meta.title },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.meta.description,
         },
         {
-          hid: "keywords",
-          name: "keywords",
-          content: "business team_business treejer treejer_contact_us teams ",
+          hid: "og:url",
+          property: "og:url",
+          content: this.baseUrl + "/tree/" + this.$route.params.id,
+        },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: this.baseUrl + "/featureImage/jake-hills.jpg",
+        },
+
+        {
+          hid: "twitter:title",
+          property: "twitter:title",
+          content: this.meta.title,
         },
       ],
     };
@@ -197,11 +224,7 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      etherScanUrl: process.env.etherScanUrl,
-    };
-  },
+
   computed: {},
   methods: {},
   async created() {

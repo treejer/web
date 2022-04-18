@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative find-tree-button justify-content-center d-flex" :style="`margin-top:${marginTop} `">
-    <span><input  class="tr-gray-four param" type="text" v-model="treeID"  placeholder="Enter Tree ID" @keyup.enter="goToTreePage()" /></span>
+    <span><input  class="tr-gray-four param" type="text" v-model="treeID"  :placeholder="$t('forest.entertreeID')" @keyup.enter="goToTreePage()" /></span>
     <span><img class="pointer-event" @click.prevent="goToTreePage()" :src="searchIcon" alt="search-icon"> </span>
   </div>
 </template>

@@ -7,7 +7,7 @@
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="param-18 font-weight-bolder tr-gray-two">
-                  How many trees to plant?
+                  {{$t('forest.howmany')}}
                 </h1>
                 <ul class="d-flex list-style-none mt-4 pl-0">
                   <li
@@ -65,7 +65,7 @@
               <div class="col-12 col-md-12 mt-5 pt-2 send-as-gift-code">
                 <div class="row justify-content-between">
                   <div class="col-md-6 col-6">
-                    <p class="param-18 font-weight-bolder">Send as gift</p>
+                    <p class="param-18 font-weight-bolder">{{$t('forest.sendasgift')}}</p>
                   </div>
                   <div class="col-md-6 col-6 form-check">
                     <div class="on-off-toggle">
@@ -90,7 +90,7 @@
                     <input
                       v-model="recipient"
                       class="form-control-lg tr-input w-100 ease-out"
-                      placeholder="Enter recipient’s address"
+                      :placeholder="$t('forest.recipients')"
                     />
                   </div>
                   <div class="col-12 col-md-4">
@@ -116,7 +116,7 @@
                       mt-1
                     "
                   >
-                    You’re Funding
+                  {{$t('forest.yourefunding')}}
                   </h1>
                 </div>
                 <div class="col-12">
@@ -127,7 +127,7 @@
                           {{ count }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder mb-0">
-                          {{ count > 1 ? " Trees" : " Tree" }}
+                          {{ count > 1 ? $t('genesis.trees') : $t('genesis.tree') }}
                         </p>
                       </div>
                       <div class="col-md-6 p-md-0 mb-direction">
@@ -150,7 +150,7 @@
                             mb-0
                           "
                         >
-                          Total WETH
+                           {{$t('forest.total')}} WETH
                         </p>
                       </div>
                     </div>
@@ -172,7 +172,7 @@
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner>
-                    {{ loading ? "Loading" : " Buy WETH on Matic" }}
+                    {{ loading ? $t('aboutus.loading') : " Buy WETH on Matic" }}
                   </button>
 
                   <button
@@ -193,7 +193,7 @@
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner>
-                    {{ loading ? "Loading" : " Confirm" }}
+                    {{ loading ? $t('aboutus.loading') :  $t('forest.confirm') }}
                   </button>
 
                   <button
@@ -214,11 +214,11 @@
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner>
-                    {{ loading ? "Loading" : " Approve" }}
+                    {{ loading ? $t('aboutus.loading') :  $t('forest.approve') }}
                   </button>
 
                   <p class="mt-3 param tr-gray-two mb-0">
-                    By proceeding I agree to
+                    {{$t('forest.byproceeding')}}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -227,9 +227,9 @@
                           '_blank'
                         )
                       "
-                    >terms</span
+                    >{{$t('forest.terms')}}</span
                     >
-                    and
+                    {{$t('header.and')}}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -238,7 +238,7 @@
                           '_blank'
                         )
                       "
-                    >conditions.</span
+                    >{{$t('forest.conditions')}}</span
                     >
                   </p>
                 </div>
@@ -253,7 +253,7 @@
                         text-center
                       "
                     >
-                      Get help
+                     {{$t('forest.gethelp')}}
                     </p>
                   </div>
                 </div>
@@ -329,8 +329,8 @@ export default {
       pays: [
         {href: "https://app.hop.exchange/#/send?token=ETH&sourceNetwork=ethereum&destNetwork=polygon", name: "Bridge"},
         {href: "https://global.transak.com/?defaultCryptoCurrency=WETH&fiatCurrency=USD&defaultNetwork=polygon", name: "Visa/Master"},
-        {href: "https://docs.treejer.com/", name: "Learn more"},
-        {href: "https://discuss.treejer.com/", name: "Questions"},
+        {href: "https://docs.treejer.com/", name: this.$t('header.learnmore')},
+        {href: "https://discuss.treejer.com/", name:  this.$t('header.questions')},
       ],
       slectedPays: null,
       bridgeLoading: false,

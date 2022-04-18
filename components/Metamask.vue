@@ -56,7 +56,7 @@
       </div>
 
       <NuxtLink
-        :to="`/forest/${$cookies.get('account')}`"
+        :to="localePath(`/forest/${$cookies.get('account')}`)"
         class="position-relative"
       >
         <img
