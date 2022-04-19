@@ -136,7 +136,7 @@ export default {
       }
     },
     goTolink(id) {
-      this.$router.push(id);
+      this.$router.push(this.localePath(id));
     },
   },
   async mounted() {

@@ -23,7 +23,7 @@ export default {
 
   methods: {
     placeBid(id) {
-      this.$router.push(`/tree/${id}`);
+      this.$router.push(this.localePath(`/tree/${id}`));
     },
   },
 };

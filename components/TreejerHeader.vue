@@ -2,19 +2,17 @@
   <div class="headers container" style="min-height: 10vh">
     <keep-alive>
       <b-navbar toggleable="lg">
-        <b-navbar-brand
-          class="pointer-event position-relative"
-          :to="localePath('index')"
-        >
-          <img
-            class="img-fluid pointer-event"
-            alt="logo"
-            name="treejer"
-            src="/logo/treejer.png"
-          />
+        <b-navbar-brand class="pointer-event position-relative d-flex d-lg-block">
+          <nuxt-link :to="localePath('/')">
+            <img
+              class="img-fluid pointer-event"
+              alt="logo"
+              name="treejer"
+              src="/logo/treejer.png"
+          /></nuxt-link>
+             <Flags class="d-block d-lg-none ml-3" />
         </b-navbar-brand>
         <b-navbar-nav class="mobile-navbar">
-        
           <client-only>
             <div class="d-lg-none d-block w-md-100">
               <Metamask @showModal="showModal" />
@@ -29,22 +27,24 @@
         >
           <!-- Right aligned nav items -->
           <b-navbar-nav class="header-menu">
-            <NuxtLink to="/genesis" class="nav-item">
-              <span class="nav-link">Genesis</span>
+            <NuxtLink :to="localePath('/genesis')" class="nav-item">
+              <span class="nav-link"> {{ $t("header.genesis") }}</span>
             </NuxtLink>
-            <NuxtLink to="/partnerships" class="nav-item">
-              <span class="nav-link">Partnerships</span>
+            <NuxtLink :to="localePath('/partnerships')" class="nav-item">
+              <span class="nav-link">{{$t("header.partnerships") }}</span>
             </NuxtLink>
             <a href="https://blog.treejer.com" target="_blank" class="nav-item">
-              <span name="Blog" class="nav-link"> Blog </span>
+              <span name="Blog" class="nav-link"> {{$t("header.blog") }} </span>
             </a>
-            <NuxtLink to="/about" class="nav-item">
-              <span class="nav-link">About</span>
+            <NuxtLink :to="localePath('/about')" class="nav-item">
+              <span class="nav-link">{{$t("header.about") }}</span>
             </NuxtLink>
+            <Flags class="d-none d-lg-block " />
           </b-navbar-nav>
           <client-only>
             <div class="d-lg-block d-none w-md-100">
               <Metamask @showModal="showModal" />
+            
             </div>
           </client-only>
         </b-collapse>
@@ -59,12 +59,14 @@
 <script>
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
+import Flags from '../components/Flags.vue';
 
 export default {
   name: "TreejerHeader",
   components: {
     Wallets,
     Metamask,
+    Flags
   },
   data() {
     return {
@@ -166,22 +168,18 @@ export default {
     .navbar {
       padding: 0;
     }
-
-
   }
 }
 
 @media screen and (max-width: 768px) {
   .headers {
     .mobile-navbar {
-      width: 64%;
+      width: 50%;
     }
 
     .navbar-brand {
       margin-right: 0;
     }
   }
-  
 }
-  
 </style>

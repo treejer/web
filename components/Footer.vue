@@ -4,22 +4,22 @@
       <div class="row">
         <div class="col-lg-8 col-12 menu">
           <b-nav>
-            <NuxtLink to="/" class="nav-item">
-              <span class="nav-link">Home</span>
+            <NuxtLink :to="localePath('/')" class="nav-item">
+              <span class="nav-link">{{$t('header.home')}}</span>
             </NuxtLink>
 
             <b-nav-item target="_blank" href="https://blog.treejer.com/"
-              >Blog</b-nav-item
+              >{{$t('header.blog')}}</b-nav-item
             >
 
-            <NuxtLink to="/Partnerships" class="nav-item">
-              <span class="nav-link">partnerships</span>
+            <NuxtLink :to="localePath('/Partnerships')" class="nav-item">
+              <span class="nav-link">{{$t('header.partnerships')}}</span>
             </NuxtLink>
-            <NuxtLink to="/About" class="nav-item">
-              <span class="nav-link">about</span>
+            <NuxtLink :to="localePath('/About')" class="nav-item">
+              <span class="nav-link">{{$t('header.about')}}</span>
             </NuxtLink>
-            <NuxtLink to="/contact" class="nav-item">
-              <span class="nav-link">Contact</span>
+            <NuxtLink :to="localePath('/contact')" class="nav-item">
+              <span class="nav-link">{{$t('header.contact')}}</span>
             </NuxtLink>
           </b-nav>
         </div>

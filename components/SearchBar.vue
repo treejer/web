@@ -54,7 +54,7 @@ export default {
             headerClass: 'hide',
             variant: 'danger'
           })
-          self.$router.push(`/find`)
+          self.$router.push(this.localePath(`/find`))
         });
     },
     changeRoute(item) {

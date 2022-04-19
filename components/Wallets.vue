@@ -1,7 +1,7 @@
 <template>
   <ul class="wallets tr-gray-three list-style-none d-block position-relative">
     <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4">
-      Select Wallet
+     {{$t('header.selectwallet')}} 
     </li>
     <li
       v-for="(item, index) in wallets"
@@ -35,7 +35,7 @@
     >
       <span style="letter-spacing: -3px"
         >-------------------------------------</span
-      ><span style="padding: 0 10px">What is a wallet? </span
+      ><span style="padding: 0 10px"> {{$t('header.whatisawallet')}}  </span
       ><span style="letter-spacing: -3px"
         >-------------------------------------</span
       >
@@ -50,41 +50,41 @@
         class="btn-gray param-sm text-white"
         style="margin: 0 15px; background: #424242"
       >
-        Learn more
+         {{$t('header.learnmore')}} 
       </button>
       <button
         @click="goTo('https://discuss.treejer.com/')"
         class="btn-gray param-sm text-white"
         style="margin: 0 15px; background: #424242"
       >
-        Get help
+        {{$t('header.gethelp')}} 
       </button>
     </li>
     <li
       class="param-sm justify-content-center mt-4 terms text-center font-weight-bold"
     >
-      By connecting your wallet you agree to our
+    {{$t('header.connecting')}} 
       <span class="tr-green"
         ><a
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/terms-of-service"
           target="_blank"
-          >Terms of Service </a
+          >  {{$t('header.terms')}} </a
         >,<a
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/privacy-policy"
           target="_blank"
         >
-          Privacy</a
+          {{$t('header.and')}}</a
         >
       </span>
-      and
+      {{$t('header.privacy')}}
       <span class="tr-green"
         ><a
           target="_blank"
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/cookie-policy"
-          >Cookie Policy</a
+          >{{$t('header.cookie')}}</a
         >.</span
       >
     </li>
@@ -96,12 +96,12 @@
         <li
           class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"
         >
-          Connecting to
+          {{$t('header.connectingto')}}
         </li>
         <li class="pointer-event mb-2">
           <p class="tr-gray-three param font-weight-bold">
             <span class="name text-capitalize">{{
-              connectingWallet || $cookies.get("walletName")
+              $t('header.connectingwallet') || $cookies.get("walletName")
             }}</span>
             <span class="icon">
               <img
@@ -138,12 +138,12 @@ export default {
     return {
       wallets: [
         {
-          name: "Metamask",
+          name: this.$t('header.metamask'),
           step: 1,
           src: require("~/assets/images/wallets/metamask.svg"),
         },
         {
-          name: "WalletConnect",
+          name: this.$t('header.Walletconnect'),
           step: 2,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },

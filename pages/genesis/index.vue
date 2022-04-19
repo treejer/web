@@ -36,12 +36,28 @@ import Gallery from "../../components/increamentalsell/Gallery";
 export default {
   name: "increamentalSell",
   components: {Collect, Gallery},
+  
+   data() {
+    return {
+      baseUrl: process.env.baseUrl,
+      meta: {
+        title:this.$t('genesis.meta.title'),
+        description: this.$t('genesis.meta.description'),
+        keywords:this.$t('genesis.meta.keywords')
+      },
+
+      activeIndex: 0,
+      tabs: [{name: this.$t('genesis.collect')}, {name: this.$t('genesis.gallery')}],
+
+      
+    };
+  },
   head() {
     return {
       title: this.meta.title,
       meta: [
         {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer genesis collection,treejer protocol,Collect Genesis Trees, nft tree'},
+        {hid: 'keywords', name: 'keywords', content: this.meta.keywords},
 
         {hid: 'og:title', property: 'og:title', content: this.meta.title},
         {hid: 'og:description', property: 'og:description', content: this.meta.description},
@@ -52,20 +68,7 @@ export default {
       ]
     };
   },
-  data() {
-    return {
-      baseUrl: process.env.baseUrl,
-      meta: {
-        title: 'Treejer | Collect Genesis Trees',
-        description: "Genesis Trees are the first 10k trees to be planted via Treejer Protocol. They're represented by unique NFT collectibles.",
-      },
-
-      activeIndex: 0,
-      tabs: [{name: "Collect"}, {name: "Gallery"}],
-
-      
-    };
-  },
+ 
   mounted() {
     this.setReferrerCookie();
 

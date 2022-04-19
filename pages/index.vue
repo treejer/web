@@ -8,7 +8,7 @@
             <div class="col-12 title">
               <client-only>
                 <h1 class="tr-gray-three font-weight-bold text-dn">
-                  A more
+                  {{ $t("homepage.maintextprefix") }}
                   <vue-typer
                     :erase-delay="50"
                     :erase-on-complete="false"
@@ -17,43 +17,52 @@
                     :repeat="Infinity"
                     :shuffle="false"
                     :text="[
-                      ' affordable',
-                      ' sustainable',
-                      ' transparent',
-                      ' impactful',
-                      ' inclusive',
-                      ' rewarding',
-                      ' gamified',
-                      ' measurable',
+                      $t('homepage.maintexts.affordable'),
+                      $t('homepage.maintexts.sustainable'),
+                       $t('homepage.maintexts.transparent'),
+                       $t('homepage.maintexts.impactful'),
+                       $t('homepage.maintexts.inclusive'),
+                       $t('homepage.maintexts.rewarding'),
+                       $t('homepage.maintexts.gamified'),
+                       $t('homepage.maintexts.measurable'),
                     ]"
                     :type-delay="200"
                     erase-style="backspace"
                     initial-action="typing"
                   ></vue-typer>
-                  Climate Action through<br class="d-md-block d-none"/>
-                  financial inclusion of rural communities.
+                  {{ $t("homepage.maintextmid") }}<br class="d-md-block d-none" />
+                   {{ $t("homepage.maintextsuffix") }}
                 </h1>
               </client-only>
             </div>
             <div class="col-12 form-group mt-3">
-
               <nuxt-link
-                :to="`/genesis`"
+                :to="localePath(`/genesis`)"
                 class="position-relative pointer-event leader"
               >
                 <button
-                  class="position-relative pointer-event leader btn-lg btn-green pointer-event param"
+                  class="
+                    position-relative
+                    pointer-event
+                    leader
+                    btn-lg btn-green
+                    pointer-event
+                    param
+                  "
                 >
-                  Collect Genesis Trees
+                   {{ $t("homepage.collectgenesistrees") }}
                 </button>
               </nuxt-link>
               <nuxt-link
-                :to="`/forest/${this.$cookies.get('account') || 'guest'}`"
-
+                :to="
+                  localePath(
+                    `/forest/${this.$cookies.get('account') || 'guest'}`
+                  )
+                "
                 class="position-relative pointer-event leader"
               >
                 <button class="btn-lg btn-outline-green pointer-event param">
-                  Plant a Forest
+                 {{ $t("homepage.plantForest") }}
                 </button>
               </nuxt-link>
             </div>
@@ -64,38 +73,57 @@
   </section>
 </template>
 <script>
-
 export default {
   name: "index",
   data() {
     return {
       treeCount: null,
-
       baseUrl: process.env.baseUrl,
       meta: {
-        title: 'Treejer | Planters Without Borders',
-        description: 'Plant a forest and support rural communities worldwide. Treejer uses Web3 to unlock new opportunities in Climate Finance.',
-      }
+        title: this.$t("homepage.meta.title"),
+        description:this.$t("homepage.meta.description"),
+        content:this.$t("homepage.meta.content")
+      },
     };
   },
   head() {
     return {
       title: this.meta.title,
       meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,treejer protocol,plant tree, nft tree'},
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.description,
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:  this.meta.content,
+        },
 
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl},
-        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+        { hid: "og:title", property: "og:title", content: this.meta.title },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.meta.description,
+        },
+        { hid: "og:url", property: "og:url", content: this.baseUrl },
+        {
+          hid: "og:image",
+          property: "og:image",
+          content: this.baseUrl + "/featureImage/jake-hills.jpg",
+        },
 
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
-      ]
-    }
+        {
+          hid: "twitter:title",
+          property: "twitter:title",
+          content: this.meta.title,
+        },
+      ],
+    };
   },
-  methods: {
-  },
+  methods: {},
+  created() {},
 };
 </script>
 

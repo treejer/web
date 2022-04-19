@@ -500,7 +500,7 @@ export default {
             "account"
           )}`,
         });
-        this.$router.push(`/genesis/success/${this.transferReceipt.transactionHash}`);
+        this.$router.push(this.localePath(`/genesis/success/${this.transferReceipt.transactionHash}`));
 
       }
       this.loading = false;

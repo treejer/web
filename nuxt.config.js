@@ -288,24 +288,26 @@ export default {
       iso: 'en-US',
       file: 'en.js'
     },
-      // {
-      //   name: 'Farsi',
-      //   code: 'fa',
-      //   iso: 'fa-FA',
-      //   file: 'fa.js'
-      // },
-      // {
-      //   name: 'Turkish',
-      //   code: 'tr',
-      //   iso: 'tr-TR',
-      //   file: 'tr.js'
-      // },
-      // {
-      //   name: 'Arabic',
-      //   code: 'ar',
-      //   iso: 'ar-AR',
-      //   file: 'ar.js'
-      // }
+      {
+        name: 'Farsi',
+        code: 'fa',
+        iso: 'fa-FA',
+        file: 'fa.js',
+        dir: 'rtl'
+      },
+      {
+        name: 'Turkish',
+        code: 'tr',
+        iso: 'tr-TR',
+        file: 'tr.js'
+      },
+      {
+        name: 'Arabic',
+        code: 'ar',
+        iso: 'ar-AR',
+        file: 'ar.js',
+        dir: 'rtl'
+      }
     ],
     defaultLocale: 'en',
     loadLanguagesAsync: true,
