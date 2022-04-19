@@ -16,16 +16,16 @@ export default {
   components: {},
   methods: {
     onCopy: function (e) {
-      this.$bvToast.toast(`Copy to clipboard! `, {
+      this.$bvToast.toast(this.$t('alert.copytoclipboard'), {
         variant: "success",
-        title: "Address has been on your clipboard",
+        title: this.$t('alert.address'),
         toaster: "b-toaster-bottom-left",
       });
     },
     onError: function (e) {
-      this.$bvToast.toast(`Failed to copy! `, {
+      this.$bvToast.toast(this.$t('alert.failed'), {
         variant: "danger",
-        title: "Failed to copy",
+        title: this.$t('alert.failed'),
         toaster: "b-toaster-bottom-left",
       });
     },

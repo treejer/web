@@ -32,9 +32,9 @@
     mounted() {
       this.$store.commit('SET_DASHBOARD' , true)
       if($nuxt.isOffline){
-        this.$bvToast.toast(['Please check your connection'], {
+        this.$bvToast.toast(this.$t('alert.checkyourconnection'), {
           toaster: 'b-toaster-bottom-left',
-          title: 'Connection is broked',
+          title:self.$t('alert.connectionisbroked') ,
           variant: 'danger',
           noAutoHide: true,
           bodyClass: 'fund-error'

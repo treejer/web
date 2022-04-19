@@ -319,7 +319,7 @@ export default {
     // },
     makeToast(variant = null) {
       if (this.$store.state.toast) {
-        return this.$bvToast.toast("install metamask from here", {
+        return this.$bvToast.toast(this.$t('alert.installmetamask'), {
           title: `https://metamask.io/'`,
           href: "https://metamask.io/",
           variant: variant,

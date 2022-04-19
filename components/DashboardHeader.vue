@@ -142,8 +142,8 @@ export default {
         if (netId.toString() === process.env.NETWORK_ID.toString()) {
           return
         }
-        self.$bvToast.toast('Switch to ' + process.env.NETWORK_NAME + ' Network', {
-          title: `Wrong network`,
+        self.$bvToast.toast(self.$t('alert.switchto') + process.env.NETWORK_NAME + self.$t('alert.network'), {
+          title: self.$t('alert.wrongnetwork'),
           href: 'https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/',
           variant: 'danger',
           solid: true,
@@ -185,7 +185,7 @@ export default {
       });
     },
     makeToast(variant = null) {
-      this.$bvToast.toast('install metamask from here', {
+      this.$bvToast.toast(this.$t('alert.installmetamask'), {
         title: `https://metamask.io/' ${variant || 'default'}`,
         href: 'https://metamask.io/',
         variant: variant,

@@ -138,7 +138,7 @@ export default {
           }
 
           self.loading = false;
-          self.$bvToast.toast("Your message was sent successfully.", {
+          self.$bvToast.toast(this.$t('alert.messagewassent'), {
             variant: "success",
             toaster: "b-toaster-bottom-left",
           });

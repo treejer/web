@@ -157,7 +157,7 @@
             <BSpinner v-if="loadingApprove" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loadingApprove ?  $t('aboutus.loading') :  $t('aboutus.loading') }}
+            {{ loadingApprove ?  $t('aboutus.loading') :  $t('treebox.approve') }}
           </button>
 
           <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
@@ -305,10 +305,10 @@ export default {
 
 
       if(this.countOfRecepient <=0 || this.countOfRecepientTreebox <= 0) {
-        this.$bvToast.toast(["Try again!"],
+        this.$bvToast.toast(this.$t('alert.tryagain'),
           {
             toaster: "b-toaster-bottom-left",
-            title: "Validation Error",
+            title: this.$t('alert.error'),
             variant: "danger",
             noAutoHide: true,
           }

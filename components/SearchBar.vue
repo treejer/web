@@ -48,7 +48,7 @@ export default {
         })
         .catch(function (error) {
           self.loading = false
-          self.$bvToast.toast("Tree Not found!", {
+          self.$bvToast.toast(self.$t('alert.treenotfound'), {
             toaster: 'b-toaster-bottom-left',
             solid: true,
             headerClass: 'hide',

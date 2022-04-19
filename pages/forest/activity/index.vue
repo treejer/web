@@ -230,7 +230,7 @@ export default {
   async created() {
     await this.$store.commit("SET_SIDEBAR_INDEX", 3);
     if (!this.$cookies.get("account")) {
-      this.$bvToast.toast("you're not login", {
+      this.$bvToast.toast(this.$t('alert.notlogin'), {
         toaster: "b-toaster-bottom-left",
         solid: true,
         headerClass: "hide",

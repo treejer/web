@@ -40,7 +40,7 @@ export default {
             if (result.data.trees.length > 0) {
               self.$router.push(this.localePath(`/tree/${self.treeID}`));
             } else {
-              self.$bvToast.toast("Tree Not found!", {
+              self.$bvToast.toast(self.$t('alert.treenotfound'), {
                 toaster: "b-toaster-bottom-left",
                 solid: true,
                 headerClass: "hide",
@@ -51,7 +51,7 @@ export default {
           }
         } catch (error) {
           this.loading = false;
-          this.$bvToast.toast("Server Error!", {
+          this.$bvToast.toast(self.$t('alert.servererror'), {
             toaster: "b-toaster-bottom-left",
             solid: true,
             headerClass: "hide",
@@ -62,7 +62,7 @@ export default {
 
       } else {
         self.loading = false;
-        self.$bvToast.toast("TreeId is empty!", {
+        self.$bvToast.toast(self.$t('alert.treeidisempty'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",

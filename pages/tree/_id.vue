@@ -46,11 +46,11 @@
           <div class="row pt-md-3 justify-content-between">
             <div class="col-md-3 col-12" >
               <div class="story">
-                <p class="text-center tr-gray-one param-xl font-weight-bold">Story</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">{{$t('tree.story')}}</p>
               </div>
               <div class="genesis-box mt-4 py-md-5 pr-md-4 pl-md-4">
                 <p class="text-center param tr-gray-two mb-0">
-                  Every tree has a unique story on this planet. Come back in a few weeks to read the story behind this tree.
+                  {{$t('tree.everytree')}}
                 </p>
                 <img
                     alt="tree-stroy"
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-6 col-12">
               <div class="people col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl font-weight-bold">People</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">  {{$t('tree.people')}}</p>
               </div>
               <div v-if="tree" class="col-md-12 pb-md-5 justify-content-center m-auto">
                 <span>
@@ -73,7 +73,7 @@
               </div>
             
               <div class="history col-md-6 justify-content-center m-auto">
-                <p class="text-center tr-gray-one param-xl font-weight-bold">History</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold"> {{$t('tree.history')}}</p>
               </div>
               <div class="col-md-10 justify-content-center m-auto">
                 <HistoryCard v-for="history in treeHistories" :history="history" :daiPrice="1" :key="history.id" />
@@ -84,13 +84,13 @@
                  
                   <div class="detail-card">
                     <div class="location part">
-                      <p class="param mb-0 tr-gray-three">Planted Date</p>
+                      <p class="param mb-0 tr-gray-three">{{$t('tree.plantedate')}}</p>
                       <p class="param-18 mb-0 tr-gray-two">
                         {{ $moment(tree.plantDate * 1000).strftime("%b %d, %Y at %I:%M %p") }}
                       </p>
                     </div>
                     <div class="gps part">
-                      <p class="param mb-0 tr-gray-three">GPS Coordinates</p>
+                      <p class="param mb-0 tr-gray-three">{{$t('tree.GPSCoordinates')}}</p>
                       <p class="param-18 mb-0 tr-gray-two">
                         <span class="pr-2">{{ tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.latitude / Math.pow(10, 6) ) : '-' }}</span
                         >,<span class="pl-2">{{ tree.treeSpecsEntity ? parseFloat( tree.treeSpecsEntity.longitude / Math.pow(10, 6) ) : '-' }}</span>
@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="planter part">
-                      <p class="param mb-0 tr-gray-three">Planter</p>
+                      <p class="param mb-0 tr-gray-three">{{$t('tree.planter')}}</p>
                       <p class="param-18 mb-0 tr-gray-two">
                         {{ tree.planter ? tree.planter.id : '-' }}
                       </p>
@@ -154,39 +154,39 @@
             </div>
             <div class="col-md-3 col-12">
               <div class="attributes">
-                <p class="text-center tr-gray-one param-xl font-weight-bold">Attributes</p>
+                <p class="text-center tr-gray-one param-xl font-weight-bold">{{$t('tree.attributes')}}</p>
 
                 <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Tree number:</span>
+                    <span class="key">{{$t('tree.treenumber')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">#{{ treeID }}</span>
                   </p> 
                 </div>
 
                 <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Distribution:</span>
+                    <span class="key">{{$t('tree.distribution')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Distribution') || 'N/A' }}</span>
                   </p> 
                 </div>
                 
                 <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Tree Shape:</span>
+                    <span class="key">{{$t('tree.shape')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Tree Shape') || 'N/A' }}</span>
                   </p> 
                 </div>
 
                 <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Crown Color:</span>
+                    <span class="key">{{$t('tree.crown')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Crown Color') || 'N/A' }}</span>
                   </p> 
                 </div>
 
                 <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Trunk Color:</span>
+                    <span class="key">{{$t('tree.trunk')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Trunk Color') || 'N/A' }}</span>
                   </p> 
                 </div>
@@ -194,14 +194,14 @@
 
                 <div v-if="oTreeData && oTreeData.attributes" class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p class="text-center param tr-gray-two mb-0">
-                    <span class="key">Secret Multiplier:</span>
+                    <span class="key">{{$t('tree.secret')}}</span>
                     <span class="value font-weight-bolder tr-gray-one">{{ searchAttribute('Secret Multiplier') || 'N/A' }}</span>
                   </p> 
                 </div>
 
                 <div class="genesis-box mt-4 py-md-2 pr-md-2 pl-md-2">
                   <p  class="text-center param tr-gray-two mb-0">
-                    <span class="key">Numbers: </span>
+                    <span class="key">{{$t('tree.numbers')}} </span>
                     <span class="value font-weight-bolder tr-gray-one" v-if="tree.attribute" >
                       {{ `[${tree.attribute.attribute1},${tree.attribute.attribute2},${tree.attribute.attribute3},${tree.attribute.attribute4},${tree.attribute.attribute5},${tree.attribute.attribute6},${tree.attribute.attribute7},${tree.attribute.attribute8}]` }}
                     </span>
@@ -237,32 +237,13 @@ export default {
   name: "tree-profile",
   layout: "landing",
   components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, mapDetails},
-  head() {
-
-    return {
-      title: this.meta.title + this.OtreeName,
-      meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,tree page, tree profile'},
-
-        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.OtreeName},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content:  (this.oTreeData ? this.oTreeData.image : '' ) },
-
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.OtreeName},
-      ]
-
-
-    };
-  },
-
   data() {
     return {
       baseUrl: process.env.baseUrl,
       meta: {
-        title: 'Treejer | ',
-        description: "Open the link to see more information. You can plant a forest and support rural communities worldwide with Treejer."
+        title: this.$t('tree.meta.title'),
+        description:this.$t('tree.meta.description'),
+        keywords:this.$t('tree.meta.keywords')
       },
 
       loading: false,
@@ -286,6 +267,28 @@ export default {
       OtreeName: null
     };
   },
+ 
+ head() {
+
+    return {
+      title: this.meta.title + this.OtreeName,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: this.meta.keywords},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title + this.OtreeName},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content:  (this.oTreeData ? this.oTreeData.image : '' ) },
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title + this.OtreeName},
+      ]
+
+
+    };
+  },
+
+ 
   async created() {
 
 

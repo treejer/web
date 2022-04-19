@@ -104,9 +104,9 @@ export default {
 
       if (transaction !== null) {
         this.setIsAllowance(this.count);
-        this.$bvToast.toast(["Transaction successfull"], {
+        this.$bvToast.toast([self.$t('alert.transactionsuccessfull')], {
           toaster: "b-toaster-bottom-left",
-          title: "You approved to spend dai",
+          title: self.$t('alert.youapprovedtospenddai'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
@@ -156,9 +156,9 @@ export default {
       // This will trigger when the user marks payment is made.
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
         console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
+        self.$bvToast.toast([self.$t('alert.yourpaymentwassuccessful')], {
           toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
+          title: self.$t('alert.charged'),
           variant: "success",
           href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"

@@ -99,7 +99,7 @@ export default {
       });
     },
     makeToast(variant = null) {
-      this.$bvToast.toast("install metamask from here", {
+      this.$bvToast.toast(this.$t('alert.installmetamask'), {
         title: `https://metamask.io/' ${variant || "default"}`,
         href: "https://metamask.io/",
         variant: variant,

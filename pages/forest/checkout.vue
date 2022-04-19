@@ -703,9 +703,9 @@ export default {
 
       if (transaction !== null) {
         this.setIsAllowance(this.count);
-        this.$bvToast.toast(["Transaction successfull"], {
+        this.$bvToast.toast(self.$t('alert.transactionsuccessfull'), {
           toaster: "b-toaster-bottom-left",
-          title: "You approved to spend dai",
+          title: self.$t('alert.approvedtospend'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
@@ -813,9 +813,9 @@ export default {
         return true;
       }
 
-      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+      this.$bvToast.toast(this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.wrongnetwork'), {
         toaster: "b-toaster-bottom-left",
-        title: 'Wrong network',
+        title:  this.$t('alert.wrongnetwork'),
         variant: 'danger',
         noAutoHide: true,
       });
@@ -831,9 +831,9 @@ export default {
       let daiBalanceBn =  new BN(this.$web3.utils.toWei((this.daiBalance.toString())));
 
       if(!daiBalanceBn.gte(this.totalDAI)) {
-        this.$bvToast.toast(['Insufficient Balance, Your DAI balance: ' + this.daiBalance], {
+        this.$bvToast.toast(this.$t('alert.insufficientbalance')+ this.daiBalance, {
           toaster: "b-toaster-bottom-left",
-          title: 'Not enough DAI',
+          title: this.$t('alert.notenoughDAI'),
           variant: 'danger',
           noAutoHide: true,
         });
@@ -849,7 +849,7 @@ export default {
         } catch (e) {
           self.$bvToast.toast([e.message], {
             toaster: 'b-toaster-bottom-left',
-            title: 'Invalid recipient address!',
+            title: this.$t('alert.invalidrecipient'),
             variant: 'danger',
             to: 'forest/checkout',
           })
@@ -866,9 +866,9 @@ export default {
       });
       if (this.transferReceipt !== null) {
         this.activeIndex = 3;
-        self.$bvToast.toast(["Your payment was successful"], {
+        self.$bvToast.toast(self.$t('alert.yourpaymentwassuccessful'), {
           toaster: "b-toaster-bottom-left",
-          title: "Trees added to forest",
+          title: this.$t('alert.treesaddedtoforest'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });

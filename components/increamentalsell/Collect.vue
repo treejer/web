@@ -444,7 +444,7 @@ export default {
     async claimHonanraryTree() {
       let self = this;
       if (!self.$cookies.get("account")) {
-        self.$bvToast.toast("you're not login", {
+        self.$bvToast.toast(self.$t('alert.notlogin'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
@@ -476,8 +476,8 @@ export default {
             let honoraryTreeRecipientData =
               honoraryTreeRecipient.data.honoraryTreeRecipient;
             if (honoraryTreeRecipientData === null) {
-              self.$bvToast.toast("You are not in recipients", {
-                title: "Error",
+              self.$bvToast.toast(self.$t('alert.notlogin'), {
+                title: self.$t('alert.error'),
                 toaster: "b-toaster-bottom-left",
                 solid: true,
                 headerClass: "hide",
@@ -486,24 +486,24 @@ export default {
             } else {
               let now = parseInt(Date.now() / 1000);
               if (honoraryTreeRecipientData.status === "1") {
-                self.$bvToast.toast("Already claimed!", {
-                  title: "Error",
+                self.$bvToast.toast(self.$t('alert.alreadyclaimed'), {
+                  title: self.$t('alert.error'),
                   toaster: "b-toaster-bottom-left",
                   solid: true,
                   headerClass: "hide",
                   variant: "danger",
                 });
               } else if (honoraryTreeRecipientData.expiryDate < now) {
-                self.$bvToast.toast("Expired!", {
-                  title: "Error",
+                self.$bvToast.toast(self.$t('alert.expired'), {
+                  title: self.$t('alert.error'),
                   toaster: "b-toaster-bottom-left",
                   solid: true,
                   headerClass: "hide",
                   variant: "danger",
                 });
               } else if (honoraryTreeRecipientData.startDate > now) {
-                self.$bvToast.toast("Not started!", {
-                  title: "Error",
+                self.$bvToast.toast(self.$t('alert.notstarted'), {
+                  title: self.$t('alert.error'),
                   toaster: "b-toaster-bottom-left",
                   solid: true,
                   headerClass: "hide",
@@ -514,9 +514,9 @@ export default {
                   context: this,
                 });
                 if (receipt !== null) {
-                  self.$bvToast.toast(["Honorary Tree claim was successful"], {
+                  self.$bvToast.toast(self.$t('alert.honorary'), {
                     toaster: "b-toaster-bottom-left",
-                    title: "Tree added to your forest",
+                    title:self.$t('alert.treeadded'),
                     variant: "success",
                     href: `${process.env.etherScanUrl}/tx/${receipt.transactionHash}`,
                   });

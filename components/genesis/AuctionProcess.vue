@@ -4,7 +4,7 @@
       v-if="started && !ended && auction.isActive && placeBidStep"
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
     >
-      This auction starts on <br />{{
+      {{$t('tree.auctionstartson')}} <br />{{
         $moment(auction.startDate * 1000).strftime("%b %d, %Y at %I:%M %p")
       }}
     </div>
@@ -14,7 +14,7 @@
       class="btn-green font-white param-md m-auto py-2 pr-5 pl-5"
       @click.prevent="placeBid('enterBidValueStep')"
     >
-      {{ !loading ? "Place a bid" : "Loading..." }}
+      {{ !loading ? $t('tree.placeabid') : $t('aboutus.loading') }}
     </button>
     <button
       v-if="!started && ended && auction.isActive && placeBidStep"
@@ -24,9 +24,9 @@
       {{
         !loading
           ? auction.bids.length > 0
-            ? "Settle Auction"
-            : "End Auction"
-          : "Loading..."
+            ? $t('tree.settle')
+            : $t('tree.endauction')
+          :  $t('aboutus.loading')
       }}
     </button>
 
@@ -35,7 +35,7 @@
     <div v-if="enterBidValueStep" class="w-100 row place-bid-step-two pt-5">
       <div class="col-md-6 border-right-bid text-left">
         <p class="mb-0 param tr-gray-two cursor-pointer" @click="bidValue = parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4)">
-          Min bid
+         {{$t('tree.minbid')}}
           {{
             parseFloat($web3.utils.fromWei(minBidValue.toString())).toFixed(4)
           }}
@@ -44,20 +44,20 @@
         <input
           v-model.number="bidValue"
           class="auction-bid-input tr-gray-two param-18 mt-3 font-weight-bolder"
-          placeholder="Enter bid amount"
+          :placeholder="$t('tree.enterbidamount')"
           type="text"
           @keyup.enter="placeBid('approveOrConfirm')"
         />
       </div>
       <div class="col-md-6 pb-4 text-left">
-        <p class="mb-0 param tr-gray-two" v-if="!ended">Ending in</p>
-        <p class="mb-0 param tr-gray-two" v-if="ended">Auction ended</p>
+        <p class="mb-0 param tr-gray-two" v-if="!ended"> {{$t('tree.endingin')}}</p>
+        <p class="mb-0 param tr-gray-two" v-if="ended"> {{$t('tree.auctionended')}}</p>
 
         <p
           v-if="ended"
           class="mb-0 timer param font-weight-bolder tr-gray-one mt-3"
         >
-          This auction is over in <br />{{
+         {{$t('tree.thisauctionisoverin')}}<br />{{
             $moment(auction.endDate * 1000).strftime("%b %d, %Y at %I:%M %p")
           }}
         </p>
@@ -93,7 +93,7 @@
           <BSpinner v-if="loading" class="mr-2" small type="grow"
             >loading
           </BSpinner>
-          {{ loading ? "Loading" : "Place Bid" }}
+          {{ loading ?   $t('aboutus.loading'):$t('tree.placeabid') }}
         </button>
       </div>
     </div>
@@ -103,12 +103,12 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> {{$t('tree.reserveprice')}}
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
-          <span class="btn-gray" @click.prevent="backToStep()">Back</span>
+          <span class="btn-gray" @click.prevent="backToStep()">{{$t('tree.back')}}</span>
         </div>
         <div class="col-md-6 pl-md-0">
           <button
@@ -120,7 +120,7 @@
             <BSpinner v-if="loading" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loading ? "Loading" : " Approve" }}
+           {{ loading ?   $t('aboutus.loading'):$t('forest.approve') }}
           </button>
         </div>
       </div>
@@ -131,12 +131,12 @@
         ><span class="tr-gray-two"> WETH</span>
       </p>
       <p class="tr-gray-four param-18">
-        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong> Reserve Price:
+        <strong>$ {{ parseInt(ethPrice * bidValue) }}</strong>{{$t('tree.reserveprice')}}
         <strong>{{ bidValue }}</strong> WETH
       </p>
       <div class="row">
         <div class="col-md-6 pr-md-0">
-          <span class="btn-gray" @click.prevent="backToStep()">Back</span>
+          <span class="btn-gray" @click.prevent="backToStep()">{{$t('tree.back')}}</span>
         </div>
         <div class="col-md-6 pl-md-0">
           <button
@@ -147,7 +147,7 @@
             <BSpinner v-if="loading" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loading ? "Loading" : " Confirm" }}
+           {{ loading ?   $t('aboutus.loading'):$t('forest.confirm') }}
           </button>
         </div>
       </div>
@@ -155,15 +155,15 @@
 
     <div v-if="successStep" class="w-100 place-bid-step-three pt-3">
       <p class="tr-gray-three param-xl step-seven">
-        Your bid was placed successfully. Congrats!
+      {{$t('tree.successfully')}}
       </p>
 
       <div class="row">
         <div class="col-md-6 pr-md-0">
-          <span class="btn-gray" @click="refreshPage()">Not now</span>
+          <span class="btn-gray" @click="refreshPage()"> {{$t('tree.notnow')}}</span>
         </div>
         <div class="col-md-6 pl-md-0">
-          <span id="social" class="btn-green" @click="shareModal()">Share</span>
+          <span id="social" class="btn-green" @click="shareModal()">{{$t('tree.Share')}}</span>
           <b-modal id="social-target" centered hide-footer size="md">
             <ShareAuction />
           </b-modal>
@@ -251,45 +251,45 @@ export default {
       );
       return;
 
-      let self = this;
-      let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "WETH",
-        // defaultCryptoAmount: this.treePrice * this.localAmount,
-        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-        themeColor: "000000", // App theme color
-        fiatCurrency: "USD", // INR/GBP
-        email: "", // Your customer's email address
-        redirectURL: "",
-        hostURL: window.location.origin,
-        widgetHeight: "550px",
-        widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
-      });
+      // let self = this;
+      // let transak = new transakSDK({
+      //   apiKey: process.env.transakApiKey, // Your API Key
+      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+      //   defaultCryptoCurrency: "WETH",
+      //   // defaultCryptoAmount: this.treePrice * this.localAmount,
+      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+      //   themeColor: "000000", // App theme color
+      //   fiatCurrency: "USD", // INR/GBP
+      //   email: "", // Your customer's email address
+      //   redirectURL: "",
+      //   hostURL: window.location.origin,
+      //   widgetHeight: "550px",
+      //   widgetWidth: "450px",
+      //   networks: process.env.transakNetworks,
+      //   defaultNetwork: process.env.transakDefaultNetwork,
+      // });
 
-      transak.init();
+      // transak.init();
 
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
-      });
+      // // To get all the events
+      // transak.on(transak.ALL_EVENTS, (data) => {
+      //   console.log(data);
+      // });
 
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        self.setERC20Balance();
-        transak.close();
-      });
+      // // This will trigger when the user marks payment is made.
+      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      //   console.log(orderData);
+      //   self.$bvToast.toast(["Your payment was successful"], {
+      //     toaster: "b-toaster-bottom-left",
+      //     title: "Your wallet charged",
+      //     variant: "success",
+      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+      //       "account"
+      //     )}`,
+      //   });
+      //   self.setERC20Balance();
+      //   transak.close();
+      // });
     },
     async allowSpendERC20(silent = false) {
       if(await this.checkNetwork() === false) {
@@ -314,9 +314,9 @@ export default {
 
         await this.setIsAllowance(true);
 
-        this.$bvToast.toast(["Transaction successfull"], {
+        this.$bvToast.toast(self.$t('alert.transactionsuccessfull'), {
           toaster: "b-toaster-bottom-left",
-          title: "You approved to spend WETH token",
+          title: self.$t('alert.Youapprovedtospendtoken'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
@@ -365,9 +365,9 @@ export default {
       if (tx !== null) {
         this.resetAllStepAndGo("successStep");
 
-        this.$bvToast.toast(["Your bid was successful"], {
+        this.$bvToast.toast(this.$t('alert.bidwassuccessful'), {
           toaster: "b-toaster-bottom-left",
-          title: "Your placed successfully",
+          title: this.$t('alert.placedsuccessfully'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`,
         });
@@ -388,9 +388,9 @@ export default {
       if (tx !== null) {
         this.auction.isActive = false;
 
-        this.$bvToast.toast(["Auction ended successfully"], {
+        this.$bvToast.toast(this.$t('alert.endedsuccessfully'), {
           toaster: "b-toaster-bottom-left",
-          title: "Auction ended successfully",
+          title: this.$t('alert.endedsuccessfully'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`,
         });
@@ -412,7 +412,7 @@ export default {
     },
     async placeBid(goToStep) {
       if (this.$cookies.get("account") == null) {
-        this.$bvToast.toast("you're not login", {
+        this.$bvToast.toast(this.$t('alert.notlogin'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
@@ -543,9 +543,9 @@ export default {
         return true;
       }
 
-      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+      this.$bvToast.toast(this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.network'), {
         toaster: "b-toaster-bottom-left",
-        title: 'Wrong network',
+        title: this.$t('alert.wrongnetwork'),
         variant: 'danger',
         noAutoHide: true,
       });
