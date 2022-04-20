@@ -1,7 +1,7 @@
 export default {
-  title: 'Treejer',
+  title: 'تریجر',
   homepage: {
-    title: 'Planters Without Borders',
+    title: 'کاشت درخت بدون مرز',
     maintextprefix: 'A more',
     maintexts: {
       affordable: ' affordable',
@@ -33,7 +33,7 @@ export default {
     switchto: 'Switch to',
     connectwallet: 'Connect Wallet',
     connectedwith: 'Connected with',
-    yourAddress: 'Your Address',
+    yourAddress: 'آدرس شما',
     selectwallet: ' Select Wallet',
     whatisawallet: 'What is a wallet?',
     learnmore: 'Learn more',
