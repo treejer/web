@@ -9,31 +9,30 @@
             src="~/assets/images/myforest/final-step.png"
           />
           <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
-            Congratulations, your forest just got bigger!!
+            {{ $t("forest.congratulations") }}
           </h1>
           <p class="mt-3 tr-gray-three">
-            Your NFT trees will be revealed in 2-5 minutes. You can check it out in your forest dashboard.
+            {{ $t("genesis.nft") }}
           </p>
           <nuxt-link
             :to="localePath('/forest/' + $cookies.get('account'))"
             class="tr-green param pt-5"
-            >Go back to My Forest
+            > {{ $t("forest.gobacktomyforest") }}
           </nuxt-link>
           <br />
 
-
           <button class="btn-green param-18" @click="goToCheckout()">
-            Collect More Trees
+           {{$t('genesis.collectmoretrees')}}
           </button>
         </div>
 
         <div class="col-12">
-            <div class="row">
-                <div class="param pt-1">
-                    Symbols will be refreshed every 30 seconds.
-                </div>
+          <div class="row">
+            <div class="param pt-1">
+               {{$t('genesis.symbolswill')}}
             </div>
-            
+          </div>
+
           <div class="row" v-if="treeHistories.length > 0">
             <TreeCard
               v-for="history in treeHistories"
@@ -54,7 +53,6 @@
 import TreeCard from "../../../components/increamentalsell/TreeCard";
 import treeHistoriesBytxQuery from "~/apollo/queries/treeHistoriesBytx";
 
-
 export default {
   name: "genesisSuccess",
   components: { TreeCard },
@@ -62,10 +60,10 @@ export default {
     treeHistories: {
       query: treeHistoriesBytxQuery,
       prefetch: false,
-    //   skip() {
-    //     return this.$route.params.id === "guest" ? true : false;
-    //   },
-    //   prefetch: ({ route }) => ({ id: route.params.id.toLowerCase() }),
+      //   skip() {
+      //     return this.$route.params.id === "guest" ? true : false;
+      //   },
+      //   prefetch: ({ route }) => ({ id: route.params.id.toLowerCase() }),
       variables() {
         return {
           transactionHash: this.$route.params.id.toLowerCase(),
@@ -73,7 +71,7 @@ export default {
           skip: 0,
           orderBy: "createdAt",
           orderDirection: "asc",
-         };
+        };
       },
       fetchPolicy: "network-only",
     },
@@ -85,7 +83,7 @@ export default {
   },
   created() {
     setInterval(async () => {
-        await this.$apollo.queries.treeHistories.refetch();
+      await this.$apollo.queries.treeHistories.refetch();
     }, 30000);
   },
 
@@ -93,7 +91,7 @@ export default {
     async goToCheckout() {
       let self = this;
       if (!self.$cookies.get("account")) {
-        self.$bvToast.toast("you're not login", {
+        self.$bvToast.toast(this.$t('alert.notlogin'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",

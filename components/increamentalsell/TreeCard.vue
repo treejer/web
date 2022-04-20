@@ -12,7 +12,7 @@
               width="36"
             />
             <p class="tr-gray-four param-sm">
-              Owned by <br />
+              {{$t('genesis.ownedby')}} <br />
               <span v-coin class="tr-gray-one param font-weight-bolder">{{
                 tree.owner.id
               }}</span>

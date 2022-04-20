@@ -319,10 +319,10 @@ export default {
 
 
       if(this.owner === null) {
-          this.$bvToast.toast(["You don't have any tree!"],
+          this.$bvToast.toast( this.$t('alert.youdonthaveanytree'),
           {
             toaster: "b-toaster-bottom-left",
-            title: "Owned trees are empty",
+            title: this.$t('alert.treesareempty'),
             variant: "danger",
             noAutoHide: true,
           }
@@ -345,14 +345,14 @@ export default {
           totalTreesCount
       ) {
         this.$bvToast.toast(
-          `Owned Regular Trees count is: ${
+          `${this.$t('alert.regulartrees')} ${
             this.owner.regularTreeCount
-          } and less than selected trees count: ${
+          } ${this.$t('alert.less')} ${
             totalTreesCount
           } `,
           {
             toaster: "b-toaster-bottom-left",
-            title: "Owned Trees are not enough",
+            title: this.$t('alert.treesarenotenough'),
             solid: true,
             headerClass: "hide",
             variant: "danger",
@@ -380,7 +380,7 @@ export default {
 
          if (
           !confirm(
-            "Treebox message is empty, Are sure you want to create treebox without message?"
+            this.$t("alert.treeboxmessageisempty")
           )
           ) {
             this.loadingCreate = false;
@@ -391,7 +391,7 @@ export default {
 
       if (
         !confirm(
-          "Remember to download the CSV file after successful transaction. We don't save the CSV file in our server."
+          this.$t('alert.remembertodownload')
         )
       ) {
         this.loadingCreate = false;
@@ -445,10 +445,10 @@ export default {
       });
       if (res !== null) {
         this.$bvToast.toast(
-          ["All treeboxes successfully are created and ready to claim!"],
+          this.$t('alert.treeboxessuccessfully'),
           {
             toaster: "b-toaster-bottom-left",
-            title: "Treeboxes successfully created",
+            title: this.$t('alert.successfullycreated'),
             variant: "success",
             href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
           }
@@ -509,9 +509,9 @@ export default {
         }
       );
       if (this.transferReceipt !== null) {
-        this.$bvToast.toast(["Approved all token to treebox contract!"], {
+        this.$bvToast.toast(this.$t('alert.approvedall'), {
           toaster: "b-toaster-bottom-left",
-          title: "Approval transaction successful",
+          title: this.$t('alert.approvaltransactionsuccessful'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
@@ -524,7 +524,7 @@ export default {
         return true;
       }
 
-      this.$bvToast.toast("you're not login", {
+      this.$bvToast.toast(this.$t('alert.notlogin'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
@@ -551,9 +551,9 @@ export default {
 
       this.$bvToast.toast(
         [
-          "Please connect to " +
+          this.$t('alert.pleaseconnect') +
             process.env.networkName.toUpperCase() +
-            " Network!",
+            this.$t('alert.network') ,
         ],
         {
           toaster: "b-toaster-bottom-left",
@@ -575,14 +575,14 @@ export default {
           totalTreesCount
       ) {
         this.$bvToast.toast(
-          `Owned Regular Trees count is: ${
+          `${this.$t('alert.regulartrees')} ${
             this.owner.regularTreeCount
-          } and less than selected trees count: ${
+          } ${this.$t('alert.less')} ${
             totalTreesCount
           } `,
           {
             toaster: "b-toaster-bottom-left",
-            title: "Owned Trees are not enough",
+            title: this.$t('alert.treesarenotenough'),
             solid: true,
             headerClass: "hide",
             variant: "danger",

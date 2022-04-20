@@ -241,16 +241,16 @@ export default {
       this.$bvModal.show("five");
     },
     onCopy: function (e) {
-      this.$bvToast.toast(`Copy to clipboard! `, {
+      this.$bvToast.toast(this.$t('alert.copytoclipboard'), {
         variant: "success",
-        title: "Invite link has been on your clipboard",
+        title: this.$t('alert.textandinvite'),
         toaster: "b-toaster-bottom-left",
       });
     },
     onError: function (e) {
-      this.$bvToast.toast(`Failed to copy! `, {
+      this.$bvToast.toast(this.$t('alert.failed'), {
         variant: "danger",
-        title: "Failed to copy",
+        title: this.$t('alert.failed'),
         toaster: "b-toaster-bottom-left",
       });
     },
@@ -269,7 +269,7 @@ export default {
     },
     async plantRewards() {
       if (!this.$cookies.get("account")) {
-        this.$bvToast.toast("you're not login", {
+        this.$bvToast.toast(this.$t('alert.notlogin'), {
           toaster: "b-toaster-bottom-left",
           solid: true,
           headerClass: "hide",
@@ -280,9 +280,9 @@ export default {
       }
 
       if (this.totalClaimable <= 0) {
-        this.$bvToast.toast(`Total claimable is zero!`, {
+        this.$bvToast.toast(this.$t('alert.totalclaimable'), {
           variant: "danger",
-          title: "Plant Rewards Failed",
+          title: this.$t('alert.plantrewardsfailed'),
           toaster: "b-toaster-bottom-left",
         });
         return;
@@ -295,9 +295,9 @@ export default {
       );
 
       if (transaction !== null) {
-        this.$bvToast.toast(["Transaction successfull"], {
+        this.$bvToast.toast(this.$t('alert.transactionsuccessfull'), {
           toaster: "b-toaster-bottom-left",
-          title: "Your rewards changed to trees",
+          title: this.$t('alert.yourrewardschangedtotrees'),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });

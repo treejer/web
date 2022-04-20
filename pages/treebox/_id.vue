@@ -56,20 +56,20 @@
           </div>
 
           <div class="mt-1">
-            <p class="tr-gray-two">Recipient’s Ethereum address (optional):</p>
+            <p class="tr-gray-two">{{$t('treebox.recipientsethereum')}}</p>
             <input
               type="text"
               class="border col-md-6 col-12"
               style="background-color: #f5f5f5"
               v-model="recipient"
-              placeholder="Enter recipient’s Ethereum address or login to claim your trees"
+              :placeholder="$t('treebox.ethereumaddress')"
             />
             <button
               class="btn-green d-block font-weight-bolder"
               @click="$bvModal.show('five')"
               v-if="!recipient"
             >
-              Log in to claim
+             {{$t('treebox.logintoclaim')}}
             </button>
           </div>
 
@@ -81,12 +81,12 @@
             <BSpinner v-if="loading" class="mr-2" small type="grow"
               >loading
             </BSpinner>
-            {{ loading ? "Loading" : " Claim" }}
+            {{ loading ?$t('aboutus.loading') : $t('treebox.claim') }}
           </button>
 
           <NuxtLink :to="`/forest/${recipient}`" v-if="recipient && claimed">
             <button class="btn-green d-block font-weight-bolder">
-              My Forest
+              {{$t('treebox.forest')}}
             </button>
           </NuxtLink>
 
@@ -95,11 +95,11 @@
 
         <div class="col-12 text-center" v-else>
           <img src="~assets/images/treebox/tree.png" style="filter: grayscale(100%)" alt="tree" />
-          <h4 class="title-sm tr-gry-two">This TreeBox is empty now. Someone else has already claimed the trees.</h4>
+          <h4 class="title-sm tr-gry-two">{{$t('treebox.thistreeBoxisemptynow')}}</h4>
 
           <NuxtLink :to="`/forest/checkout`">
             <button class="btn-green d-block font-weight-bolder">
-              Plant Trees
+              {{$t('treebox.planttrees')}}
             </button>
           </NuxtLink>
         </div>
@@ -111,7 +111,7 @@
           class="col-12 text-center"
         >
           <img src="~assets/images/treebox/tree.png" alt="tree" />
-          <h4 class="title-sm tr-gry-two">Box Not Found</h4>
+          <h4 class="title-sm tr-gry-two"> {{$t('treebox.boxnotfound')}}</h4>
           <p
             class="
               box-message
@@ -122,12 +122,12 @@
               font-weight-bolder
             "
           >
-            The box you are looking for is not found.
+            {{$t('treebox.thebox')}}
           </p>
 
           <NuxtLink :to="`/forest/checkout`">
             <button class="btn-green d-block font-weight-bolder">
-              Plant Trees
+             {{$t('treebox.planttrees')}}
             </button>
           </NuxtLink>
 
@@ -140,7 +140,7 @@
           class="col-12 text-center"
         >
           <img src="~assets/images/treebox/tree.png" alt="tree" />
-          <h4 class="title-sm tr-gry-two">Loading TreeBox</h4>
+          <h4 class="title-sm tr-gry-two"> {{$t('treebox.loadingtreeBox')}}</h4>
           <p
             class="
               box-message
@@ -151,7 +151,7 @@
               font-weight-bolder
             "
           >
-            Loading TreeBox...
+           {{$t('treebox.loadingtreeBox')}}...
           </p>
 
           <BSpinner class="mr-2" small type="grow"
@@ -172,25 +172,6 @@
 export default {
   layout: "default",
   name: "TreeboxClaim",
-  head() {
-
-    return {
-      title: this.meta.title,
-      meta: [
-        {hid: 'description', name: 'description', content: this.meta.description},
-        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,treebox, claim treebox'},
-
-        {hid: 'og:title', property: 'og:title', content: this.meta.title},
-        {hid: 'og:description', property: 'og:description', content: this.meta.description},
-        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
-        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
-
-        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
-      ]
-
-
-    };
-  },
 
   data() {
     return {
@@ -210,6 +191,26 @@ export default {
       boxLoaded: false,
     };
   },
+    head() {
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {hid: 'description', name: 'description', content: this.meta.description},
+        {hid: 'keywords', name: 'keywords', content: 'treejer,tree,NFTTree,treeNFT,treebox, claim treebox'},
+
+        {hid: 'og:title', property: 'og:title', content: this.meta.title},
+        {hid: 'og:description', property: 'og:description', content: this.meta.description},
+        {hid: 'og:url', property: 'og:url', content: this.baseUrl + '/tree/' + this.$route.params.id},
+        {hid: 'og:image', property: 'og:image', content: this.baseUrl + '/featureImage/jake-hills.jpg'},
+
+        {hid: 'twitter:title', property: 'twitter:title', content: this.meta.title},
+      ]
+
+
+    };
+  },
+
   async created() {
     
     this.recipient = this.$cookies.get("account");
@@ -287,9 +288,9 @@ export default {
       }
 
       if (this.recipient == null || this.recipient.length <= 0) {
-        this.$bvToast.toast(["recipient address is required"], {
+        this.$bvToast.toast(this.$t('alert.recipientaddressisrequired'), {
           toaster: "b-toaster-bottom-left",
-          title: "Recipient required",
+          title:this.$t('alert.recipientrequired'),
           variant: "danger",
           noAutoHide: true,
         });
@@ -303,9 +304,9 @@ export default {
       } catch (e) {
         console.error("invalid recipient address", e.message);
 
-        this.$bvToast.toast(["Please enter valid recipient address"], {
+        this.$bvToast.toast(this.$t('alert.validrecipientaddress'), {
           toaster: "b-toaster-bottom-left",
-          title: "Invalid recipient address",
+         
           variant: "danger",
           noAutoHide: true,
         });
@@ -317,12 +318,12 @@ export default {
       if (this.recipient.toLowerCase() == this.account.address.toLowerCase()) {
         this.$bvToast.toast(
           [
-            "Recipient can't equal treebox recipient address: " +
+           this.$t('alert.recipient') +
               this.recipient,
           ],
           {
             toaster: "b-toaster-bottom-left",
-            title: "Recipient invalid",
+            title: this.$t('alert.recipientinvalid') ,
             variant: "danger",
             noAutoHide: true,
           }
@@ -333,7 +334,7 @@ export default {
       }
 
       if (
-        !confirm("Do you want to claim TreeBox for " + this.recipient + "?")
+        !confirm(this.$t('alert.Do you want to claim') + this.recipient + "?")
       ) {
         this.loading = false;
         return;
@@ -347,12 +348,12 @@ export default {
 
         this.$bvToast.toast(
           [
-            "Your forest got bigger. Page will redirect to your forest after 20 seconds.",
+            this.$t('alert.recipient'),
           ],
           {
             toaster: "b-toaster-bottom-left",
             title: "Claim successful",
-            variant: "success",
+            variant: this.$t('alert.claimsuccessful'),
             href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
             noAutoHide: true,
           }
@@ -382,13 +383,13 @@ export default {
 
       this.$bvToast.toast(
         [
-          "Please connect to " +
+          this.$t('alert.pleaseconnect') +
             process.env.networkName.toUpperCase() +
-            " Network!",
+            this.$t('alert.network'),
         ],
         {
           toaster: "b-toaster-bottom-left",
-          title: "Wrong network",
+          title:  this.$t('alert.wrongnetwork'),
           variant: "danger",
           noAutoHide: true,
         }

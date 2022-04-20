@@ -8,7 +8,7 @@
         <div class="col-md-8 col-12">
           <div class="row">
             <div class="col-12">
-              <h2 class="title-sm">{{ $t("activity.title") }}</h2>
+              <h2 class="title-sm">{{ $t("activity.title") }} </h2>
               <p class="param-sm">
                 {{ $t("activity.description") }}
               </p>

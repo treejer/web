@@ -373,57 +373,57 @@ export default {
       return;
 
 
-      let self = this;
-      if (!self.$cookies.get("account")) {
-        self.$bvToast.toast("you're not login", {
-          toaster: "b-toaster-bottom-left",
-          solid: true,
-          headerClass: "hide",
-          variant: "danger",
-        });
-        self.$bvModal.show("five");
-        return;
-      }
+      // let self = this;
+      // if (!self.$cookies.get("account")) {
+      //   self.$bvToast.toast("you're not login", {
+      //     toaster: "b-toaster-bottom-left",
+      //     solid: true,
+      //     headerClass: "hide",
+      //     variant: "danger",
+      //   });
+      //   self.$bvModal.show("five");
+      //   return;
+      // }
 
 
-      let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-        defaultCryptoCurrency: "Weth",
-        defaultCryptoAmount: this.totalWeth,
-        walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-        themeColor: "000000", // App theme color
-        fiatCurrency: "USD", // INR/GBP
-        email: "", // Your customer's email address
-        redirectURL: "",
-        hostURL: window.location.origin,
-        widgetHeight: "550px",
-        widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
-      });
+      // let transak = new transakSDK({
+      //   apiKey: process.env.transakApiKey, // Your API Key
+      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+      //   defaultCryptoCurrency: "Weth",
+      //   defaultCryptoAmount: this.totalWeth,
+      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
+      //   themeColor: "000000", // App theme color
+      //   fiatCurrency: "USD", // INR/GBP
+      //   email: "", // Your customer's email address
+      //   redirectURL: "",
+      //   hostURL: window.location.origin,
+      //   widgetHeight: "550px",
+      //   widgetWidth: "450px",
+      //   networks: process.env.transakNetworks,
+      //   defaultNetwork: process.env.transakDefaultNetwork,
+      // });
 
-      transak.init();
+      // transak.init();
 
-      // To get all the events
-      transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
-      });
+      // // To get all the events
+      // transak.on(transak.ALL_EVENTS, (data) => {
+      //   console.log(data);
+      // });
 
-      // This will trigger when the user marks payment is made.
-      transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
-        self.$bvToast.toast(["Your payment was successful"], {
-          toaster: "b-toaster-bottom-left",
-          title: "Your wallet charged",
-          variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
-        });
-        self.setWethBalance();
-        transak.close();
-      });
+      // // This will trigger when the user marks payment is made.
+      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
+      //   console.log(orderData);
+      //   self.$bvToast.toast(["Your payment was successful"], {
+      //     toaster: "b-toaster-bottom-left",
+      //     title: "Your wallet charged",
+      //     variant: "success",
+      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+      //       "account"
+      //     )}`,
+      //   });
+      //   self.setWethBalance();
+      //   transak.close();
+      // });
     },
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net.getId()
@@ -439,7 +439,7 @@ export default {
         return true;
       }
 
-      this.$bvToast.toast(['Please connect to ' + process.env.networkName.toUpperCase() + ' Network!'], {
+      this.$bvToast.toast([this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.network')], {
         toaster: "b-toaster-bottom-left",
         title: 'Wrong network',
         variant: 'danger',
@@ -454,9 +454,9 @@ export default {
       }
 
       if (parseFloat(this.totalWeth) > parseFloat(this.wethBalance)) {
-        this.$bvToast.toast(['Insufficient Balance, Your WETH balance: ' + this.daiBalance], {
+        this.$bvToast.toast([this.$t('alert.insufficientbalance') + this.daiBalance], {
           toaster: "b-toaster-bottom-left",
-          title: 'Not enough WETH',
+          title: this.$t('alert.notenoughWETH'),
           variant: 'danger',
           noAutoHide: true,
         });
@@ -472,7 +472,7 @@ export default {
         } catch(e) {
           self.$bvToast.toast([e.message], {
             toaster: 'b-toaster-bottom-left',
-            title: 'Invalid recipient address!',
+            title: this.$t('alert.invalidrecipient'),
             variant: 'danger',
             to: 'genesis/checkout',
           })
@@ -492,9 +492,9 @@ export default {
         }
       );
       if (this.transferReceipt !== null) {
-        self.$bvToast.toast(["Your payment was successful"], {
+        self.$bvToast.toast(this.$t('alert.yourpaymentwassuccessful'), {
           toaster: "b-toaster-bottom-left",
-          title: "Trees added to forest",
+          title: this.$t('alert.treesaddedtoforest'),
           variant: "success",
           href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
             "account"
@@ -563,9 +563,9 @@ export default {
   
         if (typeof transaction.transactionHash != "undefined") {
           this.setIsAllowance(this.count);
-          this.$bvToast.toast(["Transaction successfull"], {
+          this.$bvToast.toast(this.$t('alert.transactionsuccessfull'), {
             toaster: "b-toaster-bottom-left",
-            title: "You approved to spend WETH token",
+            title: this.$t('alert.Youapprovedtospendtoken'),
             variant: "success",
             href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
           });
