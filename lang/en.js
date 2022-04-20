@@ -85,6 +85,11 @@ export default {
     reeboxmessageisempty:"Treebox message is empty, Are sure you want to create treebox without message?",
     remembertodownload:"Remember to download the CSV file after successful transaction. We don't save the CSV file in our server.",
     youwanttoclaim:"Do you want to claim TreeBox for",
+    checkprogressonetherscan:"Check progress on Etherscan",
+    processingtransaction:"Processing transaction...",
+    haveenough:"You don't have enough Ether (ETH)",
+    transactionfailed:"Transaction failed",
+    refreshpage :"Refresh page and try Again! ",
 
 
   },

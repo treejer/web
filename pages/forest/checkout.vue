@@ -15,7 +15,6 @@
         <!--            </li>-khk -->
         <!--          </ul>-->
         <!--        </div>-->
-
         <div v-if="activeIndex === 0" class="col-12 step-one">
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">

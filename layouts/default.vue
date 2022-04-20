@@ -21,6 +21,7 @@ export default {
   middleware: "queryParamToCookie",
 
   mounted() {
+    
     this.$store.commit("SET_DASHBOARD", false);
     console.log($nuxt.isOffline, "$nuxt.isOffline");
     if ($nuxt.isOffline) {
@@ -34,6 +35,7 @@ export default {
     }
   },
   async created() {
+   
     await this.checkWorkbox();
     // if (process.client) {
     //   const workbox = await window.$workbox;

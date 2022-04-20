@@ -103,7 +103,8 @@ export default {
     { src: '~plugins/accountSlice.js', ssr: false },
     { src: '~plugins/num.js' },
     { src: '~plugins/avatar.js' },
-    { src: '~plugins/axios.js' }
+    { src: '~plugins/axios.js' },
+    { src: '~plugins/i18n.js' },
 
   ],
   buildModules: [

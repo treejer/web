@@ -6,6 +6,8 @@ export const state = () => ({
 
 
 export const actions = {
+  
+ 
   async getPrice({commit}) {
     try {
       let self = this
@@ -23,7 +25,11 @@ export const actions = {
     }
   },
   async fundTree(context, params) {
-    let self = this;
+   
+     let self = this;
+  
+    
+  
 
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
@@ -82,9 +88,9 @@ export const actions = {
           maxFeePerGas: null,
         }).on('transactionHash', (transactionHash) => {
           let bootStrapToaster = new BToast();
-          bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+          bootStrapToaster.$bvToast.toast(self.$translates.alert.checkprogressonetherscan, {
             toaster: 'b-toaster-bottom-left',
-            title: 'Processing transaction...',
+            title: self.$translates.alert.processingtransaction,
             variant: 'warning',
             href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
@@ -96,9 +102,9 @@ export const actions = {
           console.log(error, "errorr");
           const bootStrapToaster = new BToast();
           if (error.code === 32602) {
-            bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
+            bootStrapToaster.$bvToast.toast(self.$translates.alert.haveenough, {
               toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
+              title: self.$translates.alert.transactionfailed,
               variant: 'danger',
               to: '/forest/addTree',
               noAutoHide: true,
@@ -111,7 +117,7 @@ export const actions = {
           else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
+              title: self.$translates.alert.transactionfailed,
               variant: 'danger',
               to: '/forest/addTree',
               noAutoHide: true,
@@ -157,9 +163,9 @@ export const actions = {
           maxFeePerGas: null,
         }).on('transactionHash', (transactionHash) => {
           let bootStrapToaster = new BToast();
-          bootStrapToaster.$bvToast.toast(['Check progress on Etherscan'], {
+          bootStrapToaster.$bvToast.toast(this.$translates.alert.checkprogressonetherscan, {
             toaster: 'b-toaster-bottom-left',
-            title: 'Processing transaction...',
+            title:this.$translates.alert.processingtransaction,
             variant: 'warning',
             href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
@@ -171,9 +177,9 @@ export const actions = {
           console.log(error, "errorr");
           const bootStrapToaster = new BToast();
           if (error.code === 32602) {
-            bootStrapToaster.$bvToast.toast(['You don\'t have enough Ether (ETH)'], {
+            bootStrapToaster.$bvToast.toast(this.$translates.alert.haveenough, {
               toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
+              title: this.$translates.alert.transactionfailed,
               variant: 'danger',
               bodyClass: 'fund-error'
             })
@@ -183,7 +189,7 @@ export const actions = {
           } else {
             bootStrapToaster.$bvToast.toast([error.message], {
               toaster: 'b-toaster-bottom-left',
-              title: 'Transaction failed',
+              title: this.$translates.alert.transactionfailed,
               variant: 'danger',
               bodyClass: 'fund-error'
             })
