@@ -49,6 +49,7 @@
             <nuxt-link :to="localePath('/')" class="position-relative ">
               <img src="../assets/images/landing-footer/logo.png" class="img-fluid pointer-event" alt="treejer">
             </nuxt-link>
+            <Flags :landingFooter="true" />
             <p class="param tr-gray-two mt-3 "> {{ $t("landingfooter.blockchain") }}
             </p>
           </div>
@@ -68,10 +69,11 @@
 
 <script>
 import Socials from "./Socials";
+import Flags from "./Flags";
 
 export default {
   name: "LandingFooter",
-  components: {Socials},
+  components: {Socials,Flags},
   data() {
     return {
       listOne: [

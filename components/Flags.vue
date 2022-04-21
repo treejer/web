@@ -1,5 +1,7 @@
 <template>
-  <div class="flags-group position-relative">
+  <div 
+  :class="landingFooter ? 'footer-flags-group' : 'flags-group'"
+  class="position-relative">
     <img
       @click.prevent="showingFlags = !showingFlags"
       :src="require(`~/assets/images/flags/${$i18n.localeProperties.code}.png`)"
@@ -30,6 +32,12 @@
 
 <script>
 export default {
+  props: {
+    landingFooter: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       showingFlags: false,
@@ -44,6 +52,29 @@ export default {
 <style lang="scss" scoped>
 .flags-group {
   text-align: left;
+  margin-top: 20px;
+  .flags-box {
+    position: absolute;
+    z-index: +9999;
+    .flags-item {
+      background-color: white;
+      width: 100px;
+      height: 30px;
+      border-bottom: 1px solid green;
+      border-radius: 6px;
+      padding: 5px;
+      .tr-gray-two {
+        width: 300px;
+        position: absolute;
+        left: 0;
+        padding-left: 40px;
+      }
+    }
+  }
+}
+.footer-flags-group{
+  display: inline-block;
+  margin-left: 50px;
   margin-top: 20px;
   .flags-box {
     position: absolute;

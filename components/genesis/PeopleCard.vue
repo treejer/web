@@ -2,13 +2,13 @@
   <div class="row  peoples justify-content-around mt-md-4">
     <div class="border-0">
       <img alt="Planter" :src="tree.planter ?  $avatarByWallet(tree.planter.id) : defaultAvatar"/>
-      <p class="param tr-gray-two mt-2">Planter</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.planter ? tree.planter.id : 'Not Planted' }}</p>
+      <p class="param tr-gray-two mt-2">{{$t('genesis.planter')}}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.planter ? tree.planter.id : $t('genesis.notplanted') }}</p>
     </div>
     <div class="border-0" >
       <img alt="Funder" :src="tree.funder ?  $avatarByWallet(tree.funder.id) : (tree.owner ? '/logo/treejer.png': defaultAvatar)"/>
-      <p class="param tr-gray-two mt-2">Funder</p>
-      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id :  (tree.owner ? 'Treejer': 'Not Funded')  }}</p>
+      <p class="param tr-gray-two mt-2">{{$t('genesis.funder')}}</p>
+      <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.funder ? tree.funder.id :  (tree.owner ? $t('title'): $t('genesis.notfunded'))  }}</p>
     </div>
 
     <NuxtLink v-if="tree.owner"
@@ -16,14 +16,14 @@
       class="border-0"
     >
         <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
-        <p class="param tr-gray-two mt-2">Owner</p>
-        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
+        <p class="param tr-gray-two mt-2">{{$t('genesis.owner')}}</p>
+        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id :  $t('genesis.notowned') }}</p>
     </NuxtLink>
 
     <div v-else class="border-0">
         <img alt="Owner" :src="tree.owner ?  $avatarByWallet(tree.owner.id) : defaultAvatar" />
-        <p class="param tr-gray-two mt-2">Owner</p>
-        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id : 'Not Owned' }}</p>
+        <p class="param tr-gray-two mt-2">{{$t('genesis.owner')}}</p>
+        <p v-coin class="address-wallet tr-gray-three adrees-wallet param">{{ tree.owner ? tree.owner.id :  $t('genesis.notowned') }}</p>
       </div>
 
 

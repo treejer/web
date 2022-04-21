@@ -25,7 +25,7 @@
       </div>
       <div class="col-md-3 col-3 price-card btn-see-div pr-0">      
         <a :href="`${explorerUrl}/tx/${history.transactionHash}`" target="_blank"  class="btn btn-see tr-white param-18 font-weight-bolder">
-          See
+         {{$t('genesis.see')}}
         </a>
       </div>
 

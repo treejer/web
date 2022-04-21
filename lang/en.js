@@ -180,6 +180,15 @@ export default {
     collectmoretrees:'Collect More Trees',
     symbolswill:'Symbols will be refreshed every 30 seconds.',
     ownedby :'Owned by ',
+    see:'See',
+    notplanted:'Not planted',
+    notfunded:'Not Funded',
+    notowned:'Not Owned',
+    planter:'Planter',
+    funder:'Funder',
+    owner:'Owner',
+    treeoflife:'Tree of Life',
+    buyWETHonmatic:'Buy WETH on Matic',
 
     meta: {
       title: "Treejer | Collect Genesis Trees",

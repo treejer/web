@@ -172,7 +172,7 @@
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
                     >loading
                     </BSpinner>
-                    {{ loading ? $t('aboutus.loading') : " Buy WETH on Matic" }}
+                    {{ loading ? $t('aboutus.loading') : $t('genesis.buyWETHonmatic') }}
                   </button>
 
                   <button
