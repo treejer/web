@@ -568,7 +568,7 @@ export default {
     vertical-align: middle;
     text-align: center;
     padding: 5px 15px;
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
       margin-bottom: 35px;
       line-height: inherit;
       vertical-align: middle;
@@ -626,7 +626,7 @@ export default {
     border-radius: 0px 0px 12px 12px;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     margin-bottom: 35px;
   }
 

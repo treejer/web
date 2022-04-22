@@ -19,7 +19,8 @@ export const state = () => ({
   fortmatic: null,
   torus: null,
   connectingWallet: null,
-  modalFive: false
+  modalFive: false,
+  showMobileSidebar:false,
 })
 
 export const actions = {
@@ -216,6 +217,9 @@ export const mutations = {
 
   SET_SIDEBAR_INDEX(state, index) {
     state.index = index
+  },
+  SET_MOBILE_SIDEBAR(state, showMobileSidebar) {
+    state.showMobileSidebar = showMobileSidebar
   },
   SET_LEADERBOARDS(state, leaderBoards) {
     state.leaderBoards = leaderBoards

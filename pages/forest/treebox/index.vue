@@ -179,9 +179,9 @@ export default {
       baseUrl: process.env.baseUrl,
 
       meta: {
-        title: this.$t('treebox.title'),
-        description: this.$t('treebox.description'),
-        keywords: this.$t('treebox.keywords')
+        title: this.$t('treebox.meta.title'),
+        description: this.$t('treebox.meta.description'),
+        keywords: this.$t('treebox.meta.keywords')
       },
 
 

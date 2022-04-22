@@ -1,8 +1,12 @@
 <template>
-  <b-navbar-nav ref="page" class="metamask">
+  <b-navbar-nav
+    :class="mobile ? 'mobile-metamask' : 'metamask-desktop'"
+    ref="page"
+    class="metamask"
+  >
     <b-nav-form v-if="!$cookies.get('account')">
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
-        {{$t('header.connectwallet')}} 
+        {{ $t("header.connectwallet") }}
       </b-button>
 
       <NuxtLink :to="localePath('/forest/guest')" class="position-relative">
@@ -28,7 +32,9 @@
         "
         @click.prevent="switchNetwork()"
       >
-        <b-button class="connect-button switch-wallet"> {{$t('header.switchto')}} {{ runningNetwrokName }} </b-button>
+        <b-button class="connect-button switch-wallet">
+          {{ $t("header.switchto") }} {{ runningNetwrokName }}
+        </b-button>
       </div>
 
       <div
@@ -48,7 +54,7 @@
           ><img
             :src="icon"
             alt="accounting"
-            class="img-fluid bg-white d-none d-md-block rounded-circle"
+            class="img-fluid bg-white rounded-circle"
             height="42"
             style="border: solid 2px white"
             width="42"
@@ -86,7 +92,7 @@
             text-center
           "
         >
-           {{$t('header.connectedwith')}} 
+          {{ $t("header.connectedwith") }}
         </li>
         <li class="pointer-event mb-2">
           <p
@@ -136,7 +142,7 @@
         >
           <span style="letter-spacing: -3px"
             >-------------------------------------</span
-          ><span style="padding: 0 10px"> {{$t('header.yourAddress')}} </span
+          ><span style="padding: 0 10px"> {{ $t("header.yourAddress") }} </span
           ><span style="letter-spacing: -3px"
             >-------------------------------------</span
           >
@@ -149,7 +155,7 @@
             class="btn-green param pr-4 pl-4 pt-2 pb-2"
             @click="changeWallet()"
           >
-          {{$t('header.connectwallet')}}
+            {{ $t("header.connectwallet") }}
           </button>
         </li>
       </ul>
@@ -164,7 +170,7 @@ import Badge from "@/components/Badge";
 
 export default {
   components: { Wallets, CopyToClipBoard, Badge },
-  props: ["wallets"],
+  props: ["wallets", "mobile"],
 
   data() {
     return {
@@ -199,46 +205,40 @@ export default {
     }, 500);
 
     if (process.client && window.ethereum) {
-     
-      window.ethereum.on('networkChanged', function(networkId){
-        console.log('networkChanged',networkId);
+      window.ethereum.on("networkChanged", function (networkId) {
+        console.log("networkChanged", networkId);
         self.connectedNetwrokID = networkId;
         window.location.reload();
       });
-    } 
-
-
+    }
   },
 
   methods: {
-
     async switchNetwork() {
       // this.$web3.currentProvider.enable();
       await this.$web3.currentProvider.enable();
 
       try {
-
-
         await this.$web3.currentProvider.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: this.$dec2hex(process.env.NETWORK_ID) }],
         });
 
         window.location.reload();
-
       } catch (error) {
         if (error.code === 4902) {
           try {
-
-            if(process.env.NETWORK_ID.toString() ==='137') {
-
+            if (process.env.NETWORK_ID.toString() === "137") {
               await this.$web3.currentProvider.request({
                 method: "wallet_addEthereumChain",
                 params: [
                   {
                     chainId: "0x137",
                     chainName: "Polygon Mainnet",
-                    rpcUrls: ["https://polygon-rpc.com", "https://rpc.matic.today"],
+                    rpcUrls: [
+                      "https://polygon-rpc.com",
+                      "https://rpc.matic.today",
+                    ],
                     nativeCurrency: {
                       name: "Matic",
                       symbol: "Matic",
@@ -248,9 +248,7 @@ export default {
                   },
                 ],
               });
-
             }
-            
           } catch (error) {
             console.log(error.message, "error");
           }
@@ -274,6 +272,7 @@ export default {
       this.$bvModal.show("five");
     },
     logout() {
+      this.$store.commit("SET_MOBILE_SIDEBAR", false);
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
@@ -301,8 +300,7 @@ export default {
     width: 142px;
   }
 
-
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     .switch-wallet {
       margin-right: 0;
       width: 80px;
@@ -310,15 +308,43 @@ export default {
       left: 80px;
       z-index: +10;
       padding: 0;
-
     }
 
     .tree {
       margin: 0;
     }
   }
+}
+.mobile-metamask {
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    top: 27px;
+    left: 50px;
 
+    .param-sm {
+      background-color: #424242;
+      padding: 5px 20px 5px 15px;
+      border: solid 2px white;
+      border-radius: 25px;
+      border-right: 0;
+      z-index: 5;
+      font-size: 12px;
+        box-shadow: 2px 5px 16px 0px #334619;
 
-  
+      color: #faf8f1;
+    }
+   
+    img.tree {
+      display: none;
+    }
+     span.img {
+      
+        position: absolute;
+        z-index: +99;
+        left: 91px;
+        width: 45px;
+      
+    }
+  }
 }
 </style>

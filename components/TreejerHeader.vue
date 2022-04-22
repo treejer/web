@@ -182,4 +182,16 @@ export default {
     }
   }
 }
+@media screen and (max-width: 320px) {
+.headers {
+    .mobile-navbar {
+      width: 43%;
+    }
+
+    .navbar-brand {
+      margin-right: 0;
+    }
+  }
+  
+}
 </style>
