@@ -126,7 +126,7 @@ export default {
     about: "About",
     partnerships: "Partnerships",
     contact: "Contact",
-    knowledge: "Knowledge Base",
+    knowledge: "Whitepaper",
     community: "Community",
     volunteers: "Volunteers",
     ambassadors: "Rural Ambassadors",
