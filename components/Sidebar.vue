@@ -655,7 +655,7 @@ ul.desktop-sidebar {
     margin-top: 7px;
   }
 
-  li a.active-link {
+  li a.nuxt-link-exact-active {
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 22px 0 rgba(0, 0, 0, 0.16);
@@ -719,7 +719,7 @@ ul.desktop-sidebar {
           padding-top: 5px;
         }
       }
-      a.active-link {
+      a.nuxt-link-exact-active {
         font-weight: bolder;
         background: #67b68c;
         border-radius: 10px;

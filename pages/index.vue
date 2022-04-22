@@ -82,7 +82,7 @@ export default {
       meta: {
         title: this.$t("homepage.meta.title"),
         description:this.$t("homepage.meta.description"),
-        content:this.$t("homepage.meta.content")
+        keywors:this.$t("homepage.meta.keywors")
       },
     };
   },
@@ -98,7 +98,7 @@ export default {
         {
           hid: "keywords",
           name: "keywords",
-          content:  this.meta.content,
+          content:  this.meta.keywors,
         },
 
         { hid: "og:title", property: "og:title", content: this.meta.title },

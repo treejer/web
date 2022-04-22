@@ -116,10 +116,10 @@
                     <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.treeCount }}</td>
                     <td
-                      @click="goToUserDashboard(item.id)"
+                      
                       class="pointer-event"
                     >
-                      <NuxtLink :to="`/forest/${item.id}`">
+                      <NuxtLink :to="localePath(`/forest/${item.id}`)">
                         <a href="#" class="pointer-event tr-green"></a>
                         <Fas class="tr-green pointer-event" i="eye" />
                       </NuxtLink>
@@ -225,7 +225,7 @@
                     <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.plantedCount }}</td>
                     <!-- <td
-                      @click="goToUserDashboard(item.id)"
+                      
                       class="pointer-event"
                     >
                       <a href="#" class="pointer-event tr-green"></a>
@@ -332,7 +332,7 @@
                     <td v-coin class="accounting-card">{{ item.id }}</td>
                     <td>{{ item.invitedCount }}</td>
                     <!-- <td
-                      @click="goToUserDashboard(item.id)"
+                      
                       class="pointer-event"
                     >
                       <a href="#" class="pointer-event tr-green"></a>
@@ -479,7 +479,7 @@ export default {
       //   path: `/forest/${id}`,
       //   params: { id: id },
       // });
-      this.$router.push(this.loaclePath(`/forest/${id}`));
+      // this.$router.push(this.loaclePath(`/forest/${id}`));
 
       // window.open(routeData.href, "_self");
     },
