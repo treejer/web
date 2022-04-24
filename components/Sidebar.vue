@@ -287,7 +287,7 @@
         src="../assets/images/sidebar/burger-menu.svg"
         width="32"
         height="16"
-        class="pointer-event float-right"
+        class="pointer-event float-right burger-menu-open"
         alt="burger-menu"
         @click="$store.commit('SET_MOBILE_SIDEBAR', true)"
       />
@@ -648,7 +648,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 ul.desktop-sidebar {
   padding-left: 10px;
   .nav-item a p {
@@ -691,6 +691,12 @@ ul.desktop-sidebar {
 }
 .mobile-sidebars {
   list-style-type: none;
+  .burger-menu-open {
+    position: absolute;
+    top: -45px;
+    right: 15px;
+  }
+
   .sidebar-box {
     background: #212121;
     border-radius: 32px 0px 0px 32px;
@@ -701,39 +707,54 @@ ul.desktop-sidebar {
 
     position: fixed;
     top: 0px;
+    @media (max-width: 768px) {
+      .accounting-card {
+        .switch-wallet {
+          margin-right: 0;
+          width: 110px;
+          position: absolute;
+          left: 140px;
+          z-index: +10;
+          padding: 0;
+        }
+      }
+    }
     .close-sidebar {
       margin: 36px;
     }
-    li {
-      margin-bottom: 16px;
-      a {
-        display: flex;
-        padding-left: 50px;
+    .mobile-nav {
+      li {
+        margin-bottom: 16px;
+        a {
+          display: flex;
+          padding-left: 50px;
 
-        align-items: center;
-        align-self: center;
-        p {
+          align-items: center;
+          align-self: center;
+          p {
+            color: #faf8f1;
+            margin-bottom: 0;
+            padding-left: 15px;
+            padding-top: 5px;
+          }
+        }
+        a.nuxt-link-exact-active {
+          font-weight: bolder;
+          background: #67b68c;
+          border-radius: 10px;
+          width: 75%;
+          display: flex;
           color: #faf8f1;
-          margin-bottom: 0;
-          padding-left: 15px;
-          padding-top: 5px;
+          float: left;
+          margin-left: 5px;
+          text-align: left;
+          justify-content: start;
+          height: 64px;
+          box-shadow: 2px 5px 16px 0px #0b5e0e;
         }
       }
-      a.nuxt-link-exact-active {
-        font-weight: bolder;
-        background: #67b68c;
-        border-radius: 10px;
-        width: 75%;
-        display: flex;
-        color: #faf8f1;
-        float: left;
-        margin-left: 5px;
-        text-align: left;
-        justify-content: start;
-        height: 64px;
-        box-shadow: 2px 5px 16px 0px #0b5e0e;
-      }
     }
+
     .nav-item.updates {
       border-bottom: 2px solid rgba(103, 182, 140, 0.25);
       padding-bottom: 45px;

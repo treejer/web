@@ -1,12 +1,12 @@
 <template>
   <div class="head-treejer-dashborad ">
-    <div
+    <!-- <div
       class="networkname text-center d-flex align-items-center justify-content-center"
     >
-      <p class="param-sm text-white mb-0">
+      <p class="param-sm text-white mb-0"> -->
 <!--        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test-->
 <!--        Network and start your forest! !-->
-        Announcing the launch of Treejer Protocol with Genesis Trees
+        <!-- Announcing the launch of Treejer Protocol with Genesis Trees
         <a
           class="text-white"
           href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/"
@@ -26,10 +26,10 @@
             width="15px"
           /></a>
       </p>
-    </div>
+    </div> -->
     <div class="headers container dashboard-header" style="min-height: 5vh">
       <keep-alive>
-        <b-navbar toggleable="lg">
+        <b-navbar>
           <b-navbar-brand
             :to="localePath('index')"
             class="pointer-event position-relative"
@@ -41,27 +41,16 @@
               src="/logo/treejer.png"
             />
           </b-navbar-brand>
-          <b-navbar-nav>
+          <b-navbar-nav class="dahsboard-nav" >
             <client-only>
-              <div class="d-lg-none d-block">
+              
                 <Metamask @showModal="showModal"/>
-              </div>
+            
             </client-only>
           </b-navbar-nav>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-          <b-collapse
-            id="nav-collapse"
-            class="text-right justify-content-between d-none "
-            is-nav
-          >
-            <b-navbar-nav class="header-menu "></b-navbar-nav>
-            <client-only>
-              <div class="d-lg-block d-none">
-                <Metamask @showModal="showModal"/>
-              </div>
-            </client-only>
-          </b-collapse>
+          
         </b-navbar>
       </keep-alive>
       <b-modal id="five" centered hide-footer title=" ">
@@ -103,14 +92,7 @@ export default {
   },
   data() {
     return {
-      wallets: [
-        {name: "Metamask", step: 1},
-        {name: "Wallet Connect", step: 2},
-        {name: "Trezor", step: 3},
-        {name: "Ledger Nano", step: 4},
-        {name: "Coinbase Wallet", step: 5}
-      ],
-      activeWallet: 0,
+     
       formError: null,
       account: null,
       user: false,
@@ -214,6 +196,16 @@ export default {
     height: 34px;
     z-index: +999;
   }
+   .dahsboard-nav{
+    width: 100%;
+
+      ul{
+        width: 100%;
+        justify-content: flex-end;
+      
+      
+    }
+  }
 
 }
 @media (max-width: 1023px) {
@@ -239,6 +231,17 @@ export default {
 
     .navbar {
       padding: 0;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .dahsboard-nav{
+    width: 100%;
+    
+      ul{
+       margin-right: 45px;
+      
+      
     }
   }
 }

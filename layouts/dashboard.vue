@@ -1,7 +1,7 @@
 <template>
   <div :class="$route.name" style="min-height: 100vh">
 
-    <TreejerHeader/>
+    <dashboard-header />
 
     <div class="container" :class="$route.name"  style="min-height: 85vh">
       <div class="row">
@@ -16,13 +16,13 @@
 
 <style lang="scss"></style>
 <script>
-import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import Router from "vue-router";
+import DashboardHeader from '../components/DashboardHeader.vue';
 
 export default {
-  components: { Sidebar, Footer, TreejerHeader, Router },
+  components: { Sidebar, Footer, Router, DashboardHeader },
   middleware: 'queryParamToCookie',
   data() {
     return {
