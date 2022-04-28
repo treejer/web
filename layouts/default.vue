@@ -1,7 +1,7 @@
 <template>
-  <div style="min-height: 100vh">
+  <div class="default-main-content">
     <TreejerHeader />
-    <div :class="$route.name" class="container" style="min-height: 85vh">
+    <div :class="$route.name" class="container default-main-content-box" >
       <div class="row">
         <nuxt />
       </div>
@@ -21,13 +21,12 @@ export default {
   middleware: "queryParamToCookie",
 
   mounted() {
-    
     this.$store.commit("SET_DASHBOARD", false);
     console.log($nuxt.isOffline, "$nuxt.isOffline");
     if ($nuxt.isOffline) {
-      this.$bvToast.toast(this.$t('alert.checkyourconnection'), {
+      this.$bvToast.toast(this.$t("alert.checkyourconnection"), {
         toaster: "b-toaster-bottom-left",
-        title:this.$t('alert.connectionisbroked'),
+        title: this.$t("alert.connectionisbroked"),
         variant: "danger",
         noAutoHide: true,
         bodyClass: "fund-error",
@@ -35,7 +34,6 @@ export default {
     }
   },
   async created() {
-   
     await this.checkWorkbox();
     // if (process.client) {
     //   const workbox = await window.$workbox;
@@ -79,3 +77,30 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.default-main-content{
+  min-height: 100vh;
+  .default-main-content-box{
+    min-height: 95vh;
+  }
+}
+@media (min-width: 100px) and (max-width: 768px) and (orientation: landscape) {
+ 
+    .default-main-content {
+      min-height: 220vh;
+      .default-main-content-box {
+      min-height: 220vh;
+    }
+    }
+
+  
+}
+// @media(max-width: 768px)  {
+//   .default-main-content {
+//     min-height: 100vh;
+//     .default-main-content-box {
+//       min-height: 175vh;
+//     }
+//   }
+// }
+</style>

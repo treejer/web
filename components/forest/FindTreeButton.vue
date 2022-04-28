@@ -98,4 +98,11 @@ export default {
     }
   }
 }
+@media(max-width: 320px){
+  .find-tree-button{
+    img{
+      left: 70px;
+    }
+  }
+  }
 </style>
