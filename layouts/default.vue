@@ -87,9 +87,9 @@ export default {
 @media (min-width: 100px) and (max-width: 768px) and (orientation: landscape) {
  
     .default-main-content {
-      min-height: 220vh;
+      min-height: 170vh;
       .default-main-content-box {
-      min-height: 220vh;
+      min-height: 170vh;
     }
     }
 
