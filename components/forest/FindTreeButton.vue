@@ -91,6 +91,7 @@ export default {
 
   }
 }
+
 @media(max-width: 768px){
   .find-tree-button{
     img{
@@ -105,4 +106,13 @@ export default {
     }
   }
   }
+   @media (min-width: 100px) and (max-width: 1024px) and (orientation: landscape) {
+    .find-tree-button{
+       margin-bottom: 140px;
+      img{
+        left: 38%;
+       
+      }
+    }
+   }
 </style>

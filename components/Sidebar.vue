@@ -767,5 +767,32 @@ ul.desktop-sidebar {
       position: absolute;
     }
   }
+  @media (min-width: 100px) and (max-width: 1024px) and (orientation: landscape) {
+    .sidebar-box {
+      .close-sidebar {
+        margin: 15px;
+      }
+      .mobile-metamask {
+        position: absolute;
+        top: 27px;
+        left: 50px;
+      }
+      .mobile-nav {
+        li.nav-item {
+          margin-bottom: 5px;
+          a.nav-link,
+          a.nuxt-link-exact-active {
+            height: 32px;
+            font-size: 12px;
+            svg,
+            img {
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 </style>
