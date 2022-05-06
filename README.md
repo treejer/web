@@ -20,3 +20,8 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+### Translations :earth_americas:
+
+- [Spanish version](./translations/README-es.md)
+- [Portuguese version](./translations/README-pt-br.md)
