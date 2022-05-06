@@ -1,7 +1,6 @@
 # treejer
 
-> In a world full of indifference, a grand movement is rising to stand for the future. You might be the next link within this green chain. Adopt your unique tree and let locals plant it!
-> En un mundo completamente indiferente, un gran momento
+> En un mundo completamente indiferente, un gran movimiento está surgiendo para sustentar el futuro. Tu podrías ser la siguiente conexión dentro de esta cadena verde. ¡Adopta un único árbol y permite a los locales plantarlo!
 
 ## Build Setup
 
@@ -16,8 +15,8 @@ $ npm run dev
 $ npm run build
 $ npm run start
 
-# generate static project
+# generar static project
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+Para explicaciones detalladas sobre como funciona, leer más en [Nuxt.js docs](https://nuxtjs.org).
