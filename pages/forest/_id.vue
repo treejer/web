@@ -3,6 +3,7 @@
     ref="dashboard"
     :class="$route.fullPath"
     class="position-relative pt-5 col-lg-10 col-12 my-forest"
+    @click.prevent="$store.commit('SET_MOBILE_SIDEBAR', false)"
   >
     <div class="container-fluid p-0 mb-5 mb-md-2">
       <div class="row article justify-content-between">

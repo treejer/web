@@ -285,21 +285,24 @@
     <div class="d-lg-none d-block mobile-sidebars">
       <img
         src="../assets/images/sidebar/burger-menu.svg"
-        width="32"
-        height="16"
+        width="30"
+        height="20"
         class="pointer-event float-right burger-menu-open"
         alt="burger-menu"
         @click="$store.commit('SET_MOBILE_SIDEBAR', true)"
       />
       <div
         v-if="$store.state.showMobileSidebar"
-        class="sidebar-box text-right page-enter-active"
+        :class="
+          $cookies.get('account') ? 'sidebar-box' : 'sidebar-box-no-account'
+        "
+        class="text-right page-enter-active"
       >
         <img
           class="pointer-event close-sidebar"
-          src="../assets/images/sidebar/close.png"
+          src="../assets/images/sidebar/close.svg"
           width="32"
-          height="16"
+          height="20"
           alt="burger-menu"
           @click="$store.commit('SET_MOBILE_SIDEBAR', false)"
         />
@@ -693,7 +696,7 @@ ul.desktop-sidebar {
   list-style-type: none;
   .burger-menu-open {
     position: absolute;
-    top: -45px;
+    top: -48px;
     right: 15px;
   }
 
@@ -703,10 +706,10 @@ ul.desktop-sidebar {
     height: 100vh;
     width: 100vw;
     z-index: +8888;
-    left: 5px;
-
+    right: 0;
     position: fixed;
     top: 0px;
+    transition: all 0.3s ease-in-out;
     @media (max-width: 768px) {
       .accounting-card {
         .switch-wallet {
@@ -723,6 +726,77 @@ ul.desktop-sidebar {
       margin: 36px;
     }
     .mobile-nav {
+      list-style-type: none;
+      li {
+        margin-bottom: 16px;
+        a {
+          display: flex;
+          padding-left: 50px;
+
+          align-items: center;
+          align-self: center;
+          p {
+            color: #faf8f1;
+            margin-bottom: 0;
+            padding-left: 15px;
+            padding-top: 5px;
+          }
+        }
+        a.nuxt-link-exact-active {
+          font-weight: bolder;
+          background: #67b68c;
+          border-radius: 10px;
+          width: 75%;
+          display: flex;
+          color: #faf8f1;
+          float: left;
+          margin-left: 5px;
+          text-align: left;
+          justify-content: start;
+          height: 64px;
+          box-shadow: 2px 5px 16px 0px #0b5e0e;
+        }
+      }
+    }
+
+    .nav-item.updates {
+      border-bottom: 2px solid rgba(103, 182, 140, 0.25);
+      padding-bottom: 45px;
+    }
+    .nav-item.forest {
+      margin-top: 36px;
+    }
+    .nav-item.help {
+      bottom: 25px;
+      position: absolute;
+    }
+  }
+  .sidebar-box-no-account {
+    width: 80vw;
+    background: #212121;
+    border-radius: 32px 0px 0px 32px;
+    height: 100vh;
+    z-index: +8888;
+    right: 0;
+    position: fixed;
+    top: 0;
+    @media (max-width: 768px) {
+      .accounting-card {
+        .switch-wallet {
+          margin-right: 0;
+          width: 110px;
+          position: absolute;
+          left: 140px;
+          z-index: +10;
+          padding: 0;
+        }
+      }
+    }
+    .close-sidebar {
+      margin: 36px;
+    }
+    .mobile-nav {
+      list-style-type: none;
       li {
         margin-bottom: 16px;
         a {
@@ -778,6 +852,8 @@ ul.desktop-sidebar {
         left: 50px;
       }
       .mobile-nav {
+              list-style-type: none;
+
         li.nav-item {
           margin-bottom: 5px;
           a.nav-link,

@@ -2,7 +2,9 @@
   <div class="headers container" style="min-height: 10vh">
     <keep-alive>
       <b-navbar toggleable="lg">
-        <b-navbar-brand class="pointer-event position-relative d-flex d-lg-block">
+        <b-navbar-brand
+          class="pointer-event position-relative d-flex d-lg-block"
+        >
           <nuxt-link :to="localePath('/')">
             <img
               class="img-fluid pointer-event"
@@ -10,18 +12,21 @@
               name="treejer"
               src="/logo/treejer.png"
           /></nuxt-link>
-             <Flags class="d-block d-lg-none ml-3" />
+          <Flags class="d-block d-lg-none ml-3" />
         </b-navbar-brand>
-        <b-navbar-nav class="mobile-navbar">
+        <!-- <b-navbar-nav class="mobile-navbar">
           <client-only>
             <div class="d-lg-none d-block w-md-100">
               <Metamask @showModal="showModal" />
             </div>
           </client-only>
-        </b-navbar-nav>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        </b-navbar-nav> -->
+        <b-navbar-toggle
+          target="nav-collapse"
+          @click="showMobileSidebar()"
+        ></b-navbar-toggle>
         <b-collapse
-          class="text-right justify-content-between"
+          class="text-right justify-content-between d-none d-lg-flex"
           id="nav-collapse"
           is-nav
         >
@@ -31,25 +36,31 @@
               <span class="nav-link"> {{ $t("header.genesis") }}</span>
             </NuxtLink>
             <NuxtLink :to="localePath('/partnerships')" class="nav-item">
-              <span class="nav-link">{{$t("header.partnerships") }}</span>
+              <span class="nav-link">{{ $t("header.partnerships") }}</span>
             </NuxtLink>
             <a href="https://blog.treejer.com" target="_blank" class="nav-item">
-              <span name="Blog" class="nav-link"> {{$t("header.blog") }} </span>
+              <span name="Blog" class="nav-link">
+                {{ $t("header.blog") }}
+              </span>
             </a>
             <NuxtLink :to="localePath('/about')" class="nav-item">
-              <span class="nav-link">{{$t("header.about") }}</span>
+              <span class="nav-link">{{ $t("header.about") }}</span>
             </NuxtLink>
-            <Flags class="d-none d-lg-block " />
+            <Flags class="d-none d-lg-block" />
           </b-navbar-nav>
           <client-only>
             <div class="d-lg-block d-none w-md-100">
               <Metamask @showModal="showModal" />
-            
             </div>
           </client-only>
         </b-collapse>
       </b-navbar>
     </keep-alive>
+    <div class="landing-mobile-box-header">
+      <LandingMobileHeader
+        :landingMobileHeaderStatus="$store.state.showMobileSidebarLanding"
+      />
+    </div>
     <b-modal hide-footer id="five" title=" ">
       <Wallets />
     </b-modal>
@@ -59,14 +70,16 @@
 <script>
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
-import Flags from '../components/Flags.vue';
+import Flags from "../components/Flags.vue";
+import LandingMobileHeader from "../components/LandingMobileHeader.vue";
 
 export default {
   name: "TreejerHeader",
   components: {
     Wallets,
     Metamask,
-    Flags
+    Flags,
+    LandingMobileHeader,
   },
   data() {
     return {
@@ -81,6 +94,8 @@ export default {
       formError: null,
       account: null,
       user: false,
+      innerWidth: 1440,
+      setLandingMobileHeader: false,
     };
   },
   computed: {},
@@ -99,7 +114,7 @@ export default {
       });
     },
     makeToast(variant = null) {
-      this.$bvToast.toast(this.$t('alert.installmetamask'), {
+      this.$bvToast.toast(this.$t("alert.installmetamask"), {
         title: `https://metamask.io/' ${variant || "default"}`,
         href: "https://metamask.io/",
         variant: variant,
@@ -123,12 +138,24 @@ export default {
         }
       }
     },
+    showMobileSidebar() {
+      this.setLandingMobileHeader=!this.setLandingMobileHeader
+      this.$store.commit("SET_LANDING_MOBILE_SIDEBAR", this.setLandingMobileHeader);
+    },
   },
   async mounted() {
     let self = this;
+    if (process.client) {
+      this.innerWidth = window.innerWidth;
+      window.addEventListener("resize", (size) => {
+        this.innerWidth = window.innerWidth;
+        console.log(this.innerWidth, "self.innerWidth");
+      });
+    }
     self.account = this.$cookies.get("account");
     await this.accountChange();
   },
+  created() {},
 };
 </script>
 
@@ -170,7 +197,54 @@ export default {
     }
   }
 }
+.mobile-headers {
+  .navbar-nav,
+  .navbar-toggler {
+    z-index: +9999;
+  }
+  #nav-collapse {
+    background: #212121;
+    border-radius: 32px 0px 0px 32px;
+    height: 100vh;
+    width: 100vw;
+    z-index: +8888;
+    right: 0;
+    position: fixed;
+    top: 0px;
+    transition: none;
+    .navbar-nav.header-menu {
+      flex-direction: column;
+      padding-top: 96px;
+      a {
+        margin: 15px 25px;
 
+        span {
+          color: white;
+
+          height: 100%;
+          padding: 0;
+          align-items: center;
+          vertical-align: center;
+          display: flex;
+        }
+      }
+      a.nuxt-link-exact-active {
+        font-weight: bolder;
+        background: #67b68c;
+        border-radius: 10px;
+        width: 75%;
+        display: flex;
+        color: #faf8f1;
+        float: left;
+        margin: 15px 25px;
+        text-align: left;
+        justify-content: start;
+        height: 64px;
+        box-shadow: 2px 5px 16px 0px #0b5e0e;
+      }
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .headers {
     .mobile-navbar {
@@ -183,7 +257,7 @@ export default {
   }
 }
 @media screen and (max-width: 320px) {
-.headers {
+  .headers {
     .mobile-navbar {
       width: 43%;
     }
@@ -192,6 +266,7 @@ export default {
       margin-right: 0;
     }
   }
-  
+}
+@media (min-width: 100px) and (max-width: 1024px) and (orientation: landscape) {
 }
 </style>

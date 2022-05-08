@@ -92,7 +92,7 @@
             </div>
           </div>
         </div>
-        <nuxt-link class="button1  pointer-event" :to="localePath('/')">
+        <nuxt-link class="button1 btn pointer-event" :to="localePath('/')">
           GO TO HOME
         </nuxt-link>
         <button class="button1  text-center pointer-event" style="bottom: -25px;width: inherit;" @click="goToDashboard()">

@@ -26,7 +26,8 @@
         class="
           pointer-event
           accounting-card
-          d-flex
+          d-lg-flex
+          d-none
           align-items-center align-self-center
           pointer-event
         "
@@ -273,6 +274,7 @@ export default {
     },
     logout() {
       this.$store.commit("SET_MOBILE_SIDEBAR", false);
+      this.$store.commit("SET_LANDING_MOBILE_SIDEBAR", false);
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {
@@ -329,22 +331,36 @@ export default {
       border-right: 0;
       z-index: 5;
       font-size: 12px;
-        box-shadow: 2px 5px 16px 0px #334619;
+      box-shadow: 2px 5px 16px 0px #334619;
 
       color: #faf8f1;
     }
-   
+
     img.tree {
       display: none;
     }
-     span.img {
-      
-        position: absolute;
-        z-index: +99;
-        left: 91px;
-        width: 45px;
-      
+    span.img {
+      position: absolute;
+      z-index: +99;
+      left: 91px;
+      width: 45px;
     }
   }
+}
+@media (min-width: 100px) and (max-width: 1024px) and (orientation: landscape) {
+ .default-main-content{
+ .metamask {
+    a.position-relative {
+      width: 50px;
+      height: 50px;
+      img {
+        position:absolute;
+        right: -47px;
+        z-index: +999999;
+        top: 6px;
+      }
+    }
+  }
+ }
 }
 </style>

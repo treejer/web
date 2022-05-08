@@ -2,6 +2,7 @@
   <div
     :class="landingFooter ? 'footer-flags-group' : 'flags-group'"
     class="position-relative"
+   
   >
     <img
       @click.prevent="showingFlags = !showingFlags"
@@ -10,7 +11,7 @@
       class="rounded pointer-event"
       :alt="$i18n.localeProperties.name"
     />
-    <div class="flags-box" v-show="showingFlags">
+    <div class="flags-box"  @mouseleave="showingFlags = false" v-show="showingFlags">
       <div
         class="flags-item pointer-event"
         v-for="(item, index) in $i18n.locales"

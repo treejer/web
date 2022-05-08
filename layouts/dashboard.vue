@@ -4,9 +4,9 @@
     <dashboard-header />
 
     <div class="container" :class="$route.name"  style="min-height: 85vh">
-      <div class="row">
+      <div class="row"   > 
         <Sidebar />
-        <nuxt />
+        <nuxt  />
       </div>
     </div>
 

@@ -82,7 +82,7 @@ export default {
       meta: {
         title: this.$t("homepage.meta.title"),
         description:this.$t("homepage.meta.description"),
-        keywors:this.$t("homepage.meta.keywors")
+        keywords:this.$t("homepage.meta.keywords")
       },
     };
   },

@@ -21,6 +21,8 @@ export const state = () => ({
   connectingWallet: null,
   modalFive: false,
   showMobileSidebar:false,
+  showMobileSidebarLanding:false,
+  showMobileSidebarLanding:false,
 })
 
 export const actions = {
@@ -220,6 +222,9 @@ export const mutations = {
   },
   SET_MOBILE_SIDEBAR(state, showMobileSidebar) {
     state.showMobileSidebar = showMobileSidebar
+  },
+  SET_LANDING_MOBILE_SIDEBAR(state, showMobileSidebarLanding) {
+    state.showMobileSidebarLanding = showMobileSidebarLanding
   },
   SET_LEADERBOARDS(state, leaderBoards) {
     state.leaderBoards = leaderBoards

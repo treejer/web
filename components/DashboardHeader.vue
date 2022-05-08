@@ -31,8 +31,9 @@
       <keep-alive>
         <b-navbar>
           <b-navbar-brand
-            :to="localePath('index')"
+            :to=" localePath('index') "
             class="pointer-event position-relative"
+            @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR' ,false) "
           >
             <img
               alt="logo"
@@ -41,7 +42,7 @@
               src="/logo/treejer.png"
             />
           </b-navbar-brand>
-          <b-navbar-nav class="dahsboard-nav" >
+          <b-navbar-nav class="dahsboard-nav d-lg-block d-none" >
             <client-only>
               
                 <Metamask @showModal="showModal"/>

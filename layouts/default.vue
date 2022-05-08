@@ -2,7 +2,7 @@
   <div class="default-main-content">
     <TreejerHeader />
     <div :class="$route.name" class="container default-main-content-box" >
-      <div class="row">
+      <div class="row"   @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)">
         <nuxt />
       </div>
     </div>
