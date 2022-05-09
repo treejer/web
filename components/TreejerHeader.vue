@@ -22,11 +22,12 @@
           </client-only>
         </b-navbar-nav> -->
         <b-navbar-toggle
-          target="nav-collapse"
-          @click="showMobileSidebar()"
+         
+          @click.prevent="showMobileSidebar()"
         ></b-navbar-toggle>
         <b-collapse
-          class="text-right justify-content-between d-none d-lg-flex"
+          v-if="innerWidth > 991"
+          class="text-right justify-content-between "
           id="nav-collapse"
           is-nav
         >
@@ -139,8 +140,11 @@ export default {
       }
     },
     showMobileSidebar() {
-      this.setLandingMobileHeader=!this.setLandingMobileHeader
-      this.$store.commit("SET_LANDING_MOBILE_SIDEBAR", this.setLandingMobileHeader);
+      this.setLandingMobileHeader = !this.setLandingMobileHeader;
+      this.$store.commit(
+        "SET_LANDING_MOBILE_SIDEBAR",
+        this.setLandingMobileHeader
+      );
     },
   },
   async mounted() {
@@ -190,6 +194,7 @@ export default {
     .navbar-light .navbar-toggler {
       color: rgba(0, 0, 0, 0.5);
       border-color: transparent;
+      padding: 15px 25px;
     }
 
     .navbar {
