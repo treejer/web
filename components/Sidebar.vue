@@ -743,7 +743,6 @@ ul.desktop-sidebar {
           }
         }
         a.nuxt-link-exact-active {
-          font-weight: bolder;
           background: #67b68c;
           border-radius: 10px;
           width: 75%;
@@ -754,7 +753,6 @@ ul.desktop-sidebar {
           text-align: left;
           justify-content: start;
           height: 64px;
-          box-shadow: 2px 5px 16px 0px #0b5e0e;
         }
       }
     }
@@ -824,7 +822,6 @@ ul.desktop-sidebar {
           text-align: left;
           justify-content: start;
           height: 64px;
-          box-shadow: 2px 5px 16px 0px #0b5e0e;
         }
       }
     }

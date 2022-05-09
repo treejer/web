@@ -129,7 +129,6 @@ export default {
         margin: auto;
         width: 75%;
         height: 64px;
-        font-weight: bolder;
         text-align: left;
         color: #faf8f1 !important;
         padding: 20px 0 0 15px;
@@ -142,7 +141,6 @@ export default {
         float: left;
 
         height: 64px;
-        box-shadow: 2px 5px 16px 0px #0b5e0e;
       }
     }
   }

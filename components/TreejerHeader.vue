@@ -12,7 +12,7 @@
               name="treejer"
               src="/logo/treejer.png"
           /></nuxt-link>
-          <Flags class="d-block d-lg-none ml-3" />
+          <!-- <Flags class="d-block d-lg-none ml-3" /> -->
         </b-navbar-brand>
         <!-- <b-navbar-nav class="mobile-navbar">
           <client-only>
@@ -70,7 +70,7 @@
 <script>
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
-import Flags from "../components/Flags.vue";
+// import Flags from "../components/Flags.vue";
 import LandingMobileHeader from "../components/LandingMobileHeader.vue";
 
 export default {
@@ -78,7 +78,7 @@ export default {
   components: {
     Wallets,
     Metamask,
-    Flags,
+    // Flags,
     LandingMobileHeader,
   },
   data() {
@@ -240,7 +240,6 @@ export default {
         text-align: left;
         justify-content: start;
         height: 64px;
-        box-shadow: 2px 5px 16px 0px #0b5e0e;
       }
     }
   }

@@ -9,7 +9,10 @@
         {{ $t("header.connectwallet") }}
       </b-button>
 
-      <NuxtLink :to="localePath('/forest/guest')" class="position-relative">
+      <NuxtLink
+        :to="localePath('/forest/guest')"
+        class="position-relative treejer-logo-mobile-sidebar"
+      >
         <img
           alt="tree"
           class="img-fluid tree pointer-event"
@@ -26,8 +29,7 @@
         class="
           pointer-event
           accounting-card
-          d-lg-flex
-          d-none
+          d-lg-flex d-none
           align-items-center align-self-center
           pointer-event
         "
@@ -315,6 +317,10 @@ export default {
     .tree {
       margin: 0;
     }
+
+    .treejer-logo-mobile-sidebar {
+      margin-left: 42px;
+    }
   }
 }
 .mobile-metamask {
@@ -348,19 +354,19 @@ export default {
   }
 }
 @media (min-width: 100px) and (max-width: 1024px) and (orientation: landscape) {
- .default-main-content{
- .metamask {
-    a.position-relative {
-      width: 50px;
-      height: 50px;
-      img {
-        position:absolute;
-        right: -47px;
-        z-index: +999999;
-        top: 6px;
+  .default-main-content {
+    .metamask {
+      a.position-relative {
+        width: 50px;
+        height: 50px;
+        img {
+          position: absolute;
+          right: -47px;
+          z-index: +999999;
+          top: 6px;
+        }
       }
     }
   }
- }
 }
 </style>
