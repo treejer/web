@@ -2,7 +2,6 @@ require('dotenv').config()
 
 export default {
   buildDir: 'nuxt-dist',
-  mode: 'universal',
   head: {
     title: 'Treejer | Planters Without Borders',
     meta: [

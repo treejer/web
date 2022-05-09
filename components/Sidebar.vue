@@ -751,7 +751,7 @@ ul.desktop-sidebar {
           float: left;
           margin-left: 5px;
           text-align: left;
-          justify-content: start;
+          justify-content: flex-start;
           height: 64px;
         }
       }
@@ -820,7 +820,7 @@ ul.desktop-sidebar {
           float: left;
           margin-left: 5px;
           text-align: left;
-          justify-content: start;
+          justify-content: flex-start;
           height: 64px;
         }
       }

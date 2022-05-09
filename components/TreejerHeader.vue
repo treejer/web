@@ -238,7 +238,7 @@ export default {
         float: left;
         margin: 15px 25px;
         text-align: left;
-        justify-content: start;
+        justify-content: flex-start;
         height: 64px;
       }
     }

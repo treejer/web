@@ -1431,7 +1431,7 @@ li.square::before {
 }
 
 .landing-footer.position-relative > div > div > div:nth-child(4) > ul {
-  justify-content: start !important;
+  justify-content: flex-start !important;
   text-align: left;
   display: flex;
   align-self: center;
