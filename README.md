@@ -2,21 +2,20 @@
 
 > In a world full of indifference, a grand movement is rising to stand for the future. You might be the next link within this green chain. Adopt your unique tree and let locals plant it!
 
-## Build Setup
+## Documentation
 
-``` bash
-# install dependencies
-$ npm install
+In-depth documentation on Treejer protocol is available at [Treejer Docs](https://docs.treejer.com/). 
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+Visit [Treejer Blog](http://blog.treejer.com) for more details into the Treejer and how it works.
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+## Development and Testing
 
-# generate static project
-$ npm run generate
-```
+We welcome contributions! Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Get in touch
+
+To chat with us & stay up to date, join our [Discord](https://discord.gg/8WuVd2ERC2).
+
+Vulnerabilities should be disclosed directly to the Treejer team by emailing security@treejer.com.
+
+_© Copyright 2021, Treejer_
