@@ -63,7 +63,6 @@ export default {
       });
 
       if (result) {
-        console.log(result.data.trees);
         if (result.data.trees.length > 0) {
           self.trees = result.data.trees;
         } else {

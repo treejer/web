@@ -46,7 +46,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$i18n, "this.$i18n is here");
   },
 };
 </script>

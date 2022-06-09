@@ -84,8 +84,7 @@ export default {
   async created() {
     this.tokenName
  
-    console.log(this.tokenAddress, "this.tokenAddress")
-    console.log(this.localAmount, "this.localAmount")
+   
     this.erc20USDPrice = 1.01;
   },
   methods: {
@@ -95,7 +94,6 @@ export default {
     } else if (this.tokenName === "WETH") {
       this.tokenAddress = process.env.wethTokenAddress;
     } else {
-      console.log("TOKEN IS NOT defined!");
     }
     },
     async allowSpendERC20(silent = false) {
@@ -104,11 +102,7 @@ export default {
       }
       let self = this;
 
-      console.log({
-        amount: this.localAmount,
-        spenderContract: this.spenderContract,
-        tokenAddress: this.tokenAddress
-      }, "allowSpendERC20");
+   
 
       const transaction = await this.$store.dispatch("erc20/approve", {
         amount: this.localAmount,
@@ -134,11 +128,9 @@ export default {
       
     },
     async setERC20Balance() {
-      console.log(this.tokenAddress, "this.tokenAddress")
       this.erc20Balance = await this.$store.dispatch("erc20/balanceOf", {
         tokenAddress: this.tokenAddress,
       });
-      console.log(this.erc20Balance, "this.erc20Balance")
     },
     async buyERC20() {
       let self = this;
@@ -163,12 +155,10 @@ export default {
 
       // To get all the events
       transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
       });
 
       // This will trigger when the user marks payment is made.
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
         self.$bvToast.toast(["Your payment was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
@@ -190,18 +180,14 @@ export default {
       if (silent === false) {
         this.loading = true;
       }
-      console.log(this.localAmount ,"this localAmount")
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
         tokenAddress: this.tokenAddress,
         spenderContract: this.spenderContract,
       });
-      console.log(allowance, this.amount)
-      console.log("allowance, this.amount")
 
       this.isAllowedSpendERC20 = allowance >= this.amount;
 
-      console.log(this.isAllowedSpendERC20)
 
       if (silent === false) {
         this.loading = false;
@@ -213,7 +199,6 @@ export default {
       this.setIsAllowance(newlocalAmount);
 
       // Our fancy notification (2).
-      // console.log(`We have ${newCount} fruits now, yay!`)
     },
   },
 };

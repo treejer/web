@@ -1,8 +1,9 @@
 <template>
   <div
+ 
     class="landing-mobile-header"
     :class="$cookies.get('account') ? 'with-account' : 'no-account'"
-    v-if="landingMobileHeaderStatus"
+   
   >
     <div class="head-nav p-4">
       <Metamask
@@ -10,6 +11,7 @@
         @showModal="showModal()"
       />
       <img
+        id="burger"
         src="../assets/images/sidebar/close.svg"
         class="pointer-event"
         @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)"
@@ -40,9 +42,12 @@
 
 <script>
 import Metamask from "@/components/Metamask.vue";
+import BuyDai from "./BuyDai.vue";
+
 export default {
   components: {
     Metamask,
+    BuyDai,
   },
   props: {
     landingMobileHeaderStatus: {
@@ -96,6 +101,7 @@ export default {
       this.$store.commit("SET_LANDING_MOBILE_SIDEBAR", false);
       this.$bvModal.show("five");
     },
+  
   },
 };
 </script>

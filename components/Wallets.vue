@@ -271,13 +271,11 @@ export default {
             const Torus = require("@toruslabs/torus-embed");
 
             let self = this;
-            console.log("in torus");
 
 
             const torus = new Torus();
 
 
-            console.log(torus, "torus");
 
 
             await torus.init();
@@ -332,7 +330,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$cookies.get("account"), "accountwallets");
     if (process.client) {
       if (
         window.ethereum === "undefined" ||

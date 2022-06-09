@@ -150,12 +150,10 @@ export default {
 
       // To get all the events
       transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
       });
 
       // This will trigger when the user marks payment is made.
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
         self.$bvToast.toast([self.$t('alert.yourpaymentwassuccessful')], {
           toaster: "b-toaster-bottom-left",
           title: self.$t('alert.charged'),
@@ -239,12 +237,10 @@ export default {
 
       // To get all the events
       transak.on(transak.ALL_EVENTS, (data) => {
-        console.log(data);
       });
 
       // This will trigger when the user marks payment is made.
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
         self.$bvToast.toast(["Your payment was successful"], {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",

@@ -209,7 +209,6 @@ export default {
 
     if (process.client && window.ethereum) {
       window.ethereum.on("networkChanged", function (networkId) {
-        console.log("networkChanged", networkId);
         self.connectedNetwrokID = networkId;
         window.location.reload();
       });
@@ -253,7 +252,6 @@ export default {
               });
             }
           } catch (error) {
-            console.log(error.message, "error");
           }
         }
       }
@@ -275,8 +273,6 @@ export default {
       this.$bvModal.show("five");
     },
     logout() {
-      this.$store.commit("SET_MOBILE_SIDEBAR", false);
-      this.$store.commit("SET_LANDING_MOBILE_SIDEBAR", false);
       this.$bvModal.show("seven");
     },
     goToDashboard(item) {

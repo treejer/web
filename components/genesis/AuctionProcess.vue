@@ -447,8 +447,7 @@ export default {
           return;
         }
 
-        console.log(parseFloat(this.bidValue),
-          parseFloat(this.$web3.utils.fromWei(this.minBidValue.toString())));
+      
 
 
         if (
@@ -465,9 +464,7 @@ export default {
 
         await this.setERC20Balance();
 
-        console.log(parseFloat(this.bidValue) > parseFloat(this.erc20Balance))
-        console.log(this.bidValue)
-        console.log(this.erc20Balance)
+  
 
 
         if (parseFloat(this.bidValue) > parseFloat(this.erc20Balance)) {

@@ -16,7 +16,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this._props, "text");
     if (this._props.text === "Tree of Life") {
       this._props.text = this.$t("genesis.treeoflife");
     }
