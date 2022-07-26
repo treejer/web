@@ -20,7 +20,7 @@
             <div class="col-lg-6 col-md-12 col-12">
               <div class="col-12 mt-5 input">
                 <h1 class="param-18 font-weight-bolder tr-gray-two">
-                 {{$t('forest.howmany')}}
+                  {{ $t("forest.howmany") }}
                 </h1>
                 <ul class="d-flex list-style-none mt-4 pl-0">
                   <li
@@ -78,7 +78,9 @@
               <div class="col-12 col-md-12 mt-5 pt-2 send-as-gift-code">
                 <div class="row justify-content-between">
                   <div class="col-md-6 col-6">
-                    <p class="param-18 font-weight-bolder">{{$t('forest.sendasgift')}}</p>
+                    <p class="param-18 font-weight-bolder">
+                      {{ $t("forest.sendasgift") }}
+                    </p>
                   </div>
                   <div class="col-md-6 col-6 form-check">
                     <div class="on-off-toggle">
@@ -115,61 +117,57 @@
                     />
                   </div> -->
                 </div>
+                <div class="col-12 p-md-0 offest-checkout">
+                  <OffsetCheckout />
+                </div>
               </div>
             </div>
             <div class="col-lg-6 col-md-12 col-12 overflow-hidden">
               <div class="row box-right-checkout">
                 <div class="col-12">
                   <h1
-                    class="
-                      title-sm
-                      font-weight-bolder
-                      tr-gray-two
-                      text-center
-                      mt-1
-                    "
+                    class="title-sm font-weight-bolder tr-gray-two text-center mt-1"
                   >
-                    {{$t('forest.yourefunding')}}
+                    {{ $t("forest.yourefunding") }}
                   </h1>
                 </div>
                 <div class="col-12">
                   <div class="bg-yellow-checkout m-auto">
                     <div class="row">
-                      <div class="col-6 p-md-0 text-left text-md-center checkout-border">
+                      <div
+                        class="col-6 p-md-0 text-left text-md-center checkout-border"
+                      >
                         <p class="param-xl tr-gray-two font-weight-bolder">
                           {{ count }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder mb-0">
-                          {{ count > 1 ?$t('genesis.trees') : $t('genesis.tree') }}
+                          {{
+                            count > 1 ? $t("genesis.trees") : $t("genesis.tree")
+                          }}
                         </p>
                       </div>
                       <div class="col-6 p-md-0 mb-direction">
                         <p
-                          class="
-                            param-xl
-                            text-center
-                            tr-gray-two
-                            font-weight-bolder
-                          "
+                          class="param-xl text-center tr-gray-two font-weight-bolder"
                         >
-                          {{ parseFloat((totalDAIFloat).toFixed(0))  }}
+                          {{ parseFloat(totalDAIFloat.toFixed(0)) }}
                           <span class="param-sm-light">
-                      {{
-                              "~$" +
-                              parseFloat((daiUSDPrice * totalDAIFloat).toFixed(0))
+                            ~${{
+                              $store.state.co2Count > 0
+                                ? $store.state.co2Count +
+                                  parseFloat(
+                                    (daiUSDPrice * totalDAIFloat).toFixed(0)
+                                  )
+                                : parseFloat(
+                                    (daiUSDPrice * totalDAIFloat).toFixed(0)
+                                  )
                             }}
-                    </span>
+                          </span>
                         </p>
                         <p
-                          class="
-                            param
-                            text-center
-                            tr-gray-four
-                            font-weight-bolder
-                            mb-0
-                          "
+                          class="param text-center tr-gray-four font-weight-bolder mb-0"
                         >
-                          {{$t('forest.total')}} DAI
+                          {{ $t("forest.total") }} DAI
                         </p>
                       </div>
                     </div>
@@ -183,10 +181,13 @@
                     @click="buyDai()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? $t('aboutus.loading') : $t('forest.buydaionmatic') }}
+                      >loading
+                    </BSpinner>
+                    {{
+                      loading
+                        ? $t("aboutus.loading")
+                        : $t("forest.buydaionmatic")
+                    }}
                   </button>
 
                   <button
@@ -196,10 +197,9 @@
                     @click="fundTree()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? $t('aboutus.loading')  : $t('forest.confirm')}}
+                      >loading
+                    </BSpinner>
+                    {{ loading ? $t("aboutus.loading") : $t("forest.confirm") }}
                   </button>
 
                   <button
@@ -209,14 +209,13 @@
                     @click="allowSpendDai()"
                   >
                     <BSpinner v-if="loading" class="mr-2" small type="grow"
-                    >loading
-                    </BSpinner
-                    >
-                    {{ loading ? $t('aboutus.loading')  :  $t('forest.approve') }}
+                      >loading
+                    </BSpinner>
+                    {{ loading ? $t("aboutus.loading") : $t("forest.approve") }}
                   </button>
 
                   <p class="mt-3 param tr-gray-two mb-0">
-                    {{$t('forest.byproceeding')}}
+                    {{ $t("forest.byproceeding") }}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -225,9 +224,9 @@
                           '_blank'
                         )
                       "
-                    >{{$t('forest.terms')}}</span
+                      >{{ $t("forest.terms") }}</span
                     >
-                    {{$t('header.and')}}
+                    {{ $t("header.and") }}
                     <span
                       class="param tr-green pointer-event"
                       @click.prevent="
@@ -236,7 +235,7 @@
                           '_blank'
                         )
                       "
-                    >{{$t('forest.conditions')}}</span
+                      >{{ $t("forest.conditions") }}</span
                     >
                   </p>
                 </div>
@@ -244,14 +243,9 @@
                 <div class="col-12 mt-5">
                   <div class="get-help m-auto">
                     <p
-                      class="
-                        param-18
-                        font-weight-bolder
-                        tr-gray-two
-                        text-center
-                      "
+                      class="param-18 font-weight-bolder tr-gray-two text-center"
                     >
-                     {{$t('forest.gethelp')}}
+                      {{ $t("forest.gethelp") }}
                     </p>
                   </div>
                 </div>
@@ -267,7 +261,9 @@
                         class="btn-purple pointer-event font-weight-bolder"
                         @click.prevent="setPaymentMethod(item.name, item.href)"
                       >
-                        <span v-if="item.name === 'Bridge'">{{ !bridgeLoading ? 'Bridge' : 'Loading...' }}</span>
+                        <span v-if="item.name === 'Bridge'">{{
+                          !bridgeLoading ? "Bridge" : "Loading..."
+                        }}</span>
                         <span v-else>{{ item.name }}</span>
                       </div>
                     </div>
@@ -277,28 +273,28 @@
             </div>
           </div>
         </div>
-         <div
-        v-if="activeIndex === 3"
-        class="col-12 final-step justify-content-center text-center"
-      >
-        <img
-          alt="final-step"
-          class="img-fluid mt-5"
-          src="~/assets/images/myforest/final-step.png"
-        />
-        <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
-           {{$t('forest.congratulations')}}
-        </h1>
-        <p class="mt-3 tr-gray-three">
-          {{$t('forest.rural')}}
-        </p>
-        <nuxt-link
-          :to="localePath('/forest/' + $cookies.get('account'))"
-          class="tr-green param pt-5"
-        > {{$t('forest.gobacktomyforest')}}
-        </nuxt-link
+        <div
+          v-if="activeIndex === 3"
+          class="col-12 final-step justify-content-center text-center"
         >
-      </div>
+          <img
+            alt="final-step"
+            class="img-fluid mt-5"
+            src="~/assets/images/myforest/final-step.png"
+          />
+          <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
+            {{ $t("forest.congratulations") }}
+          </h1>
+          <p class="mt-3 tr-gray-three">
+            {{ $t("forest.rural") }}
+          </p>
+          <nuxt-link
+            :to="localePath('/forest/' + $cookies.get('account'))"
+            class="tr-green param pt-5"
+          >
+            {{ $t("forest.gobacktomyforest") }}
+          </nuxt-link>
+        </div>
         <!-- <div v-if="sendAsTreeCard" id="sendAsTreeCard" class="row form-name">
           <div class="col-12">
             <div class="card bg-transparent p-4 mt-5">
@@ -433,8 +429,8 @@
             </div>
           </div>
         </div> -->
-      <!-- </div> -->
-      <!-- <div v-if="activeIndex === 1" class="col-12 step-two">
+        <!-- </div> -->
+        <!-- <div v-if="activeIndex === 1" class="col-12 step-two">
         <div v-if="this.$store.state.account === null" class="row">
           <div class="col-12 mt-5 justify-content-center text-center">
             <h1 class="title-sm font-weight-bolder text-center">
@@ -595,8 +591,7 @@
           </div>
         </div>
       </div> -->
-     
-    </div>
+      </div>
     </div>
   </section>
 </template>
@@ -604,9 +599,9 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
+import OffsetCheckout from "@/components/forest/OffestCheckout.vue";
 // import transakSDK from "@transak/transak-sdk";
-const BN = require('bn.js');
-
+const BN = require("bn.js");
 
 export default {
   name: "checkout",
@@ -615,18 +610,24 @@ export default {
     return {
       title: `Treejer`,
       meta: [
-        {hid: 'description', name: 'description', content: "Enter the Tree ID below and we'll find it for you! :)"},
         {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard'
-        }
-      ]
-    }
+          hid: "description",
+          name: "description",
+          content: "Enter the Tree ID below and we'll find it for you! :)",
+        },
+        {
+          hid: "keywords",
+          name: "keywords",
+          content:
+            "Looking for your tree?  Tree ID Forests Explore Forests Tree Status Explorer\n LeaderBoard",
+        },
+      ],
+    };
   },
   components: {
     Wallets,
     Fab,
+    OffsetCheckout,
   },
   async mounted() {
     await this.getPrice();
@@ -640,10 +641,22 @@ export default {
   data() {
     return {
       pays: [
-        {href: "https://app.hop.exchange/#/send?token=DAI&sourceNetwork=ethereum&destNetwork=polygon", name: "Bridge"},
-        {href: "https://global.transak.com/?defaultCryptoCurrency=DAI&fiatCurrency=USD&defaultNetwork=polygon", name: "Visa/Master"},
-        {href: "https://docs.treejer.com/", name: this.$t('header.learnmore')},
-        {href: "https://discuss.treejer.com/", name: this.$t('header.questions')},
+        {
+          href: "https://app.hop.exchange/#/send?token=DAI&sourceNetwork=ethereum&destNetwork=polygon",
+          name: "Bridge",
+        },
+        {
+          href: "https://global.transak.com/?defaultCryptoCurrency=DAI&fiatCurrency=USD&defaultNetwork=polygon",
+          name: "Visa/Master",
+        },
+        {
+          href: "https://docs.treejer.com/",
+          name: this.$t("header.learnmore"),
+        },
+        {
+          href: "https://discuss.treejer.com/",
+          name: this.$t("header.questions"),
+        },
       ],
       bridgeLoading: false,
       slectedPays: null,
@@ -658,22 +671,22 @@ export default {
       loading: false,
       count: 1,
       steps: [
-        {name: "Collect", step: 1},
-        {name: "Connect to wallet", step: 2},
-        {name: "Checkout", step: 3},
+        { name: "Collect", step: 1 },
+        { name: "Connect to wallet", step: 2 },
+        { name: "Checkout", step: 3 },
 
         // { name: "final-step", step: 4 }
       ],
       counts: [
-        {name: 1, step: 1},
-        {name: 5, step: 2},
-        {name: 10, step: 3},
-        {name: 20, step: 3},
-        {name: this.countTree, step: 3, placeHolder: "Enter Number"},
+        { name: 1, step: 1 },
+        { name: 5, step: 2 },
+        { name: 10, step: 3 },
+        { name: 20, step: 3 },
+        { name: this.countTree, step: 3, placeHolder: "Enter Number" },
       ],
       payMethods: [
         // {name: "visa", icon: "cc-visa", step: 1},
-        {name: "bitcoin", icon: "ethereum", step: 2},
+        { name: "bitcoin", icon: "ethereum", step: 2 },
         // {name: "stripe", icon: "cc-stripe", step: 3}
       ],
       activeIndex: 0,
@@ -681,12 +694,12 @@ export default {
       activePay: 0,
       countTree: null,
       totalDAI: 0,
-      totalDAIFloat: 0.00
+      totalDAIFloat: 0.0,
     };
   },
   methods: {
     async allowSpendDai(silent = false) {
-      if(await this.checkNetwork() === false) {
+      if ((await this.checkNetwork()) === false) {
         return;
       }
 
@@ -702,9 +715,9 @@ export default {
 
       if (transaction !== null) {
         this.setIsAllowance(this.count);
-        this.$bvToast.toast(self.$t('alert.transactionsuccessfull'), {
+        this.$bvToast.toast(self.$t("alert.transactionsuccessfull"), {
           toaster: "b-toaster-bottom-left",
-          title: self.$t('alert.approvedtospend'),
+          title: self.$t("alert.approvedtospend"),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
@@ -737,13 +750,15 @@ export default {
       }
 
       this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
-        'account': this.$cookies.get("account")
+        account: this.$cookies.get("account"),
       });
     },
 
     async buyDai() {
-
-      window.open('https://app.sushi.com/swap?outputCurrency=0x8f3cf7ad23cd3cadbd9735aff958023239c6a063', '_blank');
+      window.open(
+        "https://app.sushi.com/swap?outputCurrency=0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+        "_blank"
+      );
       return;
 
       // let self = this;
@@ -757,7 +772,6 @@ export default {
       //   self.$bvModal.show("five");
       //   return
       // }
-
 
       // let transak = new transakSDK({
       //   apiKey: process.env.transakApiKey, // Your API Key
@@ -799,75 +813,98 @@ export default {
       // });
     },
     async checkNetwork() {
-      let connectedNetwrokID = await this.$web3.eth.net.getId()
-      .then((networkId) => {
-        return networkId;
-      })
-      .catch((err) => {
-        console.log(err.message, "error checkNetwork");
-        return 0;
-      });
+      let connectedNetwrokID = await this.$web3.eth.net
+        .getId()
+        .then((networkId) => {
+          return networkId;
+        })
+        .catch((err) => {
+          console.log(err.message, "error checkNetwork");
+          return 0;
+        });
 
-      if(connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == process.env.networkId) {
         return true;
       }
 
-      this.$bvToast.toast(this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.wrongnetwork'), {
-        toaster: "b-toaster-bottom-left",
-        title:  this.$t('alert.wrongnetwork'),
-        variant: 'danger',
-        noAutoHide: true,
-      });
+      this.$bvToast.toast(
+        this.$t("alert.pleaseconnect") +
+          process.env.networkName.toUpperCase() +
+          this.$t("alert.wrongnetwork"),
+        {
+          toaster: "b-toaster-bottom-left",
+          title: this.$t("alert.wrongnetwork"),
+          variant: "danger",
+          noAutoHide: true,
+        }
+      );
       return false;
-
     },
     async fundTree() {
-
-      if(await this.checkNetwork() === false) {
-        return;
-      }
-      
-      let daiBalanceBn =  new BN(this.$web3.utils.toWei((this.daiBalance.toString())));
-
-      if(!daiBalanceBn.gte(this.totalDAI)) {
-        this.$bvToast.toast(this.$t('alert.insufficientbalance')+ this.daiBalance, {
-          toaster: "b-toaster-bottom-left",
-          title: this.$t('alert.notenoughDAI'),
-          variant: 'danger',
-          noAutoHide: true,
-        });
+      if ((await this.checkNetwork()) === false) {
         return;
       }
 
+      let daiBalanceBn = new BN(
+        this.$web3.utils.toWei(this.daiBalance.toString())
+      );
+
+      if (!daiBalanceBn.gte(this.totalDAI)) {
+        this.$bvToast.toast(
+          this.$t("alert.insufficientbalance") + this.daiBalance,
+          {
+            toaster: "b-toaster-bottom-left",
+            title: this.$t("alert.notenoughDAI"),
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
+        return;
+      }
 
       this.loading = true;
       let self = this;
       if (this.sendAsGiftChecked && this.recipient) {
         try {
-          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
+          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient);
         } catch (e) {
           self.$bvToast.toast([e.message], {
-            toaster: 'b-toaster-bottom-left',
-            title: this.$t('alert.invalidrecipient'),
-            variant: 'danger',
-            to: 'forest/checkout',
-          })
-          console.error('invalid ethereum address', e.message)
+            toaster: "b-toaster-bottom-left",
+            title: this.$t("alert.invalidrecipient"),
+            variant: "danger",
+            to: "forest/checkout",
+          });
+          console.error("invalid ethereum address", e.message);
           this.loading = false;
           return;
         }
       }
+      if (this.$store.state.co2Count <= 0) {
+        this.transferReceipt = await this.$store.dispatch(
+          "regularSale/fundTree",
+          {
+            count: this.count,
+            recipient: this.recipient,
+            context: self,
+          }
+        );
+      }
+      if (this.$store.state.co2Count > 0) {
+        this.transferReceipt = await this.$store.dispatch(
+          "regularSale/fundTree",
+          {
+            count: this.count + this.$store.state.co2Count,
+            recipient: this.recipient,
+            context: self,
+          }
+        );
+      }
 
-      this.transferReceipt = await this.$store.dispatch("regularSale/fundTree", {
-        count: this.count,
-        recipient: this.recipient,
-        context: self,
-      });
       if (this.transferReceipt !== null) {
         this.activeIndex = 3;
-        self.$bvToast.toast(self.$t('alert.yourpaymentwassuccessful'), {
+        self.$bvToast.toast(self.$t("alert.yourpaymentwassuccessful"), {
           toaster: "b-toaster-bottom-left",
-          title: this.$t('alert.treesaddedtoforest'),
+          title: this.$t("alert.treesaddedtoforest"),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
@@ -884,7 +921,7 @@ export default {
       this.loading = false;
     },
     async getPrice() {
-      this.treePrice = await this.$store.dispatch('regularSale/getPrice')
+      this.treePrice = await this.$store.dispatch("regularSale/getPrice");
     },
     async setIsAllowance(count, silent = false) {
       if (silent === false) {
@@ -903,12 +940,15 @@ export default {
       }
     },
     async setTotalDAI() {
-     
       let countBN = new BN(this.count);
-      let priceBN = new BN(this.$web3.utils.toWei(this.$store.state.regularSale.price));
+      let priceBN = new BN(
+        this.$web3.utils.toWei(this.$store.state.regularSale.price)
+      );
 
       this.totalDAI = countBN.mul(priceBN);
-      this.totalDAIFloat = parseFloat(this.$web3.utils.fromWei(this.totalDAI.toString()));
+      this.totalDAIFloat = parseFloat(
+        this.$web3.utils.fromWei(this.totalDAI.toString())
+      );
     },
     pasteRecipient() {
       let self = this;
@@ -924,11 +964,10 @@ export default {
     },
     async setPaymentMethod(item, href) {
       window.open(href, "_blank");
-
     },
     goToTerm(item, target) {
       window.open(item, target);
-    }
+    },
   },
   watch: {
     async count(newCount, oldCount) {
@@ -936,11 +975,10 @@ export default {
 
       await this.setIsAllowance(newCount);
 
-      
       // Our fancy notification (2).
       // console.log(`We have ${newCount} fruits now, yay!`)
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -1131,7 +1169,6 @@ export default {
     p {
       width: 48px !important;
       height: 48px;
-
     }
 
     p.active {
@@ -1288,7 +1325,7 @@ export default {
 
     .checkout-border::after {
       position: absolute;
-      content: '';
+      content: "";
       height: 75px;
       border: solid 1px #757575;
       width: 1px;
@@ -1328,9 +1365,9 @@ export default {
   .get-help-pays {
     .btn-purple {
       background: linear-gradient(
-          93.32deg,
-          rgba(63, 177, 214, 0.7) -5.29%,
-          #bf8bdf 98.26%
+        93.32deg,
+        rgba(63, 177, 214, 0.7) -5.29%,
+        #bf8bdf 98.26%
       );
       border-radius: 8px;
       color: white;
@@ -1367,7 +1404,7 @@ export default {
   @media (max-width: 768px) {
     .bg-yellow-checkout {
       .mb-direction {
-          margin-top: 0;
+        margin-top: 0;
         p {
           text-align: left !important;
         }

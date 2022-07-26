@@ -22,7 +22,7 @@ export const state = () => ({
   modalFive: false,
   showMobileSidebar:false,
   showMobileSidebarLanding:false,
-  showMobileSidebarLanding:false,
+  co2Count:0
 })
 
 export const actions = {
@@ -241,5 +241,9 @@ export const mutations = {
   SET_ETH_PRICE(state, ethPrice) {
     state.ethPrice = ethPrice
   },
+  SET_CHECKOUT_FOR_CO2(state,co2Count){
+    state.co2Count = co2Count
+    
+  }
 
 }
