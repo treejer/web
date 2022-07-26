@@ -117,6 +117,7 @@ export default {
     metamask: "Metamask",
     Walletconnect: "WalletConnect",
     connectingto: "Connecting to",
+    questions:'Questions'
   },
   landingfooter: {
     plant: "Plant a Tree",

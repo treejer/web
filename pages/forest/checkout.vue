@@ -962,7 +962,7 @@ export default {
           console.log(err, "err is here");
         });
     },
-    async setPaymentMethod(item, href) {
+     setPaymentMethod(item, href) {
       window.open(href, "_blank");
     },
     goToTerm(item, target) {
