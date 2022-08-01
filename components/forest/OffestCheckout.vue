@@ -16,16 +16,18 @@
       </div>
     </div>
     <div class="description-offest param-xs tr-gray-four">
-      Add $1 per tree and <span class="tr-green">offset 25.2</span> tonnes of
+      Add 1 DAI($1) per tree and <span class="tr-green">offset {{  parseFloat(1 * co2Tonne1).toFixed(2) }}</span> tonnes of
       CO2 in this transaction. Carbon credits are supplied from 3rd-party
-      projects. <span class="tr-green">Learn more</span>
+      projects. <a href="https://docs.toucan.earth/protocol/bridge/tco2-toucan-carbon-tokens" target="_blank" class="tr-green">Learn more</a>
     </div>
     <div v-if="activeOffestCountBox" class="offset-count d-flex">
       <div class="left-side-offest-box col-md-8 text-center">
         <p class="title-lg font-weight-bolder">
-          {{ parseFloat($store.state.co2Count * 25.2).toFixed(2) }}
+          {{ parseFloat(co2Count * co2Tonne).toFixed(2) }}
         </p>
-        <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon</p>
+        <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon <small>
+        </small></p>
+
       </div>
       <div class="right-side-offest-box col-md-4 border-left mt-4">
         <span
@@ -47,34 +49,44 @@
 
 <script>
 export default {
+  props: {
+    treeCount:{
+      type: Number,
+      default: 1
+    }
+  },
   data() {
     return {
       activeOffestCountBox: false,
       co2Count: 0,
+      co2Tonne: 0.25,
+      co2Tonne1: 0.25,
     };
   },
   methods: {
+    async getCo2Tonne(count) {
+      return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
+        amountIn: count,
+        path: process.env.OFFSET_DEX_PATH.split(","),
+      })
+
+    },
     showOffsetCountBox() {
       this.activeOffestCountBox = !this.activeOffestCountBox;
       if (this.activeOffestCountBox) {
          this.co2Count = 1;
-        this.$store.commit("SET_CHECKOUT_FOR_CO2", this.co2Count );
       }
 
       if (!this.activeOffestCountBox) {
         this.co2Count = 0;
-        this.$store.commit("SET_CHECKOUT_FOR_CO2",  this.co2Count );
       }
     },
     obb() {
-      
       this.co2Count++;
-      this.$store.commit("SET_CHECKOUT_FOR_CO2", this.co2Count);
     },
     odd() {
-      if (this.$store.state.co2Count > 0) {
+      if (this.co2Count > 1) {
         this.co2Count--;
-        this.$store.commit("SET_CHECKOUT_FOR_CO2", this.co2Count);
       } else {
         this.showAlert();
       }
@@ -91,15 +103,16 @@ export default {
       );
     },
   },
+  watch: {
+    async co2Count(newVal) {
+      this.co2Tonne = await this.getCo2Tonne(newVal);
+      this.$store.commit("SET_CO2_COUNT", this.co2Count);
+    },
+  },
 
-  created() {
-    if (this.activeOffestCountBox) {
-      this.$store.commit("SET_CHECKOUT_FOR_CO2", 1);
-    }
-
-    if (!this.activeOffestCountBox) {
-      this.$store.commit("SET_CHECKOUT_FOR_CO2", 0);
-    }
+  async created() {
+    this.co2Tonne1 = await  this.getCo2Tonne(1);
+    this.co2Count = this.treeCount;
   },
 };
 </script>

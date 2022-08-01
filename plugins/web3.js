@@ -5,6 +5,8 @@ import IncrementalSale from  '~/contracts/IncrementalSale'
 import IHonoraryTree from  '~/contracts/IHonoraryTree'
 import TreeAbi from  '~/static/abis/Tree'
 import TreeBoxAbi from  '~/static/abis/TreeBox'
+import FundWithOffsetAbi from  '~/static/abis/FundWithOffset'
+import UniswapV2Router02Abi from  '~/static/abis/UniswapV2Router02'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 
@@ -76,4 +78,6 @@ export default async ({ app }, inject) => {
     inject('IHonoraryTree', new instance.eth.Contract(IHonoraryTree.abi, process.env.contractHonoraryTree))
     inject('Tree', new instance.eth.Contract(TreeAbi, process.env.treeAddress))
     inject('TreeBox', new instance.eth.Contract(TreeBoxAbi, process.env.treeboxContractAddress))
+    inject('FundWithOffset', new instance.eth.Contract(FundWithOffsetAbi, process.env.fundWithOffsetContractAddress))
+    inject('UniswapV2Router02', new instance.eth.Contract(UniswapV2Router02Abi, process.env.uniswapV2Router02ContractAddress))
 }

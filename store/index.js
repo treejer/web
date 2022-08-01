@@ -241,7 +241,7 @@ export const mutations = {
   SET_ETH_PRICE(state, ethPrice) {
     state.ethPrice = ethPrice
   },
-  SET_CHECKOUT_FOR_CO2(state,co2Count){
+  SET_CO2_COUNT(state,co2Count){
     state.co2Count = co2Count
     
   }
