@@ -109,7 +109,7 @@
                     <div v-if="activeOffestCountBox" class="offset-count d-flex">
                       <div class="left-side-offest-box col-md-8 text-center">
                         <p class="title-lg font-weight-bolder">
-                          {{ parseFloat(co2Count * co2Tonne).toFixed(2) }}
+                          {{ parseFloat(co2Tonne).toFixed(2) }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon <small>
                           </small></p>
