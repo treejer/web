@@ -88,7 +88,7 @@
                     />
                   </div> -->
                 </div>
-                <div class="col-12 p-md-0">
+                <div class="col-12 p-0">
 
                   <div class="offset-checkout">
                     <div class="d-flex offset-checkbox">
