@@ -23,33 +23,17 @@
                   {{ $t("forest.howmany") }}
                 </h1>
                 <ul class="d-flex list-style-none mt-4 pl-0">
-                  <li
-                    v-for="(item, index) in counts"
-                    :key="index"
-                    class="pointer-event pl-0"
-                  >
+                  <li v-for="(item, index) in counts" :key="index" class="pointer-event pl-0">
                     <div v-if="!item.placeHolder">
-                      <p
-                        :key="index"
-                        :class="{ active: activeCount === index }"
-                        :name="item.name"
-                        class="ml-0 font-weight-bolder param-18"
-                        @click="activeCounts(item, index)"
-                      >
+                      <p :key="index" :class="{ active: activeCount === index }" :name="item.name"
+                        class="ml-0 font-weight-bolder param-18" @click="activeCounts(item, index)">
                         {{ item.name }}
                       </p>
                     </div>
                     <div v-if="item.placeHolder">
                       <label :for="index">
-                        <input
-                          :key="index"
-                          v-model="count"
-                          :class="{ active: activeCount === index }"
-                          :placeholder="item.placeHolder"
-                          class="param-18"
-                          min="1"
-                          type="number"
-                        />
+                        <input :key="index" v-model="count" :class="{ active: activeCount === index }"
+                          :placeholder="item.placeHolder" class="param-18" min="1" type="number" />
                       </label>
                     </div>
                   </li>
@@ -84,29 +68,16 @@
                   </div>
                   <div class="col-md-6 col-6 form-check">
                     <div class="on-off-toggle">
-                      <input
-                        id="bopiss"
-                        v-model="sendAsGiftChecked"
-                        class="on-off-toggle__input disabled"
-                        type="checkbox"
-                      />
-                      <label
-                        class="on-off-toggle__slider pointer-event"
-                        for="bopiss"
-                      ></label>
+                      <input id="bopiss" v-model="sendAsGiftChecked" class="on-off-toggle__input disabled"
+                        type="checkbox" />
+                      <label class="on-off-toggle__slider pointer-event" for="bopiss"></label>
                     </div>
                   </div>
                 </div>
-                <div
-                  v-show="sendAsGiftChecked"
-                  class="row justify-content-between"
-                >
+                <div v-show="sendAsGiftChecked" class="row justify-content-between">
                   <div class="col-12 col-md-8">
-                    <input
-                      v-model="recipient"
-                      class="form-control-lg tr-input w-100 ease-out"
-                      :placeholder="$t('forest.recipients')"
-                    />
+                    <input v-model="recipient" class="form-control-lg tr-input w-100 ease-out"
+                      :placeholder="$t('forest.recipients')" />
                   </div>
 
                   <!-- <div class="col-12 col-md-4">
@@ -117,152 +88,191 @@
                     />
                   </div> -->
                 </div>
-                <div class="col-12 p-md-0 offest-checkout">
-                  <OffsetCheckout />
+                <div class="col-12 p-0">
+
+                  <div class="offset-checkout">
+                    <div class="d-flex offset-checkbox">
+                      <p class="param-18 tr-gray-one font-weight-bolder">Offset carbon footprint</p>
+                      <div class="on-off-toggle">
+                        <input id="bopisss" @click="showOffsetCountBox()" class="on-off-toggle__input disabled"
+                          type="checkbox" />
+                        <label class="on-off-toggle__slider pointer-event" for="bopisss"></label>
+                      </div>
+                    </div>
+                    <div class="description-offest param-xs tr-gray-four">
+                      Add 1 DAI($1) per tree and <span class="tr-green">offset {{ parseFloat(1 * co2Tonne1).toFixed(2)
+                      }}</span> tonnes of
+                      CO2 in this transaction. Carbon credits are supplied from 3rd-party
+                      projects. <a href="https://docs.toucan.earth/protocol/bridge/tco2-toucan-carbon-tokens"
+                        target="_blank" class="tr-green">Learn more</a>
+                    </div>
+                    <div v-if="activeOffestCountBox" class="offset-count d-flex">
+                      <div class="left-side-offest-box col-md-8 text-center">
+                        <p class="title-lg font-weight-bolder">
+                          {{ parseFloat(co2Tonne).toFixed(2) }}
+                        </p>
+                        <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon <small>
+                          </small></p>
+
+                      </div>
+                      <div class="right-side-offest-box col-md-4 border-left mt-4">
+                        <span class="obb title-lg tr-gray-one pointer-event font-weight-bolder" @click="obb()">
+                          +
+                        </span>
+                        <span class="odd title-lg tr-gray-two pointer-event pl-4 font-weight-bolder" @click="odd()">
+                          -
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>
             <div class="col-lg-6 col-md-12 col-12 overflow-hidden">
               <div class="row box-right-checkout">
                 <div class="col-12">
-                  <h1
-                    class="title-sm font-weight-bolder tr-gray-two text-center mt-1"
-                  >
+                  <h1 class="title-sm font-weight-bolder tr-gray-two text-center mt-1">
                     {{ $t("forest.yourefunding") }}
                   </h1>
                 </div>
                 <div class="col-12">
                   <div class="bg-yellow-checkout m-auto">
                     <div class="row">
-                      <div
-                        class="col-6 p-md-0 text-left text-md-center checkout-border"
-                      >
+                      <div class="col-6 p-md-0 text-left text-md-center checkout-border">
                         <p class="param-xl tr-gray-two font-weight-bolder">
                           {{ count }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder mb-0">
                           {{
-                            count > 1 ? $t("genesis.trees") : $t("genesis.tree")
+                              count > 1 ? $t("genesis.trees") : $t("genesis.tree")
                           }}
                         </p>
                       </div>
                       <div class="col-6 p-md-0 mb-direction">
-                        <p
-                          class="param-xl text-center tr-gray-two font-weight-bolder"
-                        >
-                          {{ parseFloat(totalDAIFloat.toFixed(0)) }}
+                        <p class="param-xl text-center tr-gray-two font-weight-bolder">
+                          {{ parseFloat(totalDAIFloat + parseFloat(co2Count)).toFixed(0) }}
                           <span class="param-sm-light">
                             ~${{
-                              $store.state.co2Count > 0
-                                ? $store.state.co2Count +
-                                  parseFloat(
-                                    (daiUSDPrice * totalDAIFloat).toFixed(0)
-                                  )
-                                : parseFloat(
-                                    (daiUSDPrice * totalDAIFloat).toFixed(0)
-                                  )
+                            
+                                parseFloat(
+                                  ((daiUSDPrice * totalDAIFloat) + parseFloat(co2Count)).toFixed(0)
+                                )
                             }}
                           </span>
                         </p>
-                        <p
-                          class="param text-center tr-gray-four font-weight-bolder mb-0"
-                        >
+                        <p class="param text-center tr-gray-four font-weight-bolder mb-0">
                           {{ $t("forest.total") }} DAI
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-8 offset-md-2 mt-4 text-center">
-                  <button
-                    v-if="daiBalance <= 0"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                    @click="buyDai()"
-                  >
-                    <BSpinner v-if="loading" class="mr-2" small type="grow"
-                      >loading
+                <div class="col-12 col-md-8 offset-md-2 mt-4 text-center" v-if="activeOffestCountBox">
+                  <button v-if="daiBalance < parseFloat(totalDAIFloat) + parseFloat(co2Count)" :class="{ disable: loading }"
+                    class="btn-green-md mt-4 mb-3" @click="buyDai()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
                     </BSpinner>
                     {{
-                      loading
-                        ? $t("aboutus.loading")
-                        : $t("forest.buydaionmatic")
+                        loading
+                          ? $t("aboutus.loading")
+                          : $t("forest.buydaionmatic")
                     }}
                   </button>
 
-                  <button
-                    v-if="daiBalance > 0 && isAllowedSpendDai"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                    @click="fundTree()"
-                  >
-                    <BSpinner v-if="loading" class="mr-2" small type="grow"
-                      >loading
+                  <button v-if="daiBalance >= parseFloat(totalDAIFloat)  + parseFloat(co2Count) && isAllowedSpendDaiOffset"
+                    :class="{ disable: loading }" class="btn-green-md mt-4 mb-3" @click="fundTree()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
                     </BSpinner>
                     {{ loading ? $t("aboutus.loading") : $t("forest.confirm") }}
                   </button>
 
                   <button
-                    v-if="daiBalance > 0 && !isAllowedSpendDai"
-                    :class="{ disable: loading }"
-                    class="btn-green-md mt-4 mb-3"
-                    @click="allowSpendDai()"
-                  >
-                    <BSpinner v-if="loading" class="mr-2" small type="grow"
-                      >loading
+                    v-if="daiBalance >= parseFloat(totalDAIFloat)  + parseFloat(co2Count) &&  !isAllowedSpendDaiOffset"
+                    :class="{ disable: loading }" class="btn-green-md mt-4 mb-3" @click="allowSpendDai()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
                     </BSpinner>
                     {{ loading ? $t("aboutus.loading") : $t("forest.approve") }}
                   </button>
 
                   <p class="mt-3 param tr-gray-two mb-0">
                     {{ $t("forest.byproceeding") }}
-                    <span
-                      class="param tr-green pointer-event"
-                      @click.prevent="
-                        goToTerm(
-                          'https://docs.treejer.com/legal/terms-of-service',
-                          '_blank'
-                        )
-                      "
-                      >{{ $t("forest.terms") }}</span
-                    >
+                    <span class="param tr-green pointer-event" @click.prevent="
+                      goToTerm(
+                        'https://docs.treejer.com/legal/terms-of-service',
+                        '_blank'
+                      )
+                    ">{{ $t("forest.terms") }}</span>
                     {{ $t("header.and") }}
-                    <span
-                      class="param tr-green pointer-event"
-                      @click.prevent="
-                        goToTerm(
-                          'https://docs.treejer.com/legal/privacy-policy',
-                          '_blank'
-                        )
-                      "
-                      >{{ $t("forest.conditions") }}</span
-                    >
+                    <span class="param tr-green pointer-event" @click.prevent="
+                      goToTerm(
+                        'https://docs.treejer.com/legal/privacy-policy',
+                        '_blank'
+                      )
+                    ">{{ $t("forest.conditions") }}</span>
+                  </p>
+                </div>
+
+                <div class="col-12 col-md-8 offset-md-2 mt-4 text-center" v-else>
+                  <button v-if="daiBalance < parseFloat(totalDAIFloat)" :class="{ disable: loading }"
+                    class="btn-green-md mt-4 mb-3" @click="buyDai()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
+                    </BSpinner>
+                    {{
+                        loading
+                          ? $t("aboutus.loading")
+                          : $t("forest.buydaionmatic")
+                    }}
+                  </button>
+
+                  <button v-if="daiBalance >= parseFloat(totalDAIFloat) && isAllowedSpendDai"
+                    :class="{ disable: loading }" class="btn-green-md mt-4 mb-3" @click="fundTree()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
+                    </BSpinner>
+                    {{ loading ? $t("aboutus.loading") : $t("forest.confirm") }}
+                  </button>
+
+                  <button
+                    v-if="daiBalance >= parseFloat(totalDAIFloat) && !isAllowedSpendDai"
+                    :class="{ disable: loading }" class="btn-green-md mt-4 mb-3" @click="allowSpendDai()">
+                    <BSpinner v-if="loading" class="mr-2" small type="grow">loading
+                    </BSpinner>
+                    {{ loading ? $t("aboutus.loading") : $t("forest.approve") }}
+                  </button>
+
+                  <p class="mt-3 param tr-gray-two mb-0">
+                    {{ $t("forest.byproceeding") }}
+                    <span class="param tr-green pointer-event" @click.prevent="
+                      goToTerm(
+                        'https://docs.treejer.com/legal/terms-of-service',
+                        '_blank'
+                      )
+                    ">{{ $t("forest.terms") }}</span>
+                    {{ $t("header.and") }}
+                    <span class="param tr-green pointer-event" @click.prevent="
+                      goToTerm(
+                        'https://docs.treejer.com/legal/privacy-policy',
+                        '_blank'
+                      )
+                    ">{{ $t("forest.conditions") }}</span>
                   </p>
                 </div>
 
                 <div class="col-12 mt-5">
                   <div class="get-help m-auto">
-                    <p
-                      class="param-18 font-weight-bolder tr-gray-two text-center"
-                    >
+                    <p class="param-18 font-weight-bolder tr-gray-two text-center">
                       {{ $t("forest.gethelp") }}
                     </p>
                   </div>
                 </div>
                 <div class="col-12 col-md-8 offset-md-2 mt-3">
                   <div class="row">
-                    <div
-                      v-for="(item, index) in pays"
-                      :key="index"
-                      class="get-help-pays col-md-6 mb-3"
-                    >
-                      <div
-                        :id="item.name"
-                        class="btn-purple pointer-event font-weight-bolder"
-                        @click.prevent="setPaymentMethod(item.name, item.href)"
-                      >
+                    <div v-for="(item, index) in pays" :key="index" class="get-help-pays col-md-6 mb-3">
+                      <div :id="item.name" class="btn-purple pointer-event font-weight-bolder"
+                        @click.prevent="setPaymentMethod(item.name, item.href)">
                         <span v-if="item.name === 'Bridge'">{{
-                          !bridgeLoading ? "Bridge" : "Loading..."
+                            !bridgeLoading ? "Bridge" : "Loading..."
                         }}</span>
                         <span v-else>{{ item.name }}</span>
                       </div>
@@ -273,25 +283,15 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="activeIndex === 3"
-          class="col-12 final-step justify-content-center text-center"
-        >
-          <img
-            alt="final-step"
-            class="img-fluid mt-5"
-            src="~/assets/images/myforest/final-step.png"
-          />
+        <div v-if="activeIndex === 3" class="col-12 final-step justify-content-center text-center">
+          <img alt="final-step" class="img-fluid mt-5" src="~/assets/images/myforest/final-step.png" />
           <h1 class="title-sm font-weight-bold mt-5 tr-gray-two">
             {{ $t("forest.congratulations") }}
           </h1>
           <p class="mt-3 tr-gray-three">
             {{ $t("forest.rural") }}
           </p>
-          <nuxt-link
-            :to="localePath('/forest/' + $cookies.get('account'))"
-            class="tr-green param pt-5"
-          >
+          <nuxt-link :to="localePath('/forest/' + $cookies.get('account'))" class="tr-green param pt-5">
             {{ $t("forest.gobacktomyforest") }}
           </nuxt-link>
         </div>
@@ -599,7 +599,6 @@
 <script>
 import Fab from "@/components/font-awsome/Fab";
 import Wallets from "../../components/Wallets";
-import OffsetCheckout from "@/components/forest/OffestCheckout.vue";
 // import transakSDK from "@transak/transak-sdk";
 const BN = require("bn.js");
 
@@ -626,8 +625,7 @@ export default {
   },
   components: {
     Wallets,
-    Fab,
-    OffsetCheckout,
+    Fab
   },
   async mounted() {
     await this.getPrice();
@@ -637,6 +635,9 @@ export default {
   },
   async created() {
     this.daiUSDPrice = 1.01;
+
+    this.co2Tonne1 = await this.getCo2Tonne(1);
+
   },
   data() {
     return {
@@ -665,6 +666,7 @@ export default {
       sendAsGiftChecked: false,
       daiBalance: 0,
       isAllowedSpendDai: false,
+      isAllowedSpendDaiOffset: false,
       treePrice: null,
       daiUSDPrice: null,
       sendAsTreeCard: false,
@@ -695,6 +697,11 @@ export default {
       countTree: null,
       totalDAI: 0,
       totalDAIFloat: 0.0,
+
+      activeOffestCountBox: false,
+      co2Count: 0,
+      co2Tonne: 0.25,
+      co2Tonne1: 0.25,
     };
   },
   methods: {
@@ -707,22 +714,41 @@ export default {
         this.loading = true;
       }
       let self = this;
+      let transaction = null;
 
-      const transaction = await this.$store.dispatch("dai/approve", {
-        count: this.count,
-        context: self,
-      });
+      if (this.activeOffestCountBox) {
+
+        transaction = await this.$store.dispatch("erc20/approve", {
+          amount: Number(this.$web3.utils.fromWei(this.totalDAI)) + Number(this.co2Count),
+          spenderContract: process.env.fundWithOffsetContractAddress,
+          tokenAddress: process.env.daiTokenAddress,
+        });
+
+      } else {
+        transaction = await this.$store.dispatch("dai/approve", {
+          count: this.count,
+          context: self,
+        });
+      }
+
 
       if (transaction !== null) {
-        this.setIsAllowance(this.count);
+
+
+
+
+
         this.$bvToast.toast(self.$t("alert.transactionsuccessfull"), {
           toaster: "b-toaster-bottom-left",
           title: self.$t("alert.approvedtospend"),
           variant: "success",
           href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
         });
-
-        await this.setIsAllowance();
+        if (!this.activeOffestCountBox) {
+          await this.setIsAllowance();
+        } else {
+          await this.setIsAllowanceOffsetContract();
+        }
         await this.fundTree();
       }
 
@@ -829,8 +855,8 @@ export default {
 
       this.$bvToast.toast(
         this.$t("alert.pleaseconnect") +
-          process.env.networkName.toUpperCase() +
-          this.$t("alert.wrongnetwork"),
+        process.env.networkName.toUpperCase() +
+        this.$t("alert.wrongnetwork"),
         {
           toaster: "b-toaster-bottom-left",
           title: this.$t("alert.wrongnetwork"),
@@ -879,7 +905,7 @@ export default {
           return;
         }
       }
-      if (this.$store.state.co2Count <= 0) {
+      if (!this.activeOffestCountBox) {
         this.transferReceipt = await this.$store.dispatch(
           "regularSale/fundTree",
           {
@@ -889,11 +915,12 @@ export default {
           }
         );
       }
-      if (this.$store.state.co2Count > 0) {
+      else {
         this.transferReceipt = await this.$store.dispatch(
-          "regularSale/fundTree",
+          "fundWithOffset/fundTreeWithOffset",
           {
-            count: this.count + this.$store.state.co2Count,
+            count: this.count,
+            co2Count: this.co2Count,
             recipient: this.recipient,
             context: self,
           }
@@ -939,6 +966,36 @@ export default {
         this.loading = false;
       }
     },
+
+    async setIsAllowanceOffsetContract(count, silent = false) {
+
+      if (silent === false) {
+        this.loading = true;
+      }
+
+
+      let allowance = await this.$store.dispatch("erc20/allowance", {
+        tokenAddress: process.env.daiTokenAddress,
+        spenderContract: process.env.fundWithOffsetContractAddress,
+      });
+
+
+
+      var allowanceBN = new BN(allowance);
+      var totalDAIFloatBN = new BN(this.totalDAIFloat.toString()).add(new BN(this.co2Count.toString()));
+
+      console.log(totalDAIFloatBN.toString(), "totalDAIFloatBN.toString()")
+
+      this.isAllowedSpendDaiOffset = allowanceBN.gte(totalDAIFloatBN);
+
+      
+
+      if (silent === false) {
+        this.loading = false;
+      }
+    },
+
+
     async setTotalDAI() {
       let countBN = new BN(this.count);
       let priceBN = new BN(
@@ -962,21 +1019,78 @@ export default {
           console.log(err, "err is here");
         });
     },
-     setPaymentMethod(item, href) {
+    setPaymentMethod(item, href) {
       window.open(href, "_blank");
     },
     goToTerm(item, target) {
       window.open(item, target);
     },
+
+    async getCo2Tonne(count) {
+      return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
+        amountIn: count,
+        path: process.env.OFFSET_DEX_PATH.split(","),
+      })
+
+    },
+    showOffsetCountBox() {
+      this.activeOffestCountBox = !this.activeOffestCountBox;
+      if (this.activeOffestCountBox) {
+        this.co2Count = this.count;
+      }
+
+      if (!this.activeOffestCountBox) {
+        this.co2Count = 0;
+      }
+    },
+    obb() {
+      this.co2Count++;
+    },
+    odd() {
+      if (this.co2Count > 1) {
+        this.co2Count--;
+      } else {
+        this.showAlert();
+      }
+    },
+
+    showAlert() {
+      this.$bvToast.toast(
+        this.$t("You can not decrease the Co2 price when samller than zero "),
+        {
+          variant: "danger",
+          title: "Added Co2 price to the trees price failed",
+          toaster: "b-toaster-bottom-left",
+        }
+      );
+    },
+
   },
   watch: {
     async count(newCount, oldCount) {
+
+      if (!this.activeOffestCountBox) {
+          await this.setIsAllowance();
+        } else {
+          await this.setIsAllowanceOffsetContract();
+        }
+
+      if (this.activeOffestCountBox) {
+        this.co2Count = newCount;
+      }
+
       await this.setTotalDAI();
 
-      await this.setIsAllowance(newCount);
+      // this.$forceUpdate();
+
 
       // Our fancy notification (2).
       // console.log(`We have ${newCount} fruits now, yay!`)
+    },
+    async co2Count(newVal) {
+      this.co2Tonne = await this.getCo2Tonne(newVal);
+      await this.setIsAllowanceOffsetContract(newVal);
+      // this.$forceUpdate();
     },
   },
 };
@@ -1280,7 +1394,7 @@ export default {
       opacity: 0;
     }
 
-    .on-off-toggle__input:checked + .on-off-toggle__slider {
+    .on-off-toggle__input:checked+.on-off-toggle__slider {
       background-color: #67b68c;
 
       &:before {
@@ -1308,7 +1422,7 @@ export default {
 }
 
 .box-right-checkout {
-  & > .col-12 {
+  &>.col-12 {
     margin-top: 32px;
   }
 
@@ -1331,6 +1445,7 @@ export default {
       width: 1px;
       right: 0px;
       top: 0%;
+
       @media (max-width: 768px) {
         display: none;
       }
@@ -1364,11 +1479,9 @@ export default {
 
   .get-help-pays {
     .btn-purple {
-      background: linear-gradient(
-        93.32deg,
-        rgba(63, 177, 214, 0.7) -5.29%,
-        #bf8bdf 98.26%
-      );
+      background: linear-gradient(93.32deg,
+          rgba(63, 177, 214, 0.7) -5.29%,
+          #bf8bdf 98.26%);
       border-radius: 8px;
       color: white;
       font-size: 14px;
@@ -1392,6 +1505,7 @@ export default {
       margin-top: 15px;
     }
   }
+
   .bg-yellow-checkout {
     .mb-direction {
       margin-top: 25px;
@@ -1401,33 +1515,127 @@ export default {
       }
     }
   }
+
   @media (max-width: 768px) {
     .bg-yellow-checkout {
       .mb-direction {
         margin-top: 0;
+
         p {
           text-align: left !important;
         }
       }
     }
+
     //
   }
+
   .step {
     flex-direction: row;
   }
-  section > div > div > div:nth-child(1) {
+
+  section>div>div>div:nth-child(1) {
     padding: 0;
   }
+
   .step li {
     p {
       font-size: 9px;
     }
   }
-  .step-one > div > div:nth-child(1) > div.col-12.mt-5.input > ul {
+
+  .step-one>div>div:nth-child(1)>div.col-12.mt-5.input>ul {
     overflow: auto;
   }
-  .step-one > div:nth-child(1) > div.col-lg-6.col-12.overflow-hidden > div {
+
+  .step-one>div:nth-child(1)>div.col-lg-6.col-12.overflow-hidden>div {
     width: 100%;
+  }
+
+
+
+}
+
+.offset-checkout {
+  .offset-checkbox {
+    justify-content: space-between;
+    margin-top: 40px;
+
+    .on-off-toggle {
+      width: 32px;
+      height: 16px;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .on-off-toggle__slider {
+      width: 32px;
+      height: 16px;
+      display: block;
+      border-radius: 34px;
+      background-color: #d8d8d8;
+      transition: background-color 0.4s;
+
+      &:before {
+        content: "";
+        display: block;
+        background-color: #9e9e9e;
+        box-shadow: 0 0 0 1px #949494;
+        bottom: 0px;
+        height: 16px;
+        left: 0px;
+        position: absolute;
+        transition: 0.4s;
+        width: 16px;
+        z-index: 5;
+        border-radius: 100%;
+        border: solid 1px #faf8f1;
+      }
+
+      &:after {
+        display: block;
+        line-height: 24px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        content: "";
+        color: #484848;
+        padding-left: 10px;
+        transition: all 0.4s;
+      }
+    }
+
+    .on-off-toggle__input {
+      /*
+          This way of hiding the default input is better
+          for accessibility than using display: none;
+        */
+      position: absolute;
+      opacity: 0;
+    }
+
+    .on-off-toggle__input:checked+.on-off-toggle__slider {
+      background-color: #67b68c;
+
+      &:before {
+        transform: translateX(15px);
+      }
+
+      &:after {
+        content: "";
+        color: #757575;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .offset-count {
+    background: #e5e7db;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    padding: 10px 32px 10px 60px;
+    margin-top: 32px;
   }
 }
 </style>

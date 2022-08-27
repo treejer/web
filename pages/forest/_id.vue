@@ -409,6 +409,48 @@
                       {{ owner ? owner.treeCount : 0 }}
                     </p>
                   </div>
+
+                  <div
+                    class="
+                      d-flex
+                      border-bottom
+                      mb-2
+                      justify-content-between
+                      align-self-center align-items-center
+                    "
+                  >
+                    <p
+                      class="
+                        pb-1
+                        logo-tokens
+                        tr-gray-three
+                        param-sm
+                        font-weight-bold
+                      "
+                    >
+                      <img
+                        class="img-fluid"
+                        src="~/assets/images/myforest/bct.png"
+                        width="30"
+                      />
+
+                      BCT
+                    </p>
+
+                    <p
+                      class="
+                        pb-2
+                        text-right
+                        pr-4
+                        tr-green
+                        param-sm
+                        font-weight-bold
+                      "
+                    >
+                      {{ bctBalance }}
+                    </p>
+                  </div>
+
                   <div
                     class="
                       d-flex
@@ -547,9 +589,11 @@ export default {
       currentTree: {},
       daiBalance: 0,
       wethBalance: 0,
+      bctBalance: 0,
       skip: 0,
       perPage: 50,
       googleMapKey: 0,
+
     };
   },
    head() {
@@ -657,6 +701,7 @@ export default {
   async mounted() {
     await this.getDaiBalance();
     await this.getWethBalance();
+    await this.getBCTBalance();
     await this.getOwnerTrees(0, 0);
   },
   methods: {
@@ -789,6 +834,18 @@ export default {
         account: this.$route.params.id,
       });
       this.wethBalance = parseFloat(wethBalance).toFixed(2);
+    },
+    async getBCTBalance() {
+      if (this.$route.params.id == "guest") {
+        return;
+      }
+
+      this.bctBalance = await this.$store.dispatch("erc20/balanceOf", {
+        tokenAddress: process.env.bctTokenAddress,
+      });
+
+      
+      this.bctBalance = parseFloat(this.bctBalance).toFixed(2);
     },
   },
 };
