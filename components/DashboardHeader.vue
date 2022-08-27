@@ -1,12 +1,12 @@
 <template>
-  <div class="head-treejer-dashborad ">
+  <div class="head-treejer-dashborad">
     <!-- <div
       class="networkname text-center d-flex align-items-center justify-content-center"
     >
       <p class="param-sm text-white mb-0"> -->
-<!--        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test-->
-<!--        Network and start your forest! !-->
-        <!-- Announcing the launch of Treejer Protocol with Genesis Trees
+    <!--        Treejer is now live on testnet. Connect your wallet to {{ networkName }} Test-->
+    <!--        Network and start your forest! !-->
+    <!-- Announcing the launch of Treejer Protocol with Genesis Trees
         <a
           class="text-white"
           href="https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/"
@@ -31,9 +31,9 @@
       <keep-alive>
         <b-navbar>
           <b-navbar-brand
-            :to=" localePath('index') "
+            :to="localePath('index')"
             class="pointer-event position-relative"
-            @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR' ,false) "
+            @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)"
           >
             <img
               alt="logo"
@@ -42,20 +42,16 @@
               src="/logo/treejer.png"
             />
           </b-navbar-brand>
-          <b-navbar-nav class="dahsboard-nav d-lg-block d-none" >
+          <b-navbar-nav class="dahsboard-nav d-lg-block d-none">
             <client-only>
-              
-                <Metamask @showModal="showModal"/>
-            
+              <Metamask @showModal="showModal" />
             </client-only>
           </b-navbar-nav>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-          
         </b-navbar>
       </keep-alive>
       <b-modal id="five" centered hide-footer title=" ">
-        <Wallets/>
+        <Wallets />
       </b-modal>
       <b-modal
         id="netName"
@@ -80,12 +76,11 @@
 </template>
 
 <script>
-
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
 
 export default {
-  layout: 'dashboard',
+  layout: "dashboard",
   name: "TreejerHeader",
   components: {
     Wallets,
@@ -93,65 +88,71 @@ export default {
   },
   data() {
     return {
-     
       formError: null,
       account: null,
       user: false,
       activeIndex: 0,
       items: [
-        {name: "About", step: 1, href: 'about'},
-        {name: "Blog", step: 2},
-        {name: "For Business", step: 3, href: 'business'},
-        {name: "Find My Tree", step: 4, href: 'find'},
+        { name: "About", step: 1, href: "about" },
+        { name: "Blog", step: 2 },
+        { name: "For Business", step: 3, href: "business" },
+        { name: "Find My Tree", step: 4, href: "find" },
       ],
-      networkName: process.env.NETWORK_NAME
+      networkName: process.env.NETWORK_NAME,
     };
   },
   async mounted() {
-    let self = this
+    let self = this;
     // await web3.eth.getAccounts().then(res => {
-    self.account = this.$cookies.get('account')
-    await this.$store.dispatch('networkNames')
+    self.account = this.$cookies.get("account");
+    await this.$store.dispatch("networkNames");
     // })
-    await self.accountChange()
+    await self.accountChange();
     setTimeout(() => {
-
-      if(this.$web3.givenProvider === null) {
+      if (this.$web3.givenProvider === null) {
         return;
       }
 
-      this.$web3.eth.net.getId().then(netId => {
+      this.$web3.eth.net.getId().then((netId) => {
+        console.log(netId, "netId is here");
 
-        if (netId.toString() === process.env.NETWORK_ID.toString()) {
-          return
+        if (netId === process.env.NETWORK_ID || process.env.NETWORK_MATIC_ID) {
+          return;
         }
-        self.$bvToast.toast(self.$t('alert.switchto') + process.env.NETWORK_NAME + self.$t('alert.network'), {
-          title: self.$t('alert.wrongnetwork'),
-          href: 'https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/',
-          variant: 'danger',
-          solid: true,
-          toaster: 'b-toaster-bottom-left',
-          noAutoHide: true,
-        })
-      })
-    }, 1000)
+        self.$bvToast.toast(
+          self.$t("alert.switchto") +
+            process.env.NETWORK_NAME +
+            self.$t("alert.network"),
+          {
+            title: self.$t("alert.wrongnetwork"),
+            href: "https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/",
+            variant: "danger",
+            solid: true,
+            toaster: "b-toaster-bottom-left",
+            noAutoHide: true,
+          }
+        );
+      });
+    }, 1000);
   },
   computed: {},
   methods: {
     showModal(e) {
-      this.$bvModal.show('five')
+      this.$bvModal.show("five");
     },
     async accountChange() {
-      if (this.$cookies.get('walletName') === 'metamask') {
-        let self = this
+      if (this.$cookies.get("walletName") === "metamask") {
+        let self = this;
         if (process.client) {
-          await window.ethereum.on('accountsChanged', function (accounts) {
+          await window.ethereum.on("accountsChanged", function (accounts) {
             if (self.account !== accounts[0]) {
-              self.$store.commit('SET_USER', accounts[0])
-              self.$cookies.set('account', accounts[0])
-              let routeData = self.$router.resolve({path: `/forest/${accounts[0]}`, params: {id: accounts[0]}});
-              window.open(routeData.href, '_Self');
-
+              self.$store.commit("SET_USER", accounts[0]);
+              self.$cookies.set("account", accounts[0]);
+              let routeData = self.$router.resolve({
+                path: `/forest/${accounts[0]}`,
+                params: { id: accounts[0] },
+              });
+              window.open(routeData.href, "_Self");
             }
           });
         }
@@ -164,50 +165,44 @@ export default {
       this.$bvToast.toast(message, {
         title: title,
         variant: variant,
-        href: href
+        href: href,
       });
     },
     makeToast(variant = null) {
-      this.$bvToast.toast(this.$t('alert.installmetamask'), {
-        title: `https://metamask.io/' ${variant || 'default'}`,
-        href: 'https://metamask.io/',
+      this.$bvToast.toast(this.$t("alert.installmetamask"), {
+        title: `https://metamask.io/' ${variant || "default"}`,
+        href: "https://metamask.io/",
         variant: variant,
-        solid: true
-      })
+        solid: true,
+      });
     },
     activeMenu(item, index) {
-      if (item.name === 'Blog') {
-        window.open('https://blog.treejer.com/', '_blank')
+      if (item.name === "Blog") {
+        window.open("https://blog.treejer.com/", "_blank");
       } else {
         this.activeIndex = index;
       }
     },
   },
-  created() {
-
-  },
-
+  created() {},
 };
 </script>
 
 <style lang="scss">
-.head-treejer-dashborad{
-  .networkname{
-    background: linear-gradient(90deg, #649173 0%, #CEC99C 100%);
+.head-treejer-dashborad {
+  .networkname {
+    background: linear-gradient(90deg, #649173 0%, #cec99c 100%);
     height: 34px;
     z-index: +999;
   }
-   .dahsboard-nav{
+  .dahsboard-nav {
     width: 100%;
 
-      ul{
-        width: 100%;
-        justify-content: flex-end;
-      
-      
+    ul {
+      width: 100%;
+      justify-content: flex-end;
     }
   }
-
 }
 @media (max-width: 1023px) {
   .headers {
@@ -236,13 +231,11 @@ export default {
   }
 }
 @media screen and (max-width: 768px) {
-  .dahsboard-nav{
+  .dahsboard-nav {
     width: 100%;
-    
-      ul{
-       margin-right: 45px;
-      
-      
+
+    ul {
+      margin-right: 45px;
     }
   }
 }

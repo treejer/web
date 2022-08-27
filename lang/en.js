@@ -232,7 +232,7 @@ export default {
   aboutus: {
     title: "Empowering Local People to Save the Planet",
     unique:
-      "A unique borderless approach in Climate Action powered by blockchainy",
+      "A unique borderless approach in Climate Action powered by blockchain",
     linkbetween:
       "Treejer functions as a link between those who fund trees and those who plant them even in the most remote places on our planet. It records credit ownership and enables secure payment between different parties using smart-contracts.",
     each: "Each single tree that is collected or funded through Treejer has unique social and environmental impact. Rural planters in high-impact locations plant and maintain our trees. Most of them are located in less developed countries in Latin America, Africa and Middle East. We believe in the open-source and want to make it easy for anyone to build, research or design on top of Treejer protocol. You're invited to build with us!",

@@ -1,7 +1,7 @@
 <template>
   <ul class="wallets tr-gray-three list-style-none d-block position-relative">
     <li class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4">
-     {{$t('header.selectwallet')}} 
+      {{ $t("header.selectwallet") }}
     </li>
     <li
       v-for="(item, index) in wallets"
@@ -35,7 +35,7 @@
     >
       <span style="letter-spacing: -3px"
         >-------------------------------------</span
-      ><span style="padding: 0 10px"> {{$t('header.whatisawallet')}}  </span
+      ><span style="padding: 0 10px"> {{ $t("header.whatisawallet") }} </span
       ><span style="letter-spacing: -3px"
         >-------------------------------------</span
       >
@@ -50,41 +50,42 @@
         class="btn-gray param-sm text-white"
         style="margin: 0 15px; background: #424242"
       >
-         {{$t('header.learnmore')}} 
+        {{ $t("header.learnmore") }}
       </button>
       <button
         @click="goTo('https://discuss.treejer.com/')"
         class="btn-gray param-sm text-white"
         style="margin: 0 15px; background: #424242"
       >
-        {{$t('header.gethelp')}} 
+        {{ $t("header.gethelp") }}
       </button>
     </li>
     <li
       class="param-sm justify-content-center mt-4 terms text-center font-weight-bold"
     >
-    {{$t('header.connecting')}} 
+      {{ $t("header.connecting") }}
       <span class="tr-green"
         ><a
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/terms-of-service"
           target="_blank"
-          >  {{$t('header.terms')}} </a
+        >
+          {{ $t("header.terms") }} </a
         >,<a
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/privacy-policy"
           target="_blank"
         >
-          {{$t('header.and')}}</a
+          {{ $t("header.and") }}</a
         >
       </span>
-      {{$t('header.privacy')}}
+      {{ $t("header.privacy") }}
       <span class="tr-green"
         ><a
           target="_blank"
           class="d-inline-flex pointer-event tr-green"
           href="https://docs.treejer.com/legal/cookie-policy"
-          >{{$t('header.cookie')}}</a
+          >{{ $t("header.cookie") }}</a
         >.</span
       >
     </li>
@@ -96,12 +97,12 @@
         <li
           class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"
         >
-          {{$t('header.connectingto')}}
+          {{ $t("header.connectingto") }}
         </li>
         <li class="pointer-event mb-2">
           <p class="tr-gray-three param font-weight-bold">
             <span class="name text-capitalize">{{
-              $t('header.connectingwallet') || $cookies.get("walletName")
+              $t("header.connectingwallet") || $cookies.get("walletName")
             }}</span>
             <span class="icon">
               <img
@@ -138,20 +139,22 @@ export default {
     return {
       wallets: [
         {
-          name: this.$t('header.metamask'),
+          name: "Coinbasewallet",
           step: 1,
-          src: require("~/assets/images/wallets/metamask.svg"),
+          src: require("~/assets/images/wallets/coinbasewallet.svg"),
         },
+
         {
-          name: this.$t('header.Walletconnect'),
+          name: this.$t("header.Walletconnect"),
           step: 2,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },
-        // {
-        //   name: "Torus",
-        //   step: 3,
-        //   src: require("~/assets/images/wallets/torus.svg"),
-        // },
+        {
+          name: this.$t("header.metamask"),
+          step: 3,
+          src: require("~/assets/images/wallets/metamask.svg"),
+        },
+
         // {
         //   name: "Fortmatic",
         //   step: 4,
@@ -178,6 +181,27 @@ export default {
       self.activeWallet = index;
       self.connectingWallet = item.name.toLowerCase();
       switch (item.name) {
+         case "Coinbasewallet":
+          if (self.hasMetaMask) {
+            this.$store.commit("SET_WALLET", "coinbasewallet");
+            this.$cookies.set("walletName", "coinbasewallet");
+            if (window.ethereum !== "undefined") {
+              this.$bvModal.show("six");
+              this.$store
+                .dispatch("metaMask")
+                .then(() => {
+                  self.$bvModal.hide("six");
+                  self.$bvModal.hide("five");
+                })
+                .then(() => {});
+            } else {
+              self.makeToast("danger");
+            }
+          } else {
+            window.open("https://www.coinbase.com/wallet", "_blank");
+          }
+
+          break;
         case "Metamask":
           if (self.hasMetaMask) {
             this.$store.commit("SET_WALLET", "metamask");
@@ -212,7 +236,10 @@ export default {
           break;
         case "Fortmatic":
           const Fortmatic = require("fortmatic");
-          const fm = await new Fortmatic(process.env.FORTMATIC, process.env.NETWORK_NAME);
+          const fm = await new Fortmatic(
+            process.env.FORTMATIC,
+            process.env.NETWORK_NAME
+          );
           const web3 = await new Web3(fm.getProvider());
           web3.currentProvider.enable();
 
@@ -238,9 +265,13 @@ export default {
           if (process.client) {
             const Portis = require("@portis/web3");
             let self = this;
-            const portis = new Portis(process.env.PORTIS, process.env.NETWORK_NAME, {
-              scope: ["email"],
-            });
+            const portis = new Portis(
+              process.env.PORTIS,
+              process.env.NETWORK_NAME,
+              {
+                scope: ["email"],
+              }
+            );
 
             const web3 = new Web3(portis.provider);
             await web3.currentProvider.enable();
@@ -272,15 +303,11 @@ export default {
 
             let self = this;
 
-
             const torus = new Torus();
-
-
-
 
             await torus.init();
             await torus.login(); // await torus.ethereum.enable()
-            
+
             const web3 = new Web3(torus.provider);
 
             await web3.currentProvider.enable();
@@ -317,7 +344,7 @@ export default {
     // },
     makeToast(variant = null) {
       if (this.$store.state.toast) {
-        return this.$bvToast.toast(this.$t('alert.installmetamask'), {
+        return this.$bvToast.toast(this.$t("alert.installmetamask"), {
           title: `https://metamask.io/'`,
           href: "https://metamask.io/",
           variant: variant,

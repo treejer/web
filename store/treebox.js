@@ -38,6 +38,7 @@ export const actions = {
       }
 
       for(let i = 0; i < treesLength; i++) {
+        console.log(params.recipient, i,"params.recipient, iis here")
         await self.$TreeBox.methods.getRecipientTreeByIndex(params.recipient, i).call()
         .then((result) => {
           console.log(result, "getRecipientTreeByIndex result")

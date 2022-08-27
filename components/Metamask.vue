@@ -24,30 +24,19 @@
     </b-nav-form>
 
     <b-nav-form class="pointer-event" v-if="$cookies.get('account')">
-      <div
+       <ChangeNetworker />
+      <!-- <div
         v-if="connectedNetwrokID != runningNetworkID"
-        class="
-          pointer-event
-          accounting-card
-          d-lg-flex d-none
-          align-items-center align-self-center
-          pointer-event
-        "
+        class="pointer-event accounting-card d-lg-flex d-none align-items-center align-self-center pointer-event"
         @click.prevent="switchNetwork()"
       >
         <b-button class="connect-button switch-wallet">
           {{ $t("header.switchto") }} {{ runningNetwrokName }}
-        </b-button>
-      </div>
-
+        </b-button> -->
+      <!-- </div> -->
+     
       <div
-        class="
-          pointer-event
-          accounting-card
-          d-flex
-          align-items-center align-self-center
-          pointer-event
-        "
+        class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
         @click.prevent="logout()"
       >
         <span v-coin class="param-sm tr-gray-three">{{
@@ -61,6 +50,7 @@
             height="42"
             style="border: solid 2px white"
             width="42"
+            
         /></span>
       </div>
 
@@ -85,27 +75,13 @@
     >
       <ul v-if="$cookies.get('walletName')" class="list-style-none seven">
         <li
-          class="
-            param-18
-            tr-gray-two
-            font-weight-bold
-            text-center
-            mt-3
-            mb-4
-            text-center
-          "
+          class="param-18 tr-gray-two font-weight-bold text-center mt-3 mb-4 text-center"
         >
           {{ $t("header.connectedwith") }}
         </li>
         <li class="pointer-event mb-2">
           <p
-            class="
-              tr-gray-three
-              param
-              font-weight-bold
-              d-flex
-              justify-content-between
-            "
+            class="tr-gray-three param font-weight-bold d-flex justify-content-between"
             style="
               border: 1px solid #bdbdbd;
               background: #e5e7db;
@@ -133,15 +109,7 @@
           </p>
         </li>
         <li
-          class="
-            param
-            font-weight-bold
-            tr-gray-two
-            text-center
-            mt-3
-            whatis
-            position-relative
-          "
+          class="param font-weight-bold tr-gray-two text-center mt-3 whatis position-relative"
         >
           <span style="letter-spacing: -3px"
             >-------------------------------------</span
@@ -170,9 +138,10 @@
 import Wallets from "./Wallets";
 import CopyToClipBoard from "./CopyToClipBoard.vue";
 import Badge from "@/components/Badge";
+import ChangeNetworker from "./ChangeNetworker.vue";
 
 export default {
-  components: { Wallets, CopyToClipBoard, Badge },
+  components: { Wallets, CopyToClipBoard, Badge, ChangeNetworker },
   props: ["wallets", "mobile"],
 
   data() {
@@ -184,7 +153,6 @@ export default {
       loading: false,
       runningNetworkID: parseInt(process.env.NETWORK_ID),
       runningNetwrokName: process.env.NETWORK_NAME,
-
       connectedNetwrokID: parseInt(process.env.NETWORK_ID),
     };
   },
@@ -251,8 +219,7 @@ export default {
                 ],
               });
             }
-          } catch (error) {
-          }
+          } catch (error) {}
         }
       }
     },
