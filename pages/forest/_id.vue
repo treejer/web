@@ -40,9 +40,10 @@
             >
               <p class="tr-gray-two">{{ item.name }}</p>
               <p class="d-flex justify-content-start align-items-center mb-0">
-                <span
-                  ><img :src="treeIcon" alt="tree" class="img-fluid"
-                /></span>
+                <span>
+                  <img v-if="[0,1,2].indexOf(index) !== -1" :src="treeIcon" alt="tree" class="img-fluid"/>
+                  <img v-if="index === 3" :src="retiredCarbonIcon" alt="tree" class="img-fluid"/>
+                </span>
                 <span>
                   <span v-if="index === 0">{{
                     owner ? owner.treeCount : 0
@@ -52,6 +53,10 @@
                   }}</span>
                   <span v-if="index === 2">{{
                     owner ? owner.regularTreeCount : 0
+                  }}</span>
+
+                  <span v-if="index === 3">{{
+                    owner ? retiredCarbon : 0
                   }}</span>
                 </span>
               </p>
@@ -410,7 +415,7 @@
                     </p>
                   </div>
 
-                  <div
+                  <!-- <div
                     class="
                       d-flex
                       border-bottom
@@ -447,9 +452,9 @@
                         font-weight-bold
                       "
                     >
-                      {{ bctBalance }}
+                      {{ retiredCarbon }}
                     </p>
-                  </div>
+                  </div> -->
 
                   <div
                     class="
@@ -574,11 +579,13 @@ export default {
       title: this.$route.name,
       placeHolderTrees: [],
       treeIcon: require("~/assets/images/myforest/tree.svg"),
+      retiredCarbonIcon: require("~/assets/images/myforest/SeedLogo.svg"),
       avatar: require("~/assets/images/myforest/avatar.png"),
       stats: [
         { name: this.$t('forest.forestsize')},
         { name: this.$t('forest.genesis')},
         { name: this.$t('forest.regular')},
+        { name: this.$t('forest.retiredCarbon')},
       ],
       activeIndexSteps: null,
       loading: false,
@@ -589,7 +596,7 @@ export default {
       currentTree: {},
       daiBalance: 0,
       wethBalance: 0,
-      bctBalance: 0,
+      retiredCarbon: 0,
       skip: 0,
       perPage: 50,
       googleMapKey: 0,
@@ -701,7 +708,7 @@ export default {
   async mounted() {
     await this.getDaiBalance();
     await this.getWethBalance();
-    await this.getBCTBalance();
+    await this.getretiredCarbon();
     await this.getOwnerTrees(0, 0);
   },
   methods: {
@@ -835,17 +842,15 @@ export default {
       });
       this.wethBalance = parseFloat(wethBalance).toFixed(2);
     },
-    async getBCTBalance() {
+    async getretiredCarbon() {
       if (this.$route.params.id == "guest") {
         return;
       }
 
-      this.bctBalance = await this.$store.dispatch("erc20/balanceOf", {
-        tokenAddress: process.env.bctTokenAddress,
-      });
+      this.retiredCarbon = await this.$store.dispatch("carbonRetirementsStorage/getRetirements", {});
 
       
-      this.bctBalance = parseFloat(this.bctBalance).toFixed(2);
+      this.retiredCarbon = parseFloat(this.retiredCarbon).toFixed(3);
     },
   },
 };

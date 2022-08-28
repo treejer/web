@@ -9,7 +9,7 @@ export const actions = {
   
   async fundTreeWithOffset(context, params) {
 
-    console.log(params, "params")
+    console.log(params, "params fundTreeWithOffset")
    
      let self = this;
   
@@ -61,13 +61,14 @@ export const actions = {
     const tx = this.$FundWithOffset.methods.fundTreeWithOffset(
       params.count,
       referrer,
-      recipient,
+      process.env.bctTokenAddress,
       this.$web3.utils.toWei(params.co2Count.toString()),
-      offsetDexPath,
-      process.env.uniswapV2Router02ContractAddress,
-      0
+      false,
+      recipient,
+      "",
+      "Retire and fund tree with Treejer",
+      "TreejerDAO",
     );
-
 
     const data = tx.encodeABI();
     // const price = await this.$FundWithOffset.methods.price().call();
@@ -75,11 +76,13 @@ export const actions = {
     let gas = await this.$FundWithOffset.methods.fundTreeWithOffset(
       params.count,
       referrer,
-      recipient,
+      process.env.bctTokenAddress,
       this.$web3.utils.toWei(params.co2Count.toString()),
-      offsetDexPath,
-      process.env.uniswapV2Router02ContractAddress,
-      0
+      false,
+      recipient,
+      "",
+      "Retire and fund tree with Treejer",
+      "TreejerDAO",
     )
     .estimateGas({from: account});
 

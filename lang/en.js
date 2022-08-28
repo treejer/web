@@ -284,6 +284,7 @@ export default {
     forestsize: "Forest Size",
     genesis: "Genesis Trees",
     regular: "Regular Trees",
+    retiredCarbon: "Retirements",
     entertreeID: "Enter Tree ID",
     howmany: " How many trees to plant?",
     sendasgift: "Send as a gift",

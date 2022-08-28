@@ -100,7 +100,7 @@
                       </div>
                     </div>
                     <div class="description-offest param-xs tr-gray-four">
-                      Add 1 DAI($1) per tree and <span class="tr-green">offset {{ parseFloat(1 * co2Tonne1).toFixed(2)
+                      Add 1 DAI($1) per tree and <span class="tr-green">offset {{ parseFloat(1 * co2Tonne1).toFixed(4)
                       }}</span> tonnes of
                       CO2 in this transaction. Carbon credits are supplied from 3rd-party
                       projects. <a href="https://docs.toucan.earth/protocol/bridge/tco2-toucan-carbon-tokens"
@@ -109,7 +109,7 @@
                     <div v-if="activeOffestCountBox" class="offset-count d-flex">
                       <div class="left-side-offest-box col-md-8 text-center">
                         <p class="title-lg font-weight-bolder">
-                          {{ parseFloat(co2Tonne).toFixed(2) }}
+                          {{ parseFloat(co2Tonne).toFixed(4) }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon <small>
                           </small></p>
