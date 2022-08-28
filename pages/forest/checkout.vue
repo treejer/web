@@ -1027,10 +1027,20 @@ export default {
     },
 
     async getCo2Tonne(count) {
-      return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
-        amountIn: count,
-        path: process.env.OFFSET_DEX_PATH.split(","),
-      })
+
+
+        return await this.$store.dispatch('carbonRetirementAggregator/getCarbonRetirmentAmount', {
+          sourceToken: process.env.daiTokenAddress,
+          poolToken: process.env.bctTokenAddress,
+          sourceAmount: this.$web3.utils.toWei(count.toString()),
+          specificRetire: false
+        })
+
+
+      // return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
+      //   amountIn: count,
+      //   path: process.env.OFFSET_DEX_PATH.split(","),
+      // })
 
     },
     showOffsetCountBox() {

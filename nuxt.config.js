@@ -57,6 +57,7 @@ export default {
     daiTokenAddress: process.env.DAI_TOKEN_ADDRESS_RINKEBY,
     bctTokenAddress: process.env.CONTRACT_BASECARBONTONNE_ADDRESS,
     carbonRetirementsStorageContractAddress: process.env.CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
+    carbonRetirementAggregatorContractAddress: process.env.CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
     wethTokenAddress: process.env.WETH_TOKEN_ADDRESS_RINKEBY,
     etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
     apiUrl: process.env.API_URL || 'https://api.treejer.com',
