@@ -424,6 +424,9 @@ export default {
     Fas,
   },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     owners: {
       prefetch: true,
       query: ownersSorted,

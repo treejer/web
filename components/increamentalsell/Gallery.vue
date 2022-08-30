@@ -52,6 +52,7 @@ export default {
     async treesBySoldType(soldType = 2) {
       let self = this;
       let result = await this.$apollo.query({
+        client: this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default',
         query: treesBySoldTypeQuery,
         variables: {
           first: 36,

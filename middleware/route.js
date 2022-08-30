@@ -3,6 +3,5 @@ export default function (context) {
   // previous route
   if (process.client) {
     const from = context.from
-    console.log('from=', from)
   }
 }

@@ -8,20 +8,14 @@ export const state = () => ({
 export const actions = {
   
  
-  async getRetirements({commit}) {
-    let account = this.$cookies.get('account');
+  async getRetirements(context, params) {
 
-    if(!account) {
-      commit('SET_RETIREMENTS', 0)
-      return 0;
-    }
-
+    
     try {
       let self = this
-      return self.$CarbonRetirementsStorage.methods.retirements(account).call()
+      return self.$CarbonRetirementsStorage.methods.retirements(params.account).call()
         .then((retirementsWei) => {
           let retirements = self.$web3.utils.fromWei(retirementsWei);
-          commit('SET_RETIREMENTS', retirements)
           return retirements;
         }).catch( (err) => {
           console.log(err.message, "getRetirements error")
@@ -29,6 +23,7 @@ export const actions = {
         });
     } catch(e) {
       console.log(e + "error in getRetirements")
+      return 0;
     }
   },
 

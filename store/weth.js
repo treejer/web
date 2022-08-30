@@ -11,7 +11,7 @@ export const actions = {
   async balanceOf(context, params) {
 
     try {
-      const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
+      const wethContract = await new this.$web3.eth.Contract(Weth.abi, this.$cookies.get('config').wethTokenAddress);
 
       let self = this
       return wethContract.methods.balanceOf(params.account).call()
@@ -32,11 +32,11 @@ export const actions = {
   async allowance() {
 
     try {
-      const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
+      const wethContract = await new this.$web3.eth.Contract(Weth.abi, this.$cookies.get('config').wethTokenAddress);
       let account = this.$cookies.get('account');
 
       let self = this
-      return wethContract.methods.allowance(account, process.env.contractTreeRegularSell).call()
+      return wethContract.methods.allowance(account, this.$cookies.get('config').contractTreeRegularSell).call()
         .then((allowanceInWei) => self.$web3.utils.fromWei(allowanceInWei.toString()))
         .catch( (err) => {
           console.log(err.message, "allowance error")
@@ -54,15 +54,15 @@ export const actions = {
   async approve(context, params) {
     let self = this;
 
-    const wethContract = await new this.$web3.eth.Contract(Weth.abi, process.env.wethTokenAddress);
+    const wethContract = await new this.$web3.eth.Contract(Weth.abi, this.$cookies.get('config').wethTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
-    const tx = wethContract.methods.approve(process.env.contractTreeRegularSell, (Math.pow(2, 256) - 1).toString());
+    const tx = wethContract.methods.approve(this.$cookies.get('config').contractTreeRegularSell, (Math.pow(2, 256) - 1).toString());
 
     const data = tx.encodeABI();
 
-    let gas = await wethContract.methods.approve(process.env.contractTreeRegularSell, (Math.pow(2, 256) - 1).toString())
+    let gas = await wethContract.methods.approve(this.$cookies.get('config').contractTreeRegularSell, (Math.pow(2, 256) - 1).toString())
     .estimateGas({from: account});
 
     try {
@@ -81,7 +81,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: this.$translates.alert.processingtransaction,
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
           bodyClass: 'fund-error',
           noAutoHide: true
 

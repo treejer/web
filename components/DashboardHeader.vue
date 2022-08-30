@@ -53,24 +53,7 @@
       <b-modal id="five" centered hide-footer title=" ">
         <Wallets />
       </b-modal>
-      <b-modal
-        id="netName"
-        class="justify-content-center text-center"
-        hide-footer
-        no-stacking
-        ok-only
-        size="md"
-      >
-        <div class="text-center justify-content-center m-auto">
-          <h4 class="title-md tr-gray-one mb-4">Error occurred</h4>
-          <p class="param tr-gray-three">
-            Metamask should be on <strong> {{ networkName }} </strong> network.
-          </p>
-          <p class="param tr-gray-three">
-            Currently it on {{ $store.state.netWorkName }} instead
-          </p>
-        </div>
-      </b-modal>
+      
     </div>
   </div>
 </template>
@@ -97,8 +80,7 @@ export default {
         { name: "Blog", step: 2 },
         { name: "For Business", step: 3, href: "business" },
         { name: "Find My Tree", step: 4, href: "find" },
-      ],
-      networkName: process.env.NETWORK_NAME,
+      ]
     };
   },
   async mounted() {
@@ -108,32 +90,7 @@ export default {
     await this.$store.dispatch("networkNames");
     // })
     await self.accountChange();
-    setTimeout(() => {
-      if (this.$web3.givenProvider === null) {
-        return;
-      }
-
-      this.$web3.eth.net.getId().then((netId) => {
-        console.log(netId, "netId is here");
-
-        if (netId === process.env.NETWORK_ID || process.env.NETWORK_MATIC_ID) {
-          return;
-        }
-        self.$bvToast.toast(
-          self.$t("alert.switchto") +
-            process.env.NETWORK_NAME +
-            self.$t("alert.network"),
-          {
-            title: self.$t("alert.wrongnetwork"),
-            href: "https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/",
-            variant: "danger",
-            solid: true,
-            toaster: "b-toaster-bottom-left",
-            noAutoHide: true,
-          }
-        );
-      });
-    }, 1000);
+    
   },
   computed: {},
   methods: {

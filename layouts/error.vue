@@ -109,7 +109,6 @@ export default {
   middleware: 'queryParamToCookie',
 
   mounted() {
-    console.log(this.$route.name === null)
   },
   data() {
     return {

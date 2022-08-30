@@ -67,7 +67,7 @@ export default {
     async getCo2Tonne(count) {
       return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
         amountIn: count,
-        path: process.env.OFFSET_DEX_PATH.split(","),
+        path: this.$cookies.get('config').uniswapV2Router02ContractAddress.split(","),
       })
 
     },

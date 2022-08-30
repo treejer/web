@@ -184,23 +184,18 @@ export default {
     fetchStats() {
       let self = this;
 
-      self.$axios.get(`${process.env.apiUrl}/trees/stats`).then((res) => {
+      self.$axios.get(`${this.$cookies.get('config').apiUrl}/trees/stats`).then((res) => {
 
         self.allStats = res.data;
         self.totalEthLocked = res.data.total_eth_locked
         self.totalSeedSupply = res.data.total_seed_supply
         self.totalEthLocked = this.$web3.utils.fromWei(res.data.total_eth_locked)
         self.totalSeedSupply = this.$web3.utils.fromWei(res.data.total_seed_supply)
-        console.log(self.totalEthLocked, 'self.totalEthLocked')
-
-
-        console.log("self.allStats", self.allStats)
-
       });
     },
     fetchPlantedChartData() {
       let self = this;
-      let api = '${process.env.apiUrl}/trees/plantedChartData?howMany=12';
+      let api = `${this.$cookies.get('config').apiUrl}/trees/plantedChartData?howMany=12`;
       this.$axios.get(api).then(res => {
         self.dataCollection = res.data;
         self.labels = res.data.map(item => {
@@ -214,7 +209,7 @@ export default {
     },
     fetchFundedChartData() {
       let self = this;
-      let api = '${process.env.apiUrl}/trees/fundedChartData?howMany=12';
+      let api = `${this.$cookies.get('config').apiUrl}/trees/fundedChartData?howMany=12`;
       this.$axios.get(api).then(res => {
         self.dataCollection = res.data;
         self.labels = res.data.map(item => {

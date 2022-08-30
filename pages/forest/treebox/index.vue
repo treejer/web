@@ -244,6 +244,9 @@ export default {
     };
   },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     owner: {
       query: owner,
       prefetch: false,
@@ -450,7 +453,7 @@ export default {
             toaster: "b-toaster-bottom-left",
             title: this.$t('alert.successfullycreated'),
             variant: "success",
-            href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
+            href: `${this.$cookies.get('config').explorerUrl}/tx/${res.transactionHash}`,
           }
         );
 
@@ -513,7 +516,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t('alert.approvaltransactionsuccessful'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
         this.approved = true;
       }
@@ -545,14 +548,14 @@ export default {
           return 0;
         });
 
-      if (connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
         return true;
       }
 
       this.$bvToast.toast(
         [
           this.$t('alert.pleaseconnect') +
-            process.env.networkName.toUpperCase() +
+          this.$cookies.get('activeNetwork').chainName.toUpperCase() + " " + 
             this.$t('alert.network') ,
         ],
         {
@@ -635,7 +638,7 @@ export default {
 
       //soldType: 4,
       await self.$axios
-        .$post(process.env.graphqlUrl, {
+        .$post(this.$cookies.get('config').graphqlUrl, {
           query: `{
                     trees(first: ${first}, skip: ${skip}, where:
                     {
@@ -666,7 +669,6 @@ export default {
       self.ownerTrees = self.ownerTrees.filter(
         (tree) => self.$hex2Dec(tree.id) > 10000
       );
-      console.log(self.ownerTrees, "ownerTrees Filter regular");
     },
     async downloadCSVData(hash = "") {
       let csv = "Link\n";

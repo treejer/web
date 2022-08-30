@@ -208,8 +208,8 @@ export default {
       bidValue: null,
       dataAuctions: null,
       dataAuction: null,
-      spenderContract: process.env.contractAuctionAddress,
-      tokenAddress: process.env.wethTokenAddress,
+      spenderContract: null,
+      tokenAddress: null,
       erc20Balance: null,
       isAllowedSpendERC20: false,
       treePrice: null,
@@ -220,6 +220,10 @@ export default {
     };
   },
   async created() {
+
+
+    this.spenderContract=this.$cookies.get('config').contractAuctionAddress;
+    this.tokenAddress=this.$cookies.get('config').wethTokenAddress;
 
     const priceJump = parseInt(this.auction.priceInterval) * parseInt(this.auction.highestBid) / 10000;
 
@@ -250,46 +254,6 @@ export default {
         "_blank"
       );
       return;
-
-      // let self = this;
-      // let transak = new transakSDK({
-      //   apiKey: process.env.transakApiKey, // Your API Key
-      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-      //   defaultCryptoCurrency: "WETH",
-      //   // defaultCryptoAmount: this.treePrice * this.localAmount,
-      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-      //   themeColor: "000000", // App theme color
-      //   fiatCurrency: "USD", // INR/GBP
-      //   email: "", // Your customer's email address
-      //   redirectURL: "",
-      //   hostURL: window.location.origin,
-      //   widgetHeight: "550px",
-      //   widgetWidth: "450px",
-      //   networks: process.env.transakNetworks,
-      //   defaultNetwork: process.env.transakDefaultNetwork,
-      // });
-
-      // transak.init();
-
-      // // To get all the events
-      // transak.on(transak.ALL_EVENTS, (data) => {
-      //   console.log(data);
-      // });
-
-      // // This will trigger when the user marks payment is made.
-      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-      //   console.log(orderData);
-      //   self.$bvToast.toast(["Your payment was successful"], {
-      //     toaster: "b-toaster-bottom-left",
-      //     title: "Your wallet charged",
-      //     variant: "success",
-      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-      //       "account"
-      //     )}`,
-      //   });
-      //   self.setERC20Balance();
-      //   transak.close();
-      // });
     },
     async allowSpendERC20(silent = false) {
       if(await this.checkNetwork() === false) {
@@ -318,7 +282,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: self.$t('alert.Youapprovedtospendtoken'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -369,7 +333,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t('alert.placedsuccessfully'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${tx.transactionHash}`,
         });
 
       }
@@ -392,7 +356,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t('alert.endedsuccessfully'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${tx.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${tx.transactionHash}`,
         });
       }
       this.loading = false;
@@ -536,11 +500,11 @@ export default {
         return 0;
       });
 
-      if(connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
         return true;
       }
 
-      this.$bvToast.toast(this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.network'), {
+      this.$bvToast.toast(this.$t('alert.pleaseconnect') + this.$cookies.get('config').networkName.toUpperCase() + this.$t('alert.network'), {
         toaster: "b-toaster-bottom-left",
         title: this.$t('alert.wrongnetwork'),
         variant: 'danger',

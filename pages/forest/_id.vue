@@ -645,6 +645,9 @@ export default {
     };
   },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     owner: {
       query: owner,
       skip() {
@@ -718,6 +721,8 @@ export default {
       await this.getOwnerTrees(this.perPage, this.skip);
     },
     async getOwnerTrees(first = 50, skip = 0) {
+
+
       if (
         !this.owner ||
         this.$route.params.id === "guest" ||
@@ -733,7 +738,7 @@ export default {
 
       let self = this;
       await self.$axios
-        .$post(process.env.graphqlUrl, {
+        .$post(self.$cookies.get('config').graphqlUrl, {
           query: `{
                     trees(first: ${first}, skip: ${skip}, where:{ owner: "${this.$route.params.id.toLowerCase()}" }, orderBy: "createdAt", orderDirection: "asc")
                       {
@@ -770,13 +775,9 @@ export default {
 
             self.treesWithLocation.push(...treesWithLocation);
 
-            console.log("self.treesWithLocation", self.treesWithLocation);
-
             self.ownerTreesLoaded = true;
 
             self.googleMapKey++;
-
-            console.log("self.googleMapKey", self.googleMapKey);
           }
         });
     },
@@ -847,7 +848,9 @@ export default {
         return;
       }
 
-      this.retiredCarbon = await this.$store.dispatch("carbonRetirementsStorage/getRetirements", {});
+      this.retiredCarbon = await this.$store.dispatch("carbonRetirementsStorage/getRetirements", {
+        account: this.$route.params.id
+      });
 
       
       this.retiredCarbon = parseFloat(this.retiredCarbon).toFixed(3);

@@ -33,7 +33,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: this.$translates.alert.processingtransaction,
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 
@@ -62,7 +62,6 @@ export const actions = {
           return null
 
         })
-      console.log(receipt, "receipt")
       return receipt
 
     } catch (error) {

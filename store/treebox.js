@@ -92,7 +92,7 @@ export const actions = {
             toaster: 'b-toaster-bottom-left',
             title: self.$translates.alert.processingtransaction,
             variant: 'warning',
-            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
             noAutoHide: true
 
@@ -147,16 +147,18 @@ export const actions = {
 
     // this.$web3.currentProvider.enable();
 
+
     
     const config = {
-      auditorsCount: (Number(process.env.NETWORK_ID) === 1 || Number(process.env.NETWORK_ID) === 137) ? 1 : 0,
-      paymasterAddress: process.env.treeboxPaymasterContractAddress,
+      // auditorsCount: (Number(process.env.NETWORK_ID) === 1 || Number(process.env.NETWORK_ID) === 137) ? 1 : 0,
+      auditorsCount: 1,
+      paymasterAddress: this.$cookies.get('config').treeboxPaymasterContractAddress,
       methodSuffix: '_v4',
       jsonStringifyRequest: true,
-      preferredRelays: [process.env.GSN_RELAY_URL],
-      relayLookupWindowBlocks: Number(process.env.GSN_RELAYLOOKUPWINDOWBLOCKS),
-      relayRegistrationLookupBlocks: Number(process.env.GSN_RELAYREGISTRATIONLOOKUPBLOCKS),
-      pastEventsQueryMaxPageSize: Number(process.env.GSN_PASTEVENTSQUERYMAXPAGESIZE)
+      preferredRelays: [this.$cookies.get('config').gsnRelayUrl],
+      relayLookupWindowBlocks: Number(this.$cookies.get('config').gsnRelayLookupWindowBlocks),
+      relayRegistrationLookupBlocks: Number(this.$cookies.get('config').gsnRelayRegistrationLookupBlocks),
+      pastEventsQueryMaxPageSize: Number(this.$cookies.get('config').gsnPastEventQueryMaxPageSize)
     };
 
 
@@ -213,7 +215,7 @@ export const actions = {
             toaster: 'b-toaster-bottom-left',
             title: self.$translates.alert.processingtransaction,
             variant: 'warning',
-            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
             noAutoHide: true
 

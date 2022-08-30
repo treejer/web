@@ -85,7 +85,7 @@ export default {
     reeboxmessageisempty:"Treebox message is empty, Are sure you want to create treebox without message?",
     remembertodownload:"Remember to download the CSV file after successful transaction. We don't save the CSV file in our server.",
     youwanttoclaim:"Do you want to claim TreeBox for",
-    checkprogressonetherscan:"Check progress on Etherscan",
+    checkprogressonetherscan:"Check progress on Explorer",
     processingtransaction:"Processing transaction...",
     haveenough:"You don't have enough Ether (ETH)",
     transactionfailed:"Transaction failed",
@@ -460,6 +460,11 @@ export default {
     tweet:' Tweet',
     copy:' Copy',
     text:'I just planted a NFT tree via @TreejerTalk! Rural communities will take care of my tree. 🛖🌳🛖 Check it out here:',
+    metaSingle: {
+      title: 'Treejer | ',
+      description: "Open the link to see more information. You can plant a forest and support rural communities worldwide with Treejer.",
+      keywords:'treejer,tree,NFTTree,treeNFT,tree page, tree profile'
+    },
     meta: {
       title: 'Treejer | Tree list ',
       description: "Open the link to see more information. You can plant a forest and support rural communities worldwide with Treejer.",

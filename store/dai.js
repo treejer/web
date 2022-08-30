@@ -11,7 +11,7 @@ export const actions = {
 
   async balanceOf(context, params) {
     try {
-      const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+      const daiContract = await new this.$web3.eth.Contract(Dai.abi, this.$cookies.get('config').daiTokenAddress);
 
       let self = this
       return daiContract.methods.balanceOf(params.account).call()
@@ -31,11 +31,10 @@ export const actions = {
   async allowance() {
 
     try {
-      const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+      const daiContract = await new this.$web3.eth.Contract(Dai.abi, this.$cookies.get('config').daiTokenAddress);
       let account = this.$cookies.get('account');
 
       if(account == null) {
-        console.log("erc20js - account not exists in cookies");
         return 0;
       }
 
@@ -56,7 +55,7 @@ export const actions = {
   async approve(context, params) {
     let self = this;
 
-    const daiContract = await new this.$web3.eth.Contract(Dai.abi, process.env.daiTokenAddress);
+    const daiContract = await new this.$web3.eth.Contract(Dai.abi, this.$cookies.get('config').daiTokenAddress);
     let account = this.$cookies.get('account');
     this.$web3.currentProvider.enable();
 
@@ -89,7 +88,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title: self.$translates.alert.processingtransaction,
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
           bodyClass: 'fund-error',
           noAutoHide: true
 

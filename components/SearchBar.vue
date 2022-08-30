@@ -41,7 +41,9 @@ export default {
     async findTree() {
       let self = this;
       self.loading = true
-      await this.$axios.$get(`${process.env.apiUrl}/trees/${this.$route.params.id}`)
+
+
+      await this.$axios.$get(`${self.$cookies.get('config').apiUrl}/trees/${this.$route.params.id}`)
         .then(function (response) {
           self.loading = false
           self.tree = response

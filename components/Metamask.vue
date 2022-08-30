@@ -5,6 +5,7 @@
     class="metamask"
   >
     <b-nav-form v-if="!$cookies.get('account')">
+      
       <b-button class="connect-button m-auto" @click.prevent="showModal()">
         {{ $t("header.connectwallet") }}
       </b-button>
@@ -25,15 +26,7 @@
 
     <b-nav-form class="pointer-event" v-if="$cookies.get('account')">
        <ChangeNetworker />
-      <!-- <div
-        v-if="connectedNetwrokID != runningNetworkID"
-        class="pointer-event accounting-card d-lg-flex d-none align-items-center align-self-center pointer-event"
-        @click.prevent="switchNetwork()"
-      >
-        <b-button class="connect-button switch-wallet">
-          {{ $t("header.switchto") }} {{ runningNetwrokName }}
-        </b-button> -->
-      <!-- </div> -->
+     
      
       <div
         class="pointer-event accounting-card d-flex align-items-center align-self-center pointer-event"
@@ -150,10 +143,7 @@ export default {
       account: null,
       hasAccount: false,
       hasAccountSrc: `${this.$cookies.get("account")}`,
-      loading: false,
-      runningNetworkID: parseInt(process.env.NETWORK_ID),
-      runningNetwrokName: process.env.NETWORK_NAME,
-      connectedNetwrokID: parseInt(process.env.NETWORK_ID),
+      loading: false
     };
   },
   computed: {
@@ -168,61 +158,11 @@ export default {
       return null;
     }
 
-    let self = this;
-    setTimeout(async () => {
-      if (process.client && self.$web3.givenProvider) {
-        self.connectedNetwrokID = await self.$web3.eth.net.getId();
-      }
-    }, 500);
-
-    if (process.client && window.ethereum) {
-      window.ethereum.on("networkChanged", function (networkId) {
-        self.connectedNetwrokID = networkId;
-        window.location.reload();
-      });
-    }
+    
   },
 
   methods: {
-    async switchNetwork() {
-      // this.$web3.currentProvider.enable();
-      await this.$web3.currentProvider.enable();
 
-      try {
-        await this.$web3.currentProvider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: this.$dec2hex(process.env.NETWORK_ID) }],
-        });
-
-        window.location.reload();
-      } catch (error) {
-        if (error.code === 4902) {
-          try {
-            if (process.env.NETWORK_ID.toString() === "137") {
-              await this.$web3.currentProvider.request({
-                method: "wallet_addEthereumChain",
-                params: [
-                  {
-                    chainId: "0x137",
-                    chainName: "Polygon Mainnet",
-                    rpcUrls: [
-                      "https://polygon-rpc.com",
-                      "https://rpc.matic.today",
-                    ],
-                    nativeCurrency: {
-                      name: "Matic",
-                      symbol: "Matic",
-                      decimals: 18,
-                    },
-                    blockExplorerUrls: ["https://polygonscan.com"],
-                  },
-                ],
-              });
-            }
-          } catch (error) {}
-        }
-      }
-    },
     async changeEthereum() {
       let self = this;
       self.icon = `${process.env.gravatar}${this.$cookies.get("account")}`;

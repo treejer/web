@@ -355,6 +355,9 @@ export default {
     };
   },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     honoraryTrees: {
       prefetch: true,
       query: honoraryTrees,
@@ -455,7 +458,7 @@ export default {
         this.loadingHonoraryTree = true;
 
         await self.$axios
-          .$post(process.env.graphqlUrl, {
+          .$post(this.$cookies.get('config').graphqlUrl, {
             query: `{
                     honoraryTreeRecipient(id: "${self.$cookies
                       .get("account")
@@ -518,7 +521,7 @@ export default {
                     toaster: "b-toaster-bottom-left",
                     title:self.$t('alert.treeadded'),
                     variant: "success",
-                    href: `${process.env.etherScanUrl}/tx/${receipt.transactionHash}`,
+                    href: `${self.$cookies.get('config').explorerUrl}/tx/${receipt.transactionHash}`,
                   });
                 }
               }

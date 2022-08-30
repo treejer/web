@@ -108,7 +108,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: self.$t('alert.youapprovedtospenddai'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -130,8 +130,8 @@ export default {
      async buyDai() {
       let self = this;
       let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+        apiKey: this.$cookies.get('config').transakApiKey, // Your API Key
+        environment: this.$cookies.get('config').transakEnvironment, // STAGING/PRODUCTION
         defaultCryptoCurrency: "Dai",
         // defaultCryptoAmount: this.treePrice * this.count,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
@@ -142,8 +142,8 @@ export default {
         hostURL: window.location.origin,
         widgetHeight: "550px",
         widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
+        networks: this.$cookies.get('config').transakNetworks,
+        defaultNetwork: this.$cookies.get('config').transakDefaultNetwork,
       });
 
       transak.init();
@@ -158,7 +158,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: self.$t('alert.charged'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+          href: `${this.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -183,7 +183,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend dai",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -217,8 +217,8 @@ export default {
       }
 
       let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+        apiKey: this.$cookies.get('config').transakApiKey, // Your API Key
+        environment: this.$cookies.get('config').transakEnvironment, // STAGING/PRODUCTION
         defaultCryptoCurrency: "Dai",
         // defaultCryptoAmount: this.treePrice * this.count,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
@@ -229,8 +229,8 @@ export default {
         hostURL: window.location.origin,
         widgetHeight: "550px",
         widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
+        networks: this.$cookies.get('config').transakNetworks,
+        defaultNetwork: this.$cookies.get('config').transakDefaultNetwork,
       });
 
       transak.init();
@@ -245,7 +245,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+          href: `${this.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -267,7 +267,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Trees added to forest",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
         const history = this.$router.currentRoute.matched;
         let res = null;
@@ -303,9 +303,6 @@ export default {
    watch: {
     async count(newCount, oldCount) {
       this.setIsAllowance(newCount);
-
-      // Our fancy notification (2).
-      // console.log(`We have ${newCount} fruits now, yay!`)
     },
   },
 

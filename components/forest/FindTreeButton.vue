@@ -30,6 +30,7 @@ export default {
         
         try {
           let result = await this.$apollo.query({
+            client: this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default',
             query: treesSearchById,
             variables: {
               id: this.$dec2hex(self.treeID),
