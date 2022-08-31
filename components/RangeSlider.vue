@@ -14,7 +14,6 @@
       </div>
     </div>
     <input type="range" tabindex="0" value="30" max="100" min="0" step="1" v-model="inputOne"/>
-{{inputOne,inputTwo}}
     <input type="range" tabindex="0" value="60" max="100" min="0" step="1" v-model="inputTwo"/>
   </div>
 </template>
