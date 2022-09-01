@@ -1,22 +1,40 @@
 <template>
-  <div class="network-changer d-none d-md-block" @click.prevent="showNetworks = !showNetworks">
-    <p class="font-weight-bolder btn-green p-md-1 text-capitalize">
-      <img v-if="connectedNetwrokID != $hex2Dec($cookies.get('activeNetwork').chainId)" class="danger" :src="alertIcon" width="24"
-        alt="Wrong Network">
-      {{  $cookies.get('activeNetwork').name  }}
+  <div
+    class="network-changer d-none d-md-block"
+    @click.prevent="showNetworks = !showNetworks"
+  >
+    <p class="btn-gray param tr-gray-seven text-capitalize">
+      <img
+        v-if="
+          connectedNetwrokID != $hex2Dec($cookies.get('activeNetwork').chainId)
+        "
+        class="danger"
+        :src="alertIcon"
+        width="24"
+        alt="Wrong Network"
+      />
+      {{ $cookies.get("activeNetwork").name }}
+      <span>{{ showNetworks ? "&#8595;" : "&#8593;" }}</span>
     </p>
-    <ul v-if="showNetworks" class="list-style-none text-capitalize  bg-light-green">
-      <li v-for="(item, index) in networks" v-if="item.key != $cookies.get('activeNetwork').key" :key="index"
-        @click.prevent="changeNetwork(item)" class="text-left">
+    <ul
+      v-if="showNetworks"
+      class="list-style-none text-capitalize bg-light-green"
+    >
+      <li
+        v-for="(item, index) in networks"
+        v-if="item.key != $cookies.get('activeNetwork').key"
+        :key="index"
+        @click.prevent="changeNetwork(item)"
+        class="text-left tr-gray-three param"
+      >
         <!-- <img :src="item.logo" :alt="item.name" width="100" height="35" /> -->
-        {{  item.name  }}
+        {{ item.name }}
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -32,7 +50,7 @@ export default {
             symbol: "MATIC",
             decimals: 18,
           },
-          key: 'polygon',
+          key: "polygon",
           blockExplorerUrls: ["https://explorer.matic.network/"],
         },
         {
@@ -40,15 +58,13 @@ export default {
           logo: require("~/assets/images/wallets/rinkeby.svg"),
           chainId: "0x4",
           chainName: "rinkeby",
-          rpcUrls: [
-            "https://rinkeby.infura.io/v3/" + process.env.infuraID,
-          ],
+          rpcUrls: ["https://rinkeby.infura.io/v3/" + process.env.infuraID],
           nativeCurrency: {
             nativeCurrencyname: "ETH",
             symbol: "ETH",
             decimals: 18,
           },
-          key: 'rinkeby',
+          key: "rinkeby",
           blockExplorerUrls: ["https://rinkeby.etherscan.io"],
         },
         {
@@ -62,7 +78,7 @@ export default {
             symbol: "MATIC",
             decimals: 18,
           },
-          key: 'polygont',
+          key: "polygont",
           blockExplorerUrls: ["https://explorer.matic.network/"],
         },
         // {
@@ -94,7 +110,6 @@ export default {
         //   blockExplorerUrls: "https://bscscan.com",
         // },
 
-
         // {
         //   name: "Arbitrum Mainnet RPC",
         //   logo: require("~/assets/images/wallets/arbitrum.svg"),
@@ -110,19 +125,14 @@ export default {
         // },
       ],
       showNetworks: false,
-      connectedNetwrokID: '0x89',
-      alertIcon: require("~/assets/images/wallets/roystonlodge-Simple-Glossy-Circle-Button-Red.svg")
+      connectedNetwrokID: "0x89",
+      alertIcon: require("~/assets/images/wallets/roystonlodge-Simple-Glossy-Circle-Button-Red.svg"),
     };
   },
   created() {
     let self = this;
 
-    
-
     // setTimeout(async () => {
-
-      
-
 
     // }, 500);
 
@@ -130,13 +140,16 @@ export default {
       self.$web3.eth.net.getId().then((netId) => {
         self.connectedNetwrokID = netId;
 
-        if (netId == this.$hex2Dec(self.$cookies.get('activeNetwork').chainId)) {
+        if (
+          netId == this.$hex2Dec(self.$cookies.get("activeNetwork").chainId)
+        ) {
           return;
         }
         self.$bvToast.toast(
           self.$t("alert.switchto") +
-          self.$cookies.get('activeNetwork').chainName + " " +
-          self.$t("alert.network"),
+            self.$cookies.get("activeNetwork").chainName +
+            " " +
+            self.$t("alert.network"),
           {
             title: self.$t("alert.wrongnetwork"),
             href: "https://blog.treejer.com/announcing-the-launch-of-treejer-protocol-with-genesis-trees/",
@@ -149,16 +162,12 @@ export default {
       });
     }
 
-      
-
     if (process.client && window.ethereum) {
       window.ethereum.on("chainChanged", function (networkId) {
         self.connectedNetwrokID = networkId;
         // window.location.reload();
       });
     }
-
-
   },
   methods: {
     async changeNetwork(item) {
@@ -166,53 +175,53 @@ export default {
 
       await this.$web3.currentProvider.enable();
 
-      await this.$web3.currentProvider.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: item.chainId }],
-      }).then(res => {
-        self.setData(item);
-        window.location.reload();
-      })
-        .catch(async error => {
-
+      await this.$web3.currentProvider
+        .request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: item.chainId }],
+        })
+        .then((res) => {
+          self.setData(item);
+          window.location.reload();
+        })
+        .catch(async (error) => {
           if (error.code === 4902) {
-
-            await self.$web3.currentProvider.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainId: item.chainId,
-                  chainName: item.chainName,
-                  rpcUrls: item.rpcUrls,
-                  nativeCurrency: item.nativeCurrency,
-                  blockExplorerUrls: item.blockExplorerUrls,
-                },
-              ],
-            }).catch(error => {
-              console.log(error, "error is here");
-            }).then(res => {
-              self.setData(item);
-              window.location.reload();
-            })
-
+            await self.$web3.currentProvider
+              .request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: item.chainId,
+                    chainName: item.chainName,
+                    rpcUrls: item.rpcUrls,
+                    nativeCurrency: item.nativeCurrency,
+                    blockExplorerUrls: item.blockExplorerUrls,
+                  },
+                ],
+              })
+              .catch((error) => {
+                console.log(error, "error is here");
+              })
+              .then((res) => {
+                self.setData(item);
+                window.location.reload();
+              });
           } else {
-            console.log(error, "error")
+            console.log(error, "error");
           }
-
         });
-
     },
     setData(item) {
-      this.$cookies.set('activeNetwork', item);
+      this.$cookies.set("activeNetwork", item);
 
-      if (item.key == 'polygon') {
-        this.$cookies.set('config', process.env.polygon);
-      }else if (item.key == 'polygont') {
-        this.$cookies.set('config', process.env.polygont);
-      } else if (item.key == 'rinkeby') {
-        this.$cookies.set('config', process.env.rinkeby);
+      if (item.key == "polygon") {
+        this.$cookies.set("config", process.env.polygon);
+      } else if (item.key == "polygont") {
+        this.$cookies.set("config", process.env.polygont);
+      } else if (item.key == "rinkeby") {
+        this.$cookies.set("config", process.env.rinkeby);
       }
-    }
+    },
   },
 };
 </script>
@@ -223,19 +232,29 @@ export default {
   margin-right: 105px;
   position: relative;
   margin-top: 15px;
+  .btn-gray {
+    background-color: #eeeeee;
+    padding: 8px 20px 5px 15px;
+    border: solid 2px white;
+    box-shadow: rgba(168, 168, 168, 0.1) 0px 2px 5px;
+    color: #616161;
+
+    border-radius: 16px;
+  }
 
   @media (max-width: 420px) {
     margin-right: 5px;
   }
 
   .list-style-none {
-    width: 140px;
+    width: 200px;
+    
     position: absolute;
     top: 50px;
     border-radius: 7px;
     list-style: none;
     z-index: +999;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 5px;
 
     li {
       text-align: left;
