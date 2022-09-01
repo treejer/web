@@ -236,7 +236,7 @@ export default {
     background-color: #eeeeee;
     padding: 8px 20px 5px 15px;
     border: solid 2px white;
-    box-shadow: rgba(168, 168, 168, 0.1) 0px 2px 5px;
+    // box-shadow: rgba(168, 168, 168, 0.1) 0px 2px 5px;
     color: #616161;
 
     border-radius: 16px;
@@ -247,14 +247,14 @@ export default {
   }
 
   .list-style-none {
-    width: 200px;
-    
+    width: auto;
+
     position: absolute;
     top: 50px;
     border-radius: 7px;
     list-style: none;
     z-index: +999;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 5px;
+    box-shadow: rgba(168, 168, 168, 0.1) 0px 2px 5px;
 
     li {
       text-align: left;
