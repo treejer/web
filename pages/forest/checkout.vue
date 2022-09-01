@@ -100,7 +100,7 @@
                       </div>
                     </div>
                     <div class="description-offest param-xs tr-gray-four">
-                      Add 1 DAI($1) per tree and <span class="tr-green">offset {{ parseFloat(1 * co2Tonne1).toFixed(2)
+                      Add 1 DAI($1) per tree and <span class="tr-green">offset {{ parseFloat(1 * co2Tonne1).toFixed(4)
                       }}</span> tonnes of
                       CO2 in this transaction. Carbon credits are supplied from 3rd-party
                       projects. <a href="https://docs.toucan.earth/protocol/bridge/tco2-toucan-carbon-tokens"
@@ -109,7 +109,7 @@
                     <div v-if="activeOffestCountBox" class="offset-count d-flex">
                       <div class="left-side-offest-box col-md-8 text-center">
                         <p class="title-lg font-weight-bolder">
-                          {{ parseFloat(co2Tonne).toFixed(2) }}
+                          {{ parseFloat(co2Tonne).toFixed(4) }}
                         </p>
                         <p class="param tr-gray-four font-weight-bolder">Tonnes of Carbon <small>
                           </small></p>
@@ -720,8 +720,8 @@ export default {
 
         transaction = await this.$store.dispatch("erc20/approve", {
           amount: Number(this.$web3.utils.fromWei(this.totalDAI)) + Number(this.co2Count),
-          spenderContract: process.env.fundWithOffsetContractAddress,
-          tokenAddress: process.env.daiTokenAddress,
+          spenderContract: this.$cookies.get('config').fundWithOffsetContractAddress,
+          tokenAddress: this.$cookies.get('config').daiTokenAddress,
         });
 
       } else {
@@ -742,7 +742,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: self.$t("alert.approvedtospend"),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
         if (!this.activeOffestCountBox) {
           await this.setIsAllowance();
@@ -786,57 +786,6 @@ export default {
         "_blank"
       );
       return;
-
-      // let self = this;
-      // if (!self.$cookies.get("account")) {
-      //   self.$bvToast.toast("you're not login", {
-      //     toaster: "b-toaster-bottom-left",
-      //     solid: true,
-      //     headerClass: "hide",
-      //     variant: "danger",
-      //   });
-      //   self.$bvModal.show("five");
-      //   return
-      // }
-
-      // let transak = new transakSDK({
-      //   apiKey: process.env.transakApiKey, // Your API Key
-      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-      //   defaultCryptoCurrency: "Dai",
-      //   // defaultCryptoAmount: this.treePrice * this.count,
-      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-      //   themeColor: "000000", // App theme color
-      //   fiatCurrency: "USD", // INR/GBP
-      //   email: "", // Your customer's email address
-      //   redirectURL: "",
-      //   hostURL: window.location.origin,
-      //   widgetHeight: "550px",
-      //   widgetWidth: "450px",
-      //   networks: process.env.transakNetworks,
-      //   defaultNetwork: process.env.transakDefaultNetwork,
-      // });
-
-      // transak.init();
-
-      // // To get all the events
-      // transak.on(transak.ALL_EVENTS, (data) => {
-      //   console.log(data);
-      // });
-
-      // // This will trigger when the user marks payment is made.
-      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-      //   console.log(orderData);
-      //   self.$bvToast.toast(["Your payment was successful"], {
-      //     toaster: "b-toaster-bottom-left",
-      //     title: "Your wallet charged",
-      //     variant: "success",
-      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-      //       "account"
-      //     )}`,
-      //   });
-      //   self.setDaiBalance();
-      //   transak.close();
-      // });
     },
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net
@@ -849,13 +798,13 @@ export default {
           return 0;
         });
 
-      if (connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
         return true;
       }
 
       this.$bvToast.toast(
         this.$t("alert.pleaseconnect") +
-        process.env.networkName.toUpperCase() +
+        this.$cookies.get('activeNetwork').chainName.toUpperCase() +" "+
         this.$t("alert.wrongnetwork"),
         {
           toaster: "b-toaster-bottom-left",
@@ -933,17 +882,9 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t("alert.treesaddedtoforest"),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${this.transferReceipt.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${this.transferReceipt.transactionHash}`,
         });
-        // const history = this.$router.currentRoute.matched;
-        // let res = null;
-        // history.map((item, index) => {
-        //   let name = item.name;
-        //   res = name.match(/forest-id/g);
-        //   if (res === "forest-id") {
-        //     this.$router.push(`/forest/${this.$cookies.get("account")}`);
-        //   }
-        // });
+       
       }
       this.loading = false;
     },
@@ -975,16 +916,14 @@ export default {
 
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
-        tokenAddress: process.env.daiTokenAddress,
-        spenderContract: process.env.fundWithOffsetContractAddress,
+        tokenAddress: this.$cookies.get('config').daiTokenAddress,
+        spenderContract: this.$cookies.get('config').fundWithOffsetContractAddress,
       });
 
 
 
       var allowanceBN = new BN(allowance);
       var totalDAIFloatBN = new BN(this.totalDAIFloat.toString()).add(new BN(this.co2Count.toString()));
-
-      console.log(totalDAIFloatBN.toString(), "totalDAIFloatBN.toString()")
 
       this.isAllowedSpendDaiOffset = allowanceBN.gte(totalDAIFloatBN);
 
@@ -998,9 +937,14 @@ export default {
 
     async setTotalDAI() {
       let countBN = new BN(this.count);
-      let priceBN = new BN(
-        this.$web3.utils.toWei(this.$store.state.regularSale.price)
-      );
+      let price = this.$store.state.regularSale.price
+      if(!price) {
+        price = 0;
+      } else {
+        price = this.$web3.utils.toWei(price);
+      }
+
+      let priceBN = new BN(price);
 
       this.totalDAI = countBN.mul(priceBN);
       this.totalDAIFloat = parseFloat(
@@ -1027,10 +971,14 @@ export default {
     },
 
     async getCo2Tonne(count) {
-      return await this.$store.dispatch('uniswapV2Router02/getAmountsOut', {
-        amountIn: count,
-        path: process.env.OFFSET_DEX_PATH.split(","),
-      })
+
+
+        return await this.$store.dispatch('carbonRetirementAggregator/getCarbonRetirmentAmount', {
+          sourceToken: this.$cookies.get('config').daiTokenAddress,
+          poolToken: this.$cookies.get('config').bctTokenAddress,
+          sourceAmount: this.$web3.utils.toWei(count.toString()),
+          specificRetire: false
+        })
 
     },
     showOffsetCountBox() {
@@ -1080,12 +1028,6 @@ export default {
       }
 
       await this.setTotalDAI();
-
-      // this.$forceUpdate();
-
-
-      // Our fancy notification (2).
-      // console.log(`We have ${newCount} fruits now, yay!`)
     },
     async co2Count(newVal) {
       this.co2Tonne = await this.getCo2Tonne(newVal);

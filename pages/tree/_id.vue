@@ -241,9 +241,9 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       meta: {
-        title: this.$t('tree.meta.title'),
-        description:this.$t('tree.meta.description'),
-        keywords:this.$t('tree.meta.keywords')
+        title: this.$t('tree.metaSingle.title'),
+        description:this.$t('tree.metaSingle.description'),
+        keywords:this.$t('tree.metaSingle.keywords')
       },
 
       loading: false,
@@ -309,8 +309,8 @@ export default {
     this.loading = false
   },
 
-  asyncData({$axios, route}){
-    return $axios.$get(`${process.env.apiUrl}/trees/${route.params.id}`)
+  asyncData({$axios, $cookies, route}){
+    return $axios.$get(`${$cookies.get('config').apiUrl}/trees/${route.params.id}`)
       .then((resp) => {
         // console.log(resp)
 
@@ -350,7 +350,7 @@ export default {
     },
     async getOffchainTreeData() {
       let self = this
-      await self.$axios.$get(`${process.env.apiUrl}/trees/${this.treeID}`)
+      await self.$axios.$get(`${this.$cookies.get('config').apiUrl}/trees/${this.treeID}`)
       .then((oTreeData) => {
         self.oTreeData = oTreeData;
       })
@@ -369,7 +369,7 @@ export default {
       // first = 0, skip = 0
 
       let self = this
-      await self.$axios.$post(process.env.graphqlUrl, {
+      await self.$axios.$post(this.$cookies.get('config').graphqlUrl, {
         query: `{
                   treeHistories(where:{ tree: "${self.$dec2hex(self.$route.params.id)}" }, orderBy: createdAt, orderDirection: desc)
                     {
@@ -391,7 +391,7 @@ export default {
     async getTreeAuction() {
       this.loading = true
       let self = this
-      await self.$axios.$post(process.env.graphqlUrl, {
+      await self.$axios.$post(this.$cookies.get('config').graphqlUrl, {
         query: `{
             auctions(where:{tree:"${self.$dec2hex(self.$route.params.id)}"}){
                   id
@@ -428,7 +428,7 @@ export default {
       })
     },
     async getTreeQuery(id) {
-      return await this.$axios.$post(process.env.graphqlUrl, {
+      return await this.$axios.$post(this.$cookies.get('config').graphqlUrl, {
         query: `
             {
               tree(id: "${id}") {

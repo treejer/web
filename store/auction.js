@@ -34,8 +34,6 @@ export const actions = {
     }
 
 
-    console.log(referrer)
-
     const tx = this.$Auction.methods.bid(params.auctionId, this.$web3.utils.toWei(params.bidValue.toString()), referrer);
 
     const data = tx.encodeABI();
@@ -59,7 +57,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title:this.$translates.alert.processingtransaction,
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 
@@ -127,7 +125,7 @@ export const actions = {
           toaster: 'b-toaster-bottom-left',
           title:this.$translates.alert.processingtransaction,
           variant: 'warning',
-          href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+          href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
           bodyClass: 'bid error',
           noAutoHide: true
 
@@ -166,7 +164,7 @@ export const actions = {
 
   },
   async getAuction({commit}, param) {
-    await this.$axios.$post(process.env.graphqlUrl, {
+    await this.$axios.$post(self.$cookies.get('config').graphqlUrl, {
       query: `{
          {
   tree(id: $id) {
@@ -211,7 +209,7 @@ export const actions = {
     })
   },
   async planter({commit}, id = 33) {
-    await this.$axios.$post(process.env.graphqlUrl, {
+    await this.$axios.$post(self.$cookies.get('config').graphqlUrl, {
       query: `query planter {
           planter(id:${id}){
           id
@@ -230,7 +228,7 @@ export const actions = {
     })
   },
   async tree({commit}, id = 33) {
-    await this.$axios.$post(process.env.graphqlUrl, {
+    await this.$axios.$post(self.$cookies.get('config').graphqlUrl, {
       query: `query tree {
           tree(id:${id}){
           id
@@ -249,7 +247,7 @@ export const actions = {
     })
   },
   async getGenesisAuctions({commit}){
-    await this.$axios.$post(process.env.graphqlUrl, {
+    await this.$axios.$post(self.$cookies.get('config').graphqlUrl, {
 
       query: `{
           auctions{

@@ -43,7 +43,7 @@
     },
     methods: {
       submit() {
-        window.open(process.env.SUBSCRIBE_LINK,'_blank');
+        window.open(process.env.subscribeLink,'_blank');
       }
     }
   }

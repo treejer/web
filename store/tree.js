@@ -55,7 +55,7 @@ export const actions = {
             toaster: 'b-toaster-bottom-left',
             title:self.$translates.alert.processingtransaction,
             variant: 'warning',
-            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
             noAutoHide: true
 

@@ -82,19 +82,13 @@
     "constant": true
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "carbonTokens",
+    "inputs": [],
+    "name": "aggregator",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "contract ICarbonRetirementAggregator",
         "name": "",
-        "type": "bool"
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -173,11 +167,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_address",
+        "name": "_aggregator",
         "type": "address"
       }
     ],
-    "name": "setRegularSaleAddress",
+    "name": "setAggregatorAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -186,16 +180,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_offsetToken",
+        "name": "_address",
         "type": "address"
-      },
-      {
-        "internalType": "bool",
-        "name": "_isValid",
-        "type": "bool"
       }
     ],
-    "name": "setCarbonToken",
+    "name": "setRegularSaleAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -214,28 +203,38 @@
       },
       {
         "internalType": "address",
-        "name": "_recipient",
+        "name": "_poolToken",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_offsetPrice",
+        "name": "_amount",
         "type": "uint256"
       },
       {
-        "internalType": "address[]",
-        "name": "_path",
-        "type": "address[]"
+        "internalType": "bool",
+        "name": "_amountInCarbon",
+        "type": "bool"
       },
       {
         "internalType": "address",
-        "name": "_dexRouter",
+        "name": "_beneficiaryAddress",
         "type": "address"
       },
       {
-        "internalType": "uint256",
-        "name": "_minDaiOut",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "_beneficiaryString",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_retirementMessage",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_retiringEntityString",
+        "type": "string"
       }
     ],
     "name": "fundTreeWithOffset",
@@ -247,36 +246,56 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_offsetPrice",
+        "name": "_count",
         "type": "uint256"
       },
       {
         "internalType": "address",
-        "name": "_sender",
+        "name": "_referrer",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "_recipient",
-        "type": "address"
-      },
-      {
-        "internalType": "address[]",
-        "name": "_path",
-        "type": "address[]"
-      },
-      {
-        "internalType": "address",
-        "name": "_dexRouter",
+        "name": "_poolToken",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "_minDaiOut",
+        "name": "_amount",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_amountInCarbon",
+        "type": "bool"
+      },
+      {
+        "internalType": "address",
+        "name": "_beneficiaryAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_beneficiaryString",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_retirementMessage",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_retiringEntityString",
+        "type": "string"
+      },
+      {
+        "internalType": "address[]",
+        "name": "_carbonList",
+        "type": "address[]"
       }
     ],
-    "name": "offset",
+    "name": "fundTreeWithSpecialOffset",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

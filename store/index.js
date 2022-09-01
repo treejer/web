@@ -76,10 +76,10 @@ export const actions = {
     self.$cookies.set('walletName', 'walletconnect')
 
     let rpc = [];
-    rpc[parseInt(process.env.NETWORK_ID)] = process.env.WEB3_PROVIDER;
+    rpc[parseInt(this.$cookies.get('activeNetwork').chainId)] = this.$cookies.get('config').web3Provider;
         
     const wc = new WalletConnect({
-        infuraId: process.env.INFURA_ID,
+        infuraId: process.env.infuraId,
         rpc: rpc
     });
     const connector = await wc.connect();
@@ -146,7 +146,7 @@ export const actions = {
     const walletName = this.$cookies.get('walletName')
     if (walletName === 'portis') {
       const Portis = require("@portis/web3");
-      const portis = await Portis(process.env.PORTIS, process.env.NETWORK_NAME)
+      const portis = await Portis(process.env.portis, this.$cookies.get('activeNetwork').chainName)
       portis.logout();
     }
     if (walletName === 'metamask') {
@@ -161,17 +161,7 @@ export const actions = {
       await torus.logout();
     }
     if (walletName === 'walletconnect') {
-      // const wc = new WalletConnect({
-      //     infuraId: process.env.INFURA_ID,
-      //     rpc: {
-      //       137: "https://polygon-mainnet.infura.io/v3/" + process.env.INFURA_ID
-      //     }
-      // });
       this.$web3.currentProvider.enable();
-
-
-      // await wc.enable();
-
       await this.$web3.currentProvider.disconnect();
     }
 
@@ -190,7 +180,7 @@ export const actions = {
       return;
     }
 
-    await this.$axios.$get(process.env.apiUrl+ '/prices')
+    await this.$axios.$get(this.$cookies.get('config').apiUrl+ '/prices')
     .then((res) => {
       commit('SET_ETH_PRICE', res.result.ethusd)
     }).catch((err) => {
@@ -198,7 +188,7 @@ export const actions = {
     })
   },
   async getLeaderBoards({ commit }) {
-    const leaderBoards = await this.$axios.$get(`${process.env.apiUrl}/trees/leaderboard?perPage=10`)
+    const leaderBoards = await this.$axios.$get(`${this.$cookies.get('config').apiUrl}/trees/leaderboard?perPage=10`)
     commit('SET_LEADERBOARDS', leaderBoards.leaderboard.data)
   }
 }

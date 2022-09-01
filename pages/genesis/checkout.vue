@@ -368,62 +368,8 @@ export default {
       this.activePay = index;
     },
     async buyWeth() {
-
       window.open('https://app.sushi.com/swap?outputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619', '_blank');
       return;
-
-
-      // let self = this;
-      // if (!self.$cookies.get("account")) {
-      //   self.$bvToast.toast("you're not login", {
-      //     toaster: "b-toaster-bottom-left",
-      //     solid: true,
-      //     headerClass: "hide",
-      //     variant: "danger",
-      //   });
-      //   self.$bvModal.show("five");
-      //   return;
-      // }
-
-
-      // let transak = new transakSDK({
-      //   apiKey: process.env.transakApiKey, // Your API Key
-      //   environment: process.env.transakEnvironment, // STAGING/PRODUCTION
-      //   defaultCryptoCurrency: "Weth",
-      //   defaultCryptoAmount: this.totalWeth,
-      //   walletAddress: this.$cookies.get("account"), // Your customer's wallet address
-      //   themeColor: "000000", // App theme color
-      //   fiatCurrency: "USD", // INR/GBP
-      //   email: "", // Your customer's email address
-      //   redirectURL: "",
-      //   hostURL: window.location.origin,
-      //   widgetHeight: "550px",
-      //   widgetWidth: "450px",
-      //   networks: process.env.transakNetworks,
-      //   defaultNetwork: process.env.transakDefaultNetwork,
-      // });
-
-      // transak.init();
-
-      // // To get all the events
-      // transak.on(transak.ALL_EVENTS, (data) => {
-      //   console.log(data);
-      // });
-
-      // // This will trigger when the user marks payment is made.
-      // transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-      //   console.log(orderData);
-      //   self.$bvToast.toast(["Your payment was successful"], {
-      //     toaster: "b-toaster-bottom-left",
-      //     title: "Your wallet charged",
-      //     variant: "success",
-      //     href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
-      //       "account"
-      //     )}`,
-      //   });
-      //   self.setWethBalance();
-      //   transak.close();
-      // });
     },
     async checkNetwork() {
       let connectedNetwrokID = await this.$web3.eth.net.getId()
@@ -435,11 +381,11 @@ export default {
         return 0;
       });
 
-      if(connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
         return true;
       }
 
-      this.$bvToast.toast([this.$t('alert.pleaseconnect') + process.env.networkName.toUpperCase() + this.$t('alert.network')], {
+      this.$bvToast.toast([this.$t('alert.pleaseconnect') + this.$cookies.get('config').chainName.toUpperCase() + " " + this.$t('alert.network')], {
         toaster: "b-toaster-bottom-left",
         title: 'Wrong network',
         variant: 'danger',
@@ -496,7 +442,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t('alert.treesaddedtoforest'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+          href: `${this.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
@@ -523,14 +469,9 @@ export default {
       }
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
-        tokenAddress: process.env.wethTokenAddress,
+        tokenAddress: this.$cookies.get('config').wethTokenAddress,
         spenderContract: this.$IncrementalSale._address,
       });
-
-
-      console.log(allowance, "allowance");
-      console.log(this.totalWeth, "allowance");
-      console.log(parseFloat(allowance) >= parseFloat(this.totalWeth), "parseFloat(allowance) >= parseFloat(this.totalWeth)");
 
       this.isAllowedSpendWeth =
         parseFloat(allowance) >= parseFloat(this.totalWeth);
@@ -541,7 +482,7 @@ export default {
     },
     async setWethBalance() {
       this.wethBalance = await this.$store.dispatch("erc20/balanceOf", {
-        tokenAddress: process.env.wethTokenAddress,
+        tokenAddress: this.$cookies.get('config').wethTokenAddress,
       });
     },
     async allowSpendWeth(silent = false) {
@@ -554,7 +495,7 @@ export default {
       }
 
       const transaction = await this.$store.dispatch("erc20/approve", {
-        tokenAddress: process.env.wethTokenAddress,
+        tokenAddress: this.$cookies.get('config').wethTokenAddress,
         spenderContract: this.$IncrementalSale._address,
         amount: this.totalWeth,
       });
@@ -567,7 +508,7 @@ export default {
             toaster: "b-toaster-bottom-left",
             title: this.$t('alert.Youapprovedtospendtoken'),
             variant: "success",
-            href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+            href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
           });
 
           await this.fundTree();

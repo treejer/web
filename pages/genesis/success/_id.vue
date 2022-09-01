@@ -57,6 +57,9 @@ export default {
   name: "genesisSuccess",
   components: { TreeCard },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     treeHistories: {
       query: treeHistoriesBytxQuery,
       prefetch: false,

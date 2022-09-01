@@ -99,7 +99,7 @@
                     </span>
 
                     <a
-                      :href="`${etherScanUrl}/tx/${history.transactionHash}`"
+                      :href="`${$cookies.get('config').explorerUrl}/tx/${history.transactionHash}`"
                       target="_blank"
                       class="tr-green pointer-event pointer-event small"
                     >
@@ -156,7 +156,6 @@ export default {
   components: { Fas },
   data() {
     return {
-      etherScanUrl: process.env.etherScanUrl,
       meta: {
         title: this.$t("activity.meta.title"),
         description: this.$t("activity.meta.description"),
@@ -201,6 +200,9 @@ export default {
     };
   },
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     addressHistories: {
       query: addressHistoriesByAddressQuery,
       skip() {

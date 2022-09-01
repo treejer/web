@@ -7,7 +7,7 @@ export const state = () => ({
 export const actions = {
   async getFindTree({commit},params) {
     console.log(params)
-    await this.$axios.$post(process.env.graphqlUrl, {
+    await this.$axios.$post(this.$cookies.get('config').graphqlUrl, {
       query:
         `
      {

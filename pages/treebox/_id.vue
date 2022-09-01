@@ -354,7 +354,7 @@ export default {
             toaster: "b-toaster-bottom-left",
             title: "Claim successful",
             variant: this.$t('alert.claimsuccessful'),
-            href: `${process.env.etherScanUrl}/tx/${res.transactionHash}`,
+            href: `${this.$cookies.get('config').explorerUrl}/tx/${res.transactionHash}`,
             noAutoHide: true,
           }
         );
@@ -377,14 +377,14 @@ export default {
           return 0;
         });
 
-      if (connectedNetwrokID == process.env.networkId) {
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
         return true;
       }
 
       this.$bvToast.toast(
         [
           this.$t('alert.pleaseconnect') +
-            process.env.networkName.toUpperCase() +
+            this.$cookies.get('activeNetwork').chainName.toUpperCase() + " " + 
             this.$t('alert.network'),
         ],
         {

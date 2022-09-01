@@ -174,6 +174,9 @@ export default {
   },
   layout: "dashboard",
   apollo: {
+    $client() {
+      return this.$cookies.get("activeNetwork") ? this.$cookies.get("activeNetwork").key : 'default';
+    },
     referrer: {
       query: referrer,
       // prefetch: true,
@@ -299,7 +302,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: this.$t('alert.yourrewardschangedtotrees'),
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
 
         await this.$apollo.queries.referrer.refetch();

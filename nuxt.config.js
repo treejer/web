@@ -2,6 +2,8 @@ require('dotenv').config()
 
 export default {
   buildDir: 'nuxt-dist',
+  ssr: true,
+  target: 'server',
   head: {
     title: 'Treejer | Planters Without Borders',
     meta: [
@@ -45,34 +47,123 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || 'https://treejer.com',
     ethPrice: process.env.ETH_PRICE,
-    contractAuctionAddress: process.env.CONTRACT_TREE_AUCTION_ADDRESS,
-    contractIncrementalSale: process.env.CONTRACT_INCREMENTAL_SELL_ADDRESS,
-    contractTreeRegularSale: process.env.CONTRACT_REGULAR_SELL_ADDRESS,
-    contractHonoraryTree: process.env.CONTRACT_COMMUNITY_GIFTS_ADDRESS,
-    treeAddress: process.env.CONTRACT_TREE_ADDRESS,
-    treeboxContractAddress: process.env.CONTRACT_TREE_BOX_ADDRESS,
-    treeboxPaymasterContractAddress: process.env.CONTRACT_PAYMASTER_TREE_BOX,
-    fundWithOffsetContractAddress: process.env.CONTRACT_FUND_WITH_OFFSET_ADDRESS,
-    uniswapV2Router02ContractAddress: process.env.DEX_ROUTER_UNISWAP_V2,
-    daiTokenAddress: process.env.DAI_TOKEN_ADDRESS_RINKEBY,
-    bctTokenAddress: process.env.BCT_TOKEN_ADDRESS,
-    wethTokenAddress: process.env.WETH_TOKEN_ADDRESS_RINKEBY,
-    etherscanApiKEY: process.env.ETHERSCAN_API_KEY,
-    apiUrl: process.env.API_URL || 'https://api.treejer.com',
     ipfsPostUrl: process.env.IPFS_POST_URL || 'https://ipfs.treejer.com/api/v0/add',
     ipfsGetUrl: process.env.IPFS_GET_URL || 'https://ipfs.treejer.com/ipfs/',
     fortmatic: process.env.FORTMATIC,
+    portis: process.env.PORTIS,
     gravatar: process.env.GRAVATAR,
-    transakApiKey: process.env.TRANSAK_API_KEY, // Your API Key
-    transakEnvironment: process.env.TRANSAK_ENV, // STAGING/PRODUCTION
-    transakNetworks: process.env.TRANSAK_NETWROKS,
-    transakDefaultNetwork: process.env.TRANSAK_DEFAULT_NETWROK,
-    etherScanUrl: process.env.ETHERSCAN_URL,
-    graphqlUrl: process.env.GRAPHQL_URL,
     zeroAddress: "0x0000000000000000000000000000000000000000",
-    networkName: process.env.NETWORK_NAME,
-    networkId: process.env.NETWORK_ID
+    infuraID: process.env.INFURA_ID,
+    subscribeLink: process.env.SUBSCRIBE_LINK,
+    polygon: {
+      apiUrl: process.env.POLYGON_API_URL || 'https://api.treejer.com',
+      explorerUrl: process.env.POLYGON_EXPLORER_URL,
+      graphqlUrl: process.env.POLYGON_GRAPHQL_URL,
+      networkName: process.env.POLYGON_NETWORK_NAME,
+      networkId: process.env.POLYGON_NETWORK_ID,
+      web3SProvider: process.env.POLYGON_WEB3_SOCKET_PROVIDER,
+      web3Provider: process.env.POLYGON_WEB3_PROVIDER,
 
+      transakApiKey: process.env.POLYGON_TRANSAK_API_KEY,
+      transakEnvironment: process.env.POLYGON_TRANSAK_ENV,
+      transakNetworks: process.env.POLYGON_TRANSAK_NETWROKS,
+      transakDefaultNetwork: process.env.POLYGON_TRANSAK_DEFAULT_NETWROK,
+
+      //contracts
+      contractAuctionAddress: process.env.POLYGON_CONTRACT_TREE_AUCTION_ADDRESS,
+      contractIncrementalSale: process.env.POLYGON_CONTRACT_INCREMENTAL_SELL_ADDRESS,
+      contractTreeRegularSale: process.env.POLYGON_CONTRACT_REGULAR_SELL_ADDRESS,
+      contractHonoraryTree: process.env.POLYGON_CONTRACT_COMMUNITY_GIFTS_ADDRESS,
+      treeAddress: process.env.POLYGON_CONTRACT_TREE_ADDRESS,
+      treeboxContractAddress: process.env.POLYGON_CONTRACT_TREE_BOX_ADDRESS,
+      treeboxPaymasterContractAddress: process.env.POLYGON_CONTRACT_PAYMASTER_TREE_BOX,
+      fundWithOffsetContractAddress: process.env.POLYGON_CONTRACT_FUNDWITHOFFSET_ADDRESS,
+      uniswapV2Router02ContractAddress: process.env.POLYGON_DEX_ROUTER_UNISWAP_V2,
+      daiTokenAddress: process.env.POLYGON_DAI_TOKEN_ADDRESS_RINKEBY,
+      bctTokenAddress: process.env.POLYGON_CONTRACT_BASECARBONTONNE_ADDRESS,
+      carbonRetirementsStorageContractAddress: process.env.POLYGON_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
+      carbonRetirementAggregatorContractAddress: process.env.POLYGON_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
+      wethTokenAddress: process.env.POLYGON_WETH_TOKEN_ADDRESS_RINKEBY,
+      offsetDexPath: process.env.POLYGON_OFFSET_DEX_PATH,
+
+      gsnRelayUrl:process.env.POLYGON_GSN_RELAY_URL,
+      gsnRelayLookupWindowBlocks:process.env.POLYGON_GSN_RELAYLOOKUPWINDOWBLOCKS,
+      gsnRelayRegistrationLookupBlocks:process.env.POLYGON_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
+      gsnPastEventQueryMaxPageSize:process.env.POLYGON_GSN_PASTEVENTSQUERYMAXPAGESIZE,
+    },
+    polygont: {
+      apiUrl: process.env.POLYGONT_API_URL || 'https://api.treejer.com',
+      explorerUrl: process.env.POLYGONT_EXPLORER_URL,
+      graphqlUrl: process.env.POLYGONT_GRAPHQL_URL,
+      networkName: process.env.POLYGONT_NETWORK_NAME,
+      networkId: process.env.POLYGONT_NETWORK_ID,
+      web3SProvider: process.env.POLYGONT_WEB3_SOCKET_PROVIDER,
+      web3Provider: process.env.POLYGONT_WEB3_PROVIDER,
+
+      transakApiKey: process.env.POLYGONT_TRANSAK_API_KEY,
+      transakEnvironment: process.env.POLYGONT_TRANSAK_ENV,
+      transakNetworks: process.env.POLYGONT_TRANSAK_NETWROKS,
+      transakDefaultNetwork: process.env.POLYGONT_TRANSAK_DEFAULT_NETWROK,
+
+      //contracts
+      contractAuctionAddress: process.env.POLYGONT_CONTRACT_TREE_AUCTION_ADDRESS,
+      contractIncrementalSale: process.env.POLYGONT_CONTRACT_INCREMENTAL_SELL_ADDRESS,
+      contractTreeRegularSale: process.env.POLYGONT_CONTRACT_REGULAR_SELL_ADDRESS,
+      contractHonoraryTree: process.env.POLYGONT_CONTRACT_COMMUNITY_GIFTS_ADDRESS,
+      treeAddress: process.env.POLYGONT_CONTRACT_TREE_ADDRESS,
+      treeboxContractAddress: process.env.POLYGONT_CONTRACT_TREE_BOX_ADDRESS,
+      treeboxPaymasterContractAddress: process.env.POLYGONT_CONTRACT_PAYMASTER_TREE_BOX,
+      fundWithOffsetContractAddress: process.env.POLYGONT_CONTRACT_FUNDWITHOFFSET_ADDRESS,
+      uniswapV2Router02ContractAddress: process.env.POLYGONT_DEX_ROUTER_UNISWAP_V2,
+      daiTokenAddress: process.env.POLYGONT_DAI_TOKEN_ADDRESS_RINKEBY,
+      bctTokenAddress: process.env.POLYGONT_CONTRACT_BASECARBONTONNE_ADDRESS,
+      carbonRetirementsStorageContractAddress: process.env.POLYGONT_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
+      carbonRetirementAggregatorContractAddress: process.env.POLYGONT_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
+      wethTokenAddress: process.env.POLYGONT_WETH_TOKEN_ADDRESS_RINKEBY,
+      offsetDexPath: process.env.POLYGONT_OFFSET_DEX_PATH,
+
+      gsnRelayUrl:process.env.POLYGONT_GSN_RELAY_URL,
+      gsnRelayLookupWindowBlocks:process.env.POLYGONT_GSN_RELAYLOOKUPWINDOWBLOCKS,
+      gsnRelayRegistrationLookupBlocks:process.env.POLYGONT_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
+      gsnPastEventQueryMaxPageSize:process.env.POLYGONT_GSN_PASTEVENTSQUERYMAXPAGESIZE,
+    },
+    rinkeby: {
+      apiUrl: process.env.RINKEBY_API_URL || 'https://lbapi.treejer.com',
+      explorerUrl: process.env.RINKEBY_EXPLORER_URL,
+      graphqlUrl: process.env.RINKEBY_GRAPHQL_URL,
+      networkName: process.env.RINKEBY_NETWORK_NAME,
+      networkId: process.env.RINKEBY_NETWORK_ID,
+      web3SProvider: process.env.RINKEBY_WEB3_SOCKET_PROVIDER,
+      web3Provider: process.env.RINKEBY_WEB3_PROVIDER,
+
+      transakApiKey: process.env.RINKEBY_TRANSAK_API_KEY,
+      transakEnvironment: process.env.RINKEBY_TRANSAK_ENV,
+      transakNetworks: process.env.RINKEBY_TRANSAK_NETWROKS,
+      transakDefaultNetwork: process.env.RINKEBY_TRANSAK_DEFAULT_NETWROK,
+
+      contractAuctionAddress: process.env.RINKEBY_CONTRACT_TREE_AUCTION_ADDRESS,
+      contractIncrementalSale: process.env.RINKEBY_CONTRACT_INCREMENTAL_SELL_ADDRESS,
+      contractTreeRegularSale: process.env.RINKEBY_CONTRACT_REGULAR_SELL_ADDRESS,
+      contractHonoraryTree: process.env.RINKEBY_CONTRACT_COMMUNITY_GIFTS_ADDRESS,
+      treeAddress: process.env.RINKEBY_CONTRACT_TREE_ADDRESS,
+      treeboxContractAddress: process.env.RINKEBY_CONTRACT_TREE_BOX_ADDRESS,
+      treeboxPaymasterContractAddress: process.env.RINKEBY_CONTRACT_PAYMASTER_TREE_BOX,
+      fundWithOffsetContractAddress: process.env.RINKEBY_CONTRACT_FUNDWITHOFFSET_ADDRESS,
+      uniswapV2Router02ContractAddress: process.env.RINKEBY_DEX_ROUTER_UNISWAP_V2,
+      daiTokenAddress: process.env.RINKEBY_DAI_TOKEN_ADDRESS_RINKEBY,
+      bctTokenAddress: process.env.RINKEBY_CONTRACT_BASECARBONTONNE_ADDRESS,
+      carbonRetirementsStorageContractAddress: process.env.RINKEBY_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
+      carbonRetirementAggregatorContractAddress: process.env.RINKEBY_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
+      wethTokenAddress: process.env.RINKEBY_WETH_TOKEN_ADDRESS_RINKEBY,
+
+      offsetDexPath: process.env.RINKEBY_OFFSET_DEX_PATH,
+
+      gsnRelayUrl:process.env.RINKEBY_GSN_RELAY_URL,
+      gsnRelayLookupWindowBlocks:process.env.RINKEBY_GSN_RELAYLOOKUPWINDOWBLOCKS,
+      gsnRelayRegistrationLookupBlocks:process.env.RINKEBY_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
+      gsnPastEventQueryMaxPageSize:process.env.RINKEBY_GSN_PASTEVENTSQUERYMAXPAGESIZE,
+    },
+    
   },
 
   loading: {
@@ -88,7 +179,7 @@ export default {
   css: [
     '@/assets/main.scss'
   ],
-  middleware: ['urlParamToCookie'],
+  middleware: ['queryParamToCookie'],
   router: {
     linkActiveClass: 'active-link'
   },
@@ -97,6 +188,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~plugins/setConfig.js' },
     { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/typer.js', ssr: false },
     { src: '~plugins/maps.js', ssr: false },
@@ -272,7 +364,16 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.GRAPHQL_URL
+        httpEndpoint: process.env.POLYGON_GRAPHQL_URL
+      },
+      polygon: {
+        httpEndpoint: process.env.POLYGON_GRAPHQL_URL
+      },
+      polygont: {
+        httpEndpoint: process.env.POLYGONT_GRAPHQL_URL
+      },
+      rinkeby: {
+        httpEndpoint: process.env.RINKEBY_GRAPHQL_URL
       }
     }
   },

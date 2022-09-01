@@ -138,21 +138,20 @@ export default {
   data() {
     return {
       wallets: [
-        {
-          name: "Coinbasewallet",
+      {
+          name: this.$t("header.metamask"),
           step: 1,
-          src: require("~/assets/images/wallets/coinbasewallet.svg"),
+          src: require("~/assets/images/wallets/metamask.svg"),
         },
-
         {
           name: this.$t("header.Walletconnect"),
           step: 2,
           src: require("~/assets/images/wallets/walletconnect.svg"),
         },
         {
-          name: this.$t("header.metamask"),
+          name: "Coinbasewallet",
           step: 3,
-          src: require("~/assets/images/wallets/metamask.svg"),
+          src: require("~/assets/images/wallets/coinbasewallet.svg"),
         },
 
         // {
@@ -237,8 +236,8 @@ export default {
         case "Fortmatic":
           const Fortmatic = require("fortmatic");
           const fm = await new Fortmatic(
-            process.env.FORTMATIC,
-            process.env.NETWORK_NAME
+            process.env.fortmatic,
+            this.$cookies.get('config').networkName
           );
           const web3 = await new Web3(fm.getProvider());
           web3.currentProvider.enable();
@@ -266,8 +265,8 @@ export default {
             const Portis = require("@portis/web3");
             let self = this;
             const portis = new Portis(
-              process.env.PORTIS,
-              process.env.NETWORK_NAME,
+              process.env.portis,
+              this.$cookies.get('config').networkName,
               {
                 scope: ["email"],
               }

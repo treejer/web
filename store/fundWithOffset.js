@@ -9,12 +9,8 @@ export const actions = {
   
   async fundTreeWithOffset(context, params) {
 
-    console.log(params, "params")
    
      let self = this;
-  
-    
-  
 
     let account = this.$cookies.get('account');
     let referrer = this.$cookies.get('referrer');
@@ -53,21 +49,20 @@ export const actions = {
 
     this.$web3.currentProvider.enable();
 
-    let offsetDexPath = process.env.OFFSET_DEX_PATH.split(',');
-
-    console.log(offsetDexPath, process.env.OFFSET_DEX_PATH)
+    let offsetDexPath = this.$cookies.get('config').offsetDexPath.split(',');
 
     //ToDo: add recipeint and referrer
     const tx = this.$FundWithOffset.methods.fundTreeWithOffset(
       params.count,
       referrer,
-      recipient,
+      this.$cookies.get('config').bctTokenAddress,
       this.$web3.utils.toWei(params.co2Count.toString()),
-      offsetDexPath,
-      process.env.uniswapV2Router02ContractAddress,
-      0
+      false,
+      recipient,
+      "",
+      "Retire and fund tree with Treejer",
+      "TreejerDAO",
     );
-
 
     const data = tx.encodeABI();
     // const price = await this.$FundWithOffset.methods.price().call();
@@ -75,11 +70,13 @@ export const actions = {
     let gas = await this.$FundWithOffset.methods.fundTreeWithOffset(
       params.count,
       referrer,
-      recipient,
+      this.$cookies.get('config').bctTokenAddress,
       this.$web3.utils.toWei(params.co2Count.toString()),
-      offsetDexPath,
-      process.env.uniswapV2Router02ContractAddress,
-      0
+      false,
+      recipient,
+      "",
+      "Retire and fund tree with Treejer",
+      "TreejerDAO",
     )
     .estimateGas({from: account});
 
@@ -99,7 +96,7 @@ export const actions = {
             toaster: 'b-toaster-bottom-left',
             title: self.$translates.alert.processingtransaction,
             variant: 'warning',
-            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
             noAutoHide: true
 
@@ -174,7 +171,7 @@ export const actions = {
             toaster: 'b-toaster-bottom-left',
             title:this.$translates.alert.processingtransaction,
             variant: 'warning',
-            href: `${process.env.etherScanUrl}/tx/${transactionHash}`,
+            href: `${self.$cookies.get('config').explorerUrl}/tx/${transactionHash}`,
             bodyClass: 'fund-error',
             noAutoHide: true
 

@@ -90,9 +90,9 @@ export default {
   methods: {
     checkTokenName(){
     if (this.tokenName === "DAI") {
-      this.tokenAddress = process.env.daiTokenAddress;
+      this.tokenAddress = this.$cookies.get('config').daiTokenAddress;
     } else if (this.tokenName === "WETH") {
-      this.tokenAddress = process.env.wethTokenAddress;
+      this.tokenAddress = this.$cookies.get('config').wethTokenAddress;
     } else {
     }
     },
@@ -116,7 +116,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "You approved to spend erc20",
           variant: "success",
-          href: `${process.env.etherScanUrl}/tx/${transaction.transactionHash}`,
+          href: `${this.$cookies.get('config').explorerUrl}/tx/${transaction.transactionHash}`,
         });
 
         if (silent === false) {
@@ -135,8 +135,8 @@ export default {
     async buyERC20() {
       let self = this;
       let transak = new transakSDK({
-        apiKey: process.env.transakApiKey, // Your API Key
-        environment: process.env.transakEnvironment, // STAGING/PRODUCTION
+        apiKey: this.$cookies.get('config').transakApiKey, // Your API Key
+        environment: this.$cookies.get('config').transakEnvironment, // STAGING/PRODUCTION
         defaultCryptoCurrency: this.tokenName,
         // defaultCryptoAmount: this.treePrice * this.localAmount,
         walletAddress: this.$cookies.get("account"), // Your customer's wallet address
@@ -147,8 +147,8 @@ export default {
         hostURL: window.location.origin,
         widgetHeight: "550px",
         widgetWidth: "450px",
-        networks: process.env.transakNetworks,
-        defaultNetwork: process.env.transakDefaultNetwork,
+        networks: this.$cookies.get('config').transakNetworks,
+        defaultNetwork: this.$cookies.get('config').transakDefaultNetwork,
       });
 
       transak.init();
@@ -163,7 +163,7 @@ export default {
           toaster: "b-toaster-bottom-left",
           title: "Your wallet charged",
           variant: "success",
-          href: `${process.env.etherScanUrl}/address/${self.$cookies.get(
+          href: `${self.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
             "account"
           )}`,
         });
