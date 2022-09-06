@@ -4,15 +4,10 @@
     @click.prevent="showNetworks = !showNetworks"
   >
     <p class="btn-gray param tr-gray-seven text-capitalize">
-      <img
-        v-if="
-          connectedNetwrokID != $hex2Dec($cookies.get('activeNetwork').chainId)
-        "
-        class="danger"
-        :src="alertIcon"
-        width="24"
-        alt="Wrong Network"
-      />
+         <span class="alert-icon-network " v-if="connectedNetwrokID != $hex2Dec($cookies.get('activeNetwork').chainId)">&#9888;</span>
+
+
+
       {{ $cookies.get("activeNetwork").name }}
       <span>{{ showNetworks ? "&#8595;" : "&#8593;" }}</span>
     </p>
@@ -228,6 +223,9 @@ export default {
 
 <style lang="scss" scoped>
 .network-changer {
+  .alert-icon-network{
+    color:red;
+  }
   z-index: +999;
   margin-right: 105px;
   position: relative;

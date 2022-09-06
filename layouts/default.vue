@@ -1,11 +1,16 @@
 <template>
   <div class="default-main-content">
+    <div v-if="$store.state.accessTokenCookies" class="before-access-cookies"></div>
     <TreejerHeader />
-    <div :class="$route.name" class="container default-main-content-box" >
-      <div class="row"   @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)">
+    <div :class="$route.name" class="container default-main-content-box">
+      <div
+        class="row"
+        @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)"
+      >
         <nuxt />
       </div>
     </div>
+    <CookieAlert />
     <Footer />
   </div>
 </template>
@@ -15,9 +20,10 @@
 import TreejerHeader from "../components/TreejerHeader";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
+import CookieAlert from "../components/CookieAlert";
 
 export default {
-  components: { Sidebar, Footer, TreejerHeader },
+  components: { Sidebar, Footer, TreejerHeader, CookieAlert },
   middleware: "queryParamToCookie",
 
   mounted() {
@@ -34,6 +40,7 @@ export default {
   },
   async created() {
     await this.checkWorkbox();
+    await this.accessCookies();
     // if (process.client) {
     //   const workbox = await window.$workbox;
     //   console.log(workbox, "workbox is here");
@@ -73,26 +80,40 @@ export default {
         });
       }
     },
+    accessCookies() {
+      setTimeout(() => {
+        if (!this.$cookies.get("setAccessCookies")) {
+          this.$store.commit('SET_ACCESS_COOKIES',true);
+        }
+      }, 3000);
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
-.default-main-content{
+.default-main-content {
   min-height: 100vh;
-  .default-main-content-box{
+  .default-main-content-box {
     min-height: 95vh;
   }
 }
-@media (min-width: 100px) and (max-width: 768px) and (orientation: landscape) {
- 
-    .default-main-content {
-      min-height: 170vh;
-      .default-main-content-box {
-      min-height: 170vh;
-    }
-    }
+.default-main-content {
+  .before-access-cookies {
+    height: 90vh;
+    position: fixed;
 
-  
+    width: 100vw;
+    z-index: +999;
+    background: #faf8f1e0;
+  }
+}
+@media (min-width: 100px) and (max-width: 768px) and (orientation: landscape) {
+  .default-main-content {
+    min-height: 170vh;
+    .default-main-content-box {
+      min-height: 170vh;
+    }
+  }
 }
 // @media(max-width: 768px)  {
 //   .default-main-content {

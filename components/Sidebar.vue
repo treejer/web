@@ -105,7 +105,11 @@
           :to="localePath('/forest/treebox')"
         >
           <img
-            :src="$store.state.index === 4 ? treeboxIconActive : treeboxIcon"
+            :src="
+              $store.state.index === 4
+                ? require('~/assets/images/treebox/treeboxs-active.svg')
+                : require('~/assets/images/treebox/treebox.svg')
+            "
             alt=""
           />
           <p>{{ $t("sidebar.treebox") }}</p>
@@ -314,13 +318,7 @@
           </client-only>
         </b-navbar-nav>
         <ul
-          class="
-            mobile-nav
-            d-flex
-            flex-column
-            text-center
-            justify-content-center
-          "
+          class="mobile-nav d-flex flex-column text-center justify-content-center"
         >
           <li class="nav-item forest" @click="changeIndex(0)">
             <nuxt-link
@@ -618,8 +616,6 @@ export default {
       activeForest: ``,
       user: false,
       activeIndex: null,
-      treeboxIconActive: require("~/assets/images/treebox/treebox-active.svg"),
-      treeboxIcon: require("~/assets/images/treebox/treebox.svg"),
     };
   },
 
@@ -651,7 +647,7 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 ul.desktop-sidebar {
   padding-left: 10px;
   .nav-item a p {
@@ -849,7 +845,7 @@ ul.desktop-sidebar {
         left: 50px;
       }
       .mobile-nav {
-              list-style-type: none;
+        list-style-type: none;
 
         li.nav-item {
           margin-bottom: 5px;

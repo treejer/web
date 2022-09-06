@@ -22,7 +22,8 @@ export const state = () => ({
   modalFive: false,
   showMobileSidebar:false,
   showMobileSidebarLanding:false,
-  co2Count:0
+  co2Count:0,
+  accessTokenCookies:false,
 })
 
 export const actions = {
@@ -205,6 +206,9 @@ export const mutations = {
   // },
   SET_WALLET(state, connectingWallet) {
     state.connectingWallet = connectingWallet
+  },
+  SET_ACCESS_COOKIES(state,accessToken){
+    state.accessTokenCookies = accessToken
   },
 
   SET_SIDEBAR_INDEX(state, index) {
