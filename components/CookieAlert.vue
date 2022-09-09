@@ -66,5 +66,10 @@ export default {
     top: 10px;
     right: 25%;
   }
+  @media (max-width: 678px) {
+    .exit {
+      right: 3%;
+    }
+  }
 }
 </style>
