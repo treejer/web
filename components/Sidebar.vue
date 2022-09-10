@@ -423,7 +423,7 @@
               class="nav-link"
               :to="localePath('/forest/treebox')"
             >
-              <img :src="treeboxIconActive" alt="" />
+              <img :src="require('~/assets/images/treebox/treeboxs-active.svg')" alt="" />
               <p>{{ $t("sidebar.treebox") }}</p>
             </nuxt-link>
           </li>
