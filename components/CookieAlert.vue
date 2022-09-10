@@ -38,7 +38,7 @@ export default {
       this.access = false;
       setTimeout(() => {
         this.show = true;
-      }, 5000);
+      }, 1000);
     },
     setAccess() {
       this.$cookies.set("setAccessCookies", true);
@@ -61,6 +61,7 @@ export default {
   background: #eeeeee;
   bottom: 0;
   padding: 15px 25px;
+  z-index: +999999;
   .exit {
     position: absolute;
     top: 10px;
