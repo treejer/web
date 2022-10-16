@@ -24,11 +24,7 @@
       };
     },
 
-    methods: {
-      onComplete(data) {
-        this.account = data;
-      },
-    },
+   
     mounted() {
       this.$store.commit('SET_DASHBOARD' , true)
       if($nuxt.isOffline){

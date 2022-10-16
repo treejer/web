@@ -115,6 +115,23 @@
           <p>{{ $t("sidebar.treebox") }}</p>
         </nuxt-link>
       </li>
+       <li class="nav-item treebox" @click="changeIndex(5)">
+        <nuxt-link
+          :class="$store.state.index === 5 ? 'nuxt-link-exact-active' : ''"
+          class="nav-link"
+          :to="localePath('/forest/advanceSell')"
+        >
+          <img
+            :src="
+              $store.state.index === 5
+                ? require('~/assets/images/treebox/treeboxs-active.svg')
+                : require('~/assets/images/treebox/treebox.svg')
+            "
+            alt=""
+          />
+          <p>{{ $t("sidebar.advanceSell") }}</p>
+        </nuxt-link>
+      </li>
 
       <li class="nav-item referral" @click="changeIndex(1)">
         <nuxt-link
