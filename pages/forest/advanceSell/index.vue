@@ -87,13 +87,13 @@
           <p class="param-18 tr-gray-two tr-margin-top">
             {{ $t("advanceSell.message") }}
           </p>
-            <b-form-select
+          <b-form-select
             class="city-selected tr-gray-two param"
             v-model="selectedCity"
             :options="optionsCitys"
           ></b-form-select>
 
-          <div class="col-12" v-if="showAdvance">
+          <!-- <div class="col-12" v-if="showAdvance">
             <p class="param-18 tr-gray-two tr-margin-top">
               <button class="btn-green" @click.prevent="generateWallets()">
                 {{ $t("treebox.generate") }}
@@ -144,9 +144,9 @@
                 />
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
-        <div class="col-lg-4 col-12 box-right-treebox text-center">
+        <!-- <div class="col-lg-4 col-12 box-right-treebox text-center">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ Number(countOfRecepient) * Number(countOfRecepientTreebox) }}
@@ -176,60 +176,15 @@
           </button>
 
           <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </section>
 </template>
 
 <script>
-
 export default {
   layout: "dashboard",
-
-  data() {
-    return {
-      baseUrl: process.env.baseUrl,
-
-      meta: {
-        title: this.$t("treebox.meta.title"),
-        description: this.$t("treebox.meta.description"),
-        keywords: this.$t("treebox.meta.keywords"),
-      },
-
-      numberRecepient: [
-        { name: "1" },
-        { name: "10" },
-        { name: "20" },
-        { name: "50" },
-      ],
-      numberRecepientTreebox: [
-        { name: "1" },
-        { name: "2" },
-        { name: "3" },
-        { name: "4" },
-      ],
-
-      activeIndexRecepient: 3,
-      activeIndexRecepientTreebox: 0,
-      countOfRecepient: 50,
-      countOfRecepientTreebox: 1,
-      message: "",
-      wallets: [],
-      // assignTreeOption: "desc",
-      // ownerTrees: [],
-      // showAdvance: false,
-      // approved: false,
-      // messageIPFSHash: "",
-      // selectedCity: null,
-      optionsCitys: [
-        { value: null, text: "Please select an option" },
-
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Please select an option" },
-      ],
-    };
-  },
   head() {
     return {
       title: this.meta.title,
@@ -266,6 +221,50 @@ export default {
       ],
     };
   },
+  data() {
+    return {
+      baseUrl: process.env.baseUrl,
+
+      meta: {
+        title: this.$t("treebox.meta.title"),
+        description: this.$t("treebox.meta.description"),
+        keywords: this.$t("treebox.meta.keywords"),
+      },
+
+      numberRecepient: [
+        { name: "1" },
+        { name: "10" },
+        { name: "20" },
+        { name: "50" },
+      ],
+      numberRecepientTreebox: [
+        { name: "1" },
+        { name: "2" },
+        { name: "3" },
+        { name: "4" },
+      ],
+
+      activeIndexRecepient: 3,
+      activeIndexRecepientTreebox: 0,
+      countOfRecepient: 50,
+      countOfRecepientTreebox: 1,
+      // message: "",
+      // wallets: [],
+      // assignTreeOption: "desc",
+      // ownerTrees: [],
+      // showAdvance: false,
+      // approved: false,
+      // messageIPFSHash: "",
+      selectedCity: null,
+      optionsCitys: [
+        { value: null, text: "Please select an option" },
+
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Please select an option" },
+      ],
+    };
+  },
+
   // apollo: {
   //   $client() {
   //     return this.$cookies.get("activeNetwork")
@@ -288,10 +287,10 @@ export default {
   //     fetchPolicy: "network-only",
   //   },
   // },
-  async created() {
-    await this.getOwnerTrees();
-    await this.isApprovedForAll();
-  },
+  // async created() {
+  //   await this.getOwnerTrees();
+  //   await this.isApprovedForAll();
+  // },
   methods: {
     setActiveIndex(index) {
       this.activeIndex = index;

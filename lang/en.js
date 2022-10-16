@@ -357,8 +357,8 @@ export default {
   advanceSell: {
     title: "Advance Sell",
     description:
-      "description",
-    distribution: "Select your choice city for a plant",
+      "In Treejer, you can buy your desired tree in selected cities from different people and put it on auction.",
+    distribution: "Purchase solutions",
     soon: "SOON",
     recipients: "Number of recipients ",
     numbertrees: " Number of trees",
