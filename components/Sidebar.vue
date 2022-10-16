@@ -119,7 +119,7 @@
         <nuxt-link
           :class="$store.state.index === 5 ? 'nuxt-link-exact-active' : ''"
           class="nav-link"
-          :to="localePath('/forest/advanceSell')"
+          :to="localePath('/forest/advanceFund')"
         >
           <img
             :src="
@@ -129,7 +129,7 @@
             "
             alt=""
           />
-          <p>{{ $t("sidebar.advanceSell") }}</p>
+          <p>{{ $t("sidebar.advanceFund") }}</p>
         </nuxt-link>
       </li>
 

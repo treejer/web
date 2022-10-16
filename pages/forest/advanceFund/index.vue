@@ -4,16 +4,16 @@
       <div class="row">
         <div class="col-lg-8 col-12 box-left-treebox">
           <h1 class="title tr-gray-two font-weight-bold">
-            {{ $t("advanceSell.title") }}
+            {{ $t("advanceFund.title") }}
           </h1>
           <p class="param tr-gray-three">
-            {{ $t("advanceSell.description") }}
+            {{ $t("advanceFund.description") }}
             <a class="d-inline tr-green font-weight-bolder" href="#">
               {{ $t("header.learnmore") }}</a
             >
           </p>
           <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceSell.distribution") }}
+            {{ $t("advanceFund.distribution") }}
           </p>
           <!-- <ul class="method pt-4 over-flow-x-scroll">
             <li
@@ -35,7 +35,7 @@
             :options="optionsCitys"
           ></b-form-select>
           <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceSell.recipients") }}
+            {{ $t("advanceFund.recipients") }}
           </p>
           <ul class="recipient over-flow-x-scroll">
             <li
@@ -58,7 +58,7 @@
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceSell.numbertrees") }}
+            {{ $t("advanceFund.numbertrees") }}
           </p>
           <ul class="recipient over-flow-x-scroll">
             <li
@@ -85,7 +85,7 @@
             />
           </ul>
           <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceSell.message") }}
+            {{ $t("advanceFund.message") }}
           </p>
           <b-form-select
             class="city-selected tr-gray-two param"

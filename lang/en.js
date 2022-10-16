@@ -315,7 +315,7 @@ export default {
   sidebar: {
     myforest: "My Forest",
     treebox: "Treebox",
-    advanceSell: "Advance Sell",
+    advanceFund: "Advance Fund",
     invite: "Invite",
     leaderboard: "Leaderboard ",
     activity: "Activity ",
@@ -354,8 +354,8 @@ export default {
       keywords: "treejer,tree,NFTTree,treeNFT,treebox, create treebox",
     },
   },
-  advanceSell: {
-    title: "Advance Sell",
+  advanceFund: {
+    title: "Advance Fund",
     description:
       "In Treejer, you can buy your desired tree in selected cities from different people and put it on auction.",
     distribution: "Purchase solutions",
