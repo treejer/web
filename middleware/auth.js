@@ -1,11 +1,12 @@
 import {BToast} from 'bootstrap-vue'
 
 
-export default function ({store,redirect}) {
+export default function ({app,store,redirect}) {
+  console.log(app,"this is here")
   // If the user is not authenticated
   if (!store.$cookies.get('account')) {
     const toast =new BToast()
-    toast.$bvToast.toast(this.$t('alert.notlogin'), {
+    toast.$bvToast.toast(app.i18n.messages.en.alert.notlogin, {
       toaster: 'b-toaster-bottom-left',
       variant: 'danger',
       noAutoHide: true,

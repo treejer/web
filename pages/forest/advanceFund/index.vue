@@ -1,8 +1,10 @@
 <template>
-  <section class="position-relative pt-5 col-lg-10 col-12 treebox mb-5 pb-5">
+  <section
+    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5"
+  >
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8 col-12 box-left-treebox">
+        <div class="col-lg-12 col-12 box-left-treebox">
           <h1 class="title tr-gray-two font-weight-bold">
             {{ $t("advanceFund.title") }}
           </h1>
@@ -12,9 +14,65 @@
               {{ $t("header.learnmore") }}</a
             >
           </p>
-          <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceFund.distribution") }}
-          </p>
+          <div class="d-flex sort-advanceFund">
+            <div class="param-18 tr-gray-two tr-margin-top">
+              {{ $t("advanceFund.country") }}
+              <b-form-select
+                class="city-selected tr-gray-two param"
+                v-model="selectedCountry"
+                :options="optionsCountries"
+              ></b-form-select>
+            </div>
+            <div class="param-18 tr-gray-two tr-margin-top">
+              {{ $t("advanceFund.price") }}
+              <b-form-select
+                class="city-selected tr-gray-two param"
+                v-model="selectedPrice"
+                :options="optionsPrices"
+              ></b-form-select>
+            </div>
+
+            <div class="param-18 tr-gray-two tr-margin-top">
+              {{ $t("advanceFund.spieces") }}
+              <b-form-select
+                class="city-selected tr-gray-two param"
+                v-model="selectedSpiece"
+                :options="optionsSpieces"
+              ></b-form-select>
+            </div>
+
+            <div class="param-18 tr-gray-two tr-margin-top">
+              <div class="shopping-card pointer-event">
+                <img
+                  src="@/assets/images/advanceFund/shopping.svg"
+                  width="20"
+                  height="20"
+                  @click.prevent="showShoppinglist = !showShoppinglist"
+                />
+                <b-badge variant="warning tr-white">{{
+                  listItems.length
+                }}</b-badge>
+                <div class="shopping-list-box" v-if="showShoppinglist">
+                  <div
+                    class="shopping-list border-bottom d-flex"
+                    v-for="(item, index) in listItems"
+                    :key="index"
+                  >
+                    <img class="img-fluid" :src="icon + item.id" alt="tree" />
+                    <p class="param-sm tr-gray-three">
+                      Price:
+                      <span class="">{{ item.price }}</span>
+                    </p>
+                    <p class="param-sm tr-gray-three">
+                      country:
+                      <span class="">{{ item.country }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- <ul class="method pt-4 over-flow-x-scroll">
             <li
               class="pointer-event position-relative"
@@ -29,69 +87,6 @@
               {{ item.name }}
             </li>
           </ul> -->
-          <b-form-select
-            class="city-selected tr-gray-two param"
-            v-model="selectedCity"
-            :options="optionsCitys"
-          ></b-form-select>
-          <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceFund.recipients") }}
-          </p>
-          <ul class="recipient over-flow-x-scroll">
-            <li
-              class="pointer-event"
-              :class="item.name == countOfRecepient ? 'active' : 'not-active'"
-              v-for="(item, index) in numberRecepient"
-              :key="index"
-              @click.prevent="setActiveIndexRecepient(index, item.name)"
-            >
-              {{ item.name }}
-            </li>
-            <input
-              type="number"
-              class="recipient-input tr-gray-four font-weight-bold text-center"
-              v-model="countOfRecepient"
-              @focus="activeIndexRecepient = -1"
-              :class="activeIndexRecepient === -1 ? 'active' : 'not-active'"
-              placeholder="Enter"
-              min="1"
-            />
-          </ul>
-          <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceFund.numbertrees") }}
-          </p>
-          <ul class="recipient over-flow-x-scroll">
-            <li
-              class="pointer-event"
-              :class="
-                item.name == countOfRecepientTreebox ? 'active' : 'not-active'
-              "
-              v-for="(item, index) in numberRecepientTreebox"
-              :key="index"
-              @click.prevent="setActiveIndexRecepientTreebox(index, item.name)"
-            >
-              {{ item.name }}
-            </li>
-            <input
-              type="number"
-              :class="
-                activeIndexRecepientTreebox === -1 ? 'active' : 'not-active'
-              "
-              class="recipient-input tr-gray-four font-weight-bold text-center"
-              v-model="countOfRecepientTreebox"
-              @focus="activeIndexRecepientTreebox = -1"
-              placeholder="Enter"
-              min="1"
-            />
-          </ul>
-          <p class="param-18 tr-gray-two tr-margin-top">
-            {{ $t("advanceFund.message") }}
-          </p>
-          <b-form-select
-            class="city-selected tr-gray-two param"
-            v-model="selectedCity"
-            :options="optionsCitys"
-          ></b-form-select>
 
           <!-- <div class="col-12" v-if="showAdvance">
             <p class="param-18 tr-gray-two tr-margin-top">
@@ -177,14 +172,32 @@
 
           <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
         <!-- </div> -->
+        <div class="col-12 main-content-advanceFund">
+          <div class="row mt-5">
+            <div
+              class="col-lg-3 col-12 pointer-event"
+              v-for="(item, index) in models"
+              :key="index"
+              @click.prevent="addedTotheBasket(item)"
+            >
+              <CardAdvanceFund :fund="item" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import CardAdvanceFund from "@/components/advanceFund/CardAdvanceFund.vue";
+// import countries from "@/static/data/countries.min.json";
 export default {
   layout: "dashboard",
+  middleware: "auth",
+  components: {
+    CardAdvanceFund,
+  },
   head() {
     return {
       title: this.meta.title,
@@ -255,13 +268,59 @@ export default {
       // showAdvance: false,
       // approved: false,
       // messageIPFSHash: "",
-      selectedCity: null,
-      optionsCitys: [
+      selectedCountry: null,
+      selectedSpiece: null,
+      selectedPrice: null,
+      optionsSpieces: [
         { value: null, text: "Please select an option" },
 
         { value: "a", text: "This is First option" },
         { value: "b", text: "Please select an option" },
       ],
+      optionsCountries: [{ value: null, text: "Please select an country" }],
+      optionsPrices: [{ value: null, text: "Please select an country" }],
+      models: [
+        {
+          id: "0x84ca05d617741b96e6ee3a3f59779f59931270e7",
+          price: "0x89",
+          country: "iran",
+          lastFund: "2022-05-05",
+          lastPlant: "2022-05-05",
+          status: "",
+          start: "2022-05-05",
+          lastReservePlant: "2022-05-05",
+          createdAt: "2022-05-05",
+          updatedAt: "2022-05-05",
+        },
+        {
+          id: "0x000000555555555555555555555555555555",
+          price: "test",
+          country: "test",
+          lastFund: "2022-05-05",
+          lastPlant: "2022-05-05",
+          status: "",
+          start: "2022-05-05",
+          lastReservePlant: "2022-05-05",
+          createdAt: "2022-05-05",
+          updatedAt: "2022-05-05",
+        },
+        {
+          id: "0x84ca05d617741b96e6ee3a3f59779f59931270e7",
+          price: "0x89",
+          country: "iran",
+          lastFund: "2022-05-05",
+          lastPlant: "2022-05-05",
+          status: "",
+          start: "2022-05-05",
+          lastReservePlant: "2022-05-05",
+          createdAt: "2022-05-05",
+          updatedAt: "2022-05-05",
+        },
+      ],
+      countries: require("~/static/data/countries.min.json"),
+      showShoppinglist: false,
+      icon: process.env.gravatar,
+      listItems:new Array,
     };
   },
 
@@ -287,10 +346,13 @@ export default {
   //     fetchPolicy: "network-only",
   //   },
   // },
-  // async created() {
-  //   await this.getOwnerTrees();
-  //   await this.isApprovedForAll();
-  // },
+  async created() {
+    // await this.getTreeModels();
+    // await this.isApprovedForAll();
+    this.pushCountreisToData();
+    this.checkItems();
+    // this.statusShopping = statusShopping.length
+  },
   methods: {
     setActiveIndex(index) {
       this.activeIndex = index;
@@ -302,6 +364,62 @@ export default {
     setActiveIndexRecepientTreebox(index, count) {
       this.activeIndexRecepientTreebox = index;
       this.countOfRecepientTreebox = count;
+    },
+    async getTreeModels() {
+      await this.$axios
+        .$post(process.env.POLYGON_GRAPHQL_URL, {
+          query: `
+         {
+            models {
+              id
+              planter {
+                id
+              }
+              price
+              country
+              lastFund
+              lastPlant
+              status
+              start
+              lastReservePlant
+              createdAt
+              updatedAt
+        }
+            }
+        `,
+        })
+        .then((res) => {
+          console.log(res, "Models is here");
+        });
+    },
+    pushCountreisToData() {
+      this.countries.map((item, index) => {
+        this.optionsCountries.push({
+          value: item.id,
+          iso: item.iso,
+          iso3: item.iso3,
+          name: item.name,
+          text: item.nicename,
+          numcode: item.numcode,
+          phonecode: item.phonecode,
+        });
+      });
+      console.log(this.optionsCountries, " this.optionsCountries is here");
+    },
+    addedTotheBasket(fund) {
+      this.$cookies.set(`fund`, this.listItems.push(fund));
+
+      console.log(this.$cookies.get("fund"), "basketsis here");
+
+      // this.$cookies.set(`id`, fund);
+      // console.log(this.$cookies.get("fund"), "fund");
+    },
+    checkItems() {
+      if (this.listItems.lenght <= 0 && !this.$cookies.get("fund")) {
+        return null;
+      } else {
+        this.listItems = this.$cookies.get("fund");
+      }
     },
 
     // async isApprovedForAll() {
@@ -695,117 +813,142 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.treebox {
+<style lang="scss" scoped>
+.advance-fund {
   .box-left-treebox {
-    .method {
-      display: flex;
-      .soon {
-        position: absolute;
-        top: -5px;
-        right: 10px;
-        font-size: 10px;
-        background: #67b68c;
-        border-radius: 4px;
-        color: #faf8f1;
-      }
-      li {
-        margin-right: 32px;
-      }
-      .active {
-        min-width: 128px;
-        height: 64px;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        color: white;
-        background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-        border-radius: 8px;
-        list-style: none;
-      }
-      .not-active {
-        min-width: 128px;
-        height: 64px;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        background: #fafafa;
-        border: 1px solid #bdbdbd;
-        box-sizing: border-box;
-        border-radius: 8px;
-        list-style: none;
+    .sort-advanceFund {
+      overflow: scroll;
+      margin-top: 35px;
+      .param-18 {
+        width: 25%;
+        padding-right: 20px;
+        select,
+        input {
+          background: #faf8f1;
+          width: 100%;
+          border: solid 1px #bdbdbd;
+        }
       }
     }
-    .recipient {
-      display: flex;
-      li {
-        margin-right: 32px;
-      }
-      .active {
-        min-width: 48px;
-        height: 48px;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        color: white;
-        background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-        border-radius: 8px;
-        list-style: none;
-      }
-      .not-active {
-        min-width: 48px;
-        height: 48px;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        background: #fafafa;
-        border: 1px solid #bdbdbd;
-        box-sizing: border-box;
-        border-radius: 8px;
-        list-style: none;
+    .shopping-list-box {
+      position: absolute;
+      z-index: +99999;
+      .shopping-list {
+        img {
+          width: 15px;
+          height: 15px;
+        }
       }
     }
-    .recipient-input {
-      width: 48px;
-      height: 48px;
-      background: #fafafa;
-      border: 1px solid #bdbdbd;
-      border-radius: 8px;
-    }
-    .message {
-      min-width: 320px;
-      min-height: 128px;
-      padding: 10px 15px;
 
-      background: #fafafa;
-      border: 1px solid #bdbdbd;
+    // .method {
+    //   display: flex;
+    //   .soon {
+    //     position: absolute;
+    //     top: -5px;
+    //     right: 10px;
+    //     font-size: 10px;
+    //     background: #67b68c;
+    //     border-radius: 4px;
+    //     color: #faf8f1;
+    //   }
+    //   li {
+    //     margin-right: 32px;
+    //   }
+    //   .active {
+    //     min-width: 128px;
+    //     height: 64px;
+    //     align-items: center;
+    //     display: flex;
+    //     justify-content: center;
+    //     color: white;
+    //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
+    //     border-radius: 8px;
+    //     list-style: none;
+    //   }
+    //   .not-active {
+    //     min-width: 128px;
+    //     height: 64px;
+    //     align-items: center;
+    //     display: flex;
+    //     justify-content: center;
+    //     background: #fafafa;
+    //     border: 1px solid #bdbdbd;
+    //     box-sizing: border-box;
+    //     border-radius: 8px;
+    //     list-style: none;
+    //   }
+    // }
+    // .recipient {
+    //   display: flex;
+    //   li {
+    //     margin-right: 32px;
+    //   }
+    //   .active {
+    //     min-width: 48px;
+    //     height: 48px;
+    //     align-items: center;
+    //     display: flex;
+    //     justify-content: center;
+    //     color: white;
+    //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
+    //     border-radius: 8px;
+    //     list-style: none;
+    //   }
+    //   .not-active {
+    //     min-width: 48px;
+    //     height: 48px;
+    //     align-items: center;
+    //     display: flex;
+    //     justify-content: center;
+    //     background: #fafafa;
+    //     border: 1px solid #bdbdbd;
+    //     box-sizing: border-box;
+    //     border-radius: 8px;
+    //     list-style: none;
+    //   }
+    // }
+    // .recipient-input {
+    //   width: 48px;
+    //   height: 48px;
+    //   background: #fafafa;
+    //   border: 1px solid #bdbdbd;
+    //   border-radius: 8px;
+    // }
+    // .message {
+    //   min-width: 320px;
+    //   min-height: 128px;
+    //   padding: 10px 15px;
 
-      border-radius: 8px;
-    }
-    .tr-margin-top {
-      margin-top: 25px;
-      font-weight: bolder;
-    }
-    .city-selected {
-      height: 48px;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      background: #fafafa;
-      border: 1px solid #bdbdbd;
-      box-sizing: border-box;
-      border-radius: 8px;
-      list-style: none;
-      min-width: 300px;
-      option {
-        border: 1px solid #bdbdbd;
-        box-sizing: border-box;
-        border-radius: 8px;
-        list-style: none;
-        background: #fafafa;
-        padding: 15px 5px;
-      }
-    }
+    //   background: #fafafa;
+    //   border: 1px solid #bdbdbd;
+
+    //   border-radius: 8px;
+    // }
+    // .tr-margin-top {
+    //   margin-top: 25px;
+    //   font-weight: bolder;
+    // }
+    // .city-selected {
+    //   height: 48px;
+    //   align-items: center;
+    //   display: flex;
+    //   justify-content: center;
+    //   background: #fafafa;
+    //   border: 1px solid #bdbdbd;
+    //   box-sizing: border-box;
+    //   border-radius: 8px;
+    //   list-style: none;
+    //   min-width: 300px;
+    //   option {
+    //     border: 1px solid #bdbdbd;
+    //     box-sizing: border-box;
+    //     border-radius: 8px;
+    //     list-style: none;
+    //     background: #fafafa;
+    //     padding: 15px 5px;
+    //   }
+    // }
   }
   .box-right-treebox {
     img {
@@ -832,6 +975,8 @@ export default {
       margin-top: 24px;
       color: white;
     }
+  }
+  .main-content-advanceFund {
   }
 }
 </style>
