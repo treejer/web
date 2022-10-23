@@ -46,6 +46,10 @@
         <span class="">{{ fund.updatedAt }}</span>
       </p>
     </div>
+    <div class="card-footer">
+      <img src="@/assets/images/advanceFund/shopping.svg" alt="shopping" width="15" height="15" >
+
+    </div>
   </div>
 </template>
 
@@ -101,6 +105,14 @@ export default {
         padding-left: 5px;
       }
     }
+  }
+  .card-footer{
+    display: flex;
+    justify-content: space-around;
+  }
+  .card-footer:hover{
+    transition: .3s all ease;
+    background: #bfbfbf;
   }
 }
 .card-fund:hover {

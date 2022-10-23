@@ -14,8 +14,28 @@
               {{ $t("header.learnmore") }}</a
             >
           </p>
-          <div class="d-flex sort-advanceFund">
-            <div class="param-18 tr-gray-two tr-margin-top">
+          <div class="sort-advanceFund">
+            <div
+              class="search-advancefund param-18 tr-gray-two tr-margin-top col-lg-3 col-12"
+              id="search"
+            >
+              <b-form-input
+                :placeholder="$t('forest.entertreeID')"
+                class="search tr-gray-two param"
+                v-model="advanceFundSearch"
+                type="text"
+                @keyup.enter="getTreeModels()"
+              ></b-form-input>
+              <span class="search pointer-event"
+                ><img
+                  class="pointer-event"
+                  @click.prevent="getTreeModels()"
+                  :src="searchIcon"
+                  alt="search-icon"
+                />
+              </span>
+            </div>
+            <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
               {{ $t("advanceFund.country") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
@@ -23,7 +43,7 @@
                 :options="optionsCountries"
               ></b-form-select>
             </div>
-            <div class="param-18 tr-gray-two tr-margin-top">
+            <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
               {{ $t("advanceFund.price") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
@@ -32,7 +52,7 @@
               ></b-form-select>
             </div>
 
-            <div class="param-18 tr-gray-two tr-margin-top">
+            <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
               {{ $t("advanceFund.spieces") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
@@ -41,7 +61,7 @@
               ></b-form-select>
             </div>
 
-            <div class="param-18 tr-gray-two tr-margin-top">
+            <div class="param-18 tr-gray-two tr-margin-top position-absolute">
               <div class="shopping-card pointer-event">
                 <img
                   src="@/assets/images/advanceFund/shopping.svg"
@@ -72,74 +92,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <ul class="method pt-4 over-flow-x-scroll">
-            <li
-              class="pointer-event position-relative"
-              :class="activeIndex === index ? 'active' : 'not-active'"
-              v-for="(item, index) in activeMethods"
-              :key="index"
-              @click.prevent="index === 0 ? setActiveIndex(index) : null"
-            >
-              <span v-if="index !== 0" class="soon btn-gree tr-white"
-                >{{$t('treebox.soon')}}</span
-              >
-              {{ item.name }}
-            </li>
-          </ul> -->
-
-          <!-- <div class="col-12" v-if="showAdvance">
-            <p class="param-18 tr-gray-two tr-margin-top">
-              <button class="btn-green" @click.prevent="generateWallets()">
-                {{ $t("treebox.generate") }}
-              </button>
-            </p>
-
-            <p class="param-18 tr-gray-two tr-margin-top">
-              <label for="assignTreeOption"> Assign Tree Type </label>
-
-              <select
-                id="assignTreeOption"
-                v-model="assignTreeOption"
-                @change="assignTreeOptionChanged"
-              >
-                <option
-                  v-for="option in assignTreeOptions"
-                  :key="option.label"
-                  :value="option.value"
-                >
-                  {{ option.label }}
-                </option>
-              </select>
-            </p>
-
-            <p
-              class="param-18 tr-gray-two tr-margin-top"
-              v-if="wallets.length > 0"
-            >
-              <button class="btn-green" @click.prevent="downloadCSVData()">
-                Downlaod Links
-              </button>
-            </p>
-
-            <ul class="over-flow-x-scroll">
-              <li
-                class="pointer-event"
-                v-for="(wallet, wIndex) in wallets"
-                :key="`wallet-${wIndex}`"
-              >
-                {{ wallet.address }}
-                <input
-                  type="number"
-                  class="tr-gray-four font-weight-bold text-center"
-                  v-for="(treeId, index) in wallets[wIndex].treeIds"
-                  v-model="wallets[wIndex].treeIds[index]"
-                  :key="`wallet-${wIndex}-treeId-${treeId}`"
-                  placeholder="Tree ID"
-                />
-              </li>
-            </ul>
-          </div> -->
         </div>
         <!-- <div class="col-lg-4 col-12 box-right-treebox text-center">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
@@ -170,8 +122,8 @@
             {{ loadingApprove ? $t("aboutus.loading") : $t("treebox.approve") }}
           </button>
 
-          <!-- <button class="btn-gray" @click.prevent="">Preview</button> -->
-        <!-- </div> -->
+          <button class="btn-gray" @click.prevent="">Preview</button>
+        </div> -->
         <div class="col-12 main-content-advanceFund">
           <div class="row mt-5">
             <div
@@ -185,6 +137,7 @@
           </div>
         </div>
       </div>
+      <button class="btn-green" @click.prevent="getTreeModels()">CHECK</button>
     </div>
   </section>
 </template>
@@ -243,7 +196,8 @@ export default {
         description: this.$t("treebox.meta.description"),
         keywords: this.$t("treebox.meta.keywords"),
       },
-
+      searchIcon: require("~/assets/images/search.svg"),
+      advanceFundSearch: "",
       numberRecepient: [
         { name: "1" },
         { name: "10" },
@@ -320,8 +274,13 @@ export default {
       countries: require("~/static/data/countries.min.json"),
       showShoppinglist: false,
       icon: process.env.gravatar,
-      listItems:new Array,
+      // listItems: new Array(),
     };
+  },
+  computed: {
+    listItems() {
+      return this.$store.state.advanceFund.shoppingList;
+    },
   },
 
   // apollo: {
@@ -350,7 +309,7 @@ export default {
     // await this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
-    this.checkItems();
+    // this.checkItems();
     // this.statusShopping = statusShopping.length
   },
   methods: {
@@ -365,9 +324,11 @@ export default {
       this.activeIndexRecepientTreebox = index;
       this.countOfRecepientTreebox = count;
     },
-    async getTreeModels() {
-      await this.$axios
-        .$post(process.env.POLYGON_GRAPHQL_URL, {
+    getTreeModels() {
+      let self = this;
+      console.log(this.$cookies.get("config").graphqlUrl,'this.$cookies.get("config"),')
+      self.$axios
+        .$post(url, {
           query: `
          {
             models {
@@ -390,6 +351,9 @@ export default {
         })
         .then((res) => {
           console.log(res, "Models is here");
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
     pushCountreisToData() {
@@ -406,21 +370,19 @@ export default {
       });
       console.log(this.optionsCountries, " this.optionsCountries is here");
     },
-    addedTotheBasket(fund) {
-      this.$cookies.set(`fund`, this.listItems.push(fund));
-
-      console.log(this.$cookies.get("fund"), "basketsis here");
-
-      // this.$cookies.set(`id`, fund);
-      // console.log(this.$cookies.get("fund"), "fund");
+    addedTotheBasket(item) {
+      console.log(this.listItems, "beforpush");
+      this.listItems.push(item);
+      console.log(this.listItems, "afterpush");
+      this.$cookies.set(`fund`, this.listItems);
+      this.$store.commit("advanceFund/SET_LIST", this.listItems);
     },
-    checkItems() {
-      if (this.listItems.lenght <= 0 && !this.$cookies.get("fund")) {
-        return null;
-      } else {
-        this.listItems = this.$cookies.get("fund");
-      }
-    },
+    // checkItems() {
+    //   if (this.$cookies.get("fund")) {
+    //     this.listItems = this.$cookies.get("fund");
+    //      this.$store.commit("advanceFund/SET_LIST", this.listItems);
+    //   }
+    // },
 
     // async isApprovedForAll() {
     //   this.approved = await this.$store.dispatch("tree/isApprovedForAll", {
@@ -818,138 +780,167 @@ export default {
   .box-left-treebox {
     .sort-advanceFund {
       overflow: scroll;
+      display: flex;
       margin-top: 35px;
+      @media (max-width: 768px) {
+        overflow: hidden;
+        display: block;
+        .param-18 {
+          margin-bottom: 15px;
+        }
+      }
       .param-18 {
-        width: 25%;
-        padding-right: 20px;
+        padding-left: 0;
         select,
         input {
-          background: #faf8f1;
+          background: #e5e7db;
           width: 100%;
-          border: solid 1px #bdbdbd;
+          border: none;
+          border-radius: 12px;
+          color: #757575;
         }
       }
-    }
-    .shopping-list-box {
-      position: absolute;
-      z-index: +99999;
-      .shopping-list {
-        img {
-          width: 15px;
-          height: 15px;
+      #search {
+        margin-top: 26px;
+        position: relative;
+        span {
+          position: absolute;
+          right: 30px;
+          top: 4px;
         }
       }
+      .param-18.position-absolute {
+        right: -50px;
+        @media (max-width: 768px) {
+          right: 25px;
+        }
+      }
+
+      .shopping-list-box {
+        position: absolute;
+        z-index: +99999;
+        background: #b5b667;
+        box-shadow: 0px -2px 7px rgba(0, 0, 0, 0.25);
+
+        .shopping-list {
+          img {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+
+      // .method {
+      //   display: flex;
+      //   .soon {
+      //     position: absolute;
+      //     top: -5px;
+      //     right: 10px;
+      //     font-size: 10px;
+      //     background: #67b68c;
+      //     border-radius: 4px;
+      //     color: #faf8f1;
+      //   }
+      //   li {
+      //     margin-right: 32px;
+      //   }
+      //   .active {
+      //     min-width: 128px;
+      //     height: 64px;
+      //     align-items: center;
+      //     display: flex;
+      //     justify-content: center;
+      //     color: white;
+      //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
+      //     border-radius: 8px;
+      //     list-style: none;
+      //   }
+      //   .not-active {
+      //     min-width: 128px;
+      //     height: 64px;
+      //     align-items: center;
+      //     display: flex;
+      //     justify-content: center;
+      //     background: #fafafa;
+      //     border: 1px solid #bdbdbd;
+      //     box-sizing: border-box;
+      //     border-radius: 8px;
+      //     list-style: none;
+      //   }
+      // }
+      // .recipient {
+      //   display: flex;
+      //   li {
+      //     margin-right: 32px;
+      //   }
+      //   .active {
+      //     min-width: 48px;
+      //     height: 48px;
+      //     align-items: center;
+      //     display: flex;
+      //     justify-content: center;
+      //     color: white;
+      //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
+      //     border-radius: 8px;
+      //     list-style: none;
+      //   }
+      //   .not-active {
+      //     min-width: 48px;
+      //     height: 48px;
+      //     align-items: center;
+      //     display: flex;
+      //     justify-content: center;
+      //     background: #fafafa;
+      //     border: 1px solid #bdbdbd;
+      //     box-sizing: border-box;
+      //     border-radius: 8px;
+      //     list-style: none;
+      //   }
+      // }
+      // .recipient-input {
+      //   width: 48px;
+      //   height: 48px;
+      //   background: #fafafa;
+      //   border: 1px solid #bdbdbd;
+      //   border-radius: 8px;
+      // }
+      // .message {
+      //   min-width: 320px;
+      //   min-height: 128px;
+      //   padding: 10px 15px;
+
+      //   background: #fafafa;
+      //   border: 1px solid #bdbdbd;
+
+      //   border-radius: 8px;
+      // }
+      // .tr-margin-top {
+      //   margin-top: 25px;
+      //   font-weight: bolder;
+      // }
+      // .city-selected {
+      //   height: 48px;
+      //   align-items: center;
+      //   display: flex;
+      //   justify-content: center;
+      //   background: #fafafa;
+      //   border: 1px solid #bdbdbd;
+      //   box-sizing: border-box;
+      //   border-radius: 8px;
+      //   list-style: none;
+      //   min-width: 300px;
+      //   option {
+      //     border: 1px solid #bdbdbd;
+      //     box-sizing: border-box;
+      //     border-radius: 8px;
+      //     list-style: none;
+      //     background: #fafafa;
+      //     padding: 15px 5px;
+      //   }
+      // }
     }
-
-    // .method {
-    //   display: flex;
-    //   .soon {
-    //     position: absolute;
-    //     top: -5px;
-    //     right: 10px;
-    //     font-size: 10px;
-    //     background: #67b68c;
-    //     border-radius: 4px;
-    //     color: #faf8f1;
-    //   }
-    //   li {
-    //     margin-right: 32px;
-    //   }
-    //   .active {
-    //     min-width: 128px;
-    //     height: 64px;
-    //     align-items: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     color: white;
-    //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-    //     border-radius: 8px;
-    //     list-style: none;
-    //   }
-    //   .not-active {
-    //     min-width: 128px;
-    //     height: 64px;
-    //     align-items: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     background: #fafafa;
-    //     border: 1px solid #bdbdbd;
-    //     box-sizing: border-box;
-    //     border-radius: 8px;
-    //     list-style: none;
-    //   }
-    // }
-    // .recipient {
-    //   display: flex;
-    //   li {
-    //     margin-right: 32px;
-    //   }
-    //   .active {
-    //     min-width: 48px;
-    //     height: 48px;
-    //     align-items: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     color: white;
-    //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-    //     border-radius: 8px;
-    //     list-style: none;
-    //   }
-    //   .not-active {
-    //     min-width: 48px;
-    //     height: 48px;
-    //     align-items: center;
-    //     display: flex;
-    //     justify-content: center;
-    //     background: #fafafa;
-    //     border: 1px solid #bdbdbd;
-    //     box-sizing: border-box;
-    //     border-radius: 8px;
-    //     list-style: none;
-    //   }
-    // }
-    // .recipient-input {
-    //   width: 48px;
-    //   height: 48px;
-    //   background: #fafafa;
-    //   border: 1px solid #bdbdbd;
-    //   border-radius: 8px;
-    // }
-    // .message {
-    //   min-width: 320px;
-    //   min-height: 128px;
-    //   padding: 10px 15px;
-
-    //   background: #fafafa;
-    //   border: 1px solid #bdbdbd;
-
-    //   border-radius: 8px;
-    // }
-    // .tr-margin-top {
-    //   margin-top: 25px;
-    //   font-weight: bolder;
-    // }
-    // .city-selected {
-    //   height: 48px;
-    //   align-items: center;
-    //   display: flex;
-    //   justify-content: center;
-    //   background: #fafafa;
-    //   border: 1px solid #bdbdbd;
-    //   box-sizing: border-box;
-    //   border-radius: 8px;
-    //   list-style: none;
-    //   min-width: 300px;
-    //   option {
-    //     border: 1px solid #bdbdbd;
-    //     box-sizing: border-box;
-    //     border-radius: 8px;
-    //     list-style: none;
-    //     background: #fafafa;
-    //     padding: 15px 5px;
-    //   }
-    // }
   }
+
   .box-right-treebox {
     img {
       margin-top: 127px;
@@ -977,6 +968,76 @@ export default {
     }
   }
   .main-content-advanceFund {
+    .col-lg-3.col-12 {
+      margin-bottom: 15px;
+    }
   }
 }
 </style>
+<!-- <ul class="method pt-4 over-flow-x-scroll">
+            <li
+              class="pointer-event position-relative"
+              :class="activeIndex === index ? 'active' : 'not-active'"
+              v-for="(item, index) in activeMethods"
+              :key="index"
+              @click.prevent="index === 0 ? setActiveIndex(index) : null"
+            >
+              <span v-if="index !== 0" class="soon btn-gree tr-white"
+                >{{$t('treebox.soon')}}</span
+              >
+              {{ item.name }}
+            </li>
+          </ul> -->
+
+<!-- <div class="col-12" v-if="showAdvance">
+            <p class="param-18 tr-gray-two tr-margin-top">
+              <button class="btn-green" @click.prevent="generateWallets()">
+                {{ $t("treebox.generate") }}
+              </button>
+            </p>
+
+            <p class="param-18 tr-gray-two tr-margin-top">
+              <label for="assignTreeOption"> Assign Tree Type </label>
+
+              <select
+                id="assignTreeOption"
+                v-model="assignTreeOption"
+                @change="assignTreeOptionChanged"
+              >
+                <option
+                  v-for="option in assignTreeOptions"
+                  :key="option.label"
+                  :value="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+            </p>
+
+            <p
+              class="param-18 tr-gray-two tr-margin-top"
+              v-if="wallets.length > 0"
+            >
+              <button class="btn-green" @click.prevent="downloadCSVData()">
+                Downlaod Links
+              </button>
+            </p>
+
+            <ul class="over-flow-x-scroll">
+              <li
+                class="pointer-event"
+                v-for="(wallet, wIndex) in wallets"
+                :key="`wallet-${wIndex}`"
+              >
+                {{ wallet.address }}
+                <input
+                  type="number"
+                  class="tr-gray-four font-weight-bold text-center"
+                  v-for="(treeId, index) in wallets[wIndex].treeIds"
+                  v-model="wallets[wIndex].treeIds[index]"
+                  :key="`wallet-${wIndex}-treeId-${treeId}`"
+                  placeholder="Tree ID"
+                />
+              </li>
+            </ul>
+          </div> -->
