@@ -19,11 +19,11 @@
       </p>
       <p>
         lastFund:
-        <span class="">{{ fund.lastFund }}</span>
+        <span class="">{{ $moment( fund.lastFund * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
       </p>
       <p>
         lastPlant:
-        <span class="">{{ fund.lastPlant }}</span>
+        <span class="">{{  $moment( fund.lastPlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         status:
@@ -31,19 +31,19 @@
       </p>
       <p>
         start:
-        <span class="">{{ fund.start }}</span>
+        <span class="">{{ $moment( fund.start * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
       </p>
       <p>
         lastReservePlant:
-        <span class="">{{ fund.lastReservePlant }}</span>
+        <span class="">{{  $moment(fund.lastReservePlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         createdAt:
-        <span class="">{{ fund.createdAt }}</span>
+        <span class="">{{ $moment( fund.createdAt * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         updatedAt:
-        <span class="">{{ fund.updatedAt }}</span>
+        <span class="">{{ $moment( fund.updatedAt  * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
     </div>
     <div class="card-footer">

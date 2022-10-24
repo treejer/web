@@ -16,7 +16,12 @@
           </p>
           <div class="sort-advanceFund">
             <div
-              class="search-advancefund param-18 tr-gray-two tr-margin-top col-lg-3 col-12"
+              class="
+                search-advancefund
+                param-18
+                tr-gray-two tr-margin-top
+                col-lg-3 col-12
+              "
               id="search"
             >
               <b-form-input
@@ -127,7 +132,7 @@
         <div class="col-12 main-content-advanceFund">
           <div class="row mt-5">
             <div
-              class="col-lg-3 col-12 pointer-event"
+              class="col-lg-4 col-12 pointer-event"
               v-for="(item, index) in models"
               :key="index"
               @click.prevent="addedTotheBasket(item)"
@@ -137,7 +142,6 @@
           </div>
         </div>
       </div>
-      <button class="btn-green" @click.prevent="getTreeModels()">CHECK</button>
     </div>
   </section>
 </template>
@@ -233,44 +237,7 @@ export default {
       ],
       optionsCountries: [{ value: null, text: "Please select an country" }],
       optionsPrices: [{ value: null, text: "Please select an country" }],
-      models: [
-        {
-          id: "0x84ca05d617741b96e6ee3a3f59779f59931270e7",
-          price: "0x89",
-          country: "iran",
-          lastFund: "2022-05-05",
-          lastPlant: "2022-05-05",
-          status: "",
-          start: "2022-05-05",
-          lastReservePlant: "2022-05-05",
-          createdAt: "2022-05-05",
-          updatedAt: "2022-05-05",
-        },
-        {
-          id: "0x000000555555555555555555555555555555",
-          price: "test",
-          country: "test",
-          lastFund: "2022-05-05",
-          lastPlant: "2022-05-05",
-          status: "",
-          start: "2022-05-05",
-          lastReservePlant: "2022-05-05",
-          createdAt: "2022-05-05",
-          updatedAt: "2022-05-05",
-        },
-        {
-          id: "0x84ca05d617741b96e6ee3a3f59779f59931270e7",
-          price: "0x89",
-          country: "iran",
-          lastFund: "2022-05-05",
-          lastPlant: "2022-05-05",
-          status: "",
-          start: "2022-05-05",
-          lastReservePlant: "2022-05-05",
-          createdAt: "2022-05-05",
-          updatedAt: "2022-05-05",
-        },
-      ],
+      models: [],
       countries: require("~/static/data/countries.min.json"),
       showShoppinglist: false,
       icon: process.env.gravatar,
@@ -305,8 +272,8 @@ export default {
   //     fetchPolicy: "network-only",
   //   },
   // },
-  async created() {
-    // await this.getTreeModels();
+  created() {
+    this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
     // this.checkItems();
@@ -326,7 +293,10 @@ export default {
     },
     getTreeModels() {
       let self = this;
-      console.log(this.$cookies.get("config").graphqlUrl,'this.$cookies.get("config"),')
+      let search = self.advanceFundSearch ? self.advanceFundSearch : null;
+
+      const url =
+        "https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli";
       self.$axios
         .$post(url, {
           query: `
@@ -348,9 +318,14 @@ export default {
         }
             }
         `,
-        })
-        .then((res) => {
-          console.log(res, "Models is here");
+          })
+          .then((res) => {
+          self.models = [];
+
+          res.data.models.map((item, index) => {
+            console.log(item, "item is here");
+            this.models.push(item);
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -371,18 +346,17 @@ export default {
       console.log(this.optionsCountries, " this.optionsCountries is here");
     },
     addedTotheBasket(item) {
-      console.log(this.listItems, "beforpush");
       this.listItems.push(item);
-      console.log(this.listItems, "afterpush");
       this.$cookies.set(`fund`, this.listItems);
       this.$store.commit("advanceFund/SET_LIST", this.listItems);
+      // this.$store.dispatch("advanceFund/setListItems", this.listItems);
     },
-    // checkItems() {
-    //   if (this.$cookies.get("fund")) {
-    //     this.listItems = this.$cookies.get("fund");
-    //      this.$store.commit("advanceFund/SET_LIST", this.listItems);
-    //   }
-    // },
+    checkItems() {
+      if (this.$cookies.get("fund")) {
+        this.listItems = this.$cookies.get("fund");
+        this.$store.commit("advanceFund/SET_LIST", this.listItems);
+      }
+    },
 
     // async isApprovedForAll() {
     //   this.approved = await this.$store.dispatch("tree/isApprovedForAll", {

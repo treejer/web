@@ -1,13 +1,32 @@
 export const state = () => ({
   shoppingList: [],
+  equalList: [],
+  notEqualList: [],
+
 });
 
 export const actions = {
-  setListItems({ state }, list) {
-    console.log(list, "store list");
-    state.shoppingList.push(list);
+  setListItems({
+    state
+  }, list) {
 
-    return state.shoppingList.push(list);
+    list.sort((a, b) => {
+      if (a.id === b.id) {
+        console.log(a, "equalList is here")
+        state.equalList.push({
+          a
+        })
+      }
+      if (a.id !== b.id) {
+        console.log(b, "notEqualList is here")
+        state.notEqualList.push({
+          b
+        })
+
+      }
+      return console.log(state, "state is here")
+    })
+
   },
 };
 
