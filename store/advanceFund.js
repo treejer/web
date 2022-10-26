@@ -8,6 +8,7 @@ export const state = () => ({
 export const actions = {
   async setListItems({context},props) {
     console.log(props, "list is here")
+   
     this.state.advanceFund.shoppingList.push(props)
     // state.shoppingList.push({
     //   counts:props.counts,

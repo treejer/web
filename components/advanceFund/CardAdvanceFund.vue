@@ -77,7 +77,7 @@
       </div>
       <div class="box-right col-lg-2 p-0">
         <img
-          @click.prevent="setItemsToShopping(fund,fund.id)"
+          @click.prevent="setItemsToShopping(fund, fund.id)"
           src="@/assets/images/advanceFund/shopping.svg"
           alt="shopping"
           width="15"
@@ -95,13 +95,20 @@ export default {
       type: Object,
       default: {},
     },
+    showCount:{
+      default:false,
+      type:Boolean
+    },
+    counts:{
+      default:0,
+      type:String || Number
+    }
+
   },
   data() {
     return {
       icon: process.env.gravatar,
       activeFund: false,
-      showCount: false,
-      counts: 0,
       listItems: [],
     };
   },
@@ -109,19 +116,20 @@ export default {
     // this.checkItems();
   },
   methods: {
-    setItemsToShopping(list,id) {
-      this.showCount = true;
-      if (this.counts <= 0) {
-        this.counts++;
+    setItemsToShopping(list, id) {
+      let self= this
+      if (self.counts <= 0) {
+        self.showCount = true;
+        self.counts++;
+      } else {
+        self.$store.dispatch("advanceFund/setListItems", {
+          list: list,
+          count: self.counts,
+        });
+        self.$cookies.set(`shoppingList`, {
+          list: list,
+        });
       }
-      this.$store.dispatch("advanceFund/setListItems", {
-       list:list,
-       count :this.counts
-      });
-      this.$cookies.set(`shoppingList`, {
-       
-        list:list
-      });
     },
     /* checkItems() {
       if (this.$cookies.get("shoppingList" && this.listItems.length <= 0 )) {

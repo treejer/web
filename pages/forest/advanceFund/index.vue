@@ -269,7 +269,6 @@ export default {
   //   },
   // },
   created() {
-    console.log(this.listItems, "listItems is here");
     this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
@@ -323,14 +322,11 @@ export default {
             // if(item.country === )
             self.models.push(item);
             self.optionsCountries.map((option, index) => {
-              console.log(item.country, "item.country");
               if (option.numcode === item.country) {
                 item.country = option.name;
-                console.log(item.country, "item.country");
               }
             });
           });
-          console.log(self.models, "self.models");
         })
         .catch((err) => {
           console.log(err);
@@ -348,7 +344,6 @@ export default {
           phonecode: item.phonecode,
         });
       });
-      console.log(this.optionsCountries, "this.optionsCountries");
     },
     goToCheckout(){
       this.$router.push('forest/advanceFund/checkout')

@@ -10,7 +10,11 @@
               v-for="(item, index) in listItems"
               :key="index"
             >
-              <CardAdvanceFund :fund="item.list" />
+              <CardAdvanceFund
+                :showCount="true"
+                :counts="item.count"
+                :fund="item.list"
+              />
             </div>
           </div>
         </div>
@@ -91,7 +95,7 @@ export default {
 
   async mounted() {
     if (this.$cookies.get("fund")) {
-    console.log(this.$cookies.get("shoppingList"),'shoppingList')
+      console.log(this.$cookies.get("shoppingList"), "shoppingList");
     }
   },
   async created() {
@@ -100,15 +104,11 @@ export default {
 
   methods: {
     sumCountsAndPrice() {
-     this.listItems.map((list,index)=>{
-       list.reduce((a, b) => {
-        console.log(a, b, "a, b is here");
-        this.totalCounts = Number(a.count) + Number(b.count);
+      this.listItems.map((list, index) => {
+        this.totalCounts = Number(list.count) + Number(list.count);
+        console.log(this.totalCounts, "counts ");
       });
-      console.log(this.totalCounts, "counts ");
-    })
-    }
-   
+    },
   },
 };
 </script>
