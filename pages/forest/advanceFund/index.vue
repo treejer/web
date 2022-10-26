@@ -1,14 +1,6 @@
 <template>
   <section
-    class="
-      position-relative
-      pt-5
-      col-lg-10 col-12
-      advance-fund
-      mb-5
-      pb-5
-      slide-left
-    "
+    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5 slide-left"
   >
     <div class="container-fluid">
       <div class="row">
@@ -24,12 +16,7 @@
           </p>
           <div class="sort-advanceFund">
             <div
-              class="
-                search-advancefund
-                param-18
-                tr-gray-two tr-margin-top
-                col-lg-3 col-12
-              "
+              class="search-advancefund param-18 tr-gray-two tr-margin-top col-lg-3 col-12"
               id="search"
             >
               <b-form-input
@@ -75,7 +62,11 @@
             </div>
 
             <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
-              <nuxt-link :to="localePath('/forest/advanceFund/checkout')" class="btn btn-green" >Buy</nuxt-link>
+              <nuxt-link
+                :to="localePath('/forest/advanceFund/checkout')"
+                class="btn btn-green"
+                >Buy</nuxt-link
+              >
             </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
               <div class="shopping-card pointer-event">
@@ -116,7 +107,10 @@
                       <span class="">{{ item.list.country }}</span>
                     </p> -->
                   </div>
-                  <nuxt-link :to="localePath('/forest/advanceFund/checkout')" v-if="listItems" class="btn btn-green param-sm tr-white" 
+                  <nuxt-link
+                    :to="localePath('/forest/advanceFund/checkout')"
+                    v-if="listItems"
+                    class="btn btn-green param-sm tr-white"
                     >Buy</nuxt-link
                   >
                 </div>
@@ -124,7 +118,7 @@
             </div>
           </div>
         </div>
-       
+
         <div class="col-12 main-content-advanceFund">
           <div class="row mt-5">
             <!-- @click.prevent="addedTotheBasket(item)" -->
@@ -242,7 +236,11 @@ export default {
   },
   computed: {
     listItems() {
-      return this.$store.state.advanceFund.shoppingList;
+      if (this.$cookies.get("shoppingList")) {
+        return this.$cookies.get("shoppingList");
+      } else {
+        return this.$store.state.advanceFund.shoppingList;
+      }
     },
   },
 
@@ -345,9 +343,11 @@ export default {
         });
       });
     },
-    goToCheckout(){
-      this.$router.push('forest/advanceFund/checkout')
-    }
+    goToCheckout() {
+
+      this.$router.push(this.localePath("forest/advanceFund/checkout"));
+    },
+  
     // addedTotheBasket(item) {
     //   this.listItems.push(item);
     //   this.$cookies.set(`fund`, this.listItems);

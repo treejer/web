@@ -95,15 +95,14 @@ export default {
       type: Object,
       default: {},
     },
-    showCount:{
-      default:false,
-      type:Boolean
+    showCount: {
+      default: false,
+      type: Boolean,
     },
-    counts:{
-      default:0,
-      type:String || Number
-    }
-
+    counts: {
+      default: 0,
+      type: String || Number,
+    },
   },
   data() {
     return {
@@ -117,7 +116,7 @@ export default {
   },
   methods: {
     setItemsToShopping(list, id) {
-      let self= this
+      let self = this;
       if (self.counts <= 0) {
         self.showCount = true;
         self.counts++;
@@ -126,11 +125,20 @@ export default {
           list: list,
           count: self.counts,
         });
-        self.$cookies.set(`shoppingList`, {
-          list: list,
-        });
+      }
+      self.setToCookies();
+    },
+    setToCookies() {
+      let self = this;
+      if (self.listItems) {
+        self.$cookies.set(
+          "shoppingList",
+          self.$store.state.advanceFund.shoppingList
+        );
+        console.log(self.$cookies.get("shoppingList"), "wwwwwwwwww");
       }
     },
+
     /* checkItems() {
       if (this.$cookies.get("shoppingList" && this.listItems.length <= 0 )) {
         this.listItems = this.$cookies.get("shoppingList");
@@ -140,6 +148,7 @@ export default {
       }
     }, */
   },
+  updated() {},
 };
 </script>
 

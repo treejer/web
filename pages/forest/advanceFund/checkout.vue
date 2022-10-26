@@ -21,9 +21,13 @@
         <div class="box-right col-lg-5 text-center">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
           <h1 class="tr-gray-two title-md font-weight-bolder">
-            {{ Number(totalCounts) }}
+            {{ totalCounts }}
+            <br />
+            {{parseFloat($web3.utils.fromWei(totalPrices.toString())).toFixed(2) +"" +""
+            }}
+            DAI
           </h1>
-          <p class="param-md tr-gray-four">{{ $t("treebox.totaltrees") }}</p>
+          <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>
 
           <button
             v-if="approved"
@@ -84,30 +88,47 @@ export default {
       loadingApprove: false,
       loadingCreate: false,
       totalCounts: 0,
+      totalPrices: 0,
     };
   },
 
   computed: {
     listItems() {
-      return this.$store.state.advanceFund.shoppingList;
+      if (this.$cookies.get("shoppingList")) {
+        return this.$cookies.get("shoppingList");
+      } else {
+        return this.$store.state.advanceFund.shoppingList;
+      }
     },
   },
 
   async mounted() {
-    if (this.$cookies.get("fund")) {
-      console.log(this.$cookies.get("shoppingList"), "shoppingList");
+    if (this.$cookies.get("shoppingList")) {
+      let shoppingList = this.$cookies.get("shoppingList");
+      console.log(shoppingList, "shoppingList");
     }
   },
+
   async created() {
-    this.sumCountsAndPrice();
+    this.setToCookies();
+    this.sumCountsAndPrices();
   },
 
   methods: {
-    sumCountsAndPrice() {
-      this.listItems.map((list, index) => {
-        this.totalCounts = Number(list.count) + Number(list.count);
-        console.log(this.totalCounts, "counts ");
+    sumCountsAndPrices() {
+      this.totalCounts = this.listItems.reduce((a, b) => {
+        return Number(a.count) + Number(b.count);
       });
+      this.totalPrices = this.listItems.reduce((a, b) => {
+        return Number(a.list.price) + Number(b.list.price);
+      });
+    },
+    setToCookies() {
+      let self = this;
+      if (self.listItems) {
+        self.$cookies.set("shoppingList", self.listItems);
+        console.log(self.$cookies.get("shoppingList"), "wwwwwwwwww");
+      }
     },
   },
 };
