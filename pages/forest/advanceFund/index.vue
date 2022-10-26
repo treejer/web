@@ -1,6 +1,14 @@
 <template>
   <section
-    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5"
+    class="
+      position-relative
+      pt-5
+      col-lg-10 col-12
+      advance-fund
+      mb-5
+      pb-5
+      slide-left
+    "
   >
     <div class="container-fluid">
       <div class="row">
@@ -66,6 +74,9 @@
               ></b-form-select>
             </div>
 
+            <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
+              <nuxt-link :to="localePath('/forest/advanceFund/checkout')" class="btn btn-green" >Buy</nuxt-link>
+            </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
               <div class="shopping-card pointer-event">
                 <img
@@ -79,63 +90,48 @@
                 }}</b-badge>
                 <div class="shopping-list-box" v-if="showShoppinglist">
                   <div
-                    class="shopping-list border-bottom d-flex"
+                    class="shopping-list d-flex justify-content-between mb-2"
                     v-for="(item, index) in listItems"
                     :key="index"
                   >
-                    <img class="img-fluid" :src="icon + item.id" alt="tree" />
-                    <p class="param-sm tr-gray-three">
-                      Price:
-                      <span class="">{{ item.price }}</span>
-                    </p>
-                    <p class="param-sm tr-gray-three">
+                    <span class="param-sm tr-gray-three">
+                      Count: {{ item.count }}
+                    </span>
+                    <img
+                      class="img-fluid"
+                      :src="icon + item.list.planter.id"
+                      alt="tree"
+                    />
+                    <span class="param-sm tr-gray-three">
+                      Price:{{
+                        parseFloat(
+                          $web3.utils.fromWei(item.list.price)
+                        ).toFixed(2)
+                      }}
+                      DAI
+                    </span>
+
+                    <!-- <p class="param-sm tr-gray-three">
                       country:
-                      <span class="">{{ item.country }}</span>
-                    </p>
+                      <span class="">{{ item.list.country }}</span>
+                    </p> -->
                   </div>
+                  <nuxt-link :to="localePath('/forest/advanceFund/checkout')" v-if="listItems" class="btn btn-green param-sm tr-white" 
+                    >Buy</nuxt-link
+                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-4 col-12 box-right-treebox text-center">
-          <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
-          <h1 class="tr-gray-two title-md font-weight-bolder">
-            {{ Number(countOfRecepient) * Number(countOfRecepientTreebox) }}
-          </h1>
-          <p class="param-md tr-gray-four">{{ $t("treebox.totaltrees") }}</p>
-
-          <button
-            v-if="approved"
-            class="btn-green"
-            @click.prevent="createTreebox"
-          >
-            <BSpinner v-if="loadingCreate" class="mr-2" small type="grow"
-              >loading
-            </BSpinner>
-            {{
-              loadingCreate
-                ? $t("aboutus.loading")
-                : $t("treebox.createtreebox")
-            }}
-          </button>
-
-          <button v-else class="btn-green" @click.prevent="setApprovalForAll">
-            <BSpinner v-if="loadingApprove" class="mr-2" small type="grow"
-              >loading
-            </BSpinner>
-            {{ loadingApprove ? $t("aboutus.loading") : $t("treebox.approve") }}
-          </button>
-
-          <button class="btn-gray" @click.prevent="">Preview</button>
-        </div> -->
+       
         <div class="col-12 main-content-advanceFund">
           <div class="row mt-5">
+            <!-- @click.prevent="addedTotheBasket(item)" -->
             <div
-              class="col-lg-4 col-12 pointer-event"
+              class="col-lg-4 col-12 pointer-event mb-4"
               v-for="(item, index) in models"
               :key="index"
-              @click.prevent="addedTotheBasket(item)"
             >
               <CardAdvanceFund :fund="item" />
             </div>
@@ -236,7 +232,7 @@ export default {
         { value: "b", text: "Please select an option" },
       ],
       optionsCountries: [{ value: null, text: "Please select an country" }],
-      optionsPrices: [{ value: null, text: "Please select an country" }],
+      optionsPrices: [{ value: null, text: "Please select an price" }],
       models: [],
       countries: require("~/static/data/countries.min.json"),
       showShoppinglist: false,
@@ -273,6 +269,7 @@ export default {
   //   },
   // },
   created() {
+    console.log(this.listItems, "listItems is here");
     this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
@@ -318,20 +315,28 @@ export default {
         }
             }
         `,
-          })
-          .then((res) => {
+        })
+        .then((res) => {
           self.models = [];
 
           res.data.models.map((item, index) => {
-            console.log(item, "item is here");
-            this.models.push(item);
+            // if(item.country === )
+            self.models.push(item);
+            self.optionsCountries.map((option, index) => {
+              console.log(item.country, "item.country");
+              if (option.numcode === item.country) {
+                item.country = option.name;
+                console.log(item.country, "item.country");
+              }
+            });
           });
+          console.log(self.models, "self.models");
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    pushCountreisToData() {
+    pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
         this.optionsCountries.push({
           value: item.id,
@@ -343,20 +348,23 @@ export default {
           phonecode: item.phonecode,
         });
       });
-      console.log(this.optionsCountries, " this.optionsCountries is here");
+      console.log(this.optionsCountries, "this.optionsCountries");
     },
-    addedTotheBasket(item) {
-      this.listItems.push(item);
-      this.$cookies.set(`fund`, this.listItems);
-      this.$store.commit("advanceFund/SET_LIST", this.listItems);
-      // this.$store.dispatch("advanceFund/setListItems", this.listItems);
-    },
-    checkItems() {
-      if (this.$cookies.get("fund")) {
-        this.listItems = this.$cookies.get("fund");
-        this.$store.commit("advanceFund/SET_LIST", this.listItems);
-      }
-    },
+    goToCheckout(){
+      this.$router.push('forest/advanceFund/checkout')
+    }
+    // addedTotheBasket(item) {
+    //   this.listItems.push(item);
+    //   this.$cookies.set(`fund`, this.listItems);
+    //   this.$store.commit("advanceFund/SET_LIST", this.listItems);
+    //   // this.$store.dispatch("advanceFund/setListItems", this.listItems);
+    // },
+    // checkItems() {
+    //   if (this.$cookies.get("fund")) {
+    //     this.listItems = this.$cookies.get("fund");
+    //   this.$store.dispatch("advanceFund/setListItems",list );
+    //   }
+    // },
 
     // async isApprovedForAll() {
     //   this.approved = await this.$store.dispatch("tree/isApprovedForAll", {
@@ -791,10 +799,14 @@ export default {
       }
 
       .shopping-list-box {
+        padding: 15px 10px;
         position: absolute;
         z-index: +99999;
-        background: #b5b667;
+        background: #faf8f1;
+        width: 200px;
         box-shadow: 0px -2px 7px rgba(0, 0, 0, 0.25);
+        margin-top: 15px;
+        border-radius: 6px;
 
         .shopping-list {
           img {
@@ -912,6 +924,13 @@ export default {
       //     padding: 15px 5px;
       //   }
       // }
+    }
+    .buy {
+      z-index: +9;
+      background: #67b68c;
+      text-align: center;
+      bottom: 0;
+      left: 0;
     }
   }
 

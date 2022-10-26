@@ -1,7 +1,7 @@
 <template>
-  <div class="card-fund" v-if="fund" >
+  <div class="card-fund" v-if="fund">
     <div class="card-img">
-      <img class="img-fluid" :src="icon + fund.id" alt="tree" />
+      <img class="img-fluid" :src="icon + fund.planter.id" alt="tree" />
     </div>
     <div
       :class="activeFund ? 'text-keep' : 'text-break'"
@@ -11,7 +11,14 @@
     >
       <p>
         Price:
-        <span class="">{{ fund.price }}</span>
+        <span class=""
+          >{{
+            parseFloat($web3.utils.fromWei(fund.price.toString())).toFixed(2) +
+            "" +
+            ""
+          }}
+          DAI</span
+        >
       </p>
       <p>
         country:
@@ -19,17 +26,19 @@
       </p>
       <p>
         lastFund:
-        <span class="">{{ $moment( fund.lastFund * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
+        <span class="">{{
+          $moment(fund.lastFund * 1000).strftime("%b %d, %Y at %I:%M %p")
+        }}</span>
       </p>
-      <p>
+      <!-- <p>
         lastPlant:
         <span class="">{{  $moment( fund.lastPlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         status:
         <span class="">{{ fund.status }}</span>
-      </p>
-      <p>
+      </p> -->
+      <!-- <p>
         start:
         <span class="">{{ $moment( fund.start * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
       </p>
@@ -44,11 +53,37 @@
       <p>
         updatedAt:
         <span class="">{{ $moment( fund.updatedAt  * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
-      </p>
+      </p> -->
     </div>
-    <div class="card-footer">
-      <img src="@/assets/images/advanceFund/shopping.svg" alt="shopping" width="15" height="15" >
-
+    <div class="card-footer d-flex">
+      <div class="box-left col-lg-10 p-0" v-show="showCount">
+        <!-- <span class="btn-green pointer-event param-sm " @click="setItemsToShopping()">Add To The Shop</span> -->
+        <span
+          class="tr-gray-two param-md font-weight-bolder p-2"
+          @click.prevent="counts++"
+          >+</span
+        >
+        <input
+          type="number"
+          min="1"
+          v-model="counts"
+          class="tr-gray-two param-md font-weight-bolder"
+        />
+        <span
+          class="tr-gray-two param-md font-weight-bolder p-2"
+          @click.prevent="counts > 0 ? counts-- : counts"
+          >-</span
+        >
+      </div>
+      <div class="box-right col-lg-2 p-0">
+        <img
+          @click.prevent="setItemsToShopping(fund,fund.id)"
+          src="@/assets/images/advanceFund/shopping.svg"
+          alt="shopping"
+          width="15"
+          height="15"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -65,10 +100,37 @@ export default {
     return {
       icon: process.env.gravatar,
       activeFund: false,
+      showCount: false,
+      counts: 0,
+      listItems: [],
     };
   },
+  created() {
+    // this.checkItems();
+  },
   methods: {
-   
+    setItemsToShopping(list,id) {
+      this.showCount = true;
+      if (this.counts <= 0) {
+        this.counts++;
+      }
+      this.$store.dispatch("advanceFund/setListItems", {
+       list:list,
+       count :this.counts
+      });
+      this.$cookies.set(`shoppingList`, {
+       
+        list:list
+      });
+    },
+    /* checkItems() {
+      if (this.$cookies.get("shoppingList" && this.listItems.length <= 0 )) {
+        this.listItems = this.$cookies.get("shoppingList");
+        console.log(this.listItems,"this.listItems is here")
+        
+        this.$store.dispatch("advanceFund/setListItems", this.listItems);
+      }
+    }, */
   },
 };
 </script>
@@ -106,13 +168,21 @@ export default {
       }
     }
   }
-  .card-footer{
+  .card-footer {
     display: flex;
     justify-content: space-around;
+    .box-left {
+      input {
+        background: transparent;
+        border: none;
+        width: 50px;
+        text-align: center;
+      }
+    }
   }
-  .card-footer:hover{
-    transition: .3s all ease;
-    background: #bfbfbf;
+  .card-footer img:hover {
+    transition: 0.3s all ease;
+    opacity: 0.6;
   }
 }
 .card-fund:hover {
