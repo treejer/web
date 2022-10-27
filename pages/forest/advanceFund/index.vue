@@ -90,7 +90,7 @@
                     </span>
                     <img
                       class="img-fluid"
-                      :src="icon + item.list.planter.id"
+                      :src="icon +item.list.planter.id"
                       alt="tree"
                     />
                     <span class="param-sm tr-gray-three">
@@ -236,41 +236,15 @@ export default {
   },
   computed: {
     listItems() {
-      if (this.$cookies.get("shoppingList")) {
-        return this.$cookies.get("shoppingList");
-      } else {
-        return this.$store.state.advanceFund.shoppingList;
-      }
+      return this.$store.state.advanceFund.shoppingList;
     },
   },
 
-  // apollo: {
-  //   $client() {
-  //     return this.$cookies.get("activeNetwork")
-  //       ? this.$cookies.get("activeNetwork").key
-  //       : "default";
-  //   },
-  //   owner: {
-  //     query: owner,
-  //     prefetch: false,
-  //     skip() {
-  //       return this.$cookies.get("account") ? false : true;
-  //     },
-  //     variables() {
-  //       return {
-  //         id: this.$cookies.get("account")
-  //           ? this.$cookies.get("account").toLowerCase()
-  //           : "",
-  //       };
-  //     },
-  //     fetchPolicy: "network-only",
-  //   },
-  // },
   created() {
+    this.checkItems();
     this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
-    // this.checkItems();
     // this.statusShopping = statusShopping.length
   },
   methods: {
@@ -344,22 +318,19 @@ export default {
       });
     },
     goToCheckout() {
-
       this.$router.push(this.localePath("forest/advanceFund/checkout"));
     },
-  
-    // addedTotheBasket(item) {
-    //   this.listItems.push(item);
-    //   this.$cookies.set(`fund`, this.listItems);
-    //   this.$store.commit("advanceFund/SET_LIST", this.listItems);
-    //   // this.$store.dispatch("advanceFund/setListItems", this.listItems);
-    // },
-    // checkItems() {
-    //   if (this.$cookies.get("fund")) {
-    //     this.listItems = this.$cookies.get("fund");
-    //   this.$store.dispatch("advanceFund/setListItems",list );
-    //   }
-    // },
+
+    checkItems() {
+      let self = this;
+      console.log( this.$cookies.get("shoppingList"),' this.$cookies.get("shoppingList")')
+      if (this.$cookies.get("shoppingList") && self.listItems.length <= 0) {
+        this.$store.dispatch(
+          "advanceFund/setListItems",
+          this.$cookies.get("shoppingList")
+        );
+      }
+    },
 
     // async isApprovedForAll() {
     //   this.approved = await this.$store.dispatch("tree/isApprovedForAll", {

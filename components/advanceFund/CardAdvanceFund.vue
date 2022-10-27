@@ -56,11 +56,11 @@
       </p> -->
     </div>
     <div class="card-footer d-flex">
-      <div class="box-left col-lg-10 p-0" v-show="showCount">
+      <div class="box-left col-lg-10 p-0" v-show="localShowCount">
         <!-- <span class="btn-green pointer-event param-sm " @click="setItemsToShopping()">Add To The Shop</span> -->
         <span
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counts++"
+          @click.prevent="counter('obb')"
           >+</span
         >
         <input
@@ -71,14 +71,23 @@
         />
         <span
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counts > 0 ? counts-- : counts"
+          @click.prevent="counter('odd')"
           >-</span
         >
       </div>
       <div class="box-right col-lg-2 p-0">
         <img
+        v-if="!change"
           @click.prevent="setItemsToShopping(fund, fund.id)"
           src="@/assets/images/advanceFund/shopping.svg"
+          alt="shopping"
+          width="15"
+          height="15"
+        />
+         <img
+          v-if="change"
+          @click.prevent="$store.dispatch('advanceFund/removeListItem',fund)"
+          src="@/assets/images/advanceFund/recycle-bin.svg"
           alt="shopping"
           width="15"
           height="15"
@@ -101,7 +110,10 @@ export default {
     },
     counts: {
       default: 0,
-      type: String || Number,
+    },
+    change: {
+      default: false,
+      type: Boolean,
     },
   },
   data() {
@@ -109,16 +121,16 @@ export default {
       icon: process.env.gravatar,
       activeFund: false,
       listItems: [],
+      localShowCount: this.showCount,
     };
   },
   created() {
-    // this.checkItems();
   },
   methods: {
     setItemsToShopping(list, id) {
       let self = this;
       if (self.counts <= 0) {
-        self.showCount = true;
+        self.localShowCount = true;
         self.counts++;
       } else {
         self.$store.dispatch("advanceFund/setListItems", {
@@ -126,29 +138,23 @@ export default {
           count: self.counts,
         });
       }
-      self.setToCookies();
+    
+      
     },
-    setToCookies() {
+  
+    counter(status) {
       let self = this;
-      if (self.listItems) {
-        self.$cookies.set(
-          "shoppingList",
-          self.$store.state.advanceFund.shoppingList
-        );
-        console.log(self.$cookies.get("shoppingList"), "wwwwwwwwww");
+      if (status === "obb") {
+        self.counts++;
       }
+      if (status === "odd") {
+        self.counts > 0 ? self.counts-- : self.counts;
+      }
+    
     },
 
-    /* checkItems() {
-      if (this.$cookies.get("shoppingList" && this.listItems.length <= 0 )) {
-        this.listItems = this.$cookies.get("shoppingList");
-        console.log(this.listItems,"this.listItems is here")
-        
-        this.$store.dispatch("advanceFund/setListItems", this.listItems);
-      }
-    }, */
+ 
   },
-  updated() {},
 };
 </script>
 

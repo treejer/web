@@ -14,6 +14,7 @@
                 :showCount="true"
                 :counts="item.count"
                 :fund="item.list"
+                :change="true"
               />
             </div>
           </div>
@@ -23,13 +24,12 @@
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ totalCounts }}
             <br />
-            {{parseFloat($web3.utils.fromWei(totalPrices.toString())).toFixed(2) +"" +""
-            }}
+            <!-- {{parseFloat($web3.utils.fromWei(totalPrices.toString())).toFixed(2)}} -->
             DAI
           </h1>
           <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>
 
-          <button
+          <!-- <button
             v-if="approved"
             class="btn-green bt-lg"
             @click.prevent="createTreebox"
@@ -49,7 +49,7 @@
               >loading
             </BSpinner>
             {{ loadingApprove ? $t("aboutus.loading") : $t("treebox.approve") }}
-          </button>
+          </button> -->
 
           <button class="btn-gray bt-lg" @click.prevent="">Preview</button>
         </div>
@@ -94,40 +94,44 @@ export default {
 
   computed: {
     listItems() {
-      if (this.$cookies.get("shoppingList")) {
-        return this.$cookies.get("shoppingList");
-      } else {
         return this.$store.state.advanceFund.shoppingList;
-      }
     },
   },
 
   async mounted() {
-    if (this.$cookies.get("shoppingList")) {
-      let shoppingList = this.$cookies.get("shoppingList");
-      console.log(shoppingList, "shoppingList");
-    }
+    
   },
 
   async created() {
     this.setToCookies();
     this.sumCountsAndPrices();
+    this.checkItems();
   },
 
   methods: {
     sumCountsAndPrices() {
-      this.totalCounts = this.listItems.reduce((a, b) => {
-        return Number(a.count) + Number(b.count);
-      });
+      
+      this.totalCounts = this.listItems.reduce.
       this.totalPrices = this.listItems.reduce((a, b) => {
         return Number(a.list.price) + Number(b.list.price);
       });
+      
     },
+    
     setToCookies() {
       let self = this;
       if (self.listItems) {
         self.$cookies.set("shoppingList", self.listItems);
         console.log(self.$cookies.get("shoppingList"), "wwwwwwwwww");
+      }
+    },
+    checkItems() {
+      if (this.$cookies.get("shoppingList")) {
+        this.$store.dispatch(
+          "advanceFund/setListItems",
+          this.$cookies.get("shoppingList")
+        );
+        
       }
     },
   },
