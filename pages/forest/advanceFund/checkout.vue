@@ -24,7 +24,7 @@
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ totalCounts }}
             <br />
-            <!-- {{parseFloat($web3.utils.fromWei(totalPrices.toString())).toFixed(2)}} -->
+            {{ parseFloat(totalPrices.toString()).toFixed(2) }}
             DAI
           </h1>
           <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>
@@ -32,7 +32,7 @@
           <!-- <button
             v-if="approved"
             class="btn-green bt-lg"
-            @click.prevent="createTreebox"
+            @click.prevent="AdvanceBuy()"
           >
             <BSpinner v-if="loadingCreate" class="mr-2" small type="grow"
               >loading
@@ -51,7 +51,18 @@
             {{ loadingApprove ? $t("aboutus.loading") : $t("treebox.approve") }}
           </button> -->
 
-          <button class="btn-gray bt-lg" @click.prevent="">Preview</button>
+          <button
+            class="btn-green p-2  bt-lg "
+            @click.prevent="
+              $store.dispatch('advanceFund/fundTree', {
+                listItems: listItems,
+                totalCounts: totalCounts,
+                totalPrices: totalPrices,
+              })
+            "
+          >
+            Buy Tree
+          </button>
         </div>
       </div>
     </div>
@@ -61,7 +72,6 @@
 <script>
 import CardAdvanceFund from "../../../components/advanceFund/CardAdvanceFund.vue";
 export default {
-  props: ["listItems"],
   components: { CardAdvanceFund },
   name: "checkout",
   layout: "checkout",
@@ -87,37 +97,42 @@ export default {
     return {
       loadingApprove: false,
       loadingCreate: false,
-      totalCounts: 0,
-      totalPrices: 0,
     };
   },
 
   computed: {
     listItems() {
-        return this.$store.state.advanceFund.shoppingList;
+      return this.$store.state.advanceFund.shoppingList;
+    },
+    totalCounts() {
+      return this.$store.state.advanceFund.totalCounts;
+    },
+    totalPrices() {
+      return this.$store.state.advanceFund.totalPrices;
     },
   },
 
-  async mounted() {
-    
-  },
+  async mounted() {},
 
   async created() {
-    this.setToCookies();
-    this.sumCountsAndPrices();
-    this.checkItems();
+    // this.setToCookies();
+    // this.sumCountsAndPrices();
+    // this.checkItems();
+    await this.$store.dispatch("SUM_TOTALL_PRICE_AND_COUNT");
   },
 
   methods: {
-    sumCountsAndPrices() {
-      
-      this.totalCounts = this.listItems.reduce.
-      this.totalPrices = this.listItems.reduce((a, b) => {
-        return Number(a.list.price) + Number(b.list.price);
-      });
-      
-    },
-    
+    // sumCountsAndPrices() {
+    //   this.totalCounts = this.listItems.reduce((a, b) => {
+    //     console.log(a, b, "a,b is here");
+    //     return Number(a.count) + Number(b.count);
+    //   });
+    //   this.totalPrices = this.listItems.reduce((a, b) => {
+    //     console.log(a, b, "a,b is here");
+    //     return Number(a.list.price) + Number(b.list.price);
+    //   });
+    // },
+
     setToCookies() {
       let self = this;
       if (self.listItems) {
@@ -131,7 +146,6 @@ export default {
           "advanceFund/setListItems",
           this.$cookies.get("shoppingList")
         );
-        
       }
     },
   },

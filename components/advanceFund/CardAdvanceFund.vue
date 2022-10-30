@@ -59,8 +59,9 @@
       <div class="box-left col-lg-10 p-0" v-show="localShowCount">
         <!-- <span class="btn-green pointer-event param-sm " @click="setItemsToShopping()">Add To The Shop</span> -->
         <span
+          v-if="!change"
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counter('obb')"
+          @click.prevent="counter('obb', fund)"
           >+</span
         >
         <input
@@ -70,23 +71,24 @@
           class="tr-gray-two param-md font-weight-bolder"
         />
         <span
+          v-if="!change"
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counter('odd')"
+          @click.prevent="counter('odd', fund)"
           >-</span
         >
       </div>
       <div class="box-right col-lg-2 p-0">
         <img
-        v-if="!change"
+          v-if="!change"
           @click.prevent="setItemsToShopping(fund, fund.id)"
           src="@/assets/images/advanceFund/shopping.svg"
           alt="shopping"
           width="15"
           height="15"
         />
-         <img
+        <img
           v-if="change"
-          @click.prevent="$store.dispatch('advanceFund/removeListItem',fund)"
+          @click.prevent="removeListItem(fund)"
           src="@/assets/images/advanceFund/recycle-bin.svg"
           alt="shopping"
           width="15"
@@ -124,8 +126,7 @@ export default {
       localShowCount: this.showCount,
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     setItemsToShopping(list, id) {
       let self = this;
@@ -138,22 +139,24 @@ export default {
           count: self.counts,
         });
       }
-    
-      
-    },
-  
-    counter(status) {
-      let self = this;
-      if (status === "obb") {
-        self.counts++;
-      }
-      if (status === "odd") {
-        self.counts > 0 ? self.counts-- : self.counts;
-      }
-    
     },
 
- 
+    counter(status, list) {
+      let self = this;
+      if (status === "obb" && !self.change) {
+        self.counts++;
+      }
+      if (status === "odd" && !self.change) {
+        self.counts > 0 ? self.counts-- : self.counts;
+      }
+    },
+    removeListItems(fund) {
+      if (this.$store.state.advanceFund.shoppingList.length > 0) {
+        this.$store.dispatch("advanceFund/removeListItem", fund);
+      } else {
+        this.$router.push("/forest/advanceFund/");
+      }
+    },
   },
 };
 </script>

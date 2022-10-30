@@ -241,7 +241,7 @@ export default {
   },
 
   created() {
-    this.checkItems();
+    // this.checkItems();
     this.getTreeModels();
     // await this.isApprovedForAll();
     this.pushCountreisToData();
