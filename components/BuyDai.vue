@@ -253,7 +253,22 @@ export default {
         transak.close();
       });
     },
-    async requestTrees() {
+  
+    async setIsAllowance(count, silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+
+      let allowance = await this.$store.dispatch("dai/allowance");
+
+      this.isAllowedSpendDai =
+        parseInt(allowance) >= parseInt(count * this.treePrice);
+
+      if (silent === false) {
+        this.loading = false;
+      }
+    },
+      async requestTrees() {
       this.loading = true;
       let self = this;
 
@@ -283,20 +298,6 @@ export default {
     },
     async getPrice() {
       this.treePrice = await this.$store.dispatch('regularSell/getPrice')
-    },
-    async setIsAllowance(count, silent = false) {
-      if (silent === false) {
-        this.loading = true;
-      }
-
-      let allowance = await this.$store.dispatch("dai/allowance");
-
-      this.isAllowedSpendDai =
-        parseInt(allowance) >= parseInt(count * this.treePrice);
-
-      if (silent === false) {
-        this.loading = false;
-      }
     },
 
   },

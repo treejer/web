@@ -1,6 +1,7 @@
 <template>
   <div :class="$route.name"  style="min-height: 100vh">
       <DashboardHeader/>
+        <SidebarCheckout :status="$store.state.advanceFund.showShoppinglist" />
       <div class="container"  style="min-height: 85vh">
         <div class="row">
           <nuxt/>
@@ -13,10 +14,11 @@
 <style lang="scss"></style>
 <script>
   import DashboardHeader from "../components/DashboardHeader";
+  import SidebarCheckout from "../components/advanceFund/SidebarCheckout";
   import Footer from "../components/Footer";
 
   export default {
-    components: { Footer, DashboardHeader},
+    components: { Footer, DashboardHeader,SidebarCheckout},
       middleware: 'queryParamToCookie',
 
     data() {

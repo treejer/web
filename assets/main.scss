@@ -687,6 +687,11 @@ ul {
 .pointer-event:hover {
   cursor: pointer;
 }
+.text-decoration-none{
+  a:hover{
+    text-decoration: none;
+  }
+}
 
 p,
 a,

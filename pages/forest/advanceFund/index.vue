@@ -1,10 +1,25 @@
 <template>
   <section
-    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5 slide-left"
+    class="
+      position-relative
+      pt-5
+      col-lg-10 col-12
+      advance-fund
+      mb-5
+      pb-5
+      slide-left
+    "
   >
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12 col-12 box-left-treebox">
+        <SidebarCheckout :status="showShoppinglist"  />
+
+        <div
+          class="col-lg-12 col-12 box-left-treebox"
+          @click.prevent="
+            $store.commit('advanceFund/SET_SIDEBAR_ADVANCEFUND', false)
+          "
+        >
           <h1 class="title tr-gray-two font-weight-bold">
             {{ $t("advanceFund.title") }}
           </h1>
@@ -16,7 +31,12 @@
           </p>
           <div class="sort-advanceFund">
             <div
-              class="search-advancefund param-18 tr-gray-two tr-margin-top col-lg-3 col-12"
+              class="
+                search-advancefund
+                param-18
+                tr-gray-two tr-margin-top
+                col-lg-3 col-12
+              "
               id="search"
             >
               <b-form-input
@@ -62,10 +82,10 @@
             </div>
 
             <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
-              <nuxt-link
-                :to="localePath('/forest/advanceFund/checkout')"
+              <a
+                @click.prevent="setShoppingListToSidebar()"
                 class="btn btn-green"
-                >Buy</nuxt-link
+                >Buy</a
               >
             </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
@@ -74,46 +94,11 @@
                   src="@/assets/images/advanceFund/shopping.svg"
                   width="20"
                   height="20"
-                  @click.prevent="showShoppinglist = !showShoppinglist"
+                  @click.prevent="setShoppingListToSidebar()"
                 />
                 <b-badge variant="warning tr-white">{{
                   listItems.length
                 }}</b-badge>
-                <div class="shopping-list-box" v-if="showShoppinglist">
-                  <div
-                    class="shopping-list d-flex justify-content-between mb-2"
-                    v-for="(item, index) in listItems"
-                    :key="index"
-                  >
-                    <span class="param-sm tr-gray-three">
-                      Count: {{ item.count }}
-                    </span>
-                    <img
-                      class="img-fluid"
-                      :src="icon +item.list.planter.id"
-                      alt="tree"
-                    />
-                    <span class="param-sm tr-gray-three">
-                      Price:{{
-                        parseFloat(
-                          $web3.utils.fromWei(item.list.price)
-                        ).toFixed(2)
-                      }}
-                      DAI
-                    </span>
-
-                    <!-- <p class="param-sm tr-gray-three">
-                      country:
-                      <span class="">{{ item.list.country }}</span>
-                    </p> -->
-                  </div>
-                  <nuxt-link
-                    :to="localePath('/forest/advanceFund/checkout')"
-                    v-if="listItems"
-                    class="btn btn-green param-sm tr-white"
-                    >Buy</nuxt-link
-                  >
-                </div>
               </div>
             </div>
           </div>
@@ -122,12 +107,13 @@
         <div class="col-12 main-content-advanceFund">
           <div class="row mt-5">
             <!-- @click.prevent="addedTotheBasket(item)" -->
+
             <div
               class="col-lg-4 col-12 pointer-event mb-4"
               v-for="(item, index) in models"
               :key="index"
             >
-              <CardAdvanceFund :fund="item" />
+              <CardAdvanceFund :mainPage="true" :fund="item" />
             </div>
           </div>
         </div>
@@ -138,12 +124,14 @@
 
 <script>
 import CardAdvanceFund from "@/components/advanceFund/CardAdvanceFund.vue";
+import SidebarCheckout from "@/components/advanceFund/SidebarCheckout.vue";
 // import countries from "@/static/data/countries.min.json";
 export default {
   layout: "dashboard",
   middleware: "auth",
   components: {
     CardAdvanceFund,
+    SidebarCheckout,
   },
   head() {
     return {
@@ -184,7 +172,6 @@ export default {
   data() {
     return {
       baseUrl: process.env.baseUrl,
-
       meta: {
         title: this.$t("treebox.meta.title"),
         description: this.$t("treebox.meta.description"),
@@ -204,18 +191,10 @@ export default {
         { name: "3" },
         { name: "4" },
       ],
-
       activeIndexRecepient: 3,
       activeIndexRecepientTreebox: 0,
       countOfRecepient: 50,
       countOfRecepientTreebox: 1,
-      // message: "",
-      // wallets: [],
-      // assignTreeOption: "desc",
-      // ownerTrees: [],
-      // showAdvance: false,
-      // approved: false,
-      // messageIPFSHash: "",
       selectedCountry: null,
       selectedSpiece: null,
       selectedPrice: null,
@@ -241,12 +220,11 @@ export default {
   },
 
   created() {
-    // this.checkItems();
     this.getTreeModels();
-    // await this.isApprovedForAll();
     this.pushCountreisToData();
-    // this.statusShopping = statusShopping.length
+    this.checkItems();
   },
+
   methods: {
     setActiveIndex(index) {
       this.activeIndex = index;
@@ -261,13 +239,16 @@ export default {
     },
     getTreeModels() {
       let self = this;
-      let search = self.advanceFundSearch ? self.advanceFundSearch : null;
+      let search =
+        self.advanceFundSearch.length <= 0 ? null : self.advanceFundSearch;
+      console.log(search, "search is here");
 
       const url =
         "https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli";
       self.$axios
         .$post(url, {
           query: `
+
          {
             models {
               id
@@ -320,16 +301,37 @@ export default {
     goToCheckout() {
       this.$router.push(this.localePath("forest/advanceFund/checkout"));
     },
+    setShoppingListToSidebar() {
+      this.showShoppinglist = !this.showShoppinglist;
+      this.$store.commit(
+        "advanceFund/SET_SIDEBAR_ADVANCEFUND",
+        this.showShoppinglist
+      );
+    },
 
     checkItems() {
+      console.log(
+        this.$cookies.get("shoppingList"),
+        ' this.$cookies.get("shoppingList")'
+      );
       let self = this;
-      console.log( this.$cookies.get("shoppingList"),' this.$cookies.get("shoppingList")')
-      if (this.$cookies.get("shoppingList") && self.listItems.length <= 0) {
-        this.$store.dispatch(
-          "advanceFund/setListItems",
-          this.$cookies.get("shoppingList")
-        );
-      }
+      if (
+        self.$cookies.get("shoppingList") &&
+        self.$store.state.advanceFund.shoppingList.length <= 0
+      )
+        self.$store.state.advanceFund.shoppingList =
+          self.$cookies.get("shoppingList");
+
+      console.log(
+        self.$store.state.advanceFund.shoppingList,
+        "self.listItems.length"
+      );
+      // if (this.$cookies.get("shoppingList") && self.listItems.length <= 0) {
+      //   this.$store.dispatch(
+      //     "advanceFund/setListItems",
+      //     this.$cookies.get("shoppingList")
+      //   );
+      // }
     },
 
     // async isApprovedForAll() {
