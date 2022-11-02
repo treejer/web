@@ -95,7 +95,7 @@
           class="ml-lg-2 mr-lg-2 pointer-event"
         />
         <img
-          v-if="model.addedToshoppingList"
+          v-if="model.addedToshoppingList && !mainPage"
           class="ml-lg-2 mr-lg-2 pointer-event"
           @click.prevent="removeListItems(model)"
           src="@/assets/images/advanceFund/recycle-bin.svg"
