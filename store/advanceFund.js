@@ -1,5 +1,4 @@
 import { BToast } from "bootstrap-vue";
-import Dai from "~/contracts/IERC20";
 const BN = require("bn.js");
 
 export const state = () => ({
@@ -156,7 +155,23 @@ export const actions = {
 
 export const mutations = {
   SET_LIST(state, props) {
-    state.shoppingList.push(props);
+
+    let isExist = false;
+    state.shoppingList.map((item, index) => {
+      if (item.id === props.id) {
+        isExist = true;
+      }
+    }); 
+
+    if (!isExist) {
+      state.shoppingList.push(props);
+    } else {
+      state.shoppingList.map((item, index) => {
+        if (item.id === props.id) {
+          item.count = props.count;
+        }
+      });
+    }
   },
   EDIT_LIST(state, props) {
     state.shoppingList = props;
