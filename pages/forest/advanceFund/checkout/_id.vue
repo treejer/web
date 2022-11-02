@@ -5,7 +5,11 @@
         <!-- {{ $route.params }} -->
         <div class="box-left col-lg-8">
           <div class="row">
-            <div class="mb-3 col-lg-3 col-12" v-for="(item,index) in listItems" :key="index">
+            <div
+              class="mb-3 col-lg-4 col-12"
+              v-for="(item, index) in listItems"
+              :key="index"
+            >
               <CardAdvanceFund
                 :showCount="true"
                 :counts="item.count"
@@ -21,7 +25,7 @@
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ totalCounts }}
             <br />
-            {{ parseFloat(totalPrices.toString()).toFixed(2) }}
+            {{ totalPrices * totalCounts  }}
             DAI
           </h1>
           <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>
@@ -72,7 +76,6 @@
 import CardAdvanceFund from "@/components/advanceFund/CardAdvanceFund.vue";
 import transakSDK from "@transak/transak-sdk";
 
-
 export default {
   components: { CardAdvanceFund },
   layout: "checkout",
@@ -122,11 +125,10 @@ export default {
   async mounted() {},
 
   async created() {
-   
+    await this.checkItems();
   },
 
   methods: {
-  
     pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
         this.optionsCountries.push({
@@ -220,8 +222,24 @@ export default {
         transak.close();
       });
     },
-   async setShoppingListToSidebar() {
-     await this.$store.commit("advanceFund/SET_SIDEBAR_ADVANCEFUND",true);
+    async setShoppingListToSidebar() {
+      await this.$store.commit("advanceFund/SET_SIDEBAR_ADVANCEFUND", true);
+    },
+    async checkItems() {
+      console.log(
+        this.$cookies.get("shoppingList"),
+        ' this.$cookies.get("shoppingList")'
+      );
+      let self = this;
+      if (
+        self.$cookies.get("shoppingList") &&
+        self.$store.state.advanceFund.shoppingList.length <= 0
+      ) {
+        await self.$store.commit(
+          "advanceFund/EDIT_LIST",
+          self.$cookies.get("shoppingList")
+        );
+      }
     },
   },
 };

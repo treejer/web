@@ -12,7 +12,7 @@
   >
     <div class="container-fluid">
       <div class="row">
-        <SidebarCheckout :status="showShoppinglist"  />
+        <SidebarCheckout :status="showShoppinglist" />
 
         <div
           class="col-lg-12 col-12 box-left-treebox"
@@ -125,7 +125,6 @@
 <script>
 import CardAdvanceFund from "@/components/advanceFund/CardAdvanceFund.vue";
 import SidebarCheckout from "@/components/advanceFund/SidebarCheckout.vue";
-// import countries from "@/static/data/countries.min.json";
 export default {
   layout: "dashboard",
   middleware: "auth",
@@ -220,8 +219,8 @@ export default {
   },
 
   created() {
-    this.getTreeModels();
     this.pushCountreisToData();
+    this.localGetTreeModels();
     this.checkItems();
   },
 
@@ -237,53 +236,67 @@ export default {
       this.activeIndexRecepientTreebox = index;
       this.countOfRecepientTreebox = count;
     },
-    getTreeModels() {
+    // getTreeModels() {
+    //   let self = this;
+    //   let search =
+    //     self.advanceFundSearch.length <= 0 ? null : self.advanceFundSearch;
+    //   console.log(search, "search is here");
+
+    //   const url =
+    //     "https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli";
+    //   self.$axios
+    //     .$post(url, {
+    //       query: `
+
+    //      {
+    //         models {
+    //           id
+    //           planter {
+    //             id
+    //           }
+    //           price
+    //           country
+    //           lastFund
+    //           lastPlant
+    //           status
+    //           start
+    //           lastReservePlant
+    //           createdAt
+    //           updatedAt
+    //     }
+    //         }
+    //     `,
+    //     })
+    //     .then((res) => {
+    //       self.models = [];
+
+    //       res.data.models.map((item, index) => {
+    //         // if(item.country === )
+    //         self.models.push(item);
+    //         self.optionsCountries.map((option, index) => {
+    //           if (option.numcode === item.country) {
+    //             item.country = option.name;
+    //           }
+    //         });
+    //       });
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // },
+    localGetTreeModels() {
       let self = this;
-      let search =
-        self.advanceFundSearch.length <= 0 ? null : self.advanceFundSearch;
-      console.log(search, "search is here");
-
-      const url =
-        "https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli";
-      self.$axios
-        .$post(url, {
-          query: `
-
-         {
-            models {
-              id
-              planter {
-                id
-              }
-              price
-              country
-              lastFund
-              lastPlant
-              status
-              start
-              lastReservePlant
-              createdAt
-              updatedAt
-        }
-            }
-        `,
-        })
-        .then((res) => {
-          self.models = [];
-
-          res.data.models.map((item, index) => {
-            // if(item.country === )
-            self.models.push(item);
-            self.optionsCountries.map((option, index) => {
-              if (option.numcode === item.country) {
-                item.country = option.name;
-              }
-            });
-          });
-        })
-        .catch((err) => {
-          console.log(err);
+      var localModels = require("@/static/data/models.js");
+      self.models = [];
+      localModels.default.map((item, index) => {
+        self.models.push(item);
+        self.optionsCountries.map((option, index) => {
+        
+          if (option.numcode === item.country) {
+            item.country = option.name;
+          }
         });
+      });
     },
     pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
@@ -309,29 +322,20 @@ export default {
       );
     },
 
-    checkItems() {
-      console.log(
-        this.$cookies.get("shoppingList"),
-        ' this.$cookies.get("shoppingList")'
-      );
+    async checkItems() {
+      
       let self = this;
       if (
         self.$cookies.get("shoppingList") &&
         self.$store.state.advanceFund.shoppingList.length <= 0
       )
-        self.$store.state.advanceFund.shoppingList =
-          self.$cookies.get("shoppingList");
+        await self.$store.commit("advanceFund/EDIT_LIST",  self.$cookies.get("shoppingList"));
+        await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
 
       console.log(
         self.$store.state.advanceFund.shoppingList,
         "self.listItems.length"
       );
-      // if (this.$cookies.get("shoppingList") && self.listItems.length <= 0) {
-      //   this.$store.dispatch(
-      //     "advanceFund/setListItems",
-      //     this.$cookies.get("shoppingList")
-      //   );
-      // }
     },
 
     // async isApprovedForAll() {

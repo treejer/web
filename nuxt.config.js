@@ -32,10 +32,6 @@ export default {
 
 
     ],
-    script: [{
-      src: 'https://code.responsivevoice.org/responsivevoice.js?key=U26BzgW7',
-      name: 'responsivevoice'
-    }],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', type: 'image/png', href: '/apple-touch-icon.png' },
       { rel: 'icon', sizes: '32x32', type: 'image/png', href: '/favicon-32x32.png' },

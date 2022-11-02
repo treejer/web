@@ -24,7 +24,7 @@
           />
           <span class="param-sm tr-gray-three">
             Price:{{
-              parseFloat($web3.utils.fromWei(item.list.price)).toFixed(2)
+              item.list.price
             }}
             DAI
           </span>

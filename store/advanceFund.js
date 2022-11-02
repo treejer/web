@@ -8,30 +8,30 @@ export const state = () => ({
   shoppingList: [],
   totalPrices: 0,
   totalCounts: 0,
-  sidebarAdvanceFundStatus:false
+  sidebarAdvanceFundStatus: false
 });
 
 export const actions = {
-  setListItems({
+  async setListItems({
     commit,
     state
   }, props) {
-    commit('SET_LIST', {
+    await commit('SET_LIST', {
       list: props.list,
       count: props.count,
       id: props.count + "-" + props.list.id
     })
-    commit('SUM_TOTALL_PRICE_AND_COUNT', props)
-    this.$cookies.set('shoppingList',state.shoppingList)
+    await commit('SUM_TOTALL_PRICE_AND_COUNT')
+    await this.$cookies.set('shoppingList', state.shoppingList)
 
   },
-  removeListItemsShopping({
+  async removeListItemsShopping({
     commit,
     state
   }, props) {
-    commit('REMOVE_LIST', props)
-    commit('SUM_TOTALL_PRICE_AND_COUNT', props)
-    this.$cookies.set('shoppingList',state.shoppingList)
+    await commit('REMOVE_LIST', props)
+    await commit('SUM_TOTALL_PRICE_AND_COUNT')
+    this.$cookies.set('shoppingList', state.shoppingList)
 
   },
   async editCountShoppingList({
@@ -41,7 +41,7 @@ export const actions = {
     let self = this
     console.log(props, "props is here")
     await state.shoppingList.map((item, index) => {
-      console.log( item," item.count , props.count")
+      console.log(item, " item.count , props.count")
 
       if (item.id === props.id) {
         item.count = props.count
@@ -246,6 +246,9 @@ export const mutations = {
   SET_LIST(state, props) {
     state.shoppingList.push(props);
   },
+  EDIT_LIST(state, props) {
+    state.shoppingList = props;
+  },
   REMOVE_LIST(state, props) {
     state.shoppingList.pop(props);
   },
@@ -253,20 +256,42 @@ export const mutations = {
     state.totalPrices = props;
   },
   SUM_TOTALL_PRICE_AND_COUNT(state) {
+    console.log(state, "state is after")
+    var counter = [];
+    var prices = []
+    state.shoppingList.map((item) => {
+      console.log(item, "state.totalCounts")
+
+      counter.push(parseInt(item.count))
+      prices.push({
+        price: parseFloat(this.$web3.utils.fromWei(item.list.price)),
+        count: parseInt(item.count)
+      })
+      console.log(prices, "prices is here")
+
+    });
+    console.log(counter, prices, "Counts prices")
     if (state.shoppingList.length > 1) {
-      state.totalCounts = state.shoppingList.reduce((a, b) => {
-        return Number(a.count) + Number(b.count);
+      state.totalCounts = counter.reduce((a, b) => {
+        return a + b;
       });
-      state.totalPrices = state.shoppingList.reduce((a, b) => {
-        return parseFloat(this.$web3.utils.fromWei(a.list.price)) + parseFloat(this.$web3.utils.fromWei(b.list.price));
+      state.totalPrices = prices.reduce((a, b) => {
+        console.log((a.price * a.count) + (b.price * b.count), "totalPrices")
+        return (a.price * a.count) + (b.price * b.count);
       });
+      console.log(state.totalPrices, "state.totalPrices")
+
     }
     if (state.shoppingList.length <= 1) {
-      state.totalCounts = Number(state.shoppingList[0].count);
-      state.totalPrices = parseFloat(this.$web3.utils.fromWei(state.shoppingList[0].list.price))
+      return (
+        state.totalCounts = Number(state.shoppingList[0].count),
+        state.totalPrices = parseFloat(this.$web3.utils.fromWei(state.shoppingList[0].list.price *state.shoppingList[0].count ))
+      )
+
     };
+    console.log(state, "state")
   },
-  SET_SIDEBAR_ADVANCEFUND(state,props){
-      state.sidebarAdvanceFundStatus = props
+  SET_SIDEBAR_ADVANCEFUND(state, props) {
+    state.sidebarAdvanceFundStatus = props
   }
 };

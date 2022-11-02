@@ -73,12 +73,16 @@
           @click.prevent="counter('odd', fund)"
           >-</span
         >
-        <span v-if="change" class="tr-green" @click.prevent="editListItem(fund)"
-          >&#10003;</span
-        >
       </div>
       <div class="box-right col-lg-2 p-0">
+        <span
+          v-if="change"
+          class="tr-green font-weight-bloder param-18 ml-lg-2 pointer-event"
+          @click.prevent="editListItem(fund)"
+          >&#10003;</span
+        >
         <img
+          v-if="!change"
           @click.prevent="setItemsToShopping(fund, fund.id)"
           src="@/assets/images/advanceFund/shopping.svg"
           alt="shopping"
@@ -194,13 +198,21 @@ export default {
       }
     },
     async editListItem(list) {
-      console.log(list, "list is here");
-      await this.listItems.forEach((item, index) => {
+      let self = this;
+      console.log(self.listItems, "list is here");
+       await self.listItems.map((item, index) => {
         console.log(item, "foreach list item");
         if (item.list.id === list.id) {
-          console.log("contain list ", item);
+          return (item.count = self.localCounts);
         }
       });
+      
+       await self.$store.commit("advanceFund/EDIT_LIST", self.listItems),
+       
+       await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT")
+      
+    
+
     },
   },
 };
