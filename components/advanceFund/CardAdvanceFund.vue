@@ -118,7 +118,6 @@ export default {
     counts: {
       default: 0,
     },
-
     change: {
       default: false,
       type: Boolean,
@@ -132,11 +131,31 @@ export default {
     return {
       activeFund: false,
       localShowCount: this.showCount,
-      localCounts: this.counts,
-      localIndex: this.index,
+      localCounts: this.counts
     };
   },
-  created() {},
+  created() {
+
+    let self = this;
+
+    setTimeout(() => {
+      let isExist = false;
+      let modelOnShppingList = null;
+      self.modelItems.map((item, index) => {
+        if (item.id === self.model.id) {
+          isExist = true;
+          modelOnShppingList = item;
+        }
+      }); 
+
+      if (isExist) {
+        self.localShowCount = true;
+        self.localCounts = modelOnShppingList.count;
+        self.$forceUpdate();
+      }
+    }, 2000);
+
+  },
   computed: {
     modelItems() {
       return this.$store.state.advanceFund.shoppingList;
