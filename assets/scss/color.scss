@@ -4,7 +4,9 @@
 
 .bg-green,.bg-success {
     background-color: #67B68C!important;
+    
 }
+
 
 .tr-red {
     color: #D04F45;
@@ -63,11 +65,12 @@
     color: #FAFAFA;
 }
 
-.btn-green {
+.btn-green ,.btn-green-md {
     border-radius: 6px;
     background-color: #67b68c;
     color: white;
     border: 0;
+    filter: drop-shadow(0px 4px 11px rgba(0, 0, 0, 0.161));
 }
 
 .box-shadow{

@@ -1,7 +1,11 @@
 <template>
   <div class="card-fund" v-if="model">
     <div class="card-img">
-      <img class="img-fluid" :src="$avatarByWallet(model.planter.id)" alt="tree" />
+      <img
+        class="img-fluid"
+        :src="$avatarByWallet(model.planter.id)"
+        alt="tree"
+      />
     </div>
     <div
       :class="activeFund ? 'text-keep' : 'text-break'"
@@ -58,7 +62,7 @@
     <div class="card-footer d-flex">
       <div class="box-left col-lg-10 p-0" v-show="localShowCount">
         <span
-          class="tr-gray-two param-md font-weight-bolder p-2"
+          class="tr-gray-two param-md font-weight-bolder p-2 pointer-event"
           @click.prevent="counter('obb', model)"
           >+</span
         >
@@ -69,7 +73,7 @@
           class="tr-gray-two param-md font-weight-bolder"
         />
         <span
-          class="tr-gray-two param-md font-weight-bolder p-2"
+          class="tr-gray-two param-md font-weight-bolder p-2 pointer-event"
           @click.prevent="counter('odd', model)"
           >-</span
         >
@@ -131,11 +135,12 @@ export default {
     return {
       activeFund: false,
       localShowCount: this.showCount,
-      localCounts: this.counts
+      localCounts: this.counts,
+      loading: false,
     };
   },
+  loading: false,
   created() {
-
     let self = this;
 
     setTimeout(() => {
@@ -146,7 +151,7 @@ export default {
           isExist = true;
           modelOnShppingList = item;
         }
-      }); 
+      });
 
       if (isExist) {
         self.localShowCount = true;
@@ -154,7 +159,6 @@ export default {
         self.$forceUpdate();
       }
     }, 2000);
-
   },
   computed: {
     modelItems() {
@@ -165,6 +169,8 @@ export default {
   methods: {
     setItemsToShopping(model, id) {
       let self = this;
+      self.loading = true;
+
       if (self.localCounts <= 0) {
         self.localShowCount = true;
         self.localCounts++;
@@ -177,6 +183,12 @@ export default {
           model: model,
           count: self.localCounts,
         });
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start();
+          setTimeout(() => this.$nuxt.$loading.finish(), 1000);
+        });
+
+        self.loading = false;
       }
     },
 
@@ -204,17 +216,18 @@ export default {
     },
     async removeListItems(model) {
       let self = this;
-      
-      
+
       if (self.$store.state.advanceFund.shoppingList.length > 0) {
-        await self.$store.dispatch("advanceFund/removeListItemsShopping", model);
+        await self.$store.dispatch(
+          "advanceFund/removeListItemsShopping",
+          model
+        );
 
         if (self.$store.state.advanceFund.shoppingList.length <= 0) {
           await self.$router.push("/forest/advanceFund/");
         }
-
       }
-    }
+    },
   },
 };
 </script>
@@ -223,7 +236,7 @@ export default {
 .card-fund {
   border: solid 1px #bfbfbf;
   border-radius: 6px;
-  box-shadow: 0px -2px 7px rgba(97, 97, 97, 0.25);
+  filter: drop-shadow(0px 4px 11px rgba(0, 0, 0, 0.161));
   .text-break {
     p {
       white-space: nowrap;
@@ -270,7 +283,7 @@ export default {
   }
 }
 .card-fund:hover {
-  box-shadow: 0px -2px 7px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0px 6px 11px rgba(0, 0, 0, 0.161));
   transition: all 0.2s ease;
 }
 </style>

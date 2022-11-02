@@ -1,9 +1,17 @@
 <template>
-  <section class="position-relative pt-5 col-12 checkout-advancefund mb-5 pb-5">
+  <section
+    class="
+      position-relative
+      pt-5
+      checkout-advancefund
+      position-relative
+      col-lg-10 col-12
+    "
+  >
     <div class="container-fluid">
       <div class="row tree-count">
         <!-- {{ $route.params }} -->
-        <div class="box-left col-lg-8">
+        <div class="box-left col-lg-9">
           <div class="row">
             <div
               class="mb-3 col-lg-4 col-12"
@@ -20,15 +28,33 @@
             </div>
           </div>
         </div>
-        <div class="box-right col-lg-4 text-right mt-4">
+        <div class="box-right col-lg-3 text-center mt-4">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
-          <h1 class="tr-gray-two title-md font-weight-bolder">
-            
-            <br />
-            {{ totalPrices + " DAI" }}
-            
-          </h1>
-          <p class="param-md tr-gray-four">{{ "Total Trees: " + totalCounts  }}</p>
+
+          <div class="advance-fund-totall-box bg-yellow-checkout mt-3">
+            <div class="row">
+              <div
+                class="col-6 p-md-0 text-left text-md-center checkout-border"
+              >
+                <p class="param-xl tr-gray-two font-weight-bolder">
+                  {{ totalCounts }}
+                </p>
+                <p class="param tr-gray-four font-weight-bolder mb-0">Tree</p>
+              </div>
+              <div class="col-6 p-md-0 mb-direction">
+                <p class="param-xl text-center tr-gray-two font-weight-bolder">
+                  <span class="param-xl tr-gray-two font-weight-bolder">
+                    $ {{ totalPrices }}
+                  </span>
+                </p>
+                <p
+                  class="param text-center tr-gray-four font-weight-bolder mb-0"
+                >
+                  Total DAI
+                </p>
+              </div>
+            </div>
+          </div>
 
           <div>
             <button
@@ -78,7 +104,7 @@ import transakSDK from "@transak/transak-sdk";
 
 export default {
   components: { CardAdvanceFund },
-  layout: "checkout",
+  layout: "dashboard",
 
   head() {
     return {
@@ -107,7 +133,7 @@ export default {
       daiUSDPrice: 1.01,
       model: null,
       countries: require("~/static/data/countries.min.json"),
-      recipient: null
+      recipient: null,
     };
   },
 
@@ -123,19 +149,17 @@ export default {
     },
   },
 
-  async mounted() {},
+  async mounted() {
+   
+  },
 
   async created() {
-    
     let self = this;
     setTimeout(async () => {
       await self.checkItems();
       await self.setDaiBalance();
       await self.setIsAllowance();
     }, 1000);
-
-    
-
   },
   methods: {
     pushCountreisToData(numcode) {
@@ -157,13 +181,12 @@ export default {
       }
       let self = this;
 
-
       console.log({
         tokenAddress: this.$cookies.get("config").daiTokenAddress,
         spenderContract: this.$cookies.get("config").marketPlaceAddress,
         amount: self.totalPrices,
         context: self,
-      })
+      });
 
       const transaction = await self.$store.dispatch("erc20/approve", {
         tokenAddress: this.$cookies.get("config").daiTokenAddress,
@@ -199,8 +222,7 @@ export default {
         account: this.$cookies.get("account"),
       });
 
-
-      console.log(this.daiBalance)
+      console.log(this.daiBalance);
     },
 
     async setIsAllowance(silent = false) {
@@ -209,8 +231,8 @@ export default {
       }
 
       let allowance = await this.$store.dispatch("erc20/allowance", {
-        tokenAddress: this.$cookies.get('config').daiTokenAddress,
-        spenderContract: this.$cookies.get('config').marketPlaceAddress,
+        tokenAddress: this.$cookies.get("config").daiTokenAddress,
+        spenderContract: this.$cookies.get("config").marketPlaceAddress,
       });
 
       this.isAllowedSpendDai =
@@ -221,89 +243,106 @@ export default {
       }
     },
     async checkNetwork() {
-      let connectedNetwrokID = await this.$web3.eth.net.getId()
-      .then((networkId) => {
-        return networkId;
-      })
-      .catch((err) => {
-        console.log(err.message, "error checkNetwork");
-        return 0;
-      });
+      let connectedNetwrokID = await this.$web3.eth.net
+        .getId()
+        .then((networkId) => {
+          return networkId;
+        })
+        .catch((err) => {
+          console.log(err.message, "error checkNetwork");
+          return 0;
+        });
 
-      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
+      if (
+        connectedNetwrokID ==
+        this.$hex2Dec(this.$cookies.get("activeNetwork").chainId)
+      ) {
         return true;
       }
 
-      this.$bvToast.toast([this.$t('alert.pleaseconnect') + this.$cookies.get('config').chainName.toUpperCase() + " " + this.$t('alert.network')], {
-        toaster: "b-toaster-bottom-left",
-        title: 'Wrong network',
-        variant: 'danger',
-        noAutoHide: true,
-      });
+      this.$bvToast.toast(
+        [
+          this.$t("alert.pleaseconnect") +
+            this.$cookies.get("config").chainName.toUpperCase() +
+            " " +
+            this.$t("alert.network"),
+        ],
+        {
+          toaster: "b-toaster-bottom-left",
+          title: "Wrong network",
+          variant: "danger",
+          noAutoHide: true,
+        }
+      );
       return false;
-
     },
     async fundTree() {
-      if(await this.checkNetwork() === false) {
+      if ((await this.checkNetwork()) === false) {
         return;
       }
 
       if (parseFloat(this.totalPrices) > parseFloat(this.daiBalance)) {
-        this.$bvToast.toast([this.$t('alert.insufficientbalance') + this.totalPrices], {
-          toaster: "b-toaster-bottom-left",
-          title: this.$t('alert.notenoughDAI'),
-          variant: 'danger',
-          noAutoHide: true,
-        });
+        this.$bvToast.toast(
+          [this.$t("alert.insufficientbalance") + this.totalPrices],
+          {
+            toaster: "b-toaster-bottom-left",
+            title: this.$t("alert.notenoughDAI"),
+            variant: "danger",
+            noAutoHide: true,
+          }
+        );
         return;
       }
 
       this.loading = true;
       let self = this;
 
-      if(this.sendAsGiftChecked && this.recipient){
+      if (this.sendAsGiftChecked && this.recipient) {
         try {
-          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
-        } catch(e) {
+          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient);
+        } catch (e) {
           self.$bvToast.toast([e.message], {
-            toaster: 'b-toaster-bottom-left',
-            title: this.$t('alert.invalidrecipient'),
-            variant: 'danger',
-            to: 'genesis/checkout',
-          })
-          console.error('invalid ethereum address', e.message)
+            toaster: "b-toaster-bottom-left",
+            title: this.$t("alert.invalidrecipient"),
+            variant: "danger",
+            to: "genesis/checkout",
+          });
+          console.error("invalid ethereum address", e.message);
           this.loading = false;
           return;
         }
       }
 
+      console.log({
+        models: self.shoppingList,
+        recipient: this.recipient,
+      });
 
-      console.log(
+      this.transferReceipt = await self.$store.dispatch(
+        "advanceFund/fundTree",
         {
           models: self.shoppingList,
           recipient: this.recipient,
         }
-      )
+      );
 
-      this.transferReceipt =  await self.$store.dispatch("advanceFund/fundTree", {
-          models: self.shoppingList,
-          recipient: this.recipient,
-        });
-      
       if (this.transferReceipt !== null) {
-        self.$bvToast.toast(this.$t('alert.yourpaymentwassuccessful'), {
+        self.$bvToast.toast(this.$t("alert.yourpaymentwassuccessful"), {
           toaster: "b-toaster-bottom-left",
-          title: this.$t('alert.treesaddedtoforest'),
+          title: this.$t("alert.treesaddedtoforest"),
           variant: "success",
-          href: `${this.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
-            "account"
-          )}`,
+          href: `${
+            this.$cookies.get("config").explorerUrl
+          }/address/${self.$cookies.get("account")}`,
         });
 
         await self.$store.dispatch("advanceFund/emptyShoppingList");
 
-        this.$router.push(this.localePath(`/forest/advanceFund/success/${this.transferReceipt.transactionHash}`));
-
+        this.$router.push(
+          this.localePath(
+            `/forest/advanceFund/success/${this.transferReceipt.transactionHash}`
+          )
+        );
       }
       this.loading = false;
     },
@@ -364,7 +403,6 @@ export default {
           self.$cookies.get("shoppingList")
         );
         await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
-
       }
     },
   },
@@ -372,5 +410,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 .checkout-advancefund {
+  .advance-fund-totall-box {
+    background: #f0e5c8;
+    border: 1px solid #bdbdbd;
+    box-sizing: border-box;
+    border-radius: 8px;
+    min-height: 96px;
+    padding: 17px 30px;
+    position: relative;
+    text-align: center;
+    .checkout-border {
+      border-right: solid 1px #757575;
+    }
+    .btn-green-md {
+      box-shadow: drop-shadow(0px 4px 11px rgba(0, 0, 0, 0.161));
+    }
+  }
 }
 </style>

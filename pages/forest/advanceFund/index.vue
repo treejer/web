@@ -46,10 +46,10 @@
               ></b-form-select>
             </div> -->
 
-            <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
+            <div class="col-12 position-fixed buy p-0" v-if="listItems.length > 0">
               <nuxt-link
                 :to="localePath('/forest/advanceFund/checkout')"
-                class="btn btn-green"
+                class="btn btn-green w-100"
                 >Buy</nuxt-link
               >
             </div>

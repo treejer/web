@@ -13,23 +13,56 @@
             :src="icon + item.model.planter.id"
             alt="tree"
           />
-          <span class="param-sm tr-gray-three"> Count: {{ item.count }} </span>
-
           <span class="param-sm tr-gray-three">
-            Price:{{
-              parseFloat($web3.utils.fromWei(item.model.price)).toFixed(2)
-            }}
-            DAI
+            Count: <span class="font-weight-bolder">{{ item.count }}</span>
           </span>
 
           <span class="param-sm tr-gray-three">
-            country:{{ item.model.country }}</span
+            Price:
+            <span class="font-weight-bolder"
+              >{{
+                parseFloat($web3.utils.fromWei(item.model.price)).toFixed(2)
+              }}DAI</span
+            >
+          </span>
+
+          <span class="param-sm tr-gray-three">
+            country:
+            <span class="font-weight-bolder">{{
+              item.model.country
+            }}</span></span
           >
         </div>
-        <div class="col-12 text-center py-2">
+        <div class="col-12 text-center">
+          <div class="row mb-3 mt-3">
+            <div class="col-6 p-md-0 text-left text-md-center checkout-border border-right">
+              <p class="param tr-gray-two font-weight-bolder">
+                {{ $store.state.advanceFund.totalCounts }}
+              </p>
+              <p class="param-sm tr-gray-four font-weight-bolder mb-0">Tree</p>
+            </div>
+            <div class="col-6 p-md-0 mb-direction">
+              <p class="param text-center tr-gray-two font-weight-bolder">
+                <span class="param tr-gray-two font-weight-bolder">
+                  $ {{ $store.state.advanceFund.totalPrices }}
+                </span>
+              </p>
+              <p
+                class="
+                  param-sm
+                  text-center
+                  tr-gray-four
+                  font-weight-bolder
+                  mb-0
+                "
+              >
+                Total DAI
+              </p>
+            </div>
+          </div>
           <nuxt-link
             :to="localePath('/forest/advanceFund/checkout')"
-            class="btn btn-green param-sm tr-white buy-btn-advance-fund"
+            class="btn btn-green w-100 param-sm tr-white buy-btn-advance-fund"
           >
             Buy
           </nuxt-link>
@@ -95,6 +128,7 @@ export default {
   position: absolute;
   right: 0;
   top: 35px;
+  min-width: 300px;
   border-radius: 12px;
   border: solid 2px whitesmoke;
   > .row {
@@ -106,8 +140,14 @@ export default {
     width: 30px;
   }
   .shopping-list {
-    padding: 25px;
+    padding: 25px 5px;
+    text-align: center;
+
     border-bottom: solid 1px whitesmoke;
+    .param-sm.tr-gray-three,.border-right{
+      padding-right: 10px;
+      border-right: solid 1px whitesmoke;
+    }
     img {
       border-radius: 16px;
       border: solid 1px white;
