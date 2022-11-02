@@ -28,17 +28,6 @@ export const actions = {
     await commit("EMPTY_LIST");
     this.$cookies.set("shoppingList", []);
   },
-  async editCountShoppingList({ commit, state }, props) {
-    let self = this;
-    console.log(props, "props is here");
-    await state.shoppingList.map((item, index) => {
-      console.log(item, " item.count , props.count");
-
-      if (item.id === props.id) {
-        item.count = props.count;
-      }
-    });
-  },
 
   async fundTree(context, params) {
     let self = this;

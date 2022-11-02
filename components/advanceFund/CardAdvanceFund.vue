@@ -78,7 +78,7 @@
         <span
           v-if="change"
           class="tr-green font-weight-bloder param-18 ml-lg-2 pointer-event"
-          @click.prevent="editListItem(model)"
+          @click.prevent="setItemsToShopping(model, model.id)"
           >&#10003;</span
         >
         <img
@@ -118,6 +118,7 @@ export default {
     counts: {
       default: 0,
     },
+
     change: {
       default: false,
       type: Boolean,
@@ -194,24 +195,7 @@ export default {
         }
 
       }
-    },
-    async editListItem(model) {
-      let self = this;
-      console.log(self.modelItems, "model is here");
-       await self.modelItems.map((item, index) => {
-        console.log(item, "foreach model item");
-        if (item.model.id === model.id) {
-          return (item.count = self.localCounts);
-        }
-      });
-      
-       await self.$store.commit("advanceFund/EDIT_LIST", self.modelItems),
-       
-       await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT")
-      
-    
-
-    },
+    }
   },
 };
 </script>
