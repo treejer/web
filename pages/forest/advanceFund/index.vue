@@ -37,14 +37,14 @@
               ></b-form-select>
             </div>
 
-            <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
+            <!-- <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
               {{ $t("advanceFund.filter.species") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
                 v-model="selectedSpiece"
                 :options="optionsSpieces"
               ></b-form-select>
-            </div>
+            </div> -->
 
             <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
               <nuxt-link
@@ -170,7 +170,13 @@ export default {
         { value: "b", text: "Please select an option" },
       ],
       optionsCountries: [{ value: null, text: "Please select an country" }],
-      optionsPrices: [{ value: null, text: "Please select an price" }],
+      optionsPrices: [
+        { value: null, text: "Please select an price" },
+        { value: "less5", text: "Less than 5" },
+        { value: "less10", text: "Less than 10" },
+        { value: "less20", text: "Less than 20" },
+        
+      ],
       models: [],
       countries: require("~/static/data/countries.min.json"),
       showShoppinglist: false,
@@ -181,6 +187,17 @@ export default {
   computed: {
     listItems() {
       return this.$store.state.advanceFund.shoppingList;
+    },
+  },
+  watch: {
+    selectedCountry: function (val) {
+      this.getTreeModels();
+    },
+    selectedSpiece: function (val) {
+      this.getTreeModels();
+    },
+    selectedPrice: function (val) {
+      this.getTreeModels();
     },
   },
 
@@ -209,10 +226,37 @@ export default {
     async getTreeModels() {
       let self = this;
 
+
+      let whereQuery = "";
+      if (this.selectedCountry) {
+        whereQuery += `country: ${this.selectedCountry}`;
+      }
+
+      if (this.selectedSpiece) {
+        whereQuery += `${whereQuery ? ',': ''} species: ${this.selectedSpiece}`;
+      }
+
+      if (this.selectedPrice) {
+        if(this.selectedPrice == "less5"){
+          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("5", "ether")}"`;
+        }else if(this.selectedPrice == "less10"){
+          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("10", "ether")}"`;
+        } else if(this.selectedPrice == "less20"){
+          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("20", "ether")}"`;
+        }
+      }
+
+      if (whereQuery != "") {
+        whereQuery = `{${whereQuery}}`;
+      }
+
+
       await self.$axios
         .$post(this.$cookies.get("config").graphqlUrl, {
           query: `{
-                  models(first: 9) {
+                  models(first: 9 ${
+                      whereQuery ? `,where: ${whereQuery}` : ""
+                    }) {
                     id
                     planter {
                       id
@@ -250,7 +294,7 @@ export default {
     async pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
         this.optionsCountries.push({
-          value: item.id,
+          value: item.numcode,
           iso: item.iso,
           iso3: item.iso3,
           name: item.name,
