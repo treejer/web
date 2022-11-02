@@ -48,19 +48,33 @@ export default {
           key: "polygon",
           blockExplorerUrls: ["https://explorer.matic.network/"],
         },
+        // {
+        //   name: "Rinkeby Testnet",
+        //   logo: require("~/assets/images/wallets/rinkeby.svg"),
+        //   chainId: "0x4",
+        //   chainName: "rinkeby",
+        //   rpcUrls: ["https://rinkeby.infura.io/v3/" + process.env.infuraID],
+        //   nativeCurrency: {
+        //     nativeCurrencyname: "ETH",
+        //     symbol: "ETH",
+        //     decimals: 18,
+        //   },
+        //   key: "rinkeby",
+        //   blockExplorerUrls: ["https://rinkeby.etherscan.io"],
+        // },
         {
-          name: "Rinkeby Testnet",
-          logo: require("~/assets/images/wallets/rinkeby.svg"),
-          chainId: "0x4",
-          chainName: "rinkeby",
-          rpcUrls: ["https://rinkeby.infura.io/v3/" + process.env.infuraID],
+          name: "Goerli Testnet",
+          logo: require("~/assets/images/wallets/goerli.svg"),
+          chainId: "0x5",
+          chainName: "goerli",
+          rpcUrls: ["https://goerli.infura.io/v3/" + process.env.infuraID],
           nativeCurrency: {
-            nativeCurrencyname: "ETH",
-            symbol: "ETH",
+            nativeCurrencyname: "GETH",
+            symbol: "GETH",
             decimals: 18,
           },
-          key: "rinkeby",
-          blockExplorerUrls: ["https://rinkeby.etherscan.io"],
+          key: "goerli",
+          blockExplorerUrls: ["https://goerli.etherscan.io"],
         },
         {
           name: "Polygon Test Mainnet",
@@ -215,7 +229,10 @@ export default {
         this.$cookies.set("config", process.env.polygont);
       } else if (item.key == "rinkeby") {
         this.$cookies.set("config", process.env.rinkeby);
+      } else if (item.key == "goerli") {
+        this.$cookies.set("config", process.env.goerli);
       }
+      
     },
   },
 };

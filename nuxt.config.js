@@ -159,6 +159,43 @@ export default {
       gsnRelayRegistrationLookupBlocks:process.env.RINKEBY_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
       gsnPastEventQueryMaxPageSize:process.env.RINKEBY_GSN_PASTEVENTSQUERYMAXPAGESIZE,
     },
+
+    goerli: {
+      apiUrl: process.env.GOERLI_API_URL || 'https://lbapi.treejer.com',
+      explorerUrl: process.env.GOERLI_EXPLORER_URL,
+      graphqlUrl: process.env.GOERLI_GRAPHQL_URL,
+      networkName: process.env.GOERLI_NETWORK_NAME,
+      networkId: process.env.GOERLI_NETWORK_ID,
+      web3SProvider: process.env.GOERLI_WEB3_SOCKET_PROVIDER,
+      web3Provider: process.env.GOERLI_WEB3_PROVIDER,
+
+      transakApiKey: process.env.GOERLI_TRANSAK_API_KEY,
+      transakEnvironment: process.env.GOERLI_TRANSAK_ENV,
+      transakNetworks: process.env.GOERLI_TRANSAK_NETWROKS,
+      transakDefaultNetwork: process.env.GOERLI_TRANSAK_DEFAULT_NETWROK,
+
+      contractAuctionAddress: process.env.GOERLI_CONTRACT_TREE_AUCTION_ADDRESS,
+      contractIncrementalSale: process.env.GOERLI_CONTRACT_INCREMENTAL_SELL_ADDRESS,
+      contractTreeRegularSale: process.env.GOERLI_CONTRACT_REGULAR_SELL_ADDRESS,
+      contractHonoraryTree: process.env.GOERLI_CONTRACT_COMMUNITY_GIFTS_ADDRESS,
+      treeAddress: process.env.GOERLI_CONTRACT_TREE_ADDRESS,
+      treeboxContractAddress: process.env.GOERLI_CONTRACT_TREE_BOX_ADDRESS,
+      treeboxPaymasterContractAddress: process.env.GOERLI_CONTRACT_PAYMASTER_TREE_BOX,
+      fundWithOffsetContractAddress: process.env.GOERLI_CONTRACT_FUNDWITHOFFSET_ADDRESS,
+      uniswapV2Router02ContractAddress: process.env.GOERLI_DEX_ROUTER_UNISWAP_V2,
+      daiTokenAddress: process.env.GOERLI_DAI_TOKEN_ADDRESS_GOERLI,
+      bctTokenAddress: process.env.GOERLI_CONTRACT_BASECARBONTONNE_ADDRESS,
+      carbonRetirementsStorageContractAddress: process.env.GOERLI_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
+      carbonRetirementAggregatorContractAddress: process.env.GOERLI_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
+      wethTokenAddress: process.env.GOERLI_WETH_TOKEN_ADDRESS_GOERLI,
+
+      offsetDexPath: process.env.GOERLI_OFFSET_DEX_PATH,
+
+      gsnRelayUrl:process.env.GOERLI_GSN_RELAY_URL,
+      gsnRelayLookupWindowBlocks:process.env.GOERLI_GSN_RELAYLOOKUPWINDOWBLOCKS,
+      gsnRelayRegistrationLookupBlocks:process.env.GOERLI_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
+      gsnPastEventQueryMaxPageSize:process.env.GOERLI_GSN_PASTEVENTSQUERYMAXPAGESIZE,
+    },
     
   },
 
@@ -370,6 +407,9 @@ export default {
       },
       rinkeby: {
         httpEndpoint: process.env.RINKEBY_GRAPHQL_URL
+      },
+      goerli: {
+        httpEndpoint: process.env.GOERLI_GRAPHQL_URL
       }
     }
   },
