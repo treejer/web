@@ -293,7 +293,7 @@ export default {
   sidebar: {
     myforest: "My Forest",
     treebox: "Treebox",
-    advanceFund: "Advance Fund",
+    advanceFund: "Marketplace",
     invite: "Invite",
     leaderboard: "Leaderboard ",
     activity: "Activity ",
