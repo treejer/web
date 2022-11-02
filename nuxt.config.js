@@ -230,7 +230,6 @@ export default {
    */
   plugins: [
     { src: '~plugins/setConfig.js' },
-    { src: '~plugins/swiper.js', ssr: false },
     { src: '~plugins/typer.js', ssr: false },
     { src: '~plugins/maps.js', ssr: false },
     { src: '~plugins/vueFormulate.js', ssr: false },
@@ -509,6 +508,8 @@ export default {
     babel: {
       compact: true,
     },
+
+    postcss: null,
 
 
     /*

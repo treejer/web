@@ -149,7 +149,6 @@ export default {
         self.localShowCount = true;
         self.localCounts++;
       } else {
-        console.log("setItemsToShopping", model);
         model.addedToshoppingList = {
           status: true,
           key: id,

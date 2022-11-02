@@ -84,7 +84,6 @@ export default {
   },
   created() {
     let self = this;
-    console.log(self.show, "self.show");
   },
 };
 </script>

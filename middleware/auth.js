@@ -2,7 +2,6 @@ import {BToast} from 'bootstrap-vue'
 
 
 export default function ({app,store,redirect}) {
-  console.log(app,"this is here")
   // If the user is not authenticated
   if (!store.$cookies.get('account')) {
     const toast =new BToast()
