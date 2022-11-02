@@ -124,9 +124,10 @@
           <img
             :src="
               $store.state.index === 5
-                ? require('~/assets/images/treebox/treeboxs-active.svg')
-                : require('~/assets/images/treebox/treebox.svg')
+                ? require('~/assets/images/advanceFund/advanceFund.svg')
+                : require('~/assets/images/advanceFund/advanceFund.svg')
             "
+            width="32"
             alt=""
           />
           <p>{{ $t("sidebar.advanceFund") }}</p>
