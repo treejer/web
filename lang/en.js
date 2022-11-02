@@ -334,10 +334,12 @@ export default {
   advanceFund: {
     title: "Advance Fund",
     description: "In Treejer, you can buy your desired tree in selected cities from different people and put it on auction.",
-    country: "Choice your Country",
     soon: "SOON",
-    price: "Choice your price ",
-    spieces: "Choice your spiece",
+    filter: {
+      country: "Country",
+      price: "Price",
+      species: "Species",
+    },
     message: "Trees",
     write: "Write your message here...",
     generate: "Generate Wallets",
@@ -358,9 +360,9 @@ export default {
     thebox: ' The box you are looking for is not found.',
     loadingtreeBox: 'Loading TreeBox',
     meta: {
-      title: "Treejer | Create TreeBox",
-      description: 'Create TreeBox and gift them',
-      keywords: "treejer,tree,NFTTree,treeNFT,treebox, create treebox",
+      title: "Treejer | Advance Fund",
+      description: 'Advance Fund',
+      keywords: "treejer,tree,NFTTree,treeNFT,advance fund,marketplace",
     },
   },
   invite: {

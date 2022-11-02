@@ -82,6 +82,8 @@ export default {
       wethTokenAddress: process.env.POLYGON_WETH_TOKEN_ADDRESS_RINKEBY,
       offsetDexPath: process.env.POLYGON_OFFSET_DEX_PATH,
 
+      marketPlaceAddress: process.env.POLYGON_CONTRACT_MARKET_PLACE_ADDRESS,
+
       gsnRelayUrl:process.env.POLYGON_GSN_RELAY_URL,
       gsnRelayLookupWindowBlocks:process.env.POLYGON_GSN_RELAYLOOKUPWINDOWBLOCKS,
       gsnRelayRegistrationLookupBlocks:process.env.POLYGON_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
@@ -118,6 +120,8 @@ export default {
       wethTokenAddress: process.env.POLYGONT_WETH_TOKEN_ADDRESS_RINKEBY,
       offsetDexPath: process.env.POLYGONT_OFFSET_DEX_PATH,
 
+      marketPlaceAddress: process.env.POLYGONT_CONTRACT_MARKET_PLACE_ADDRESS,
+
       gsnRelayUrl:process.env.POLYGONT_GSN_RELAY_URL,
       gsnRelayLookupWindowBlocks:process.env.POLYGONT_GSN_RELAYLOOKUPWINDOWBLOCKS,
       gsnRelayRegistrationLookupBlocks:process.env.POLYGONT_GSN_RELAYREGISTRATIONLOOKUPBLOCKS,
@@ -151,6 +155,8 @@ export default {
       carbonRetirementsStorageContractAddress: process.env.RINKEBY_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
       carbonRetirementAggregatorContractAddress: process.env.RINKEBY_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
       wethTokenAddress: process.env.RINKEBY_WETH_TOKEN_ADDRESS_RINKEBY,
+
+      marketPlaceAddress: process.env.RINKEBY_CONTRACT_MARKET_PLACE_ADDRESS,
 
       offsetDexPath: process.env.RINKEBY_OFFSET_DEX_PATH,
 
@@ -188,6 +194,8 @@ export default {
       carbonRetirementsStorageContractAddress: process.env.GOERLI_CONTRACT_CARBONRETIREMENTSSTORAGE_ADDRESS,
       carbonRetirementAggregatorContractAddress: process.env.GOERLI_CONTRACT_CARBONRETIREMENTAGGREGATOR_ADDRESS,
       wethTokenAddress: process.env.GOERLI_WETH_TOKEN_ADDRESS_GOERLI,
+
+      marketPlaceAddress: process.env.GOERLI_CONTRACT_MARKET_PLACE_ADDRESS,
 
       offsetDexPath: process.env.GOERLI_OFFSET_DEX_PATH,
 

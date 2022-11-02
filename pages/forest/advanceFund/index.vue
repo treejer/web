@@ -1,14 +1,6 @@
 <template>
   <section
-    class="
-      position-relative
-      pt-5
-      col-lg-10 col-12
-      advance-fund
-      mb-5
-      pb-5
-      slide-left
-    "
+    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5 slide-left"
   >
     <div class="container-fluid">
       <div class="row">
@@ -28,33 +20,8 @@
             >
           </p>
           <div class="sort-advanceFund">
-            <div
-              class="
-                search-advancefund
-                param-18
-                tr-gray-two tr-margin-top
-                col-lg-3 col-12
-              "
-              id="search"
-            >
-              <b-form-input
-                :placeholder="$t('forest.entertreeID')"
-                class="search tr-gray-two param"
-                v-model="advanceFundSearch"
-                type="text"
-                @keyup.enter="getTreeModels()"
-              ></b-form-input>
-              <span class="search pointer-event"
-                ><img
-                  class="pointer-event"
-                  @click.prevent="getTreeModels()"
-                  :src="searchIcon"
-                  alt="search-icon"
-                />
-              </span>
-            </div>
             <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
-              {{ $t("advanceFund.country") }}
+              {{ $t("advanceFund.filter.country") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
                 v-model="selectedCountry"
@@ -62,7 +29,7 @@
               ></b-form-select>
             </div>
             <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
-              {{ $t("advanceFund.price") }}
+              {{ $t("advanceFund.filter.price") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
                 v-model="selectedPrice"
@@ -71,7 +38,7 @@
             </div>
 
             <div class="param-18 tr-gray-two tr-margin-top col-lg-3 col-12">
-              {{ $t("advanceFund.spieces") }}
+              {{ $t("advanceFund.filter.species") }}
               <b-form-select
                 class="city-selected tr-gray-two param"
                 v-model="selectedSpiece"
@@ -81,7 +48,7 @@
 
             <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
               <nuxt-link
-                 :to="localePath('/forest/advanceFund/checkout')"
+                :to="localePath('/forest/advanceFund/checkout')"
                 class="btn btn-green"
                 >Buy</nuxt-link
               >
@@ -109,10 +76,10 @@
 
             <div
               class="col-lg-4 col-12 pointer-event mb-4"
-              v-for="(item, index) in models"
+              v-for="(model, index) in models"
               :key="index"
             >
-              <CardAdvanceFund :mainPage="true" :fund="item" />
+              <CardAdvanceFund :mainPage="true" :model="model" />
             </div>
           </div>
         </div>
@@ -171,9 +138,9 @@ export default {
     return {
       baseUrl: process.env.baseUrl,
       meta: {
-        title: this.$t("treebox.meta.title"),
-        description: this.$t("treebox.meta.description"),
-        keywords: this.$t("treebox.meta.keywords"),
+        title: this.$t("advanceFund.meta.title"),
+        description: this.$t("advanceFund.meta.description"),
+        keywords: this.$t("advanceFund.meta.keywords"),
       },
       searchIcon: require("~/assets/images/search.svg"),
       advanceFundSearch: "",
@@ -217,10 +184,14 @@ export default {
     },
   },
 
-  created() {
-    this.pushCountreisToData();
-    this.localGetTreeModels();
-    this.checkItems();
+  async created() {
+    await this.pushCountreisToData();
+    await this.getTreeModels();
+
+    let self = this;
+    setTimeout(() => {
+      self.checkItems();
+    }, 1000);
   },
 
   methods: {
@@ -235,68 +206,48 @@ export default {
       this.activeIndexRecepientTreebox = index;
       this.countOfRecepientTreebox = count;
     },
-    // getTreeModels() {
-    //   let self = this;
-    //   let search =
-    //     self.advanceFundSearch.length <= 0 ? null : self.advanceFundSearch;
-    //   console.log(search, "search is here");
-
-    //   const url =
-    //     "https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli";
-    //   self.$axios
-    //     .$post(url, {
-    //       query: `
-
-    //      {
-    //         models {
-    //           id
-    //           planter {
-    //             id
-    //           }
-    //           price
-    //           country
-    //           lastFund
-    //           lastPlant
-    //           status
-    //           start
-    //           lastReservePlant
-    //           createdAt
-    //           updatedAt
-    //     }
-    //         }
-    //     `,
-    //     })
-    //     .then((res) => {
-    //       self.models = [];
-
-    //       res.data.models.map((item, index) => {
-    //         // if(item.country === )
-    //         self.models.push(item);
-    //         self.optionsCountries.map((option, index) => {
-    //           if (option.numcode === item.country) {
-    //             item.country = option.name;
-    //           }
-    //         });
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
-    localGetTreeModels() {
+    async getTreeModels() {
       let self = this;
-      var localModels = require("@/static/data/models.js");
-      self.models = [];
-      localModels.default.map((item, index) => {
-        self.models.push(item);
-        self.optionsCountries.map((option, index) => {
-          if (option.numcode === item.country) {
-            item.country = option.name;
-          }
+
+      await self.$axios
+        .$post(this.$cookies.get("config").graphqlUrl, {
+          query: `{
+                  models(first: 9) {
+                    id
+                    planter {
+                      id
+                    }
+                    price
+                    country
+                    lastFund
+                    lastPlant
+                    status
+                    start
+                    lastReservePlant
+                    createdAt
+                    updatedAt
+              }
+                  }`,
+          prefetch: false,
+        })
+        .then((res) => {
+          self.models = [];
+
+          res.data.models.map((item, index) => {
+            self.models.push(item);
+            self.optionsCountries.map((option, index) => {
+              if (option.numcode === item.country) {
+                item.country = option.name;
+              }
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      });
     },
-    pushCountreisToData(numcode) {
+
+    async pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
         this.optionsCountries.push({
           value: item.id,
@@ -325,407 +276,19 @@ export default {
       if (
         self.$cookies.get("shoppingList") &&
         self.$store.state.advanceFund.shoppingList.length <= 0
-      )
+      ) {
         await self.$store.commit(
           "advanceFund/EDIT_LIST",
           self.$cookies.get("shoppingList")
         );
-      await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
+        await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
 
-      console.log(
-        self.$store.state.advanceFund.shoppingList,
-        "self.listItems.length"
-      );
+        console.log(
+          self.$store.state.advanceFund.shoppingList,
+          "self.listItems.length"
+        );
+      }
     },
-
-    // async isApprovedForAll() {
-    //   this.approved = await this.$store.dispatch("tree/isApprovedForAll", {
-    //     owner: this.$cookies.get("account"),
-    //     operator: this.$TreeBox._address,
-    //   });
-    // },
-
-    // async createTreebox() {
-    //   this.loadingCreate = true;
-
-    //   if (!this.checkLogin()) {
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   if ((await this.checkNetwork()) === false) {
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   await this.isApprovedForAll();
-    //   if (this.approved === false) {
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   if (this.countOfRecepient <= 0 || this.countOfRecepientTreebox <= 0) {
-    //     this.$bvToast.toast(this.$t("alert.tryagain"), {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: this.$t("alert.error"),
-    //       variant: "danger",
-    //       noAutoHide: true,
-    //     });
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   if (this.owner === null) {
-    //     this.$bvToast.toast(this.$t("alert.youdonthaveanytree"), {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: this.$t("alert.treesareempty"),
-    //       variant: "danger",
-    //       noAutoHide: true,
-    //     });
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   if (this.ownerTrees.length < Number(this.owner.regularTreeCount)) {
-    //     await this.getOwnerTrees();
-    //   }
-
-    //   let totalTreesCount = Number(
-    //     this.countOfRecepient * this.countOfRecepientTreebox
-    //   );
-    //   if (
-    //     this.owner.regularTreeCount < totalTreesCount ||
-    //     this.ownerTrees.length < totalTreesCount
-    //   ) {
-    //     this.$bvToast.toast(
-    //       `${this.$t("alert.regulartrees")} ${
-    //         this.owner.regularTreeCount
-    //       } ${this.$t("alert.less")} ${totalTreesCount} `,
-    //       {
-    //         toaster: "b-toaster-bottom-left",
-    //         title: this.$t("alert.treesarenotenough"),
-    //         solid: true,
-    //         headerClass: "hide",
-    //         variant: "danger",
-    //       }
-    //     );
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   if (this.message !== null && this.message.length > 0) {
-    //     await this.uploadContentToIPFS(
-    //       JSON.stringify({
-    //         message: this.message,
-    //       })
-    //     );
-
-    //     if (
-    //       this.messageIPFSHash.length === 0 ||
-    //       this.messageIPFSHash === null
-    //     ) {
-    //       this.loadingCreate = false;
-    //       return;
-    //     }
-    //   } else {
-    //     if (!confirm(this.$t("alert.treeboxmessageisempty"))) {
-    //       this.loadingCreate = false;
-    //       return;
-    //     }
-    //   }
-
-    //   if (!confirm(this.$t("alert.remembertodownload"))) {
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   await this.generateWallets();
-    //   if (Number(this.wallets.length) !== Number(this.countOfRecepient)) {
-    //     this.$bvToast.toast(["Refresh page and Try again!"], {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: "Wallets are not enough",
-    //       variant: "danger",
-    //       noAutoHide: true,
-    //     });
-
-    //     this.loadingCreate = false;
-    //     return;
-    //   }
-
-    //   await this.assignTrees();
-    //   let inputs = [];
-    //   for (let i = 0; i < this.wallets.length; i++) {
-    //     if (
-    //       this.wallets[i].treeIds.length !==
-    //       Number(this.countOfRecepientTreebox)
-    //     ) {
-    //       this.$bvToast.toast(["Refresh page and Try again!"], {
-    //         toaster: "b-toaster-bottom-left",
-    //         title: "Wallets trees are not enough",
-    //         variant: "danger",
-    //         noAutoHide: true,
-    //       });
-
-    //       this.loadingCreate = false;
-    //       return;
-    //     }
-
-    //     inputs.push({
-    //       recipient: this.wallets[i].address,
-    //       treeIds: this.wallets[i].treeIds,
-    //       ipfsHash: this.messageIPFSHash,
-    //     });
-    //   }
-
-    //   let res = await this.$store.dispatch("treebox/create", {
-    //     inputs: inputs,
-    //   });
-    //   if (res !== null) {
-    //     this.$bvToast.toast(this.$t("alert.treeboxessuccessfully"), {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: this.$t("alert.successfullycreated"),
-    //       variant: "success",
-    //       href: `${this.$cookies.get("config").explorerUrl}/tx/${
-    //         res.transactionHash
-    //       }`,
-    //     });
-
-    //     this.treeboxCreated = true;
-
-    //     await this.downloadCSVData(res.transactionHash);
-    //   }
-    //   this.loadingCreate = false;
-    // },
-    // async uploadContentToIPFS(content) {
-    //   let self = this;
-
-    //   const formData = new FormData();
-
-    //   formData.append("file", content);
-
-    //   await this.$axios
-    //     .$post(process.env.ipfsPostUrl, formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     })
-    //     .then((response) => {
-    //       self.messageIPFSHash = response.Hash;
-    //     })
-    //     .catch((error) => {
-    //       console.log(error, "error");
-    //     });
-    // },
-
-    // async setApprovalForAll() {
-    //   this.loadingApprove = true;
-
-    //   if (!this.checkLogin()) {
-    //     this.loadingApprove = false;
-    //     return;
-    //   }
-
-    //   if ((await this.checkNetwork()) === false) {
-    //     this.loadingApprove = false;
-    //     return;
-    //   }
-
-    //   await this.isApprovedForAll();
-    //   if (this.approved) {
-    //     this.loadingApprove = false;
-    //     return;
-    //   }
-
-    //   this.transferReceipt = await this.$store.dispatch(
-    //     "tree/setApprovalForAll",
-    //     {
-    //       operator: this.$TreeBox._address,
-    //       approved: true,
-    //     }
-    //   );
-    //   if (this.transferReceipt !== null) {
-    //     this.$bvToast.toast(this.$t("alert.approvedall"), {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: this.$t("alert.approvaltransactionsuccessful"),
-    //       variant: "success",
-    //       href: `${this.$cookies.get("config").explorerUrl}/tx/${
-    //         this.transferReceipt.transactionHash
-    //       }`,
-    //     });
-    //     this.approved = true;
-    //   }
-    //   this.loadingApprove = false;
-    // },
-    // checkLogin() {
-    //   if (this.$cookies.get("account")) {
-    //     return true;
-    //   }
-
-    //   this.$bvToast.toast(this.$t("alert.notlogin"), {
-    //     toaster: "b-toaster-bottom-left",
-    //     solid: true,
-    //     headerClass: "hide",
-    //     variant: "danger",
-    //   });
-    //   this.$bvModal.show("five");
-    //   return false;
-    // },
-
-    // async checkNetwork() {
-    //   let connectedNetwrokID = await this.$web3.eth.net
-    //     .getId()
-    //     .then((networkId) => {
-    //       return networkId;
-    //     })
-    //     .catch((err) => {
-    //       console.log(err.message, "error checkNetwork");
-    //       return 0;
-    //     });
-
-    //   if (
-    //     connectedNetwrokID ==
-    //     this.$hex2Dec(this.$cookies.get("activeNetwork").chainId)
-    //   ) {
-    //     return true;
-    //   }
-
-    //   this.$bvToast.toast(
-    //     [
-    //       this.$t("alert.pleaseconnect") +
-    //         this.$cookies.get("activeNetwork").chainName.toUpperCase() +
-    //         " " +
-    //         this.$t("alert.network"),
-    //     ],
-    //     {
-    //       toaster: "b-toaster-bottom-left",
-    //       title: "Wrong network",
-    //       variant: "danger",
-    //       noAutoHide: true,
-    //     }
-    //   );
-    //   return false;
-    // },
-    // async generateWallets() {
-    //   let totalTreesCount = Number(
-    //     this.countOfRecepient * this.countOfRecepientTreebox
-    //   );
-
-    //   if (
-    //     this.owner.regularTreeCount < totalTreesCount ||
-    //     this.ownerTrees.length < totalTreesCount
-    //   ) {
-    //     this.$bvToast.toast(
-    //       `${this.$t("alert.regulartrees")} ${
-    //         this.owner.regularTreeCount
-    //       } ${this.$t("alert.less")} ${totalTreesCount} `,
-    //       {
-    //         toaster: "b-toaster-bottom-left",
-    //         title: this.$t("alert.treesarenotenough"),
-    //         solid: true,
-    //         headerClass: "hide",
-    //         variant: "danger",
-    //       }
-    //     );
-    //     return;
-    //   }
-
-    //   if (this.wallets.length === 0) {
-    //     this.wallets = [];
-    //     let wallets = [];
-    //     wallets = this.$web3.eth.accounts.wallet.create(
-    //       Number(this.countOfRecepient),
-    //       []
-    //     );
-
-    //     for (let i = 0; i < Number(this.countOfRecepient); i++) {
-    //       this.wallets.push(wallets[i]);
-    //     }
-    //   }
-    // },
-    // async assignTrees() {
-    //   for (let i = 0; i < Number(this.countOfRecepient); i++) {
-    //     this.wallets[i].treeIds = [];
-    //     for (let j = 0; j < Number(this.countOfRecepientTreebox); j++) {
-    //       this.wallets[i].treeIds.push(
-    //         this.$hex2Dec(
-    //           this.ownerTrees[i * Number(this.countOfRecepientTreebox) + j].id
-    //         )
-    //       );
-    //     }
-    //   }
-    // },
-    // async assignTreeOptionChanged() {
-    //   this.ownerTrees = [];
-    //   await this.getOwnerTrees();
-    //   await this.assignTrees();
-    //   this.$forceUpdate();
-    // },
-    // async getOwnerTrees() {
-    //   let first = Number(this.countOfRecepient * this.countOfRecepientTreebox);
-    //   let skip = 0;
-
-    //   let self = this;
-
-    //   let account = this.$cookies.get("account")
-    //     ? this.$cookies.get("account").toLowerCase()
-    //     : "guest";
-
-    //   //soldType: 4,
-    //   await self.$axios
-    //     .$post(this.$cookies.get("config").graphqlUrl, {
-    //       query: `{
-    //                 trees(first: ${first}, skip: ${skip}, where:
-    //                 {
-    //                   owner: "${account}"
-    //                 },
-    //                 orderBy: "createdAt",
-    //                 orderDirection: "${this.assignTreeOption}")
-    //                   {
-    //                       id
-    //                       createdAt
-    //                   }
-    //               }`,
-    //       prefetch: false,
-    //     })
-    //     .then((treesRes) => {
-    //       if (treesRes.data.trees && treesRes.data.trees.length > 0) {
-    //         let trees = treesRes.data.trees;
-    //         // self.ownerTrees.push(...trees);
-    //         self.ownerTrees = trees;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-
-    //   //filter only reqularTrees
-    //   self.ownerTrees = self.ownerTrees.filter(
-    //     (tree) => self.$hex2Dec(tree.id) > 10000
-    //   );
-    // },
-    // async downloadCSVData(hash = "") {
-    //   let csv = "Link\n";
-    //   this.wallets.forEach((row) => {
-    //     csv += `${process.env.baseUrl}/treebox/${row.address}?privateKey=${
-    //       row.privateKey
-    //     }&treeIds=${row.treeIds.join("-")}`;
-    //     // csv += row.join(',');
-    //     csv += "\n";
-    //   });
-
-    //   const anchor = document.createElement("a");
-    //   anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
-    //   anchor.target = "_blank";
-    //   anchor.download =
-    //     "treejer-tree-boxes-" +
-    //     this.countOfRecepient +
-    //     "-" +
-    //     this.countOfRecepientTreebox +
-    //     "-" +
-    //     hash.substring(0, 10) +
-    //     ".csv";
-    //   anchor.click();
-    // },
   },
 };
 </script>

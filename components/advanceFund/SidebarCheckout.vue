@@ -10,20 +10,20 @@
           <img
             class="img-fluid"
             width="25"
-            :src="icon + item.list.planter.id"
+            :src="icon + item.model.planter.id"
             alt="tree"
           />
           <span class="param-sm tr-gray-three"> Count: {{ item.count }} </span>
 
           <span class="param-sm tr-gray-three">
             Price:{{
-              parseFloat($web3.utils.fromWei(item.list.price)).toFixed(2)
+              parseFloat($web3.utils.fromWei(item.model.price)).toFixed(2)
             }}
             DAI
           </span>
 
           <span class="param-sm tr-gray-three">
-            country:{{ item.list.country }}</span
+            country:{{ item.model.country }}</span
           >
         </div>
         <div class="col-12 text-center py-2">
@@ -59,7 +59,7 @@ export default {
     },
   },
   methods: {
-    counter(status, list) {
+    counter(status, model) {
       let self = this;
       if (status === "obb" && !self.change) {
         self.counts++;
@@ -71,7 +71,7 @@ export default {
         if (self.counts <= 0) {
           self.localShowCount = false;
           self.counts = 0;
-          self.$store.dispatch("advanceFund/removeListItem", list);
+          self.$store.dispatch("advanceFund/removeListItem", model);
         }
       }
       if (status === "obb" && self.change) {

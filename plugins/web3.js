@@ -3,7 +3,7 @@ import RegularSale from '~/contracts/RegularSale'
 import Auction from  '~/contracts/Auction'
 import IncrementalSale from  '~/contracts/IncrementalSale'
 import IHonoraryTree from  '~/contracts/IHonoraryTree'
-import MarketPlace from  '~/contracts/MarketPlace'
+import MarketPlaceAbi from  '~/static/abis/MarketPlace'
 import TreeAbi from  '~/static/abis/Tree'
 import TreeBoxAbi from  '~/static/abis/TreeBox'
 import FundWithOffsetAbi from  '~/static/abis/FundWithOffset'
@@ -71,7 +71,6 @@ export default async ({ app }, inject) => {
         instance = new Web3(provider);
     }
 
-    console.log(process.env.CONTRACT_MARKET_PLACE_ADDRESS,"processis here")
 
     inject('web3', instance)
     inject('RegularSale', new instance.eth.Contract(RegularSale.abi, app.$cookies.get('config').contractTreeRegularSale))
@@ -79,7 +78,7 @@ export default async ({ app }, inject) => {
     inject('IncrementalSale', new instance.eth.Contract(IncrementalSale.abi, app.$cookies.get('config').contractIncrementalSale))
     inject('IHonoraryTree', new instance.eth.Contract(IHonoraryTree.abi, app.$cookies.get('config').contractHonoraryTree))
     inject('Tree', new instance.eth.Contract(TreeAbi, app.$cookies.get('config').treeAddress))
-    inject('MarketPlace', new instance.eth.Contract(MarketPlace.abi, process.env.CONTRACT_MARKET_PLACE_ADDRESS))
+    inject('MarketPlace', new instance.eth.Contract(MarketPlaceAbi, app.$cookies.get('config').marketPlaceAddress))
     inject('TreeBox', new instance.eth.Contract(TreeBoxAbi, app.$cookies.get('config').treeboxContractAddress))
     inject('FundWithOffset', new instance.eth.Contract(FundWithOffsetAbi, app.$cookies.get('config').fundWithOffsetContractAddress))
     inject('CarbonRetirementsStorage', new instance.eth.Contract(CarbonRetirementsStorageAbi, app.$cookies.get('config').carbonRetirementsStorageContractAddress))

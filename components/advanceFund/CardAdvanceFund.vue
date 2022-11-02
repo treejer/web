@@ -1,7 +1,7 @@
 <template>
-  <div class="card-fund" v-if="fund">
+  <div class="card-fund" v-if="model">
     <div class="card-img">
-      <img class="img-fluid" :src="icon + fund.planter.id" alt="tree" />
+      <img class="img-fluid" :src="$avatarByWallet(model.planter.id)" alt="tree" />
     </div>
     <div
       :class="activeFund ? 'text-keep' : 'text-break'"
@@ -13,7 +13,7 @@
         Price:
         <span class=""
           >{{
-            parseFloat($web3.utils.fromWei(fund.price.toString())).toFixed(2) +
+            parseFloat($web3.utils.fromWei(model.price.toString())).toFixed(2) +
             "" +
             ""
           }}
@@ -22,44 +22,44 @@
       </p>
       <p>
         country:
-        <span class="">{{ fund.country }}</span>
-      </p>
-      <p>
-        lastFund:
-        <span class="">{{
-          $moment(fund.lastFund * 1000).strftime("%b %d, %Y at %I:%M %p")
-        }}</span>
+        <span class="">{{ model.country }}</span>
       </p>
       <!-- <p>
+        lastFund:
+        <span class="">{{
+          $moment(model.lastFund * 1000).strftime("%b %d, %Y at %I:%M %p")
+        }}</span>
+      </p> -->
+      <!-- <p>
         lastPlant:
-        <span class="">{{  $moment( fund.lastPlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
+        <span class="">{{  $moment( model.lastPlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         status:
-        <span class="">{{ fund.status }}</span>
+        <span class="">{{ model.status }}</span>
       </p> -->
       <!-- <p>
         start:
-        <span class="">{{ $moment( fund.start * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
+        <span class="">{{ $moment( model.start * 1000).strftime("%b %d, %Y at %I:%M %p")  }}</span>
       </p>
       <p>
         lastReservePlant:
-        <span class="">{{  $moment(fund.lastReservePlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
+        <span class="">{{  $moment(model.lastReservePlant * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         createdAt:
-        <span class="">{{ $moment( fund.createdAt * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
+        <span class="">{{ $moment( model.createdAt * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p>
       <p>
         updatedAt:
-        <span class="">{{ $moment( fund.updatedAt  * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
+        <span class="">{{ $moment( model.updatedAt  * 1000).strftime("%b %d, %Y at %I:%M %p") }}</span>
       </p> -->
     </div>
     <div class="card-footer d-flex">
       <div class="box-left col-lg-10 p-0" v-show="localShowCount">
         <span
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counter('obb', fund)"
+          @click.prevent="counter('obb', model)"
           >+</span
         >
         <input
@@ -70,7 +70,7 @@
         />
         <span
           class="tr-gray-two param-md font-weight-bolder p-2"
-          @click.prevent="counter('odd', fund)"
+          @click.prevent="counter('odd', model)"
           >-</span
         >
       </div>
@@ -78,12 +78,12 @@
         <span
           v-if="change"
           class="tr-green font-weight-bloder param-18 ml-lg-2 pointer-event"
-          @click.prevent="editListItem(fund)"
+          @click.prevent="editListItem(model)"
           >&#10003;</span
         >
         <img
           v-if="!change"
-          @click.prevent="setItemsToShopping(fund, fund.id)"
+          @click.prevent="setItemsToShopping(model, model.id)"
           src="@/assets/images/advanceFund/shopping.svg"
           alt="shopping"
           width="18"
@@ -91,9 +91,9 @@
           class="ml-lg-2 mr-lg-2 pointer-event"
         />
         <img
-          v-if="fund.addedToshoppingList"
+          v-if="model.addedToshoppingList"
           class="ml-lg-2 mr-lg-2 pointer-event"
-          @click.prevent="removeListItems(fund)"
+          @click.prevent="removeListItems(model)"
           src="@/assets/images/advanceFund/recycle-bin.svg"
           alt="recycle-bin"
           width="18"
@@ -107,7 +107,7 @@
 <script>
 export default {
   props: {
-    fund: {
+    model: {
       type: Object,
       default: {},
     },
@@ -129,39 +129,39 @@ export default {
   },
   data() {
     return {
-      icon: process.env.gravatar,
       activeFund: false,
       localShowCount: this.showCount,
       localCounts: this.counts,
+      localIndex: this.index,
     };
   },
   created() {},
   computed: {
-    listItems() {
+    modelItems() {
       return this.$store.state.advanceFund.shoppingList;
     },
   },
 
   methods: {
-    setItemsToShopping(list, id) {
+    setItemsToShopping(model, id) {
       let self = this;
       if (self.localCounts <= 0) {
         self.localShowCount = true;
         self.localCounts++;
       } else {
-        console.log("setItemsToShopping", list);
-        list.addedToshoppingList = {
+        console.log("setItemsToShopping", model);
+        model.addedToshoppingList = {
           status: true,
           key: id,
         };
         self.$store.dispatch("advanceFund/setListItems", {
-          list: list,
+          model: model,
           count: self.localCounts,
         });
       }
     },
 
-    counter(status, list) {
+    counter(status, model) {
       let self = this;
       if (status === "obb" && !self.change) {
         self.localCounts++;
@@ -173,7 +173,7 @@ export default {
         if (self.localCounts <= 0) {
           self.localShowCount = false;
           self.localCounts = 0;
-          self.$store.dispatch("advanceFund/removeListItem", list);
+          self.$store.dispatch("advanceFund/removeListItem", model);
         }
       }
       if (status === "obb" && self.change) {
@@ -183,31 +183,30 @@ export default {
         self.localCounts > 0 ? self.localCounts-- : self.localCounts;
       }
     },
-    async removeListItems(fund) {
+    async removeListItems(model) {
       let self = this;
-      console.log(
-        self.$store.state.advanceFund.shoppingList.length,
-        "self.$store.state.advanceFund.shoppingList.length is "
-      );
-      if (self.$store.state.advanceFund.shoppingList.length <= 1) {
-        await self.$router.push("/forest/advanceFund/");
-      }
+      
+      
       if (self.$store.state.advanceFund.shoppingList.length > 0) {
-        await self.$store.dispatch("advanceFund/removeListItemsShopping", fund);
-        await self.$cookies.remove("shoppingList");
+        await self.$store.dispatch("advanceFund/removeListItemsShopping", model);
+
+        if (self.$store.state.advanceFund.shoppingList.length <= 0) {
+          await self.$router.push("/forest/advanceFund/");
+        }
+
       }
     },
-    async editListItem(list) {
+    async editListItem(model) {
       let self = this;
-      console.log(self.listItems, "list is here");
-       await self.listItems.map((item, index) => {
-        console.log(item, "foreach list item");
-        if (item.list.id === list.id) {
+      console.log(self.modelItems, "model is here");
+       await self.modelItems.map((item, index) => {
+        console.log(item, "foreach model item");
+        if (item.model.id === model.id) {
           return (item.count = self.localCounts);
         }
       });
       
-       await self.$store.commit("advanceFund/EDIT_LIST", self.listItems),
+       await self.$store.commit("advanceFund/EDIT_LIST", self.modelItems),
        
        await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT")
       

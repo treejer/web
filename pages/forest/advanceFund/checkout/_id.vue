@@ -7,13 +7,13 @@
           <div class="row">
             <div
               class="mb-3 col-lg-4 col-12"
-              v-for="(item, index) in listItems"
-              :key="index"
+              v-for="(item, index) in shoppingList"
+              :key="index + item.model.id"
             >
               <CardAdvanceFund
                 :showCount="true"
                 :counts="item.count"
-                :fund="item.list"
+                :model="item.model"
                 :change="true"
                 :mainPage="false"
               />
@@ -23,47 +23,47 @@
         <div class="box-right col-lg-4 text-right mt-4">
           <img src="~/assets/images/treebox/tree.png" alt="tree-treebox" />
           <h1 class="tr-gray-two title-md font-weight-bolder">
-            {{ totalCounts }}
+            
             <br />
-            {{ totalPrices }}
-            DAI
+            {{ totalPrices + " DAI" }}
+            
           </h1>
-          <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>
+          <p class="param-md tr-gray-four">{{ "Total Trees: " + totalCounts  }}</p>
 
           <div>
             <button
               v-if="daiBalance <= 0"
               @click="buyDai()"
-              :class="{ disable: localLoading }"
+              :class="{ disable: loading }"
               class="btn-green-md mt-4 mb-3"
             >
-              <BSpinner class="mr-2" type="grow" small v-if="localLoading"
+              <BSpinner class="mr-2" type="grow" small v-if="loading"
                 >loading
               </BSpinner>
-              {{ localLoading ? "Loading" : " Buy Dai" }}
+              {{ loading ? "Loading" : " Buy Dai" }}
             </button>
             <button
               v-if="daiBalance > 0 && isAllowedSpendDai"
-              @click="requestTrees()"
-              :class="{ disable: localLoading }"
+              @click="fundTree()"
+              :class="{ disable: loading }"
               class="btn-green-md mt-4 mb-3"
             >
-              <BSpinner class="mr-2" type="grow" small v-if="localLoading"
+              <BSpinner class="mr-2" type="grow" small v-if="loading"
                 >loading
               </BSpinner>
-              {{ localLoading ? "Loading" : " Confirm" }}
+              {{ loading ? "Loading" : " Confirm" }}
             </button>
 
             <button
               v-if="daiBalance > 0 && !isAllowedSpendDai"
               @click="allowSpendDai()"
-              :class="{ disable: localLoading }"
+              :class="{ disable: loading }"
               class="btn-green-md mt-4 mb-3"
             >
-              <BSpinner class="mr-2" type="grow" small v-if="localLoading"
+              <BSpinner class="mr-2" type="grow" small v-if="loading"
                 >loading
               </BSpinner>
-              {{ localLoading ? "Loading" : " Approve" }}
+              {{ loading ? "Loading" : " Approve" }}
             </button>
           </div>
         </div>
@@ -102,16 +102,17 @@ export default {
       approved: false,
       daiBalance: 0,
       isAllowedSpendDai: false,
-      localLoading: this.loading,
+      loading: false,
       treePrice: null,
       daiUSDPrice: 1.01,
       model: null,
       countries: require("~/static/data/countries.min.json"),
+      recipient: null
     };
   },
 
   computed: {
-    listItems() {
+    shoppingList() {
       return this.$store.state.advanceFund.shoppingList;
     },
     totalCounts() {
@@ -125,9 +126,17 @@ export default {
   async mounted() {},
 
   async created() {
-    await this.checkItems();
-  },
+    
+    let self = this;
+    setTimeout(async () => {
+      await self.checkItems();
+      await self.setDaiBalance();
+      await self.setIsAllowance();
+    }, 1000);
 
+    
+
+  },
   methods: {
     pushCountreisToData(numcode) {
       this.countries.map((item, index) => {
@@ -148,13 +157,23 @@ export default {
       }
       let self = this;
 
-      const transaction = await self.$store.dispatch("dai/approve", {
-        count: self.totalCounts,
+
+      console.log({
+        tokenAddress: this.$cookies.get("config").daiTokenAddress,
+        spenderContract: this.$cookies.get("config").marketPlaceAddress,
+        amount: self.totalPrices,
+        context: self,
+      })
+
+      const transaction = await self.$store.dispatch("erc20/approve", {
+        tokenAddress: this.$cookies.get("config").daiTokenAddress,
+        spenderContract: this.$cookies.get("config").marketPlaceAddress,
+        amount: self.totalPrices,
         context: self,
       });
 
       if (transaction !== null) {
-        this.setIsAllowance(self.totalCounts);
+        this.setIsAllowance();
         this.$bvToast.toast([self.$t("alert.transactionsuccessfull")], {
           toaster: "b-toaster-bottom-left",
           title: self.$t("alert.youapprovedtospenddai"),
@@ -168,11 +187,7 @@ export default {
           this.loading = false;
         }
 
-        await self.$store.dispatch("advanceFund/fundTree", {
-          listItems: self.listItems,
-          totalCounts: self.totalCounts,
-          totalPrices: self.totalPrices,
-        });
+        await this.fundTree();
       }
     },
     async setDaiBalance() {
@@ -183,7 +198,116 @@ export default {
       this.daiBalance = await this.$store.dispatch("dai/balanceOf", {
         account: this.$cookies.get("account"),
       });
+
+
+      console.log(this.daiBalance)
     },
+
+    async setIsAllowance(silent = false) {
+      if (silent === false) {
+        this.loading = true;
+      }
+
+      let allowance = await this.$store.dispatch("erc20/allowance", {
+        tokenAddress: this.$cookies.get('config').daiTokenAddress,
+        spenderContract: this.$cookies.get('config').marketPlaceAddress,
+      });
+
+      this.isAllowedSpendDai =
+        parseFloat(allowance) >= parseFloat(this.totalPrices);
+
+      if (silent === false) {
+        this.loading = false;
+      }
+    },
+    async checkNetwork() {
+      let connectedNetwrokID = await this.$web3.eth.net.getId()
+      .then((networkId) => {
+        return networkId;
+      })
+      .catch((err) => {
+        console.log(err.message, "error checkNetwork");
+        return 0;
+      });
+
+      if (connectedNetwrokID == this.$hex2Dec(this.$cookies.get('activeNetwork').chainId)){
+        return true;
+      }
+
+      this.$bvToast.toast([this.$t('alert.pleaseconnect') + this.$cookies.get('config').chainName.toUpperCase() + " " + this.$t('alert.network')], {
+        toaster: "b-toaster-bottom-left",
+        title: 'Wrong network',
+        variant: 'danger',
+        noAutoHide: true,
+      });
+      return false;
+
+    },
+    async fundTree() {
+      if(await this.checkNetwork() === false) {
+        return;
+      }
+
+      if (parseFloat(this.totalPrices) > parseFloat(this.daiBalance)) {
+        this.$bvToast.toast([this.$t('alert.insufficientbalance') + this.totalPrices], {
+          toaster: "b-toaster-bottom-left",
+          title: this.$t('alert.notenoughDAI'),
+          variant: 'danger',
+          noAutoHide: true,
+        });
+        return;
+      }
+
+      this.loading = true;
+      let self = this;
+
+      if(this.sendAsGiftChecked && this.recipient){
+        try {
+          this.recipient = this.$web3.utils.toChecksumAddress(this.recipient)
+        } catch(e) {
+          self.$bvToast.toast([e.message], {
+            toaster: 'b-toaster-bottom-left',
+            title: this.$t('alert.invalidrecipient'),
+            variant: 'danger',
+            to: 'genesis/checkout',
+          })
+          console.error('invalid ethereum address', e.message)
+          this.loading = false;
+          return;
+        }
+      }
+
+
+      console.log(
+        {
+          models: self.shoppingList,
+          recipient: this.recipient,
+        }
+      )
+
+      this.transferReceipt =  await self.$store.dispatch("advanceFund/fundTree", {
+          models: self.shoppingList,
+          recipient: this.recipient,
+        });
+      
+      if (this.transferReceipt !== null) {
+        self.$bvToast.toast(this.$t('alert.yourpaymentwassuccessful'), {
+          toaster: "b-toaster-bottom-left",
+          title: this.$t('alert.treesaddedtoforest'),
+          variant: "success",
+          href: `${this.$cookies.get('config').explorerUrl}/address/${self.$cookies.get(
+            "account"
+          )}`,
+        });
+
+        await self.$store.dispatch("advanceFund/emptyShoppingList");
+
+        this.$router.push(this.localePath(`/forest/advanceFund/success/${this.transferReceipt.transactionHash}`));
+
+      }
+      this.loading = false;
+    },
+
     async buyDai() {
       let self = this;
       let transak = new transakSDK({
@@ -239,6 +363,8 @@ export default {
           "advanceFund/EDIT_LIST",
           self.$cookies.get("shoppingList")
         );
+        await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
+
       }
     },
   },
