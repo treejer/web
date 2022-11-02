@@ -25,7 +25,7 @@
           <h1 class="tr-gray-two title-md font-weight-bolder">
             {{ totalCounts }}
             <br />
-            {{ totalPrices * totalCounts  }}
+            {{ totalPrices }}
             DAI
           </h1>
           <p class="param-md tr-gray-four">{{ "Total Trees to Buy" }}</p>

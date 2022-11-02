@@ -277,14 +277,14 @@ export const mutations = {
       });
       state.totalPrices = prices.reduce((a, b) => {
         console.log((a.price * a.count) + (b.price * b.count), "totalPrices")
-        return (a.price * a.count) + (b.price * b.count);
+        return parseInt(a.price * a.count) + parseInt(b.price * b.count);
       });
       console.log(state.totalPrices, "state.totalPrices")
 
     }
     if (state.shoppingList.length <= 1) {
       return (
-        state.totalCounts = Number(state.shoppingList[0].count),
+        state.totalCounts = parseInt(state.shoppingList[0].count),
         state.totalPrices = parseFloat(this.$web3.utils.fromWei(state.shoppingList[0].list.price *state.shoppingList[0].count ))
       )
 
