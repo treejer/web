@@ -12,8 +12,6 @@
   >
     <div class="container-fluid">
       <div class="row">
-        <SidebarCheckout :status="showShoppinglist" />
-
         <div
           class="col-lg-12 col-12 box-left-treebox"
           @click.prevent="
@@ -82,10 +80,10 @@
             </div>
 
             <div class="col-12 position-fixed buy" v-if="listItems.length > 0">
-              <a
-                @click.prevent="setShoppingListToSidebar()"
+              <nuxt-link
+                 :to="localePath('/forest/advanceFund/checkout')"
                 class="btn btn-green"
-                >Buy</a
+                >Buy</nuxt-link
               >
             </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
@@ -99,6 +97,7 @@
                 <b-badge variant="warning tr-white">{{
                   listItems.length
                 }}</b-badge>
+                <SidebarCheckout :status="showShoppinglist" />
               </div>
             </div>
           </div>
@@ -291,7 +290,6 @@ export default {
       localModels.default.map((item, index) => {
         self.models.push(item);
         self.optionsCountries.map((option, index) => {
-        
           if (option.numcode === item.country) {
             item.country = option.name;
           }
@@ -323,14 +321,16 @@ export default {
     },
 
     async checkItems() {
-      
       let self = this;
       if (
         self.$cookies.get("shoppingList") &&
         self.$store.state.advanceFund.shoppingList.length <= 0
       )
-        await self.$store.commit("advanceFund/EDIT_LIST",  self.$cookies.get("shoppingList"));
-        await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
+        await self.$store.commit(
+          "advanceFund/EDIT_LIST",
+          self.$cookies.get("shoppingList")
+        );
+      await self.$store.commit("advanceFund/SUM_TOTALL_PRICE_AND_COUNT");
 
       console.log(
         self.$store.state.advanceFund.shoppingList,

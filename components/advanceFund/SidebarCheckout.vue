@@ -2,44 +2,40 @@
   <div class="sidebar-advanceFund" v-show="status">
     <div class="row">
       <div class="position-relative col-12">
-        <img
-          class="pointer-event close-sidebar"
-          src="@/assets/images/sidebar/burger-menu.svg"
-          alt="burger-menu"
-          @click.prevent="status = !status"
-        />
-      </div>
-
-      <div
-        class="shopping-list card col-12"
-        v-for="(item, index) in $store.state.advanceFund.shoppingList"
-        :key="index"
-      >
-          <span class="param-sm tr-gray-three"> Count: {{ item.count }} </span>
+        <div
+          class="shopping-list"
+          v-for="(item, index) in $store.state.advanceFund.shoppingList"
+          :key="index"
+        >
           <img
             class="img-fluid"
             width="25"
             :src="icon + item.list.planter.id"
             alt="tree"
           />
+          <span class="param-sm tr-gray-three"> Count: {{ item.count }} </span>
+
           <span class="param-sm tr-gray-three">
             Price:{{
-              item.list.price
+              parseFloat($web3.utils.fromWei(item.list.price)).toFixed(2)
             }}
             DAI
           </span>
 
-          <p class="param-sm tr-gray-three">
-            country:
-            <span class="">{{ item.list.country }}</span>
-          </p>
+          <span class="param-sm tr-gray-three">
+            country:{{ item.list.country }}</span
+          >
+        </div>
+        <div class="col-12 text-center py-2">
+          <nuxt-link
+            :to="localePath('/forest/advanceFund/checkout')"
+            class="btn btn-green param-sm tr-white buy-btn-advance-fund"
+          >
+            Buy
+          </nuxt-link>
         </div>
       </div>
-      <nuxt-link
-        :to="localePath('/forest/advanceFund/checkout')"
-        class="btn btn-green param-sm tr-white buy-btn-advance-fund"
-        >Buy</nuxt-link
-      >
+    </div>
   </div>
 </template>
 
@@ -96,22 +92,14 @@ export default {
 <style lang="scss" scoped>
 .sidebar-advanceFund {
   z-index: +999;
-  width: 300px;
   background: #e5e7db;
-  min-height: 100vh;
-  overflow-y: scroll;
-  position: fixed;
+  position: absolute;
   right: 0;
-  top: 0;
-  border-radius: 25px 0;
+  top: 35px;
+  border-radius: 12px;
+  border: solid 2px whitesmoke;
   > .row {
     height: auto;
-    overflow-y: scroll;
-  }
-  .shopping-list-card {
-    min-height: 200vh;
-    position: relative;
-    overflow-y: scroll;
   }
   img.close-sidebar {
     float: right;
@@ -119,20 +107,15 @@ export default {
     width: 30px;
   }
   .shopping-list {
-    .d-flex {
-      width: 100%;
-      padding: 25px 15px;
-    }
-
+    padding: 25px;
+    border-bottom: solid 1px whitesmoke;
     img {
       border-radius: 16px;
       border: solid 1px white;
     }
   }
   .buy-btn-advance-fund {
-    position: fixed;
-    bottom: 50px;
-    height: 40px;
+    margin: auto;
     border-radius: 7px;
   }
 }
