@@ -50,7 +50,7 @@
               <nuxt-link
                 :to="localePath('/forest/advanceFund/checkout')"
                 class="btn btn-green w-100"
-                >Buy</nuxt-link
+                >{{$t('advanceFund.buy')}}</nuxt-link
               >
             </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
@@ -164,14 +164,14 @@ export default {
       selectedSpiece: null,
       selectedPrice: null,
       optionsSpieces: [
-        { value: null, text: "Please select an option" },
+        { value: null, text: this.$t('advanceFund.selectInput') },
 
         { value: "a", text: "This is First option" },
         { value: "b", text: "Please select an option" },
       ],
-      optionsCountries: [{ value: null, text: "Please select an country" }],
+      optionsCountries: [{ value: null, text: this.$t('advanceFund.selectCountry')}],
       optionsPrices: [
-        { value: null, text: "Please select an price" },
+        { value: null, text: this.$t('advanceFund.selectPrice')},
         { value: "less5", text: "Less than 5" },
         { value: "less10", text: "Less than 10" },
         { value: "less20", text: "Less than 20" },
@@ -395,114 +395,7 @@ export default {
         }
       }
 
-      // .method {
-      //   display: flex;
-      //   .soon {
-      //     position: absolute;
-      //     top: -5px;
-      //     right: 10px;
-      //     font-size: 10px;
-      //     background: #67b68c;
-      //     border-radius: 4px;
-      //     color: #faf8f1;
-      //   }
-      //   li {
-      //     margin-right: 32px;
-      //   }
-      //   .active {
-      //     min-width: 128px;
-      //     height: 64px;
-      //     align-items: center;
-      //     display: flex;
-      //     justify-content: center;
-      //     color: white;
-      //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-      //     border-radius: 8px;
-      //     list-style: none;
-      //   }
-      //   .not-active {
-      //     min-width: 128px;
-      //     height: 64px;
-      //     align-items: center;
-      //     display: flex;
-      //     justify-content: center;
-      //     background: #fafafa;
-      //     border: 1px solid #bdbdbd;
-      //     box-sizing: border-box;
-      //     border-radius: 8px;
-      //     list-style: none;
-      //   }
-      // }
-      // .recipient {
-      //   display: flex;
-      //   li {
-      //     margin-right: 32px;
-      //   }
-      //   .active {
-      //     min-width: 48px;
-      //     height: 48px;
-      //     align-items: center;
-      //     display: flex;
-      //     justify-content: center;
-      //     color: white;
-      //     background: linear-gradient(90deg, #4776e6 0%, #8e54e9 100%);
-      //     border-radius: 8px;
-      //     list-style: none;
-      //   }
-      //   .not-active {
-      //     min-width: 48px;
-      //     height: 48px;
-      //     align-items: center;
-      //     display: flex;
-      //     justify-content: center;
-      //     background: #fafafa;
-      //     border: 1px solid #bdbdbd;
-      //     box-sizing: border-box;
-      //     border-radius: 8px;
-      //     list-style: none;
-      //   }
-      // }
-      // .recipient-input {
-      //   width: 48px;
-      //   height: 48px;
-      //   background: #fafafa;
-      //   border: 1px solid #bdbdbd;
-      //   border-radius: 8px;
-      // }
-      // .message {
-      //   min-width: 320px;
-      //   min-height: 128px;
-      //   padding: 10px 15px;
 
-      //   background: #fafafa;
-      //   border: 1px solid #bdbdbd;
-
-      //   border-radius: 8px;
-      // }
-      // .tr-margin-top {
-      //   margin-top: 25px;
-      //   font-weight: bolder;
-      // }
-      // .city-selected {
-      //   height: 48px;
-      //   align-items: center;
-      //   display: flex;
-      //   justify-content: center;
-      //   background: #fafafa;
-      //   border: 1px solid #bdbdbd;
-      //   box-sizing: border-box;
-      //   border-radius: 8px;
-      //   list-style: none;
-      //   min-width: 300px;
-      //   option {
-      //     border: 1px solid #bdbdbd;
-      //     box-sizing: border-box;
-      //     border-radius: 8px;
-      //     list-style: none;
-      //     background: #fafafa;
-      //     padding: 15px 5px;
-      //   }
-      // }
     }
     .buy {
       z-index: +9;
@@ -546,6 +439,7 @@ export default {
   }
 }
 </style>
+
 <!-- <ul class="method pt-4 over-flow-x-scroll">
             <li
               class="pointer-event position-relative"

@@ -340,6 +340,9 @@ export default {
       price: "Price",
       species: "Species",
     },
+    selectInput: "Please select an option",
+    selectCountry: "Please select an country",
+    selectPrice: "Please select an price",
     message: "Trees",
     write: "Write your message here...",
     generate: "Generate Wallets",
@@ -359,6 +362,14 @@ export default {
     boxnotfound: 'Box Not Found',
     thebox: ' The box you are looking for is not found.',
     loadingtreeBox: 'Loading TreeBox',
+    buy: 'Buy',
+    Count: "Count:",
+    Price: "Price:",
+    country: "country:",
+    TotalDAI: " Total DAI",
+    shopping: "Your shopping list is empty",
+
+
     meta: {
       title: "Treejer | Advance Fund",
       description: 'Advance Fund',

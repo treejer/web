@@ -6,6 +6,7 @@
       checkout-advancefund
       position-relative
       col-lg-10 col-12
+      mb-5
     "
   >
     <div class="container-fluid">
