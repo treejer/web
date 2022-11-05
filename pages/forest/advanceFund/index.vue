@@ -389,6 +389,9 @@ export default {
         }
       }
       .param-18.position-absolute {
+        right: 0;
+        top: 15px;
+
         @media (max-width: 768px) {
           position: relative !important;
           text-align: center;
