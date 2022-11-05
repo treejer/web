@@ -150,9 +150,7 @@ export default {
     },
   },
 
-  async mounted() {
-   
-  },
+  async mounted() {},
 
   async created() {
     let self = this;
@@ -425,6 +423,14 @@ export default {
     }
     .btn-green-md {
       box-shadow: drop-shadow(0px 4px 11px rgba(0, 0, 0, 0.161));
+    }
+  }
+  @media (max-width: 678px) {
+    .tree-count {
+      flex-direction: column-reverse;
+      .box-right {
+        margin-bottom: 45px;
+      }
     }
   }
 }

@@ -12,12 +12,12 @@
         <!-- <Flags class="d-block d-lg-none ml-3" /> -->
       </b-navbar-brand>
       <!-- <b-navbar-nav class="mobile-navbar">
-          <client-only>
             <div class="d-lg-none d-block w-md-100">
               <Metamask @showModal="showModal" />
             </div>
           </client-only>
         </b-navbar-nav> -->
+        <ChangeNetworkerMobile />
       <b-navbar-toggle
         target="none"
         @click.prevent="showMobileSidebar()"
@@ -105,6 +105,7 @@ import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
 // import Flags from "../components/Flags.vue";
 import LandingMobileHeader from "../components/LandingMobileHeader.vue";
+import ChangeNetworkerMobile from "../components/ChangeNetworkerMobile.vue";
 
 export default {
   name: "TreejerHeader",
@@ -112,7 +113,7 @@ export default {
     Wallets,
     Metamask,
     // Flags,
-    LandingMobileHeader,
+    LandingMobileHeader,ChangeNetworkerMobile
   },
   data() {
     return {

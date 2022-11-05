@@ -1,6 +1,14 @@
 <template>
   <section
-    class="position-relative pt-5 col-lg-10 col-12 advance-fund mb-5 pb-5 slide-left"
+    class="
+      position-relative
+      pt-5
+      col-lg-10 col-12
+      advance-fund
+      mb-5
+      pb-5
+      slide-left
+    "
   >
     <div class="container-fluid">
       <div class="row">
@@ -46,11 +54,14 @@
               ></b-form-select>
             </div> -->
 
-            <div class="col-12 position-fixed buy p-0" v-if="listItems.length > 0">
+            <div
+              class="col-12 position-fixed buy p-0"
+              v-if="listItems.length > 0"
+            >
               <nuxt-link
                 :to="localePath('/forest/advanceFund/checkout')"
                 class="btn btn-green w-100"
-                >{{$t('advanceFund.buy')}}</nuxt-link
+                >{{ $t("advanceFund.buy") }}</nuxt-link
               >
             </div>
             <div class="param-18 tr-gray-two tr-margin-top position-absolute">
@@ -164,18 +175,19 @@ export default {
       selectedSpiece: null,
       selectedPrice: null,
       optionsSpieces: [
-        { value: null, text: this.$t('advanceFund.selectInput') },
+        { value: null, text: this.$t("advanceFund.selectInput") },
 
         { value: "a", text: "This is First option" },
         { value: "b", text: "Please select an option" },
       ],
-      optionsCountries: [{ value: null, text: this.$t('advanceFund.selectCountry')}],
+      optionsCountries: [
+        { value: null, text: this.$t("advanceFund.selectCountry") },
+      ],
       optionsPrices: [
-        { value: null, text: this.$t('advanceFund.selectPrice')},
+        { value: null, text: this.$t("advanceFund.selectPrice") },
         { value: "less5", text: "Less than 5" },
         { value: "less10", text: "Less than 10" },
         { value: "less20", text: "Less than 20" },
-        
       ],
       models: [],
       countries: require("~/static/data/countries.min.json"),
@@ -226,23 +238,30 @@ export default {
     async getTreeModels() {
       let self = this;
 
-
       let whereQuery = "";
       if (this.selectedCountry) {
         whereQuery += `country: ${this.selectedCountry}`;
       }
 
       if (this.selectedSpiece) {
-        whereQuery += `${whereQuery ? ',': ''} species: ${this.selectedSpiece}`;
+        whereQuery += `${whereQuery ? "," : ""} species: ${
+          this.selectedSpiece
+        }`;
       }
 
       if (this.selectedPrice) {
-        if(this.selectedPrice == "less5"){
-          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("5", "ether")}"`;
-        }else if(this.selectedPrice == "less10"){
-          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("10", "ether")}"`;
-        } else if(this.selectedPrice == "less20"){
-          whereQuery += `${whereQuery ? ',': ''} price_lte: "${this.$web3.utils.toWei("20", "ether")}"`;
+        if (this.selectedPrice == "less5") {
+          whereQuery += `${
+            whereQuery ? "," : ""
+          } price_lte: "${this.$web3.utils.toWei("5", "ether")}"`;
+        } else if (this.selectedPrice == "less10") {
+          whereQuery += `${
+            whereQuery ? "," : ""
+          } price_lte: "${this.$web3.utils.toWei("10", "ether")}"`;
+        } else if (this.selectedPrice == "less20") {
+          whereQuery += `${
+            whereQuery ? "," : ""
+          } price_lte: "${this.$web3.utils.toWei("20", "ether")}"`;
         }
       }
 
@@ -250,13 +269,12 @@ export default {
         whereQuery = `{${whereQuery}}`;
       }
 
-
       await self.$axios
         .$post(this.$cookies.get("config").graphqlUrl, {
           query: `{
                   models(first: 9 ${
-                      whereQuery ? `,where: ${whereQuery}` : ""
-                    }) {
+                    whereQuery ? `,where: ${whereQuery}` : ""
+                  }) {
                     id
                     planter {
                       id
@@ -371,9 +389,14 @@ export default {
         }
       }
       .param-18.position-absolute {
-        right: -50px;
         @media (max-width: 768px) {
-          right: 25px;
+          position: relative !important;
+          text-align: center;
+          .sidebar-advanceFund {
+            position: relative !important;
+            top: 0;
+            right: 0;
+          }
         }
       }
 
@@ -394,8 +417,6 @@ export default {
           }
         }
       }
-
-
     }
     .buy {
       z-index: +9;

@@ -60,7 +60,15 @@
       </p> -->
     </div>
     <div class="card-footer d-flex">
-      <div class="box-left col-lg-10 p-0" v-show="localShowCount">
+      <div
+        :class="
+          $store.state.advanceFund.shoppingList.lenght <= 0
+            ? 'col-lg-10'
+            : 'col-lg-8'
+        "
+        class="box-left p-0"
+        v-show="localShowCount"
+      >
         <span
           class="tr-gray-two param-md font-weight-bolder p-2 pointer-event"
           @click.prevent="counter('obb', model)"
@@ -78,7 +86,15 @@
           >-</span
         >
       </div>
-      <div class="box-right col-lg-2 p-0">
+      <div
+        :class="
+          $store.state.advanceFund.shoppingList.lenght > 0
+            ? 'col-lg-2'
+            : 'col-lg-4 img-flex'
+        "
+        class="box-right p-0"
+      >
+      
         <span
           v-if="change"
           class="tr-green font-weight-bloder param-18 ml-lg-2 pointer-event"
@@ -266,6 +282,7 @@ export default {
     }
   }
   .card-footer {
+    
     display: flex;
     justify-content: space-around;
     .box-left {
@@ -274,6 +291,15 @@ export default {
         border: none;
         width: 50px;
         text-align: center;
+      }
+    } 
+    .img-flex{
+      display: flex;
+      img,span{
+        display:inline;
+        margin:5px 10px 0 0;
+
+
       }
     }
   }

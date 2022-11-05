@@ -28,32 +28,32 @@
       </p>
     </div> -->
     <div class="headers container dashboard-header" style="min-height: 5vh">
-      <keep-alive>
-        <b-navbar>
-          <b-navbar-brand
-            :to="localePath('index')"
-            class="pointer-event position-relative"
-            @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)"
-          >
-            <img
-              alt="logo"
-              class="img-fluid pointer-event"
-              name="treejer"
-              src="/logo/treejer.png"
-            />
-          </b-navbar-brand>
-          <b-navbar-nav class="dahsboard-nav d-lg-block d-none">
-            <client-only>
-              <Metamask @showModal="showModal" />
-            </client-only>
-          </b-navbar-nav>
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-        </b-navbar>
-      </keep-alive>
+      <b-navbar>
+        <b-navbar-brand
+          :to="localePath('index')"
+          class="pointer-event position-relative"
+          @click.prevent="$store.commit('SET_LANDING_MOBILE_SIDEBAR', false)"
+        >
+          <img
+            alt="logo"
+            class="img-fluid pointer-event"
+            name="treejer"
+            src="/logo/treejer.png"
+          />
+        </b-navbar-brand>
+        <ChangeNetworkerMobile :dashboard='true' />
+
+        <b-navbar-nav class="dahsboard-nav d-lg-block d-none">
+          <client-only>
+            <Metamask @showModal="showModal" />
+          </client-only>
+        </b-navbar-nav>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      </b-navbar>
       <b-modal id="five" centered hide-footer title=" ">
         <Wallets />
       </b-modal>
-      
     </div>
   </div>
 </template>
@@ -61,6 +61,7 @@
 <script>
 import Metamask from "../components/Metamask";
 import Wallets from "../components/Wallets";
+import ChangeNetworkerMobile from "@/components/ChangeNetworkerMobile";
 
 export default {
   layout: "dashboard",
@@ -68,6 +69,7 @@ export default {
   components: {
     Wallets,
     Metamask,
+    ChangeNetworkerMobile,
   },
   data() {
     return {
@@ -80,7 +82,7 @@ export default {
         { name: "Blog", step: 2 },
         { name: "For Business", step: 3, href: "business" },
         { name: "Find My Tree", step: 4, href: "find" },
-      ]
+      ],
     };
   },
   async mounted() {
@@ -90,7 +92,6 @@ export default {
     await this.$store.dispatch("networkNames");
     // })
     await self.accountChange();
-    
   },
   computed: {},
   methods: {

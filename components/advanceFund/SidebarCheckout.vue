@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-advanceFund" v-show="status">
+  <div class="sidebar-advanceFund" v-if="status">
     <div class="row">
       <div class="position-relative col-12">
         <div

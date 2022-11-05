@@ -1,43 +1,39 @@
 <template>
-  <div :class="$route.name"  style="min-height: 100vh">
-      <DashboardHeader/>
-        <SidebarCheckout :status="$store.state.advanceFund.showShoppinglist" />
-      <div class="container"  style="min-height: 85vh">
-        <div class="row">
-          <nuxt/>
-        </div>
+  <div :class="$route.name" style="min-height: 100vh">
+    <DashboardHeader />
+    <div class="container" style="min-height: 85vh">
+      <div class="row">
+        <nuxt />
       </div>
-    <Footer/>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <style lang="scss"></style>
 <script>
-  import DashboardHeader from "../components/DashboardHeader";
-  import SidebarCheckout from "../components/advanceFund/SidebarCheckout";
-  import Footer from "../components/Footer";
+import DashboardHeader from "../components/DashboardHeader";
+import Footer from "../components/Footer";
 
-  export default {
-    components: { Footer, DashboardHeader,SidebarCheckout},
-      middleware: 'queryParamToCookie',
+export default {
+  components: { Footer, DashboardHeader },
+  middleware: "queryParamToCookie",
 
-    data() {
-      return {
-      };
-    },
+  data() {
+    return {};
+  },
 
-   
-    mounted() {
-      this.$store.commit('SET_DASHBOARD' , true)
-      if($nuxt.isOffline){
-        this.$bvToast.toast(this.$t('alert.checkyourconnection'), {
-          toaster: 'b-toaster-bottom-left',
-          title:self.$t('alert.connectionisbroked') ,
-          variant: 'danger',
-          noAutoHide: true,
-          bodyClass: 'fund-error'
-        })
-      }
+  mounted() {
+    // this.$store.commit("SET_DASHBOARD", true);
+    if ($nuxt.isOffline) {
+      this.$bvToast.toast(this.$t("alert.checkyourconnection"), {
+        toaster: "b-toaster-bottom-left",
+        title: self.$t("alert.connectionisbroked"),
+        variant: "danger",
+        noAutoHide: true,
+        bodyClass: "fund-error",
+      });
     }
-  };
+  },
+};
 </script>

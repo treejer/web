@@ -124,7 +124,7 @@
           <img
             :src="
               $store.state.index === 5
-                ? require('~/assets/images/advanceFund/advanceFund.svg')
+                ? require('~/assets/images/advanceFund/advanceFundActive.svg')
                 : require('~/assets/images/advanceFund/advanceFund.svg')
             "
             width="32"
@@ -454,10 +454,11 @@
           <img
             :src="
               $store.state.index === 5
-                ? require('~/assets/images/treebox/treeboxs-active.svg')
-                : require('~/assets/images/treebox/treebox.svg')
+                ? require('~/assets/images/advanceFund/advanceFundActive.svg')
+                : require('~/assets/images/advanceFund/advanceFundActive.svg')
             "
             alt=""
+            width="35"
           />
           <p>{{ $t("sidebar.advanceFund") }}</p>
         </nuxt-link>
