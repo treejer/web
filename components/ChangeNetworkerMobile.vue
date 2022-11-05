@@ -1,5 +1,6 @@
 <template>
   <div
+   v-if="$cookies.get('account')"
   :class="dashboard ? 'pl-5 pt-2' : '' "
     class="network-changer  d-md-none"
     @click.prevent="showNetworks = !showNetworks"

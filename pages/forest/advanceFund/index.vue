@@ -86,7 +86,7 @@
             <!-- @click.prevent="addedTotheBasket(item)" -->
 
             <div
-              class="col-lg-4 col-12 pointer-event mb-4"
+              class="col-lg-4 col-md-6 col-12 pointer-event mb-4"
               v-for="(model, index) in models"
               :key="index"
             >

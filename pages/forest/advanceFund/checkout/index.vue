@@ -15,7 +15,7 @@
         <div class="box-left col-lg-9">
           <div class="row">
             <div
-              class="mb-3 col-lg-4 col-12"
+              class="mb-3 col-lg-4 col-md-6 col-12"
               v-for="(item, index) in shoppingList"
               :key="index + item.model.id"
             >

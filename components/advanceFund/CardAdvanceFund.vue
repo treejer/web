@@ -70,7 +70,7 @@
         v-show="localShowCount"
       >
         <span
-          class="tr-gray-two param-md font-weight-bolder p-2 pointer-event"
+          class="tr-gray-two param-md font-weight-bolder p-1 pointer-event"
           @click.prevent="counter('obb', model)"
           >+</span
         >
@@ -81,7 +81,7 @@
           class="tr-gray-two param-md font-weight-bolder"
         />
         <span
-          class="tr-gray-two param-md font-weight-bolder p-2 pointer-event"
+          class="tr-gray-two param-md font-weight-bolder p-1 pointer-event"
           @click.prevent="counter('odd', model)"
           >-</span
         >
@@ -301,6 +301,12 @@ export default {
 
 
       }
+    }
+    @media (max-width: 768px) {
+      .img-flex{
+        justify-content:space-between;
+      }
+      
     }
   }
   .card-footer img:hover {
