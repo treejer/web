@@ -248,7 +248,8 @@ export default {
     ['@netsells/nuxt-hotjar', { 
       id: process.env.HOTJAR_ID, 
       sv: process.env.HOTJAR_SV,
-  }],
+    }],
+    'vue-ssr-carousel/nuxt'
   ],
   module: {
     rules: [{

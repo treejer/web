@@ -104,6 +104,13 @@
                       </p>
                     </div>
 
+                    <div class="updatesCount part" v-if="tree.planter">
+                      <p class="param mb-0 tr-gray-three">{{$t('tree.updatesCount')}}</p>
+                      <p class="param-18 mb-0 tr-gray-two">
+                        {{ tree.treeSpecsEntity.updates.length }}
+                      </p>
+                    </div>
+
                     <!-- <div class="climate part">
                       <p class="param mb-0 tr-gray-three">
                         Climate Credits (Seed)
@@ -111,7 +118,7 @@
                       <p class="param-18 mb-0 tr-gray-two">{{ 0 }}</p>
                     </div> -->
                   </div>
-                  <div class="map-tree-profile mb-5" style="min-height: 400px">
+                  <div class="map-tree-profile" style="min-height: 400px">
                     <GMap
                       ref="gMap"
                       :center="{
@@ -145,6 +152,31 @@
                       ></GMapMarker>
                     </GMap>
                   </div>
+
+
+                  <div class="images part" v-if="tree.treeSpecsEntity && tree.treeSpecsEntity.updates.length > 0" >
+
+                    <ssr-carousel loop show-dots show-arrows :slides-per-page="1" center >
+                     
+
+                      <div v-for="(update, index) in tree.treeSpecsEntity.updates" :index="index" :key="update.image_hash" class="slide" >
+
+                        <img :src="update.image" :alt="update.image_hash" width="100%">
+                        <p class="param mb-0 tr-gray-three">{{ $t('tree.updatedAt') }}</p>
+                        <p class="param-18 mb-0 tr-gray-two">
+                          {{ $moment(update.created_at * 1000).strftime("%b %d, %Y at %I:%M %p") }}
+                        </p>
+                        
+                      </div>
+
+
+                    </ssr-carousel>
+
+
+                     
+                  </div>
+
+
                 </div>
 
                 
@@ -231,12 +263,13 @@ import SearchBar from "~/components/SearchBar";
 import HistoryCard from "~/components/genesis/HistoryCard.vue";
 import PeopleCard from "~/components/genesis/PeopleCard.vue";
 import AuctionProcess from "~/components/genesis/AuctionProcess.vue";
+import SsrCarousel from 'vue-ssr-carousel'
 
 
 export default {
   name: "tree-profile",
   layout: "landing",
-  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, mapDetails},
+  components: {SearchBar, HistoryCard, PeopleCard, AuctionProcess, mapDetails, SsrCarousel},
   data() {
     return {
       baseUrl: process.env.baseUrl,
@@ -473,6 +506,7 @@ export default {
                   latitude
                   longitude
                   attributes
+                  updates 
                 }
               }
              }
@@ -500,7 +534,17 @@ export default {
       if (tree.treeSpecsEntity) {
         let attr = tree.treeSpecsEntity.attributes;
         this.attributes = typeof attr === 'string' && attr.length>0 ? JSON.parse(attr): {}
+
+        let updates = this.tree.treeSpecsEntity.updates;  
+        this.tree.treeSpecsEntity.updates = typeof updates === 'string' && updates.length>0 ? JSON.parse(updates): {}
+
       }
+
+      console.log(this.tree, "tree after updates")
+
+
+      
+      
 
       this.loading = false
     },

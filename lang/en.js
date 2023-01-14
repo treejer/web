@@ -455,6 +455,8 @@ export default {
     people: 'People',
     history: 'History',
     plantedate: 'Planted Date',
+    updatedAt: 'Updated At',
+    updatesCount: 'Updates Count',
     GPSCoordinates: 'GPS Coordinates',
     planter: 'Planter',
     attributes: 'Attributes',
