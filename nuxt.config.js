@@ -408,16 +408,16 @@ export default {
         httpEndpoint: process.env.POLYGON_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph'
       },
       polygon: {
-        httpEndpoint: process.env.POLYGON_GRAPHQL_URL
+        httpEndpoint: process.env.POLYGON_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph'
       },
       polygont: {
-        httpEndpoint: process.env.POLYGONT_GRAPHQL_URL
+        httpEndpoint: process.env.POLYGONT_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-mprivate'
       },
       rinkeby: {
-        httpEndpoint: process.env.RINKEBY_GRAPHQL_URL
+        httpEndpoint: process.env.RINKEBY_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-rinkeby'
       },
       goerli: {
-        httpEndpoint: process.env.GOERLI_GRAPHQL_URL
+        httpEndpoint: process.env.GOERLI_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph-goerli'
       }
     }
   },
