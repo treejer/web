@@ -405,7 +405,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.POLYGON_GRAPHQL_URL
+        httpEndpoint: process.env.POLYGON_GRAPHQL_URL  || 'https://api.thegraph.com/subgraphs/name/treejer/treejer-subgraph'
       },
       polygon: {
         httpEndpoint: process.env.POLYGON_GRAPHQL_URL
