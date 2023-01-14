@@ -540,12 +540,6 @@ export default {
 
       }
 
-      console.log(this.tree, "tree after updates")
-
-
-      
-      
-
       this.loading = false
     },
     add() {
