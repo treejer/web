@@ -48,7 +48,7 @@ export default {
   background-color: #e5e7db;
   overflow-y: hidden;
   position: relative;
-  z-index: +999;
+   
   ul {
     height: 100%;
   }
