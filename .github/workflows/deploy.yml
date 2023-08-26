@@ -1,0 +1,75 @@
+name: Deploy WebVue App to GCR
+on:
+  push:
+    branches:
+      - gcpize  
+      - dev
+      - main
+
+env:
+  PROJECT_ID: ${{ secrets.GCR_PROJECT }}
+  RUN_REGION: ${{ secrets.GCR_REGION }}
+jobs:
+  setup:
+    name: Setup Enviroment - ${{ github.ref }}
+    runs-on: ubuntu-latest
+    outputs:
+      SERVICE_NAME: ${{ steps.set-vars.outputs.SERVICE_NAME }}
+      ENVIRONMENT: ${{ steps.set-vars.outputs.ENVIRONMENT }}
+    steps:
+      - name: Set variables
+        id: set-vars
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "SERVICE_NAME=webvue" >> "$GITHUB_OUTPUT"
+            echo "ENVIRONMENT=MAIN" >> "$GITHUB_OUTPUT"
+          else
+            echo "SERVICE_NAME=webvue-dev" >> "$GITHUB_OUTPUT"
+            echo "ENVIRONMENT=DEV" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: setup
+    name: Build Verifier App - ${{ needs.setup.outputs.ENVIRONMENT }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ needs.setup.outputs.ENVIRONMENT }}
+
+  deploy-gcr:
+    needs: [setup]
+    name: Deploy to GCR - ${{ needs.setup.outputs.ENVIRONMENT }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+
+      - name: create env file
+        run: |
+            echo '${{ secrets.ALL_ENV }}' > .env
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCR_SA_KEY }}'
+          project_id: '${{ secrets.GCR_PROJECT }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+
+      - name: 'Docker build'
+        run: 'docker build -t gcr.io/$PROJECT_ID/${{ needs.setup.outputs.SERVICE_NAME }}:$GITHUB_SHA -f ./.docker/prod.Dockerfile .'
+
+      - name: 'Gcloud auth configure-docker'
+        run: 'gcloud auth configure-docker'
+
+      - name: 'Docker push to GCR'
+        run: 'docker push gcr.io/$PROJECT_ID/${{ needs.setup.outputs.SERVICE_NAME }}:$GITHUB_SHA'
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ needs.setup.outputs.SERVICE_NAME }}
+          region: ${{ env.RUN_REGION }}
+          image: 'gcr.io/${{ env.PROJECT_ID }}/${{ needs.setup.outputs.SERVICE_NAME }}:${{ github.sha }}'
