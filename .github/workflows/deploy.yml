@@ -28,17 +28,12 @@ jobs:
             echo "ENVIRONMENT=DEV" >> "$GITHUB_OUTPUT"
           fi
 
-  build:
-    needs: setup
-    name: Build Verifier App - ${{ needs.setup.outputs.ENVIRONMENT }}
-    runs-on: ubuntu-latest
-    environment:
-      name: ${{ needs.setup.outputs.ENVIRONMENT }}
-
   deploy-gcr:
     needs: [setup]
     name: Deploy to GCR - ${{ needs.setup.outputs.ENVIRONMENT }}
     runs-on: ubuntu-latest
+    environment:
+        name: ${{ needs.setup.outputs.ENVIRONMENT }}
 
     steps:
       - name: Checkout Repo
